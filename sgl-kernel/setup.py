@@ -98,6 +98,7 @@ sources = [
     "csrc/attention/lightning_attention_decode_kernel.cu",
     "csrc/elementwise/fused_add_rms_norm_kernel.cu",
     "csrc/gemm/cublas_grouped_gemm.cu",
+    "csrc/gemm/awq_kernel.cu",
     "csrc/gemm/fp8_gemm_kernel.cu",
     "csrc/gemm/fp8_blockwise_gemm_kernel.cu",
     "csrc/gemm/int8_gemm_kernel.cu",
