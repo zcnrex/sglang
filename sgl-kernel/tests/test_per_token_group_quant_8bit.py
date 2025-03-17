@@ -14,6 +14,54 @@ fp8_type_ = torch.float8_e4m3fnuz if is_hip_ else torch.float8_e4m3fn
 
 
 @triton.jit
+def _per_token_group_quant_8bit_colmajor(
+    # Pointers to inputs and output
+    y_ptr,
+    y_q_ptr,
+    y_s_ptr,
+    group_size,
+    # Num columns of y
+    y_num_columns,
+    # Stride from one column to the next of y_s
+    y_s_col_stride,
+    # Avoid to divide zero
+    eps,
+    # Information for float8
+    max_8bit,
+    min_8bit,
+    # Meta-parameters
+    BLOCK: tl.constexpr,
+):
+    """A Triton-accelerated function to perform per-token-group
+    quantization on a tensor.
+    This function converts the tensor values into float8 values.
+    """
+    # Map the program id to the row of X and Y it should compute.
+    g_id = tl.program_id(0)
+    y_ptr += g_id * group_size
+    y_q_ptr += g_id * group_size
+
+    # Convert g_id the flattened block coordinate to 2D so we can index
+    # into the output y_scales matrix
+    blocks_per_row = y_num_columns // group_size
+    scale_col = g_id % blocks_per_row
+    scale_row = g_id // blocks_per_row
+    y_s_ptr += scale_col * y_s_col_stride + scale_row
+
+    cols = tl.arange(0, BLOCK)  # group_size <= BLOCK
+    mask = cols < group_size
+
+    y = tl.load(y_ptr + cols, mask=mask, other=0.0).to(tl.float32)
+    # Quant
+    _absmax = tl.maximum(tl.max(tl.abs(y)), eps)
+    y_s = _absmax / max_8bit
+    y_q = tl.clamp(y / y_s, min_8bit, max_8bit).to(y_q_ptr.dtype.element_ty)
+
+    tl.store(y_q_ptr + cols, y_q, mask=mask)
+    tl.store(y_s_ptr, y_s)
+
+
+@triton.jit
 def _per_token_group_quant_8bit(
     # Pointers to inputs and output
     y_ptr,
@@ -59,6 +107,7 @@ def triton_per_token_group_quant_8bit(
     group_size: int,
     dst_dtype: torch.dtype,
     eps: float = 1e-10,
+    column_major_scales: bool = False,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
     """Function to perform per-token-group quantization on an input tensor `x`.
     It converts the tensor values into signed float8 values and returns the
@@ -88,29 +137,52 @@ def triton_per_token_group_quant_8bit(
     x_q = torch.empty_like(x, device=x.device, dtype=dst_dtype)
     M = x.numel() // group_size
     N = group_size
-    x_s = torch.empty(
-        x.shape[:-1] + (x.shape[-1] // group_size,),
-        device=x.device,
-        dtype=torch.float32,
-    )
+    if column_major_scales:
+        x_s = torch.empty(
+            (x.shape[-1] // group_size,) + x.shape[:-1],
+            device=x.device,
+            dtype=torch.float32,
+        ).permute(2, 0, 1)
+    else:
+        x_s = torch.empty(
+            x.shape[:-1] + (x.shape[-1] // group_size,),
+            device=x.device,
+            dtype=torch.float32,
+        )
 
     BLOCK = triton.next_power_of_2(N)
     # heuristics for number of warps
     num_warps = min(max(BLOCK // 256, 1), 8)
     num_stages = 1
-    _per_token_group_quant_8bit[(M,)](
-        x,
-        x_q,
-        x_s,
-        group_size,
-        N,
-        eps,
-        max_8bit,
-        min_8bit,
-        BLOCK=BLOCK,
-        num_warps=num_warps,
-        num_stages=num_stages,
-    )
+    if column_major_scales:
+        _per_token_group_quant_8bit_colmajor[(M,)](
+            x,
+            x_q,
+            x_s,
+            group_size,
+            x.shape[1],
+            x_s.stride(1),
+            eps,
+            max_8bit,
+            min_8bit,
+            BLOCK=BLOCK,
+            num_warps=num_warps,
+            num_stages=num_stages,
+        )
+    else:
+        _per_token_group_quant_8bit[(M,)](
+            x,
+            x_q,
+            x_s,
+            group_size,
+            N,
+            eps,
+            max_8bit,
+            min_8bit,
+            BLOCK=BLOCK,
+            num_warps=num_warps,
+            num_stages=num_stages,
+        )
 
     return x_q, x_s
 
@@ -120,6 +192,7 @@ def sglang_per_token_group_quant_8bit(
     group_size: int,
     dst_dtype: torch.dtype,
     eps: float = 1e-10,
+    column_major_scales: bool = False,
 ):
     assert (
         x.shape[-1] % group_size == 0
@@ -136,13 +209,22 @@ def sglang_per_token_group_quant_8bit(
         min_8bit = f8_info.min
 
     x_q = torch.empty_like(x, device=x.device, dtype=dst_dtype)
-    x_s = torch.empty(
-        x.shape[:-1] + (x.shape[-1] // group_size,),
-        device=x.device,
-        dtype=torch.float32,
-    )
+    if column_major_scales:
+        x_s = torch.empty(
+            (x.shape[-1] // group_size,) + x.shape[:-1],
+            device=x.device,
+            dtype=torch.float32,
+        ).permute(2, 0, 1)
+    else:
+        x_s = torch.empty(
+            x.shape[:-1] + (x.shape[-1] // group_size,),
+            device=x.device,
+            dtype=torch.float32,
+        )
 
-    sgl_per_token_group_quant_8bit(x, x_q, x_s, group_size, eps, min_8bit, max_8bit)
+    sgl_per_token_group_quant_8bit(
+        x, x_q, x_s, group_size, eps, min_8bit, max_8bit, column_major_scales
+    )
 
     return x_q, x_s
 
@@ -165,8 +247,12 @@ def test_per_token_group_quant_compare_implementations(
         (batch_size, seq_len, group_size * 2), device="cuda", dtype=torch.float16
     )
 
-    x_q_triton, x_s_triton = triton_per_token_group_quant_8bit(x, group_size, dst_dtype)
-    x_q_sglang, x_s_sglang = sglang_per_token_group_quant_8bit(x, group_size, dst_dtype)
+    x_q_triton, x_s_triton = triton_per_token_group_quant_8bit(
+        x, group_size, dst_dtype, column_major_scales=True
+    )
+    x_q_sglang, x_s_sglang = sglang_per_token_group_quant_8bit(
+        x, group_size, dst_dtype, column_major_scales=True
+    )
 
     assert torch.allclose(
         x_q_triton.to(torch.float32), x_q_sglang.to(torch.float32), rtol=1e-3, atol=1e-5

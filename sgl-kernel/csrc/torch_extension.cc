@@ -95,7 +95,7 @@ TORCH_LIBRARY_EXPAND(sgl_kernel, m) {
 
   m.def(
       "sgl_per_token_group_quant_8bit(Tensor input, Tensor output_q, Tensor output_s, int group_size,"
-      " float eps, float min_8bit, float max_8bit) -> ()");
+      " float eps, float min_8bit, float max_8bit, bool column_major_scales) -> ()");
   m.impl("sgl_per_token_group_quant_8bit", torch::kCUDA, &sgl_per_token_group_quant_8bit);
 
   m.def("sgl_per_tensor_quant_fp8(Tensor input, Tensor output_q, Tensor output_s, bool is_static) -> ()");

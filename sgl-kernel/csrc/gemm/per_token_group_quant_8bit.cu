@@ -22,11 +22,13 @@ __global__ void per_token_group_quant_8bit_kernel(
     void* __restrict__ output_q,
     float* __restrict__ output_s,
     const int group_size,
-    const int num_groups,
+    const int num_rows,
+    const int num_groups_per_row,
     const int groups_per_block,
     const float eps,
     const float min_8bit,
-    const float max_8bit) {
+    const float max_8bit,
+    const bool column_major_scales) {
   const int threads_per_group = 16;
   const int local_group_id = threadIdx.x / threads_per_group;
   const int lane_id = threadIdx.x % threads_per_group;
@@ -38,7 +40,16 @@ __global__ void per_token_group_quant_8bit_kernel(
 
   const T* group_input = input + block_group_offset;
   DST_DTYPE* group_output = static_cast<DST_DTYPE*>(output_q) + block_group_offset;
-  float* scale_output = output_s + (block_group_id + local_group_id);
+  const int scale_id = block_group_id + local_group_id;
+  float* scale_output;
+  if (column_major_scales) {
+    int scale_row = scale_id / num_groups_per_row;
+    int scale_col = scale_id % num_groups_per_row;
+    int col_major_scale_idx = scale_col * num_rows + scale_row;
+    scale_output = output_s + col_major_scale_idx;
+  } else {
+    scale_output = output_s + scale_id;
+  }
 
   constexpr uint32_t vec_size = 16 / sizeof(T);
   using vec_t = flashinfer::vec_t<T, vec_size>;
@@ -85,19 +96,23 @@ void sgl_per_token_group_quant_8bit(
     int64_t group_size,
     double eps,
     double min_8bit,
-    double max_8bit) {
+    double max_8bit,
+    bool column_major_scales) {
   CHECK_INPUT(input);
   CHECK_INPUT(output_q);
-  CHECK_INPUT(output_s);
-
-  const int num_groups = input.numel() / group_size;
-
+  // CHECK_INPUT(output_s);
   CHECK_EQ(input.numel() % group_size, 0);
+
+  int64_t hidden_dim = input.size(-1);
+  const int num_rows = input.numel() / hidden_dim;
+  const int num_groups_per_row = hidden_dim / group_size;
+  CHECK_EQ(hidden_dim % group_size, 0);
 
   cudaStream_t stream = at::cuda::getCurrentCUDAStream();
 
   constexpr int THREADS_PER_GROUP = 16;
 
+  const int num_groups = input.numel() / group_size;
   int groups_per_block = 1;
 
   if (num_groups % 16 == 0) {
@@ -123,11 +138,13 @@ void sgl_per_token_group_quant_8bit(
         output_q.data_ptr(),                                                     \
         static_cast<float*>(output_s.data_ptr()),                                \
         group_size,                                                              \
-        num_groups,                                                              \
+        num_rows,                                                                \
+        num_groups_per_row,                                                      \
         groups_per_block,                                                        \
         (float)eps,                                                              \
         (float)min_8bit,                                                         \
-        (float)max_8bit);                                                        \
+        (float)max_8bit,                                                         \
+        column_major_scales);                                                    \
   } while (0)
 
   DISPATCH_PYTORCH_DTYPE_TO_CTYPE_FLOAT_FP16(input.scalar_type(), scalar_t, [&] {

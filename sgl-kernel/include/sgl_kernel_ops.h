@@ -140,7 +140,8 @@ void sgl_per_token_group_quant_8bit(
     int64_t group_size,
     double eps,
     double min_8bit,
-    double max_8bit);
+    double max_8bit,
+    bool column_major_scales);
 void sgl_per_tensor_quant_fp8(at::Tensor input, at::Tensor output_q, at::Tensor output_s, bool is_static);
 void sgl_per_token_quant_fp8(at::Tensor input, at::Tensor output_q, at::Tensor output_s);
 void cublas_grouped_gemm(

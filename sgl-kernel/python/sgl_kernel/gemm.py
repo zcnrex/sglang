@@ -90,9 +90,10 @@ def sgl_per_token_group_quant_8bit(
     eps: float,
     min_8bit: float,
     max_8bit: float,
+    column_major_scales: bool,
 ) -> None:
     torch.ops.sgl_kernel.sgl_per_token_group_quant_8bit(
-        input, output_q, output_s, group_size, eps, min_8bit, max_8bit
+        input, output_q, output_s, group_size, eps, min_8bit, max_8bit, column_major_scales
     )
 
 
