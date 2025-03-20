@@ -124,7 +124,7 @@ def _per_token_group_quant_fp8_colmajor(
     # Num columns of y
     y_num_columns,
     # Stride from one column to the next of y_s
-    y_s_col_stride,
+    num_rows,
     # Avoid to divide zero
     eps,
     # Information for float8
@@ -144,10 +144,10 @@ def _per_token_group_quant_fp8_colmajor(
 
     # Convert g_id the flattened block coordinate to 2D so we can index
     # into the output y_scales matrix
-    blocks_per_row = y_num_columns // group_size
-    scale_col = g_id % blocks_per_row
-    scale_row = g_id // blocks_per_row
-    y_s_ptr += scale_col * y_s_col_stride + scale_row
+    num_groups_per_row = y_num_columns // group_size
+    scale_col = g_id % num_groups_per_row
+    scale_row = g_id // num_groups_per_row
+    y_s_ptr += scale_col * num_rows + scale_row
 
     cols = tl.arange(0, BLOCK)  # group_size <= BLOCK
     mask = cols < group_size
