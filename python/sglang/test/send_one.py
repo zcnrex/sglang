@@ -16,7 +16,7 @@ def send_one_prompt(args):
         args.prompt = (
             "Human: Describe this image in a very short sentence.\n\nAssistant:"
         )
-        image_data = "https://raw.githubusercontent.com/sgl-project/sglang/main/test/lang/example_image.png"
+        image_data = "/shared/public/models/vlm_img/example_image.png"
     else:
         image_data = None
 

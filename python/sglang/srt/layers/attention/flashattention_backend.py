@@ -217,6 +217,10 @@ class FlashAttentionBackend(AttentionBackend):
                 metadata.page_table[:, self.strided_indices] // self.page_size
             )
         self.forward_metadata = metadata
+        print("--------------------------------")
+        print(f"forward_batch: {forward_batch}")
+        print(f"metadata: {metadata}")
+        print("--------------------------------")
 
     def forward_extend(
         self,
