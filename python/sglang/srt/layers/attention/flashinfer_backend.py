@@ -185,6 +185,11 @@ class FlashInferAttnBackend(AttentionBackend):
         self.draft_extend_cuda_graph_metadata = {}  # For draft extend
 
     def init_forward_metadata(self, forward_batch: ForwardBatch):
+        print("--------------------------------")
+        print(f"init_forward_metadata")
+        print(f"forward_batch.forward_mode: {forward_batch.forward_mode.name}")
+        print(f"forward_batch: {forward_batch}")
+        print("--------------------------------")
         if forward_batch.forward_mode.is_decode_or_idle():
             self.indices_updater_decode.update(
                 forward_batch.req_pool_indices,
@@ -893,6 +898,17 @@ class FlashInferIndicesUpdaterPrefill:
             )
 
         # cached part
+        print("--------------------------------")
+        print("prefill paged begin forward")
+        print(f"kv_indptr: {kv_indptr}")
+        print(f"kv_indices: {kv_indices}")
+        print(f"kv_last_page_len[:bs]: {self.kv_last_page_len[:bs]}")
+        print(f"qo_indptr: {qo_indptr}")
+        print(f"bs: {bs}")
+        print(f"self.num_qo_heads: {self.num_qo_heads}")
+        print(f"self.num_kv_heads: {self.num_kv_heads}")
+        print("--------------------------------")
+
         wrapper_paged.begin_forward(
             qo_indptr,
             kv_indptr,
