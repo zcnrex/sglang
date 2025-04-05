@@ -239,7 +239,7 @@ class FlashInferAttnBackend(AttentionBackend):
         self.draft_extend_cuda_graph_metadata = {}  # For draft extend
 
     def init_forward_metadata(self, forward_batch: ForwardBatch):
-        self.fa3_init_forward_metadata(forward_batch)
+        # self.fa3_init_forward_metadata(forward_batch)
         if forward_batch.forward_mode.is_decode_or_idle():
             self.indices_updater_decode.update(
                 forward_batch.req_pool_indices,
@@ -620,6 +620,7 @@ class FlashInferAttnBackend(AttentionBackend):
 
         # Use precomputed metadata
         metadata = self.fa3_forward_metadata
+        # metadata = FlashAttentionMetadata()
 
         # Calculate window size (can be moved to metadata if layer properties don't change)
         # we don't do layer.sliding_window_size - 1 since in model.get_attention_sliding_window_size() we already - 1
@@ -629,6 +630,49 @@ class FlashInferAttnBackend(AttentionBackend):
             if layer.sliding_window_size is not None
             else (-1, -1)
         )
+        # seqlens_in_batch = forward_batch.seq_lens
+        # # Precompute int32 version of sequence lengths
+        # batch_size = len(seqlens_in_batch)
+        # device = seqlens_in_batch.device
+        # if forward_batch.forward_mode.is_target_verify():
+        #     # Note: Target Verify will be ran on the Target Worker
+        #     num_draft_tokens = forward_batch.spec_info.draft_token_num
+        #     # TODO: Support num_draft_tokens > 1 for Target Verify
+        #     assert (
+        #         num_draft_tokens == 1
+        #     ), f"num_draft_tokens must be 1 for Target Verify but we got {num_draft_tokens}"
+
+        #     metadata.cu_seqlens_q = torch.arange(
+        #         0, batch_size + 1, dtype=torch.int32, device=device
+        #     )
+
+        #     aug_seq_lens = (forward_batch.seq_lens + 1).to(torch.int32)
+        #     metadata.cache_seqlens_int32 = aug_seq_lens
+        #     metadata.cu_seqlens_k = torch.nn.functional.pad(
+        #         torch.cumsum(metadata.cache_seqlens_int32, dim=0, dtype=torch.int32),
+        #         (1, 0),
+        #     )
+        #     # metadata.max_seq_len_k = forward_batch.seq_lens.max().item() + 1
+        #     # metadata.page_table = forward_batch.req_to_token_pool.req_to_token[
+        #     #     forward_batch.req_pool_indices, : metadata.max_seq_len_k
+        #     # ]
+        #     metadata.page_table = forward_batch.req_to_token_pool.req_to_token[
+        #         forward_batch.req_pool_indices, :]
+        #     aug_cum_len = torch.nn.functional.pad(
+        #         torch.cumsum(aug_seq_lens, dim=0, dtype=torch.int32), (1, 0)
+        #     )
+
+        #     for idx, single_seq_len in enumerate(aug_seq_lens):
+        #         metadata.page_table[
+        #             idx : (idx + 1), :single_seq_len
+        #         ] *= forward_batch.spec_info.custom_mask[
+        #             aug_cum_len[idx] : aug_cum_len[idx + 1]
+        #         ].view(
+        #             1, -1
+        #         )
+        #     metadata.max_seq_len_q = 1
+
+
 
         page_table = metadata.page_table
 
@@ -1150,9 +1194,10 @@ class FlashInferAttnBackend(AttentionBackend):
                 torch.cumsum(metadata.cache_seqlens_int32, dim=0, dtype=torch.int32),
                 (1, 0),
             )
-            metadata.max_seq_len_k = seq_lens.max().item() + 1
-            page_table = self.req_to_token[req_pool_indices, : metadata.max_seq_len_k]
-            metadata.page_table[:, : metadata.max_seq_len_k].copy_(page_table)
+            # metadata.max_seq_len_k = seq_lens.max().item() + 1
+            # page_table = self.req_to_token[req_pool_indices, : metadata.max_seq_len_k]
+            page_table = self.req_to_token[req_pool_indices, :]
+            metadata.page_table = self.req_to_token[req_pool_indices, :]
             aug_cum_len = torch.nn.functional.pad(
                 torch.cumsum(aug_seq_lens, dim=0, dtype=torch.int32), (1, 0)
             )

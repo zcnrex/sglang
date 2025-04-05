@@ -578,12 +578,12 @@ class FlashAttentionBackend(AttentionBackend):
         device = seq_lens.device
         seq_lens = seq_lens[:bs]
         req_pool_indices = req_pool_indices[:bs]
-        # seq_lens_cpu = seq_lens_cpu[:bs]
+        seq_lens_cpu = seq_lens_cpu[:bs]
         if forward_mode.is_decode():
             metadata = self.decode_cuda_graph_metadata[bs]
             if spec_info is not None:
                 # Draft Decode
-                max_len = seq_lens.max().item()
+                max_len = seq_lens_cpu.max().item()
                 metadata.max_seq_len_k = max_len + (self.step_id + 1)
                 seq_lens_with_decode = seq_lens + (self.step_id + 1)
                 metadata.cache_seqlens_int32 = seq_lens_with_decode.to(torch.int32)
@@ -611,9 +611,9 @@ class FlashAttentionBackend(AttentionBackend):
                     metadata.page_table[
                         real_bsz_start_idx:real_bsz_end_idx,
                         (single_seq_len - (self.step_id + 1)) : single_seq_len,
-                    ] = cache_loc[
+                    ].copy_(cache_loc[
                         real_bsz_start_idx:real_bsz_end_idx, : (self.step_id + 1)
-                    ]
+                    ])
                 metadata.page_table[cache_loc.shape[0] :, :].fill_(0)
             else:
                 # Normal Decode
@@ -645,7 +645,7 @@ class FlashAttentionBackend(AttentionBackend):
                 torch.cumsum(metadata.cache_seqlens_int32, dim=0, dtype=torch.int32),
                 (1, 0),
             )
-            metadata.max_seq_len_k = seq_lens.max().item() + 1
+            metadata.max_seq_len_k = seq_lens_cpu.max().item() + 1
             page_table = self.req_to_token[req_pool_indices, : metadata.max_seq_len_k]
             metadata.page_table[:, : metadata.max_seq_len_k].copy_(page_table)
             aug_cum_len = torch.nn.functional.pad(
@@ -656,11 +656,13 @@ class FlashAttentionBackend(AttentionBackend):
             ):
                 metadata.page_table[
                     idx : (idx + 1), :single_seq_len
-                ] *= spec_info.custom_mask[
+                ].copy_(page_table[
+                    idx : (idx + 1), :single_seq_len
+                ] * spec_info.custom_mask[
                     aug_cum_len[idx] : aug_cum_len[idx + 1]
                 ].view(
                     1, -1
-                )
+                ))
                 metadata.page_table[idx : (idx + 1), single_seq_len:].fill_(0)
             metadata.page_table[spec_info.positions.shape[0] :, :].fill_(0)
 
