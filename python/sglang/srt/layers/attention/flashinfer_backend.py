@@ -415,6 +415,12 @@ class FlashInferAttnBackend(AttentionBackend):
                         layer, cache_loc, k, v, layer.k_scale, layer.v_scale
                     )
 
+            print("--------------------------------")
+            print(f"forward_extend")
+            print(f"forward_batch: {forward_batch}")
+            print(f"self._get_wrapper_idx(layer): {self._get_wrapper_idx(layer)}")
+            print(f"cache_loc: {cache_loc}")
+            print("--------------------------------")
             o = prefill_wrapper_paged.forward(
                 q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim),
                 forward_batch.token_to_kv_pool.get_kv_buffer(layer.layer_id),
