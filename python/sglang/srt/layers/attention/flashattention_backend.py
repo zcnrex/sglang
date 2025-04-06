@@ -216,17 +216,17 @@ class FlashAttentionBackend(AttentionBackend):
             else:
                 metadata.cu_seqlens_q = metadata.cu_seqlens_k
                 metadata.max_seq_len_q = metadata.max_seq_len_k
-            if forward_batch.mm_inputs[0] is not None:
-                metadata.encoder_lens_int32 = torch.tensor(forward_batch.encoder_lens, device=device, dtype=torch.int32)
-                metadata.encoder_cu_seqlens_k = torch.nn.functional.pad(
-                    torch.cumsum(metadata.encoder_lens_int32, dim=0, dtype=torch.int32), (1, 0)
-                )
-                metadata.encoder_max_seq_len_k = metadata.encoder_lens_int32.max().item()
-                metadata.encoder_cu_seqlens_q = metadata.encoder_cu_seqlens_k
-                metadata.encoder_max_seq_len_q = metadata.encoder_max_seq_len_k
-                metadata.encoder_page_table = forward_batch.req_to_token_pool.req_to_token[
-                    forward_batch.req_pool_indices, : metadata.encoder_max_seq_len_k
-                ]
+        if forward_batch.mm_inputs[0] is not None:
+            metadata.encoder_lens_int32 = torch.tensor(forward_batch.encoder_lens, device=device, dtype=torch.int32)
+            metadata.encoder_cu_seqlens_k = torch.nn.functional.pad(
+                torch.cumsum(metadata.encoder_lens_int32, dim=0, dtype=torch.int32), (1, 0)
+            )
+            metadata.encoder_max_seq_len_k = metadata.encoder_lens_int32.max().item()
+            metadata.encoder_cu_seqlens_q = metadata.cu_seqlens_q
+            metadata.encoder_max_seq_len_q = metadata.max_seq_len_q
+            metadata.encoder_page_table = forward_batch.req_to_token_pool.req_to_token[
+                forward_batch.req_pool_indices, : metadata.encoder_max_seq_len_k
+            ]
 
 
         # Precompute strided indices
@@ -238,11 +238,11 @@ class FlashAttentionBackend(AttentionBackend):
                 metadata.page_table[:, self.strided_indices] // self.page_size
             )
         self.forward_metadata = metadata
-        print("--------------------------------")
-        print("init_forward_metadata")
-        print(f"forward_batch: {forward_batch}")
-        print(f"metadata: {metadata}")
-        print("--------------------------------")
+        # print("--------------------------------")
+        # print("init_forward_metadata")
+        # print(f"forward_batch: {forward_batch}")
+        # print(f"metadata: {metadata}")
+        # print("--------------------------------")
 
     def forward_extend(
         self,
@@ -253,9 +253,9 @@ class FlashAttentionBackend(AttentionBackend):
         forward_batch: ForwardBatch,
         save_kv_cache=True,
     ):
-        print("--------------------------------")
-        print("forward_extend")
-        print(f"forward_batch: {forward_batch}")
+        # print("--------------------------------")
+        # print("forward_extend")
+        # print(f"forward_batch: {forward_batch}")
         if k is not None:
             assert v is not None
             if save_kv_cache:
@@ -303,49 +303,49 @@ class FlashAttentionBackend(AttentionBackend):
             )
 
             if layer.is_cross_attention:
-                causal = True
-                print(f"encoder_lens_int32: {metadata.encoder_lens_int32}")
-                print(f"encoder_cu_seqlens_q: {metadata.encoder_cu_seqlens_q}")
-                print(f"encoder_cu_seqlens_k: {metadata.encoder_cu_seqlens_k}")
-                print(f"encoder_max_seq_len_q: {metadata.encoder_max_seq_len_q}")
-                print(f"encoder_max_seq_len_k: {metadata.encoder_max_seq_len_k}")
-                print(f"encoder_page_table: {metadata.encoder_page_table}")
-                print(f"softmax_scale: {layer.scaling}")
-                print(f"causal: {causal}")
-                print(f"window_size: {window_size}")
-                print(f"softcap: {layer.logit_cap}")
-                print(f"k_descale: {layer.k_scale}")
-                print(f"v_descale: {layer.v_scale}")
-                print("--------------------------------")
+                causal = False
+                # print(f"encoder_lens_int32: {metadata.encoder_lens_int32}")
+                # print(f"encoder_cu_seqlens_q: {metadata.encoder_cu_seqlens_q}")
+                # print(f"encoder_cu_seqlens_k: {metadata.encoder_cu_seqlens_k}")
+                # print(f"encoder_max_seq_len_q: {metadata.encoder_max_seq_len_q}")
+                # print(f"encoder_max_seq_len_k: {metadata.encoder_max_seq_len_k}")
+                # print(f"encoder_page_table: {metadata.encoder_page_table}")
+                # print(f"softmax_scale: {layer.scaling}")
+                # print(f"causal: {causal}")
+                # print(f"window_size: {window_size}")
+                # print(f"softcap: {layer.logit_cap}")
+                # print(f"k_descale: {layer.k_scale}")
+                # print(f"v_descale: {layer.v_scale}")
+                # print("--------------------------------")
                 o = flash_attn_with_kvcache(
                     q=q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim),
                     k_cache=key_cache,
                     v_cache=value_cache,
                     page_table=metadata.encoder_page_table,
                     cache_seqlens=metadata.encoder_lens_int32,
-                    cu_seqlens_q=metadata.encoder_cu_seqlens_q,
+                    cu_seqlens_q=metadata.cu_seqlens_q,
                     cu_seqlens_k_new=metadata.encoder_cu_seqlens_k,
-                    max_seqlen_q=metadata.encoder_max_seq_len_q,
+                    max_seqlen_q=metadata.max_seq_len_q,
                     softmax_scale=layer.scaling,
-                    causal=causal,
-                    window_size=window_size,
+                    causal=False,
+                    window_size=(-1, -1),
                     softcap=layer.logit_cap,
                     k_descale=layer.k_scale,
                     v_descale=layer.v_scale,
                 )
             else:
-                print("not cross attention")
-                print(f"page_table: {metadata.page_table}")
-                print(f"cache_seqlens: {metadata.cache_seqlens_int32}")
-                print(f"cu_seqlens_q: {metadata.cu_seqlens_q}")
-                print(f"cu_seqlens_k: {metadata.cu_seqlens_k}")
-                print(f"max_seq_len_q: {metadata.max_seq_len_q}")
-                print(f"softmax_scale: {layer.scaling}")
-                print(f"window_size: {window_size}")
-                print(f"softcap: {layer.logit_cap}")
-                print(f"k_descale: {layer.k_scale}")
-                print(f"v_descale: {layer.v_scale}")
-                print("--------------------------------")
+                # print("not cross attention")
+                # print(f"page_table: {metadata.page_table}")
+                # print(f"cache_seqlens: {metadata.cache_seqlens_int32}")
+                # print(f"cu_seqlens_q: {metadata.cu_seqlens_q}")
+                # print(f"cu_seqlens_k: {metadata.cu_seqlens_k}")
+                # print(f"max_seq_len_q: {metadata.max_seq_len_q}")
+                # print(f"softmax_scale: {layer.scaling}")
+                # print(f"window_size: {window_size}")
+                # print(f"softcap: {layer.logit_cap}")
+                # print(f"k_descale: {layer.k_scale}")
+                # print(f"v_descale: {layer.v_scale}")
+                # print("--------------------------------")
                 o = flash_attn_with_kvcache(
                     q=q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim),
                     k_cache=key_cache,
@@ -409,6 +409,9 @@ class FlashAttentionBackend(AttentionBackend):
         save_kv_cache=True,
     ) -> torch.Tensor:
         """Forward pass with FlashAttention using precomputed metadata."""
+        # print("--------------------------------")
+        # print("forward_decode")
+        # print(f"forward_batch: {forward_batch}")
         # Save KV cache if needed
         if k is not None:
             assert v is not None
@@ -458,22 +461,70 @@ class FlashAttentionBackend(AttentionBackend):
 
             # Pre-reshape query tensor
             q_reshaped = q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim)
-            o = flash_attn_with_kvcache(
-                q=q_reshaped,
-                k_cache=key_cache,
-                v_cache=value_cache,
-                page_table=page_table,
-                cache_seqlens=metadata.cache_seqlens_int32,
-                cu_seqlens_q=metadata.cu_seqlens_q,
-                cu_seqlens_k_new=metadata.cu_seqlens_k,
-                max_seqlen_q=1,
-                softmax_scale=layer.scaling,
-                causal=True,
-                window_size=window_size,
-                softcap=layer.logit_cap,
-                k_descale=layer.k_scale,
-                v_descale=layer.v_scale,
-            )
+            if layer.is_cross_attention:
+                # print("cross attention")
+                # print(f"page_table: {metadata.page_table}")
+                # print(f"cache_seqlens: {metadata.cache_seqlens_int32}")
+                # print(f"cu_seqlens_q: {metadata.cu_seqlens_q}")
+                # print(f"cu_seqlens_k: {metadata.cu_seqlens_k}")
+                # print(f"encoder_lens_int32: {metadata.encoder_lens_int32}")
+                # print(f"encoder_cu_seqlens_q: {metadata.encoder_cu_seqlens_q}")
+                # print(f"encoder_cu_seqlens_k: {metadata.encoder_cu_seqlens_k}")
+                # print(f"encoder_max_seq_len_q: {metadata.encoder_max_seq_len_q}")
+                # print(f"encoder_max_seq_len_k: {metadata.encoder_max_seq_len_k}")
+                # print(f"encoder_page_table: {metadata.encoder_page_table}")
+                # print(f"softmax_scale: {layer.scaling}")
+                # print(f"window_size: {window_size}")
+                # print(f"softcap: {layer.logit_cap}")
+                # print(f"k_descale: {layer.k_scale}")
+                # print(f"v_descale: {layer.v_scale}")
+                # print("--------------------------------")
+
+                o = flash_attn_with_kvcache(
+                    q=q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim),
+                    k_cache=key_cache,
+                    v_cache=value_cache,
+                    page_table=metadata.encoder_page_table,
+                    cache_seqlens=metadata.encoder_lens_int32,
+                    cu_seqlens_q=metadata.cu_seqlens_q,
+                    cu_seqlens_k_new=metadata.encoder_cu_seqlens_k,
+                    max_seqlen_q=metadata.max_seq_len_q,
+                    softmax_scale=layer.scaling,
+                    causal=False,
+                    window_size=(-1, -1),
+                    softcap=layer.logit_cap,
+                    k_descale=layer.k_scale,
+                    v_descale=layer.v_scale,
+                )
+            else:
+                # print("not cross attention")
+                # print(f"page_table: {metadata.page_table}")
+                # print(f"cache_seqlens: {metadata.cache_seqlens_int32}")
+                # print(f"cu_seqlens_q: {metadata.cu_seqlens_q}")
+                # print(f"cu_seqlens_k: {metadata.cu_seqlens_k}")
+                # print(f"max_seq_len_q: {metadata.max_seq_len_q}")
+                # print(f"softmax_scale: {layer.scaling}")
+                # print(f"window_size: {window_size}")
+                # print(f"softcap: {layer.logit_cap}")
+                # print(f"k_descale: {layer.k_scale}")
+                # print(f"v_descale: {layer.v_scale}")
+                # print("--------------------------------")
+                o = flash_attn_with_kvcache(
+                    q=q_reshaped,
+                    k_cache=key_cache,
+                    v_cache=value_cache,
+                    page_table=page_table,
+                    cache_seqlens=metadata.cache_seqlens_int32,
+                    cu_seqlens_q=metadata.cu_seqlens_q,
+                    cu_seqlens_k_new=metadata.cu_seqlens_k,
+                    max_seqlen_q=1,
+                    softmax_scale=layer.scaling,
+                    causal=False,
+                    window_size=(-1, -1),
+                    softcap=layer.logit_cap,
+                    k_descale=layer.k_scale,
+                    v_descale=layer.v_scale,
+                )
         else:
             # Do absorbed multi-latent attention
             kv_cache = forward_batch.token_to_kv_pool.get_key_buffer(layer.layer_id)
