@@ -498,6 +498,10 @@ class FlashInferAttnBackend(AttentionBackend):
         return o.view(-1, layer.tp_q_head_num * layer.head_dim)
 
     def _get_wrapper_idx(self, layer: RadixAttention):
+        print(f"self.num_wrappers: {self.num_wrappers}")
+        print(f"self.dispatch_reason: {self.dispatch_reason}")
+        print(f"layer.sliding_window_size: {layer.sliding_window_size}")
+        print(f"layer.is_cross_attention: {layer.is_cross_attention}")
         if self.num_wrappers == 1:
             return 0
 
