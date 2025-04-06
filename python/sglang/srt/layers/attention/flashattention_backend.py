@@ -227,6 +227,9 @@ class FlashAttentionBackend(AttentionBackend):
             metadata.encoder_page_table = forward_batch.req_to_token_pool.req_to_token[
                 forward_batch.req_pool_indices, : metadata.encoder_max_seq_len_k
             ]
+            metadata.page_table = forward_batch.req_to_token_pool.req_to_token[
+                forward_batch.req_pool_indices, metadata.encoder_max_seq_len_k : (metadata.encoder_max_seq_len_k + metadata.max_seq_len_k)
+            ]
 
 
         # Precompute strided indices
@@ -284,7 +287,7 @@ class FlashAttentionBackend(AttentionBackend):
         # here is two side inclusive
         window_size = (
             (layer.sliding_window_size, 0)
-            if layer.sliding_window_size is not None
+            if layer.sliding_window_size is not None and not layer.is_cross_attention
             else (-1, -1)
         )
 
@@ -304,7 +307,7 @@ class FlashAttentionBackend(AttentionBackend):
             )
 
             if layer.is_cross_attention:
-                causal = False
+                # print("cross attention")
                 # print(f"encoder_lens_int32: {metadata.encoder_lens_int32}")
                 # print(f"encoder_cu_seqlens_q: {metadata.encoder_cu_seqlens_q}")
                 # print(f"encoder_cu_seqlens_k: {metadata.encoder_cu_seqlens_k}")
@@ -317,7 +320,6 @@ class FlashAttentionBackend(AttentionBackend):
                 # print(f"softcap: {layer.logit_cap}")
                 # print(f"k_descale: {layer.k_scale}")
                 # print(f"v_descale: {layer.v_scale}")
-                # print("--------------------------------")
                 o = flash_attn_with_kvcache(
                     q=q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim),
                     k_cache=key_cache,
@@ -334,6 +336,8 @@ class FlashAttentionBackend(AttentionBackend):
                     k_descale=layer.k_scale,
                     v_descale=layer.v_scale,
                 )
+                # print(f"o: {o}")
+                # print("--------------------------------")
             else:
                 # print("not cross attention")
                 # print(f"page_table: {metadata.page_table}")
@@ -346,7 +350,6 @@ class FlashAttentionBackend(AttentionBackend):
                 # print(f"softcap: {layer.logit_cap}")
                 # print(f"k_descale: {layer.k_scale}")
                 # print(f"v_descale: {layer.v_scale}")
-                # print("--------------------------------")
                 o = flash_attn_with_kvcache(
                     q=q.contiguous().view(-1, layer.tp_q_head_num, layer.head_dim),
                     k_cache=key_cache,
@@ -363,6 +366,8 @@ class FlashAttentionBackend(AttentionBackend):
                     k_descale=layer.k_scale,
                     v_descale=layer.v_scale,
                 )
+                # print(f"o: {o}")
+                # print("--------------------------------")
         else:
             # Do absorbed multi-latent attention
             kv_cache = forward_batch.token_to_kv_pool.get_key_buffer(layer.layer_id)
