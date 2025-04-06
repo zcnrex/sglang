@@ -289,6 +289,7 @@ class FlashAttentionBackend(AttentionBackend):
         )
 
         page_table = metadata.page_table
+        causal = not layer.is_cross_attention
 
         # Use Flash Attention for prefill
         if not self.use_mla:
@@ -327,7 +328,7 @@ class FlashAttentionBackend(AttentionBackend):
                     cu_seqlens_k_new=metadata.encoder_cu_seqlens_k,
                     max_seqlen_q=metadata.max_seq_len_q,
                     softmax_scale=layer.scaling,
-                    causal=False,
+                    causal=causal,
                     window_size=(-1, -1),
                     softcap=layer.logit_cap,
                     k_descale=layer.k_scale,
@@ -356,7 +357,7 @@ class FlashAttentionBackend(AttentionBackend):
                     cu_seqlens_k_new=metadata.cu_seqlens_k,
                     max_seqlen_q=metadata.max_seq_len_q,
                     softmax_scale=layer.scaling,
-                    causal=True,
+                    causal=causal,
                     window_size=window_size,
                     softcap=layer.logit_cap,
                     k_descale=layer.k_scale,
@@ -391,7 +392,7 @@ class FlashAttentionBackend(AttentionBackend):
                 cu_seqlens_k_new=metadata.cu_seqlens_k,
                 max_seqlen_q=metadata.max_seq_len_q,
                 softmax_scale=layer.scaling,
-                causal=True,
+                causal=causal,
                 softcap=layer.logit_cap,
                 k_descale=layer.k_scale,
                 v_descale=layer.v_scale,
@@ -445,6 +446,7 @@ class FlashAttentionBackend(AttentionBackend):
             else (-1, -1)
         )
         page_table = metadata.page_table
+        causal = not layer.is_cross_attention
 
         if not self.use_mla:
             # Do multi-head attention
@@ -488,9 +490,9 @@ class FlashAttentionBackend(AttentionBackend):
                     cache_seqlens=metadata.encoder_lens_int32,
                     cu_seqlens_q=metadata.cu_seqlens_q,
                     cu_seqlens_k_new=metadata.encoder_cu_seqlens_k,
-                    max_seqlen_q=metadata.max_seq_len_q,
+                    max_seqlen_q=1,
                     softmax_scale=layer.scaling,
-                    causal=False,
+                    causal=causal,
                     window_size=(-1, -1),
                     softcap=layer.logit_cap,
                     k_descale=layer.k_scale,
@@ -519,8 +521,8 @@ class FlashAttentionBackend(AttentionBackend):
                     cu_seqlens_k_new=metadata.cu_seqlens_k,
                     max_seqlen_q=1,
                     softmax_scale=layer.scaling,
-                    causal=False,
-                    window_size=(-1, -1),
+                    causal=causal,
+                    window_size=window_size,
                     softcap=layer.logit_cap,
                     k_descale=layer.k_scale,
                     v_descale=layer.v_scale,
@@ -555,7 +557,7 @@ class FlashAttentionBackend(AttentionBackend):
                 cu_seqlens_k_new=metadata.cu_seqlens_k,
                 max_seqlen_q=1,
                 softmax_scale=layer.scaling,
-                causal=True,
+                causal=causal,
                 softcap=layer.logit_cap,
                 k_descale=layer.k_scale,
                 v_descale=layer.v_scale,
