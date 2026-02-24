@@ -39,6 +39,8 @@ from sglang.srt.layers.dp_attention import (
     dp_gather_partial,
     dp_reduce_scatter_tensor,
     dp_scatter,
+    get_attention_cp_rank,
+    get_attention_cp_size,
     get_attention_dp_size,
     get_attention_tp_rank,
     get_attention_tp_size,
@@ -88,10 +90,9 @@ FUSE_ALLREDUCE_MAX_BATCH_SIZE = 2048
 
 def apply_flashinfer_allreduce_fusion(batch_size: int):
     return (
-        # TODO: flashinfer 0.6.1 caused performance regression on sm100 for allreduce fusion
-        # Temporarily disable it on sm100. Add it back after its performance is restored.
+        # NOTE: flashinfer 0.6.1 caused performance regression on sm100 for allreduce fusion
         # Ref: https://github.com/sgl-project/sglang/issues/17237
-        _is_sm90_supported
+        (_is_sm90_supported or _is_sm100_supported)
         and _is_flashinfer_available
         and batch_size > 0
         and batch_size <= FUSE_ALLREDUCE_MAX_BATCH_SIZE
@@ -612,6 +613,8 @@ class CommunicateContext:
     attn_tp_rank: int
     attn_tp_size: int
     attn_dp_size: int
+    attn_cp_rank: int
+    attn_cp_size: int
     tp_size: int
     cache = None
     tp_rank: int
@@ -624,6 +627,8 @@ class CommunicateContext:
         attn_tp_rank = get_attention_tp_rank()
         attn_tp_size = get_attention_tp_size()
         attn_dp_size = get_attention_dp_size()
+        attn_cp_size = get_attention_cp_size()
+        attn_cp_rank = get_attention_cp_rank()
         tp_size = get_tensor_model_parallel_world_size()
         tp_rank = get_tensor_model_parallel_rank()
         process_group_sizes = {
@@ -637,6 +642,8 @@ class CommunicateContext:
             attn_tp_rank=attn_tp_rank,
             attn_tp_size=attn_tp_size,
             attn_dp_size=attn_dp_size,
+            attn_cp_rank=attn_cp_rank,
+            attn_cp_size=attn_cp_size,
             tp_size=tp_size,
             tp_rank=tp_rank,
         )
