@@ -67,6 +67,7 @@ def flash_attn_with_kvcache(
     sinks=None,
     score_mod=None,
     aux_tensors=None,
+    sparse_mask_fine=None,
     ver=3,
 ):
     """
@@ -184,7 +185,9 @@ def flash_attn_with_kvcache(
     ]
     rotary_cos, rotary_sin = [maybe_contiguous(x) for x in (rotary_cos, rotary_sin)]
     rotary_seqlens = maybe_contiguous(rotary_seqlens)
+    sparse_mask_fine = maybe_contiguous(sparse_mask_fine)
     attention_chunk = 0 if attention_chunk is None else int(attention_chunk)
+    effective_causal = causal if sparse_mask_fine is None else False
 
     out, softmax_lse, *rest = torch.ops.sgl_kernel.fwd.default(
         q,
@@ -211,7 +214,7 @@ def flash_attn_with_kvcache(
         k_descale,
         v_descale,
         softmax_scale,
-        causal,
+        effective_causal,
         window_size[0],
         window_size[1],
         attention_chunk,
@@ -222,7 +225,7 @@ def flash_attn_with_kvcache(
         pack_gqa,
         sm_margin,
         sinks,
-        None,  # sparse_mask_fine
+        sparse_mask_fine,
     )
     # return (out, softmax_lse) if return_softmax_lse else out
     return (out, softmax_lse, *rest) if return_softmax_lse else out
@@ -256,6 +259,7 @@ def flash_attn_varlen_func(
     sinks=None,
     score_mod=None,
     aux_tensors=None,
+    sparse_mask_fine=None,
     ver=3,
 ):
 
@@ -273,6 +277,8 @@ def flash_attn_varlen_func(
             -0.5
         )
     attention_chunk = 0 if attention_chunk is None else int(attention_chunk)
+    sparse_mask_fine = maybe_contiguous(sparse_mask_fine)
+    effective_causal = causal if sparse_mask_fine is None else False
 
     out, softmax_lse, *rest = torch.ops.sgl_kernel.fwd.default(
         q,
@@ -299,7 +305,7 @@ def flash_attn_varlen_func(
         k_descale,
         v_descale,
         softmax_scale,
-        causal,
+        effective_causal,
         window_size[0],
         window_size[1],
         attention_chunk,
@@ -310,7 +316,7 @@ def flash_attn_varlen_func(
         pack_gqa,
         sm_margin,
         sinks,
-        None,  # sparse_mask_fine
+        sparse_mask_fine,
     )
 
     return (out, softmax_lse, *rest) if return_softmax_lse else out
