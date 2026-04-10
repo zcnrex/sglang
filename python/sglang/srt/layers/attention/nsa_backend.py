@@ -1642,13 +1642,13 @@ class NativeSparseAttnBackend(
             return False
         if envs.SGLANG_NSA_FUSE_TOPK.get():
             return False
-        if not is_cuda() or _is_hip:
+        if not is_cuda():
             return False
         if torch.cuda.get_device_capability()[0] < 9:
             return False
         if is_in_piecewise_cuda_graph():
             return False
-        if torch.cuda.is_available() and torch.cuda.is_current_stream_capturing():
+        if torch.cuda.is_current_stream_capturing():
             return False
         if can_nsa_prefill_cp_round_robin_split(forward_batch):
             return False
@@ -1658,10 +1658,7 @@ class NativeSparseAttnBackend(
             return False
         return True
 
-    def _nsa_fa3_k_block_n(
-        self, q_rope: torch.Tensor, v_head_dim: int, logit_cap: float
-    ) -> int:
-        del logit_cap  # reserved for future tile-size parity with FA3 heuristics
+    def _nsa_fa3_k_block_n(self, q_rope: torch.Tensor, v_head_dim: int) -> int:
         hd = q_rope.shape[-1]
         dv = v_head_dim
         if hd <= 64:
@@ -1692,6 +1689,7 @@ class NativeSparseAttnBackend(
             (total_q, max_k_blocks, num_words), dtype=torch.int32, device=device
         )
         cs = cache_seqlens.to(device=device, dtype=torch.int32)
+        rows = torch.arange(total_q, device=device)
         for c in range(topk):
             pos = topk_logical[:, c]
             valid = (pos >= 0) & (pos < cs)
@@ -1703,7 +1701,6 @@ class NativeSparseAttnBackend(
             w = rel // 32
             bit = rel % 32
             bits = (1 << bit).to(torch.int32)
-            rows = torch.arange(total_q, device=device)
             r = rows[valid]
             mask[r, blk[valid], w[valid]] |= bits[valid]
         return mask
@@ -1736,46 +1733,31 @@ class NativeSparseAttnBackend(
         use_sparse = self._nsa_fa3_sparse_mask_eligible(
             forward_batch, tm, topk_logical
         )
+        sparse_mask_fine = None
         if use_sparse and topk_logical is not None:
             cs = metadata.cache_seqlens_int32[:ntok]
             cu_k = metadata.cu_seqlens_k[: ntok + 1]
             pt = metadata.page_table_1[:ntok]
-            kbn = self._nsa_fa3_k_block_n(q_rope, v_head_dim, logit_cap)
-            sm = self._build_nsa_fa3_sparse_mask_fine(topk_logical, cs, kbn)
-            o = flash_attn_with_kvcache(
-                q=q_rope,
-                k_cache=k_rope_cache,
-                v_cache=c_kv_cache,
-                qv=q_nope,
-                page_table=pt,
-                cache_seqlens=cs,
-                cu_seqlens_q=cu_seqlens_q,
-                cu_seqlens_k_new=cu_k,
-                max_seqlen_q=max_seqlen_q,
-                softmax_scale=sm_scale,
-                causal=True,
-                softcap=logit_cap,
-                return_softmax_lse=False,
-                num_splits=self.num_splits,
-                sparse_mask_fine=sm,
-            )
-        else:
-            o = flash_attn_with_kvcache(
-                q=q_rope,
-                k_cache=k_rope_cache,
-                v_cache=c_kv_cache,
-                qv=q_nope,
-                page_table=page_table,
-                cache_seqlens=cache_seqlens,
-                cu_seqlens_q=cu_seqlens_q,
-                cu_seqlens_k_new=cu_seqlens_k,
-                max_seqlen_q=max_seqlen_q,
-                softmax_scale=sm_scale,
-                causal=True,
-                softcap=logit_cap,
-                return_softmax_lse=False,
-                num_splits=self.num_splits,
-            )
+            kbn = self._nsa_fa3_k_block_n(q_rope, v_head_dim)
+            sparse_mask_fine = self._build_nsa_fa3_sparse_mask_fine(topk_logical, cs, kbn)
+            cache_seqlens, cu_seqlens_k, page_table = cs, cu_k, pt
+        o = flash_attn_with_kvcache(
+            q=q_rope,
+            k_cache=k_rope_cache,
+            v_cache=c_kv_cache,
+            qv=q_nope,
+            page_table=page_table,
+            cache_seqlens=cache_seqlens,
+            cu_seqlens_q=cu_seqlens_q,
+            cu_seqlens_k_new=cu_seqlens_k,
+            max_seqlen_q=max_seqlen_q,
+            softmax_scale=sm_scale,
+            causal=True,
+            softcap=logit_cap,
+            return_softmax_lse=False,
+            num_splits=self.num_splits,
+            sparse_mask_fine=sparse_mask_fine,
+        )
         return o  # type: ignore
 
     def _forward_flashmla_sparse(
