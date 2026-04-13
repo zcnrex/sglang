@@ -1638,34 +1638,79 @@ class NativeSparseAttnBackend(
         topk_indices: torch.Tensor,
         cache_seqlens: torch.Tensor,
         k_block_n: int,
+        max_kv: int,
     ) -> torch.Tensor:
         num_words = (k_block_n + 31) // 32
         total_q = topk_indices.shape[0]
-        topk = topk_indices.shape[1]
-        max_kv = int(cache_seqlens.max().item())
         max_k_blocks = (max_kv + k_block_n - 1) // k_block_n
         while (max_k_blocks * num_words) % 32 != 0:
             max_k_blocks += 1
         device = topk_indices.device
+
         mask = torch.zeros(
-            (total_q, max_k_blocks, num_words), dtype=torch.int32, device=device
+            (total_q, max_k_blocks * num_words), dtype=torch.int32, device=device
         )
-        cs = cache_seqlens.to(device=device, dtype=torch.int32)
-        rows = torch.arange(total_q, device=device)
-        for c in range(topk):
-            pos = topk_indices[:, c]
-            valid = (pos >= 0) & (pos < cs)
-            if not valid.any():
-                continue
-            pos_l = pos.long()
-            blk = pos_l // k_block_n
-            rel = pos_l - blk * k_block_n
-            w = rel // 32
-            bit = rel % 32
-            bits = (1 << bit).to(torch.int32)
-            r = rows[valid]
-            mask[r, blk[valid], w[valid]] |= bits[valid]
-        return mask
+
+        # Work on full (total_q, topk) at once — no Python loop
+        valid = (topk_indices >= 0) & (topk_indices < cache_seqlens.unsqueeze(1))          # (total_q, topk)
+
+        topk_indices_l = topk_indices.long()
+        blk = topk_indices_l // k_block_n
+        w = (topk_indices_l % k_block_n) // 32
+        bit = topk_indices_l % 32
+        bits = (1 << bit).to(torch.int32)
+
+        # Row indices: (total_q, topk)
+        rows = torch.arange(total_q, device=device, dtype=torch.long).unsqueeze(
+            1
+        ).expand_as(topk_indices_l)
+
+        # Flatten valid entries
+        rows_v = rows[valid]
+        blk_v = blk[valid]
+        w_v = w[valid]
+        bits_v = bits[valid]
+
+        # Linear index into the flattened (total_q, max_k_blocks * num_words) tensor
+        linear_idx = rows_v * (max_k_blocks * num_words) + blk_v * num_words + w_v
+
+        mask.view(-1).scatter_add_(0, linear_idx, bits_v)
+
+        return mask.view(total_q, max_k_blocks, num_words)
+
+    # def _build_nsa_fa3_sparse_mask_fine(
+    #     self,
+    #     topk_indices: torch.Tensor,
+    #     cache_seqlens: torch.Tensor,
+    #     k_block_n: int,
+    # ) -> torch.Tensor:
+    #     num_words = (k_block_n + 31) // 32
+    #     total_q = topk_indices.shape[0]
+    #     topk = topk_indices.shape[1]
+    #     max_kv = int(cache_seqlens.max().item())
+    #     max_k_blocks = (max_kv + k_block_n - 1) // k_block_n
+    #     while (max_k_blocks * num_words) % 32 != 0:
+    #         max_k_blocks += 1
+    #     device = topk_indices.device
+    #     mask = torch.zeros(
+    #         (total_q, max_k_blocks, num_words), dtype=torch.int32, device=device
+    #     )
+    #     cs = cache_seqlens.to(device=device, dtype=torch.int32)
+    #     rows = torch.arange(total_q, device=device)
+    #     for c in range(topk):
+    #         pos = topk_indices[:, c]
+    #         valid = (pos >= 0) & (pos < cs)
+    #         if not valid.any():
+    #             continue
+    #         pos_l = pos.long()
+    #         blk = pos_l // k_block_n
+    #         rel = pos_l - blk * k_block_n
+    #         w = rel // 32
+    #         bit = rel % 32
+    #         bits = (1 << bit).to(torch.int32)
+    #         r = rows[valid]
+    #         mask[r, blk[valid], w[valid]] |= bits[valid]
+    #     return mask
 
     def _forward_fa3(
         self,
@@ -1697,7 +1742,9 @@ class NativeSparseAttnBackend(
             cu_k = metadata.cu_seqlens_k[: ntok + 1]
             pt = metadata.page_table_1[:ntok]
             kbn = self._nsa_fa3_k_block_n(q_rope, v_head_dim)
-            sparse_mask_fine = self._build_nsa_fa3_sparse_mask_fine(topk_indices, cs, kbn)
+            sparse_mask_fine = self._build_nsa_fa3_sparse_mask_fine(
+                topk_indices, cs, kbn, metadata.max_seq_len_k
+            )
             cache_seqlens, cu_seqlens_k, page_table = cs, cu_k, pt
         o = flash_attn_with_kvcache(
             q=q_rope,
