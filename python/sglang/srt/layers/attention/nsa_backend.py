@@ -1354,10 +1354,6 @@ class NativeSparseAttnBackend(
         if topk_indices is not None:
             topk_indices = self._pad_topk_indices(topk_indices, q_nope.shape[0])
 
-        topk_logical_for_fa3 = (
-            topk_indices.clone() if topk_indices is not None else None
-        )
-
         # NOTE(dark): here, we use page size = 1
         topk_transform_method = self.get_topk_transform_method(
             forward_batch.forward_mode
@@ -1455,9 +1451,9 @@ class NativeSparseAttnBackend(
                 sm_scale=layer.scaling,
                 logit_cap=layer.logit_cap,
                 page_size=1,
-                forward_batch=forward_batch,
                 metadata=metadata,
-                topk_logical=topk_logical_for_fa3,
+                topk_indices=topk_indices,
+                is_prefill = True,
             )
         elif nsa_impl == "aiter":
             if q_rope is not None:
@@ -1542,10 +1538,6 @@ class NativeSparseAttnBackend(
         if topk_indices is not None:
             topk_indices = self._pad_topk_indices(topk_indices, q_nope.shape[0])
 
-        topk_logical_for_fa3 = (
-            topk_indices.clone() if topk_indices is not None else None
-        )
-
         if forward_batch.hisparse_coordinator is not None:
             page_table_1 = forward_batch.hisparse_coordinator.swap_in_selected_pages(
                 forward_batch.req_pool_indices,
@@ -1609,9 +1601,9 @@ class NativeSparseAttnBackend(
                 sm_scale=layer.scaling,
                 logit_cap=layer.logit_cap,
                 page_size=1,
-                forward_batch=forward_batch,
                 metadata=metadata,
-                topk_logical=topk_logical_for_fa3,
+                topk_indices=topk_indices,
+                is_prefill=False,
             )
         elif self.nsa_decode_impl == "aiter":
             if q_rope is not None:
@@ -1628,36 +1620,6 @@ class NativeSparseAttnBackend(
         else:
             assert False, f"Unsupported {self.nsa_decode_impl = }"
 
-    def _nsa_fa3_sparse_mask_eligible(
-        self,
-        forward_batch: ForwardBatch,
-        topk_transform_method: TopkTransformMethod,
-        topk_logical: Optional[torch.Tensor],
-    ) -> bool:
-        if not envs.SGLANG_NSA_FA3_SPARSE_MASK.get():
-            return False
-        if topk_logical is None:
-            return False
-        if forward_batch.hisparse_coordinator is not None:
-            return False
-        if envs.SGLANG_NSA_FUSE_TOPK.get():
-            return False
-        if not is_cuda():
-            return False
-        if torch.cuda.get_device_capability()[0] < 9:
-            return False
-        if is_in_piecewise_cuda_graph():
-            return False
-        if torch.cuda.is_current_stream_capturing():
-            return False
-        if can_nsa_prefill_cp_round_robin_split(forward_batch):
-            return False
-        if forward_batch.forward_mode.is_context_parallel_extend():
-            return False
-        if topk_transform_method == TopkTransformMethod.RAGGED:
-            return False
-        return True
-
     def _nsa_fa3_k_block_n(self, q_rope: torch.Tensor, v_head_dim: int) -> int:
         hd = q_rope.shape[-1]
         dv = v_head_dim
@@ -1673,25 +1635,25 @@ class NativeSparseAttnBackend(
 
     def _build_nsa_fa3_sparse_mask_fine(
         self,
-        topk_logical: torch.Tensor,
+        topk_indices: torch.Tensor,
         cache_seqlens: torch.Tensor,
         k_block_n: int,
     ) -> torch.Tensor:
         num_words = (k_block_n + 31) // 32
-        total_q = topk_logical.shape[0]
-        topk = topk_logical.shape[1]
+        total_q = topk_indices.shape[0]
+        topk = topk_indices.shape[1]
         max_kv = int(cache_seqlens.max().item())
         max_k_blocks = (max_kv + k_block_n - 1) // k_block_n
         while (max_k_blocks * num_words) % 32 != 0:
             max_k_blocks += 1
-        device = topk_logical.device
+        device = topk_indices.device
         mask = torch.zeros(
             (total_q, max_k_blocks, num_words), dtype=torch.int32, device=device
         )
         cs = cache_seqlens.to(device=device, dtype=torch.int32)
         rows = torch.arange(total_q, device=device)
         for c in range(topk):
-            pos = topk_logical[:, c]
+            pos = topk_indices[:, c]
             valid = (pos >= 0) & (pos < cs)
             if not valid.any():
                 continue
@@ -1719,9 +1681,9 @@ class NativeSparseAttnBackend(
         sm_scale: float,
         logit_cap: float,
         page_size: int,
-        forward_batch: ForwardBatch,
         metadata: NSAMetadata,
-        topk_logical: Optional[torch.Tensor],
+        topk_indices: Optional[torch.Tensor],
+        is_prefill: bool,
     ) -> torch.Tensor:
         k_rope_cache = kv_cache[:, :, v_head_dim:]
         c_kv_cache = kv_cache[:, :, :v_head_dim]
@@ -1729,17 +1691,13 @@ class NativeSparseAttnBackend(
         k_rope_cache = k_rope_cache.view(-1, page_size, 1, qk_rope_dim)
         c_kv_cache = c_kv_cache.view(-1, page_size, 1, v_head_dim)
         ntok = q_rope.shape[0]
-        tm = self.get_topk_transform_method(forward_batch.forward_mode)
-        use_sparse = self._nsa_fa3_sparse_mask_eligible(
-            forward_batch, tm, topk_logical
-        )
         sparse_mask_fine = None
-        if use_sparse and topk_logical is not None:
+        if envs.SGLANG_NSA_FA3_SPARSE_MASK.get() and topk_indices is not None and is_prefill:
             cs = metadata.cache_seqlens_int32[:ntok]
             cu_k = metadata.cu_seqlens_k[: ntok + 1]
             pt = metadata.page_table_1[:ntok]
             kbn = self._nsa_fa3_k_block_n(q_rope, v_head_dim)
-            sparse_mask_fine = self._build_nsa_fa3_sparse_mask_fine(topk_logical, cs, kbn)
+            sparse_mask_fine = self._build_nsa_fa3_sparse_mask_fine(topk_indices, cs, kbn)
             cache_seqlens, cu_seqlens_k, page_table = cs, cu_k, pt
         o = flash_attn_with_kvcache(
             q=q_rope,
@@ -1862,7 +1820,6 @@ class NativeSparseAttnBackend(
         layer: RadixAttention,
         forward_batch: ForwardBatch,
         metadata: NSAMetadata,
-        sparse_mask_fine: Optional[torch.Tensor] = None,
     ) -> torch.Tensor:
         """Standard MHA using FlashAttention varlen for MHA_ONE_SHOT mode."""
         q = q.view(-1, layer.tp_q_head_num, layer.head_dim)
@@ -1908,13 +1865,6 @@ class NativeSparseAttnBackend(
             )
 
         # Use FA3 for SM90 (Hopper/H200)
-        fa_kw = {}
-        if sparse_mask_fine is not None:
-            if _is_hip:
-                raise NotImplementedError(
-                    "sparse_mask_fine is not supported for FA3 varlen on HIP"
-                )
-            fa_kw["sparse_mask_fine"] = sparse_mask_fine
         return flash_attn_varlen_func(
             q=q,
             k=k,
@@ -1925,7 +1875,6 @@ class NativeSparseAttnBackend(
             max_seqlen_k=max_seqlen_k,
             softmax_scale=layer.scaling,
             causal=causal,
-            **fa_kw,
         )
 
     def _forward_tilelang(
