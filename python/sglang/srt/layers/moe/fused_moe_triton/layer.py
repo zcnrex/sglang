@@ -181,6 +181,7 @@ class FusedMoE(torch.nn.Module):
         routed_scaling_factor: Optional[float] = None,
         gemm1_alpha: Optional[float] = None,
         gemm1_clamp_limit: Optional[float] = None,
+        swiglu_limit: Optional[float] = None,
         use_weight_loader_fused: bool = False,
         with_bias=False,
         routing_method_type: Optional[RoutingMethodType] = None,
@@ -255,6 +256,7 @@ class FusedMoE(torch.nn.Module):
             routed_scaling_factor=routed_scaling_factor,
             gemm1_alpha=gemm1_alpha,
             gemm1_clamp_limit=gemm1_clamp_limit,
+            swiglu_limit=swiglu_limit,
             is_gated=is_gated,
             routing_method_type=routing_method_type,
         )
@@ -1130,9 +1132,10 @@ class FlashInferFusedMoE(FusedMoE):
             self.moe_runner_config.activation == "silu"
         ), "Only silu is supported for flashinfer trtllm moe"
         assert self.quant_method is not None
-        assert (
-            topk_output.topk_config.renormalize
-        ), "Renormalize is required for flashinfer trtllm moe"
+        if hasattr(topk_output, "topk_config"):
+            assert (
+                topk_output.topk_config.renormalize
+            ), "Renormalize is required for flashinfer trtllm moe"
         assert (
             self.num_fused_shared_experts == 0
         ), "Fused shared experts are not supported for flashinfer trtllm moe"
@@ -1140,14 +1143,18 @@ class FlashInferFusedMoE(FusedMoE):
             self.moe_runner_config.is_gated
         ), "Only gated MoEs are supported for flashinfer trtllm moe"
 
-        assert TopKOutputChecker.format_is_bypassed(topk_output)
-
-        router_logits = topk_output.router_logits
-        topk_config = topk_output.topk_config
-        correction_bias = topk_config.correction_bias
-        routed_scaling_factor = self.moe_runner_config.routed_scaling_factor
+        assert TopKOutputChecker.format_is_bypassed(
+            topk_output
+        ) or TopKOutputChecker.format_is_standard(topk_output)
 
         if isinstance(self.quant_method, UnquantizedFusedMoEMethod):
+            assert TopKOutputChecker.format_is_bypassed(
+                topk_output
+            ), "BF16 MoE requires bypassed topk output"
+            router_logits = topk_output.router_logits
+            topk_config = topk_output.topk_config
+            correction_bias = topk_config.correction_bias
+            routed_scaling_factor = self.moe_runner_config.routed_scaling_factor
             # lazy import
             try:
                 from flashinfer.fused_moe import trtllm_bf16_moe

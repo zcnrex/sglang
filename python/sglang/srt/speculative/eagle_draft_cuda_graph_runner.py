@@ -102,7 +102,7 @@ class EAGLEDraftCudaGraphRunner:
             self.topk_p = torch.zeros((self.max_bs, self.topk), dtype=torch.float32)
             self.topk_index = torch.zeros((self.max_bs, self.topk), dtype=torch.int64)
             self.hidden_states = torch.zeros(
-                (self.max_bs, self.model_runner.model_config.hidden_size),
+                (self.max_bs, self.model_runner.model_config.spec_hidden_size),
                 dtype=self.model_runner.dtype,
             )
 
@@ -166,6 +166,7 @@ class EAGLEDraftCudaGraphRunner:
             torch.cuda.synchronize()
             self.model_runner.tp_group.barrier()
             run_once_fn()
+            self.model_runner.draft_attn_backend.on_after_cuda_graph_warmup_pass()
 
     def _capture_graph(self, graph, pool, stream, run_once_fn):
         with torch.cuda.graph(graph, pool=pool, stream=stream):

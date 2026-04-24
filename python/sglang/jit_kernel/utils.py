@@ -42,7 +42,7 @@ DEFAULT_INCLUDE = [str(KERNEL_PATH / "include")]
 DEFAULT_CFLAGS = ["-std=c++20", "-O3"]
 DEFAULT_CUDA_CFLAGS = ["-std=c++20", "-O3", "--expt-relaxed-constexpr"]
 DEFAULT_LDFLAGS = []
-CPP_TEMPLATE_TYPE: TypeAlias = Union[int, float, bool, torch.dtype]
+CPP_TEMPLATE_TYPE: TypeAlias = Union[int, float, str, bool, torch.dtype]
 
 
 class CPPArgList(list[str]):
@@ -54,6 +54,8 @@ CPP_DTYPE_MAP = {
     torch.float: "fp32_t",
     torch.float16: "fp16_t",
     torch.bfloat16: "bf16_t",
+    torch.int32: "int32_t",
+    torch.int64: "int64_t",
 }
 
 
@@ -61,7 +63,7 @@ def make_cpp_args(*args: CPP_TEMPLATE_TYPE) -> CPPArgList:
     def _convert(arg: CPP_TEMPLATE_TYPE) -> str:
         if isinstance(arg, bool):
             return "true" if arg else "false"
-        if isinstance(arg, (int, float)):
+        if isinstance(arg, (int, str, float)):
             return str(arg)
         if isinstance(arg, torch.dtype):
             return CPP_DTYPE_MAP[arg]
