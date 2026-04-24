@@ -3,7 +3,7 @@ FROM lmsysorg/sglang:v0.5.7-cu130-runtime
 # need: cu13, x86 docker
 
 RUN mkdir -p /workspace && cd /workspace && rm -rf sglang && \
-    git clone -b deepseek_v4 GitHub - sgl-project/sglang: SGLang is a high-performance serving framework for large language model
+    git clone -b deepseek_v4 https://github.com/sgl-project/sglang.git
 
 RUN pip install cuda-python --upgrade
 
@@ -11,7 +11,7 @@ RUN pip install flashinfer-jit-cache==0.6.8 --index-url https://flashinfer.ai/wh
 
 RUN pip uninstall -y deep-gemm deep_gemm 2>/dev/null; \
     cd /tmp && rm -rf DeepGEMM && \
-    git clone GitHub - sgl-project/DeepGEMM: DeepGEMM: clean and efficient FP8 GEMM kernels with fine-grained scal -b release && \
+    git clone https://github.com/sgl-project/DeepGEMM.git -b release && \
     cd DeepGEMM && git checkout 7f2a70 && \
     git submodule update --init --recursive && \
     ln -sf $(pwd)/third-party/cutlass/include/cutlass $(pwd)/deep_gemm/include/cutlass && \
