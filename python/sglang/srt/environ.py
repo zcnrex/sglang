@@ -515,6 +515,7 @@ class Envs:
     SGLANG_OPT_FUSE_WQA_WKV = EnvBool(True)
     SGLANG_OPT_USE_JIT_NORM = EnvBool(False)
     SGLANG_OPT_FIX_HASH_MEGA_MOE = EnvBool(False)
+    SGLANG_OPT_FIX_NEXTN_MEGA_MOE = EnvBool(False)
     SGLANG_OPT_USE_CUSTOM_ALL_REDUCE_V2 = EnvBool(False)
     SGLANG_OPT_FIX_MEGA_MOE_MEMORY = EnvBool(False)
     SGLANG_FIX_DSV4_BASE_MODEL_LOAD = EnvBool(False)

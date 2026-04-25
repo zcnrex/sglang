@@ -1086,8 +1086,9 @@ class DeepseekV2MoE(nn.Module):
         if not getattr(self.experts, "_mega_moe_weights_built", False):
             return False
 
-        if self.is_nextn:
-            return False
+        if not envs.SGLANG_OPT_FIX_NEXTN_MEGA_MOE.get():
+            if self.is_nextn:
+                return False
 
         if not envs.SGLANG_OPT_FIX_HASH_MEGA_MOE.get():
             if self.is_hash:
