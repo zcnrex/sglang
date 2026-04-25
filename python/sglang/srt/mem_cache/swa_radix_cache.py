@@ -934,6 +934,43 @@ class SWARadixCache(BasePrefixCache):
             if not child.swa_tombstone:
                 self.swa_lru_list.remove_node(child)
 
+    def _maybe_split_leaf_for_swa_lock(self, leaf: TreeNode) -> TreeNode:
+        """``inc_lock_ref`` protects ``len(leaf.value)`` SWA tokens for the
+        leaf even though SWA only actually needs the last
+        ``sliding_window_size`` tokens. With chunked prefill, leaves can be
+        thousands of tokens long, which inflates ``swa_protected_size_`` by
+        ~``chunked_prefill_size / sliding_window_size`` and causes premature
+        SWA pool exhaustion / retract thrashing.
+        """
+        if (
+            leaf is self.root_node
+            or leaf.swa_lock_ref > 0
+            or leaf.swa_tombstone
+            or len(leaf.value) == 0
+        ):
+            return leaf
+
+        # Smallest page-aligned size that still covers the sliding window.
+        tail_size = (
+            (self.sliding_window_size + self.page_size - 1)
+            // self.page_size
+            * self.page_size
+        )
+        if len(leaf.value) <= tail_size:
+            return leaf
+
+        split_at = len(leaf.value) - tail_size
+
+        if split_at <= 0 or split_at >= len(leaf.value):
+            return leaf
+        if self.page_size > 1 and (
+            split_at % self.page_size != 0 or len(leaf.value) % self.page_size != 0
+        ):
+            return leaf
+
+        self._split_node(leaf.key, leaf, split_at)
+        return leaf
+
     def _split_node(self, key: RadixKey, child: TreeNode, split_len: int) -> TreeNode:
         # new_node -> child
         new_node = TreeNode()
@@ -1059,7 +1096,6 @@ class SWARadixCache(BasePrefixCache):
                 f"Has Additional Node: len(key)={len(key)}, total_prefix_length={total_prefix_length}, swa_evicted_seqlen={swa_evicted_seqlen}, len(value)={len(value)}"
             )
 
-
             if swa_evicted_seqlen == total_prefix_length + len(key):
                 self.token_to_kv_pool_allocator.free(value)
                 return total_prefix_length
@@ -1078,7 +1114,13 @@ class SWARadixCache(BasePrefixCache):
                 key = key[swa_tombstone_len:]
                 value = value[swa_tombstone_len:]
 
-            self._add_new_node(node, key, value, swa_tombstone=False)
+            new_leaf = self._add_new_node(node, key, value, swa_tombstone=False)
+
+            if envs.SGLANG_OPT_SWA_SPLIT_LEAF_ON_INSERT.get():
+                # Cap the leaf at one (page-aligned) sliding window so a future
+                # inc_lock_ref only protects `sliding_window_size` tokens of SWA pool.
+                self._maybe_split_leaf_for_swa_lock(new_leaf)
+
         return total_prefix_length
 
     def _add_new_node(
