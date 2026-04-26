@@ -1953,7 +1953,8 @@ class Scheduler(
     def get_new_batch_prefill(self) -> Optional[ScheduleBatch]:
         prefill_delayer_single_pass = None
         if self.prefill_delayer:
-            _, token_usage, _, _ = self._get_token_info()
+            # _, token_usage, _, _ = self._get_token_info()
+            token_usage = 0.5  # HACK since it is unused
             prefill_delayer_single_pass = PrefillDelayerSinglePassExecutor(
                 self.prefill_delayer, token_usage=token_usage
             )
