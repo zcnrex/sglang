@@ -745,6 +745,52 @@ def create_paged_compress_data_kernel(
         tl.store(base + 0 * stride_out_1_1, v0, mask=mask)
 
 
+_mmap_dumper = None
+
+
+def _get_mmap_dumper():
+    global _mmap_dumper
+    if _mmap_dumper is None:
+        from sglang.srt.debug_utils.mmap_dumper import MmapDumper
+        from sglang.srt.environ import envs
+
+        dump_dir = envs.SGLANG_HACK_DEBUG_DUMP_CREATE_PAGED_COMPRESS_DATA.get()
+        _mmap_dumper = MmapDumper(dump_dir or None)
+    return _mmap_dumper
+
+
+def _maybe_dump_create_paged_compress_data_inputs(
+    *,
+    compress_ratio: int,
+    is_overlap: bool,
+    swa_page_size: int,
+    ring_size: int,
+    req_pool_indices: torch.Tensor,
+    seq_lens: torch.Tensor,
+    extend_seq_lens: torch.Tensor,
+    req_to_token: torch.Tensor,
+    full_to_swa_index_mapping: torch.Tensor,
+    block: int,
+) -> None:
+    d = _get_mmap_dumper()
+    if not d.is_active():
+        return
+    d.dump(
+        {
+            "compress_ratio": compress_ratio,
+            "is_overlap": is_overlap,
+            "swa_page_size": swa_page_size,
+            "ring_size": ring_size,
+            "block": block,
+            "req_pool_indices": req_pool_indices,
+            "seq_lens": seq_lens,
+            "extend_seq_lens": extend_seq_lens,
+            "req_to_token": req_to_token,
+            "full_to_swa_index_mapping": full_to_swa_index_mapping,
+        }
+    )
+
+
 def triton_create_paged_compress_data(
     *,
     compress_ratio: int,
@@ -758,6 +804,18 @@ def triton_create_paged_compress_data(
     full_to_swa_index_mapping: torch.Tensor,
     block: int = 128,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
+    _maybe_dump_create_paged_compress_data_inputs(
+        compress_ratio=compress_ratio,
+        is_overlap=is_overlap,
+        swa_page_size=swa_page_size,
+        ring_size=ring_size,
+        req_pool_indices=req_pool_indices,
+        seq_lens=seq_lens,
+        extend_seq_lens=extend_seq_lens,
+        req_to_token=req_to_token,
+        full_to_swa_index_mapping=full_to_swa_index_mapping,
+        block=block,
+    )
     batch_size = req_pool_indices.shape[0]
     out_dim = 4 if is_overlap else 1
     device_args: dict = dict(device=req_pool_indices.device, dtype=torch.int32)
