@@ -260,6 +260,27 @@ class _ProfilerTorch(_ProfilerConcreteBase):
         self.record_shapes = record_shapes
         self.activities = activities
 
+    # Process-wide flag: torch.profiler+kineto loses GPU events on the very first
+    # profile invocation in a process (CUPTI activity callbacks aren't installed in
+    # time to capture the first kernels). Workaround: do one dummy 1-kernel profile
+    # at first start() to warm CUPTI up. Verified on PyTorch 2.9.1 + CUDA 13.0 + GB300.
+    _kineto_warmed = False
+
+    @classmethod
+    def _warmup_kineto(cls):
+        if cls._kineto_warmed or not torch.cuda.is_available():
+            return
+        with torch.profiler.profile(
+            activities=[
+                torch.profiler.ProfilerActivity.CPU,
+                torch.profiler.ProfilerActivity.CUDA,
+            ]
+        ):
+            t = torch.zeros(1, device="cuda")
+            t.add_(1.0)
+            torch.cuda.synchronize()
+        cls._kineto_warmed = True
+
     def start(self):
         activity_map = {
             "CPU": torch.profiler.ProfilerActivity.CPU,
@@ -268,6 +289,9 @@ class _ProfilerTorch(_ProfilerConcreteBase):
         torchprof_activities = [
             activity_map[a] for a in self.activities if a in activity_map
         ]
+
+        if not _is_npu and torch.profiler.ProfilerActivity.CUDA in torchprof_activities:
+            self._warmup_kineto()
 
         self.torch_profiler = torch.profiler.profile(
             activities=torchprof_activities,
