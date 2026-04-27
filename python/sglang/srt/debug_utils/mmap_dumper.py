@@ -283,8 +283,7 @@ def _bench_speed(dump_dir_root: str = "/dev/shm/mmap_dumper_bench") -> None:
     print(f"[bench] using {n_ranks} ranks (GPUs available: {n_gpus})")
     print(f"[bench] dump dir root = {dump_dir_root}")
 
-    if os.path.exists(dump_dir_root):
-        shutil.rmtree(dump_dir_root)
+    shutil.rmtree(dump_dir_root, ignore_errors=True)
     os.makedirs(dump_dir_root, exist_ok=True)
 
     try:
@@ -299,13 +298,14 @@ def _bench_speed_inner(dump_dir_root: str, n_ranks: int) -> None:
     import multiprocessing as mp
     import shutil
 
-    # Two scenarios:
-    # (A) old behavior: dump full req_to_token = (4608, 1048580) int32 ~ 18 GB
-    # (B) new behavior: dump req_to_token[:, :10000] = (4608, 10000) int32 ~ 184 MB
+    # Default: only run SMALL (the new fast path).
+    # Set SGLANG_DUMP_BENCH_BIG=1 to also run BIG (old slow path) for comparison.
+    big = os.environ.get("SGLANG_DUMP_BENCH_BIG", "0") not in ("", "0", "false", "False")
     scenarios = [
-        ("BIG (4608, 1048580) ~ 18 GB", (4608, 1048580), 3),
         ("SMALL (4608, 10000) ~ 184 MB", (4608, 10000), 5),
     ]
+    if big:
+        scenarios.insert(0, ("BIG (4608, 1048580) ~ 18 GB", (4608, 1048580), 3))
 
     ctx = mp.get_context("spawn")
     for label, shape, n_iters in scenarios:
