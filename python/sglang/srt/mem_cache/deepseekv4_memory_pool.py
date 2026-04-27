@@ -388,15 +388,18 @@ class DeepSeekV4TokenToKVPool(KVCache):
             start_layer,
             end_layer,
         )
+        c4_logical_size = c128_size * 32
 
         logger.info(
             "Initialize DeepSeekV4TokenToKVPool with "
-            f"{max_num_reqs=} {swa_size=} {c4_size=} {c128_size=} "
+            f"{max_num_reqs=} {swa_size=} {c4_size=} "
+            f"{c4_logical_size=} {c128_size=} "
             f"{c4_state_pool_size=} {c128_state_pool_size=}"
         )
 
         self.max_num_reqs = max_num_reqs
         self.c4_size = c4_size
+        self.c4_logical_size = c4_logical_size
         self.c128_size = c128_size
         self.c4_state_pool_size = c4_state_pool_size
         self.c128_state_pool_size = c128_state_pool_size
@@ -456,7 +459,7 @@ class DeepSeekV4TokenToKVPool(KVCache):
         )
 
         self.c4_indexer_kv_pool = DeepSeekV4IndexerPool(
-            c4_size,
+            self.c4_logical_size,
             c4_page_size,
             dtype,
             indexer_head_dim,
