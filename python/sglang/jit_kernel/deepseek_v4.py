@@ -15,6 +15,7 @@ from sglang.jit_kernel.utils import (
 from sglang.srt.debug_utils.deepseek_v4_debug_utils import (
     deepseek_v4_moe_code_path_checker,
 )
+from sglang.srt.environ import envs
 
 if TYPE_CHECKING:
     from tvm_ffi.module import Module
@@ -804,18 +805,21 @@ def triton_create_paged_compress_data(
     full_to_swa_index_mapping: torch.Tensor,
     block: int = 128,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
-    _maybe_dump_create_paged_compress_data_inputs(
-        compress_ratio=compress_ratio,
-        is_overlap=is_overlap,
-        swa_page_size=swa_page_size,
-        ring_size=ring_size,
-        req_pool_indices=req_pool_indices,
-        seq_lens=seq_lens,
-        extend_seq_lens=extend_seq_lens,
-        req_to_token=req_to_token,
-        full_to_swa_index_mapping=full_to_swa_index_mapping,
-        block=block,
-    )
+    _should_dump = envs.SGLANG_HACK_DEBUG_DUMP_CREATE_PAGED_COMPRESS_DATA.get() and (compress_ratio == 128)
+    if _should_dump:
+        _maybe_dump_create_paged_compress_data_inputs(
+            compress_ratio=compress_ratio,
+            is_overlap=is_overlap,
+            swa_page_size=swa_page_size,
+            ring_size=ring_size,
+            req_pool_indices=req_pool_indices,
+            seq_lens=seq_lens,
+            extend_seq_lens=extend_seq_lens,
+            req_to_token=req_to_token,
+            full_to_swa_index_mapping=full_to_swa_index_mapping,
+            block=block,
+        )
+
     batch_size = req_pool_indices.shape[0]
     out_dim = 4 if is_overlap else 1
     device_args: dict = dict(device=req_pool_indices.device, dtype=torch.int32)
@@ -841,6 +845,10 @@ def triton_create_paged_compress_data(
         ring_size=ring_size,
         BLOCK=block,
     )
+
+    if _should_dump:
+        torch.cuda.synchronize()
+
     if not is_overlap:
         out_1.squeeze_(1)
     return out_0, out_1
