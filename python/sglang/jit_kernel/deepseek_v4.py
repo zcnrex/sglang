@@ -801,8 +801,8 @@ def create_paged_compress_data_kernel(
         pos = tl.maximum(pos, 0)
         loc = tl.load(
             req_to_token_ptr
-            + rid * stride_req_to_token_0
-            + pos * stride_req_to_token_1,
+            + rid.to(tl.int64) * stride_req_to_token_0
+            + pos.to(tl.int64) * stride_req_to_token_1,
             mask=mask,
             other=0,
         ).to(tl.int32)
