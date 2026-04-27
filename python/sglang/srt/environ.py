@@ -351,6 +351,10 @@ class Envs:
     SGLANG_BLACKWELL_OVERLAP_SHARED_EXPERTS_OUTSIDE_SBO = EnvBool(False)
     SGLANG_HACK_OVERRIDE_TOPK_IDS_RANDOM = EnvBool(False)
     SGLANG_HACK_FORCE_TID2EID_ZERO = EnvBool(False)
+    # Workaround torch.profiler+kineto first-call dropping all GPU events on
+    # PyTorch 2.9.1 + CUDA 13.0 + GB300. Run a tiny dummy 1-kernel profile at
+    # first start() to warm CUPTI activity callbacks. See journal 0427_011.
+    SGLANG_HACK_WARMUP_KINETO = EnvBool(False)
 
     # NSA Backend
     SGLANG_NSA_FUSE_TOPK = EnvBool(True)

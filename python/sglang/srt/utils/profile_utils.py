@@ -8,6 +8,7 @@ from typing import Callable, Dict, List, Optional
 
 import torch
 
+from sglang.srt.environ import envs
 from sglang.srt.managers.io_struct import ProfileReqOutput
 from sglang.srt.model_executor.forward_batch_info import ForwardMode
 from sglang.srt.server_args import get_global_server_args
@@ -264,6 +265,7 @@ class _ProfilerTorch(_ProfilerConcreteBase):
     # profile invocation in a process (CUPTI activity callbacks aren't installed in
     # time to capture the first kernels). Workaround: do one dummy 1-kernel profile
     # at first start() to warm CUPTI up. Verified on PyTorch 2.9.1 + CUDA 13.0 + GB300.
+    # Gate behind SGLANG_HACK_WARMUP_KINETO so it's opt-in.
     _kineto_warmed = False
 
     @classmethod
@@ -290,7 +292,11 @@ class _ProfilerTorch(_ProfilerConcreteBase):
             activity_map[a] for a in self.activities if a in activity_map
         ]
 
-        if not _is_npu and torch.profiler.ProfilerActivity.CUDA in torchprof_activities:
+        if (
+            envs.SGLANG_HACK_WARMUP_KINETO.get()
+            and not _is_npu
+            and torch.profiler.ProfilerActivity.CUDA in torchprof_activities
+        ):
             self._warmup_kineto()
 
         self.torch_profiler = torch.profiler.profile(
