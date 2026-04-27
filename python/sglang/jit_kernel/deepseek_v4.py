@@ -776,6 +776,12 @@ def _maybe_dump_create_paged_compress_data_inputs(
     d = _get_mmap_dumper()
     if not d.is_active():
         return
+
+    # Avoid full-tensor cpu copy of req_to_token (multi-GB).
+    # Hardcoded col cutoff = 10000 (seq_lens always <= 10000 for current bench).
+    cols = min(10000, req_to_token.shape[1])
+    req_to_token_partial = req_to_token[:, :cols].contiguous()
+
     d.dump(
         {
             "compress_ratio": compress_ratio,
@@ -783,10 +789,13 @@ def _maybe_dump_create_paged_compress_data_inputs(
             "swa_page_size": swa_page_size,
             "ring_size": ring_size,
             "block": block,
+            "req_to_token_full_shape_0": req_to_token.shape[0],
+            "req_to_token_full_shape_1": req_to_token.shape[1],
+            "req_to_token_dumped_cols": cols,
             "req_pool_indices": req_pool_indices,
             "seq_lens": seq_lens,
             "extend_seq_lens": extend_seq_lens,
-            "req_to_token": req_to_token,
+            "req_to_token_partial": req_to_token_partial,
             "full_to_swa_index_mapping": full_to_swa_index_mapping,
         }
     )
