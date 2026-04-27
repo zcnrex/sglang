@@ -816,6 +816,7 @@ def triton_create_paged_compress_data(
 ) -> Tuple[torch.Tensor, torch.Tensor]:
     _should_dump = envs.SGLANG_HACK_DEBUG_DUMP_CREATE_PAGED_COMPRESS_DATA.get() and (compress_ratio == 128)
     if _should_dump:
+        torch.cuda.synchronize()
         _maybe_dump_create_paged_compress_data_inputs(
             compress_ratio=compress_ratio,
             is_overlap=is_overlap,
