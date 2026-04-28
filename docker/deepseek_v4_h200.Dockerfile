@@ -18,6 +18,9 @@ RUN cd /tmp && rm -rf flash-mla && \
 
 RUN pip install -e /workspace/sglang/python/
 
+# Build kernel for w4a16 marlin
+RUN cd /workspace/sglang/sgl-kernel && make build
+
 # DeepGEMM must come after sglang install: sglang pyproject pulls
 # cuda-python / sgl-kernel / quack-kernels / nvidia-cutlass-dsl, which
 # DeepGEMM depends on at the resolved versions.
@@ -31,6 +34,3 @@ RUN pip uninstall -y deep-gemm deep_gemm 2>/dev/null; \
 # DeepGEMM install.sh bumps apache-tvm-ffi to 0.1.10, which breaks tilelang
 # 0.1.8 ABI. Re-pin to 0.1.9 (--no-deps so pip does not touch deep-gemm).
 RUN pip install --no-deps apache-tvm-ffi==0.1.9
-
-# Build kernel for w4a16 marlin
-RUN cd /workspace/sglang/sgl-kernel && make build
