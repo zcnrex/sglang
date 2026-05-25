@@ -6275,7 +6275,7 @@ class ServerArgs:
         parser.add_argument(
             "--enable-torch-symm-mem",
             action="store_true",
-            help="Enable using torch symm mem for all-reduce kernel and fall back to NCCL. Only supports CUDA device SM90 and above. SM90 supports world size 4, 6, 8. SM100 supports world size 6, 8.",
+            help="Enable using torch symm mem for all-reduce kernel and fall back to NCCL. Only supports CUDA device SM90 and above. SM90 supports world size 4, 6, 8. SM100 supports world size 4, 6, 8. The staging-buffer cap can be overridden with SGLANG_TORCH_SYMM_MEM_ALLREDUCE_MAX_BYTES.",
         )
         parser.add_argument(
             "--pre-warm-nccl",

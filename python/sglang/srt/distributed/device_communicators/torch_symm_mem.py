@@ -10,6 +10,7 @@ from torch.distributed import ProcessGroup
 
 from sglang.srt.distributed.device_communicators.all_reduce_utils import (
     TORCH_SYMM_MEM_ALL_REDUCE_MAX_SIZES,
+    get_torch_symm_mem_all_reduce_max_size,
 )
 from sglang.srt.utils import is_cuda, is_hip
 
@@ -90,9 +91,9 @@ class TorchSymmMemCommunicator:
                 self.world_size,
             )
             return
-        self.max_size = TORCH_SYMM_MEM_ALL_REDUCE_MAX_SIZES[self.device_capability][
-            self.world_size
-        ]
+        self.max_size = get_torch_symm_mem_all_reduce_max_size(
+            self.device_capability, self.world_size
+        )
         self.buffer = torch_symm_mem.empty(
             self.max_size // self.dtype.itemsize,
             device=self.device,
@@ -108,6 +109,19 @@ class TorchSymmMemCommunicator:
             self.disabled = True
             return
         self.disabled = False
+        kernel = (
+            "multimem"
+            if self.world_size in self._WORLD_SIZES_MULTIMEM[self.device_capability]
+            else "two_shot"
+        )
+        logger.info(
+            "TorchSymmMemCommunicator enabled: world_size=%d, cc=%d, "
+            "max_size=%.1f MiB, kernel=%s",
+            self.world_size,
+            self.device_capability,
+            self.max_size / (1024 * 1024),
+            kernel,
+        )
 
     def should_torch_symm_mem_allreduce(self, inp: torch.Tensor):
         """
@@ -117,7 +131,7 @@ class TorchSymmMemCommunicator:
           - Communicator must be enabled.
           - dtype must be bfloat16 (matches kernel + buffer dtype).
           - Total byte size must be 4-byte aligned (hardware requirement).
-          - Payload must be smaller than the symmetric-memory max size.
+          - Payload must fit in the symmetric-memory staging buffer.
 
         Returns:
             True if the symmetric-memory path can handle this tensor.
@@ -130,7 +144,7 @@ class TorchSymmMemCommunicator:
         # enforce 4-byte alignment
         if inp_size % 4 != 0:
             return False
-        return inp_size < self.max_size
+        return inp_size <= self.max_size
 
     def all_reduce(
         self, inp: torch.Tensor, *, out: Optional[torch.Tensor] = None

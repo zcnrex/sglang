@@ -408,6 +408,8 @@ class Envs:
     SGLANG_FLASHINFER_WORKSPACE_SIZE = EnvInt(384 * 1024 * 1024)
     # Enable per-token NVFP4 activation scaling path for FlashInfer TRT-LLM MoE.
     SGLANG_FLASHINFER_NVFP4_PER_TOKEN_ACTIVATION = EnvBool(False)
+    # Cap the TRT-LLM allreduce-fusion workspace by payload bytes. Set 0 to disable.
+    SGLANG_FLASHINFER_ALLREDUCE_FUSION_WORKSPACE_MAX_BYTES = EnvInt(2 * 1024 * 1024)
     # Skip-softmax threshold scale factor for TRT-LLM attention (prefill and decode separately).
     # None = standard attention. See https://arxiv.org/abs/2512.12087
     SGLANG_SKIP_SOFTMAX_PREFILL_THRESHOLD_SCALE_FACTOR = EnvFloat(None)
@@ -696,6 +698,9 @@ class Envs:
     # Symmetric Memory
     SGLANG_SYMM_MEM_PREALLOC_GB_SIZE = EnvInt(-1)
     SGLANG_DEBUG_SYMM_MEM = EnvBool(False)
+    # Optional override for the torch symmetric-memory allreduce staging buffer.
+    # Non-positive values keep the built-in topology default.
+    SGLANG_TORCH_SYMM_MEM_ALLREDUCE_MAX_BYTES = EnvInt(None)
 
     # Aiter
     SGLANG_USE_AITER_FP8_PER_TOKEN = EnvBool(False)

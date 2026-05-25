@@ -59,7 +59,10 @@ from sglang.srt.layers.dp_attention import (
     is_enable_moe_cp_allgather,
     moe_cp_all_gather_into_tensor,
 )
-from sglang.srt.layers.flashinfer_comm_fusion import is_flashinfer_allreduce_unavailable
+from sglang.srt.layers.flashinfer_comm_fusion import (
+    get_flashinfer_allreduce_fusion_max_token_num,
+    is_flashinfer_allreduce_unavailable,
+)
 from sglang.srt.layers.moe import (
     get_moe_a2a_backend,
     should_use_dp_reduce_scatterv,
@@ -159,14 +162,23 @@ def _fused_rmsnorm_fp8_per_token_quant(
 FUSE_ALLREDUCE_MAX_BATCH_SIZE = 2048
 
 
-def apply_flashinfer_allreduce_fusion(batch_size: int):
+def apply_flashinfer_allreduce_fusion(
+    batch_size: int,
+    hidden_dim: Optional[int] = None,
+    dtype: Optional[torch.dtype] = None,
+):
+    max_batch_size = get_flashinfer_allreduce_fusion_max_token_num(
+        max_token_num=FUSE_ALLREDUCE_MAX_BATCH_SIZE,
+        hidden_dim=hidden_dim,
+        dtype=dtype,
+    )
     return (
         # NOTE: flashinfer 0.6.1 caused performance regression on sm100 for allreduce fusion
         # Ref: https://github.com/sgl-project/sglang/issues/17237
         (_is_sm90_supported or _is_sm100_supported)
         and _is_flashinfer_available
         and batch_size > 0
-        and batch_size <= FUSE_ALLREDUCE_MAX_BATCH_SIZE
+        and batch_size <= max_batch_size
         and not is_dp_attention_enabled()
         and get_global_server_args().enable_flashinfer_allreduce_fusion
         and not is_flashinfer_allreduce_unavailable()
@@ -529,7 +541,11 @@ class LayerCommunicator:
             ):
                 if (
                     apply_aiter_all_reduce_fusion(hidden_states)
-                    or apply_flashinfer_allreduce_fusion(hidden_states.shape[0])
+                    or apply_flashinfer_allreduce_fusion(
+                        hidden_states.shape[0],
+                        hidden_states.shape[-1],
+                        hidden_states.dtype,
+                    )
                 ) and hasattr(self.input_layernorm, "forward_with_allreduce_fusion"):
                     hidden_states, residual = (
                         self.input_layernorm.forward_with_allreduce_fusion(
@@ -748,6 +764,10 @@ class LayerCommunicator:
             else 0
         )
 
+        norm_weight = getattr(self.input_layernorm, "weight", None)
+        hidden_dim = norm_weight.numel() if norm_weight is not None else None
+        dtype = norm_weight.dtype if norm_weight is not None else None
+
         # When mlp_mode is SCATTERED, the MLP runs on scattered data with no TP
         # all-reduce, so there is nothing to fuse with the next layer.
         if self.layer_scatter_modes.mlp_mode == ScatterMode.SCATTERED:
@@ -755,7 +775,7 @@ class LayerCommunicator:
 
         return (
             (
-                apply_flashinfer_allreduce_fusion(batch_size)
+                apply_flashinfer_allreduce_fusion(batch_size, hidden_dim, dtype)
                 or (
                     _use_aiter
                     and batch_size > 0
@@ -1010,7 +1030,11 @@ class CommunicateWithAllReduceAndLayerNormFn:
             handled = False
             if (
                 apply_aiter_all_reduce_fusion(hidden_states)
-                or apply_flashinfer_allreduce_fusion(hidden_states.shape[0])
+                or apply_flashinfer_allreduce_fusion(
+                    hidden_states.shape[0],
+                    hidden_states.shape[-1],
+                    hidden_states.dtype,
+                )
             ) and hasattr(layernorm, "forward_with_allreduce_fusion"):
                 hidden_states, residual = layernorm.forward_with_allreduce_fusion(
                     hidden_states, residual, use_attn_tp_group=True

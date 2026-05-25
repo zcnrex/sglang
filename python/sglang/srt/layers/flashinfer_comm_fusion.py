@@ -37,6 +37,32 @@ _flashinfer_allreduce_supports_trigger_completion = False
 _posix_transport_override_logged = False
 
 
+def _flashinfer_workspace_dtype_element_size(dtype: torch.dtype) -> int:
+    return 4 if dtype == torch.float32 else 2
+
+
+def get_flashinfer_allreduce_fusion_max_token_num(
+    max_token_num: int,
+    hidden_dim: Optional[int],
+    dtype: Optional[torch.dtype],
+) -> int:
+    max_workspace_bytes = (
+        envs.SGLANG_FLASHINFER_ALLREDUCE_FUSION_WORKSPACE_MAX_BYTES.get()
+    )
+    if (
+        max_workspace_bytes is None
+        or max_workspace_bytes <= 0
+        or hidden_dim is None
+        or hidden_dim <= 0
+        or dtype is None
+    ):
+        return max_token_num
+
+    bytes_per_token = hidden_dim * _flashinfer_workspace_dtype_element_size(dtype)
+    max_workspace_tokens = max(1, max_workspace_bytes // bytes_per_token)
+    return min(max_token_num, max_workspace_tokens)
+
+
 def _should_force_posix_fd_transport() -> bool:
     force_posix_env = envs.SGLANG_FLASHINFER_FORCE_POSIX_FD_TRANSPORT.get()
     if force_posix_env is not None:
@@ -212,7 +238,7 @@ def _flashinfer_trtllm_workspace_allocation_sizes(
     dtype: torch.dtype,
 ) -> list[int]:
     """Mirror FlashInfer TRTLLM SymmDeviceMemory local allocation sizes."""
-    elem_size = 4 if dtype == torch.float32 else 2
+    elem_size = _flashinfer_workspace_dtype_element_size(dtype)
     buffer_size = world_size * max_token_num * hidden_dim * 2
     flag_size = world_size * 256 * 4
 
@@ -559,7 +585,27 @@ def ensure_workspace_initialized(
         return False
 
     workspace_manager = _get_workspace_manager(use_attn_tp_group)
-    token_num = token_num or max_token_num
+    workspace_max_token_num = get_flashinfer_allreduce_fusion_max_token_num(
+        max_token_num=max_token_num,
+        hidden_dim=hidden_dim,
+        dtype=dtype,
+    )
+    token_num = token_num if token_num is not None else workspace_max_token_num
+    if token_num > workspace_max_token_num:
+        return False
+
+    if workspace_max_token_num < max_token_num and not workspace_manager.initialized:
+        logger.info(
+            "Capping FlashInfer allreduce fusion workspace max_token_num "
+            "from %s to %s for hidden_dim=%s, dtype=%s. Set "
+            "SGLANG_FLASHINFER_ALLREDUCE_FUSION_WORKSPACE_MAX_BYTES=0 "
+            "to disable this cap.",
+            max_token_num,
+            workspace_max_token_num,
+            hidden_dim,
+            dtype,
+        )
+
     group_key = (device_group, cpu_group)
 
     if (
@@ -577,7 +623,7 @@ def ensure_workspace_initialized(
         workspace_manager.initialize(
             world_size=world_size,
             rank=rank,
-            max_token_num=max_token_num,
+            max_token_num=workspace_max_token_num,
             hidden_dim=hidden_dim,
             dtype=dtype,
             use_oneshot=use_oneshot,
