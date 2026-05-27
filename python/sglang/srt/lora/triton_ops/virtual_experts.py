@@ -3,6 +3,7 @@ LoRA Virtual Experts Triton Ops.
 """
 
 import functools
+import os
 from typing import Any
 
 import torch
@@ -10,6 +11,28 @@ import triton
 import triton.language as tl
 
 from sglang.jit_kernel.moe_align import moe_align_block_size as jit_moe_align_block_size
+
+
+def _get_expand_add_variant() -> tuple[str, int]:
+    """LoRA-B expand+add kernel selection, controlled by env.
+
+    SGLANG_MOE_LORA_EXPAND_ADD_V2:
+        unset / "1" / "tile" -> dedicated tile kernel (v2, default)
+        "0" / "v1" / "false" -> generic fused_moe_kernel
+    SGLANG_MOE_LORA_EXPAND_ADD_BLOCK_M (optional int):
+        override BLOCK_SIZE_M (and its routing alignment) for whichever expand
+        kernel is selected -- including v1, so a retuned-BM generic kernel can
+        be compared against v2 in a real server run. Defaults to 16, matching
+        the best benchmarked LoRA-B expand+add tile shape.
+    """
+    variant = os.environ.get("SGLANG_MOE_LORA_EXPAND_ADD_V2", "tile").lower()
+    if variant in ("0", "false", "v1"):
+        variant = "v1"
+    else:
+        variant = "tile"
+    block_m_env = os.environ.get("SGLANG_MOE_LORA_EXPAND_ADD_BLOCK_M")
+    block_m = int(block_m_env) if block_m_env else 16
+    return variant, block_m
 
 
 @triton.jit
@@ -297,6 +320,184 @@ def _invoke_moe_lora_shrink_splitk(
         SPLIT_K=SPLIT_K,
         num_warps=config.get("num_warps", 4),
         num_stages=config.get("num_stages", 4),
+    )
+
+
+@triton.jit
+def _moe_lora_expand_add_kernel(
+    a_ptr,
+    b_ptr,
+    c_ptr,
+    topk_weights_ptr,
+    sorted_token_ids_ptr,
+    expert_ids_ptr,
+    num_tokens_post_padded_ptr,
+    add_mask_ptr,
+    N,
+    K,
+    num_valid_tokens,
+    stride_am,
+    stride_ak,
+    stride_be,
+    stride_bn,
+    stride_bk,
+    stride_cm,
+    stride_cn,
+    MUL_ROUTED_WEIGHT: tl.constexpr,
+    ROUTER_TOPK: tl.constexpr,
+    BLOCK_SIZE_M: tl.constexpr,
+    BLOCK_SIZE_N: tl.constexpr,
+    BLOCK_SIZE_K: tl.constexpr,
+    GROUP_SIZE_M: tl.constexpr,
+    EVEN_K: tl.constexpr,
+    EVEN_N: tl.constexpr,
+):
+    """Dedicated LoRA-B expand+add (one tile per program).
+
+    Drop-in replacement for the generic ``fused_moe_kernel`` with
+    ``FUSE_ADD_TO_OUTPUT=True`` on the LoRA-B expand path. Specialized to the
+    LoRA shape (tiny K=r, no quant/bias/swap-ab branches) so the only knob that
+    matters for the ragged MoE-LoRA grid - ``BLOCK_SIZE_M`` - can be tuned down
+    from the generic kernel's 64 to cut the padding waste over near-empty
+    virtual experts (avg ~2 real rows/expert)."""
+    pid = tl.program_id(axis=0)
+
+    num_tokens_post_padded = tl.load(num_tokens_post_padded_ptr)
+    num_pid_m = tl.cdiv(num_tokens_post_padded, BLOCK_SIZE_M)
+    num_pid_n = tl.cdiv(N, BLOCK_SIZE_N)
+    if pid >= num_pid_m * num_pid_n:
+        return
+
+    if GROUP_SIZE_M == 1:
+        pid_m = pid // num_pid_n
+        pid_n = pid - pid_m * num_pid_n
+    else:
+        num_pid_in_group = GROUP_SIZE_M * num_pid_n
+        group_id = pid // num_pid_in_group
+        first_pid_m = group_id * GROUP_SIZE_M
+        group_size_m = min(num_pid_m - first_pid_m, GROUP_SIZE_M)
+        pid_m = first_pid_m + ((pid % num_pid_in_group) % group_size_m)
+        pid_n = (pid % num_pid_in_group) // group_size_m
+
+    off_experts = tl.load(expert_ids_ptr + pid_m).to(tl.int64)
+    if off_experts == -1:
+        return
+
+    offs_token_id = pid_m * BLOCK_SIZE_M + tl.arange(0, BLOCK_SIZE_M).to(tl.int64)
+    offs_token = tl.load(sorted_token_ids_ptr + offs_token_id).to(tl.int64)
+    token_mask = offs_token < num_valid_tokens
+    add_mask = tl.load(
+        add_mask_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=False
+    )
+    row_mask = token_mask & add_mask
+
+    offs_bn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N).to(tl.int64)
+    offs_k = tl.arange(0, BLOCK_SIZE_K)
+
+    # `a` is the shrink intermediate, already laid out one row per (token, slot).
+    a_ptrs = a_ptr + offs_token[:, None] * stride_am + offs_k[None, :] * stride_ak
+    b_ptrs = (
+        b_ptr
+        + off_experts * stride_be
+        + offs_k[:, None] * stride_bk
+        + offs_bn[None, :] * stride_bn
+    )
+
+    if EVEN_K:
+        a = tl.load(a_ptrs, mask=row_mask[:, None], other=0.0)
+        if EVEN_N:
+            b = tl.load(b_ptrs)
+        else:
+            b = tl.load(b_ptrs, mask=offs_bn[None, :] < N, other=0.0)
+    else:
+        k_mask = offs_k < K
+        a = tl.load(a_ptrs, mask=row_mask[:, None] & k_mask[None, :], other=0.0)
+        b_mask = k_mask[:, None]
+        if not EVEN_N:
+            b_mask = b_mask & (offs_bn[None, :] < N)
+        b = tl.load(b_ptrs, mask=b_mask, other=0.0)
+
+    accumulator = tl.dot(a, b.to(a.dtype))
+
+    if MUL_ROUTED_WEIGHT:
+        moe_weight = tl.load(topk_weights_ptr + offs_token, mask=row_mask, other=0.0)
+        accumulator = accumulator * moe_weight[:, None]
+    accumulator = accumulator.to(c_ptr.dtype.element_ty)
+
+    offs_cn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N)
+    c_mask = row_mask[:, None] & (offs_cn[None, :] < N)
+    c_ptrs = c_ptr + stride_cm * offs_token[:, None] + stride_cn * offs_cn[None, :]
+    existing = tl.load(c_ptrs, mask=c_mask, other=0.0)
+    tl.store(c_ptrs, existing + accumulator, mask=c_mask)
+
+
+def invoke_moe_lora_expand_add(
+    intermediate: torch.Tensor,  # (num_tokens * top_k, K=r)
+    lora_b: torch.Tensor,  # (num_virtual_experts, N, K=r)
+    output: torch.Tensor,  # (num_tokens, top_k, N) - added in place
+    topk_weights: torch.Tensor,  # (num_tokens, top_k)
+    topk_ids: torch.Tensor,  # (num_tokens, top_k)
+    sorted_token_ids: torch.Tensor,
+    expert_ids: torch.Tensor,
+    num_tokens_post_padded: torch.Tensor,
+    add_output_mask: torch.Tensor,  # (num_tokens,) bool
+    mul_routed_weight: bool,
+    router_topk: int,
+    block_size_m: int,
+    block_size_n: int = 128,
+    group_size_m: int = 1,
+    num_warps: int = 4,
+    num_stages: int = 4,
+) -> None:
+    """Launch the dedicated LoRA-B expand+add kernel (v2).
+
+    Semantically identical to the generic ``invoke_fused_moe_kernel(...,
+    fuse_add_to_output=True)`` call it replaces on the LoRA-B expand path, but
+    specialized to the LoRA shape. ``block_size_m`` MUST match the block size
+    the routing tensors were aligned with (``moe_align_block_size``)."""
+    _, K = intermediate.shape
+    _, N, K_b = lora_b.shape
+    assert K_b == K, (K_b, K)
+
+    out2d = output.view(-1, N)  # (num_tokens * top_k, N)
+    block_size_n = min(block_size_n, max(16, triton.next_power_of_2(N)))
+    block_size_k = max(16, triton.next_power_of_2(K))
+    even_k = K % block_size_k == 0
+    even_n = N % block_size_n == 0
+
+    grid = lambda META: (
+        triton.cdiv(sorted_token_ids.shape[0], META["BLOCK_SIZE_M"])
+        * triton.cdiv(N, META["BLOCK_SIZE_N"]),
+    )
+    _moe_lora_expand_add_kernel[grid](
+        intermediate,
+        lora_b,
+        out2d,
+        topk_weights,
+        sorted_token_ids,
+        expert_ids,
+        num_tokens_post_padded,
+        add_output_mask,
+        N,
+        K,
+        topk_ids.numel(),
+        intermediate.stride(0),
+        intermediate.stride(1),
+        lora_b.stride(0),
+        lora_b.stride(1),
+        lora_b.stride(2),
+        out2d.stride(0),
+        out2d.stride(1),
+        MUL_ROUTED_WEIGHT=mul_routed_weight,
+        ROUTER_TOPK=router_topk,
+        BLOCK_SIZE_M=block_size_m,
+        BLOCK_SIZE_N=block_size_n,
+        BLOCK_SIZE_K=block_size_k,
+        GROUP_SIZE_M=group_size_m,
+        EVEN_K=even_k,
+        EVEN_N=even_n,
+        num_warps=num_warps,
+        num_stages=num_stages,
     )
 
 
@@ -679,6 +880,14 @@ def _merged_experts_fused_moe_lora_add_impl(
     )
 
     b_stage_config = _get_stage_config(lora_b_virtual, 1)
+    expand_variant, expand_block_m = _get_expand_add_variant()
+    # Keep the routing block size and the kernel BLOCK_SIZE_M in lock-step:
+    # moe_align_block_size pads each expert group to BLOCK_SIZE_M, and the
+    # kernel strides over those padded groups. The override applies to v1 too,
+    # so a retuned-BM generic kernel can be A/B'd against the dedicated v2.
+    if expand_block_m > 0:
+        b_stage_config = {**b_stage_config, "BLOCK_SIZE_M": expand_block_m}
+
     (
         sorted_token_ids,
         expert_ids,
@@ -692,33 +901,60 @@ def _merged_experts_fused_moe_lora_add_impl(
         b_stage_config["BLOCK_SIZE_M"],
     )
 
-    invoke_fused_moe_kernel(
-        intermediate.view(-1, max_lora_rank),
-        lora_b_virtual,
-        None,
-        output,
-        None,
-        None,
-        None,
-        topk_weights,
-        topk_ids,
-        sorted_token_ids,
-        expert_ids,
-        num_tokens_post_padded,
-        mul_routed_weight,
-        1,
-        b_stage_config,
-        tl.bfloat16 if hidden_states.dtype == torch.bfloat16 else tl.float16,
-        False,
-        False,
-        False,
-        False,
-        False,
-        None,
-        fuse_add_to_output=True,
-        add_output_mask=token_lora_mask,
-        router_topk=topk_ids.shape[1],
-    )
+    # Widen the LoRA-B output tile to BN=128 for both paths. The output width
+    # N (2*moe_intermediate or hidden_size) is large, while the routing default
+    # picks BN=32/64; a wider N tile amortizes the tiny-K (=rank) GEMV far
+    # better. BN doesn't affect routing, so it's safe to set after alignment.
+    b_stage_config = {**b_stage_config, "BLOCK_SIZE_N": 128}
+
+    if expand_variant == "v1":
+        invoke_fused_moe_kernel(
+            intermediate.view(-1, max_lora_rank),
+            lora_b_virtual,
+            None,
+            output,
+            None,
+            None,
+            None,
+            topk_weights,
+            topk_ids,
+            sorted_token_ids,
+            expert_ids,
+            num_tokens_post_padded,
+            mul_routed_weight,
+            1,
+            b_stage_config,
+            tl.bfloat16 if hidden_states.dtype == torch.bfloat16 else tl.float16,
+            False,
+            False,
+            False,
+            False,
+            False,
+            None,
+            fuse_add_to_output=True,
+            add_output_mask=token_lora_mask,
+            router_topk=topk_ids.shape[1],
+        )
+    else:
+        invoke_moe_lora_expand_add(
+            intermediate.view(-1, max_lora_rank),
+            lora_b_virtual,
+            output,
+            topk_weights,
+            topk_ids,
+            sorted_token_ids,
+            expert_ids,
+            num_tokens_post_padded,
+            token_lora_mask,
+            mul_routed_weight,
+            topk_ids.shape[1],
+            # Same BM/BN as v1, read from the shared b_stage_config.
+            block_size_m=b_stage_config["BLOCK_SIZE_M"],
+            block_size_n=b_stage_config.get("BLOCK_SIZE_N", 128),
+            group_size_m=b_stage_config.get("GROUP_SIZE_M", 1),
+            num_warps=b_stage_config.get("num_warps", 4),
+            num_stages=b_stage_config.get("num_stages", 4),
+        )
 
 
 def _merged_experts_fused_moe_lora_add_op(
