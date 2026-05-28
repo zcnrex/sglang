@@ -961,7 +961,13 @@ class FusedMoEWithLoRA(BaseLayerWithLoRA):
             if batch_info.req_weight_indices is not None
             else batch_info.weight_indices
         )
-        if cg_buffers is not None and batch_info.use_cuda_graph:
+        # adapter_enabled is hoisted: computed once per batch in
+        # backend.prepare_lora_batch and shared across all LoRA layers.
+        # Fall back to the legacy per-layer compute if the backend hasn't set it
+        # (keeps any non-triton MoE backend working).
+        if batch_info.adapter_enabled is not None:
+            adapter_enabled = batch_info.adapter_enabled
+        elif cg_buffers is not None and batch_info.use_cuda_graph:
             adapter_enabled = cg_buffers["adapter_enabled"]
             adapter_enabled.zero_()
             idx_buf = cg_buffers["weight_indices_long"]

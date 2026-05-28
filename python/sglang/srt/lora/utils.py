@@ -58,6 +58,13 @@ class LoRABatchInfo:
     # Per-request adapter index, shape (bs,).
     req_weight_indices: Optional[torch.Tensor] = None
 
+    # Per-batch boolean mask of which adapters are active in this batch,
+    # shape (max_loras_per_batch,), int32.  Computed once in
+    # prepare_lora_batch and shared across all LoRA layers (hoisted from
+    # the per-layer 3-op zero_/copy_/index_fill_ sequence in
+    # MoEFusedLoRA._get_lora_info).
+    adapter_enabled: Optional[torch.Tensor] = None
+
 
 class LoRAType(Enum):
     LORA_A = 0

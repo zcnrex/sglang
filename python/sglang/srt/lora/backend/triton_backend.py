@@ -297,6 +297,29 @@ class TritonLoRABackend(BaseLoRABackend):
         )
         batch_info.weight_indices[:bs].copy_(weight_indices_tensor, non_blocking=True)
 
+        # Build adapter_enabled once per batch (hoisted from MoEFusedLoRA._get_lora_info).
+        # Host-side O(bs) compute + single H2D copy replaces three per-layer launches
+        # (zero_ + slice-copy + index_fill_) across every LoRA layer in the model.
+        max_loras = self.max_loras_per_batch
+        adapter_enabled_host = [0] * max_loras
+        for wi in weight_indices:
+            if 0 <= wi < max_loras:
+                adapter_enabled_host[wi] = 1
+        adapter_enabled_cpu = torch.tensor(
+            adapter_enabled_host, dtype=torch.int32, pin_memory=True, device="cpu"
+        )
+        moe_cg = getattr(self, "moe_cg_buffers", None)
+        if use_cuda_graph and moe_cg is not None:
+            # Reuse the pre-allocated cuda-graph static buffer so the captured
+            # graph keeps reading from the same address every replay.
+            adapter_enabled = moe_cg["adapter_enabled"]
+        else:
+            adapter_enabled = torch.empty(
+                max_loras, dtype=torch.int32, device=self.device
+            )
+        adapter_enabled.copy_(adapter_enabled_cpu, non_blocking=True)
+        batch_info.adapter_enabled = adapter_enabled
+
         self.batch_info = batch_info
 
         # Biggest win is in decode.
