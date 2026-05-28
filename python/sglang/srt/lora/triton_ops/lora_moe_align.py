@@ -256,12 +256,14 @@ def lora_moe_align(
     VNE_PADDED = _next_pow2(max(virtual_num_experts, 1))
     MAX_BLOCKS_PAD = _next_pow2(max(max_blocks, 1))
 
-    # cumsum_buffer needs to start zero (histogram atomic-adds into it);
-    # marker_buffer is zeroed inside _count_align_kernel's Phase 0.
-    scratch = torch.empty(VNE_PADDED + MAX_BLOCKS_PAD, dtype=torch.int32, device=device)
-    cumsum_buffer = scratch[:VNE_PADDED]
-    marker_buffer = scratch[VNE_PADDED:]
-    cumsum_buffer.zero_()
+    # cumsum_buffer needs to start zero (histogram atomic-adds into it).
+    # Allocate it as its own whole-storage tensor so torch.zeros lowers to a
+    # cudaMemsetAsync rather than a FillFunctor elementwise kernel (a slice
+    # ``scratch[:VNE_PADDED].zero_()`` would miss the memset fast path because
+    # the view doesn't own its full storage). marker_buffer can stay
+    # uninitialized — it's zeroed inside _count_align_kernel's Phase 0.
+    cumsum_buffer = torch.zeros(VNE_PADDED, dtype=torch.int32, device=device)
+    marker_buffer = torch.empty(MAX_BLOCKS_PAD, dtype=torch.int32, device=device)
 
     if token_lora_mapping.dtype != torch.int32:
         token_lora_mapping = token_lora_mapping.to(torch.int32)
