@@ -908,35 +908,53 @@ def _merged_experts_fused_moe_lora_add_impl(
             if cached is not None:
                 return cached
 
-        virtual_topk_ids, token_lora_mask, virtual_num_experts = (
-            _fused_virtual_topk_ids(
+        if inline_mask:
+            # Fused path: one kernel collapses virtual-topk + align +
+            # tight-slice + sanitize. Sentinel rows (lora_id<0 or base<0)
+            # are dropped at histogram time, so token_lora_mask is implicit
+            # and the downstream expand-add recomputes the "has adapter"
+            # predicate inline from token_lora_mapping.
+            from sglang.srt.lora.triton_ops.lora_moe_align import lora_moe_align
+
+            sorted_token_ids, expert_ids, num_tokens_post_padded, _ = lora_moe_align(
                 topk_ids,
                 token_lora_mapping,
                 num_experts,
-                shared_outer,
                 max_loras,
-                seg_indptr,
-                req_to_lora,
-                write_mask=not inline_mask,
+                block_size,
+                shared_outer=shared_outer,
             )
-        )
-        sorted_token_ids, expert_ids, num_tokens_post_padded = _align_block_size(
-            virtual_topk_ids,
-            block_size=block_size,
-            num_experts=virtual_num_experts,
-        )
-        # _align_block_size uses a worst-case padded allocation. Trim the routing buffers
-        # to a tighter upper bound so we keep the real routed work but drop unused padding
-        num_tokens = topk_ids.numel()
-        max_nonempty = min(num_tokens, virtual_num_experts)
-        tight_padded = (
-            triton.cdiv(num_tokens + max_nonempty * (block_size - 1), block_size)
-            * block_size
-        )
-        sorted_token_ids = sorted_token_ids[:tight_padded]
-        expert_ids = expert_ids[: tight_padded // block_size]
-        if not use_v2:
-            expert_ids = fused_sanitize_expert_ids(expert_ids, virtual_num_experts)
+            token_lora_mask = None
+        else:
+            virtual_topk_ids, token_lora_mask, virtual_num_experts = (
+                _fused_virtual_topk_ids(
+                    topk_ids,
+                    token_lora_mapping,
+                    num_experts,
+                    shared_outer,
+                    max_loras,
+                    seg_indptr,
+                    req_to_lora,
+                    write_mask=not inline_mask,
+                )
+            )
+            sorted_token_ids, expert_ids, num_tokens_post_padded = _align_block_size(
+                virtual_topk_ids,
+                block_size=block_size,
+                num_experts=virtual_num_experts,
+            )
+            # _align_block_size uses a worst-case padded allocation. Trim the routing buffers
+            # to a tighter upper bound so we keep the real routed work but drop unused padding
+            num_tokens = topk_ids.numel()
+            max_nonempty = min(num_tokens, virtual_num_experts)
+            tight_padded = (
+                triton.cdiv(num_tokens + max_nonempty * (block_size - 1), block_size)
+                * block_size
+            )
+            sorted_token_ids = sorted_token_ids[:tight_padded]
+            expert_ids = expert_ids[: tight_padded // block_size]
+            if not use_v2:
+                expert_ids = fused_sanitize_expert_ids(expert_ids, virtual_num_experts)
         result = (
             sorted_token_ids,
             expert_ids,
