@@ -1,31 +1,35 @@
-"""Fused LoRA MoE alignment kernels.
+"""LoRA MoE alignment kernels.
 
-Replaces the 4-op pipeline used by ``_merged_experts_fused_moe_lora_add_impl``:
+Replaces the 4-op pipeline used by ``_merged_experts_fused_moe_lora_add_impl``
+with **3** Triton kernels:
 
-    1. ``_fused_virtual_topk_ids_kernel``     (virtual topk + token_lora_mask)
-    2. ``_align_block_size_jit``              (2 CUDA kernels: align + scatter)
-    3. Python ``tight_padded`` slice          (Python-side cdiv arithmetic)
-    4. ``_fused_sanitize_expert_ids_kernel``  (out-of-range expert_id -> -1)
+    A. ``_histogram_kernel`` (multi-block, grid=cdiv(numel, BLOCK_M)):
+         each program processes a chunk of tokens, computes the virtual
+         expert id inline (``base + lora * num_experts_for_weight``), and
+         atomic-adds 1 to ``cumsum_buffer[vid]``.
 
-with **2** Triton kernels:
-
-    A. ``_count_align_kernel`` (grid=(2,), single-block per pid):
-         pid=0: histogram (atomic-add to global counts) + padded prefix scan +
-                 ``expert_ids`` fill via marker+cummax (O(VNE + max_blocks)
-                 instead of O(VNE * max_blocks)) + writes
-                 ``num_tokens_post_padded`` + writes exclusive offsets back
-                 into the counts buffer (scatter cursor).
+    B. ``_count_align_kernel`` (grid=(2,), single-block per pid):
+         pid=0: padded prefix scan over the histogram + ``expert_ids`` fill
+                 via marker+cummax (O(VNE + max_blocks) instead of
+                 O(VNE * max_blocks)) + writes ``num_tokens_post_padded`` +
+                 writes exclusive offsets back into the counts buffer
+                 (scatter cursor).
          pid=1: pads ``sorted_token_ids`` with the ``numel`` placeholder.
 
-    B. ``_scatter_kernel`` (multi-block):
+    C. ``_scatter_kernel`` (multi-block, grid=cdiv(numel, BLOCK_M)):
          each program processes a chunk of tokens, atomic-adds to the cursor,
          writes the resolved ``sorted_token_ids`` slot.
 
-Virtual topk is computed inline on every token read in both kernels — the
+Virtual topk is computed inline on every token read in A and C — the
 ``[T, top_k]`` ``virtual_topk_ids`` buffer is never materialized. Sentinel
 rows (``lora_id < 0`` or ``base < 0``) are dropped at histogram time, so
 their padding never contributes to ``num_tokens_post_padded`` — the
 ``tight_padded`` slice and the sanitize sweep both fall out automatically.
+
+Kernel B is structurally single-block (the prefix scan and cummax both need
+a global view); its work is bounded by ``VNE_PADDED + MAX_BLOCKS_PAD`` so
+the 2-block grid is fine. Kernels A and C scale with the GPU because their
+O(numel) work is partitioned across SMs.
 """
 
 from __future__ import annotations
@@ -48,25 +52,53 @@ def _max_combine(a, b):
 
 
 # ---------------------------------------------------------------------------
-# Kernel A: histogram + scan + expert_ids + pad sorted_token_ids
+# Kernel A: histogram (multi-block)
 # ---------------------------------------------------------------------------
 @triton.jit
-def _count_align_kernel(
+def _histogram_kernel(
     topk_ids_ptr,
     token_lora_mapping_ptr,
-    sorted_token_ids_ptr,
-    expert_ids_ptr,
-    num_tokens_post_padded_ptr,
-    cumsum_buffer_ptr,
-    marker_buffer_ptr,  # [MAX_BLOCKS_PAD] scratch, pre-zeroed by host
+    cumsum_buffer_ptr,  # pre-zeroed by host
     numel,
     num_experts_for_weight,
     virtual_num_experts,
-    max_padded,
-    max_blocks,
     top_k: tl.constexpr,
-    block_size: tl.constexpr,
     SHARED_OUTER: tl.constexpr,
+    BLOCK_M: tl.constexpr,
+):
+    pid = tl.program_id(0)
+    base_i = pid * BLOCK_M
+    if base_i >= numel:
+        return
+    offs = tl.arange(0, BLOCK_M)
+    idxs = base_i + offs
+    valid = idxs < numel
+    m = idxs // top_k
+    base = tl.load(topk_ids_ptr + idxs, mask=valid, other=-1).to(tl.int32)
+    lora = tl.load(token_lora_mapping_ptr + m, mask=valid, other=-1).to(tl.int32)
+    if SHARED_OUTER:
+        vid = lora
+    else:
+        vid = base + lora * num_experts_for_weight
+    bad = (~valid) | (lora < 0) | (base < 0) | (vid < 0) | (vid >= virtual_num_experts)
+    safe_vid = tl.where(bad, 0, vid)
+    tl.atomic_add(cumsum_buffer_ptr + safe_vid, 1, mask=~bad)
+
+
+# ---------------------------------------------------------------------------
+# Kernel B: scan + expert_ids + pad sorted_token_ids
+# ---------------------------------------------------------------------------
+@triton.jit
+def _count_align_kernel(
+    sorted_token_ids_ptr,
+    expert_ids_ptr,
+    num_tokens_post_padded_ptr,
+    cumsum_buffer_ptr,  # populated with histogram counts by _histogram_kernel
+    marker_buffer_ptr,
+    numel,
+    virtual_num_experts,
+    max_padded,
+    block_size: tl.constexpr,
     VNE_PADDED: tl.constexpr,
     MAX_BLOCKS_PAD: tl.constexpr,
     BLOCK_M: tl.constexpr,
@@ -82,43 +114,15 @@ def _count_align_kernel(
             tl.store(sorted_token_ids_ptr + idxs, numel, mask=mask)
         return
 
-    offs = tl.arange(0, BLOCK_M)
     bucket_idx = tl.arange(0, VNE_PADDED)
     real_mask = bucket_idx < virtual_num_experts
 
-    # ---- Phase 0: zero the scratch (saves the host-side torch.zeros) ----
-    #
-    # cumsum_buffer is accumulated into by atomic-add in Phase A; marker_buffer
-    # is read by Phase C's cummax at unwritten positions. Both must start at 0.
-    tl.store(cumsum_buffer_ptr + bucket_idx, tl.zeros((VNE_PADDED,), dtype=tl.int32))
+    # ---- Phase 0: zero marker_buffer (read by Phase C's cummax) ----
     marker_idx_init = tl.arange(0, MAX_BLOCKS_PAD)
     tl.store(
         marker_buffer_ptr + marker_idx_init,
         tl.zeros((MAX_BLOCKS_PAD,), dtype=tl.int32),
     )
-    tl.debug_barrier()
-
-    # ---- Phase A: histogram (atomic-add) ----
-    for i in range(0, numel, BLOCK_M):
-        idxs = i + offs
-        valid = idxs < numel
-        m = idxs // top_k
-        base = tl.load(topk_ids_ptr + idxs, mask=valid, other=-1).to(tl.int32)
-        lora = tl.load(token_lora_mapping_ptr + m, mask=valid, other=-1).to(tl.int32)
-        if SHARED_OUTER:
-            vid = lora
-        else:
-            vid = base + lora * num_experts_for_weight
-        bad = (
-            (~valid)
-            | (lora < 0)
-            | (base < 0)
-            | (vid < 0)
-            | (vid >= virtual_num_experts)
-        )
-        safe_vid = tl.where(bad, 0, vid)
-        tl.atomic_add(cumsum_buffer_ptr + safe_vid, 1, mask=~bad)
-
     tl.debug_barrier()
 
     # ---- Phase B: padded prefix-sum ----
@@ -210,6 +214,7 @@ def lora_moe_align(
     max_loras: int,
     block_size: int,
     shared_outer: bool = False,
+    block_m_hist: int = 256,
     block_m_count: int = 128,
     block_m_scatter: int = 128,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, int]:
@@ -251,31 +256,40 @@ def lora_moe_align(
     VNE_PADDED = _next_pow2(max(virtual_num_experts, 1))
     MAX_BLOCKS_PAD = _next_pow2(max(max_blocks, 1))
 
-    # Scratch left uninitialized; Kernel A's Phase 0 zeros both regions
-    # before any read.
+    # cumsum_buffer needs to start zero (histogram atomic-adds into it);
+    # marker_buffer is zeroed inside _count_align_kernel's Phase 0.
     scratch = torch.empty(VNE_PADDED + MAX_BLOCKS_PAD, dtype=torch.int32, device=device)
     cumsum_buffer = scratch[:VNE_PADDED]
     marker_buffer = scratch[VNE_PADDED:]
+    cumsum_buffer.zero_()
 
     if token_lora_mapping.dtype != torch.int32:
         token_lora_mapping = token_lora_mapping.to(torch.int32)
 
-    _count_align_kernel[(2,)](
+    hist_grid = (triton.cdiv(numel, block_m_hist),)
+    _histogram_kernel[hist_grid](
         topk_ids,
         token_lora_mapping,
+        cumsum_buffer,
+        numel,
+        num_experts_for_weight,
+        virtual_num_experts,
+        top_k=top_k,
+        SHARED_OUTER=shared_outer,
+        BLOCK_M=block_m_hist,
+        num_warps=4,
+    )
+
+    _count_align_kernel[(2,)](
         sorted_token_ids,
         expert_ids,
         num_tokens_post_padded,
         cumsum_buffer,
         marker_buffer,
         numel,
-        num_experts_for_weight,
         virtual_num_experts,
         max_padded,
-        max_blocks,
-        top_k=top_k,
         block_size=block_size,
-        SHARED_OUTER=shared_outer,
         VNE_PADDED=VNE_PADDED,
         MAX_BLOCKS_PAD=MAX_BLOCKS_PAD,
         BLOCK_M=block_m_count,
