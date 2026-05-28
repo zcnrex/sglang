@@ -29,6 +29,7 @@ from typing import Callable
 
 import torch
 
+from sglang.srt.lora.triton_ops.kernel_utils import lora_kernels_v2_enabled
 from sglang.srt.model_executor.cuda_graph_runner import get_is_capture_mode
 from sglang.srt.utils import is_cuda, is_hip, is_xpu, next_power_of_2
 
@@ -376,6 +377,8 @@ def _add_lora_gate_up_delta(
             experts_shared_outer_loras_a=lora_info.experts_shared_outer_loras,
             experts_shared_outer_loras_b=False,
             routing_cache=routing_cache,
+            seg_indptr=lora_info.seg_indptr,
+            req_to_lora=lora_info.req_to_lora,
         )
     else:
         blk = _get_moe_lora_block_config(r)
@@ -458,6 +461,8 @@ def _add_lora_down_delta(
             experts_shared_outer_loras_a=False,
             experts_shared_outer_loras_b=lora_info.experts_shared_outer_loras,
             routing_cache=routing_cache,
+            seg_indptr=lora_info.seg_indptr,
+            req_to_lora=lora_info.req_to_lora,
         )
     else:
         blk = _get_moe_lora_block_config(lora_info.max_lora_rank)
@@ -520,7 +525,8 @@ def build_lora_hooks(
     lora_ids: torch.Tensor | None = None
 
     if lora_info.lora_use_virtual_experts:
-        token_lora_mapping = _compute_token_lora_mapping(hidden_states, lora_info)
+        if not lora_kernels_v2_enabled():
+            token_lora_mapping = _compute_token_lora_mapping(hidden_states, lora_info)
     else:
         (
             sorted_token_ids_reshaped,

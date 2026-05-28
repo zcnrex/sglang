@@ -1,5 +1,28 @@
+import os
+
 import triton
 import triton.language as tl
+
+
+def _parse_env_bool(value: str | None, default: bool) -> bool:
+    if value is None:
+        return default
+    return value.lower() not in ("0", "false", "off", "no", "v1")
+
+
+def lora_kernels_v2_enabled(default: bool = False) -> bool:
+    """Shared LoRA Triton kernel v2 switch.
+
+    `SGLANG_LORA_KERNELS_V2=1` enables the experimental local LoRA kernel
+    changes.  The default path stays aligned with upstream/main.
+    """
+    value = os.environ.get("SGLANG_LORA_KERNELS_V2")
+    return _parse_env_bool(value, default)
+
+
+def lora_kernels_v2_block_m(default: int = 16) -> int:
+    value = os.environ.get("SGLANG_LORA_KERNELS_V2_BLOCK_M")
+    return int(value) if value else default
 
 
 @triton.jit
