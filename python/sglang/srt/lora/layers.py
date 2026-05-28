@@ -1009,6 +1009,7 @@ class FusedMoEWithLoRA(BaseLayerWithLoRA):
             hidden_size=getattr(self.base_layer, "hidden_size", 0),
             lora_use_virtual_experts=self.lora_use_virtual_experts,
             token_lora_mapping=batch_info.token_lora_mapping,
+            moe_align_scratch_cache=batch_info.moe_align_scratch_cache,
         )
 
     def forward(self, hidden_states: torch.Tensor, topk_output: TopKOutput, **kwargs):

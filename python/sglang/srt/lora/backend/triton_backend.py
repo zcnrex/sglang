@@ -29,6 +29,7 @@ class TritonLoRABackend(BaseLoRABackend):
         **kwargs,
     ):
         super().__init__(max_loras_per_batch, device)
+        self.moe_align_scratch_cache: dict = {}
 
     def run_lora_a_embedding(
         self,
@@ -355,6 +356,7 @@ class TritonLoRABackend(BaseLoRABackend):
             mapping_weight_indices,
             out=out_buf,
         )
+        batch_info.moe_align_scratch_cache = self.moe_align_scratch_cache
 
         self.batch_info = batch_info
 

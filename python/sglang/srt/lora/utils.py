@@ -73,6 +73,11 @@ class LoRABatchInfo:
     # mask path.
     token_lora_mapping: Optional[torch.Tensor] = None
 
+    # Persistent per-runner scratch buffers for v2 virtual-expert routing.
+    # Routing contents are still computed per layer, but the tensor storage can
+    # be reused across layers/batches with the same capacity requirements.
+    moe_align_scratch_cache: Optional[dict] = None
+
 
 class LoRAType(Enum):
     LORA_A = 0

@@ -46,6 +46,22 @@ def _next_pow2(x: int) -> int:
     return 1 << (x - 1).bit_length()
 
 
+def _ensure_i32_buffer(
+    scratch: dict[str, torch.Tensor] | None,
+    name: str,
+    numel: int,
+    device: torch.device,
+) -> torch.Tensor:
+    if scratch is None:
+        return torch.empty(numel, dtype=torch.int32, device=device)
+
+    buf = scratch.get(name)
+    if buf is None or buf.numel() < numel or buf.device != device:
+        buf = torch.empty(numel, dtype=torch.int32, device=device)
+        scratch[name] = buf
+    return buf[:numel]
+
+
 @triton.jit
 def _max_combine(a, b):
     return tl.maximum(a, b)
@@ -217,6 +233,7 @@ def lora_moe_align(
     block_m_hist: int = 256,
     block_m_count: int = 128,
     block_m_scatter: int = 128,
+    scratch: dict[str, torch.Tensor] | None = None,
 ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor, int]:
     """Fused virtual-topk + align_block_size + tight-slice + sanitize.
 
@@ -243,9 +260,13 @@ def lora_moe_align(
         )
     max_blocks = max_padded // block_size
 
-    sorted_token_ids = torch.empty(max(max_padded, 1), dtype=torch.int32, device=device)
-    expert_ids = torch.empty(max(max_blocks, 1), dtype=torch.int32, device=device)
-    num_tokens_post_padded = torch.empty(1, dtype=torch.int32, device=device)
+    sorted_token_ids = _ensure_i32_buffer(
+        scratch, "sorted_token_ids", max(max_padded, 1), device
+    )
+    expert_ids = _ensure_i32_buffer(scratch, "expert_ids", max(max_blocks, 1), device)
+    num_tokens_post_padded = _ensure_i32_buffer(
+        scratch, "num_tokens_post_padded", 1, device
+    )
 
     if numel == 0:
         sorted_token_ids.fill_(0)
@@ -257,13 +278,17 @@ def lora_moe_align(
     MAX_BLOCKS_PAD = _next_pow2(max(max_blocks, 1))
 
     # cumsum_buffer needs to start zero (histogram atomic-adds into it).
-    # Allocate it as its own whole-storage tensor so torch.zeros lowers to a
-    # cudaMemsetAsync rather than a FillFunctor elementwise kernel (a slice
-    # ``scratch[:VNE_PADDED].zero_()`` would miss the memset fast path because
-    # the view doesn't own its full storage). marker_buffer can stay
-    # uninitialized — it's zeroed inside _count_align_kernel's Phase 0.
-    cumsum_buffer = torch.zeros(VNE_PADDED, dtype=torch.int32, device=device)
-    marker_buffer = torch.empty(MAX_BLOCKS_PAD, dtype=torch.int32, device=device)
+    # When scratch is reused, zero the backing tensor instead of just the view
+    # so the memset fast path stays available. marker_buffer can stay
+    # uninitialized because _count_align_kernel zeros it before reading.
+    cumsum_buffer = _ensure_i32_buffer(scratch, "cumsum_buffer", VNE_PADDED, device)
+    # Zero the full cached storage so this stays on the cudaMemsetAsync path
+    # even when the logical view is smaller than a previous batch's capacity.
+    cumsum_store = (
+        scratch.get("cumsum_buffer") if scratch is not None else cumsum_buffer
+    )
+    cumsum_store.zero_()
+    marker_buffer = _ensure_i32_buffer(scratch, "marker_buffer", MAX_BLOCKS_PAD, device)
 
     if token_lora_mapping.dtype != torch.int32:
         token_lora_mapping = token_lora_mapping.to(torch.int32)

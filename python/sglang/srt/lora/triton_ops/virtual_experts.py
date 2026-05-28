@@ -840,6 +840,22 @@ def _merged_experts_fused_moe_lora_add_impl(
             # predicate inline from token_lora_mapping.
             from sglang.srt.lora.triton_ops.lora_moe_align import lora_moe_align
 
+            scratch = None
+            if routing_cache is not None:
+                scratch_cache = routing_cache.get("_moe_align_scratch_cache")
+                if scratch_cache is not None:
+                    device = topk_ids.device
+                    scratch_key = (
+                        device.type,
+                        device.index,
+                        num_experts,
+                        max_loras,
+                        shared_outer,
+                        block_size,
+                        topk_ids.shape[1],
+                    )
+                    scratch = scratch_cache.setdefault(scratch_key, {})
+
             sorted_token_ids, expert_ids, num_tokens_post_padded, _ = lora_moe_align(
                 topk_ids,
                 token_lora_mapping,
@@ -847,6 +863,7 @@ def _merged_experts_fused_moe_lora_add_impl(
                 max_loras,
                 block_size,
                 shared_outer=shared_outer,
+                scratch=scratch,
             )
             token_lora_mask = None
         else:

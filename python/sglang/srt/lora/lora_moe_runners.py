@@ -195,6 +195,10 @@ class LoRAInfo:
     # layer).
     token_lora_mapping: torch.Tensor | None = None
 
+    # Shared storage cache for v2 routing buffers. The route values are not
+    # reused across layers, but the allocations are.
+    moe_align_scratch_cache: dict | None = None
+
 
 @dataclass
 class LoRAHooks:
@@ -559,8 +563,11 @@ def build_lora_hooks(
             lora_ids,
         ) = _compute_lora_alignment(topk_ids, lora_info)
 
-    # Shared routing cache: gate_up and down reuse routing for same (num_experts, shared_outer, block_size)
+    # Shared routing cache: gate_up and down reuse routing for the same
+    # (num_experts, shared_outer, block_size) tuple.
     routing_cache: dict = {}
+    if lora_info.moe_align_scratch_cache is not None:
+        routing_cache["_moe_align_scratch_cache"] = lora_info.moe_align_scratch_cache
 
     def after_gate_up(
         hidden_states: torch.Tensor,
