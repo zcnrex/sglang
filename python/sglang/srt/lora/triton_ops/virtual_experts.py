@@ -10,10 +10,7 @@ import triton
 import triton.language as tl
 
 from sglang.jit_kernel.moe_align import moe_align_block_size as jit_moe_align_block_size
-from sglang.srt.lora.triton_ops.kernel_utils import (
-    lora_kernels_v2_block_m,
-    lora_kernels_v2_enabled,
-)
+from sglang.srt.lora.triton_ops.kernel_utils import lora_kernels_v2_enabled
 
 
 @triton.jit
@@ -30,6 +27,7 @@ def _fused_virtual_topk_ids_kernel(
     top_k: tl.constexpr,
     USE_SEGMENTS: tl.constexpr,
     NUM_SEGMENTS: tl.constexpr,
+    WRITE_MASK: tl.constexpr,
     BLOCK_SIZE: tl.constexpr,
 ):
     """
@@ -68,7 +66,6 @@ def _fused_virtual_topk_ids_kernel(
         )
     else:
         lora_id = tl.load(token_lora_mapping_ptr + m, mask=valid, other=0)
-    mask_val = lora_id >= 0
     safe_lora = tl.maximum(lora_id, 0)
 
     base = tl.load(topk_ids_ptr + offs, mask=valid, other=0)
@@ -82,10 +79,12 @@ def _fused_virtual_topk_ids_kernel(
     result = tl.where(base < 0, base, shifted)
     tl.store(virtual_topk_ids_ptr + offs, result, mask=valid)
 
-    # Write mask once per row (at first k position)
-    k = offs % top_k
-    is_first_k = k == 0
-    tl.store(token_lora_mask_ptr + m, mask_val, mask=valid & is_first_k)
+    if WRITE_MASK:
+        # Write mask once per row (at first k position)
+        mask_val = lora_id >= 0
+        k = offs % top_k
+        is_first_k = k == 0
+        tl.store(token_lora_mask_ptr + m, mask_val, mask=valid & is_first_k)
 
 
 def _fused_virtual_topk_ids(
@@ -96,9 +95,11 @@ def _fused_virtual_topk_ids(
     max_loras: int,
     seg_indptr: torch.Tensor | None = None,
     req_to_lora: torch.Tensor | None = None,
-) -> tuple[torch.Tensor, torch.Tensor, int]:
+    write_mask: bool = True,
+) -> tuple[torch.Tensor, torch.Tensor | None, int]:
     """
-    Returns virtual topk_ids, token_lora_mask, and virtual_num_experts.
+    Returns virtual topk_ids, token_lora_mask (None when write_mask=False),
+    and virtual_num_experts.
     """
     M, top_k = topk_ids.shape
     device = topk_ids.device
@@ -119,7 +120,13 @@ def _fused_virtual_topk_ids(
     num_experts_for_weight = 1 if shared_outer else num_experts
 
     virtual_topk_ids = torch.empty_like(topk_ids)
-    token_lora_mask = torch.empty(M, dtype=torch.bool, device=device)
+    if write_mask:
+        token_lora_mask = torch.empty(M, dtype=torch.bool, device=device)
+        mask_ptr = token_lora_mask
+    else:
+        token_lora_mask = None
+        # Pass a non-null dummy pointer; the kernel guards the store on WRITE_MASK.
+        mask_ptr = topk_ids
 
     BLOCK_SIZE = 1024
     grid = ((M * top_k + BLOCK_SIZE - 1) // BLOCK_SIZE,)
@@ -130,13 +137,14 @@ def _fused_virtual_topk_ids(
         seg_indptr_ptr,
         req_to_lora_ptr,
         virtual_topk_ids,
-        token_lora_mask,
+        mask_ptr,
         num_experts_for_weight,
         shared_outer,
         M,
         top_k,
         use_segments,
         num_segments,
+        write_mask,
         BLOCK_SIZE,
     )
 
@@ -373,6 +381,7 @@ def _moe_lora_expand_add_kernel(
     GROUP_SIZE_M: tl.constexpr,
     EVEN_K: tl.constexpr,
     EVEN_N: tl.constexpr,
+    INLINE_MASK: tl.constexpr,
 ):
     """Dedicated LoRA-B expand+add (one tile per program).
 
@@ -408,9 +417,18 @@ def _moe_lora_expand_add_kernel(
     offs_token_id = pid_m * BLOCK_SIZE_M + tl.arange(0, BLOCK_SIZE_M).to(tl.int64)
     offs_token = tl.load(sorted_token_ids_ptr + offs_token_id).to(tl.int64)
     token_mask = offs_token < num_valid_tokens
-    add_mask = tl.load(
-        add_mask_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=False
-    )
+    if INLINE_MASK:
+        # add_mask_ptr is token_lora_mapping (int32/int64). Recompute the
+        # "this token has an adapter" predicate inline instead of consuming a
+        # materialized bool buffer written by _fused_virtual_topk_ids_kernel.
+        lora_id = tl.load(
+            add_mask_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=-1
+        )
+        add_mask = lora_id >= 0
+    else:
+        add_mask = tl.load(
+            add_mask_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=False
+        )
     row_mask = token_mask & add_mask
 
     offs_bn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N).to(tl.int64)
@@ -456,13 +474,13 @@ def _moe_lora_expand_add_kernel(
 def invoke_moe_lora_expand_add(
     intermediate: torch.Tensor,  # (num_tokens * top_k, K=r)
     lora_b: torch.Tensor,  # (num_virtual_experts, N, K=r)
-    output: torch.Tensor,  # (num_tokens, top_k, N) - added in place
+    output: torch.Tensor,  # (num_tokens * top_k, N) - added in place
     topk_weights: torch.Tensor,  # (num_tokens, top_k)
     topk_ids: torch.Tensor,  # (num_tokens, top_k)
     sorted_token_ids: torch.Tensor,
     expert_ids: torch.Tensor,
     num_tokens_post_padded: torch.Tensor,
-    add_output_mask: torch.Tensor,  # (num_tokens,) bool
+    add_output_mask: torch.Tensor | None,  # (num_tokens,) bool, or None
     mul_routed_weight: bool,
     router_topk: int,
     block_size_m: int,
@@ -470,18 +488,37 @@ def invoke_moe_lora_expand_add(
     group_size_m: int = 1,
     num_warps: int = 4,
     num_stages: int = 4,
+    token_lora_mapping: torch.Tensor | None = None,  # used when add_output_mask is None
 ) -> None:
     """Launch the dedicated LoRA-B expand+add kernel (v2).
 
     Semantically identical to the generic ``invoke_fused_moe_kernel(...,
     fuse_add_to_output=True)`` call it replaces on the LoRA-B expand path, but
     specialized to the LoRA shape. ``block_size_m`` MUST match the block size
-    the routing tensors were aligned with (``moe_align_block_size``)."""
+    the routing tensors were aligned with (``moe_align_block_size``).
+
+    ``output`` must already be a 2D ``[num_tokens * top_k, N]`` tensor. The
+    caller is responsible for the flatten/slice (so gated ``gate_up_proj_moe``
+    can pass a non-contiguous half-slice of the underlying 3D buffer).
+
+    The per-token "has adapter" predicate can be supplied either as a
+    materialized bool buffer (``add_output_mask``) or computed inline from
+    ``token_lora_mapping`` (``add_output_mask`` left None). The inline path
+    skips the bool-buffer alloc and the masked store in
+    ``_fused_virtual_topk_ids_kernel``."""
     _, K = intermediate.shape
     _, N, K_b = lora_b.shape
     assert K_b == K, (K_b, K)
+    assert output.dim() == 2, output.shape
 
-    out2d = output.view(-1, N)  # (num_tokens * top_k, N)
+    inline_mask = add_output_mask is None
+    if inline_mask:
+        assert token_lora_mapping is not None
+        mask_ptr = token_lora_mapping
+    else:
+        mask_ptr = add_output_mask
+
+    out2d = output
     block_size_n = min(block_size_n, max(16, triton.next_power_of_2(N)))
     block_size_k = max(16, triton.next_power_of_2(K))
     even_k = K % block_size_k == 0
@@ -499,7 +536,7 @@ def invoke_moe_lora_expand_add(
         sorted_token_ids,
         expert_ids,
         num_tokens_post_padded,
-        add_output_mask,
+        mask_ptr,
         N,
         K,
         topk_ids.numel(),
@@ -518,6 +555,7 @@ def invoke_moe_lora_expand_add(
         GROUP_SIZE_M=group_size_m,
         EVEN_K=even_k,
         EVEN_N=even_n,
+        INLINE_MASK=inline_mask,
         num_warps=num_warps,
         num_stages=num_stages,
     )
@@ -817,13 +855,20 @@ def _merged_experts_fused_moe_lora_add_impl(
             return native_moe_align_block_size(topk_ids, block_size, num_experts)
         return _align_block_size_large(topk_ids, block_size, num_experts)
 
+    # On v2 the LoRA-B expand+add kernel can recompute the per-token "has
+    # adapter" predicate inline from token_lora_mapping, so the bool buffer
+    # write in _fused_virtual_topk_ids_kernel is dead work. The segments path
+    # (token_lora_mapping is None) still needs materialization because a
+    # consumer-side binary search would be much more expensive.
+    inline_mask = use_v2 and token_lora_mapping is not None
+
     def _get_routing(
         topk_ids: torch.Tensor,
         token_lora_mapping: torch.Tensor | None,
         num_experts: int,
         shared_outer: bool,
         block_size: int,
-    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor | None]:
         # Check routing_cache for cross-call reuse (gate_up and down share routing)
         cache_key = (num_experts, shared_outer, block_size)
         if routing_cache is not None:
@@ -840,6 +885,7 @@ def _merged_experts_fused_moe_lora_add_impl(
                 max_loras,
                 seg_indptr,
                 req_to_lora,
+                write_mask=not inline_mask,
             )
         )
         sorted_token_ids, expert_ids, num_tokens_post_padded = _align_block_size(
@@ -879,6 +925,16 @@ def _merged_experts_fused_moe_lora_add_impl(
     lora_b_virtual = _merge_lora_expert_weight(lora_b)
     num_experts_a = lora_a.shape[1]
     num_experts_b = lora_b.shape[1]
+
+    # Gated gate_up_proj_moe: lora_a is stacked along its rank dim to produce
+    # `2*r` outputs (gate || up halves), while lora_b stays per-half (K_b = r).
+    # The shrink writes a single `2*r`-wide intermediate; the expand must then
+    # be issued twice on disjoint half-slices of intermediate / lora_b / output
+    # so the inner-product K matches lora_b's per-half rank.
+    lora_b_rank = lora_b.shape[3]
+    is_gated = max_lora_rank != lora_b_rank
+    if is_gated:
+        assert max_lora_rank == 2 * lora_b_rank, (max_lora_rank, lora_b_rank)
 
     intermediate = (torch.empty if use_v2 else torch.zeros)(
         [num_tokens, topk_ids.shape[1], max_lora_rank],
@@ -926,9 +982,13 @@ def _merged_experts_fused_moe_lora_add_impl(
 
     b_stage_config = _get_stage_config(lora_b_virtual, 1)
     if use_v2:
+        # Match the LoRA-A shrink tile size so _get_routing's cache key
+        # (num_experts, shared_outer, block_size) can hit on the B call when
+        # the other two keys match (i.e. the standard non-shared-outer case),
+        # skipping the second virtual-topk + moe_align launch sequence.
         b_stage_config = {
             **b_stage_config,
-            "BLOCK_SIZE_M": lora_kernels_v2_block_m(),
+            "BLOCK_SIZE_M": 16,
             "BLOCK_SIZE_N": 128,
         }
 
@@ -945,54 +1005,78 @@ def _merged_experts_fused_moe_lora_add_impl(
         b_stage_config["BLOCK_SIZE_M"],
     )
 
-    if use_v2:
-        invoke_moe_lora_expand_add(
-            intermediate.view(-1, max_lora_rank),
-            lora_b_virtual,
-            output,
-            topk_weights,
-            topk_ids,
-            sorted_token_ids,
-            expert_ids,
-            num_tokens_post_padded,
-            token_lora_mask,
-            mul_routed_weight,
-            topk_ids.shape[1],
-            # Keep the routing alignment and kernel M tile in lock-step.
-            block_size_m=b_stage_config["BLOCK_SIZE_M"],
-            block_size_n=b_stage_config["BLOCK_SIZE_N"],
-            group_size_m=b_stage_config.get("GROUP_SIZE_M", 1),
-            num_warps=b_stage_config.get("num_warps", 4),
-            num_stages=b_stage_config.get("num_stages", 4),
-        )
+    intermediate_2d = intermediate.view(-1, max_lora_rank)
+    # Flatten output to [M*top_k, gate_up_dim] once. invoke_fused_moe_kernel
+    # and invoke_moe_lora_expand_add both index via C.stride(-2)/stride(-1),
+    # so the kept-stride 2D half-slices below work without copy.
+    output_2d = output.view(-1, output.shape[-1])
+    if is_gated:
+        out_half = lora_b_virtual.shape[1] // 2
+        expand_halves = [
+            (
+                intermediate_2d[:, :lora_b_rank],
+                lora_b_virtual[:, :out_half, :],
+                output_2d[:, :out_half],
+            ),
+            (
+                intermediate_2d[:, lora_b_rank:],
+                lora_b_virtual[:, out_half:, :],
+                output_2d[:, out_half:],
+            ),
+        ]
     else:
-        invoke_fused_moe_kernel(
-            intermediate.view(-1, max_lora_rank),
-            lora_b_virtual,
-            None,
-            output,
-            None,
-            None,
-            None,
-            topk_weights,
-            topk_ids,
-            sorted_token_ids,
-            expert_ids,
-            num_tokens_post_padded,
-            mul_routed_weight,
-            1,
-            b_stage_config,
-            tl.bfloat16 if hidden_states.dtype == torch.bfloat16 else tl.float16,
-            False,
-            False,
-            False,
-            False,
-            False,
-            None,
-            fuse_add_to_output=True,
-            add_output_mask=token_lora_mask,
-            router_topk=topk_ids.shape[1],
-        )
+        expand_halves = [(intermediate_2d, lora_b_virtual, output_2d)]
+
+    for inter_h, lora_b_h, out_h in expand_halves:
+        if use_v2:
+            invoke_moe_lora_expand_add(
+                inter_h,
+                lora_b_h,
+                out_h,
+                topk_weights,
+                topk_ids,
+                sorted_token_ids,
+                expert_ids,
+                num_tokens_post_padded,
+                token_lora_mask,
+                mul_routed_weight,
+                topk_ids.shape[1],
+                # Keep the routing alignment and kernel M tile in lock-step.
+                block_size_m=b_stage_config["BLOCK_SIZE_M"],
+                block_size_n=b_stage_config["BLOCK_SIZE_N"],
+                group_size_m=b_stage_config.get("GROUP_SIZE_M", 1),
+                num_warps=b_stage_config.get("num_warps", 4),
+                num_stages=b_stage_config.get("num_stages", 4),
+                token_lora_mapping=token_lora_mapping,
+            )
+        else:
+            invoke_fused_moe_kernel(
+                inter_h,
+                lora_b_h,
+                None,
+                out_h,
+                None,
+                None,
+                None,
+                topk_weights,
+                topk_ids,
+                sorted_token_ids,
+                expert_ids,
+                num_tokens_post_padded,
+                mul_routed_weight,
+                1,
+                b_stage_config,
+                tl.bfloat16 if hidden_states.dtype == torch.bfloat16 else tl.float16,
+                False,
+                False,
+                False,
+                False,
+                False,
+                None,
+                fuse_add_to_output=True,
+                add_output_mask=token_lora_mask,
+                router_topk=topk_ids.shape[1],
+            )
 
 
 def _merged_experts_fused_moe_lora_add_op(
