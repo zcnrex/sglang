@@ -65,6 +65,14 @@ class LoRABatchInfo:
     # MoEFusedLoRA._get_lora_info).
     adapter_enabled: Optional[torch.Tensor] = None
 
+    # Per-token LoRA adapter index, shape (num_tokens,), int32. -1 means no
+    # adapter. Materialized once per batch in prepare_lora_batch and shared
+    # across every MoE virtual-experts LoRA layer (the value depends only on
+    # seg_indptr/req_to_lora, not on the layer's hidden_states). Consumed by
+    # lora_moe_align (mandatory) and by the v2 expand-add kernels' inline
+    # mask path.
+    token_lora_mapping: Optional[torch.Tensor] = None
+
 
 class LoRAType(Enum):
     LORA_A = 0

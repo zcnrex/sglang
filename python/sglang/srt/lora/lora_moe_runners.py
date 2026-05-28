@@ -29,7 +29,6 @@ from typing import Callable
 
 import torch
 
-from sglang.srt.lora.triton_ops.kernel_utils import lora_kernels_v2_enabled
 from sglang.srt.model_executor.cuda_graph_runner import get_is_capture_mode
 from sglang.srt.utils import is_cuda, is_hip, is_xpu, next_power_of_2
 
@@ -190,6 +189,12 @@ class LoRAInfo:
     hidden_size: int = 0
     lora_use_virtual_experts: bool = False
 
+    # Per-token LoRA adapter index, shape (num_tokens,), int32. Populated by
+    # the backend's prepare_lora_batch and reused by all MoE virtual-experts
+    # layers in this forward (single materialization instead of one per
+    # layer).
+    token_lora_mapping: torch.Tensor | None = None
+
 
 @dataclass
 class LoRAHooks:
@@ -203,20 +208,34 @@ class LoRAHooks:
     ) = None
 
 
-def _compute_token_lora_mapping(
-    hidden_states: torch.Tensor,
-    lora_info: LoRAInfo,
+def compute_token_lora_mapping(
+    num_tokens: int,
+    seg_indptr: torch.Tensor,
+    req_to_lora: torch.Tensor,
+    *,
+    out: torch.Tensor | None = None,
 ) -> torch.Tensor:
-    """Map each token to its LoRA adapter index (-1 for no LoRA)."""
-    token_positions = torch.arange(
-        hidden_states.shape[0], device=hidden_states.device, dtype=torch.int32
-    )
+    """Map each token to its LoRA adapter index (-1 for no LoRA).
+
+    Returns shape ``(num_tokens,)`` int32 when ``out`` is None. When ``out`` is
+    provided (typically a cuda-graph static buffer larger than ``num_tokens``),
+    writes the result into the first ``num_tokens`` slots in-place and returns
+    ``out`` unchanged — keeping the caller's reference to the full buffer so
+    subsequent batches can overwrite it again. Downstream kernels read the
+    first ``num_tokens`` entries via their own token-count argument.
+    """
+    device = seg_indptr.device
+    token_positions = torch.arange(num_tokens, device=device, dtype=torch.int32)
     req_indices = torch.searchsorted(
-        lora_info.seg_indptr[1:].to(torch.int32),
+        seg_indptr[1:].to(torch.int32),
         token_positions,
         right=True,
     )
-    return lora_info.req_to_lora.to(torch.int32)[req_indices]
+    mapping = req_to_lora.to(torch.int32)[req_indices]
+    if out is not None:
+        out[:num_tokens].copy_(mapping)
+        return out
+    return mapping
 
 
 def _compute_lora_alignment(
@@ -525,8 +544,17 @@ def build_lora_hooks(
     lora_ids: torch.Tensor | None = None
 
     if lora_info.lora_use_virtual_experts:
-        if not lora_kernels_v2_enabled():
-            token_lora_mapping = _compute_token_lora_mapping(hidden_states, lora_info)
+        # Prefer the batch-hoisted mapping (computed once per forward in
+        # backend.prepare_lora_batch). Fall back to a per-layer compute when
+        # the backend hasn't populated it (non-triton dense backends).
+        if lora_info.token_lora_mapping is not None:
+            token_lora_mapping = lora_info.token_lora_mapping
+        else:
+            token_lora_mapping = compute_token_lora_mapping(
+                hidden_states.shape[0],
+                lora_info.seg_indptr,
+                lora_info.req_to_lora,
+            )
     else:
         (
             sorted_token_ids_reshaped,

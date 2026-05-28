@@ -160,6 +160,7 @@ class TritonLoRABackend(BaseLoRABackend):
                 lora_ranks=torch.zeros(mlpb, dtype=torch.int32),
                 scalings=torch.zeros(mlpb, dtype=torch.float),
                 permutation=None,
+                token_lora_mapping=torch.zeros(max_tokens, dtype=torch.int32),
             )
 
             torch.cumsum(
@@ -319,6 +320,41 @@ class TritonLoRABackend(BaseLoRABackend):
             )
         adapter_enabled.copy_(adapter_enabled_cpu, non_blocking=True)
         batch_info.adapter_enabled = adapter_enabled
+
+        # Build token_lora_mapping once per batch (hoisted from per-layer
+        # build_lora_hooks). The mapping depends only on seg_indptr +
+        # weight_indices, so it's identical across every MoE virtual-experts
+        # layer in this forward — one materialization replaces ~num_moe_layers
+        # of searchsorted+gather launches.  Cheap enough (~2 small kernels) to
+        # always compute when LoRA is active; only MoE virtual-experts layers
+        # read it.
+        from sglang.srt.lora.lora_moe_runners import compute_token_lora_mapping
+
+        if use_cuda_graph:
+            num_tokens = bs * batch_info.max_len
+        elif forward_batch.forward_mode.is_extend():
+            num_tokens = sum(forward_batch.extend_seq_lens_cpu)
+        else:
+            num_tokens = bs
+        # Match _get_lora_info's choice: prefer req_* views when the backend
+        # exposes a per-request segmentation that differs from its internal one.
+        mapping_seg_indptr = (
+            batch_info.req_seg_indptr
+            if batch_info.req_seg_indptr is not None
+            else batch_info.seg_indptr
+        )
+        mapping_weight_indices = (
+            batch_info.req_weight_indices
+            if batch_info.req_weight_indices is not None
+            else batch_info.weight_indices
+        )
+        out_buf = batch_info.token_lora_mapping if use_cuda_graph else None
+        batch_info.token_lora_mapping = compute_token_lora_mapping(
+            num_tokens,
+            mapping_seg_indptr,
+            mapping_weight_indices,
+            out=out_buf,
+        )
 
         self.batch_info = batch_info
 
