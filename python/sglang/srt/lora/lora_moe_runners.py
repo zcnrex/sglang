@@ -396,8 +396,6 @@ def _add_lora_gate_up_delta(
             experts_shared_outer_loras_a=lora_info.experts_shared_outer_loras,
             experts_shared_outer_loras_b=False,
             routing_cache=routing_cache,
-            seg_indptr=lora_info.seg_indptr,
-            req_to_lora=lora_info.req_to_lora,
         )
     else:
         blk = _get_moe_lora_block_config(r)
@@ -480,8 +478,6 @@ def _add_lora_down_delta(
             experts_shared_outer_loras_a=False,
             experts_shared_outer_loras_b=lora_info.experts_shared_outer_loras,
             routing_cache=routing_cache,
-            seg_indptr=lora_info.seg_indptr,
-            req_to_lora=lora_info.req_to_lora,
         )
     else:
         blk = _get_moe_lora_block_config(lora_info.max_lora_rank)

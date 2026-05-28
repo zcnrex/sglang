@@ -17,17 +17,12 @@ from sglang.srt.lora.triton_ops.kernel_utils import lora_kernels_v2_enabled
 def _fused_virtual_topk_ids_kernel(
     topk_ids_ptr,
     token_lora_mapping_ptr,
-    seg_indptr_ptr,
-    req_to_lora_ptr,
     virtual_topk_ids_ptr,
     token_lora_mask_ptr,
     num_experts_for_weight: tl.constexpr,
     shared_outer: tl.constexpr,
     M,
     top_k: tl.constexpr,
-    USE_SEGMENTS: tl.constexpr,
-    NUM_SEGMENTS: tl.constexpr,
-    WRITE_MASK: tl.constexpr,
     BLOCK_SIZE: tl.constexpr,
 ):
     """
@@ -48,24 +43,8 @@ def _fused_virtual_topk_ids_kernel(
     valid = offs < total
 
     m = offs // top_k
-    # k = offs % top_k  # not needed directly
 
-    if USE_SEGMENTS:
-        lo = tl.zeros((BLOCK_SIZE,), dtype=tl.int32)
-        hi = tl.full((BLOCK_SIZE,), NUM_SEGMENTS, dtype=tl.int32)
-        while tl.max(lo < hi) != 0:
-            mid = (lo + hi) // 2
-            seg_end = tl.load(seg_indptr_ptr + mid + 1, mask=valid, other=0)
-            move_right = seg_end <= m
-            lo = tl.where(move_right, mid + 1, lo)
-            hi = tl.where(move_right, hi, mid)
-        lora_id = tl.load(
-            req_to_lora_ptr + lo,
-            mask=valid & (lo < NUM_SEGMENTS),
-            other=-1,
-        )
-    else:
-        lora_id = tl.load(token_lora_mapping_ptr + m, mask=valid, other=0)
+    lora_id = tl.load(token_lora_mapping_ptr + m, mask=valid, other=0)
     safe_lora = tl.maximum(lora_id, 0)
 
     base = tl.load(topk_ids_ptr + offs, mask=valid, other=0)
@@ -79,72 +58,43 @@ def _fused_virtual_topk_ids_kernel(
     result = tl.where(base < 0, base, shifted)
     tl.store(virtual_topk_ids_ptr + offs, result, mask=valid)
 
-    if WRITE_MASK:
-        # Write mask once per row (at first k position)
-        mask_val = lora_id >= 0
-        k = offs % top_k
-        is_first_k = k == 0
-        tl.store(token_lora_mask_ptr + m, mask_val, mask=valid & is_first_k)
+    # Write mask once per row (at first k position)
+    mask_val = lora_id >= 0
+    k = offs % top_k
+    is_first_k = k == 0
+    tl.store(token_lora_mask_ptr + m, mask_val, mask=valid & is_first_k)
 
 
 def _fused_virtual_topk_ids(
     topk_ids: torch.Tensor,
-    token_lora_mapping: torch.Tensor | None,
+    token_lora_mapping: torch.Tensor,
     num_experts: int,
     shared_outer: bool,
     max_loras: int,
-    seg_indptr: torch.Tensor | None = None,
-    req_to_lora: torch.Tensor | None = None,
-    write_mask: bool = True,
-) -> tuple[torch.Tensor, torch.Tensor | None, int]:
+) -> tuple[torch.Tensor, torch.Tensor, int]:
     """
-    Returns virtual topk_ids, token_lora_mask (None when write_mask=False),
-    and virtual_num_experts.
+    Returns virtual topk_ids, token_lora_mask, and virtual_num_experts.
     """
     M, top_k = topk_ids.shape
     device = topk_ids.device
-    use_segments = token_lora_mapping is None
-    if use_segments:
-        assert lora_kernels_v2_enabled()
-        assert seg_indptr is not None and req_to_lora is not None
-        token_lora_mapping_ptr = topk_ids
-        seg_indptr_ptr = seg_indptr
-        req_to_lora_ptr = req_to_lora
-        num_segments = seg_indptr.shape[0] - 1
-    else:
-        token_lora_mapping_ptr = token_lora_mapping
-        seg_indptr_ptr = topk_ids
-        req_to_lora_ptr = topk_ids
-        num_segments = 0
 
     num_experts_for_weight = 1 if shared_outer else num_experts
 
     virtual_topk_ids = torch.empty_like(topk_ids)
-    if write_mask:
-        token_lora_mask = torch.empty(M, dtype=torch.bool, device=device)
-        mask_ptr = token_lora_mask
-    else:
-        token_lora_mask = None
-        # Pass a non-null dummy pointer; the kernel guards the store on WRITE_MASK.
-        mask_ptr = topk_ids
+    token_lora_mask = torch.empty(M, dtype=torch.bool, device=device)
 
     BLOCK_SIZE = 1024
     grid = ((M * top_k + BLOCK_SIZE - 1) // BLOCK_SIZE,)
 
     _fused_virtual_topk_ids_kernel[grid](
         topk_ids,
-        token_lora_mapping_ptr,
-        seg_indptr_ptr,
-        req_to_lora_ptr,
+        token_lora_mapping,
         virtual_topk_ids,
-        mask_ptr,
+        token_lora_mask,
         num_experts_for_weight,
         shared_outer,
         M,
         top_k,
-        use_segments,
-        num_segments,
-        write_mask,
         BLOCK_SIZE,
     )
 
@@ -362,7 +312,7 @@ def _moe_lora_expand_add_kernel(
     sorted_token_ids_ptr,
     expert_ids_ptr,
     num_tokens_post_padded_ptr,
-    add_mask_ptr,
+    token_lora_mapping_ptr,
     N,
     K,
     num_valid_tokens,
@@ -381,7 +331,6 @@ def _moe_lora_expand_add_kernel(
     GROUP_SIZE_M: tl.constexpr,
     EVEN_K: tl.constexpr,
     EVEN_N: tl.constexpr,
-    INLINE_MASK: tl.constexpr,
     GATED: tl.constexpr,
     OUT_HALF: tl.constexpr,
 ):
@@ -419,18 +368,13 @@ def _moe_lora_expand_add_kernel(
     offs_token_id = pid_m * BLOCK_SIZE_M + tl.arange(0, BLOCK_SIZE_M).to(tl.int64)
     offs_token = tl.load(sorted_token_ids_ptr + offs_token_id).to(tl.int64)
     token_mask = offs_token < num_valid_tokens
-    if INLINE_MASK:
-        # add_mask_ptr is token_lora_mapping (int32/int64). Recompute the
-        # "this token has an adapter" predicate inline instead of consuming a
-        # materialized bool buffer written by _fused_virtual_topk_ids_kernel.
-        lora_id = tl.load(
-            add_mask_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=-1
-        )
-        add_mask = lora_id >= 0
-    else:
-        add_mask = tl.load(
-            add_mask_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=False
-        )
+    # Recompute the "this token has an adapter" predicate inline from
+    # token_lora_mapping (int32/int64) instead of consuming a materialized bool
+    # buffer.
+    lora_id = tl.load(
+        token_lora_mapping_ptr + offs_token // ROUTER_TOPK, mask=token_mask, other=-1
+    )
+    add_mask = lora_id >= 0
     row_mask = token_mask & add_mask
 
     offs_bn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N).to(tl.int64)
@@ -496,7 +440,7 @@ def invoke_moe_lora_expand_add(
     sorted_token_ids: torch.Tensor,
     expert_ids: torch.Tensor,
     num_tokens_post_padded: torch.Tensor,
-    add_output_mask: torch.Tensor | None,  # (num_tokens,) bool, or None
+    token_lora_mapping: torch.Tensor,  # (num_tokens,) int
     mul_routed_weight: bool,
     router_topk: int,
     block_size_m: int,
@@ -504,7 +448,6 @@ def invoke_moe_lora_expand_add(
     group_size_m: int = 1,
     num_warps: int = 4,
     num_stages: int = 4,
-    token_lora_mapping: torch.Tensor | None = None,  # used when add_output_mask is None
 ) -> None:
     """Launch the dedicated LoRA-B expand+add kernel (v2).
 
@@ -522,11 +465,9 @@ def invoke_moe_lora_expand_add(
     ``A[:, r:]``). ``block_size_n`` must divide ``out_total // 2`` so no tile
     straddles the half boundary.
 
-    The per-token "has adapter" predicate can be supplied either as a
-    materialized bool buffer (``add_output_mask``) or computed inline from
-    ``token_lora_mapping`` (``add_output_mask`` left None). The inline path
-    skips the bool-buffer alloc and the masked store in
-    ``_fused_virtual_topk_ids_kernel``."""
+    The per-token "has adapter" predicate is computed inline from
+    ``token_lora_mapping``, skipping the bool-buffer alloc and the masked store
+    that a materialized mask would require."""
     _, A_K = intermediate.shape
     _, N, K = lora_b.shape  # K is the per-half rank
     gated = A_K != K
@@ -538,13 +479,6 @@ def invoke_moe_lora_expand_add(
         assert A_K == K, (A_K, K)
         out_half = 0
     assert output.dim() == 2, output.shape
-
-    inline_mask = add_output_mask is None
-    if inline_mask:
-        assert token_lora_mapping is not None
-        mask_ptr = token_lora_mapping
-    else:
-        mask_ptr = add_output_mask
 
     out2d = output
     block_size_n = min(block_size_n, max(16, triton.next_power_of_2(N)))
@@ -566,7 +500,7 @@ def invoke_moe_lora_expand_add(
         sorted_token_ids,
         expert_ids,
         num_tokens_post_padded,
-        mask_ptr,
+        token_lora_mapping,
         N,
         K,
         topk_ids.numel(),
@@ -585,7 +519,6 @@ def invoke_moe_lora_expand_add(
         GROUP_SIZE_M=group_size_m,
         EVEN_K=even_k,
         EVEN_N=even_n,
-        INLINE_MASK=inline_mask,
         GATED=gated,
         OUT_HALF=out_half,
         num_warps=num_warps,
@@ -811,13 +744,11 @@ def _merged_experts_fused_moe_lora_add_impl(
     lora_b: torch.Tensor,
     topk_ids: torch.Tensor,
     topk_weights: torch.Tensor,
-    token_lora_mapping: torch.Tensor | None,
+    token_lora_mapping: torch.Tensor,
     mul_routed_weight: bool,
     experts_shared_outer_loras_a: bool,
     experts_shared_outer_loras_b: bool,
     routing_cache: dict | None = None,
-    seg_indptr: torch.Tensor | None = None,
-    req_to_lora: torch.Tensor | None = None,
 ) -> None:
     """
     1. Prepare virtual expert routing metadata from topk_ids + token_lora_mapping * num_experts.
@@ -887,16 +818,9 @@ def _merged_experts_fused_moe_lora_add_impl(
             return native_moe_align_block_size(topk_ids, block_size, num_experts)
         return _align_block_size_large(topk_ids, block_size, num_experts)
 
-    # On v2 the LoRA-B expand+add kernel can recompute the per-token "has
-    # adapter" predicate inline from token_lora_mapping, so the bool buffer
-    # write in _fused_virtual_topk_ids_kernel is dead work. The segments path
-    # (token_lora_mapping is None) still needs materialization because a
-    # consumer-side binary search would be much more expensive.
-    inline_mask = use_v2 and token_lora_mapping is not None
-
     def _get_routing(
         topk_ids: torch.Tensor,
-        token_lora_mapping: torch.Tensor | None,
+        token_lora_mapping: torch.Tensor,
         num_experts: int,
         shared_outer: bool,
         block_size: int,
@@ -908,7 +832,7 @@ def _merged_experts_fused_moe_lora_add_impl(
             if cached is not None:
                 return cached
 
-        if inline_mask:
+        if use_v2:
             # Fused path: one kernel collapses virtual-topk + align +
             # tight-slice + sanitize. Sentinel rows (lora_id<0 or base<0)
             # are dropped at histogram time, so token_lora_mask is implicit
@@ -933,9 +857,6 @@ def _merged_experts_fused_moe_lora_add_impl(
                     num_experts,
                     shared_outer,
                     max_loras,
-                    seg_indptr,
-                    req_to_lora,
-                    write_mask=not inline_mask,
                 )
             )
             sorted_token_ids, expert_ids, num_tokens_post_padded = _align_block_size(
@@ -953,8 +874,7 @@ def _merged_experts_fused_moe_lora_add_impl(
             )
             sorted_token_ids = sorted_token_ids[:tight_padded]
             expert_ids = expert_ids[: tight_padded // block_size]
-            if not use_v2:
-                expert_ids = fused_sanitize_expert_ids(expert_ids, virtual_num_experts)
+            expert_ids = fused_sanitize_expert_ids(expert_ids, virtual_num_experts)
         result = (
             sorted_token_ids,
             expert_ids,
@@ -1071,7 +991,7 @@ def _merged_experts_fused_moe_lora_add_impl(
             sorted_token_ids,
             expert_ids,
             num_tokens_post_padded,
-            token_lora_mask,
+            token_lora_mapping,
             mul_routed_weight,
             topk_ids.shape[1],
             # Keep the routing alignment and kernel M tile in lock-step.
@@ -1080,7 +1000,6 @@ def _merged_experts_fused_moe_lora_add_impl(
             group_size_m=b_stage_config.get("GROUP_SIZE_M", 1),
             num_warps=b_stage_config.get("num_warps", 4),
             num_stages=b_stage_config.get("num_stages", 4),
-            token_lora_mapping=token_lora_mapping,
         )
     else:
         # invoke_fused_moe_kernel derives K from B.shape[2] and iterates only
@@ -1159,13 +1078,11 @@ def merged_experts_fused_moe_lora_add(
     lora_b: torch.Tensor,
     topk_ids: torch.Tensor,
     topk_weights: torch.Tensor,
-    token_lora_mapping: torch.Tensor | None,
+    token_lora_mapping: torch.Tensor,
     mul_routed_weight: bool,
     experts_shared_outer_loras_a: bool,
     experts_shared_outer_loras_b: bool,
     routing_cache: dict | None = None,
-    seg_indptr: torch.Tensor | None = None,
-    req_to_lora: torch.Tensor | None = None,
 ) -> None:
     """Public API: wraps the registered op with routing_cache support."""
     _merged_experts_fused_moe_lora_add_impl(
@@ -1180,6 +1097,4 @@ def merged_experts_fused_moe_lora_add(
         experts_shared_outer_loras_a,
         experts_shared_outer_loras_b,
         routing_cache,
-        seg_indptr,
-        req_to_lora,
     )
