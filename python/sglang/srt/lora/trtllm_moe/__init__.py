@@ -82,6 +82,8 @@ def init_lora_two_stream_resources(device: Optional[torch.device] = None) -> Non
 _ORIGINAL_QKV_FORWARD: Optional[Callable] = None
 _ORIGINAL_ROW_FORWARD: Optional[Callable] = None
 _ORIGINAL_MERGED_FORWARD: Optional[Callable] = None
+_ORIGINAL_COLUMN_FORWARD: Optional[Callable] = None
+_ORIGINAL_REPLICATED_FORWARD: Optional[Callable] = None
 _ORIGINAL_MOE_LORA_FUNC: Optional[Callable] = None
 _INSTALLED: bool = False
 
@@ -96,6 +98,14 @@ def get_original_row_forward() -> Callable:
 
 def get_original_merged_column_forward() -> Callable:
     return _ORIGINAL_MERGED_FORWARD
+
+
+def get_original_column_forward() -> Callable:
+    return _ORIGINAL_COLUMN_FORWARD
+
+
+def get_original_replicated_forward() -> Callable:
+    return _ORIGINAL_REPLICATED_FORWARD
 
 
 def get_original_moe_lora_func() -> Callable:
@@ -118,7 +128,7 @@ def install_two_stream_overrides() -> None:
     :func:`get_original_row_forward`, :func:`get_original_moe_lora_func` so the
     new versions can fall back when their per-batch gate says single-stream.
     """
-    global _INSTALLED, _ORIGINAL_QKV_FORWARD, _ORIGINAL_ROW_FORWARD, _ORIGINAL_MERGED_FORWARD, _ORIGINAL_MOE_LORA_FUNC
+    global _INSTALLED, _ORIGINAL_QKV_FORWARD, _ORIGINAL_ROW_FORWARD, _ORIGINAL_MERGED_FORWARD, _ORIGINAL_COLUMN_FORWARD, _ORIGINAL_REPLICATED_FORWARD, _ORIGINAL_MOE_LORA_FUNC
 
     if _INSTALLED:
         return
@@ -126,22 +136,34 @@ def install_two_stream_overrides() -> None:
         return
 
     from sglang.srt.lora.layers import (
+        ColumnParallelLinearWithLoRA,
         MergedColumnParallelLinearWithLoRA,
         QKVParallelLinearWithLoRA,
+        ReplicatedLinearWithLoRA,
         RowParallelLinearWithLoRA,
     )
     from sglang.srt.lora.trtllm_moe.attention import (
+        column_parallel_lora_forward,
         qkv_proj_lora_forward,
+        replicated_lora_forward,
         row_parallel_lora_forward,
     )
     from sglang.srt.lora.trtllm_moe.merged_column import merged_column_lora_forward
 
+    # Capture all originals before patching: QKV / MergedColumn subclass
+    # ColumnParallel, so the plain-Column O10 patch must not clobber the
+    # subclasses' own (3-/2-slice) forwards captured here as their fallbacks.
     _ORIGINAL_QKV_FORWARD = QKVParallelLinearWithLoRA.forward
     _ORIGINAL_ROW_FORWARD = RowParallelLinearWithLoRA.forward
     _ORIGINAL_MERGED_FORWARD = MergedColumnParallelLinearWithLoRA.forward
+    _ORIGINAL_COLUMN_FORWARD = ColumnParallelLinearWithLoRA.forward
+    _ORIGINAL_REPLICATED_FORWARD = ReplicatedLinearWithLoRA.forward
     QKVParallelLinearWithLoRA.forward = qkv_proj_lora_forward
     RowParallelLinearWithLoRA.forward = row_parallel_lora_forward
     MergedColumnParallelLinearWithLoRA.forward = merged_column_lora_forward
+    # O10 (MLA q_b_proj / kv_b_proj) + O11 (MLA fused_qkv_a_proj_with_mqa).
+    ColumnParallelLinearWithLoRA.forward = column_parallel_lora_forward
+    ReplicatedLinearWithLoRA.forward = replicated_lora_forward
 
     import sglang.srt.layers.moe.moe_runner.flashinfer_trtllm as ft
     from sglang.srt.lora.trtllm_moe.moe_overlap import (
@@ -163,6 +185,8 @@ __all__ = [
     "get_original_qkv_forward",
     "get_original_row_forward",
     "get_original_merged_column_forward",
+    "get_original_column_forward",
+    "get_original_replicated_forward",
     "get_original_moe_lora_func",
     "install_two_stream_overrides",
 ]
