@@ -85,6 +85,7 @@ _ORIGINAL_MERGED_FORWARD: Optional[Callable] = None
 _ORIGINAL_COLUMN_FORWARD: Optional[Callable] = None
 _ORIGINAL_REPLICATED_FORWARD: Optional[Callable] = None
 _ORIGINAL_MOE_LORA_FUNC: Optional[Callable] = None
+_ORIGINAL_FP4_MOE_LORA_FUNC: Optional[Callable] = None
 _INSTALLED: bool = False
 
 
@@ -112,6 +113,10 @@ def get_original_moe_lora_func() -> Callable:
     return _ORIGINAL_MOE_LORA_FUNC
 
 
+def get_original_fp4_moe_lora_func() -> Callable:
+    return _ORIGINAL_FP4_MOE_LORA_FUNC
+
+
 def install_two_stream_overrides() -> None:
     """Install the side-stream overlapped overrides if ``SGLANG_LORA_TWO_STREAM=1``.
 
@@ -128,7 +133,7 @@ def install_two_stream_overrides() -> None:
     :func:`get_original_row_forward`, :func:`get_original_moe_lora_func` so the
     new versions can fall back when their per-batch gate says single-stream.
     """
-    global _INSTALLED, _ORIGINAL_QKV_FORWARD, _ORIGINAL_ROW_FORWARD, _ORIGINAL_MERGED_FORWARD, _ORIGINAL_COLUMN_FORWARD, _ORIGINAL_REPLICATED_FORWARD, _ORIGINAL_MOE_LORA_FUNC
+    global _INSTALLED, _ORIGINAL_QKV_FORWARD, _ORIGINAL_ROW_FORWARD, _ORIGINAL_MERGED_FORWARD, _ORIGINAL_COLUMN_FORWARD, _ORIGINAL_REPLICATED_FORWARD, _ORIGINAL_MOE_LORA_FUNC, _ORIGINAL_FP4_MOE_LORA_FUNC
 
     if _INSTALLED:
         return
@@ -167,12 +172,19 @@ def install_two_stream_overrides() -> None:
 
     import sglang.srt.layers.moe.moe_runner.flashinfer_trtllm as ft
     from sglang.srt.lora.trtllm_moe.moe_overlap import (
+        fused_experts_none_to_sgl_flashinfer_trtllm_fp4_lora_two_stream,
         fused_experts_none_to_sgl_flashinfer_trtllm_fp8_lora_two_stream,
     )
 
+    # O1 (FP8 Qwen) + O1-fp4 (NVFP4 Kimi): MoE gate_up LoRA overlap. Each patched
+    # fn falls back to its saved single-stream original for non-decode batches.
     _ORIGINAL_MOE_LORA_FUNC = ft.fused_experts_none_to_sgl_flashinfer_trtllm_fp8_lora
+    _ORIGINAL_FP4_MOE_LORA_FUNC = ft.fused_experts_none_to_sgl_flashinfer_trtllm_fp4_lora
     ft.fused_experts_none_to_sgl_flashinfer_trtllm_fp8_lora = (
         fused_experts_none_to_sgl_flashinfer_trtllm_fp8_lora_two_stream
+    )
+    ft.fused_experts_none_to_sgl_flashinfer_trtllm_fp4_lora = (
+        fused_experts_none_to_sgl_flashinfer_trtllm_fp4_lora_two_stream
     )
 
     _INSTALLED = True
@@ -188,5 +200,6 @@ __all__ = [
     "get_original_column_forward",
     "get_original_replicated_forward",
     "get_original_moe_lora_func",
+    "get_original_fp4_moe_lora_func",
     "install_two_stream_overrides",
 ]
