@@ -452,5 +452,11 @@ def fused_experts_none_to_sgl_flashinfer_trtllm_fp4_lora(
         fuse_add_to_output=False,
         fuse_sum_all_reduce=True,
         use_direct_expand_add=lora_info.max_lora_rank <= 64,
+        # EP-aware: scope the down delta to this rank's experts, matching the gate_up
+        # call above and the FP8 down call. Harmless at EP=1 (local==global, Kimi today);
+        # required for correctness if MoE-EP is turned on later (otherwise non-owned
+        # experts' deltas get over-counted by the fuse_sum_all_reduce).
+        local_expert_offset=quant_info.local_expert_offset,
+        local_num_experts=quant_info.local_num_experts,
     )
     return StandardCombineInput(hidden_states=output)
