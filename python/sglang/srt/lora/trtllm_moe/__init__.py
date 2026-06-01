@@ -21,25 +21,17 @@ to the saved-original implementation for non-decode batches (token count above
 ``SGLANG_TWO_STREAM_MAX_TOKENS`` default 256), so prefill stays on the serial
 path even with the patch installed.
 """
-import os
 from typing import Callable, Optional
 
 import torch
 
-_ENV_KEY = "SGLANG_LORA_TWO_STREAM"
-_MAX_TOKENS_KEY = "SGLANG_TWO_STREAM_MAX_TOKENS"
-_MAX_TOKENS_DEFAULT = 256
-
+from sglang.srt.environ import envs
 
 def is_two_stream_active(x: torch.Tensor) -> bool:
     """Per-batch gate. True iff env is on AND batch is decode-shaped."""
-    if os.environ.get(_ENV_KEY) != "1":
+    if not envs.SGLANG_LORA_TWO_STREAM.get():
         return False
-    try:
-        max_tok = int(os.environ.get(_MAX_TOKENS_KEY, str(_MAX_TOKENS_DEFAULT)))
-    except ValueError:
-        max_tok = _MAX_TOKENS_DEFAULT
-    return x.shape[0] <= max_tok
+    return x.shape[0] <= envs.SGLANG_TWO_STREAM_MAX_TOKENS.get()
 
 
 _LORA_SIDE_STREAM: Optional[torch.cuda.Stream] = None
@@ -68,7 +60,7 @@ def init_lora_two_stream_resources(device: Optional[torch.device] = None) -> Non
     Calling this from a pre-capture hook pins creation to init/warmup on the
     correct device. No-op unless ``SGLANG_LORA_TWO_STREAM=1``.
     """
-    if os.environ.get(_ENV_KEY) != "1":
+    if not envs.SGLANG_LORA_TWO_STREAM.get():
         return
     if device is not None:
         with torch.cuda.device(device):
@@ -137,7 +129,7 @@ def install_two_stream_overrides() -> None:
 
     if _INSTALLED:
         return
-    if os.environ.get(_ENV_KEY) != "1":
+    if not envs.SGLANG_LORA_TWO_STREAM.get():
         return
 
     from sglang.srt.lora.layers import (
