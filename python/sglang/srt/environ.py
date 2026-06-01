@@ -435,6 +435,15 @@ class Envs:
     # concurrently into a separate buffer; the main stream adds it after the op (all-reduce structure
     # unchanged). Default off until perf-measured + accuracy-validated.
     SGLANG_LORA_OVERLAP_DOWN = EnvBool(False)
+    # Split-K for the dense LoRA-A (shrink) GEMM. At decode the shrink grid is
+    # bs programs (one per sequence), far below the SM count, so the large-K
+    # reduction under-fills the GPU. Splitting K across SPLIT_K programs that
+    # accumulate via fp32 atomics recovers the idle SMs. fp32 (not bf16) atomics
+    # are mandatory here: bf16 atomic_add is an emulated CAS loop that contends
+    # and caps the win at ~sk4, while native fp32 atomics scale to ~sk16 and are
+    # more accurate. Only helps at large K (>=~2-4K input dim) and low batch;
+    # the heuristic returns SPLIT_K=1 (original path) otherwise. Opt-in.
+    SGLANG_ENABLE_LORA_SHRINK_SPLIT_K = EnvBool(False)
     # Skip-softmax threshold scale factor for TRT-LLM attention (prefill and decode separately).
     # None = standard attention. See https://arxiv.org/abs/2512.12087
     SGLANG_SKIP_SOFTMAX_PREFILL_THRESHOLD_SCALE_FACTOR = EnvFloat(None)
