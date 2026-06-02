@@ -11,6 +11,7 @@ Called from :mod:`sglang.srt.lora.triton_ops.virtual_experts` when
 ``max_lora_rank <= 64``); the generic ``invoke_fused_moe_kernel`` is used
 when that flag is False (incl. ranks above 64).
 """
+
 from typing import Any
 
 import torch
@@ -86,9 +87,7 @@ def _moe_lora_expand_add_kernel(
         if not FUSE_SUM_ALL_REDUCE:
             offs_n = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N).to(tl.int64)
             c_ptrs = (
-                c_ptr
-                + offs_token[:, None] * stride_cm
-                + offs_n[None, :] * stride_cn
+                c_ptr + offs_token[:, None] * stride_cm + offs_n[None, :] * stride_cn
             )
             c_mask = token_mask[:, None] & (offs_n[None, :] < N)
             zeros = tl.zeros((BLOCK_SIZE_M, BLOCK_SIZE_N), dtype=c_ptr.dtype.element_ty)
@@ -128,11 +127,7 @@ def _moe_lora_expand_add_kernel(
         offs_token_out = offs_token // router_topk
     else:
         offs_token_out = offs_token
-    c_ptrs = (
-        c_ptr
-        + offs_token_out[:, None] * stride_cm
-        + offs_n[None, :] * stride_cn
-    )
+    c_ptrs = c_ptr + offs_token_out[:, None] * stride_cm + offs_n[None, :] * stride_cn
     c_mask = token_mask[:, None] & (offs_n[None, :] < N)
     if FUSE_SUM_ALL_REDUCE:
         tl.atomic_add(c_ptrs, accumulator.to(c_ptr.dtype.element_ty), mask=c_mask)
@@ -165,8 +160,8 @@ def _invoke_moe_lora_expand_add(
     R = weight.shape[2]
     assert R <= 64, f"direct LoRA expand/add expects rank <= 64, got {R}"
 
-    block_size_m = config["BLOCK_SIZE_M"]
-    block_size_n = 128 if N % 128 == 0 else config["BLOCK_SIZE_N"]
+    block_size_m = 16
+    block_size_n = 256
     group_size_m = config.get("GROUP_SIZE_M", 1)
     block_size_r = triton.next_power_of_2(R)
 

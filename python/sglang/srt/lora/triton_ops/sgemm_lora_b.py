@@ -147,7 +147,7 @@ def sgemm_lora_b_fwd(
 
     # Block shapes
     BLOCK_S = 16
-    BLOCK_R = 16
+    BLOCK_R = triton.next_power_of_2(R)
     BLOCK_N = 256
 
     grid = (
