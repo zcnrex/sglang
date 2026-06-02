@@ -444,6 +444,14 @@ class Envs:
     # more accurate. Only helps at large K (>=~2-4K input dim) and low batch;
     # the heuristic returns SPLIT_K=1 (original path) otherwise. Opt-in.
     SGLANG_ENABLE_LORA_SHRINK_SPLIT_K = EnvBool(False)
+    # Programmatic Dependent Launch (PDL) for the LoRA Triton kernels (dense MLA shrink/expand,
+    # absorbed kv_b correction, dense MLP gate_up/down, MoE virtual-expert shrink/expand, and the
+    # routing-prep kernels). Each kernel issues its static loads (LoRA weights + routing metadata)
+    # in the PDL prologue, then `gdc_wait()`s for the producing kernel before reading the dynamic
+    # activation, overlapping weight/metadata loads with the tail of the prior kernel. Hopper+
+    # only; AND'd with is_arch_support_pdl() so it is a no-op on unsupported arch / HIP. Opt-in;
+    # default off until perf-measured.
+    SGLANG_LORA_ENABLE_PDL = EnvBool(False)
     # Skip-softmax threshold scale factor for TRT-LLM attention (prefill and decode separately).
     # None = standard attention. See https://arxiv.org/abs/2512.12087
     SGLANG_SKIP_SOFTMAX_PREFILL_THRESHOLD_SCALE_FACTOR = EnvFloat(None)

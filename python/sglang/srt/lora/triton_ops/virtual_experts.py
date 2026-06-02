@@ -10,6 +10,10 @@ import triton
 import triton.language as tl
 
 from sglang.jit_kernel.moe_align import moe_align_block_size as jit_moe_align_block_size
+from sglang.srt.lora.triton_ops.kernel_utils import (
+    lora_pdl_enabled,
+    lora_pdl_launch_kwargs,
+)
 
 
 @triton.jit
@@ -25,6 +29,7 @@ def _fused_virtual_topk_ids_kernel(
     local_expert_offset: tl.constexpr,
     local_num_experts: tl.constexpr,
     EP_LOCAL: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
 ):
     """
     Fuses _get_virtual_topk_ids: comparison + clamp + arithmetic into one kernel.
@@ -45,6 +50,11 @@ def _fused_virtual_topk_ids_kernel(
 
     m = offs // top_k
     # k = offs % top_k  # not needed directly
+
+    # PDL: index arithmetic above is static; wait before reading the dynamic
+    # routing inputs (token_lora_mapping / topk_ids produced upstream).
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
 
     lora_id = tl.load(token_lora_mapping_ptr + m, mask=valid, other=0)
     mask_val = lora_id >= 0
@@ -73,6 +83,9 @@ def _fused_virtual_topk_ids_kernel(
     k = offs % top_k
     is_first_k = k == 0
     tl.store(token_lora_mask_ptr + m, mask_val, mask=valid & is_first_k)
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
 
 
 def _fused_virtual_topk_ids(
@@ -112,6 +125,7 @@ def _fused_virtual_topk_ids(
     BLOCK_SIZE = 1024
     grid = ((M * top_k + BLOCK_SIZE - 1) // BLOCK_SIZE,)
 
+    enable_pdl = lora_pdl_enabled()
     _fused_virtual_topk_ids_kernel[grid](
         input_topk,
         token_lora_mapping,
@@ -124,6 +138,8 @@ def _fused_virtual_topk_ids(
         local_expert_offset,
         local_num_experts if local_num_experts is not None else 0,
         ep_local,
+        enable_pdl,
+        **lora_pdl_launch_kwargs(enable_pdl),
     )
 
     virtual_num_experts = num_experts_for_weight * max_loras
@@ -137,14 +153,22 @@ def _fused_sanitize_expert_ids_kernel(
     num_virtual_experts,
     N,
     BLOCK_SIZE: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
 ):
     pid = tl.program_id(0)
     offs = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
     valid = offs < N
 
+    # PDL: wait before reading the dynamic expert_ids (produced by the align kernel).
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
+
     eid = tl.load(expert_ids_ptr + offs, mask=valid, other=0)
     result = tl.where(eid < num_virtual_experts, eid, -1)
     tl.store(output_ptr + offs, result, mask=valid)
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
 
 
 def fused_sanitize_expert_ids(
@@ -162,12 +186,15 @@ def fused_sanitize_expert_ids(
     BLOCK_SIZE = 1024
     grid = ((N + BLOCK_SIZE - 1) // BLOCK_SIZE,)
 
+    enable_pdl = lora_pdl_enabled()
     _fused_sanitize_expert_ids_kernel[grid](
         expert_ids,
         output,
         num_virtual_experts,
         N,
         BLOCK_SIZE,
+        enable_pdl,
+        **lora_pdl_launch_kwargs(enable_pdl),
     )
     return output
 
@@ -200,6 +227,7 @@ def _moe_lora_shrink_splitk_kernel(
     BLOCK_SIZE_K: tl.constexpr,
     GROUP_SIZE_M: tl.constexpr,
     SPLIT_K: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
 ):
     """Split-K grouped GEMM for the LoRA A (shrink) stage with few virtual experts."""
     pid = tl.program_id(0)
@@ -241,6 +269,15 @@ def _moe_lora_shrink_splitk_kernel(
         + off_expert * stride_be
         + (offs_k[:, None] * stride_bk + offs_bn[None, :] * stride_bn)
     )
+    offs_cn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N)
+    c_ptrs = c_ptr + stride_cm * offs_token[:, None] + stride_cn * offs_cn[None, :]
+    c_mask = token_mask[:, None] & (offs_cn[None, :] < N)
+
+    # PDL: static routing/pointer setup runs in the prologue; wait before the
+    # K-loop reads the dynamic hidden states `a` (still being written upstream).
+    # The LoRA-A weight `b` streams in the loop interleaved with `a`.
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
 
     # Accumulate
     accumulator = tl.zeros((BLOCK_SIZE_M, BLOCK_SIZE_N), dtype=tl.float32)
@@ -261,13 +298,13 @@ def _moe_lora_shrink_splitk_kernel(
     accumulator = accumulator.to(c_ptr.dtype.element_ty)
 
     # Write output
-    offs_cn = pid_n * BLOCK_SIZE_N + tl.arange(0, BLOCK_SIZE_N)
-    c_ptrs = c_ptr + stride_cm * offs_token[:, None] + stride_cn * offs_cn[None, :]
-    c_mask = token_mask[:, None] & (offs_cn[None, :] < N)
     if SPLIT_K == 1:
         tl.store(c_ptrs, accumulator, mask=c_mask)
     else:
         tl.atomic_add(c_ptrs, accumulator, mask=c_mask, sem="relaxed")
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
 
 
 def _invoke_moe_lora_shrink_splitk(
@@ -296,6 +333,7 @@ def _invoke_moe_lora_shrink_splitk(
 
     grid = (SPLIT_K * base_grid,)
 
+    enable_pdl = lora_pdl_enabled()
     _moe_lora_shrink_splitk_kernel[grid](
         hidden_states,
         weight,
@@ -319,8 +357,10 @@ def _invoke_moe_lora_shrink_splitk(
         BLOCK_SIZE_K=BLOCK_SIZE_K,
         GROUP_SIZE_M=GROUP_SIZE_M,
         SPLIT_K=SPLIT_K,
+        ENABLE_PDL=enable_pdl,
         num_warps=config.get("num_warps", 4),
         num_stages=config.get("num_stages", 4),
+        **lora_pdl_launch_kwargs(enable_pdl),
     )
 
 
@@ -347,7 +387,6 @@ from sglang.srt.lora.trtllm_moe.specialized_expand import (  # noqa: E402,F401
     _invoke_moe_lora_expand_add,
     _moe_lora_expand_add_kernel,
 )
-
 
 
 def _align_block_size_jit(

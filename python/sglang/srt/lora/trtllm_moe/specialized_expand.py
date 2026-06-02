@@ -19,6 +19,10 @@ import triton
 import triton.language as tl
 
 from sglang.srt.environ import envs
+from sglang.srt.lora.triton_ops.kernel_utils import (
+    lora_pdl_enabled,
+    lora_pdl_launch_kwargs,
+)
 
 
 @triton.jit
@@ -52,6 +56,7 @@ def _moe_lora_expand_add_kernel(
     BLOCK_SIZE_R: tl.constexpr,
     GROUP_SIZE_M: tl.constexpr,
     GATED_A_HALF: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
 ):
     """Rank-specialized LoRA-B expand for virtual-expert LoRA.
 
@@ -104,11 +109,6 @@ def _moe_lora_expand_add_kernel(
     if GATED_A_HALF > 0:
         a_col = offs_r + tl.where(pid_n * BLOCK_SIZE_N >= GATED_A_HALF, R, 0)
 
-    a = tl.load(
-        a_ptr + offs_token[:, None] * stride_am + a_col[None, :] * stride_ar,
-        mask=token_mask[:, None] & rank_mask[None, :],
-        other=0.0,
-    )
     b = tl.load(
         b_ptr
         + off_expert * stride_be
@@ -118,21 +118,37 @@ def _moe_lora_expand_add_kernel(
         other=0.0,
     )
 
-    accumulator = tl.dot(a, b, out_dtype=tl.float32)
-    if MUL_ROUTED_WEIGHT:
-        moe_weight = tl.load(topk_weights_ptr + offs_token, mask=token_mask, other=0.0)
-        accumulator *= moe_weight[:, None]
-
     if FUSE_SUM_ALL_REDUCE:
         offs_token_out = offs_token // router_topk
     else:
         offs_token_out = offs_token
+
     c_ptrs = c_ptr + offs_token_out[:, None] * stride_cm + offs_n[None, :] * stride_cn
     c_mask = token_mask[:, None] & (offs_n[None, :] < N)
+
+    if MUL_ROUTED_WEIGHT:
+        moe_weight = tl.load(topk_weights_ptr + offs_token, mask=token_mask, other=0.0)
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
+
+    a = tl.load(
+        a_ptr + offs_token[:, None] * stride_am + a_col[None, :] * stride_ar,
+        mask=token_mask[:, None] & rank_mask[None, :],
+        other=0.0,
+    )
+
+    accumulator = tl.dot(a, b, out_dtype=tl.float32)
+    if MUL_ROUTED_WEIGHT:
+        accumulator *= moe_weight[:, None]
+
     if FUSE_SUM_ALL_REDUCE:
         tl.atomic_add(c_ptrs, accumulator.to(c_ptr.dtype.element_ty), mask=c_mask)
     else:
         tl.store(c_ptrs, accumulator.to(c_ptr.dtype.element_ty), mask=c_mask)
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
 
 
 def _invoke_moe_lora_expand_add(
@@ -160,8 +176,8 @@ def _invoke_moe_lora_expand_add(
     R = weight.shape[2]
     assert R <= 64, f"direct LoRA expand/add expects rank <= 64, got {R}"
 
-    block_size_m = 16
-    block_size_n = 256
+    block_size_m = config["BLOCK_SIZE_M"]
+    block_size_n = config["BLOCK_SIZE_N"]
     group_size_m = config.get("GROUP_SIZE_M", 1)
     block_size_r = triton.next_power_of_2(R)
 
@@ -182,6 +198,7 @@ def _invoke_moe_lora_expand_add(
         * triton.cdiv(N, block_size_n),
     )
 
+    enable_pdl = lora_pdl_enabled()
     _moe_lora_expand_add_kernel[grid](
         intermediate,
         weight,
@@ -208,6 +225,8 @@ def _invoke_moe_lora_expand_add(
         BLOCK_SIZE_R=block_size_r,
         GROUP_SIZE_M=group_size_m,
         GATED_A_HALF=gated_a_half,
+        ENABLE_PDL=enable_pdl,
         num_warps=config.get("num_warps", 4),
         num_stages=1,
+        **lora_pdl_launch_kwargs(enable_pdl),
     )

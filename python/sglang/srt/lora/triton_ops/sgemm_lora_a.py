@@ -5,7 +5,11 @@ import triton
 import triton.language as tl
 
 from sglang.srt.environ import envs
-from sglang.srt.lora.triton_ops.kernel_utils import _resolve_token_positions
+from sglang.srt.lora.triton_ops.kernel_utils import (
+    _resolve_token_positions,
+    lora_pdl_enabled,
+    lora_pdl_launch_kwargs,
+)
 from sglang.srt.lora.utils import LoRABatchInfo
 
 
@@ -38,6 +42,7 @@ def _sgemm_lora_a_kernel(
     BLOCK_S: tl.constexpr,
     BLOCK_N: tl.constexpr,
     BLOCK_K: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
 ):
     """
     Computes a segmented batched matrix multiplication for the LoRA A matrix.
@@ -95,6 +100,14 @@ def _sgemm_lora_a_kernel(
         k_offset[:, None] * w_stride_2 + n_offset[None, :] * w_stride_1
     )
 
+    output_mask = (s_offset[:, None] < seg_len) & (n_offset[None, :] < N)
+    output_ptr = output + (
+        s_physical[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1
+    )
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
+
     # Iterate to compute the block in output matrix
     partial_sum = tl.zeros((BLOCK_S, BLOCK_N), dtype=tl.float32)
     for k in range(0, tl.cdiv(K, BLOCK_K)):
@@ -115,11 +128,10 @@ def _sgemm_lora_a_kernel(
 
     # Store result to output matrix
     partial_sum = partial_sum.to(x.dtype.element_ty)
-    output_mask = (s_offset[:, None] < seg_len) & (n_offset[None, :] < N)
-    output_ptr = output + (
-        s_physical[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1
-    )
     tl.store(output_ptr, partial_sum, mask=output_mask)
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
 
 
 @triton.jit
@@ -147,6 +159,7 @@ def _sgemm_lora_a_splitk_kernel(
     BLOCK_N: tl.constexpr,
     BLOCK_K: tl.constexpr,
     SPLIT_K: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
 ):
     """Split-K variant of ``_sgemm_lora_a_kernel`` for the under-filled decode shape.
 
@@ -189,6 +202,14 @@ def _sgemm_lora_a_splitk_kernel(
         offs_k[:, None] * w_stride_2 + n_offset[None, :] * w_stride_1
     )
 
+    out_mask = (s_offset[:, None] < seg_len) & (n_offset[None, :] < N)
+    out_ptr = output + (
+        s_physical[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1
+    )
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
+
     grid_k = tl.cdiv(K, BLOCK_K * SPLIT_K)
     partial_sum = tl.zeros((BLOCK_S, BLOCK_N), dtype=tl.float32)
     for k in range(0, grid_k):
@@ -207,11 +228,10 @@ def _sgemm_lora_a_splitk_kernel(
         x_ptrs += BLOCK_K * SPLIT_K * x_stride_1
         w_ptrs += BLOCK_K * SPLIT_K * w_stride_2
 
-    out_mask = (s_offset[:, None] < seg_len) & (n_offset[None, :] < N)
-    out_ptr = output + (
-        s_physical[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1
-    )
     tl.atomic_add(out_ptr, partial_sum, mask=out_mask, sem="relaxed")
+
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
 
 
 @functools.lru_cache(maxsize=None)
@@ -274,6 +294,9 @@ def sgemm_lora_a_fwd(
 
     sorted_by_adapter = batch_info.permutation is not None
 
+    enable_pdl = lora_pdl_enabled()
+    pdl_kwargs = lora_pdl_launch_kwargs(enable_pdl)
+
     split_k = 1
     if envs.SGLANG_ENABLE_LORA_SHRINK_SPLIT_K.get() and x.is_cuda:
         split_k = _lora_a_split_k(
@@ -314,6 +337,8 @@ def sgemm_lora_a_fwd(
             BLOCK_R,
             BLOCK_K,
             split_k,
+            enable_pdl,
+            **pdl_kwargs,
         )
         return acc.to(x.dtype)
 
@@ -341,5 +366,7 @@ def sgemm_lora_a_fwd(
         BLOCK_S,
         BLOCK_R,
         BLOCK_K,
+        enable_pdl,
+        **pdl_kwargs,
     )
     return output
