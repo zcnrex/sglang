@@ -170,12 +170,12 @@ def _qkv_lora_b_cublas(
     come from the pinned CPU copy (no GPU sync); slices are disjoint output
     regions, so in-place addmm_ writes never collide.
     """
-    r = batch_info.lora_ranks[0]
+    r = qkv_lora_b.shape[-1]
     if base_output is None:
         base_output = torch.zeros(
             (x.shape[0], qkv_lora_b.shape[-2]), device=x.device, dtype=x.dtype
         )
-    w = qkv_lora_b[batch_info.weight_indices[0]]
+    w = qkv_lora_b[0]
     x_scaled = x[:, : n_slices * r] * batch_info.scalings[0]
     offsets = output_offset_cpu.tolist()
     for i in range(n_slices):

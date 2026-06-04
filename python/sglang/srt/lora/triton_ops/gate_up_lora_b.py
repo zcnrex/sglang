@@ -171,12 +171,12 @@ def _gate_up_lora_b_cublas(
     matching the Triton kernel's K = min(K, rank) slice stride. Slices are
     disjoint output regions, so in-place addmm_ writes never collide.
     """
-    r = batch_info.lora_ranks[0]
+    r = gate_up_lora_b.shape[-1]
     if base_output is None:
         base_output = torch.zeros(
             (x.shape[0], 2 * output_dim), device=x.device, dtype=x.dtype
         )
-    w = gate_up_lora_b[batch_info.weight_indices[0]]
+    w = gate_up_lora_b[0]
     x_scaled = x[:, : 2 * r] * batch_info.scalings[0]
     for i in range(2):
         lo, hi = i * output_dim, (i + 1) * output_dim
