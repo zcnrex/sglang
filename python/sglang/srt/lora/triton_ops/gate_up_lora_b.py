@@ -207,10 +207,7 @@ def gate_up_lora_b_fwd(
     r = gate_up_lora_b.shape[-1]
     assert input_dim == 2 * r
 
-    if (
-        envs.SGLANG_OPT_LORA_CUBLAS.get()
-        and s * batch_info.lora_ranks[0] >= _CUBLAS_MIN_S_RANK
-    ):
+    if envs.SGLANG_OPT_LORA_CUBLAS.get() and s * r >= _CUBLAS_MIN_S_RANK:
         return _gate_up_lora_b_cublas(
             x, gate_up_lora_b, batch_info, output_dim, base_output
         )

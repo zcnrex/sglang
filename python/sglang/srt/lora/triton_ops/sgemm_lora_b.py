@@ -165,10 +165,7 @@ def sgemm_lora_b_fwd(
     R = weights.shape[-1]
     assert x.shape[-1] == R
 
-    if (
-        envs.SGLANG_OPT_LORA_CUBLAS.get()
-        and S * batch_info.lora_ranks[0] >= _CUBLAS_MIN_S_RANK
-    ):
+    if envs.SGLANG_OPT_LORA_CUBLAS.get() and S * R >= _CUBLAS_MIN_S_RANK:
         return _sgemm_lora_b_cublas(x, weights, batch_info, base_output)
     # Block shapes
     BLOCK_S = 16
