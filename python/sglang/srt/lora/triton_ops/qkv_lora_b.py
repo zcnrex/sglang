@@ -219,7 +219,7 @@ def qkv_lora_b_fwd(
 
     if (
         output_offset_cpu is not None
-        and envs.SGLANG_OPT_LORA_CUBLAS.get()
+        and (envs.SGLANG_OPT_LORA_CUBLAS.get() or envs.SGLANG_OPT_LORA_CUBLAS_QKV.get())
         and batch_info.max_len >= _CUBLAS_MIN_MAX_LEN
     ):
         return _qkv_lora_b_cublas(
