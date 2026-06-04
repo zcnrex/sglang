@@ -230,5 +230,53 @@ class QKVLoRABSingleBlockN:
         )
 
 
+@marker.parametrize("model", ["qwen35_tp4"])
+@marker.parametrize("rank", [16])
+@marker.parametrize("workload", list(WORKLOADS), ci_vals=["decode_bs64", "prefill_512"])
+@marker.kernel(
+    "block_out",
+    [16, 32, 64, 128, 256],
+    reference=128,
+    rtol=2e-2,
+    atol=5e-2,
+)
+class QKVLoRABGeneralBlockOutAtomic:
+    """BLOCK_OUT (block-out) tuning for the general kernel with atomic_add."""
+
+    def inputs(self, model: str, rank: int, workload: str):
+        device, dtype = "cuda", torch.bfloat16
+        dims = MODELS[model]
+        n_slices = len(dims)
+        seg_lens = WORKLOADS[workload]
+        s = sum(seg_lens)
+        scaling = 2.0
+
+        x = torch.randn(s, n_slices * rank, device=device, dtype=dtype) * 0.1
+        w = torch.randn(1, sum(dims), rank, device=device, dtype=dtype) * 0.1
+
+        offsets = [0]
+        for d in dims:
+            offsets.append(offsets[-1] + d)
+        self._n_slices = n_slices
+        self._max_qkv_out_dim = max(dims)
+        self._output_offset = torch.tensor(offsets, dtype=torch.int32, device=device)
+        self._bi = _make_batch_info(seg_lens, rank, scaling, device, uniform=False)
+        return marker.io(x, w)
+
+    def run(self, block_out: int, x: torch.Tensor, w: torch.Tensor):
+        return qkv_lora_b_fwd(
+            x,
+            w,
+            self._bi,
+            self._output_offset,
+            self._max_qkv_out_dim,
+            base_output=None,
+            n_slices=self._n_slices,
+            output_offset_cpu=None,
+            use_atomic=True,
+            block_out=block_out,
+        )
+
+
 if __name__ == "__main__":
-    marker.main(QKVLoRAB, QKVLoRABSingleBlockN)
+    marker.main(QKVLoRAB, QKVLoRABSingleBlockN, QKVLoRABGeneralBlockOutAtomic)
