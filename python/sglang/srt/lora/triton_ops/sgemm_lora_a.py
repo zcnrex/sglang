@@ -179,7 +179,7 @@ def sgemm_lora_a_fwd(
     assert x.shape[-1] == K
 
     single_adapter = batch_info.single_adapter
-    if single_adapter is not None:
+    if envs.SGLANG_OPT_LORA_CUBLAS_SHRINK.get() and single_adapter is not None:
         idx, rank = single_adapter
         if rank == R // stack_num:
             return F.linear(x, weights[idx])

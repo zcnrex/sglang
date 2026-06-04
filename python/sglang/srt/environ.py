@@ -476,6 +476,10 @@ class Envs:
     # + quant#2's two reads, ~1.5x over the separate pair on EP8 bs64 Kimi decode). Takes priority
     # over _VEC. Read C++-side via getenv in FP4BlockScaleLoraLauncher::run. Default OFF (A/B bisect).
     SGLANG_OPT_FUSED_MOE_ACTIVATION_QUANT_FUSE = EnvBool(False)
+    # Opt in to the single-adapter cuBLAS (F.linear) LoRA-A shrink fast path in sgemm_lora_a_fwd.
+    # Only takes effect when batch_info.single_adapter is set (eager, uniform 1-adapter batch); under
+    # CUDA graph single_adapter is None so this is a no-op. Default OFF (A/B bisect).
+    SGLANG_OPT_LORA_CUBLAS_SHRINK = EnvBool(False)
     # Skip-softmax threshold scale factor for TRT-LLM attention (prefill and decode separately).
     # None = standard attention. See https://arxiv.org/abs/2512.12087
     SGLANG_SKIP_SOFTMAX_PREFILL_THRESHOLD_SCALE_FACTOR = EnvFloat(None)
