@@ -178,11 +178,8 @@ def sgemm_lora_a_fwd(
     K = weights.shape[-1]
     assert x.shape[-1] == K
 
-    single_adapter = batch_info.single_adapter
-    if envs.SGLANG_OPT_LORA_CUBLAS_SHRINK.get() and single_adapter is not None:
-        idx, rank = single_adapter
-        if rank == R // stack_num:
-            return F.linear(x, weights[idx])
+    if envs.SGLANG_OPT_LORA_CUBLAS.get():
+        return F.linear(x, weights[0])
 
     # Block shapes
     BLOCK_S = 16
