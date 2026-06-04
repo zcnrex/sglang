@@ -49,6 +49,7 @@ def _qkv_lora_b_kernel(
     # For fused output scaling
     scalings,
     ENABLE_PDL: tl.constexpr = False,
+    USE_ATOMIC: tl.constexpr = False,
 ):
     """
     This kernel packs 3 sgemms (q/k/v) into a single kernel. The multiplication
@@ -151,10 +152,13 @@ def _qkv_lora_b_kernel(
         + (s_physical[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1)
     )
     output_mask = (s_offset[:, None] < seg_len) & (n_offset[None, :] < n_size)
-    # Each output element has a single writer (disjoint over batch_id/qkv_id/tile),
-    # so accumulate onto base_output with a plain load-add-store instead of atomic_add.
-    base = tl.load(output_ptr, mask=output_mask, other=0.0)
-    tl.store(output_ptr, base + partial_sum, mask=output_mask)
+    if USE_ATOMIC:
+        tl.atomic_add(output_ptr, partial_sum, mask=output_mask, sem="relaxed")
+    else:
+        # Writes are disjoint (one batch_id/qkv_id/tile per element), so accumulate
+        # onto base_output with a plain load-add-store instead of atomic_add.
+        base = tl.load(output_ptr, mask=output_mask, other=0.0)
+        tl.store(output_ptr, base + partial_sum, mask=output_mask)
 
 
 @triton.jit
@@ -175,6 +179,7 @@ def _qkv_lora_b_single_kernel(
     R: tl.constexpr,
     BLOCK_S: tl.constexpr,
     BLOCK_N: tl.constexpr,
+    USE_ATOMIC: tl.constexpr = False,
 ):
     """Single-adapter (slot 0, fixed rank R) qkv LoRA-B expand-add.
 
@@ -220,8 +225,13 @@ def _qkv_lora_b_single_kernel(
         + (s_offset[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1)
     )
     out_mask = s_mask[:, None] & n_mask[None, :]
-    base = tl.load(out_ptr, mask=out_mask, other=0.0)
-    tl.store(out_ptr, (base + acc).to(output.dtype.element_ty), mask=out_mask)
+    if USE_ATOMIC:
+        tl.atomic_add(
+            out_ptr, acc.to(output.dtype.element_ty), mask=out_mask, sem="relaxed"
+        )
+    else:
+        base = tl.load(out_ptr, mask=out_mask, other=0.0)
+        tl.store(out_ptr, (base + acc).to(output.dtype.element_ty), mask=out_mask)
 
 
 def qkv_lora_b_single_fwd(
@@ -233,6 +243,7 @@ def qkv_lora_b_single_fwd(
     scaling: float,
     base_output: Optional[torch.Tensor] = None,
     n_slices: int = 3,
+    use_atomic: bool = False,
 ) -> torch.Tensor:
     """Single-adapter qkv LoRA-B expand-add via _qkv_lora_b_single_kernel.
 
@@ -272,6 +283,7 @@ def qkv_lora_b_single_fwd(
         R=rank,
         BLOCK_S=BLOCK_S,
         BLOCK_N=BLOCK_N,
+        USE_ATOMIC=use_atomic,
     )
     return output
 
@@ -314,6 +326,7 @@ def qkv_lora_b_fwd(
     base_output: torch.Tensor = None,
     n_slices: int = 3,
     output_offset_cpu: Optional[torch.Tensor] = None,
+    use_atomic: bool = False,
 ) -> torch.Tensor:
 
     # x: (s, n_slices * r)
@@ -394,6 +407,7 @@ def qkv_lora_b_fwd(
         BLOCK_R,
         batch_info.scalings,
         ENABLE_PDL=enable_pdl,
+        USE_ATOMIC=use_atomic,
         **pdl_kwargs,
     )
 

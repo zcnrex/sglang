@@ -1,30 +1,27 @@
-"""qkv_lora_b testbed: general Triton kernel vs single-adapter specializations.
+"""qkv_lora_b testbed: general vs single-adapter kernels, atomic_add vs load-add-store.
 
-Built on the PR #27292 ``marker.Kernel`` contract (correctness-aware, seeded, cold
-by default, measured roofline). Four impls share one input set per combo:
+Built on the PR #27292 ``marker.Kernel`` contract (correctness-aware, seeded, cold by
+default, measured roofline). Five impls share one input set per combo:
 
-  - ``torch``         : fp32 reference (ground truth for ``assert_close``), cast to bf16.
-  - ``triton``        : ``qkv_lora_b_fwd`` with ``uniform_weight_index`` unset, so it
-                        always takes the general Triton kernel.
-  - ``cublas``        : ``_qkv_lora_b_cublas`` called DIRECTLY -- one cuBLAS ``addmm_``
-                        per q/k/v slice for a single rank-``r`` adapter.
-  - ``triton_single`` : ``qkv_lora_b_single_fwd`` -- a Triton kernel specialized for the
-                        single-adapter case: no weight_indices/lora_ranks loads, no
-                        min-rank clamp, no segment indirection, and a plain load-add-store
-                        (single writer per output element).
+  - ``general_atomic`` : ``qkv_lora_b_fwd``        (general kernel) with ``USE_ATOMIC``
+  - ``general_ladd``   : ``qkv_lora_b_fwd``        (general kernel) load-add-store
+  - ``single_atomic``  : ``qkv_lora_b_single_fwd`` (single-adapter kernel) with ``USE_ATOMIC``
+  - ``single_ladd``    : ``qkv_lora_b_single_fwd`` (single-adapter kernel) load-add-store
+  - ``cublas``         : ``_qkv_lora_b_cublas``    (one cuBLAS addmm_ per slice)
 
-We call ``_qkv_lora_b_cublas`` directly rather than through ``qkv_lora_b_fwd`` on
-purpose: the production dispatch gates the cuBLAS path behind ``max_len >= 8`` and
-``not use_cuda_graph``, which forces it OFF at decode. Decode-under-graph is exactly
-the workload the proposed static single-LoRA fast flag would enable, so the testbed
-measures these single-adapter paths there directly to see whether they actually win.
+The accumulate mode is a kernel ``USE_ATOMIC`` constexpr flag (threaded through the
+launchers as ``use_atomic=``), so atomic_add vs load-add-store is a one-arg switch.
+``general_ladd`` is the correctness reference; all impls compute the same expand-add so
+they are cross-checked against it (the fp32-gold check lives in the full 63-config run).
 
-``x`` is the rank-packed LoRA-A output [s, n_slices*r] (slice i at columns
-[i*r, (i+1)*r)); ``w`` is the single-adapter LoRA-B weight [1, n_q + 2*n_kv, r].
-Shapes follow fused QKV at various TP: q = n_q, kv = n_kv (per TP shard), total
-output = n_q + 2*n_kv.
+cuBLAS / single are dispatched directly to bypass the production ``max_len>=8`` gate, so
+decode-under-graph is measured.
 
-  python3 bench_qkv_lora_b.py                 # cold bench + correctness (all combos)
+Models map to a list of per-slice output dims (length = n_slices). ``x`` is the
+rank-packed LoRA-A output [s, n_slices*r]; ``w`` is the single-adapter LoRA-B weight
+[1, sum(slice_dims), r].
+
+  python3 bench_qkv_lora_b.py                 # cold bench + correctness
   python3 bench_qkv_lora_b.py --mode check    # correctness only
   python3 bench_qkv_lora_b.py --mode bench    # timing only
   python3 bench_qkv_lora_b.py --warm          # L2-hot (reuse buffers)
@@ -42,13 +39,12 @@ from sglang.srt.lora.triton_ops.qkv_lora_b import (
 )
 from sglang.srt.lora.utils import LoRABatchInfo
 
-N_SLICES = 3
-
-# (n_q, n_kv) per TP shard for the fused QKV projection.
+# model -> per-slice output dims (per TP shard). len(dims) == n_slices.
 MODELS = {
-    "qwen35_tp4": (1024, 256),  # 4 q-heads*256, 1 kv-head*256 (Qwen3.5 full-attn, TP4)
-    "llama70b_tp8": (1024, 128),  # 64 q-heads*128/8, 8 kv-heads*128/8
-    "qwen3_tp1": (4096, 1024),  # dense, no TP
+    # Hot path: fused qkvz projection, q/k/v/z = 512/512/1024/1024.
+    "qwen35_tp4": [512, 512, 1024, 1024],
+    "llama70b_tp8": [1024, 128, 128],  # q, k, v (GQA, TP8)
+    "qwen3_tp1": [4096, 1024, 1024],  # q, k, v (dense, no TP)
 }
 
 # workload -> segment lengths. Decode = bs requests, 1 token each (max_len=1).
@@ -65,13 +61,8 @@ WORKLOADS = {
 
 
 def _make_batch_info(seg_lens, rank, scaling, device, uniform: bool) -> LoRABatchInfo:
-    """Single-adapter (slot 0) batch info.
-
-    ``uniform=False`` leaves ``uniform_weight_index`` None so ``qkv_lora_b_fwd``
-    takes the Triton kernel. ``uniform=True`` sets the uniform fields consumed by
-    ``_qkv_lora_b_cublas``. The segment tensors are read-only, so both variants can
-    share them.
-    """
+    """Single-adapter (slot 0) batch info. ``uniform`` sets the fields the cuBLAS path
+    consumes; the general kernel ignores them. Segment tensors are read-only/shared."""
     bs = len(seg_lens)
     seg_lens_t = torch.tensor(seg_lens, dtype=torch.int32, device=device)
     seg_indptr = torch.zeros(bs + 1, dtype=torch.int32, device=device)
@@ -95,40 +86,41 @@ def _make_batch_info(seg_lens, rank, scaling, device, uniform: bool) -> LoRABatc
     return bi
 
 
-@marker.parametrize("model", list(MODELS), ci_vals=["qwen35_tp4"])
-@marker.parametrize("rank", [16, 32, 64], ci_vals=[16])
-@marker.parametrize(
-    "workload",
-    list(WORKLOADS),
-    ci_vals=["decode_bs64", "prefill_512"],
-)
+# Focused on the qkvz hot path; add other MODELS keys here to widen the sweep.
+@marker.parametrize("model", ["qwen35_tp4"])
+@marker.parametrize("rank", [16])
+@marker.parametrize("workload", list(WORKLOADS), ci_vals=["decode_bs64", "prefill_512"])
 @marker.kernel(
     "impl",
-    ["triton", "cublas", "triton_single", "torch"],
-    reference="torch",
+    ["general_atomic", "general_ladd", "single_atomic", "single_ladd", "cublas"],
+    reference="general_ladd",
     rtol=2e-2,
     atol=5e-2,
 )
 class QKVLoRAB:
     def inputs(self, model: str, rank: int, workload: str):
         device, dtype = "cuda", torch.bfloat16
-        n_q, n_kv = MODELS[model]
+        dims = MODELS[model]
+        n_slices = len(dims)
         seg_lens = WORKLOADS[workload]
         s = sum(seg_lens)
-        total_out = n_q + 2 * n_kv
+        total_out = sum(dims)
         scaling = 2.0
 
         # Small magnitudes keep the bf16 accumulation well-conditioned.
-        x = torch.randn(s, N_SLICES * rank, device=device, dtype=dtype) * 0.1
+        x = torch.randn(s, n_slices * rank, device=device, dtype=dtype) * 0.1
         w = torch.randn(1, total_out, rank, device=device, dtype=dtype) * 0.1
 
-        offsets = [0, n_q, n_q + n_kv, n_q + 2 * n_kv]
+        offsets = [0]
+        for d in dims:
+            offsets.append(offsets[-1] + d)
         # Constant, tiny, read-only state the harness can't clone (dataclass / CPU
         # pinned tensor) -- stash on the instance; only the heavy reads x, w go
         # through marker.io so cold-mode L2 rotation rotates them.
         self._rank = rank
         self._scaling = scaling
-        self._max_qkv_out_dim = max(n_q, n_kv)
+        self._n_slices = n_slices
+        self._max_qkv_out_dim = max(dims)
         self._output_offset = torch.tensor(offsets, dtype=torch.int32, device=device)
         self._output_offset_cpu = torch.tensor(
             offsets, dtype=torch.int32, device="cpu", pin_memory=True
@@ -142,20 +134,18 @@ class QKVLoRAB:
     def _ref(self, x: torch.Tensor, w: torch.Tensor) -> torch.Tensor:
         r, scaling = self._rank, self._scaling
         wb = w[0].float()
-        # CPU copy: a .tolist() on the GPU offsets would D2H-sync, which is illegal
-        # while this impl is being captured into a CUDA graph for timing.
+        # CPU copy: a .tolist() on the GPU offsets would D2H-sync, illegal under the
+        # CUDA-graph capture that also times this impl.
         offs = self._output_offset_cpu.tolist()
         out = torch.zeros(x.shape[0], w.shape[-2], device=x.device, dtype=torch.float32)
-        for i in range(N_SLICES):
+        for i in range(self._n_slices):
             lo, hi = offs[i], offs[i + 1]
             xi = x[:, i * r : (i + 1) * r].float()
             out[:, lo:hi] = scaling * (xi @ wb[lo:hi, :r].t())
         return out.to(x.dtype)
 
     def run(self, impl: str, x: torch.Tensor, w: torch.Tensor):
-        if impl == "torch":
-            return self._ref(x, w)
-        if impl == "triton":
+        if impl in ("general_atomic", "general_ladd"):
             return qkv_lora_b_fwd(
                 x,
                 w,
@@ -163,19 +153,11 @@ class QKVLoRAB:
                 self._output_offset,
                 self._max_qkv_out_dim,
                 base_output=None,
-                n_slices=N_SLICES,
+                n_slices=self._n_slices,
                 output_offset_cpu=None,
+                use_atomic=(impl == "general_atomic"),
             )
-        if impl == "cublas":
-            return _qkv_lora_b_cublas(
-                x,
-                w,
-                self._bi_fast,
-                self._output_offset_cpu,
-                base_output=None,
-                n_slices=N_SLICES,
-            )
-        if impl == "triton_single":
+        if impl in ("single_atomic", "single_ladd"):
             return qkv_lora_b_single_fwd(
                 x,
                 w,
@@ -184,7 +166,17 @@ class QKVLoRAB:
                 self._rank,
                 self._scaling,
                 base_output=None,
-                n_slices=N_SLICES,
+                n_slices=self._n_slices,
+                use_atomic=(impl == "single_atomic"),
+            )
+        if impl == "cublas":
+            return _qkv_lora_b_cublas(
+                x,
+                w,
+                self._bi_fast,
+                self._output_offset_cpu,
+                base_output=None,
+                n_slices=self._n_slices,
             )
         raise ValueError(impl)
 
