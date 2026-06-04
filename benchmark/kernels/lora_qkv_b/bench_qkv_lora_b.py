@@ -181,5 +181,54 @@ class QKVLoRAB:
         raise ValueError(impl)
 
 
+@marker.parametrize("model", ["qwen35_tp4"])
+@marker.parametrize("rank", [16])
+@marker.parametrize("workload", list(WORKLOADS), ci_vals=["decode_bs64", "prefill_512"])
+@marker.kernel(
+    "block_n",
+    [16, 32, 64, 128],
+    reference=64,
+    rtol=2e-2,
+    atol=5e-2,
+)
+class QKVLoRABSingleBlockN:
+    """BLOCK_N (block-out) tuning for the single-adapter load-add-store kernel."""
+
+    def inputs(self, model: str, rank: int, workload: str):
+        device, dtype = "cuda", torch.bfloat16
+        dims = MODELS[model]
+        n_slices = len(dims)
+        seg_lens = WORKLOADS[workload]
+        s = sum(seg_lens)
+        scaling = 2.0
+
+        x = torch.randn(s, n_slices * rank, device=device, dtype=dtype) * 0.1
+        w = torch.randn(1, sum(dims), rank, device=device, dtype=dtype) * 0.1
+
+        offsets = [0]
+        for d in dims:
+            offsets.append(offsets[-1] + d)
+        self._rank = rank
+        self._scaling = scaling
+        self._n_slices = n_slices
+        self._max_qkv_out_dim = max(dims)
+        self._output_offset = torch.tensor(offsets, dtype=torch.int32, device=device)
+        return marker.io(x, w)
+
+    def run(self, block_n: int, x: torch.Tensor, w: torch.Tensor):
+        return qkv_lora_b_single_fwd(
+            x,
+            w,
+            self._output_offset,
+            self._max_qkv_out_dim,
+            self._rank,
+            self._scaling,
+            base_output=None,
+            n_slices=self._n_slices,
+            use_atomic=False,
+            block_n=block_n,
+        )
+
+
 if __name__ == "__main__":
-    marker.main(QKVLoRAB)
+    marker.main(QKVLoRAB, QKVLoRABSingleBlockN)

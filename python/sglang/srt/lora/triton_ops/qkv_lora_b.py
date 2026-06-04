@@ -244,8 +244,12 @@ def qkv_lora_b_single_fwd(
     base_output: Optional[torch.Tensor] = None,
     n_slices: int = 3,
     use_atomic: bool = False,
+    block_n: int = 64,
 ) -> torch.Tensor:
     """Single-adapter qkv LoRA-B expand-add via _qkv_lora_b_single_kernel.
+
+    block_n (BLOCK_N / block-out) defaults to 64: tuned best decode + good prefill on
+    the qkvz hot path; 32/64 tie at decode, 128 wins prefill but is slightly worse decode.
 
     x: (s, n_slices * rank) rank-packed LoRA-A output; qkv_lora_b: (1, output_dim, rank).
     """
@@ -260,7 +264,7 @@ def qkv_lora_b_single_fwd(
         output = base_output
 
     BLOCK_S = 16
-    BLOCK_N = 128
+    BLOCK_N = block_n
     w = qkv_lora_b[0]
     grid = (
         triton.cdiv(s, BLOCK_S) * triton.cdiv(max_qkv_out_dim, BLOCK_N),
