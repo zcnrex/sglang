@@ -151,7 +151,129 @@ def _qkv_lora_b_kernel(
         + (s_physical[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1)
     )
     output_mask = (s_offset[:, None] < seg_len) & (n_offset[None, :] < n_size)
-    tl.atomic_add(output_ptr, partial_sum, mask=output_mask, sem="relaxed")
+    # Each output element has a single writer (disjoint over batch_id/qkv_id/tile),
+    # so accumulate onto base_output with a plain load-add-store instead of atomic_add.
+    base = tl.load(output_ptr, mask=output_mask, other=0.0)
+    tl.store(output_ptr, base + partial_sum, mask=output_mask)
+
+
+@triton.jit
+def _qkv_lora_b_single_kernel(
+    x,
+    weights,  # single adapter: weights[0], shape (N_Q + 2*N_KV, R)
+    output,
+    S,
+    max_qkv_out_dim,
+    x_stride_0,
+    x_stride_1,
+    w_stride_1,
+    w_stride_2,
+    output_stride_0,
+    output_stride_1,
+    n_offs,
+    scaling,
+    R: tl.constexpr,
+    BLOCK_S: tl.constexpr,
+    BLOCK_N: tl.constexpr,
+):
+    """Single-adapter (slot 0, fixed rank R) qkv LoRA-B expand-add.
+
+    No weight_indices / lora_ranks loads, no rank-0 or min-rank clamp, no segment
+    indirection: token i maps straight to output row i. Each output element has a
+    single writer (disjoint over (pid_s, pid_n, qkv_id)), so the accumulate onto
+    base_output is a plain load-add-store, not an atomic_add. R must be a power of 2
+    (so the contraction tile is exactly the rank, no K masking).
+    """
+    qkv_id = tl.program_id(axis=1)
+    pid = tl.program_id(axis=0)
+
+    n_start = tl.load(n_offs + qkv_id)
+    n_size = tl.load(n_offs + qkv_id + 1) - n_start
+
+    num_pid_n = tl.cdiv(max_qkv_out_dim, BLOCK_N)
+    pid_s = pid // num_pid_n
+    pid_n = pid % num_pid_n
+
+    s_offset = tl.arange(0, BLOCK_S) + pid_s * BLOCK_S
+    n_offset = tl.arange(0, BLOCK_N) + pid_n * BLOCK_N
+    k_offset = tl.arange(0, R)
+
+    s_mask = s_offset < S
+    n_mask = n_offset < n_size
+
+    x_ptrs = (
+        x
+        + (qkv_id * R) * x_stride_1
+        + (s_offset[:, None] * x_stride_0 + k_offset[None, :] * x_stride_1)
+    )
+    w_ptrs = (weights + n_start * w_stride_1) + (
+        k_offset[:, None] * w_stride_2 + n_offset[None, :] * w_stride_1
+    )
+
+    x_tile = tl.load(x_ptrs, mask=s_mask[:, None], other=0.0)
+    w_tile = tl.load(w_ptrs, mask=n_mask[None, :], other=0.0)
+    acc = tl.dot(x_tile.to(w_tile.dtype), w_tile) * scaling
+
+    out_ptr = (
+        output
+        + n_start * output_stride_1
+        + (s_offset[:, None] * output_stride_0 + n_offset[None, :] * output_stride_1)
+    )
+    out_mask = s_mask[:, None] & n_mask[None, :]
+    base = tl.load(out_ptr, mask=out_mask, other=0.0)
+    tl.store(out_ptr, (base + acc).to(output.dtype.element_ty), mask=out_mask)
+
+
+def qkv_lora_b_single_fwd(
+    x: torch.Tensor,
+    qkv_lora_b: torch.Tensor,
+    output_offset: torch.Tensor,
+    max_qkv_out_dim: int,
+    rank: int,
+    scaling: float,
+    base_output: Optional[torch.Tensor] = None,
+    n_slices: int = 3,
+) -> torch.Tensor:
+    """Single-adapter qkv LoRA-B expand-add via _qkv_lora_b_single_kernel.
+
+    x: (s, n_slices * rank) rank-packed LoRA-A output; qkv_lora_b: (1, output_dim, rank).
+    """
+    assert (
+        rank & (rank - 1) == 0
+    ), f"single-LoRA kernel requires power-of-2 rank, got {rank}"
+    s = x.shape[0]
+    output_dim = qkv_lora_b.shape[-2]
+    if base_output is None:
+        output = torch.zeros((s, output_dim), device=x.device, dtype=x.dtype)
+    else:
+        output = base_output
+
+    BLOCK_S = 16
+    BLOCK_N = 128
+    w = qkv_lora_b[0]
+    grid = (
+        triton.cdiv(s, BLOCK_S) * triton.cdiv(max_qkv_out_dim, BLOCK_N),
+        n_slices,
+    )
+    _qkv_lora_b_single_kernel[grid](
+        x,
+        w,
+        output,
+        s,
+        max_qkv_out_dim,
+        x.stride(0),
+        x.stride(1),
+        w.stride(0),
+        w.stride(1),
+        output.stride(0),
+        output.stride(1),
+        output_offset,
+        scaling,
+        R=rank,
+        BLOCK_S=BLOCK_S,
+        BLOCK_N=BLOCK_N,
+    )
+    return output
 
 
 def _qkv_lora_b_cublas(
