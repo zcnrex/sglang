@@ -2,6 +2,7 @@ import torch
 import triton
 import triton.language as tl
 
+from sglang.srt.lora.triton_ops.gate_up_lora_b import _CUBLAS_MIN_S_RANK
 from sglang.srt.lora.triton_ops.kernel_utils import (
     _resolve_token_positions,
     get_pdl_launch_metadata,
@@ -120,6 +121,28 @@ def _sgemm_lora_b_kernel(
     tl.atomic_add(output_ptr, partial_sum, mask=output_mask, sem="relaxed")
 
 
+def _sgemm_lora_b_cublas(
+    x: torch.Tensor,
+    weights: torch.Tensor,
+    batch_info: LoRABatchInfo,
+    base_output: torch.Tensor,
+) -> torch.Tensor:
+    """Single-adapter dense path: one cuBLAS addmm_ over the full output.
+
+    Mirrors the Triton kernel exactly: single slice, K = max_r (the kernel
+    reads the full K; the loader zero-pads the weight tail beyond the
+    adapter's rank), scaling fused via a pre-scaled x.
+    """
+    if base_output is None:
+        base_output = torch.zeros(
+            (x.shape[0], weights.shape[-2]), device=x.device, dtype=x.dtype
+        )
+    w = weights[batch_info.uniform_weight_index]
+    x_scaled = x * batch_info.uniform_scaling
+    base_output.addmm_(x_scaled, w.t())
+    return base_output
+
+
 def sgemm_lora_b_fwd(
     x: torch.Tensor,
     weights: torch.Tensor,
@@ -140,6 +163,14 @@ def sgemm_lora_b_fwd(
     N = weights.shape[-2]
     R = weights.shape[-1]
     assert x.shape[-1] == R
+
+    if (
+        batch_info.uniform_weight_index is not None
+        and not batch_info.use_cuda_graph
+        and x.dtype == weights.dtype
+        and S * batch_info.uniform_rank >= _CUBLAS_MIN_S_RANK
+    ):
+        return _sgemm_lora_b_cublas(x, weights, batch_info, base_output)
 
     # Block shapes
     BLOCK_S = 16
