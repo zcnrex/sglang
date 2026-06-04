@@ -331,6 +331,7 @@ def qkv_lora_b_fwd(
     n_slices: int = 3,
     output_offset_cpu: Optional[torch.Tensor] = None,
     use_atomic: bool = False,
+    block_out: int = 128,
 ) -> torch.Tensor:
 
     # x: (s, n_slices * r)
@@ -367,10 +368,7 @@ def qkv_lora_b_fwd(
 
     BLOCK_S = 16
     BLOCK_R = triton.next_power_of_2(r)
-    # BLOCK_OUT stays 64: with the 1-adapter cuBLAS dispatch the Triton path
-    # only runs for decode-sized batches, where 128 halves the grid (96->48
-    # programs on Kimi r16 bs64) and slows the kernel ~60% (11.4->18.5us, B200).
-    BLOCK_OUT = 128
+    BLOCK_OUT = block_out
 
     grid_b = (
         triton.cdiv(batch_info.max_len, BLOCK_S)
