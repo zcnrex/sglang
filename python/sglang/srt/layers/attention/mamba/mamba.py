@@ -19,6 +19,11 @@ from sglang.srt.layers.attention.mamba.ops import (
     mamba_chunk_scan_combined,
     selective_state_update,
 )
+from sglang.srt.layers.dp_attention import (
+    get_attention_tp_rank,
+    get_attention_tp_size,
+    is_dp_attention_enabled,
+)
 from sglang.srt.layers.linear import (
     ColumnParallelLinear,
     MergedColumnParallelLinear,
@@ -209,8 +214,12 @@ class MambaMixer2(torch.nn.Module):
         #   may be replicated to follow the head shard.
         # - NOTE: currently for the world size DOES NOT divide groups
         #   case, we only support the case when n_groups == 1
-        self.tp_size = get_tensor_model_parallel_world_size()
-        self.tp_rank = get_tensor_model_parallel_rank()
+        if is_dp_attention_enabled():
+            self.tp_size = get_attention_tp_size()
+            self.tp_rank = get_attention_tp_rank()
+        else:
+            self.tp_size = get_tensor_model_parallel_world_size()
+            self.tp_rank = get_tensor_model_parallel_rank()
 
         self.num_heads = num_heads = cache_params.shape.num_heads
         self.head_dim = cache_params.shape.head_dim
@@ -259,6 +268,8 @@ class MambaMixer2(torch.nn.Module):
                 bias=use_conv_bias,
                 quant_config=None,
                 prefix=f"{prefix}.conv1d",
+                tp_rank=self.tp_rank,
+                tp_size=self.tp_size,
             )
 
             self.in_proj = MergedColumnParallelLinear(
@@ -273,6 +284,8 @@ class MambaMixer2(torch.nn.Module):
                 bias=use_bias,
                 quant_config=quant_config,
                 prefix=f"{prefix}.in_proj",
+                tp_rank=self.tp_rank,
+                tp_size=self.tp_size,
             )
         else:
             # This is the n_groups == 1 case,
@@ -284,6 +297,8 @@ class MambaMixer2(torch.nn.Module):
                 bias=use_conv_bias,
                 quant_config=None,
                 prefix=f"{prefix}.conv1d",
+                tp_rank=self.tp_rank,
+                tp_size=self.tp_size,
             )
 
             self.in_proj = ColumnParallelLinear(
@@ -292,6 +307,8 @@ class MambaMixer2(torch.nn.Module):
                 bias=use_bias,
                 quant_config=quant_config,
                 prefix=f"{prefix}.in_proj",
+                tp_rank=self.tp_rank,
+                tp_size=self.tp_size,
             )
 
             # - because in_proj is a concatenation of 3 weights, we
@@ -395,8 +412,13 @@ class MambaMixer2(torch.nn.Module):
             bias=use_bias,
             input_is_parallel=True,
             quant_config=quant_config,
+            tp_rank=self.tp_rank,
+            tp_size=self.tp_size,
+            reduce_results=not is_dp_attention_enabled(),
             prefix=f"{prefix}.out_proj",
         )
+        if is_dp_attention_enabled():
+            self.out_proj.emulate_global_tp_chunks = True
 
         self.norm = Mixer2RMSNormGated(
             intermediate_size, n_groups, self.use_rms_norm, eps=rms_norm_eps
@@ -429,6 +451,12 @@ class MambaMixer2(torch.nn.Module):
         intermediate_states = None
 
         query_start_loc = metadata.query_start_loc
+
+        # DP attention can pad hidden_states for collective alignment. Keep the
+        # padded projection/gate shape, run kernels only on real tokens, then run
+        # norm/out_proj on the padded shape so the next collective sees the same
+        # row count as the layer input.
+        padded_num_tokens = hidden_states.shape[0]
 
         # 1. Gated MLP's linear projection
         projected_states, _ = self.in_proj(hidden_states)
@@ -471,7 +499,12 @@ class MambaMixer2(torch.nn.Module):
         has_prefill = num_prefills > 0
         has_decode = num_decodes > 0
         num_actual_tokens = num_prefill_tokens + num_decode_tokens
-        assert num_actual_tokens == projected_states.shape[0]
+        assert num_actual_tokens <= projected_states.shape[0]
+        hidden_states_B_C = hidden_states_B_C[:num_actual_tokens]
+        dt = dt[:num_actual_tokens]
+
+        local_num_heads = self.num_heads // self.tp_size
+        local_num_groups = self.n_groups // self.tp_size
 
         # NOTE: V0 put prefill before decode
         # Separate prefill and decode by splitting varlen input
@@ -486,27 +519,27 @@ class MambaMixer2(torch.nn.Module):
             [num_prefill_tokens, num_decode_tokens],
             dim=0,
         )
-        # Split along batch dimension
-        state_indices_tensor_p, state_indices_tensor_d = torch.split(
-            state_indices_tensor,
-            [num_prefills, num_decodes],
-            dim=0,
-        )
+        # Split along the real batch dimension. DP-attention may pad
+        # state_indices_tensor beyond num_prefills + num_decodes for collective
+        # alignment; fake decode rows must not update Mamba states.
+        state_indices_tensor_p = state_indices_tensor[:num_prefills]
+        state_indices_tensor_d = state_indices_tensor[
+            num_prefills : num_prefills + num_decodes
+        ]
         query_start_loc_p = query_start_loc[: num_prefills + 1] if has_prefill else None
 
         # Preallocate output tensor to avoid memcpy cost for merging prefill
         # and decode outputs
 
-        preallocated_ssm_out = torch.empty(
+        preallocated_ssm_out = hidden_states.new_zeros(
             [
                 projected_states.shape[0],
                 (self.num_heads * self.head_dim) // self.tp_size,
-            ],
-            dtype=hidden_states.dtype,
-            device=hidden_states.device,
+            ]
         )
+        preallocated_ssm_out_active = preallocated_ssm_out[:num_actual_tokens]
         preallocated_ssm_out_p, preallocated_ssm_out_d = torch.split(
-            preallocated_ssm_out,
+            preallocated_ssm_out_active,
             [num_prefill_tokens, num_decode_tokens],
             dim=0,
         )
@@ -563,12 +596,12 @@ class MambaMixer2(torch.nn.Module):
             # NOTE: final output is an in-place update of out tensor
             intermediate_states, varlen_state = mamba_chunk_scan_combined(
                 hidden_states_p.view(
-                    1, num_prefill_tokens, self.num_heads // self.tp_size, self.head_dim
+                    1, num_prefill_tokens, local_num_heads, self.head_dim
                 ),
                 dt_p.unsqueeze(0),
                 self.A,
-                B_p.view(1, num_prefill_tokens, self.n_groups // self.tp_size, -1),
-                C_p.view(1, num_prefill_tokens, self.n_groups // self.tp_size, -1),
+                B_p.view(1, num_prefill_tokens, local_num_groups, -1),
+                C_p.view(1, num_prefill_tokens, local_num_groups, -1),
                 chunk_size=mixed_metadata.chunk_size,
                 D=self.D,
                 z=None,
@@ -591,7 +624,8 @@ class MambaMixer2(torch.nn.Module):
 
             # update ssm states
             # - varlen state is a (num_prefills, nheads, headdim, dstate) tensor
-            ssm_state[state_indices_tensor_p] = varlen_state
+            if varlen_state is not None:
+                ssm_state[state_indices_tensor_p] = varlen_state
 
         # Process decode requests
         if has_decode:
@@ -649,7 +683,7 @@ class MambaMixer2(torch.nn.Module):
             hidden_states_d, B_d, C_d = split_hidden_states_B_C_fn(hidden_states_B_C_d)
 
             # 3. State Space Model sequence transformation
-            n_groups = self.n_groups // self.tp_size
+            n_groups = local_num_groups
             A_d = (
                 self.A[:, None, ...][:, :, None]
                 .expand(-1, self.head_dim, self.ssm_state_size)
@@ -660,9 +694,7 @@ class MambaMixer2(torch.nn.Module):
             D_d = self.D[:, None, ...].expand(-1, self.head_dim)
             B_d = B_d.view(-1, n_groups, B_d.shape[1] // n_groups)
             C_d = C_d.view(-1, n_groups, C_d.shape[1] // n_groups)
-            hidden_states_d = hidden_states_d.view(
-                -1, self.num_heads // self.tp_size, self.head_dim
-            )
+            hidden_states_d = hidden_states_d.view(-1, local_num_heads, self.head_dim)
 
             if is_target_verify:
                 selective_state_update(
@@ -719,12 +751,15 @@ class MambaMixer2(torch.nn.Module):
         # GatedRMSNorm internally applying SiLU to the gate
         # SiLU is applied internally before normalization, unlike standard
         # norm usage
-        hidden_states = self.norm(preallocated_ssm_out, gate[:num_actual_tokens])
+        hidden_states = self.norm(preallocated_ssm_out, gate)
 
-        # 5. Final linear projection
-        mixer_out, _ = self.out_proj(hidden_states)
-        if output is not None:
-            output[:num_actual_tokens].copy_(mixer_out)
+        # 5. Final linear projection. Run out_proj on the padded shape so
+        # DP-attn collectives see the same row count as the layer input.
+        output[:padded_num_tokens], _ = self.out_proj(hidden_states)
+        if output.shape[0] > num_actual_tokens:
+            # Zero DP-attention padded rows so they do not carry uninitialized
+            # data (potentially NaN) into subsequent layers' residual additions.
+            output[num_actual_tokens:].zero_()
 
         return mixer_out, intermediate_states
 

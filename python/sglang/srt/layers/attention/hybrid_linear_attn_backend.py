@@ -150,7 +150,18 @@ class MambaAttnBackendBase(AttentionBackend):
 
     def _execute_deferred_mamba_cow_and_clear(self, forward_batch: ForwardBatch):
         """Run deferred clear/COW ops on the forward stream to avoid races."""
-        if not forward_batch.forward_mode.is_extend() or self.is_draft_worker:
+        # TARGET_VERIFY reports is_extend()==True but must NOT clear the mamba state:
+        # the request's committed ssm/conv state has to survive the verify forward.
+        # In cuda-graph mode the verify skips init_forward_metadata (replay), so this
+        # never ran there; in eager mode it ran every verify step and zeroed the
+        # committed mamba state -> frozen state -> degenerate output. Only the genuine
+        # prefill EXTEND (fresh slot, mamba_needs_clear) should clear.
+        if (
+            not forward_batch.forward_mode.is_extend()
+            or forward_batch.forward_mode.is_target_verify()
+            or forward_batch.forward_mode.is_draft_extend(include_v2=True)
+            or self.is_draft_worker
+        ):
             return
         if (
             forward_batch.mamba_clear_indices is not None
@@ -185,6 +196,15 @@ class MambaAttnBackendBase(AttentionBackend):
         mamba_cache_indices = self.req_to_token_pool.get_mamba_indices(
             forward_batch.req_pool_indices
         )
+        # DP-attention pads each rank to a common row count for collective alignment
+        # (an idle rank is all padding). Padding rows reuse req_pool slot 0, whose
+        # mamba slot may be unallocated -> illegal access in the mixer. Mark them -1
+        # so the mamba kernels skip recurrent-state read/write for those rows — same
+        # sentinel the cuda-graph padding path uses (see init_*_cuda_graph).
+        _real_bs = getattr(forward_batch, "_original_batch_size", None)
+        if _real_bs is not None and _real_bs < mamba_cache_indices.shape[0]:
+            mamba_cache_indices = mamba_cache_indices.clone()
+            mamba_cache_indices[_real_bs:] = -1
 
         if forward_batch.forward_mode.is_decode_or_idle():
             query_start_loc = torch.arange(
@@ -707,6 +727,48 @@ class Mamba2AttnBackend(MambaAttnBackendBase):
             forward_batch,
         )
 
+    def init_forward_metadata_capture_cuda_graph(
+        self,
+        bs: int,
+        num_tokens: int,
+        req_pool_indices: torch.Tensor,
+        seq_lens: torch.Tensor,
+        encoder_lens: Optional[torch.Tensor],
+        forward_mode: ForwardMode,
+        spec_info: Optional[Union[EagleDraftInput, EagleVerifyInput]],
+    ):
+        metadata = self._capture_metadata(bs, req_pool_indices, forward_mode, spec_info)
+        draft_token_num = spec_info.draft_token_num if spec_info is not None else 1
+        self.forward_metadata = Mamba2Metadata.prepare_decode(
+            metadata,
+            seq_lens,
+            is_target_verify=forward_mode.is_target_verify(),
+            draft_token_num=draft_token_num,
+        )
+
+    def init_forward_metadata_replay_cuda_graph(
+        self,
+        bs: int,
+        req_pool_indices: torch.Tensor,
+        seq_lens: torch.Tensor,
+        seq_lens_sum: int,
+        encoder_lens: Optional[torch.Tensor],
+        forward_mode: ForwardMode,
+        spec_info: Optional[Union[EagleDraftInput, EagleVerifyInput]],
+        seq_lens_cpu: Optional[torch.Tensor],
+    ):
+        metadata = self._replay_metadata(
+            bs, req_pool_indices, forward_mode, spec_info, seq_lens_cpu
+        )
+        draft_token_num = spec_info.draft_token_num if spec_info is not None else 1
+        self.forward_metadata = Mamba2Metadata.prepare_decode(
+            metadata,
+            seq_lens,
+            is_target_verify=forward_mode.is_target_verify(),
+            draft_token_num=draft_token_num,
+            num_decodes=getattr(self, "_replay_num_decodes", None),
+        )
+
     def forward(
         self,
         mixer: MambaMixer2,
@@ -853,6 +915,39 @@ class HybridLinearAttnBackend(AttentionBackend):
                 forward_mode,
                 spec_info,
             )
+
+    def init_forward_metadata_replay_cuda_graph(
+        self,
+        bs: int,
+        req_pool_indices: torch.Tensor,
+        seq_lens: torch.Tensor,
+        seq_lens_sum: int,
+        encoder_lens: Optional[torch.Tensor],
+        forward_mode: ForwardMode,
+        spec_info: Optional[SpecInput],
+        seq_lens_cpu: Optional[torch.Tensor],
+    ):
+        # Real (pre-graph-padding) decode count = forward_batch.batch_size;
+        # cuda_graph_runner stashes the forward_batch on _replay_forward_batch.
+        replay_forward_batch = getattr(self, "_replay_forward_batch", None)
+        replay_num_decodes = (
+            replay_forward_batch.batch_size
+            if replay_forward_batch is not None
+            else None
+        )
+        for attn_backend in self.attn_backend_list:
+            attn_backend._replay_num_decodes = replay_num_decodes
+            attn_backend.init_forward_metadata_replay_cuda_graph(
+                bs,
+                req_pool_indices,
+                seq_lens,
+                seq_lens_sum,
+                encoder_lens,
+                forward_mode,
+                spec_info,
+                seq_lens_cpu,
+            )
+            attn_backend._replay_num_decodes = None
 
     def get_cuda_graph_seq_len_fill_value(self):
         return self.full_attn_backend.get_cuda_graph_seq_len_fill_value()

@@ -42,6 +42,12 @@ from sglang.srt.layers.attention.hybrid_linear_attn_backend import (
     Mamba2AttnBackend,
 )
 from sglang.srt.layers.attention.mamba.mamba import MambaMixer2
+from sglang.srt.layers.dp_attention import (
+    attn_tp_all_reduce,
+    get_attention_tp_rank,
+    get_attention_tp_size,
+    is_dp_attention_enabled,
+)
 from sglang.srt.layers.layernorm import RMSNorm
 from sglang.srt.layers.linear import (
     ColumnParallelLinear,
@@ -75,6 +81,14 @@ from sglang.srt.model_loader.weight_utils import (
     maybe_remap_kv_scale_name,
     replace_prefix,
     replace_substrings,
+)
+from sglang.srt.models.nemotron_h_utils import (
+    _get_real_num_tokens,
+    _is_attn_layer,
+    _make_layer_communicator,
+    _pad_to_original_num_tokens,
+    _zero_dp_global_padding_rows,
+    _zero_dp_padding_rows,
 )
 from sglang.srt.models.utils import WeightsMapper
 from sglang.srt.server_args import get_global_server_args
@@ -316,6 +330,7 @@ class NemotronHMLPDecoderLayer(nn.Module):
 
         hybrid_override_pattern = config.hybrid_override_pattern
         mlp_index = hybrid_override_pattern[: layer_idx + 1].count("-") - 1
+        self.layer_idx = layer_idx
         if isinstance(config.intermediate_size, list):
             if len(config.intermediate_size) == 1:
                 intermediate_size = config.intermediate_size[0]
@@ -333,6 +348,7 @@ class NemotronHMLPDecoderLayer(nn.Module):
         )
 
         self.norm = RMSNorm(config.hidden_size, eps=config.layer_norm_epsilon)
+        self.layer_communicator = _make_layer_communicator(self.norm, for_attn=False)
 
     def forward(
         self,
@@ -341,6 +357,20 @@ class NemotronHMLPDecoderLayer(nn.Module):
         residual: Optional[torch.Tensor],
         forward_batch: ForwardBatch,
     ) -> tuple[torch.Tensor, torch.Tensor]:
+        if is_dp_attention_enabled():
+            hidden_states, residual = _zero_dp_padding_rows(
+                hidden_states, forward_batch, residual
+            )
+            hidden_states, residual = self.layer_communicator.prepare_mlp(
+                hidden_states, residual, forward_batch
+            )
+            hidden_states = _zero_dp_global_padding_rows(hidden_states, forward_batch)
+            hidden_states = self.mixer.forward(hidden_states)
+            hidden_states, residual = self.layer_communicator.postprocess_layer(
+                hidden_states, residual, forward_batch
+            )
+            return hidden_states, residual
+
         if residual is None:
             residual = hidden_states
             hidden_states = self.norm(hidden_states)
@@ -362,6 +392,7 @@ class NemotronHMoEDecoderLayer(nn.Module):
         super().__init__()
         layer_config = config.get_nemotron_h_config_for_layer(layer_idx)
 
+        self.layer_idx = layer_idx
         self.mixer = NemotronHMoE(
             layer_config,
             layer_idx=layer_idx,
@@ -370,6 +401,7 @@ class NemotronHMoEDecoderLayer(nn.Module):
         )
 
         self.norm = RMSNorm(config.hidden_size, eps=config.layer_norm_epsilon)
+        self.layer_communicator = _make_layer_communicator(self.norm, for_attn=False)
 
     def forward(
         self,
@@ -378,6 +410,20 @@ class NemotronHMoEDecoderLayer(nn.Module):
         residual: Optional[torch.Tensor],
         forward_batch: ForwardBatch,
     ) -> tuple[torch.Tensor, torch.Tensor]:
+        if is_dp_attention_enabled():
+            hidden_states, residual = _zero_dp_padding_rows(
+                hidden_states, forward_batch, residual
+            )
+            hidden_states, residual = self.layer_communicator.prepare_mlp(
+                hidden_states, residual, forward_batch
+            )
+            hidden_states = _zero_dp_global_padding_rows(hidden_states, forward_batch)
+            hidden_states = self.mixer.forward(hidden_states)
+            hidden_states, residual = self.layer_communicator.postprocess_layer(
+                hidden_states, residual, forward_batch
+            )
+            return hidden_states, residual
+
         if residual is None:
             residual = hidden_states
             hidden_states = self.norm(hidden_states)
@@ -412,11 +458,21 @@ class NemotronHMambaDecoderLayer(nn.Module):
         )
 
         self.norm = RMSNorm(config.hidden_size, eps=config.layer_norm_epsilon)
+        self.layer_communicator = _make_layer_communicator(self.norm, for_attn=True)
+        self.prev_layer_is_attn = layer_idx > 0 and _is_attn_layer(
+            config.hybrid_override_pattern[layer_idx - 1]
+        )
 
     def _forward_mamba(
         self, hidden_states: torch.Tensor, forward_batch: ForwardBatch
     ) -> torch.Tensor:
-        """Core Mamba forward logic for the eager path; returns the result."""
+        """Core Mamba forward logic, called directly or via split op."""
+        original_num_tokens = hidden_states.shape[0]
+        if forward_batch.forward_mode.is_extend():
+            real_num_tokens = _get_real_num_tokens(hidden_states, forward_batch)
+            if real_num_tokens < original_num_tokens:
+                hidden_states = hidden_states[:real_num_tokens]
+        output = torch.empty_like(hidden_states)
         attn_backend = get_attn_backend()
         assert isinstance(attn_backend, HybridLinearAttnBackend)
         assert isinstance(attn_backend.linear_attn_backend, Mamba2AttnBackend)
@@ -428,6 +484,7 @@ class NemotronHMambaDecoderLayer(nn.Module):
             forward_batch=forward_batch,
             use_triton_causal_conv=True,
         )
+        return _pad_to_original_num_tokens(output, original_num_tokens)
 
     def forward(
         self,
@@ -436,6 +493,30 @@ class NemotronHMambaDecoderLayer(nn.Module):
         residual: Optional[torch.Tensor],
         forward_batch: ForwardBatch,
     ) -> tuple[torch.Tensor, torch.Tensor]:
+        if is_dp_attention_enabled():
+            if self.prev_layer_is_attn and residual is not None:
+                hidden_states = attn_tp_all_reduce(hidden_states)
+            hidden_states, residual = _zero_dp_padding_rows(
+                hidden_states, forward_batch, residual
+            )
+            hidden_states, residual = self.layer_communicator.prepare_attn(
+                hidden_states, residual, forward_batch
+            )
+            if (
+                forward_batch.forward_mode.is_idle()
+                or _get_real_num_tokens(hidden_states, forward_batch) == 0
+            ):
+                return torch.zeros_like(hidden_states), residual
+
+            # DP-attention may carry per-DP padding rows while Mamba metadata is
+            # built from real token counts. The CUDA graph custom op bypasses
+            # the Python path that trims real tokens and restores padded shape,
+            # so keep DP-attention on the explicit forward until the graph op
+            # learns the same padding contract.
+            output = self._forward_mamba(hidden_states, forward_batch)
+            output, _ = _zero_dp_padding_rows(output, forward_batch)
+            return output, residual
+
         if residual is None:
             residual = hidden_states
             hidden_states = self.norm(hidden_states)
@@ -466,7 +547,8 @@ class NemotronHAttention(nn.Module):
     ) -> None:
         super().__init__()
         self.hidden_size = config.hidden_size
-        tp_size = get_tensor_model_parallel_world_size()
+        tp_rank = get_attention_tp_rank()
+        tp_size = get_attention_tp_size()
         self.total_num_heads = config.num_attention_heads
         assert self.total_num_heads % tp_size == 0
         self.num_heads = self.total_num_heads // tp_size
@@ -495,6 +577,8 @@ class NemotronHAttention(nn.Module):
             self.total_num_kv_heads,
             bias=False,
             quant_config=quant_config,
+            tp_rank=tp_rank,
+            tp_size=tp_size,
             prefix=f"{prefix}.qkv_proj",
         )
         self.o_proj = RowParallelLinear(
@@ -502,8 +586,13 @@ class NemotronHAttention(nn.Module):
             config.hidden_size,
             bias=False,
             quant_config=quant_config,
+            tp_rank=tp_rank,
+            tp_size=tp_size,
+            reduce_results=not is_dp_attention_enabled(),
             prefix=f"{prefix}.o_proj",
         )
+        if is_dp_attention_enabled():
+            self.o_proj.emulate_global_tp_chunks = True
 
         self.attn = RadixAttention(
             self.num_heads,
@@ -519,10 +608,64 @@ class NemotronHAttention(nn.Module):
     def forward(
         self, hidden_states: torch.Tensor, forward_batch: ForwardBatch
     ) -> torch.Tensor:
+        if not is_dp_attention_enabled():
+            qkv, _ = self.qkv_proj(hidden_states)
+            q, k, v = qkv.split([self.q_size, self.kv_size, self.kv_size], dim=-1)
+            attn_output = self.attn.forward(q, k, v, forward_batch)
+            output, _ = self.o_proj(attn_output)
+            return output
+
+        # DP attention pads each rank's batch to a common size for collective
+        # alignment. Those padding rows are fake: they must not write KV cache and
+        # must leave the layer as zeros. Prefill runs a varlen kernel keyed on the
+        # real cu_seqlens, so Q/K/V are trimmed to the real tokens; decode runs a
+        # wrapper captured at the padded batch size, so Q stays padded while K/V
+        # and the cache-write locations are trimmed.
+        # target_verify (spec/NEXTN) uses the SAME padded-batch wrapper as decode
+        # (qo_indptr is built at the padded length), so Q must stay padded there too —
+        # otherwise q.shape[0] (real) != qo_indptr[-1] (padded) in flashinfer prefill.
+        padded_shape = hidden_states.shape[0]
+        real_tokens = _get_real_num_tokens(hidden_states, forward_batch)
+        has_padding = real_tokens < padded_shape
+        keep_q_padded = (
+            forward_batch.forward_mode.is_decode()
+            or forward_batch.forward_mode.is_target_verify()
+            or forward_batch.forward_mode.is_idle()
+            # A decode/idle batch DP-padded into ForwardMode.EXTEND (MAX_LEN) still
+            # runs the padded-batch wrapper, so Q must stay padded. Genuine prefill
+            # has no _original_forward_mode and keeps trimming Q to the real tokens.
+            or getattr(forward_batch, "_original_forward_mode", None) is not None
+        )
+        original_out_cache_loc = forward_batch.out_cache_loc
+
         qkv, _ = self.qkv_proj(hidden_states)
         q, k, v = qkv.split([self.q_size, self.kv_size, self.kv_size], dim=-1)
-        attn_output = self.attn.forward(q, k, v, forward_batch)
+        if has_padding and real_tokens > 0:
+            k, v = k[:real_tokens], v[:real_tokens]
+            if original_out_cache_loc is not None:
+                forward_batch.out_cache_loc = original_out_cache_loc[:real_tokens]
+            if not keep_q_padded:
+                q = q[:real_tokens]
+        # real_tokens == 0: a fully-idle DP rank carrying a synthesized fake prefill
+        # (one req spanning all num_tokens padding tokens, prefix 0). Keep Q/K/V at the
+        # padded length so the prefill ragged kernel sees a well-formed self-attention
+        # (matching cu_seqlens); trimming K/V to 0 while Q stays padded makes the kernel
+        # read past K/V (TMA-descriptor / illegal-instruction failure). It must still run
+        # the attention collective but must NOT write KV: save_kv_cache is False below
+        # (a 0-row store_cache launches a 0-grid kernel -> CUDA invalid argument), and the
+        # output rows are zeroed afterwards.
+        attn_output = self.attn.forward(
+            q, k, v, forward_batch, save_kv_cache=real_tokens > 0
+        )
+        # out_cache_loc is only consumed by self.attn.forward (KV write); restore it now.
+        forward_batch.out_cache_loc = original_out_cache_loc
+
+        # Restore the padded row count (padding rows zeroed) before o_proj so the
+        # next collective sees the same shape as the layer input.
+        attn_output = _pad_to_original_num_tokens(attn_output, padded_shape)
         output, _ = self.o_proj(attn_output)
+        if has_padding:
+            output[real_tokens:].zero_()
         return output
 
 
@@ -545,6 +688,10 @@ class NemotronHAttentionDecoderLayer(nn.Module):
         )
 
         self.norm = RMSNorm(config.hidden_size, eps=config.layer_norm_epsilon)
+        self.layer_communicator = _make_layer_communicator(self.norm, for_attn=True)
+        self.prev_layer_is_attn = layer_idx > 0 and _is_attn_layer(
+            config.hybrid_override_pattern[layer_idx - 1]
+        )
 
     def forward(
         self,
@@ -553,6 +700,20 @@ class NemotronHAttentionDecoderLayer(nn.Module):
         residual: Optional[torch.Tensor],
         forward_batch: ForwardBatch,
     ) -> tuple[torch.Tensor, torch.Tensor]:
+        if is_dp_attention_enabled():
+            if self.prev_layer_is_attn and residual is not None:
+                hidden_states = attn_tp_all_reduce(hidden_states)
+            hidden_states, residual = _zero_dp_padding_rows(
+                hidden_states, forward_batch, residual
+            )
+            hidden_states, residual = self.layer_communicator.prepare_attn(
+                hidden_states, residual, forward_batch
+            )
+            hidden_states = self.mixer.forward(
+                hidden_states=hidden_states, forward_batch=forward_batch
+            )
+            return hidden_states, residual
+
         if residual is None:
             residual = hidden_states
             hidden_states = self.norm(hidden_states)
@@ -605,6 +766,7 @@ class NemotronHModel(nn.Module):
                 self.vocab_size,
                 config.hidden_size,
                 org_num_embeddings=config.vocab_size,
+                use_attn_tp_group=is_dp_attention_enabled(),
             )
         else:
             self.embed_tokens = PPMissingLayer()
@@ -733,6 +895,7 @@ class NemotronHForCausalLM(nn.Module):
                         else lora_config.lora_vocab_padding_size
                     ),
                     quant_config=quant_config,
+                    use_attn_tp_group=get_global_server_args().enable_dp_lm_head,
                     prefix=add_prefix("lm_head", prefix),
                 )
         else:
