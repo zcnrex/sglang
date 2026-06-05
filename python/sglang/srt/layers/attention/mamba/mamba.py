@@ -761,7 +761,7 @@ class MambaMixer2(torch.nn.Module):
             # data (potentially NaN) into subsequent layers' residual additions.
             output[num_actual_tokens:].zero_()
 
-        return mixer_out, intermediate_states
+        return intermediate_states
 
     @property
     def mamba_type(self) -> str:

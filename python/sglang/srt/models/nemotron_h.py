@@ -476,11 +476,11 @@ class NemotronHMambaDecoderLayer(nn.Module):
         attn_backend = get_attn_backend()
         assert isinstance(attn_backend, HybridLinearAttnBackend)
         assert isinstance(attn_backend.linear_attn_backend, Mamba2AttnBackend)
-        return attn_backend.linear_attn_backend.forward(
+        attn_backend.linear_attn_backend.forward(
             mixer=self.mixer,
             layer_id=self.layer_id,
             hidden_states=hidden_states,
-            output=None,
+            output=output,
             forward_batch=forward_batch,
             use_triton_causal_conv=True,
         )

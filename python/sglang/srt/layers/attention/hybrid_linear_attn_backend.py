@@ -781,7 +781,7 @@ class Mamba2AttnBackend(MambaAttnBackendBase):
     ):
         assert isinstance(self.forward_metadata, Mamba2Metadata)
         layer_cache = self.req_to_token_pool.mamba2_layer_cache(layer_id)
-        mixer_out, intermediate_states = mixer.forward(
+        intermediate_states = mixer.forward(
             hidden_states=hidden_states,
             output=output,
             layer_cache=layer_cache,
@@ -814,8 +814,6 @@ class Mamba2AttnBackend(MambaAttnBackendBase):
                     forward_batch.mamba_track_indices[-num_decodes:],
                     num_decodes,
                 )
-
-        return mixer_out
 
     def forward_decode(self, *args, **kwargs):
         raise NotImplementedError(
