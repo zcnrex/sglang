@@ -157,6 +157,46 @@ def fused_add_rmsnorm(
     module.fused_add_rmsnorm(input, residual, weight, eps)
 
 
+@cache_once
+def _jit_fused_add_rmsnorm_quant_fp8_module(
+    dtype: torch.dtype, cast_x_before_out_mul: bool
+) -> Module:
+    args = make_cpp_args(cast_x_before_out_mul, dtype)
+    return load_jit(
+        "fused_add_rmsnorm_quant_fp8",
+        *args,
+        cuda_files=["elementwise/fused_add_rmsnorm_quant_fp8.cuh"],
+        cuda_wrappers=[
+            (
+                "fused_add_rmsnorm_quant_fp8",
+                f"FusedAddRMSNormQuantFp8Kernel<{args}>::run",
+            )
+        ],
+    )
+
+
+@debug_kernel_api
+def fused_add_rmsnorm_quant_fp8(
+    input: torch.Tensor,
+    residual: torch.Tensor,
+    weight: torch.Tensor,
+    quant_out: torch.Tensor,
+    scale: torch.Tensor,
+    eps: float = 1e-6,
+    *,
+    cast_x_before_out_mul: bool = False,
+) -> None:
+    """Fused residual-add + RMSNorm + static per-tensor FP8-E4M3 quant.
+
+    In-place updates ``residual`` to ``input + residual`` and writes the FP8
+    quantized normalized output (``clip(norm * 1/scale)``) into ``quant_out``;
+    ``input`` is left untouched (the bf16 norm output is not materialized). The
+    consumer's per-tensor activation scale is ``scale`` (1-element fp32 tensor).
+    """
+    module = _jit_fused_add_rmsnorm_quant_fp8_module(input.dtype, cast_x_before_out_mul)
+    module.fused_add_rmsnorm_quant_fp8(input, residual, weight, quant_out, scale, eps)
+
+
 @debug_kernel_api
 def fused_inplace_qknorm_across_heads(
     q: torch.Tensor,
