@@ -515,6 +515,10 @@ class Envs:
     # batch (~43% at bs=64); the JIT kernel tiles the hidden dim differently.
     # Opt-in perf A/B toggle, output-preserving. [[ADR-0001]]
     SGLANG_OPT_NEMOTRON_JIT_RMSNORM = EnvBool(False)
+    # NemotronH diagnostic: force the serial (non-overlapped) MoE core path instead
+    # of the shared/routed alt-stream overlap, to measure how much the overlap hides
+    # per-step kernels behind the MoE FP4 GEMM at decode. [[ADR-0001]]
+    SGLANG_OPT_NEMOTRON_DISABLE_MOE_OVERLAP = EnvBool(False)
     # TODO(mmangkad): Remove this once the FlashInfer unified allreduce-fusion
     # transport issue on GB200/GB300 platforms is fixed and verified resolved.
     SGLANG_FLASHINFER_FORCE_POSIX_FD_TRANSPORT = EnvBool(None)
