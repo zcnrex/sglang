@@ -319,6 +319,25 @@ class RMSNorm(MultiPlatformOp):
             # but right now we can only have hidden_states+(residual+post_residual_addition).
             # (hidden_states+residual)+post_residual_addition != hidden_states+(residual+post_residual_addition),
             # we probably need to add another parameter to fused_add_rmsnorm
+            # [[ADR-0001]] Opt-in: route the residual fused-add-RMSNorm to the
+            # in-tree JIT kernel. The default flashinfer fused_add_rmsnorm launches
+            # grid=(num_tokens,1,1) and is SM-occupancy-starved at small decode batch;
+            # the JIT kernel tiles the hidden dim differently. Output-preserving.
+            if (
+                envs.SGLANG_OPT_NEMOTRON_JIT_RMSNORM.get()
+                and post_residual_addition is None
+                and x.dtype in (torch.float16, torch.bfloat16)
+                and self.weight.data.dtype == x.dtype
+                and is_supported_jit_fused_add_rmsnorm_hidden_size(x.shape[-1])
+            ):
+                _jit_fused_add_rmsnorm(
+                    x,
+                    residual,
+                    self.weight.data,
+                    self.variance_epsilon,
+                    cast_x_before_out_mul=False,
+                )
+                return x, residual
             if post_residual_addition is not None:
                 residual = residual + post_residual_addition
             fused_add_rmsnorm(x, residual, self.weight.data, self.variance_epsilon)

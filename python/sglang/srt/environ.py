@@ -509,6 +509,12 @@ class Envs:
     # None = standard attention. See https://arxiv.org/abs/2512.12087
     SGLANG_SKIP_SOFTMAX_PREFILL_THRESHOLD_SCALE_FACTOR = EnvFloat(None)
     SGLANG_SKIP_SOFTMAX_DECODE_THRESHOLD_SCALE_FACTOR = EnvFloat(None)
+    # NemotronH: route the residual fused-add-RMSNorm to the in-tree JIT kernel
+    # instead of the default flashinfer fused_add_rmsnorm. The flashinfer kernel
+    # launches grid=(num_tokens,1,1) and is SM-occupancy-starved at small decode
+    # batch (~43% at bs=64); the JIT kernel tiles the hidden dim differently.
+    # Opt-in perf A/B toggle, output-preserving. [[ADR-0001]]
+    SGLANG_OPT_NEMOTRON_JIT_RMSNORM = EnvBool(False)
     # TODO(mmangkad): Remove this once the FlashInfer unified allreduce-fusion
     # transport issue on GB200/GB300 platforms is fixed and verified resolved.
     SGLANG_FLASHINFER_FORCE_POSIX_FD_TRANSPORT = EnvBool(None)
