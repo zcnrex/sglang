@@ -3122,6 +3122,19 @@ class ServerArgs:
                 )
             if self.prefill_attention_backend is None:
                 self.prefill_attention_backend = "trtllm_mla"
+            effective_decode_backend = (
+                self.decode_attention_backend or self.attention_backend
+            )
+            if (
+                self.speculative_algorithm is not None
+                and self.speculative_attention_mode == "decode"
+                and effective_decode_backend == "cutedsl_mla"
+            ):
+                raise ValueError(
+                    "CuteDSL MLA decode does not support speculative target verify. "
+                    "Use speculative_attention_mode=prefill so target verify runs "
+                    "through the TRTLLM MLA prefill backend."
+                )
 
         if (
             self.attention_backend == "trtllm_mha"
