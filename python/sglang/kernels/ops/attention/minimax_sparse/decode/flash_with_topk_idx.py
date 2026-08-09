@@ -17,6 +17,35 @@ from ..common.utils import (
     unit_scale,
 )
 
+# Keep at least this many blocks resident per SM when sizing the K stage
+# buffers. SM90/SM100 expose ~227 KB of shared memory per SM.
+_MIN_BLOCKS_PER_SM = 4
+_SMEM_PER_SM = 227 * 1024
+
+
+def _score_config_smem(config, named_args) -> int:
+    """Shared memory a config needs: the staged K tile plus the resident Q tile."""
+    block_size_d = triton.next_power_of_2(named_args["head_dim"])
+    block_size_h = max(16, triton.next_power_of_2(named_args["gqa_group_size"]))
+    k_bytes = 1 if named_args["IS_FP8"] else 2
+    k_tile = config.kwargs["BLOCK_SIZE_N"] * block_size_d * k_bytes * config.num_stages
+    return k_tile + block_size_h * block_size_d * 2
+
+
+def _prune_score_configs(configs, named_args, **kwargs):
+    """Drop KV tiles the kernel cannot use, and tiles that collapse occupancy."""
+    named_args = {**kwargs, **named_args}
+    block_size = named_args["block_size"]
+    valid = [c for c in configs if c.kwargs["BLOCK_SIZE_N"] >= block_size]
+    if not valid:
+        return [min(configs, key=lambda c: _score_config_smem(c, named_args))]
+    for min_blocks in (_MIN_BLOCKS_PER_SM, 2, 1):
+        budget = _SMEM_PER_SM // min_blocks
+        keep = [c for c in valid if _score_config_smem(c, named_args) <= budget]
+        if len({c.kwargs["BLOCK_SIZE_N"] for c in keep}) >= 2:
+            return keep
+    return keep or [min(valid, key=lambda c: _score_config_smem(c, named_args))]
+
 
 @triton.heuristics(
     {
@@ -41,6 +70,7 @@ from ..common.utils import (
         "block_size",
         "SCORE_TYPE",
     ],
+    prune_configs_by={"early_config_prune": _prune_score_configs},
 )
 @triton.jit
 def _decode_score_kernel(
