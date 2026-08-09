@@ -456,7 +456,7 @@ class MiniMaxM3MoE(nn.Module):
     def _compute_router_logits(self, hidden_states: torch.Tensor) -> torch.Tensor:
         if self.bf16_router_gemm:
             if self._use_dsv3_router_gemm(hidden_states):
-                from sglang.kernels.ops.gemm import dsv3_router_gemm
+                from sglang.kernels.ops.gemm.dsv3_router_gemm import dsv3_router_gemm
 
                 return dsv3_router_gemm(
                     hidden_states, self.gate.weight, out_dtype=torch.float32
