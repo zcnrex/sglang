@@ -35,10 +35,6 @@ namespace sglang {
 
 using namespace device;
 
-static constexpr int kDefaultNumExperts = 256;
-static constexpr int kKimiK2NumExperts = 384;
-static constexpr int kDefaultHiddenDim = 7168;
-
 // kOutFloat: true = float32 output, false = bfloat16 output
 template <
     typename T,
@@ -142,15 +138,14 @@ struct RouterGemmDispatcher<kEnd, kEnd, OutT, kNumExperts, kHiddenDim, kUsePDL> 
   }
 };
 
-// kNumExperts: compile-time 256 or 384
+// kNumExperts: compile-time expert count; becomes the grid size (one block per
+//   expert column) and the output row stride, so any positive value works.
 // kHiddenDim: compile-time hidden dim, any multiple of one K iteration (1024)
 // kUsePDL: compile-time bool (true on SM90+)
 // kOutFloat: compile-time bool (true = float32 output, false = bfloat16 output)
 template <int kNumExperts, int kHiddenDim, bool kUsePDL, bool kOutFloat>
 struct DSV3RouterGemmKernel {
-  static_assert(
-      kNumExperts == kDefaultNumExperts || kNumExperts == kKimiK2NumExperts,
-      "required num_experts == 256 or num_experts == 384");
+  static_assert(kNumExperts > 0, "required num_experts > 0");
 
   using OutT = std::conditional_t<kOutFloat, fp32_t, bf16_t>;
 

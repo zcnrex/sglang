@@ -22,13 +22,17 @@ HIDDEN_DIMS = [1024, 4096, 5120, 6144, 7168]
 ROUTER_GEMM_CASES = get_ci_test_range(
     list(
         itertools.product(
-            [256, 384],
+            [128, 256, 384],
             HIDDEN_DIMS,
             list(range(1, 17)),
             [torch.bfloat16, torch.float32],
         )
     ),
     [
+        # 128 experts: the kernel is generic in num_experts (grid size / output
+        # row stride); guards the relaxed static_assert against a regression to
+        # a hardcoded {256, 384}. MiniMax-M3's shape is (128, 6144).
+        (128, 6144, 1, torch.float32),
         (256, 1024, 1, torch.bfloat16),
         (256, 7168, 6, torch.bfloat16),
         (256, 6144, 4, torch.float32),

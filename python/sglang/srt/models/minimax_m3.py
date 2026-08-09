@@ -285,8 +285,10 @@ class MiniMaxM3MoE(nn.Module):
         layer_id: int,
         quant_config: Optional[QuantizationConfig] = None,
         prefix: str = "",
+        alt_stream: Optional[torch.cuda.Stream] = None,
     ):
         super().__init__()
+        self.alt_stream = alt_stream
         self.tp_size = get_parallel().tp_size
         self.n_shared_experts = getattr(config, "n_shared_experts", None)
         self.num_fused_shared_experts = (
@@ -396,8 +398,17 @@ class MiniMaxM3MoE(nn.Module):
         should_allreduce_fusion: bool = False,
         use_reduce_scatter: bool = False,
     ) -> torch.Tensor:
+        shared_event = None
         if hidden_states.shape[0] > 0:
-            shared_output = self._forward_shared_experts(hidden_states)
+            if self.alt_stream is not None:
+                self.alt_stream.wait_stream(torch.cuda.current_stream())
+                with torch.cuda.stream(self.alt_stream):
+                    shared_output = self._forward_shared_experts(hidden_states)
+                    if shared_output is not None:
+                        shared_output.record_stream(self.alt_stream)
+                        shared_event = self.alt_stream.record_event()
+            else:
+                shared_output = self._forward_shared_experts(hidden_states)
             router_logits = self._compute_router_logits(hidden_states)
             topk_output = self.topk(hidden_states, router_logits)
         else:
@@ -407,6 +418,8 @@ class MiniMaxM3MoE(nn.Module):
         final_hidden_states = self.experts(hidden_states, topk_output)
 
         if shared_output is not None:
+            if shared_event is not None:
+                torch.cuda.current_stream().wait_event(shared_event)
             final_hidden_states = final_hidden_states + shared_output
         if self.tp_size > 1 and not should_allreduce_fusion and not use_reduce_scatter:
             final_hidden_states = tensor_model_parallel_all_reduce(final_hidden_states)
@@ -442,11 +455,29 @@ class MiniMaxM3MoE(nn.Module):
 
     def _compute_router_logits(self, hidden_states: torch.Tensor) -> torch.Tensor:
         if self.bf16_router_gemm:
+            if self._use_dsv3_router_gemm(hidden_states):
+                from sglang.kernels.ops.gemm import dsv3_router_gemm
+
+                return dsv3_router_gemm(
+                    hidden_states, self.gate.weight, out_dtype=torch.float32
+                )
             return torch.mm(
                 hidden_states, self.gate.weight.t(), out_dtype=torch.float32
             )
         router_logits, _ = self.gate(hidden_states.to(torch.float32))
         return router_logits
+
+    def _use_dsv3_router_gemm(self, hidden_states: torch.Tensor) -> bool:
+        # Kernel constraints: SM90+, hidden_dim % 1024 == 0, num_tokens <= 16
+        # (<= 4 on SM100/103, where cuBLAS wins above that).
+        max_tokens = 4 if _device_sm in (100, 103) else 16
+        return (
+            _is_cuda
+            and _device_sm is not None
+            and _device_sm >= 90
+            and hidden_states.shape[0] <= max_tokens
+            and hidden_states.shape[1] % 1024 == 0
+        )
 
     def _forward_shared_experts(self, hidden_states: torch.Tensor):
         if (hidden_states.shape[0] > 0) and (self.num_fused_shared_experts == 0):
@@ -1143,6 +1174,7 @@ class MiniMaxM3DecoderLayer(nn.Module):
         layer_id: int,
         quant_config: Optional[QuantizationConfig] = None,
         prefix: str = "",
+        alt_stream: Optional[torch.cuda.Stream] = None,
     ) -> None:
         super().__init__()
         self.hidden_size = config.hidden_size
@@ -1182,6 +1214,7 @@ class MiniMaxM3DecoderLayer(nn.Module):
                 layer_id=layer_id,
                 quant_config=quant_config,
                 prefix=add_prefix("mlp", prefix),
+                alt_stream=alt_stream,
             )
         else:
             if enable_moe_dense_fully_dp():
@@ -1324,12 +1357,21 @@ class MiniMaxM3Model(nn.Module):
         else:
             self.embed_tokens = PPMissingLayer()
 
+        alt_stream = (
+            torch.cuda.Stream()
+            if _is_cuda
+            and envs.SGLANG_OPT_USE_MINIMAX_SHARED_EXPERTS_ALT_STREAM.get()
+            and get_exec().moe.disable_shared_experts_fusion
+            else None
+        )
+
         def layer_fn(idx, prefix: str) -> nn.Module:
             return MiniMaxM3DecoderLayer(
                 config=config,
                 layer_id=idx,
                 quant_config=quant_config,
                 prefix=prefix,
+                alt_stream=alt_stream,
             )
 
         self.layers, self.start_layer, self.end_layer = make_layers(
