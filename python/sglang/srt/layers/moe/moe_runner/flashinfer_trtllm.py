@@ -142,6 +142,42 @@ def _get_packed_topk_ids_for_flashinfer_routed(topk_output) -> torch.Tensor:
     )
 
 
+def _reject_gemm1_activation_params(quant_info, kernel: str) -> None:
+    """Guard kernels that take no SwiGLU-OAI arguments."""
+    if (
+        quant_info.gemm1_alpha is not None
+        or quant_info.gemm1_beta is not None
+        or quant_info.gemm1_clamp_limit is not None
+    ):
+        raise ValueError(
+            f"{kernel} takes no gemm1_alpha/gemm1_beta/gemm1_clamp_limit, so a "
+            "SwiGLU-OAI model (e.g. MiniMax-M3) would silently run plain "
+            "silu(gate)*up. Use an MXFP8/FP4 checkpoint, or "
+            "--moe-runner-backend triton."
+        )
+
+
+def prepare_flashinfer_trtllm_activation_params(
+    layer: Module, moe_runner_config: MoeRunnerConfig
+) -> None:
+    """Materialize the optional TRT-LLM SwiGLU-OAI params as per-expert tensors."""
+    num_experts = int(layer.num_local_experts)
+    device = layer.w13_weight.device
+    for name, value in (
+        ("gemm1_alpha", moe_runner_config.gemm1_alpha),
+        ("gemm1_beta", moe_runner_config.gemm1_beta),
+        ("gemm1_clamp_limit", moe_runner_config.gemm1_clamp_limit),
+    ):
+        tensor = (
+            None
+            if value is None
+            else torch.full(
+                (num_experts,), float(value), dtype=torch.float32, device=device
+            )
+        )
+        setattr(layer, f"_flashinfer_trtllm_{name}", tensor)
+
+
 def _align_fp8_moe_weights(
     w13: torch.Tensor,
     w2: torch.Tensor,
@@ -824,6 +860,9 @@ def fused_experts_none_to_flashinfer_trtllm_fp8(
         assert quant_info.output1_scales_scalar is not None
         assert quant_info.output1_scales_gate_scalar is not None
         assert quant_info.output2_scales_scalar is not None
+        _reject_gemm1_activation_params(
+            quant_info=quant_info, kernel="trtllm_fp8_per_tensor_scale_moe"
+        )
 
         a_q, _ = scaled_fp8_quant(hidden_states, quant_info.w13_input_scale)
         routing_bias_cast = (
@@ -1170,6 +1209,26 @@ class FlashInferTrtllmBf16MoeQuantInfo(MoeQuantInfo):
     global_num_experts: int
     local_expert_offset: int
 
+    # SwiGLU-OAI activation params ([num_local_experts] fp32); dropping these
+    # silently degrades the activation to plain silu(gate)*up.
+    gemm1_alpha: torch.Tensor | None = None
+    gemm1_beta: torch.Tensor | None = None
+    gemm1_clamp_limit: torch.Tensor | None = None
+
+    def gemm1_activation_kwargs(self) -> dict[str, torch.Tensor]:
+        """SwiGLU-OAI kwargs, empty when the model sets none.
+
+        Passing them only when set keeps plain-SwiGLU models working on
+        FlashInfer builds whose bf16 entry points predate these arguments; a
+        model that needs them fails loudly there instead.
+        """
+        params = {
+            "gemm1_alpha": self.gemm1_alpha,
+            "gemm1_beta": self.gemm1_beta,
+            "gemm1_clamp_limit": self.gemm1_clamp_limit,
+        }
+        return {k: v for k, v in params.items() if v is not None}
+
 
 def fused_experts_none_to_flashinfer_trtllm_bf16(
     dispatch_output: StandardDispatchOutput,
@@ -1252,6 +1311,7 @@ def fused_experts_none_to_flashinfer_trtllm_bf16(
                 ),
                 tune_max_num_tokens=next_power_of_2(hidden_states.shape[0]),
                 activation_type=activation_type,
+                **quant_info.gemm1_activation_kwargs(),
             )
         else:
             assert TopKOutputChecker.format_is_bypassed(topk_output)
@@ -1275,6 +1335,7 @@ def fused_experts_none_to_flashinfer_trtllm_bf16(
                 routed_scaling_factor=runner_config.routed_scaling_factor,
                 tune_max_num_tokens=next_power_of_2(hidden_states.shape[0]),
                 activation_type=activation_type,
+                **quant_info.gemm1_activation_kwargs(),
             )
 
     return StandardCombineInput(hidden_states=final_hidden_states)

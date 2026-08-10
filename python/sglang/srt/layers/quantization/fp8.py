@@ -2153,24 +2153,13 @@ class Fp8MoEMethod(FusedMoEMethodBase):
 
     def _prepare_flashinfer_trtllm_activation_params(self, layer: Module) -> None:
         """Materialize optional TRT-LLM SwiGLU parameters once per expert."""
-        num_experts = int(layer.num_local_experts)
-        device = layer.w13_weight.device
-        for name, value in (
-            ("gemm1_alpha", self.moe_runner_config.gemm1_alpha),
-            ("gemm1_beta", self.moe_runner_config.gemm1_beta),
-            ("gemm1_clamp_limit", self.moe_runner_config.gemm1_clamp_limit),
-        ):
-            tensor = (
-                None
-                if value is None
-                else torch.full(
-                    (num_experts,),
-                    float(value),
-                    dtype=torch.float32,
-                    device=device,
-                )
-            )
-            setattr(layer, f"_flashinfer_trtllm_{name}", tensor)
+        from sglang.srt.layers.moe.moe_runner.flashinfer_trtllm import (
+            prepare_flashinfer_trtllm_activation_params,
+        )
+
+        prepare_flashinfer_trtllm_activation_params(
+            layer=layer, moe_runner_config=self.moe_runner_config
+        )
 
     def _prepare_hpc_ops_weights(self, layer: Module) -> None:
         """Precompute the scale layouts consumed by the HPC-Ops fused MoE kernels.

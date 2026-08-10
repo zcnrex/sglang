@@ -415,6 +415,14 @@ class UnquantizedFusedMoEMethod(FusedMoEMethodBase, BaseFusedOp):
 
         # Reorder rows of W1 for fused gated activation
         if self.use_flashinfer_trtllm_moe:
+            from sglang.srt.layers.moe.moe_runner.flashinfer_trtllm import (
+                prepare_flashinfer_trtllm_activation_params,
+            )
+
+            prepare_flashinfer_trtllm_activation_params(
+                layer=layer, moe_runner_config=self.moe_runner_config
+            )
+
             # The cached indices are GPU tensors. Colocated weight offloading
             # can release their backing memory between reloads, so rebuild them
             # once per post-processing cycle.
@@ -684,6 +692,9 @@ class UnquantizedFusedMoEMethod(FusedMoEMethodBase, BaseFusedOp):
                 gemm2_weights=layer.w2_weight,
                 global_num_experts=layer.num_experts,
                 local_expert_offset=layer.moe_ep_rank * layer.num_local_experts,
+                gemm1_alpha=layer._flashinfer_trtllm_gemm1_alpha,
+                gemm1_beta=layer._flashinfer_trtllm_gemm1_beta,
+                gemm1_clamp_limit=layer._flashinfer_trtllm_gemm1_clamp_limit,
             )
             return self.runner.run(dispatch_output, quant_info)
         else:
