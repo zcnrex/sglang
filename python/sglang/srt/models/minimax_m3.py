@@ -365,6 +365,7 @@ class MiniMaxM3MoE(nn.Module):
             and isinstance(quant_config, Fp8Config)
             and quant_config.use_mxfp8
         )
+        self._prequant_keepalive = None
 
         self.bf16_router_gemm = envs.SGLANG_OPT_USE_BF16_ROUTER_GEMM.get()
         self.gate = ReplicatedLinear(
@@ -412,11 +413,14 @@ class MiniMaxM3MoE(nn.Module):
         forward_batch: Optional[ForwardBatch] = None,
     ) -> torch.Tensor:
         shared_event = None
+        # ponytail: measured crossover — the alt-stream prequant wins up to
+        # bs32 and loses at bs64, where the quantize crowds the shared-expert
+        # stream; re-measure the threshold if the shared expert changes.
         prequant_on_alt_stream = (
             self.moe_quant_alt_stream
             and forward_batch is not None
             and forward_batch.forward_mode.is_decode_or_idle()
-            and hidden_states.shape[0] > 0
+            and 0 < hidden_states.shape[0] <= 32
         )
         if hidden_states.shape[0] > 0:
             if self.alt_stream is not None:
@@ -428,8 +432,10 @@ class MiniMaxM3MoE(nn.Module):
                         )
 
                         a_q, a_sf = flashinfer_mxfp8_quantize(hidden_states, False)
-                        a_q.record_stream(self.alt_stream)
-                        a_sf.record_stream(self.alt_stream)
+                        # Owning the buffers here keeps the allocator from
+                        # recycling alt-stream blocks while main-stream
+                        # consumers (incl. captured graph replays) read them.
+                        self._prequant_keepalive = (a_q, a_sf)
                         hidden_states._sglang_mxfp8_prequant = (
                             a_q,
                             a_sf,
