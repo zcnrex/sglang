@@ -1210,6 +1210,15 @@ def mxfp8_group_quantize(x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
     return q_input.contiguous(), scale_u8.contiguous()
 
 
+# M at or below which flashinfer_mxfp8_blockscaled_linear switches from the
+# CUTLASS runner to the cute-dsl swap-AB/split-K runners. The flashinfer
+# autotuner caches tactics per runner class, so the autotune warmup must run a
+# dummy forward on each side of this threshold (see
+# maybe_flashinfer_autotune_mxfp8_small_m) or the untuned side falls back to
+# flashinfer's default tactic.
+MXFP8_CUTE_DSL_M_MAX = 64
+
+
 def flashinfer_mxfp8_blockscaled_linear(
     input: torch.Tensor,
     weight: torch.Tensor,
@@ -1250,7 +1259,7 @@ def flashinfer_mxfp8_blockscaled_linear(
     # At small M the persistent CUTLASS kernel is 2-5x slower than the
     # CuTe-DSL swap-AB/split-K kernels (both consume the same swizzled
     # 1D scales).
-    if backend == "cutlass" and q_input.shape[0] <= 64:
+    if backend == "cutlass" and q_input.shape[0] <= MXFP8_CUTE_DSL_M_MAX:
         backend = "cute-dsl"
 
     if backend == "trtllm":

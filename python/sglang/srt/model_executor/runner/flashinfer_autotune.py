@@ -249,6 +249,56 @@ def maybe_flashinfer_autotune_speculative_draft(
     tuned_phases.add(phase_key)
 
 
+def maybe_flashinfer_autotune_mxfp8_small_m(
+    runner: BaseRunner, *, buffers, decode_batch_size: int
+) -> None:
+    """Also autotune one small-M decode dummy for the MXFP8 dense linear.
+
+    flashinfer_mxfp8_blockscaled_linear routes M <= MXFP8_CUTE_DSL_M_MAX to the
+    cute-dsl runner and larger M to the CUTLASS runner, and the flashinfer
+    autotuner caches tactics per runner class. The main decode autotune pass
+    runs at the max decode batch size, which tunes only the CUTLASS side; the
+    small-M buckets then miss the cache at serving time and run flashinfer's
+    untuned default tactic (measured ~30% slower than the tuned dense/split-K
+    mix at M=1 on sm103). One extra forward at M = MXFP8_CUTE_DSL_M_MAX tunes
+    the cute-dsl buckets 1..MXFP8_CUTE_DSL_M_MAX.
+    """
+    mr = runner.model_runner
+    if mr.model_config.quantization != "mxfp8":
+        return
+    from sglang.srt.layers.quantization.fp8_utils import (
+        MXFP8_CUTE_DSL_M_MAX,
+        resolve_mxfp8_dense_gemm_backend,
+    )
+
+    if not resolve_mxfp8_dense_gemm_backend().is_flashinfer_cutlass():
+        return
+    if decode_batch_size <= MXFP8_CUTE_DSL_M_MAX:
+        return  # the main decode pass already ran on the cute-dsl side
+    if not mr.is_generation or mr.spec_algorithm.is_speculative():
+        # Speculative dummies run TARGET_VERIFY with num_tokens = bs * draft
+        # tokens; the small-M pass for spec configs is a follow-up.
+        return
+
+    canary_run_ctx = (
+        c.with_active_single_forward_manager(0)
+        if (c := mr.canary_manager) is not None
+        else empty_context()
+    )
+    forward_fn = functools.partial(
+        runner._dummy_run,
+        batch_size=MXFP8_CUTE_DSL_M_MAX,
+        buffers=buffers,
+        run_ctx=canary_run_ctx,
+    )
+    log_info_on_rank0(
+        logger,
+        f"FlashInfer autotune: extra small-M decode pass at "
+        f"batch_size={MXFP8_CUTE_DSL_M_MAX} for the MXFP8 cute-dsl GEMM.",
+    )
+    run_flashinfer_autotune_forward(mr, forward_fn, skip_logits=True)
+
+
 def maybe_flashinfer_autotune_extend(
     runner: BaseRunner, *, decode_num_tokens: int
 ) -> None:

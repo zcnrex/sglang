@@ -1266,6 +1266,7 @@ class MiniMaxM3DecoderLayer(nn.Module):
             input_layernorm=self.input_layernorm,
             post_attention_layernorm=self.post_attention_layernorm,
             allow_reduce_scatter=True,
+            is_last_layer=(layer_id == config.num_hidden_layers - 1),
         )
 
     def forward(
@@ -1303,20 +1304,27 @@ class MiniMaxM3DecoderLayer(nn.Module):
                 forward_batch
             )
         )
-        if self.is_layer_sparse and get_parallel().tp_size > 1:
-            # Sparse MoE outputs are TP-partial; deferring their all-reduce into the next
-            # layer's fusion re-triggers the M3 no-EOS runaway. Force immediate all-reduce.
+        if _is_hip and self.is_layer_sparse and get_parallel().tp_size > 1:
+            # The deferred AITER all-reduce fusion corrupts sparse MoE partials
+            # on ROCm; force the immediate all-reduce there.
             should_allreduce_fusion = False
 
         use_reduce_scatter = self.layer_communicator.should_use_reduce_scatter(
             forward_batch
         )
 
-        if self.is_layer_sparse or hidden_states.shape[0] != 0:
+        if self.is_layer_sparse:
             hidden_states = self.mlp(
                 hidden_states,
-                should_allreduce_fusion,
-                use_reduce_scatter,
+                forward_batch=forward_batch,
+                should_allreduce_fusion=should_allreduce_fusion,
+                use_reduce_scatter=use_reduce_scatter,
+            )
+        elif hidden_states.shape[0] != 0:
+            hidden_states = self.mlp(
+                hidden_states,
+                should_allreduce_fusion=should_allreduce_fusion,
+                use_reduce_scatter=use_reduce_scatter,
             )
 
         if should_allreduce_fusion:
