@@ -434,17 +434,19 @@ if is_blackwell_supported() and is_flashinfer_available():
     # flashinfer's JIT compilation path (filesystem checks/cubin loader).
     def _fake_flashinfer_mxfp8_quantize(
         input: torch.Tensor,
-        _is_sf_swizzled_layout: bool = True,
+        is_sf_swizzled_layout: bool = True,
         alignment: int = 32,
         backend: str = "cute-dsl",
     ) -> Tuple[torch.Tensor, torch.Tensor]:
-        # Fake mode only needs dtypes and output rank to propagate compile graph.
-        # The scale tensor shape is not consumed before the following fake mm op.
+        # Fake mode: compiled callers reshape the linear-layout scale to
+        # (num_tokens, -1), so the numel must be m * (k/32). The swizzled
+        # layout's real numel is pad-rounded, but its consumers are opaque
+        # custom ops, and the linear m*sf_k expression stays symbolic-safe
+        # (no per-shape rounding guards under dynamic-shape compile).
+        m = input.shape[0]
         k_aligned = ((input.shape[1] + alignment - 1) // alignment) * alignment
-        q_input = input.new_empty(
-            (input.shape[0], k_aligned), dtype=torch.float8_e4m3fn
-        )
-        scale = input.new_empty((1,), dtype=torch.uint8)
+        q_input = input.new_empty((m, k_aligned), dtype=torch.float8_e4m3fn)
+        scale = input.new_empty((m * (k_aligned // 32),), dtype=torch.uint8)
         return q_input, scale
 
     @register_custom_op(

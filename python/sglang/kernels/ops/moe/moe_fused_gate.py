@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Tuple
+from typing import TYPE_CHECKING, Optional, Tuple
 
 import torch
 import triton
@@ -116,6 +116,10 @@ def _router_triton_kernel(
     stride_wk,
     stride_im,
     stride_ik,
+    out_packed_ptr=None,
+    num_token_non_padded_ptr=None,
+    HAS_PACKED: tl.constexpr = False,
+    HAS_NTNP: tl.constexpr = False,
 ) -> None:
     # Row-tiled: each program handles BLOCK_M rows; all reductions run along the
     # expert (N) axis. Tiling rows keeps CTAs large enough to stay occupancy-bound
@@ -250,6 +254,22 @@ def _router_triton_kernel(
     tl.store(out_w_ptr, selected_vals, mask=store_mask)
     tl.store(out_i_ptr, selected_idx, mask=store_mask)
 
+    if HAS_PACKED:
+        # FlashInfer routed packed layout: (id << 16) | bf16_bits(weight), with
+        # id = -1 for rows at or beyond num_token_non_padded (mirrors the
+        # unfused _mask_topk_ids_padded_region + PackTopkIds sequence).
+        pack_ids = selected_idx
+        if HAS_NTNP:
+            ntnp = tl.load(num_token_non_padded_ptr)
+            pack_ids = tl.where(offs_m[:, None] < ntnp, selected_idx, -1)
+        w_bits = (
+            selected_vals.to(tl.bfloat16).to(tl.int16, bitcast=True).to(tl.int32)
+            & 0xFFFF
+        )
+        packed = (pack_ids << 16) | w_bits
+        out_p_ptr = out_packed_ptr + offs_m[:, None] * K + offs_k[None, :]
+        tl.store(out_p_ptr, packed, mask=store_mask)
+
 
 @debug_kernel_api
 def moe_fused_gate(
@@ -264,6 +284,8 @@ def moe_fused_gate(
     moe_softcapping: float = 0.0,
     num_expert_group: int = 1,
     topk_group: int = 1,
+    out_packed: Optional[torch.Tensor] = None,
+    num_token_non_padded: Optional[torch.Tensor] = None,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
     """Triton fused router: scoring + bias + topk + (optional) renorm/scale.
 
@@ -302,6 +324,7 @@ def moe_fused_gate(
         and num_fused_shared_experts == 0
         and num_expert_group <= 1
         and moe_softcapping == 0.0
+        and out_packed is None
     ):
         radix_args = (
             scores,
@@ -325,6 +348,13 @@ def moe_fused_gate(
 
     weights = torch.empty((M, K), dtype=torch.float32, device=scores.device)
     indices = torch.empty((M, K), dtype=torch.int32, device=scores.device)
+
+    if out_packed is not None:
+        assert out_packed.is_contiguous(), "out_packed must be contiguous"
+        assert out_packed.shape == (M, K) and out_packed.dtype == torch.int32, (
+            f"out_packed must be int32 [{M}, {K}], got "
+            f"{out_packed.dtype} {tuple(out_packed.shape)}"
+        )
 
     BLOCK_N = triton.next_power_of_2(N)  # 256 -> 256, 384 -> 512
     BLOCK_K = triton.next_power_of_2(K)  # 6 -> 8, 8 -> 8
@@ -369,6 +399,10 @@ def moe_fused_gate(
         stride_wk=weights.stride(1),
         stride_im=indices.stride(0),
         stride_ik=indices.stride(1),
+        out_packed_ptr=out_packed,
+        num_token_non_padded_ptr=num_token_non_padded,
+        HAS_PACKED=out_packed is not None,
+        HAS_NTNP=num_token_non_padded is not None,
         num_warps=num_warps,
         **extra,
     )

@@ -832,6 +832,15 @@ def fused_topk(
 ):
     assert hidden_states.shape[0] == gating_output.shape[0], "Number of tokens mismatch"
 
+    if packed_out is not None and scoring_func == "sigmoid":
+        # The packed output is only written by the JIT fused gate; any other
+        # sigmoid branch would silently return an uninitialized packed tensor.
+        assert (
+            _is_cuda
+            and not _use_aiter
+            and envs.SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK.get()
+        ), "packed_out for sigmoid requires the CUDA JIT fused-gate path"
+
     M, _ = hidden_states.shape
 
     topk_weights = torch.empty(
@@ -931,6 +940,8 @@ def fused_topk(
                 renormalize=renormalize,
                 routed_scaling_factor=routed_scaling_factor,
                 apply_routed_scaling_factor_on_output=apply_routed_scaling_factor_on_output,
+                out_packed=packed_out,
+                num_token_non_padded=num_token_non_padded,
             )
         else:
             if num_fused_shared_experts > 1:
@@ -1235,10 +1246,12 @@ def biased_topk_jit_kernel_impl(
     num_token_non_padded: Optional[torch.Tensor] = None,
     expert_location_dispatch_info: Optional[ExpertLocationDispatchInfo] = None,
     apply_routed_scaling_factor_on_output: Optional[bool] = False,
+    packed_out: Optional[torch.Tensor] = None,
 ) -> Tuple[torch.Tensor, torch.Tensor]:
     assert hidden_states.shape[0] == gating_output.shape[0], "Number of tokens mismatch"
 
     if _use_aiter and scoring_func == "sqrtsoftplus" and num_fused_shared_experts == 0:
+        assert packed_out is None, "packed_out is not supported on the aiter path"
         from aiter import topk_gating
 
         num_tokens = gating_output.shape[0]
@@ -1273,6 +1286,8 @@ def biased_topk_jit_kernel_impl(
             renormalize=renormalize,
             routed_scaling_factor=routed_scaling_factor,
             apply_routed_scaling_factor_on_output=apply_routed_scaling_factor_on_output,
+            out_packed=packed_out,
+            num_token_non_padded=num_token_non_padded,
         )
         topk_weights, topk_ids = topk_weights.to(torch.float32), topk_ids.to(
             torch.int32
@@ -2170,6 +2185,29 @@ def select_experts(
                 biased_topk_jit_kernel_impl if use_jit_fused_gate else biased_topk_impl
             )
 
+            _biased_topk_kwargs = {}
+            if (
+                envs.SGLANG_OPT_USE_FUSED_TOPK_PACK.get()
+                and use_jit_fused_gate
+                and scoring_func == "sigmoid"
+                and _is_cuda
+                and not _use_aiter
+                and expert_location_dispatch_info is None
+                and num_fused_shared_experts == 0
+                and not envs.SGLANG_SIMULATE_UNIFORM_EXPERTS.get()
+                and not envs.SGLANG_SIMULATE_ROUND_ROBIN_EXPERTS.get()
+                # The packed epilogue trips dynamo's recompile limit under the
+                # piecewise prefill compile; the win is decode (full graph
+                # capture, no dynamo), so skip packing in compiled regions.
+                and not torch.compiler.is_compiling()
+            ):
+                packed_topk = torch.empty(
+                    (hidden_states.shape[0], top_k),
+                    dtype=torch.int32,
+                    device=hidden_states.device,
+                )
+                _biased_topk_kwargs = dict(packed_out=packed_topk)
+
             topk_weights, topk_ids = _biased_topk(
                 hidden_states=hidden_states,
                 gating_output=router_logits,
@@ -2182,6 +2220,7 @@ def select_experts(
                 num_token_non_padded=num_token_non_padded,
                 expert_location_dispatch_info=expert_location_dispatch_info,
                 apply_routed_scaling_factor_on_output=apply_routed_scaling_factor_on_output,
+                **_biased_topk_kwargs,
             )
         elif (
             get_moe_runner_backend().is_flashinfer_trtllm_routed()

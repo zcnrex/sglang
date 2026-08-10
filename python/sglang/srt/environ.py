@@ -1267,6 +1267,11 @@ class Envs:
     SGLANG_OPT_USE_JIT_KERNEL_GROUPED_TOPK = EnvBool(False)
     SGLANG_OPT_USE_TOPK_V2 = EnvBool(True)
 
+    # Fuse the FlashInfer routed-MoE topk pack into the JIT fused-gate kernel
+    # (sigmoid scoring): removes the standalone _pack_topk_ids launch per MoE
+    # layer. Requires SGLANG_OPT_USE_JIT_KERNEL_FUSED_TOPK.
+    SGLANG_OPT_USE_FUSED_TOPK_PACK = EnvBool(False)
+
     SGLANG_OPT_USE_BF16_ROUTER_GEMM = EnvBool(True)
     SGLANG_OPT_USE_MINIMAX_DENSE_SPARSE_DECODE = EnvBool(False)
     SGLANG_DISABLE_MSA = EnvBool(False)
