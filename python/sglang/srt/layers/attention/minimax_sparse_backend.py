@@ -444,6 +444,9 @@ class MiniMaxSparseAttnBackend(AttentionBackend):
                 max_seq_len=self.topk_blocks * self.block_size_k,
                 bmm1_scale=layer.scaling,
                 bmm2_scale=1.0,
+                # Without this, FlashInfer allocates and zeroes a fresh counter
+                # buffer inside every per-layer decode call.
+                multi_ctas_kv_counter_buffer=self.dense_backend._multi_ctas_kv_counter_buffer,
             )
         raise NotImplementedError(
             "dense sparse decode currently supports trtllm_mha only (fa3 is TODO)"

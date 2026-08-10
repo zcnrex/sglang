@@ -357,6 +357,15 @@ class MiniMaxM3MoE(nn.Module):
         else:
             self.shared_experts = None
 
+        from sglang.srt.layers.quantization.fp8 import Fp8Config
+
+        self.moe_quant_alt_stream = (
+            alt_stream is not None
+            and envs.SGLANG_OPT_USE_MINIMAX_MOE_QUANT_ALT_STREAM.get()
+            and isinstance(quant_config, Fp8Config)
+            and quant_config.use_mxfp8
+        )
+
         self.bf16_router_gemm = envs.SGLANG_OPT_USE_BF16_ROUTER_GEMM.get()
         self.gate = ReplicatedLinear(
             config.hidden_size,
@@ -389,7 +398,10 @@ class MiniMaxM3MoE(nn.Module):
             return self.forward_deepep(hidden_states, forward_batch)
         else:
             return self.forward_normal(
-                hidden_states, should_allreduce_fusion, use_reduce_scatter
+                hidden_states,
+                should_allreduce_fusion,
+                use_reduce_scatter,
+                forward_batch=forward_batch,
             )
 
     def forward_normal(
@@ -397,12 +409,32 @@ class MiniMaxM3MoE(nn.Module):
         hidden_states: torch.Tensor,
         should_allreduce_fusion: bool = False,
         use_reduce_scatter: bool = False,
+        forward_batch: Optional[ForwardBatch] = None,
     ) -> torch.Tensor:
         shared_event = None
+        prequant_on_alt_stream = (
+            self.moe_quant_alt_stream
+            and forward_batch is not None
+            and forward_batch.forward_mode.is_decode_or_idle()
+            and hidden_states.shape[0] > 0
+        )
         if hidden_states.shape[0] > 0:
             if self.alt_stream is not None:
                 self.alt_stream.wait_stream(torch.cuda.current_stream())
                 with torch.cuda.stream(self.alt_stream):
+                    if prequant_on_alt_stream:
+                        from sglang.srt.layers.quantization.fp8_utils import (
+                            flashinfer_mxfp8_quantize,
+                        )
+
+                        a_q, a_sf = flashinfer_mxfp8_quantize(hidden_states, False)
+                        a_q.record_stream(self.alt_stream)
+                        a_sf.record_stream(self.alt_stream)
+                        hidden_states._sglang_mxfp8_prequant = (
+                            a_q,
+                            a_sf,
+                            self.alt_stream.record_event(),
+                        )
                     shared_output = self._forward_shared_experts(hidden_states)
                     if shared_output is not None:
                         shared_output.record_stream(self.alt_stream)

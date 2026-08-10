@@ -170,7 +170,12 @@ def flashinfer_autotune_cache_path(model_runner: ModelRunner) -> Path:
 
 
 @contextlib.contextmanager
-def flashinfer_autotune_context(model_runner: ModelRunner, *, skip_logits: bool):
+def flashinfer_autotune_context(
+    model_runner: ModelRunner,
+    *,
+    skip_logits: bool,
+    extra_skip_ops: Optional[set[str]] = None,
+):
     from flashinfer.autotuner import autotune
 
     mr = model_runner
@@ -199,6 +204,8 @@ def flashinfer_autotune_context(model_runner: ModelRunner, *, skip_logits: bool)
 
             maybe_skip_logits = autotune_dummy_run_mode()
         skip_ops = get_flashinfer_autotune_skip_ops(mr)
+        if extra_skip_ops:
+            skip_ops = skip_ops | extra_skip_ops
         with autotune(
             True,
             cache=str(autotune_cache),
@@ -210,10 +217,16 @@ def flashinfer_autotune_context(model_runner: ModelRunner, *, skip_logits: bool)
 
 
 def run_flashinfer_autotune_forward(
-    model_runner: ModelRunner, forward_fn: Callable[[], None], *, skip_logits: bool
+    model_runner: ModelRunner,
+    forward_fn: Callable[[], None],
+    *,
+    skip_logits: bool,
+    extra_skip_ops: Optional[set[str]] = None,
 ) -> None:
     """Run flashinfer autotune forward."""
-    with flashinfer_autotune_context(model_runner, skip_logits=skip_logits):
+    with flashinfer_autotune_context(
+        model_runner, skip_logits=skip_logits, extra_skip_ops=extra_skip_ops
+    ):
         forward_fn()
 
 
@@ -291,12 +304,23 @@ def maybe_flashinfer_autotune_mxfp8_small_m(
         buffers=buffers,
         run_ctx=canary_run_ctx,
     )
+    # Skip every op the main pass already tuned: re-profiling them at the
+    # small-M dummy shape overwrites their bucket tactics with ones tuned on
+    # different per-expert token statistics (measured: trtllm-gen MoE fc1
+    # regressed 11.3 -> 12.1us at bs1 without this).
+    from flashinfer.autotuner import AutoTuner
+
+    already_tuned_ops = {k.custom_op for k in AutoTuner.get().profiling_cache}
+    extra_skip_ops = already_tuned_ops - {"mxfp8_gemm"}
     log_info_on_rank0(
         logger,
         f"FlashInfer autotune: extra small-M decode pass at "
-        f"batch_size={MXFP8_CUTE_DSL_M_MAX} for the MXFP8 cute-dsl GEMM.",
+        f"batch_size={MXFP8_CUTE_DSL_M_MAX} for the MXFP8 cute-dsl GEMM "
+        f"(skipping {sorted(extra_skip_ops)}).",
     )
-    run_flashinfer_autotune_forward(mr, forward_fn, skip_logits=True)
+    run_flashinfer_autotune_forward(
+        mr, forward_fn, skip_logits=True, extra_skip_ops=extra_skip_ops
+    )
 
 
 def maybe_flashinfer_autotune_extend(

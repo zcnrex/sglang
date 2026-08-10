@@ -706,11 +706,19 @@ def fused_experts_none_to_flashinfer_trtllm_fp8(
 
         if quant_info.use_mxfp8:
             assert quant_info.weight_block_k == 32
-            from sglang.srt.layers.quantization.fp8_utils import (
-                flashinfer_mxfp8_quantize,
-            )
+            prequant = getattr(hidden_states, "_sglang_mxfp8_prequant", None)
+            if prequant is not None:
+                # Produced on the model's alt stream (see MiniMaxM3MoE) so the
+                # quantize overlaps the router/topk chain.
+                a_q, a_sf, quant_ready_event = prequant
+                del hidden_states._sglang_mxfp8_prequant
+                torch.cuda.current_stream().wait_event(quant_ready_event)
+            else:
+                from sglang.srt.layers.quantization.fp8_utils import (
+                    flashinfer_mxfp8_quantize,
+                )
 
-            a_q, a_sf = flashinfer_mxfp8_quantize(hidden_states, False)
+                a_q, a_sf = flashinfer_mxfp8_quantize(hidden_states, False)
             # FlashInfer TRT-LLM MxFP8 expects token-major activation scales:
             # [num_tokens, hidden_size // 32] (no transpose).
             a_sf_t = a_sf.view(torch.uint8).reshape(hidden_states.shape[0], -1)

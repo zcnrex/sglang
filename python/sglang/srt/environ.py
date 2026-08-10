@@ -1288,6 +1288,12 @@ class Envs:
     # fusion is off, which flashinfer_trtllm_routed forces.
     SGLANG_OPT_USE_MINIMAX_SHARED_EXPERTS_ALT_STREAM = EnvBool(False)
 
+    # MiniMax-M3 decode: pre-quantize the routed-MoE MXFP8 input on the shared
+    # experts' alt stream so it overlaps the router/topk chain instead of
+    # serializing behind it. Requires the alt stream above and the
+    # flashinfer_trtllm MXFP8 MoE runner.
+    SGLANG_OPT_USE_MINIMAX_MOE_QUANT_ALT_STREAM = EnvBool(False)
+
     # MiniMax-M3 MXFP8 MoE experimental fusion toggles (default off; A/B only).
     SGLANG_MINIMAX_M3_FUSED_SWIGLU_MXFP8 = EnvBool(False)
     SGLANG_MINIMAX_M3_FUSED_MOE_COMBINE = EnvBool(False)
