@@ -83,7 +83,7 @@ from sglang.srt.model_loader.weight_utils import (
 )
 from sglang.srt.models.minimax_m2 import MiniMaxM2RMSNormTP
 from sglang.srt.models.utils import WeightsMapper
-from sglang.srt.runtime_context import get_exec, get_parallel
+from sglang.srt.runtime_context import get_exec, get_parallel, get_stream
 from sglang.srt.utils import (
     add_prefix,
     get_device_sm,
@@ -361,7 +361,6 @@ class MiniMaxM3MoE(nn.Module):
 
         self.moe_quant_alt_stream = (
             alt_stream is not None
-            and envs.SGLANG_OPT_USE_MINIMAX_MOE_QUANT_ALT_STREAM.get()
             and isinstance(quant_config, Fp8Config)
             and quant_config.use_mxfp8
         )
@@ -1404,10 +1403,8 @@ class MiniMaxM3Model(nn.Module):
             self.embed_tokens = PPMissingLayer()
 
         alt_stream = (
-            torch.cuda.Stream()
-            if _is_cuda
-            and envs.SGLANG_OPT_USE_MINIMAX_SHARED_EXPERTS_ALT_STREAM.get()
-            and get_exec().moe.disable_shared_experts_fusion
+            get_stream("alt")
+            if _is_cuda and get_exec().moe.disable_shared_experts_fusion
             else None
         )
 

@@ -25,7 +25,7 @@ import torch
 
 from sglang.srt.environ import envs
 from sglang.srt.model_executor.forward_batch_info import ForwardMode
-from sglang.srt.utils import empty_context, log_info_on_rank0
+from sglang.srt.utils import empty_context, is_sm100_supported, log_info_on_rank0
 
 if TYPE_CHECKING:
     from sglang.srt.model_executor.model_runner import ModelRunner
@@ -286,6 +286,8 @@ def maybe_flashinfer_autotune_mxfp8_small_m(
 
     if not resolve_mxfp8_dense_gemm_backend().is_flashinfer_cutlass():
         return
+    if not is_sm100_supported():
+        return  # no cute-dsl runner to tune; the linear stays on CUTLASS
     if decode_batch_size <= MXFP8_CUTE_DSL_M_MAX:
         return  # the main decode pass already ran on the cute-dsl side
     if not mr.is_generation or mr.spec_algorithm.is_speculative():

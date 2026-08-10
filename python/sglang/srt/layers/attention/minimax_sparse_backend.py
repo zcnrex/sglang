@@ -47,15 +47,6 @@ class MiniMaxSparseAttnBackend(AttentionBackend):
                 f"{self.kv_pool.main_pool.dtype}"
             )
 
-        from sglang.srt.environ import envs
-
-        self._kv_store_alt_stream = (
-            torch.cuda.Stream()
-            if envs.SGLANG_OPT_USE_MINIMAX_KV_STORE_ALT_STREAM.get()
-            and runner.device == "cuda"
-            else None
-        )
-
         hf_config = runner.model_config.hf_config
         sparse_cfg = get_minimax_sparse_attention_config(hf_config)
         self.idx_head_dim = sparse_cfg["sparse_index_dim"]
@@ -152,6 +143,11 @@ class MiniMaxSparseAttnBackend(AttentionBackend):
             # _dense_sparse_main_decode calls trtllm decode with a bf16 q and
             # unit bmm scales — no fp8 handling yet (follow-up).
             and not self.fp8_attn_gemm
+        )
+        self._kv_store_alt_stream = (
+            torch.cuda.Stream()
+            if self.use_dense_sparse_decode and runner.device == "cuda"
+            else None
         )
         from sglang.srt.model_executor.cuda_graph_config import (
             Backend,

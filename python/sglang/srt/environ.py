@@ -1288,25 +1288,6 @@ class Envs:
     # set_*_buffer copies; falls back when main/index dtypes differ or non-CUDA.
     SGLANG_OPT_USE_MINIMAX_FUSED_KV_INDEX_STORE = EnvBool(True)
 
-    # MiniMax-M3: run the unfused shared expert on a side stream so it overlaps
-    # the routed grouped GEMMs + all-reduce. Only useful when shared-experts
-    # fusion is off, which flashinfer_trtllm_routed forces.
-    SGLANG_OPT_USE_MINIMAX_SHARED_EXPERTS_ALT_STREAM = EnvBool(False)
-
-    # MiniMax-M3 decode: pre-quantize the routed-MoE MXFP8 input on the shared
-    # experts' alt stream so it overlaps the router/topk chain instead of
-    # serializing behind it. Requires the alt stream above and the
-    # flashinfer_trtllm MXFP8 MoE runner.
-    SGLANG_OPT_USE_MINIMAX_MOE_QUANT_ALT_STREAM = EnvBool(False)
-
-    # MiniMax-M3 sparse decode: run the fused KV+index store on a side stream
-    # so it overlaps the decode-score/topk chain. Safe because the score
-    # kernel force-includes local blocks (their scores are overwritten with
-    # 1e29 before the topk), so nothing reads the just-stored entry until the
-    # main attention, which event-joins the store. Dense-sparse decode path
-    # (SGLANG_OPT_USE_MINIMAX_DENSE_SPARSE_DECODE) only.
-    SGLANG_OPT_USE_MINIMAX_KV_STORE_ALT_STREAM = EnvBool(False)
-
     # MiniMax-M3 MXFP8 MoE experimental fusion toggles (default off; A/B only).
     SGLANG_MINIMAX_M3_FUSED_SWIGLU_MXFP8 = EnvBool(False)
     SGLANG_MINIMAX_M3_FUSED_MOE_COMBINE = EnvBool(False)
