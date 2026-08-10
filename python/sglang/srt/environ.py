@@ -1294,6 +1294,14 @@ class Envs:
     # flashinfer_trtllm MXFP8 MoE runner.
     SGLANG_OPT_USE_MINIMAX_MOE_QUANT_ALT_STREAM = EnvBool(False)
 
+    # MiniMax-M3 sparse decode: run the fused KV+index store on a side stream
+    # so it overlaps the decode-score/topk chain. Safe because the score
+    # kernel force-includes local blocks (their scores are overwritten with
+    # 1e29 before the topk), so nothing reads the just-stored entry until the
+    # main attention, which event-joins the store. Dense-sparse decode path
+    # (SGLANG_OPT_USE_MINIMAX_DENSE_SPARSE_DECODE) only.
+    SGLANG_OPT_USE_MINIMAX_KV_STORE_ALT_STREAM = EnvBool(False)
+
     # MiniMax-M3 MXFP8 MoE experimental fusion toggles (default off; A/B only).
     SGLANG_MINIMAX_M3_FUSED_SWIGLU_MXFP8 = EnvBool(False)
     SGLANG_MINIMAX_M3_FUSED_MOE_COMBINE = EnvBool(False)

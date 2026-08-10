@@ -47,6 +47,15 @@ class MiniMaxSparseAttnBackend(AttentionBackend):
                 f"{self.kv_pool.main_pool.dtype}"
             )
 
+        from sglang.srt.environ import envs
+
+        self._kv_store_alt_stream = (
+            torch.cuda.Stream()
+            if envs.SGLANG_OPT_USE_MINIMAX_KV_STORE_ALT_STREAM.get()
+            and runner.device == "cuda"
+            else None
+        )
+
         hf_config = runner.model_config.hf_config
         sparse_cfg = get_minimax_sparse_attention_config(hf_config)
         self.idx_head_dim = sparse_cfg["sparse_index_dim"]
@@ -468,18 +477,6 @@ class MiniMaxSparseAttnBackend(AttentionBackend):
     ):
         assert len(kwargs) == 0
         disable_value = layer.layer_id in self.disable_value_layer_ids
-        self.kv_pool.set_fused_kv_index_buffer(
-            layer,
-            forward_batch.out_cache_loc,
-            k,
-            v,
-            idx_k,
-            None if disable_value else idx_v,
-            layer.k_scale_float,
-            layer.v_scale_float,
-            layer.idx_k_scale_float,
-            layer.idx_v_scale_float,
-        )
         k_cache, v_cache = self.kv_pool.get_kv_buffer(layer.layer_id)
         if disable_value:
             idx_k_cache = self.kv_pool.get_index_k_buffer(layer.layer_id)
@@ -487,10 +484,41 @@ class MiniMaxSparseAttnBackend(AttentionBackend):
         else:
             idx_k_cache, idx_v_cache = self.kv_pool.get_index_kv_buffer(layer.layer_id)
 
+        use_dense_attn_fn = self.use_dense_sparse_decode and k_cache.shape[1] == 1
+
+        def _store_kv_index():
+            self.kv_pool.set_fused_kv_index_buffer(
+                layer,
+                forward_batch.out_cache_loc,
+                k,
+                v,
+                idx_k,
+                None if disable_value else idx_v,
+                layer.k_scale_float,
+                layer.v_scale_float,
+                layer.idx_k_scale_float,
+                layer.idx_v_scale_float,
+            )
+
+        store_ready_event = None
+        if self._kv_store_alt_stream is not None and use_dense_attn_fn:
+            # The score/topk chain never consumes the just-stored entry (local
+            # blocks' scores are overwritten by the force-include constant), so
+            # the store only has to complete before the main attention, which
+            # waits store_ready_event inside attn_fn.
+            self._kv_store_alt_stream.wait_stream(torch.cuda.current_stream())
+            with torch.cuda.stream(self._kv_store_alt_stream):
+                _store_kv_index()
+                store_ready_event = self._kv_store_alt_stream.record_event()
+        else:
+            _store_kv_index()
+
         attn_fn = None
-        if self.use_dense_sparse_decode and k_cache.shape[1] == 1:
+        if use_dense_attn_fn:
 
             def attn_fn(main_q, page_table, real_seq_lens):
+                if store_ready_event is not None:
+                    torch.cuda.current_stream().wait_event(store_ready_event)
                 return self._dense_sparse_main_decode(
                     main_q,
                     page_table,
