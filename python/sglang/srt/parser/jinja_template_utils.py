@@ -9,7 +9,7 @@ import logging
 import jinja2
 import transformers.utils.chat_template_utils as hf_chat_utils
 
-from sglang.srt.utils import ImageData
+from sglang.srt.utils import ImageData, VideoData
 
 logger = logging.getLogger(__name__)
 
@@ -169,6 +169,9 @@ def process_content_for_template_format(
                             detail=image_obj.get("detail") or "auto",
                             max_dynamic_patch=mdp,
                             content_hash=image_obj.get("content_hash"),
+                            max_long_side_pixel=image_obj.get(
+                                "max_long_side_pixel", None
+                            ),
                         )
                     )
 
@@ -179,7 +182,15 @@ def process_content_for_template_format(
                 elif chunk_type == "video_url":
                     video_obj = chunk.get("video_url") or {}
                     mdp = video_obj.get("max_dynamic_patch", None)
-                    if mdp is None:
+                    mlsp = video_obj.get("max_long_side_pixel", None)
+                    if mlsp is not None:
+                        video_data.append(
+                            VideoData(
+                                url=video_obj["url"],
+                                preprocess_kwargs={"max_long_side_pixel": mlsp},
+                            )
+                        )
+                    elif mdp is None:
                         video_data.append(chunk["video_url"]["url"])
                     else:
                         # Keep structured info for backend, but template only sees {"type":"video"}
