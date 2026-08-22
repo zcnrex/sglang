@@ -29,17 +29,33 @@ namespace sglang {
 //                          in-loop scatter -- nothing is cached in shared memory.
 // The trivial case num_blocks <= topk (every block selected) is handled by the
 // kernels below, outside the Trait.
-struct TopKTrait {
+//
+// On ROCm all regimes are replaced
+// by rocm_hist_select: selection over a packed (score, ~id) u64 total order --
+// a coarse histogram round (256 bins for n <= 1024, 2048 above; measured
+// crossover on MI350X), 11-bit refine rounds on the next key bits only when a
+// round leaves > 128 candidates (key uniqueness bounds the rounds), and a
+// wave-0 bitonic-sort finish. One histogram pass in the common case, vs the
+// radix path's four -- CDNA can't warp-aggregate LDS atomics and pays heavily
+// per round, which makes the radix path ~3x slower than on NVIDIA.
+template <uint32_t kCTASizeT = 512>
+struct TopKTraitT {
   // Also sizes the kernels' smem staging for the ascending-order emit; the
   // block-id path's test contract goes up to topk == 64.
   static constexpr uint32_t kMaxTopK = 64;
-  static constexpr uint32_t kCTASize = 512;
+  static constexpr uint32_t kCTASize = kCTASizeT;
   static constexpr uint32_t kNumWarps = kCTASize / device::kWarpThreads;
   static constexpr uint32_t kMaxNumBlocks = 16384;  // block topk
   static constexpr uint32_t kSmallThreshold = 8 * kNumWarps;
   static constexpr uint32_t kRadixBits = 8;
   static constexpr uint32_t kRadixSize = 1 << kRadixBits;
   static constexpr float kNegInf = -std::numeric_limits<float>::infinity();
+#ifdef USE_ROCM
+  static constexpr uint32_t kWaveSize = 64;  // physical wave64, not the logical-32 kWarpThreads
+  static constexpr uint32_t kNumWaves = kCTASize / kWaveSize;
+  static constexpr uint32_t kRocmBins = 2048;  // refine rounds (11-bit); round 1 may use 256
+  static constexpr uint32_t kRocmCap = 128;    // max candidates for the bitonic-sort finish
+#endif
 
   struct Smem {
     uint32_t warp_sum[kNumWarps];
@@ -50,7 +66,236 @@ struct TopKTrait {
     uint32_t above_count;
     uint32_t histogram[2][kRadixSize];    // 8 bit radix
     float small_scores[kSmallThreshold];  // small (O(n^2)) path only
+#ifdef USE_ROCM
+    // Histogram-select members (the radix members above are dead on this path).
+    uint32_t rocm_hist[kRocmBins];
+    uint32_t rocm_wave_sums[kNumWaves];
+    uint32_t rocm_thr_bin;
+    uint32_t rocm_above;  // count strictly above the threshold bin this round
+    uint32_t rocm_equal;  // count inside the threshold bin this round
+    uint32_t rocm_emit;   // output ticket counter for early (above-bin) emits
+    uint32_t rocm_stage_count;
+    uint64_t rocm_stage[kRocmCap];
+#endif
   };
+
+#ifdef USE_ROCM
+  // Packed total order for exact top-k: (score desc, block id asc) in one u64.
+  // The high half is the usual monotone fp32->u32 key (NaN clipped to -inf);
+  // even key(-inf) = 0x007FFFFF > 0, so packed == 0 is a strict "no element"
+  // sentinel. The id complement in the low half makes every real element's
+  // packed value unique and makes the lower block id win score ties.
+  SGL_DEVICE static uint64_t pack_score_id(float x, uint32_t idx) {
+    if (x != x) x = kNegInf;
+    const uint32_t b = __float_as_uint(x);
+    const uint32_t key = (b & 0x80000000u) ? ~b : (b | 0x80000000u);
+    return (static_cast<uint64_t>(key) << 32) | (0xFFFFFFFFu - idx);
+  }
+
+  // Find the histogram bin holding the topk_remain-th largest of the counts in
+  // smem->rocm_hist[0..2^kBits): wave64-native block scan (thread tx owns kPer
+  // consecutive bins), publishing the bin, the count strictly above it, and the
+  // count inside it. Two barriers.
+  template <uint32_t kBits>
+  SGL_DEVICE static void rocm_find_threshold(const uint32_t topk_remain, Smem* smem) {
+    constexpr uint32_t kB = 1u << kBits;
+    constexpr uint32_t kPer = kB >= kCTASize ? kB / kCTASize : 1;
+    const uint32_t tx = threadIdx.x;
+    const uint32_t wave = tx / kWaveSize;
+    const uint32_t lane = tx % kWaveSize;
+    const bool own = (kB >= kCTASize) || (tx < kB);
+
+    uint32_t loc[kPer];
+    uint32_t lsum = 0;
+#pragma unroll
+    for (uint32_t j = 0; j < kPer; ++j) {
+      loc[j] = own ? smem->rocm_hist[tx * kPer + j] : 0;
+      lsum += loc[j];
+    }
+    uint32_t inc = lsum;
+#pragma unroll
+    for (uint32_t offset = 1; offset < kWaveSize; offset <<= 1) {
+      const uint32_t n = __shfl_up(inc, offset, kWaveSize);
+      if (lane >= offset) inc += n;
+    }
+    if (lane == kWaveSize - 1) smem->rocm_wave_sums[wave] = inc;
+    __syncthreads();
+    uint32_t wave_prefix = 0;
+    uint32_t total = 0;
+#pragma unroll
+    for (uint32_t w = 0; w < kNumWaves; ++w) {
+      const uint32_t v = smem->rocm_wave_sums[w];
+      total += v;
+      wave_prefix += w < wave ? v : 0;
+    }
+    uint32_t prefix = wave_prefix + inc - lsum;  // count in bins before tx's first bin
+#pragma unroll
+    for (uint32_t j = 0; j < kPer; ++j) {
+      const uint32_t above = total - (prefix + loc[j]);  // strictly above bin tx*kPer+j
+      if (own && above < topk_remain && above + loc[j] >= topk_remain) {
+        smem->rocm_thr_bin = tx * kPer + j;
+        smem->rocm_above = above;
+        smem->rocm_equal = loc[j];
+      }
+      prefix += loc[j];
+    }
+    __syncthreads();
+  }
+
+  // One histogram round over the live elements' key bits [shift, shift+kBits):
+  // elements in bins above the threshold bin are top-k for sure and are emitted
+  // immediately (ticket order; the callers sort by id afterwards), bins below
+  // die, and the threshold bin survives to the next round. Ends with a barrier
+  // (the emit ticket counter is re-armed next round).
+  template <uint32_t kBits, uint32_t kSlots>
+  SGL_DEVICE static void rocm_hist_round(
+      uint64_t (&packed)[kSlots],
+      bool (&live)[kSlots],
+      const int shift,
+      const uint32_t topk,
+      uint32_t& topk_remain,
+      uint32_t& cand_count,
+      int32_t* __restrict__ topk_out,
+      Smem* smem) {
+    constexpr uint32_t kB = 1u << kBits;
+    const uint32_t tx = threadIdx.x;
+    for (uint32_t i = tx; i < kB; i += kCTASize) smem->rocm_hist[i] = 0;
+    if (tx == 0) smem->rocm_emit = topk - topk_remain;
+    __syncthreads();
+#pragma unroll
+    for (uint32_t s = 0; s < kSlots; ++s)
+      if (live[s]) atomicAdd(&smem->rocm_hist[(packed[s] >> shift) & (kB - 1)], 1);
+    __syncthreads();
+
+    rocm_find_threshold<kBits>(topk_remain, smem);
+    const uint32_t thr = smem->rocm_thr_bin;
+    const uint32_t above = smem->rocm_above;
+    const uint32_t equal = smem->rocm_equal;
+
+#pragma unroll
+    for (uint32_t s = 0; s < kSlots; ++s) {
+      if (live[s]) {
+        const uint32_t bin = (packed[s] >> shift) & (kB - 1);
+        if (bin > thr) {
+          const uint32_t p = atomicAdd(&smem->rocm_emit, 1);
+          topk_out[p] = static_cast<int32_t>(0xFFFFFFFFu - static_cast<uint32_t>(packed[s]));
+          live[s] = false;
+        } else if (bin < thr) {
+          live[s] = false;
+        }
+      }
+    }
+    topk_remain -= above;
+    cand_count = equal;
+    __syncthreads();
+  }
+
+  // The <= kRocmCap survivors are the threshold-bin candidates; the remaining
+  // topk_remain outputs are their top topk_remain under the packed order.
+  // Stage them to LDS, then wave 0 runs a 128-element bitonic sort (element
+  // e = lane + 64*r held as v0/v1, descending, sentinel-0 padded) and emits the
+  // first topk_remain elements in parallel -- fixed cost, unlike a serial
+  // ballot-rank loop whose length is the candidate count (score distributions
+  // cluster in the exponent bins, so 60-170 candidates are typical).
+  template <uint32_t kSlots>
+  SGL_DEVICE static void rocm_sort_finish(
+      uint64_t (&packed)[kSlots],
+      bool (&live)[kSlots],
+      const uint32_t topk,
+      const uint32_t topk_remain,
+      int32_t* __restrict__ topk_out,
+      Smem* smem) {
+    const uint32_t tx = threadIdx.x;
+    const uint32_t wave = tx / kWaveSize;
+    const uint32_t lane = tx % kWaveSize;
+    if (tx == 0) smem->rocm_stage_count = 0;
+    __syncthreads();
+#pragma unroll
+    for (uint32_t s = 0; s < kSlots; ++s) {
+      if (live[s]) {
+        const uint32_t p = atomicAdd(&smem->rocm_stage_count, 1);
+        if (p < kRocmCap) smem->rocm_stage[p] = packed[s];
+      }
+    }
+    __syncthreads();
+    const uint32_t nc = smem->rocm_stage_count < kRocmCap ? smem->rocm_stage_count : kRocmCap;
+    if (wave == 0) {
+      static_assert(kRocmCap == 2 * kWaveSize);
+      uint64_t v0 = lane < nc ? smem->rocm_stage[lane] : 0;
+      uint64_t v1 = lane + kWaveSize < nc ? smem->rocm_stage[lane + kWaveSize] : 0;
+#pragma unroll
+      for (uint32_t kk = 2; kk <= 2 * kWaveSize; kk <<= 1) {
+#pragma unroll
+        for (uint32_t j = kWaveSize; j >= 1; j >>= 1) {
+          if (j >= kk) continue;
+          // element e is in a descending run iff (e & kk) == 0 (final pass kk=128: all descending)
+          if (j == kWaveSize) {  // stride-64 exchange pairs v0 (e=lane) with v1 (e=lane+64)
+            const bool desc = ((lane & kk) == 0) || kk == 2 * kWaveSize;
+            const uint64_t hi = v0 > v1 ? v0 : v1;
+            const uint64_t lo = v0 > v1 ? v1 : v0;
+            v0 = desc ? hi : lo;
+            v1 = desc ? lo : hi;
+          } else {
+            const uint64_t o0 = __shfl_xor(v0, j, kWaveSize);
+            const uint64_t o1 = __shfl_xor(v1, j, kWaveSize);
+            const bool lower = (lane & j) == 0;
+            const bool desc0 = ((lane & kk) == 0) || kk == 2 * kWaveSize;
+            const bool desc1 = (((lane + kWaveSize) & kk) == 0) || kk == 2 * kWaveSize;
+            const bool take_max0 = (lower == desc0);
+            const bool take_max1 = (lower == desc1);
+            v0 = (take_max0 == (o0 > v0)) ? o0 : v0;
+            v1 = (take_max1 == (o1 > v1)) ? o1 : v1;
+          }
+        }
+      }
+      // descending order: e-th largest at e = lane (r = 0); topk_remain <= 64
+      const uint32_t base = topk - topk_remain;
+      if (lane < topk_remain)
+        topk_out[base + lane] = static_cast<int32_t>(0xFFFFFFFFu - static_cast<uint32_t>(v0));
+    }
+  }
+
+  // Driver: load the row once into registers (wave-contiguous, coalesced),
+  // run histogram rounds until <= kRocmCap candidates remain (usually just the
+  // round-1 coarse pass; the shift ladder walks the whole 64-bit key, and keys
+  // are unique, so the loop is bounded), then sort the survivors on wave 0.
+  // Output positions [0, topk) hold the exact top-k set in unspecified order;
+  // both callers re-sort ascending. Callers guarantee num_blocks > topk.
+  template <uint32_t kSlots, uint32_t kBits1>
+  SGL_DEVICE static void rocm_hist_select(
+      const float* __restrict__ scores,
+      const uint32_t num_blocks,
+      int32_t* __restrict__ topk_out,
+      const uint32_t topk,
+      Smem* smem) {
+    const uint32_t tx = threadIdx.x;
+    const uint32_t wave = tx / kWaveSize;
+    const uint32_t lane = tx % kWaveSize;
+
+    uint64_t packed[kSlots];
+    bool live[kSlots];
+#pragma unroll
+    for (uint32_t s = 0; s < kSlots; ++s) {
+      const uint32_t idx = (s * kNumWaves + wave) * kWaveSize + lane;
+      const bool in = idx < num_blocks;
+      packed[s] = in ? pack_score_id(scores[idx], idx) : 0;
+      live[s] = in;
+    }
+
+    uint32_t topk_remain = topk;
+    uint32_t cand_count = num_blocks;
+    if (cand_count > kRocmCap) {
+      rocm_hist_round<kBits1>(packed, live, 64 - static_cast<int>(kBits1), topk, topk_remain, cand_count, topk_out, smem);
+      int shift = 64 - static_cast<int>(kBits1);
+      while (cand_count > kRocmCap) {
+        shift -= 11;
+        if (shift < 0) shift = 0;
+        rocm_hist_round<11>(packed, live, shift, topk, topk_remain, cand_count, topk_out, smem);
+      }
+    }
+    rocm_sort_finish(packed, live, topk, topk_remain, topk_out, smem);
+  }
+#endif  // USE_ROCM
 
   SGL_DEVICE static void forward(
       const float* __restrict__ scores,
@@ -58,6 +303,32 @@ struct TopKTrait {
       int32_t* __restrict__ topk_out,
       const uint32_t topk,
       Smem* smem) {
+#ifdef USE_ROCM
+    // Dispatch on the smallest register footprint that covers the row (the
+    // ladder replaces the radix regimes below, compiled out on this path);
+    // round-1 bin count by measured crossover: 256 bins when the bucket
+    // capacity is <= 1024 rows, 2048 bins above (independent of kCTASize).
+    if (num_blocks <= 1 * kCTASize) {
+      rocm_hist_select<1, (1 * kCTASize <= 1024 ? 8 : 11)>(scores, num_blocks, topk_out, topk, smem);
+    } else if (num_blocks <= 2 * kCTASize) {
+      rocm_hist_select<2, (2 * kCTASize <= 1024 ? 8 : 11)>(scores, num_blocks, topk_out, topk, smem);
+    } else if (num_blocks <= 4 * kCTASize) {
+      rocm_hist_select<4, 11>(scores, num_blocks, topk_out, topk, smem);
+    } else if (num_blocks <= 8 * kCTASize) {
+      rocm_hist_select<8, 11>(scores, num_blocks, topk_out, topk, smem);
+    } else if (num_blocks <= 16 * kCTASize) {
+      rocm_hist_select<16, 11>(scores, num_blocks, topk_out, topk, smem);
+    } else {
+      // Only the 512-thread trait needs 32 slots to reach kMaxNumBlocks; the
+      // 1024-thread trait covers it with 16 (branch above), so keep this
+      // instantiation out of the wide build.
+      static_assert(16 * kCTASize >= kMaxNumBlocks || 32 * kCTASize >= kMaxNumBlocks);
+      if constexpr (16 * kCTASize < kMaxNumBlocks) {
+        rocm_hist_select<32, 11>(scores, num_blocks, topk_out, topk, smem);
+      }
+    }
+    return;
+#else
     using namespace device;
     const auto tx = threadIdx.x;
     __builtin_assume(tx < kCTASize);
@@ -263,8 +534,19 @@ struct TopKTrait {
         if (round == 3 || topk_remain == 0) break;
       }
     }
+#endif  // !USE_ROCM
   }
 };
+
+// CUDA keeps the single 512-thread instantiation. On ROCm the launchers pick
+// 1024 threads for wide rows (max_seqblock > 1024): 512 threads is only 8
+// wave64s and the selection turns scan-parallelism-bound at large n
+// (measured on MI350X: n=16384 15.8 -> 12.0us with 1024 threads, while
+// n <= 1024 is ~0.3us faster at 512).
+using TopKTrait = TopKTraitT<512>;
+#ifdef USE_ROCM
+using TopKTraitWide = TopKTraitT<1024>;
+#endif
 
 // -------------------------------------------------------------------------
 // Kernels: one CTA (kCTASize threads) per (head, batch) row. The trivial case
@@ -276,7 +558,7 @@ struct TopKTrait {
 // ascending), [k_eff:topk) = -1. Ascending order is a hard requirement of the
 // MSA fmha_sm100 consumer (kv_block_indexes must be strictly ascending; its
 // sorted-order early-exit otherwise mis-masks the partial last block).
-template <typename SeqLenT, bool kUsePDL>
+template <typename SeqLenT, bool kUsePDL, typename Trait>
 __global__ void minimax_decode_topk_block_kernel(
     const float* __restrict__ score,
     const SeqLenT* __restrict__ seq_lens,
@@ -300,15 +582,15 @@ __global__ void minimax_decode_topk_block_kernel(
   device::PDLWaitPrimary<kUsePDL>();
 
   if (num_blocks <= topk) {  // trivial: identity, -1 padded
-    for (int i = tx; i < topk; i += TopKTrait::kCTASize)
+    for (int i = tx; i < topk; i += Trait::kCTASize)
       out[i] = (i < num_blocks) ? i : -1;
     return;
   }
 
   const float* __restrict__ row = score + (static_cast<int64_t>(h) * batch + b) * max_seqblock;
-  __shared__ TopKTrait::Smem smem;
-  __shared__ int32_t s_topk[TopKTrait::kMaxTopK];
-  TopKTrait::forward(row, static_cast<uint32_t>(num_blocks), s_topk, static_cast<uint32_t>(topk), &smem);
+  __shared__ typename Trait::Smem smem;
+  __shared__ int32_t s_topk[Trait::kMaxTopK];
+  Trait::forward(row, static_cast<uint32_t>(num_blocks), s_topk, static_cast<uint32_t>(topk), &smem);
   __syncthreads();  // s_topk fully written before the sort reads it
 
   // Emit ascending: num_blocks > topk here, so all topk slots hold distinct
@@ -316,19 +598,29 @@ __global__ void minimax_decode_topk_block_kernel(
   // topk_impl.cuh warp sort (32x32 / 64x64 branches; topk <= kMaxTopK = 64):
   // lanes hold the elements in registers (INT32_MAX sentinel past topk), warp
   // w ranks targets {w, w + kNumWarps, ...} via ballot+popc, lane 0 emits.
-  static_assert(TopKTrait::kMaxTopK <= 2 * device::kWarpThreads);
+  static_assert(Trait::kMaxTopK <= 2 * device::kWarpThreads);
+#ifdef USE_ROCM
+  // Native wave64: one 64-lane ballot covers the whole topk <= kMaxTopK = 64
+  // contract, so the 32x32 / 64x64 branches collapse; physical waves (not
+  // logical-32 warps) stride the targets.
+  static_assert(Trait::kMaxTopK <= 64);
+  {
+    const uint32_t wave = tx / 64u;
+    const uint32_t lane64 = tx % 64u;
+    const int32_t tie = (lane64 < static_cast<uint32_t>(topk)) ? s_topk[lane64] : INT32_MAX;
+    for (uint32_t t = wave; t < static_cast<uint32_t>(topk); t += Trait::kCTASize / 64u) {
+      const int32_t target = s_topk[t];
+      const auto rank = __popcll(__ballot(tie < target));
+      if (lane64 == 0) out[rank] = target;
+    }
+  }
+#else
   const auto warp_id = tx / device::kWarpThreads;
   const auto lane_id = tx % device::kWarpThreads;
-#ifdef USE_ROCM
-  // wave64: __ballot spans the full 64-lane wave (would count the sibling
-  // 32-lane logical warp too); use the file's width-32 shuffle reduction.
-  const auto count_lt = [](int32_t x, int32_t v) { return device::warp::reduce_sum(static_cast<int>(x < v)); };
-#else
   const auto count_lt = [](int32_t x, int32_t v) { return __popc(__ballot_sync(kWarpSyncMask, x < v)); };
-#endif
   if (topk <= static_cast<int>(device::kWarpThreads)) {  // 32 x 32
     const int32_t tie = (lane_id < static_cast<uint32_t>(topk)) ? s_topk[lane_id] : INT32_MAX;
-    for (uint32_t t = warp_id; t < static_cast<uint32_t>(topk); t += TopKTrait::kNumWarps) {
+    for (uint32_t t = warp_id; t < static_cast<uint32_t>(topk); t += Trait::kNumWarps) {
       const int32_t target = s_topk[t];
       const auto rank = count_lt(tie, target);
       if (lane_id == 0) out[rank] = target;
@@ -338,12 +630,13 @@ __global__ void minimax_decode_topk_block_kernel(
     const int32_t tie_1 = (lane_id + device::kWarpThreads < static_cast<uint32_t>(topk))
                               ? s_topk[lane_id + device::kWarpThreads]
                               : INT32_MAX;
-    for (uint32_t t = warp_id; t < static_cast<uint32_t>(topk); t += TopKTrait::kNumWarps) {
+    for (uint32_t t = warp_id; t < static_cast<uint32_t>(topk); t += Trait::kNumWarps) {
       const int32_t target = s_topk[t];
       const auto rank = count_lt(tie_0, target) + count_lt(tie_1, target);
       if (lane_id == 0) out[rank] = target;
     }
   }
+#endif  // USE_ROCM
 }
 
 // Page-table output: for each (batch b, kv-head h) pseudo-request emit the
@@ -361,7 +654,7 @@ __global__ void minimax_decode_topk_block_kernel(
 // [num_pages, nkv, page_size, D] reshaped to [num_pages*nkv, 1, page_size, D] (a
 // free view when the cache is contiguous HND). num_heads == 1 (h == 0) reproduces
 // the single-kv-head TP>=4 behavior (page index == base_page).
-template <typename SeqLenT, bool kUsePDL>
+template <typename SeqLenT, bool kUsePDL, typename Trait>
 __global__ void minimax_decode_topk_page_table_kernel(
     const float* __restrict__ score,
     const SeqLenT* __restrict__ seq_lens,
@@ -397,7 +690,7 @@ __global__ void minimax_decode_topk_page_table_kernel(
     if (tx == 0) seq_lens_out[out_row] = static_cast<int>(seq_len);
     // block id == ascending slot, so the partial final block's pages land last
     const int total = num_blocks * ppb;
-    for (int e = tx; e < total; e += TopKTrait::kCTASize) {
+    for (int e = tx; e < total; e += Trait::kCTASize) {
       const int slot = e / ppb;
       const int pp = e % ppb;
       int tok = slot * block_size + pp * page_size;
@@ -409,20 +702,20 @@ __global__ void minimax_decode_topk_page_table_kernel(
 
   const int k_eff = topk;                                                                        // num_blocks > topk
   const float* __restrict__ row = score + (static_cast<int64_t>(h) * batch + b) * max_seqblock;  // head-major score
-  __shared__ TopKTrait::Smem smem;
-  __shared__ int32_t s_topk[TopKTrait::kMaxTopK];
-  TopKTrait::forward(row, static_cast<uint32_t>(num_blocks), s_topk, static_cast<uint32_t>(topk), &smem);
+  __shared__ typename Trait::Smem smem;
+  __shared__ int32_t s_topk[Trait::kMaxTopK];
+  Trait::forward(row, static_cast<uint32_t>(num_blocks), s_topk, static_cast<uint32_t>(topk), &smem);
   __syncthreads();  // s_topk fully written before the transform reads it
 
   // Sort the selected block ids ascending (k_eff <= kMaxTopK is tiny) so the
   // partial final block lands last, accumulating the effective KV length in the
   // same pass: each selected block contributes min(block_size, seq_len - c*block)
   // valid tokens (only the final block can be partial).
-  __shared__ int32_t s_sorted[TopKTrait::kMaxTopK];
+  __shared__ int32_t s_sorted[Trait::kMaxTopK];
   __shared__ int s_eff_kv;
   if (tx == 0) s_eff_kv = 0;
   __syncthreads();
-  for (int slot = tx; slot < k_eff; slot += TopKTrait::kCTASize) {
+  for (int slot = tx; slot < k_eff; slot += Trait::kCTASize) {
     const int32_t v = s_topk[slot];
     int rank = 0;
     for (int j = 0; j < k_eff; ++j)
@@ -436,7 +729,7 @@ __global__ void minimax_decode_topk_page_table_kernel(
 
   // Parallel page emit: one thread per output page.
   const int total = k_eff * ppb;
-  for (int e = tx; e < total; e += TopKTrait::kCTASize) {
+  for (int e = tx; e < total; e += Trait::kCTASize) {
     const int slot = e / ppb;
     const int pp = e % ppb;
     int tok = s_sorted[slot] * block_size + pp * page_size;
@@ -482,13 +775,36 @@ void minimax_decode_topk(
       topk_i,
       ")");
   RuntimeCheck(block_size > 0, "block_size must be > 0, got ", block_size);
-  RuntimeCheck(topk <= static_cast<int64_t>(TopKTrait::kMaxTopK), "topk exceeds kMaxTopK (ascending-sort smem buffer)");
+  RuntimeCheck(topk >= 1 && topk <= static_cast<int64_t>(TopKTrait::kMaxTopK), "topk must be in [1, kMaxTopK] (ascending-sort smem buffer)");
+  RuntimeCheck(
+      max_seqblock <= static_cast<int>(TopKTrait::kMaxNumBlocks),
+      "max_seqblock (",
+      max_seqblock,
+      ") exceeds kMaxNumBlocks (",
+      TopKTrait::kMaxNumBlocks,
+      ")");
   if (batch == 0 || num_heads == 0) return;
 
   const dim3 grid(static_cast<unsigned>(batch), static_cast<unsigned>(num_heads));
+#ifdef USE_ROCM
+  if (max_seqblock > 1024) {
+    LaunchKernel(grid, TopKTraitWide::kCTASize, device, 0)
+        .enable_pdl(kUsePDL)(
+            minimax_decode_topk_block_kernel<SeqLenT, kUsePDL, TopKTraitWide>,
+            static_cast<const float*>(score.data_ptr()),
+            static_cast<const SeqLenT*>(seq_lens.data_ptr()),
+            static_cast<int32_t*>(topk_idx.data_ptr()),
+            batch,
+            num_heads,
+            max_seqblock,
+            static_cast<int>(block_size),
+            topk_i);
+    return;
+  }
+#endif
   LaunchKernel(grid, TopKTrait::kCTASize, device, 0)
       .enable_pdl(kUsePDL)(
-          minimax_decode_topk_block_kernel<SeqLenT, kUsePDL>,
+          minimax_decode_topk_block_kernel<SeqLenT, kUsePDL, TopKTrait>,
           static_cast<const float*>(score.data_ptr()),
           static_cast<const SeqLenT*>(seq_lens.data_ptr()),
           static_cast<int32_t*>(topk_idx.data_ptr()),
@@ -555,13 +871,43 @@ void minimax_decode_topk_page_table(
   RuntimeCheck(
       block_size > 0 && page_size > 0 && block_size % page_size == 0,
       "block_size must be a positive multiple of page_size");
-  RuntimeCheck(topk <= static_cast<int64_t>(TopKTrait::kMaxTopK), "topk exceeds kMaxTopK for page-table mode");
+  RuntimeCheck(topk >= 1 && topk <= static_cast<int64_t>(TopKTrait::kMaxTopK), "topk must be in [1, kMaxTopK] for page-table mode");
+  RuntimeCheck(
+      max_seqblock <= static_cast<int>(TopKTrait::kMaxNumBlocks),
+      "max_seqblock (",
+      max_seqblock,
+      ") exceeds kMaxNumBlocks (",
+      TopKTrait::kMaxNumBlocks,
+      ")");
   if (batch == 0 || num_heads == 0) return;
 
   const dim3 grid(static_cast<unsigned>(batch), static_cast<unsigned>(num_heads));
+#ifdef USE_ROCM
+  if (max_seqblock > 1024) {
+    LaunchKernel(grid, TopKTraitWide::kCTASize, device, 0)
+        .enable_pdl(kUsePDL)(
+            minimax_decode_topk_page_table_kernel<SeqLenT, kUsePDL, TopKTraitWide>,
+            static_cast<const float*>(score.data_ptr()),
+            static_cast<const SeqLenT*>(seq_lens.data_ptr()),
+            static_cast<const int32_t*>(req_to_token.data_ptr()),
+            static_cast<const int64_t*>(slot_ids.data_ptr()),
+            static_cast<int32_t*>(page_table.data_ptr()),
+            static_cast<int32_t*>(seq_lens_out.data_ptr()),
+            batch,
+            num_heads,
+            max_seqblock,
+            static_cast<int>(block_size),
+            static_cast<int>(topk),
+            static_cast<int>(page_size),
+            r2t_stride,
+            max_kv_len,
+            max_sparse_pages);
+    return;
+  }
+#endif
   LaunchKernel(grid, TopKTrait::kCTASize, device, 0)
       .enable_pdl(kUsePDL)(
-          minimax_decode_topk_page_table_kernel<SeqLenT, kUsePDL>,
+          minimax_decode_topk_page_table_kernel<SeqLenT, kUsePDL, TopKTrait>,
           static_cast<const float*>(score.data_ptr()),
           static_cast<const SeqLenT*>(seq_lens.data_ptr()),
           static_cast<const int32_t*>(req_to_token.data_ptr()),
