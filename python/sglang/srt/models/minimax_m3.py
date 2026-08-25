@@ -436,6 +436,7 @@ class MiniMaxM3MoE(nn.Module):
         should_allreduce_fusion: bool = False,
         use_reduce_scatter: bool = False,
     ) -> torch.Tensor:
+        shared_event = None
         if hidden_states.shape[0] > 0:
             if (
                 self.alt_stream is not None
@@ -444,29 +445,29 @@ class MiniMaxM3MoE(nn.Module):
             ):
                 current_stream = torch.cuda.current_stream()
                 self.alt_stream.wait_stream(current_stream)
-                shared_output = self._forward_shared_experts(hidden_states)
                 with torch.cuda.stream(self.alt_stream):
-                    final_hidden_states = self._forward_router_experts(hidden_states)
-                current_stream.wait_stream(self.alt_stream)
+                    shared_output = self._forward_shared_experts(hidden_states)
+                    if shared_output is not None:
+                        shared_output.record_stream(current_stream)
+                        shared_event = self.alt_stream.record_event()
             else:
                 shared_output = self._forward_shared_experts(hidden_states)
-                final_hidden_states = self._forward_router_experts(hidden_states)
+            router_logits = self._compute_router_logits(hidden_states)
+            topk_output = self.topk(hidden_states, router_logits)
+            final_hidden_states = self.experts(hidden_states, topk_output)
         else:
             shared_output = None
             topk_output = self.topk.empty_topk_output(hidden_states.device)
             final_hidden_states = self.experts(hidden_states, topk_output)
 
         if shared_output is not None:
+            if shared_event is not None:
+                torch.cuda.current_stream().wait_event(shared_event)
             final_hidden_states = final_hidden_states + shared_output
         if self.tp_size > 1 and not should_allreduce_fusion and not use_reduce_scatter:
             final_hidden_states = tensor_model_parallel_all_reduce(final_hidden_states)
 
         return final_hidden_states
-
-    def _forward_router_experts(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        router_logits = self._compute_router_logits(hidden_states)
-        topk_output = self.topk(hidden_states, router_logits)
-        return self.experts(hidden_states, topk_output)
 
     def forward_deepep(
         self, hidden_states: torch.Tensor, forward_batch: ForwardBatch
@@ -1440,7 +1441,11 @@ class MiniMaxM3Model(nn.Module):
         else:
             self.embed_tokens = PPMissingLayer()
 
-        alt_stream = get_stream("alt") if _is_cuda else None
+        alt_stream = (
+            get_stream("alt")
+            if (_is_cuda or _is_hip) and is_shared_experts_fusion_disabled()
+            else None
+        )
 
         def layer_fn(idx, prefix: str) -> nn.Module:
             return MiniMaxM3DecoderLayer(
@@ -1597,10 +1602,12 @@ class MiniMaxM3SparseForCausalLM(nn.Module):
                 "Shared and routed experts may use different quantization formats "
                 "in ModelOpt mixed-precision checkpoints."
             )
-        if not _is_cuda:
-            return "Shared experts fusion currently requires CUDA devices."
+        if not (_is_cuda or _is_hip):
+            return "Shared experts fusion currently requires CUDA or ROCm devices."
         if _is_cuda and (_device_sm is not None) and (_device_sm < 80):
             return "Shared experts fusion requires SM80 or newer GPUs."
+        if _is_hip and torch.cuda.get_device_capability("cuda") < (9, 4):
+            return "Shared experts fusion requires gfx942 or newer GPUs."
         if get_parallel().moe_ep_size > 1:
             return "Shared experts fusion is not supported together with expert parallelism yet."
         if get_moe_a2a_backend().is_deepep():
