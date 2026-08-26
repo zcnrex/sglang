@@ -301,9 +301,10 @@ sgl-eval run mmmu_pro \\
     },
     {
       // MI350X (gfx950, CDNA4): directly benchmarked, TP8, 80k input / 600 output.
-      // Backends are split on purpose: aiter's ck-tile fmha wins the dense-layer
-      // prefill, while decode stays on Triton because the aiter decode attention
-      // path costs ~3 points aime25. The MoE runs on aiter with the tuned fmoe
+      // Both attention backends stay on Triton. Defaulting prefill to aiter was
+      // measured and produces null-byte generations on this model (gsm8k 0.00%,
+      // 100% truncation), so it is deliberately NOT set here. The MoE runs on
+      // aiter with the tuned fmoe
       // config; without that CSV bs1 lands ~147 instead of ~175 tok/s.
       // Never set AITER_ONLINE_TUNE -- its merge rewrites the source CSVs.
       match: { hw: "mi350x", variant: "default", quant: "mxfp8", strategy: "balanced", nodes: "single" },
@@ -324,7 +325,6 @@ sgl-eval run mmmu_pro \\
         "--fp8-gemm-backend auto",
         "--enable-aiter-allreduce-fusion",
         "--attention-backend triton",
-        "--prefill-attention-backend aiter",
         "--dtype bfloat16",
         "--chunked-prefill-size 8192",
         "--mem-fraction-static 0.80",
