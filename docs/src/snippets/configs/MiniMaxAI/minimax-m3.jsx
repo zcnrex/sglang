@@ -300,10 +300,19 @@ sgl-eval run mmmu_pro \\
       ],
     },
     {
-      // MI350X (gfx950, CDNA4): inferred-supported from MI355X (same arch),
-      // not directly benchmarked. Same native-MXFP8 recipe.
+      // MI350X (gfx950, CDNA4): directly benchmarked, TP8, 80k input / 600 output.
+      // Backends are split on purpose: aiter's ck-tile fmha wins the dense-layer
+      // prefill, while decode stays on Triton because the aiter decode attention
+      // path costs ~3 points aime25. The MoE runs on aiter with the tuned fmoe
+      // config; without that CSV bs1 lands ~147 instead of ~175 tok/s.
+      // Never set AITER_ONLINE_TUNE -- its merge rewrites the source CSVs.
       match: { hw: "mi350x", variant: "default", quant: "mxfp8", strategy: "balanced", nodes: "single" },
-      env: ["SGLANG_USE_AITER=1"],
+      env: [
+        "SGLANG_USE_AITER=1",
+        // Dense MXFP8 weights -> block-fp8 [128,128] at load for the aiter
+        // block-scale GEMMs, leaving fused-MoE weights on the native MX path.
+        "SGLANG_FORCE_MXFP8_BLOCK_CONVERT_DENSE=1",
+      ],
       flags: [
         "--trust-remote-code",
         "--model-path {{MODEL_NAME}}",
@@ -311,6 +320,11 @@ sgl-eval run mmmu_pro \\
         "--tool-call-parser auto",
         "--tp 8",
         "--quantization mxfp8",
+        "--moe-runner-backend aiter",
+        "--fp8-gemm-backend auto",
+        "--enable-aiter-allreduce-fusion",
+        "--attention-backend triton",
+        "--prefill-attention-backend aiter",
         "--dtype bfloat16",
         "--chunked-prefill-size 8192",
         "--mem-fraction-static 0.80",
