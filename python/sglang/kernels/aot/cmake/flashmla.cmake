@@ -42,6 +42,13 @@ if(${CUDA_VERSION} VERSION_GREATER 12.8)
     set(FLASHMLA_ENABLE_SM100 ON)
 endif()
 if(${CUDA_VERSION} VERSION_GREATER_EQUAL "13.0")
+    # B300 is sm_103. sm_100f runs there, but under it __CUDA_ARCH__ is 1000, so
+    # kerutils leaves KERUTILS_ENABLE_SM103A undefined and the sm100 decode kernels
+    # lose their SM103A paths. FlashMLA's own setup.py targets sm_103a for this reason.
+    list(APPEND FLASHMLA_CUDA_FLAGS
+        "-gencode=arch=compute_103a,code=sm_103a"
+    )
+
     # Patch cutlass/arch/config.h: add SM103 architecture defines.
     # This patch is only needed (and only valid) with CUDA 13+.
     # The new block is inserted right before the existing "// SM101 and SM101a"
