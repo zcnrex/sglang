@@ -17,6 +17,7 @@ from sglang.srt.entrypoints.openai.protocol import (
     CompletionStreamResponse,
     ErrorResponse,
     SglExt,
+    with_kv_transfer_params,
 )
 from sglang.srt.entrypoints.openai.serving_base import OpenAIServingBase
 from sglang.srt.entrypoints.openai.usage_processor import UsageProcessor
@@ -168,7 +169,9 @@ class OpenAIServingCompletion(OpenAIServingBase):
             "ignore_eos": request.ignore_eos,
             "skip_special_tokens": request.skip_special_tokens,
             "logit_bias": request.logit_bias,
-            "custom_params": request.custom_params,
+            "custom_params": with_kv_transfer_params(
+                request.custom_params, request.kv_transfer_params
+            ),
             "sampling_seed": request.seed,
         }
 
@@ -328,6 +331,7 @@ class OpenAIServingCompletion(OpenAIServingBase):
                             output_token_logprobs=output_token_logprobs,
                             output_top_logprobs=output_top_logprobs,
                             tokenizer=self.tokenizer_manager.tokenizer,
+                            tokens_as_ids=get_serving().return_tokens_as_token_ids,
                         )
                     n_prev_tokens[index] = total_output_logprobs
 
@@ -599,6 +603,7 @@ class OpenAIServingCompletion(OpenAIServingBase):
                         "output_top_logprobs", []
                     ),
                     tokenizer=self.tokenizer_manager.tokenizer,
+                    tokens_as_ids=get_serving().return_tokens_as_token_ids,
                 )
 
             # Handle hidden states

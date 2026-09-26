@@ -143,6 +143,7 @@ POSITIONAL_FIELD_ORDER = (
     "enable_cache_report",
     "return_input_ids",
     "return_output_ids",
+    "return_tokens_as_token_ids",
     "reasoning_parser",
     "default_chat_template_kwargs",
     "strip_thinking_cache",

@@ -129,6 +129,7 @@ def to_openai_style_logprobs(
     input_top_logprobs=None,
     output_top_logprobs=None,
     tokenizer=None,
+    tokens_as_ids=False,
 ):
     """Convert engine logprob triples to an OpenAI ``LogProbs`` object.
 
@@ -141,9 +142,14 @@ def to_openai_style_logprobs(
     """
     ret_logprobs = LogProbs()
 
+    def token_str(token_id, token_text):
+        if tokens_as_ids:
+            return f"token_id:{token_id}"
+        return _lossless_token_text(tokenizer, token_id, token_text)
+
     def append_token_logprobs(token_logprobs):
         for logprob, token_id, token_text in token_logprobs:
-            token_text = _lossless_token_text(tokenizer, token_id, token_text)
+            token_text = token_str(token_id, token_text)
             ret_logprobs.tokens.append(token_text)
             ret_logprobs.token_logprobs.append(logprob)
 
@@ -155,7 +161,7 @@ def to_openai_style_logprobs(
             if tokens is not None:
                 ret_logprobs.top_logprobs.append(
                     {
-                        _lossless_token_text(tokenizer, token_id, token_text): logprob
+                        token_str(token_id, token_text): logprob
                         for logprob, token_id, token_text in tokens
                     }
                 )

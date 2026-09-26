@@ -14,6 +14,10 @@ from typing import (
 
 import torch
 
+from sglang.srt.disaggregation.tilert_kv_sender import (
+    kv_transfer_params_of,
+    maybe_ship,
+)
 from sglang.srt.disaggregation.utils import DisaggregationMode
 from sglang.srt.environ import envs
 from sglang.srt.layers.logits_processor import (
@@ -186,6 +190,20 @@ class SchedulerBatchResultProcessor:
             req_pool_idx=req.kv.req_pool_idx,
             seqlen=seqlen,
             req_to_token_pool=self.req_to_token_pool,
+        )
+
+    def _maybe_ship_tilert_kv(self, req: Req):
+        if kv_transfer_params_of(req) is None:
+            return
+        maybe_ship(
+            req=req,
+            req_to_token_pool=self.req_to_token_pool,
+            target_pool=self.token_to_kv_pool_allocator.get_kvcache(),
+            draft_pool=(
+                self.draft_worker.primary_draft_kv_pool
+                if self.draft_worker is not None
+                else None
+            ),
         )
 
     def _maybe_collect_customized_info(
@@ -373,6 +391,7 @@ class SchedulerBatchResultProcessor:
                         if sampling_mask_finish_reason is None:
                             self._maybe_collect_routed_experts(req)
                             self._maybe_collect_indexer_topk(req)
+                            self._maybe_ship_tilert_kv(req)
                         release_kv_cache(
                             req,
                             self.tree_cache,

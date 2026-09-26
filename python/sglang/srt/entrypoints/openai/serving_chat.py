@@ -2482,11 +2482,14 @@ class OpenAIServingChat(OpenAIServingBase):
         from sglang.srt.entrypoints.openai.utils import _is_byte_level_tokenizer
 
         is_byte_level = _is_byte_level_tokenizer(tokenizer)
+        as_ids = get_serving().return_tokens_as_token_ids
         token_logprobs: list[ChatCompletionTokenLogprob] = []
 
         for token_idx, item in enumerate(output_token_logprobs):
             # item = (logprob, token_id, token_text)
             logprob, token_id, token_text = item
+            if as_ids:
+                token_text = f"token_id:{token_id}"
             if is_byte_level:
                 token_bytes = token_id_to_bytes(tokenizer, token_id)
             else:
@@ -2501,6 +2504,8 @@ class OpenAIServingChat(OpenAIServingBase):
                     top_row = output_top_logprobs[token_idx]
                     if top_row is not None:
                         for top_logprob, top_id, top_text in top_row:
+                            if as_ids:
+                                top_text = f"token_id:{top_id}"
                             if is_byte_level:
                                 top_bytes = token_id_to_bytes(tokenizer, top_id)
                             else:

@@ -78,6 +78,14 @@ logger = logging.getLogger(__name__)
 DEFAULT_MODEL_NAME = "default"
 
 
+def with_kv_transfer_params(
+    custom_params: Optional[Dict], kv_transfer_params: Optional[Dict]
+) -> Optional[Dict]:
+    if kv_transfer_params is None:
+        return custom_params
+    return {**(custom_params or {}), "kv_transfer_params": kv_transfer_params}
+
+
 class ModelCard(BaseModel):
     """Model cards."""
 
@@ -381,6 +389,9 @@ class CompletionRequest(BaseModel):
     response_format: Optional[Union[ResponseFormat, StructuralTagResponseFormat]] = None
     custom_params: Optional[Dict] = None
     custom_logit_processor: Optional[str] = None
+    # vLLM-compatible KV-connector params; a TileRT PD router sets
+    # {"tilert_host", "tilert_ctrl_port"} to have the prefill KV shipped.
+    kv_transfer_params: Optional[Dict[str, Any]] = None
 
     images_config: Optional[Dict] = None
 
@@ -950,6 +961,9 @@ class ChatCompletionRequest(BaseModel):
     # Custom logit processor for advanced sampling control
     custom_logit_processor: Optional[Union[List[Optional[str]], str]] = None
     custom_params: Optional[Dict] = None
+    # vLLM-compatible KV-connector params; a TileRT PD router sets
+    # {"tilert_host", "tilert_ctrl_port"} to have the prefill KV shipped.
+    kv_transfer_params: Optional[Dict[str, Any]] = None
 
     # Pre-computed prompt token IDs: when provided, bypasses chat template
     # tokenization entirely.  Messages are still used to derive stop tokens
@@ -1147,7 +1161,9 @@ class ChatCompletionRequest(BaseModel):
             "ignore_eos": self.ignore_eos,
             "skip_special_tokens": self.skip_special_tokens,
             "logit_bias": self.logit_bias,
-            "custom_params": self.custom_params,
+            "custom_params": with_kv_transfer_params(
+                self.custom_params, self.kv_transfer_params
+            ),
             "sampling_seed": self.seed,
             "spaces_between_special_tokens": spaces_between_special_tokens,
         }
