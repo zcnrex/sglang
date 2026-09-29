@@ -18,6 +18,7 @@ from sglang.srt.beam_search.output import (
     beam_completion_tokens,
     pack_beam_search_output,
 )
+from sglang.srt.disaggregation.tilert_kv_sender import transfer_pending
 from sglang.srt.disaggregation.utils import DisaggregationMode
 from sglang.srt.environ import envs
 from sglang.srt.managers.io_struct import (
@@ -147,6 +148,7 @@ class SchedulerOutputStreamer:
         skip_req: Optional[Req] = None,
         is_idle_batch: bool = False,
     ):
+        reqs = [req for req in reqs if not transfer_pending(req)]
         return_hidden_states = any(
             req.return_hidden_states for req in reqs if req is not skip_req
         )

@@ -195,16 +195,7 @@ class SchedulerBatchResultProcessor:
     def _maybe_ship_tilert_kv(self, req: Req):
         if kv_transfer_params_of(req) is None:
             return
-        maybe_ship(
-            req=req,
-            req_to_token_pool=self.req_to_token_pool,
-            target_pool=self.token_to_kv_pool_allocator.get_kvcache(),
-            draft_pool=(
-                self.draft_worker.primary_draft_kv_pool
-                if self.draft_worker is not None
-                else None
-            ),
-        )
+        maybe_ship(req, self.req_to_token_pool)
 
     def _maybe_collect_customized_info(
         self,

@@ -1,7 +1,7 @@
 """Ship a finished GLM-5 prefill's KV to a TileRT decode node.
 
 SGLang-side counterpart of ``tilert.pd_vllm.prefill_connector``: a request
-carrying ``kv_transfer_params={"tilert_host", "tilert_ctrl_port"}`` has its
+on a server launched with ``--enable-tilert`` carrying ``kv_transfer_params={"tilert_host", "tilert_ctrl_port"}`` has its
 MLA KV, indexer K and MTP-layer KV gathered into a per-rank staging buffer
 when its prefill finishes, then written to the decode node over RDMA using
 TileRT's own wire protocol, layout and transport (``pip install --no-deps
@@ -18,10 +18,6 @@ import threading
 import time
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, Optional
-
-import torch
-
-from sglang.srt.runtime_context import get_parallel
 
 if TYPE_CHECKING:
     from sglang.srt.managers.schedule_batch import Req
@@ -44,24 +40,54 @@ def kv_transfer_params_of(req: Req) -> Optional[dict]:
     return None
 
 
-def maybe_ship(
-    req: Req,
-    req_to_token_pool: ReqToTokenPool,
-    target_pool: DSATokenToKVPool,
-    draft_pool: Optional[DSATokenToKVPool],
-) -> None:
-    params = kv_transfer_params_of(req)
-    if params is None:
-        return
+def initialize(target_pool, draft_pool, max_seq_len) -> None:
+    """Called only at scheduler startup, after explicit server opt-in."""
     global _sender
+    _sender = TileRTKVSender(target_pool, draft_pool, max_seq_len)
+
+
+def get_sender() -> Optional[TileRTKVSender]:
+    return _sender
+
+
+def transfer_pending(req: Req) -> bool:
+    return _sender is not None and _sender.req is req and _sender.submitted
+
+
+def can_admit(req: Req) -> bool:
+    if kv_transfer_params_of(req) is None:
+        return True
+    return _sender is not None and (_sender.req is None or _sender.req is req)
+
+
+def validate_request(req: Req) -> Optional[str]:
+    if kv_transfer_params_of(req) is None:
+        return None
     if _sender is None:
-        _sender = TileRTKVSender(
-            target_pool, draft_pool, req_to_token_pool.req_to_token.shape[1]
-        )
+        return "TileRT KV transfer requires --enable-tilert on the server"
+    if req.sampling_params.max_new_tokens != 1:
+        return "TileRT prefill requests require max_new_tokens=1"
+    if req.session is not None or req.beam_group is not None:
+        return "TileRT prefill does not support sessions or beam search"
+    params = kv_transfer_params_of(req)
+    if not isinstance(params["tilert_host"], str):
+        return "tilert_host must be a string"
     try:
-        _sender.ship(req, req_to_token_pool, params)
-    except Exception:
-        logger.exception("TileRT KV extraction failed for %s", req.rid)
+        port = int(params.get("tilert_ctrl_port", 5556))
+        if not 1 <= port <= 65535:
+            raise ValueError
+    except (ValueError, TypeError, OverflowError):
+        return "tilert_ctrl_port must be a port between 1 and 65535"
+    return None
+
+
+def maybe_ship(req: Req, req_to_token_pool: ReqToTokenPool) -> None:
+    if kv_transfer_params_of(req) is not None:
+        # Intake rejects transfers when disabled. Never load an optional backend
+        # or allocate staging memory in response to request-supplied parameters.
+        if _sender is None:
+            raise RuntimeError("TileRT sender was not initialized")
+        _sender.ship(req, req_to_token_pool, kv_transfer_params_of(req))
 
 
 class TileRTKVSender:
@@ -71,10 +97,14 @@ class TileRTKVSender:
         draft_pool: Optional[DSATokenToKVPool],
         max_seq_len: int,
     ):
+        import torch
         from tilert.pd_vllm import wire
         from tilert.pd_vllm.profiles import base as profiles
         from tilert.pd_vllm.profiles.mla_nsa import _Reg
         from tilert.pd_vllm.transport import make_transport
+
+        from sglang.srt.mem_cache.memory_pool import DSATokenToKVPool
+        from sglang.srt.runtime_context import get_parallel
 
         if get_parallel().attn_tp_size != get_parallel().tp_size:
             raise RuntimeError(
@@ -89,6 +119,8 @@ class TileRTKVSender:
         pools = [target_pool] + ([draft_pool] if draft_pool is not None else [])
         mla, ki = [], []
         for pool in pools:
+            if not isinstance(pool, DSATokenToKVPool) or pool.page_size != 64:
+                raise RuntimeError("TileRT requires a DSA KV pool with 64-token pages")
             for i in range(pool.layer_num):
                 lid = len(mla)
                 layer_id = pool.start_layer + i
@@ -102,16 +134,22 @@ class TileRTKVSender:
                 f"SGLang has {len(mla)}: serve with the MTP draft (EAGLE) or set "
                 "TILERT_PD_NO_MTP=1 on both ends"
             )
-        bpt = mla[0][2].shape[-1] * mla[0][2].element_size()
-        if bpt != _FLASHMLA_FP8_BPT:
+        strides = {t.shape[-1] * t.element_size() for _, _, t, _ in mla}
+        if strides != {_FLASHMLA_FP8_BPT}:
             raise RuntimeError(
-                f"MLA cache is {bpt} B/token, TileRT wants the {_FLASHMLA_FP8_BPT} B "
+                f"MLA cache strides are {strides} B/token, TileRT wants the {_FLASHMLA_FP8_BPT} B "
                 "FlashMLA fp8 layout: pass --kv-cache-dtype fp8_e4m3 "
                 "--dsa-prefill-backend flashmla_kv --dsa-decode-backend flashmla_kv"
             )
         self.reg = _Reg(mla_layers=mla, ki_layers=ki)
 
+        self.req = None
+        self.submitted = False
+        self.completion = None
+        self.completions: queue.Queue = queue.Queue()
         self.senders = len(self.profile.sender_ranks)
+        if self.senders > get_parallel().tp_size:
+            raise RuntimeError("TILERT_PD_SENDERS cannot exceed the prefill TP size")
         self.is_sender = self.tp_rank in self.profile.sender_ranks
         if not self.is_sender:
             return
@@ -127,8 +165,6 @@ class TileRTKVSender:
         self.transport.init(wire.local_ip())
         self.transport.register(own.data_ptr(), total, dev)
         self.queue: queue.Queue = queue.Queue()
-        # Held from the gather into staging until that request's RDMA write ends.
-        self.inflight = threading.Lock()
         threading.Thread(
             target=self._loop, name="tilert-kv-sender", daemon=True
         ).start()
@@ -140,57 +176,105 @@ class TileRTKVSender:
             self.transport.name,
         )
 
+    def reserve(self, req: Req) -> bool:
+        """Scheduler-owned reservation; never waits for the sender thread."""
+        if self.req is not None and self.req is not req:
+            return False
+        self.req = req
+        return True
+
+    def release_unsubmitted(self, req: Req) -> None:
+        if self.req is req and not self.submitted:
+            self.req = None
+
+    def poll(self):
+        """Return (request, error) once *all* TP ranks have finished sending."""
+        if not self.submitted:
+            if self.req is not None and self.req.finished():
+                self.req = None
+            return None
+        if self.completion is None:
+            try:
+                self.completion = self.completions.get_nowait()
+            except queue.Empty:
+                pass
+        done = self.completion is not None
+        success = not done or self.completion[0] is None
+        done, success = self._consensus(done, success)
+        if not done:
+            return None
+        req = self.req
+        self.req = None
+        self.submitted = False
+        self.completion = None
+        return req, None if success else "TileRT KV transfer failed"
+
+    @staticmethod
+    def _consensus(done, success):
+        import torch
+
+        from sglang.srt.runtime_context import get_parallel
+
+        flags = torch.tensor([done, success], dtype=torch.int32)
+        if get_parallel().tp_size > 1:
+            torch.distributed.all_reduce(
+                flags,
+                op=torch.distributed.ReduceOp.MIN,
+                group=get_parallel().tp_group.cpu_group,
+            )
+        return flags.tolist()
+
     def ship(self, req: Req, req_to_token_pool: ReqToTokenPool, params: dict) -> None:
+        assert self.req is req and not self.submitted
+        self.submitted = True
         if not self.is_sender:
+            self.completions.put((None,))
             return
-        seq = len(req.origin_input_ids)
-        slots = req_to_token_pool.req_to_token[req.kv.req_pool_idx, :seq:64]
-        m = SimpleNamespace(
-            rid=self.wire.derive_rid(req.rid),
-            num_tokens=seq,
-            last_prompt_token=int(req.origin_input_ids[-1]),
-            block_ids_per_group=[(slots // 64).tolist()],
-            tilert_host=params["tilert_host"],
-            tilert_ctrl_port=int(params.get("tilert_ctrl_port", 5556)),
-            sampling=params.get("sampling"),
-        )
-        self.inflight.acquire()
         try:
-            # Synchronous gather: the pages may be reused as soon as we return.
+            seq = len(req.origin_input_ids)
+            slots = req_to_token_pool.req_to_token[req.kv.req_pool_idx, :seq:64]
+            m = SimpleNamespace(
+                rid=self.wire.derive_rid(req.rid),
+                num_tokens=seq,
+                last_prompt_token=int(req.origin_input_ids[-1]),
+                block_ids_per_group=[(slots // 64).tolist()],
+                tilert_host=params["tilert_host"],
+                tilert_ctrl_port=int(params.get("tilert_ctrl_port", 5556)),
+                sampling=params.get("sampling"),
+            )
+            # Extraction synchronizes before returning, so KV pages can now be
+            # released. The reservation protects staging until every rank sends.
             sections = self.profile.extract(
                 self.reg, m, self.tp_rank, self.staging, self.max_seq_len
             )
-        except BaseException:
-            self.inflight.release()
-            raise
-        self.queue.put((m, sections))
+            self.queue.put((m, sections))
+        except Exception as exc:
+            logger.exception("TileRT KV extraction failed for %s", req.rid)
+            self.completions.put((str(exc),))
 
     def _loop(self) -> None:
         while True:
             m, sections = self.queue.get()
+            error = None
             try:
                 self._send_with_retry(m, sections)
-            finally:
-                self.inflight.release()
+            except Exception as exc:
+                logger.exception("TileRT send failed for %s", m.rid)
+                error = str(exc)
+            self.completions.put((error,))
 
     def _send_with_retry(self, m, sections) -> None:
         delay = _ADMISSION_BACKOFF_S
         for attempt in range(_ADMISSION_ATTEMPTS):
-            try:
-                outcome = self._send(m, sections)
-            except Exception:
-                logger.exception("TileRT send failed for %s", m.rid)
-                break
+            outcome = self._send(m, sections)
+            if outcome == "sent":
+                return
             if outcome != "transient":
-                break
-            time.sleep(delay)
-            delay *= 2
-        else:
-            logger.error(
-                "gave up admitting %s rank=%d; decode will time out waiting",
-                m.rid,
-                self.tp_rank,
-            )
+                raise RuntimeError(f"TileRT rejected {m.rid}")
+            if attempt + 1 < _ADMISSION_ATTEMPTS:
+                time.sleep(delay)
+                delay *= 2
+        raise RuntimeError(f"TileRT admission retries exhausted for {m.rid}")
 
     def _send(self, m, sections) -> str:
         wire = self.wire

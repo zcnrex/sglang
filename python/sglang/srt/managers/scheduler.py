@@ -28,6 +28,7 @@ from functools import partial
 from http import HTTPStatus
 from typing import TYPE_CHECKING, Any, Deque, Dict, List, Optional, Set, Tuple, Union
 
+from sglang.srt.disaggregation import tilert_kv_sender
 from sglang.srt.runtime_context import (
     SpawnRanks,
     attention_backends,
@@ -2068,6 +2069,12 @@ class Scheduler(
         if recv_reqs:
             self.metrics_reporter.record_scheduler_active()
         self.process_input_requests(recv_reqs)
+        sender = tilert_kv_sender.get_sender()
+        if sender is not None and (completed := sender.poll()) is not None:
+            req, error = completed
+            if error and not isinstance(req.finished_reason, FINISH_ABORT):
+                prepare_abort(req, error, status_code=HTTPStatus.BAD_GATEWAY)
+            self.output_streamer.stream_output([req], req.return_logprob)
         return recv_reqs
 
     @scheduler_stage_method(SCHEDULER_STAGE_PROCESS_REQUESTS)
@@ -2476,6 +2483,28 @@ class Scheduler(
         )
 
     def init_batch_result_processor(self) -> None:
+        if get_serving().enable_tilert:
+            if (
+                self.disaggregation_mode != DisaggregationMode.NULL
+                or get_parallel().pp_size != 1
+                or get_parallel().attn_cp_size != 1
+                or self.enable_hisparse
+                or self.enable_priority_preemption
+                or self.dllm_config is not None
+            ):
+                raise ValueError(
+                    "TileRT requires ordinary full-TP serving without PP, CP, "
+                    "HiSparse, priority preemption or diffusion scheduling"
+                )
+            if self.model_config.hf_config.architectures != ["GlmMoeDsaForCausalLM"]:
+                raise ValueError("TileRT prefill currently supports only GLM-5/5.1")
+            tilert_kv_sender.initialize(
+                self.token_to_kv_pool_allocator.get_kvcache(),
+                self.draft_worker.primary_draft_kv_pool
+                if self.draft_worker is not None
+                else None,
+                self.req_to_token_pool.req_to_token.shape[1],
+            )
         self.init_beam_coordinator()
         self.batch_result_processor = SchedulerBatchResultProcessor(
             is_generation=self.is_generation,
@@ -2878,6 +2907,11 @@ class Scheduler(
             req.set_finish_with_abort(error_msg)
             self.init_req_max_new_tokens(req)
             self._add_request_to_queue(req)
+            return
+
+        if error_msg := tilert_kv_sender.validate_request(req):
+            prepare_abort(req, error_msg, status_code=HTTPStatus.BAD_REQUEST)
+            self.output_streamer.stream_output([req], req.return_logprob)
             return
 
         if recv_req.pp_prefetch_ticketed is True:
@@ -3932,6 +3966,12 @@ class Scheduler(
         buffer_pipeline = self.tree_cache.buffer_pipeline
         # Get requests from the waiting queue to a new prefill batch
         for req in self.waiting_queue:
+            sender = tilert_kv_sender.get_sender()
+            is_tilert = tilert_kv_sender.kv_transfer_params_of(req) is not None
+            if not tilert_kv_sender.can_admit(req):
+                # Leave transfer requests queued while staging is occupied;
+                # unrelated prefills and decode requests can still run.
+                continue
             if self.enable_lora and not self.can_schedule_lora_req(req, running_loras):
                 continue
 
@@ -4001,6 +4041,10 @@ class Scheduler(
                 has_chunked_req=(self.chunked_req is not None),
                 truncation_align_size=self.truncation_align_size,
             )
+
+            if is_tilert and adder.can_run_list and adder.can_run_list[-1] is req:
+                if sender is None or not sender.reserve(req):
+                    raise RuntimeError("TileRT staging reservation was lost")
 
             if self.enable_lora:
                 running_loras.add(req.lora_id)
@@ -5012,6 +5056,9 @@ class Scheduler(
             idle &= len(self.disagg_decode_prealloc_queue.retracted_queue) == 0
 
         if not for_health_check:
+            sender = tilert_kv_sender.get_sender()
+            if sender is not None:
+                idle &= sender.req is None
             # Grammar queue and prefill inflight queue may not produce batch
             # results instantly, but they still indicate the server is not idle.
             idle &= len(self.grammar_manager.grammar_queue) == 0
@@ -5415,6 +5462,13 @@ class Scheduler(
         }
 
     def abort_request(self, recv_req: AbortReq):
+        sender = tilert_kv_sender.get_sender()
+        if sender is not None and sender.submitted:
+            req = sender.req
+            if recv_req.abort_all or req.rid.startswith(recv_req.rid):
+                # The RDMA write must drain before its staging buffer is reused.
+                prepare_abort(req, "TileRT transfer cancelled", status_code=499)
+
         if (chunked_req := self.chunked_req) is not None:
             if recv_req.abort_all or chunked_req.rid.startswith(recv_req.rid):
                 self._pending_chunked_abort_req = chunked_req
@@ -5436,6 +5490,8 @@ class Scheduler(
             # This only works for requests that have not started anything.
             # We still need to send something back to TokenizerManager to clean up the state.
             req = self.waiting_queue.pop(i)
+            if sender is not None:
+                sender.release_unsubmitted(req)
             self._release_aborted_request(req)
             self.beam_coordinator.retire_group(req)
             # Without the initiator's reason the tokenizer falls back to a
@@ -5858,6 +5914,9 @@ class Scheduler(
             self.session_controller.close(recv_req)
 
     def maybe_sleep_on_idle(self):
+        sender = tilert_kv_sender.get_sender()
+        if sender is not None and sender.submitted:
+            return
         if self.idle_sleeper is not None:
             self.idle_sleeper.maybe_sleep()
 

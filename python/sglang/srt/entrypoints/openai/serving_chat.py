@@ -2488,14 +2488,14 @@ class OpenAIServingChat(OpenAIServingBase):
         for token_idx, item in enumerate(output_token_logprobs):
             # item = (logprob, token_id, token_text)
             logprob, token_id, token_text = item
-            if as_ids:
-                token_text = f"token_id:{token_id}"
             if is_byte_level:
                 token_bytes = token_id_to_bytes(tokenizer, token_id)
             else:
                 token_bytes = None
             if token_bytes is None:
                 token_bytes = list((token_text or "").encode("utf-8"))
+            if as_ids:
+                token_text = f"token_id:{token_id}"
 
             top_logprobs: list[TopLogprob] = []
             if output_top_logprobs:
@@ -2504,14 +2504,14 @@ class OpenAIServingChat(OpenAIServingBase):
                     top_row = output_top_logprobs[token_idx]
                     if top_row is not None:
                         for top_logprob, top_id, top_text in top_row:
-                            if as_ids:
-                                top_text = f"token_id:{top_id}"
                             if is_byte_level:
                                 top_bytes = token_id_to_bytes(tokenizer, top_id)
                             else:
                                 top_bytes = None
                             if top_bytes is None:
                                 top_bytes = list((top_text or "").encode("utf-8"))
+                            if as_ids:
+                                top_text = f"token_id:{top_id}"
                             top_logprobs.append(
                                 TopLogprob(
                                     token=top_text or "",

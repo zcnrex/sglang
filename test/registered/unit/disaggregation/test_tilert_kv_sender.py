@@ -7,9 +7,9 @@ background send finishes.
 """
 
 import queue
-import threading
 import unittest
 from types import SimpleNamespace
+from unittest.mock import patch
 
 import torch
 
@@ -60,7 +60,11 @@ def _sender(profile):
     s.tp_rank = 0
     s.staging = None
     s.max_seq_len = 4096
-    s.inflight = threading.Lock()
+    s.req = None
+    s.submitted = False
+    s.completion = None
+    s.completions = queue.Queue()
+    s._consensus = lambda done, success: (done, success)
     s.queue = queue.Queue()
     return s
 
@@ -118,11 +122,41 @@ class TestTokensAsTokenIds(CustomTestCase):
         self.assertEqual(self._logprobs(False).tokens, ["hi"])
 
 
+class TestChatTokenBytes(CustomTestCase):
+    def test_token_id_display_preserves_utf8_bytes(self):
+        from sglang.srt.entrypoints.openai.serving_chat import OpenAIServingChat
+
+        serving = SimpleNamespace(tokenizer_manager=SimpleNamespace(tokenizer=None))
+        for as_ids in (False, True):
+            with (
+                self.subTest(as_ids=as_ids),
+                patch(
+                    "sglang.srt.entrypoints.openai.serving_chat.get_serving",
+                    return_value=SimpleNamespace(return_tokens_as_token_ids=as_ids),
+                ),
+                patch(
+                    "sglang.srt.entrypoints.openai.utils._is_byte_level_tokenizer",
+                    return_value=False,
+                ),
+            ):
+                result = OpenAIServingChat._build_token_logprobs_from_raw(
+                    serving, [(-0.1, 42, "hi")], [[(-0.2, 7, "é")]]
+                )
+            self.assertEqual(result[0].token, "token_id:42" if as_ids else "hi")
+            self.assertEqual(result[0].bytes, [104, 105])
+            self.assertEqual(result[0].top_logprobs[0].bytes, [195, 169])
+            self.assertEqual(
+                result[0].top_logprobs[0].token, "token_id:7" if as_ids else "é"
+            )
+
+
 class TestShip(CustomTestCase):
     def test_hands_tilert_the_request_pages(self):
         profile = _FakeProfile()
         s = _sender(profile)
-        s.ship(_req(), _req_to_token([5, 2, 9], 130), _PARAMS)
+        req = _req()
+        s.reserve(req)
+        s.ship(req, _req_to_token([5, 2, 9], 130), _PARAMS)
         (m,) = profile.metas
         self.assertEqual(m.block_ids_per_group, [[5, 2, 9]])
         self.assertEqual(m.num_tokens, 130)
@@ -130,13 +164,18 @@ class TestShip(CustomTestCase):
         self.assertEqual((m.tilert_host, m.tilert_ctrl_port), ("10.0.0.2", 5556))
         self.assertEqual(s.queue.get_nowait()[1], {"seq": 130})
         # Staging stays claimed until the sender thread finishes the RDMA write.
-        self.assertTrue(s.inflight.locked())
+        self.assertFalse(s.reserve(_req()))
+        self.assertIsNone(s.poll())
 
-    def test_failed_extract_frees_staging(self):
+    def test_failed_extract_reports_error_and_frees_staging(self):
         s = _sender(_FakeProfile(fail=True))
-        with self.assertRaises(RuntimeError):
-            s.ship(_req(), _req_to_token([1, 2, 3], 130), _PARAMS)
-        self.assertFalse(s.inflight.locked())
+        req = _req()
+        s.reserve(req)
+        s.ship(req, _req_to_token([1, 2, 3], 130), _PARAMS)
+        completed, error = s.poll()
+        self.assertIs(completed, req)
+        self.assertIn("failed", error)
+        self.assertTrue(s.reserve(_req()))
         self.assertTrue(s.queue.empty())
 
 

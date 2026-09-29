@@ -198,6 +198,11 @@ class Serving(msgspec.Struct):
         bool,
         "Return sampled output token ids on the response-level sglext extension for every chat completion request, as if return_output_ids_in_sglext were set on the request.",
     ] = False
+    enable_tilert: A[
+        bool,
+        "Enable GLM-5/5.1 prefill transfers to TileRT. Requires the tilert package, "
+        "FlashMLA fp8 KV and full TP attention. Reserves one staging buffer per sender.",
+    ] = False
     return_tokens_as_token_ids: A[
         bool,
         "Render logprob tokens as 'token_id:{id}' strings (vLLM-compatible), so clients can recover token ids that do not decode to valid text.",
