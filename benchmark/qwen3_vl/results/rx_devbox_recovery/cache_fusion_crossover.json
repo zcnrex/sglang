@@ -1,0 +1,336 @@
+{
+  "per_gpu": [
+    {
+      "gpu": 0,
+      "concurrency": 1,
+      "reference": 379.83432181057833,
+      "candidate": 385.45478591063016,
+      "gain_percent": 1.4797146485500345
+    },
+    {
+      "gpu": 0,
+      "concurrency": 4,
+      "reference": 1209.7775613046465,
+      "candidate": 1231.8641633103923,
+      "gain_percent": 1.8256746291382075
+    },
+    {
+      "gpu": 0,
+      "concurrency": 8,
+      "reference": 1865.0902736012322,
+      "candidate": 1892.295404207667,
+      "gain_percent": 1.4586495351726514
+    },
+    {
+      "gpu": 1,
+      "concurrency": 1,
+      "reference": 375.1655300665862,
+      "candidate": 383.4852397094461,
+      "gain_percent": 2.217610354923405
+    },
+    {
+      "gpu": 1,
+      "concurrency": 4,
+      "reference": 1201.2292213580308,
+      "candidate": 1214.4375234511774,
+      "gain_percent": 1.099565499931332
+    },
+    {
+      "gpu": 1,
+      "concurrency": 8,
+      "reference": 1854.9973923671512,
+      "candidate": 1876.9677523631972,
+      "gain_percent": 1.1843876485459592
+    },
+    {
+      "gpu": 2,
+      "concurrency": 1,
+      "reference": 378.53921099215734,
+      "candidate": 383.600388994295,
+      "gain_percent": 1.3370287291697425
+    },
+    {
+      "gpu": 2,
+      "concurrency": 4,
+      "reference": 1197.2276086245101,
+      "candidate": 1222.8009310630734,
+      "gain_percent": 2.136045164206024
+    },
+    {
+      "gpu": 2,
+      "concurrency": 8,
+      "reference": 1854.9591226144516,
+      "candidate": 1881.125752440169,
+      "gain_percent": 1.4106310757315832
+    },
+    {
+      "gpu": 3,
+      "concurrency": 1,
+      "reference": 381.6812787883039,
+      "candidate": 386.86606805778536,
+      "gain_percent": 1.3584080639064133
+    },
+    {
+      "gpu": 3,
+      "concurrency": 4,
+      "reference": 1215.8712783670917,
+      "candidate": 1233.7086581601925,
+      "gain_percent": 1.4670450820300829
+    },
+    {
+      "gpu": 3,
+      "concurrency": 8,
+      "reference": 1873.7101947942742,
+      "candidate": 1896.9434402629734,
+      "gain_percent": 1.2399593882366666
+    },
+    {
+      "gpu": 4,
+      "concurrency": 1,
+      "reference": 380.2186628053646,
+      "candidate": 385.8527808905385,
+      "gain_percent": 1.4818099783960426
+    },
+    {
+      "gpu": 4,
+      "concurrency": 4,
+      "reference": 1210.8911875128085,
+      "candidate": 1230.2418721022473,
+      "gain_percent": 1.5980531354915062
+    },
+    {
+      "gpu": 4,
+      "concurrency": 8,
+      "reference": 1856.482556017775,
+      "candidate": 1892.397237387122,
+      "gain_percent": 1.9345552832117807
+    },
+    {
+      "gpu": 5,
+      "concurrency": 1,
+      "reference": 381.8441940717963,
+      "candidate": 386.7120656134285,
+      "gain_percent": 1.2748318862003893
+    },
+    {
+      "gpu": 5,
+      "concurrency": 4,
+      "reference": 1215.4490944406855,
+      "candidate": 1238.18243954123,
+      "gain_percent": 1.8703658758333797
+    },
+    {
+      "gpu": 5,
+      "concurrency": 8,
+      "reference": 1877.2197865464811,
+      "candidate": 1904.0791133163389,
+      "gain_percent": 1.430803519244317
+    },
+    {
+      "gpu": 6,
+      "concurrency": 1,
+      "reference": 379.48353051238144,
+      "candidate": 385.02833227350095,
+      "gain_percent": 1.4611442435019217
+    },
+    {
+      "gpu": 6,
+      "concurrency": 4,
+      "reference": 1210.6118738497807,
+      "candidate": 1231.7599165051108,
+      "gain_percent": 1.7468887520554865
+    },
+    {
+      "gpu": 6,
+      "concurrency": 8,
+      "reference": 1869.7405440403563,
+      "candidate": 1889.07290218707,
+      "gain_percent": 1.0339594019252552
+    },
+    {
+      "gpu": 7,
+      "concurrency": 1,
+      "reference": 378.66660385625914,
+      "candidate": 381.2178697466359,
+      "gain_percent": 0.6737499067504871
+    },
+    {
+      "gpu": 7,
+      "concurrency": 4,
+      "reference": 1199.2710481452934,
+      "candidate": 1224.1499100102153,
+      "gain_percent": 2.0744986634504192
+    },
+    {
+      "gpu": 7,
+      "concurrency": 8,
+      "reference": 1861.333386454287,
+      "candidate": 1885.317984279195,
+      "gain_percent": 1.2885707632739996
+    }
+  ],
+  "summary": {
+    "1": {
+      "mean_gain_percent": 1.4105372264248044,
+      "min_gain_percent": 0.6737499067504871,
+      "max_gain_percent": 2.217610354923405
+    },
+    "4": {
+      "mean_gain_percent": 1.7272671002670548,
+      "min_gain_percent": 1.099565499931332,
+      "max_gain_percent": 2.136045164206024
+    },
+    "8": {
+      "mean_gain_percent": 1.3726895769177765,
+      "min_gain_percent": 1.0339594019252552,
+      "max_gain_percent": 1.9345552832117807
+    }
+  },
+  "all_positive": true,
+  "greedy_comparisons": [
+    {
+      "gpu": 0,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 2.232193946838379e-05
+    },
+    {
+      "gpu": 0,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 0,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 1,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 1,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 1,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 1.7881393432617188e-07
+    },
+    {
+      "gpu": 2,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 2,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 2,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 3,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 3,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 4.0531158447265625e-06
+    },
+    {
+      "gpu": 3,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 4,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 4,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 4.0531158447265625e-06
+    },
+    {
+      "gpu": 4,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 5,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 5,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 4.0531158447265625e-06
+    },
+    {
+      "gpu": 5,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 6,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 6,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 4.0531158447265625e-06
+    },
+    {
+      "gpu": 6,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 7,
+      "prompt": 0,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    },
+    {
+      "gpu": 7,
+      "prompt": 1,
+      "same_tokens": true,
+      "max_logprob_difference": 4.0531158447265625e-06
+    },
+    {
+      "gpu": 7,
+      "prompt": 2,
+      "same_tokens": true,
+      "max_logprob_difference": 0.0
+    }
+  ]
+}

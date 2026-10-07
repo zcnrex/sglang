@@ -1,0 +1,14 @@
+{
+  "status": "eight-GPU crossover complete; production integration pending",
+  "kernel_bitwise_cases": 44,
+  "greedy_same_gpu_pairs": 24,
+  "greedy_token_ids_exact": true,
+  "max_greedy_logprob_difference": 2.232193946838379e-05,
+  "graph_only_speedup_percent": [
+    1.74,
+    2.59,
+    1.96,
+    1.03
+  ],
+  "note": "BF16 HND cache; high concurrency follow-up running. Prototype not promoted yet."
+}

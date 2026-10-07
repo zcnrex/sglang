@@ -89,3 +89,24 @@ The serving checkouts recorded Git base `b13cd34649` with patches applied, rathe
 ## Other BF16 screens
 
 `bf16_scheduler_results.json` records short screening runs. Chunk sizes, prefill/decode scheduling interval, context limits, alternative attention backends, attention split counts and expanded GEMM tactics did not produce a further substantial throughput improvement. High-concurrency decode was dominated by BF16 KV reads; the measured attention kernels were near the device's sustainable memory bandwidth. Expanded GEMM tactics yielded less than 1% and were not promoted. Historical FP8 artifacts remain in Git history and old result folders, but are excluded from current candidate claims.
+
+## Devbox recovery and further BF16 screening
+
+Experiments resumed on `chunan-b300-8`, using the same model revision, Torch,
+FlashInfer and benchmark client as the earlier host. A short recovery screen
+reached 376.85 output tok/s at c1 and 3783.68 at c128 for the combined HND
+candidate. These short runs do not replace the full sweep above. Exact environment
+and raw evidence are in `results/rx_devbox_recovery/`.
+
+Correcting the single-expert fused-MLP prototype to FlashInfer's Up/Gate weight
+order produced bitwise-equal outputs after tuning, but was 2.6% slower at 8192
+tokens and 9.4% slower at 16384 tokens. Packed BF16 normalization and tighter
+attention context bounds also failed screening; none was promoted.
+
+A standalone QK normalization/MRoPE/cache-write fusion passed 20 bitwise kernel
+cases and three exact greedy token/logprob comparisons. Its first short serving
+pair improved output throughput by 0.4–0.8%. Same-GPU crossovers on all eight
+GPUs then showed mean gains of 1.41%, 1.73% and 1.37% at concurrency 1, 4 and 8;
+every pair was positive. An additional 24 head-shape cases passed bitwise checks.
+All 24 crossover greedy responses retained identical tokens, with maximum selected
+logprob difference 0.0000224. This prototype is not yet part of the production candidate.

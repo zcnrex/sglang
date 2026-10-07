@@ -1,0 +1,57 @@
+{
+  "host": "chunan-b300-8",
+  "source": "02ed3a5635",
+  "python": "/root/qvl/venv-sgl/bin/python",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "torch": "2.14.1+cu130",
+  "flashinfer": "0.7.0.post1",
+  "transformers": "5.17.0",
+  "driver": "590.48.01",
+  "power_limit_watts": 1100,
+  "max_sm_mhz": 2032,
+  "max_memory_mhz": 3996,
+  "precision": "BF16 weights, KV cache and attention queries",
+  "serving_screen": {
+    "reference_source": "b13cd34649",
+    "reference_output_tokens_per_second": {
+      "c1": 369.16,
+      "c128": 3704.0
+    },
+    "combined_hnd_output_tokens_per_second": {
+      "c1": 376.85,
+      "c128": 3783.68
+    },
+    "note": "Short screen: c1 3 measured/1 warmup; c128 256 measured/128 warmup. Not the full handoff sweep. Raw data and verification are in serving_screen."
+  },
+  "norm_packed_screen": {
+    "all_checked_outputs_bitwise_equal": true,
+    "microseconds": {
+      "128": {
+        "base": 3.2121370111273353,
+        "packed": 3.17475307465716,
+        "unfused": 4.415488901717887
+      },
+      "8192": {
+        "base": 100.64192444313575,
+        "packed": 99.81725596418283,
+        "unfused": 62.566184265243244
+      },
+      "16384": {
+        "base": 201.85694806088267,
+        "packed": 198.3928290541043,
+        "unfused": 136.025250248388
+      }
+    },
+    "note": "Values retrieved from tool output before remote status checks became unavailable. Raw log remains /root/qvl/experiments/rx-norm-launch/packed_sweep.log. No source change promoted."
+  },
+  "mlp": {
+    "status": "completed; valid but slower after tuning",
+    "remote_log": "/root/qvl/experiments/rx-prefill-mlp/small.log",
+    "remote_script": "/root/qvl/experiments/rx-prefill-mlp/fused_mlp_corrected.py",
+    "corrected_weight_order": "Up, Gate, matching FlashInfer contract",
+    "note": "Cold JIT completed after relay disconnect. Subsequent approved status check found no remaining process and memory.events counters were zero. Corrected 8192/16384 tests passed bitwise after autotuning; see corrected_mlp."
+  },
+  "status_check": "Approved remote status check succeeded. Host healthy; memory.events all zero. Experiments resumed.",
+  "production_source_changed": false,
+  "goal_target_met": false
+}

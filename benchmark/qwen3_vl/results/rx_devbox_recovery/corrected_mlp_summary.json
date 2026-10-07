@@ -1,0 +1,74 @@
+{
+  "status": "completed",
+  "candidate": "BF16 one-expert fused MLP with corrected Up,Gate order",
+  "records": [
+    {
+      "stage": "before_tuning",
+      "m": 16384,
+      "nrms": 0.0,
+      "cosine": 1.0,
+      "max_abs": 0.0,
+      "exact": true
+    },
+    {
+      "stage": "after_tuning",
+      "m": 16384,
+      "nrms": 0.0,
+      "cosine": 1.0,
+      "max_abs": 0.0,
+      "exact": true
+    },
+    {
+      "stage": "timing",
+      "m": 16384,
+      "baseline_us": 1917.4016085537996,
+      "candidate_us": 2097.2408135732016,
+      "speedup": 0.9142496160405164,
+      "tuned": true,
+      "workspace_bytes": 957904768
+    },
+    {
+      "stage": "before_tuning",
+      "m": 32,
+      "nrms": 0.00017282136832363904,
+      "cosine": 1.0,
+      "max_abs": 0.015625,
+      "exact": false
+    },
+    {
+      "stage": "timing",
+      "m": 32,
+      "baseline_us": 32.070204344662756,
+      "candidate_us": 80.36268067416289,
+      "speedup": 0.39906837446966265,
+      "tuned": false,
+      "workspace_bytes": 3143424
+    },
+    {
+      "stage": "before_tuning",
+      "m": 8192,
+      "nrms": 0.0,
+      "cosine": 1.0,
+      "max_abs": 0.0,
+      "exact": true
+    },
+    {
+      "stage": "after_tuning",
+      "m": 8192,
+      "nrms": 0.0,
+      "cosine": 1.0,
+      "max_abs": 0.0,
+      "exact": true
+    },
+    {
+      "stage": "timing",
+      "m": 8192,
+      "baseline_us": 964.3050800670278,
+      "candidate_us": 989.6381255119078,
+      "speedup": 0.9744017082690948,
+      "tuned": true,
+      "workspace_bytes": 479589760
+    }
+  ],
+  "decision": "Not promoted: tuned large-prefill outputs are bitwise equal but slower than baseline."
+}

@@ -1,0 +1,1 @@
+Raw logs, source snapshots, manifests and benchmark responses are preserved in `raw_evidence.tar.gz`. Paths in the summary files refer to paths within that archive. The production source was unchanged during these measurements.
