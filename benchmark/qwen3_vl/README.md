@@ -263,3 +263,27 @@ Bypassing Python runner bookkeeping reduced eager CPU submission from
 (299.50 versus 300.88 microseconds). The lower-level API still constructs
 cuBLASLt descriptors per call. This bounded follow-up did not demonstrate
 a model-level improvement, so no further serving run was launched.
+
+## Persistent GEMM descriptors and dispatch follow-up
+
+An external C++ prototype compared cached and uncached cuBLASLt descriptors
+through the same binding. It passed 12 bitwise checks, including fresh
+tensor pointers and a non-default stream. Descriptor reuse saved only about
+0.22 microseconds of CPU submission per projection and did not improve GPU
+time. Descriptors were keyed by device, shape and dtype; data pointers and
+streams were supplied on every call. No production cache was added.
+
+A direct-module path was then tested within one loaded model. An initial
+six-pair run suggested 0.7% lower prefill latency, but a counterbalanced
+12-pair run reversed it: control median 66.729 ms versus candidate 67.225 ms,
+with six candidate wins. Both runs produced bitwise-identical checked logits.
+The apparent gain was not robust to order, so this path was rejected before
+serving tests. Evidence is in
+`results/bf16_prefill_layout_screens/lt_persistent/`.
+
+A source audit also verified that production already passes persistent
+self-resetting decode counters: the extra fill in the earlier standalone
+NCU script was not a production optimization opportunity. Full c128 decode
+uses an exact graph bucket, and inspected synchronization paths are debug
+gated. Source references and limitations are retained in
+`results/bf16_descriptor_screens/`.

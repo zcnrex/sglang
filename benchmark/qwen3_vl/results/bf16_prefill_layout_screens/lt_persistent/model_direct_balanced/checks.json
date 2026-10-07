@@ -1,0 +1,32 @@
+[
+  {
+    "shape": [
+      8192,
+      6144,
+      2560
+    ],
+    "tactic": 2,
+    "bitwise": true,
+    "max_abs": 0.0
+  },
+  {
+    "shape": [
+      8192,
+      2560,
+      4096
+    ],
+    "tactic": 2,
+    "bitwise": true,
+    "max_abs": 0.0
+  },
+  {
+    "shape": [
+      8192,
+      2560,
+      9728
+    ],
+    "tactic": 6,
+    "bitwise": true,
+    "max_abs": 0.0
+  }
+]

@@ -1,0 +1,348 @@
+{
+  "checks": [
+    {
+      "n": 6144,
+      "k": 2560,
+      "cached": false,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 6144,
+      "k": 2560,
+      "cached": true,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 6144,
+      "k": 2560,
+      "fresh_pointers_nondefault_stream": true,
+      "bitwise": true
+    },
+    {
+      "n": 2560,
+      "k": 4096,
+      "cached": false,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 2560,
+      "k": 4096,
+      "cached": true,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 2560,
+      "k": 4096,
+      "fresh_pointers_nondefault_stream": true,
+      "bitwise": true
+    },
+    {
+      "n": 19456,
+      "k": 2560,
+      "cached": false,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 19456,
+      "k": 2560,
+      "cached": true,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 19456,
+      "k": 2560,
+      "fresh_pointers_nondefault_stream": true,
+      "bitwise": true
+    },
+    {
+      "n": 2560,
+      "k": 9728,
+      "cached": false,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 2560,
+      "k": 9728,
+      "cached": true,
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    {
+      "n": 2560,
+      "k": 9728,
+      "fresh_pointers_nondefault_stream": true,
+      "bitwise": true
+    }
+  ],
+  "rounds": [
+    {
+      "round": 0,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 12.359200263745151,
+      "gpu_us_per_projection": 300.3164052963257
+    },
+    {
+      "round": 0,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.78451238956768,
+      "gpu_us_per_projection": 310.4811906814575
+    },
+    {
+      "round": 0,
+      "kind": "cached",
+      "host_submit_us_per_projection": 12.18307479575742,
+      "gpu_us_per_projection": 310.3399991989136
+    },
+    {
+      "round": 0,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 16.392837642342784,
+      "gpu_us_per_projection": 308.5619926452637
+    },
+    {
+      "round": 0,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 22.068350153858773,
+      "gpu_us_per_projection": 293.83559226989746
+    },
+    {
+      "round": 1,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 12.529887681012042,
+      "gpu_us_per_projection": 292.5856113433838
+    },
+    {
+      "round": 1,
+      "kind": "cached",
+      "host_submit_us_per_projection": 12.140037506469525,
+      "gpu_us_per_projection": 295.61479091644287
+    },
+    {
+      "round": 1,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.85744999931194,
+      "gpu_us_per_projection": 299.1352081298828
+    },
+    {
+      "round": 1,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.987024769652635,
+      "gpu_us_per_projection": 307.9960107803345
+    },
+    {
+      "round": 1,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.822274973383173,
+      "gpu_us_per_projection": 293.89359951019287
+    },
+    {
+      "round": 2,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 12.301300012040883,
+      "gpu_us_per_projection": 291.50679111480713
+    },
+    {
+      "round": 2,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.300924961687997,
+      "gpu_us_per_projection": 294.6687936782837
+    },
+    {
+      "round": 2,
+      "kind": "cached",
+      "host_submit_us_per_projection": 11.461212488939054,
+      "gpu_us_per_projection": 296.45280838012695
+    },
+    {
+      "round": 2,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.145862436038442,
+      "gpu_us_per_projection": 305.31160831451416
+    },
+    {
+      "round": 2,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.140450002742,
+      "gpu_us_per_projection": 318.39439868927
+    },
+    {
+      "round": 3,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.163749877596274,
+      "gpu_us_per_projection": 308.04200172424316
+    },
+    {
+      "round": 3,
+      "kind": "cached",
+      "host_submit_us_per_projection": 11.552299838513136,
+      "gpu_us_per_projection": 307.50200748443604
+    },
+    {
+      "round": 3,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 11.705200085998513,
+      "gpu_us_per_projection": 310.3991985321045
+    },
+    {
+      "round": 3,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.063237540540285,
+      "gpu_us_per_projection": 324.4231939315796
+    },
+    {
+      "round": 3,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.029487495776266,
+      "gpu_us_per_projection": 306.36799335479736
+    },
+    {
+      "round": 4,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.121487402007915,
+      "gpu_us_per_projection": 316.2760019302368
+    },
+    {
+      "round": 4,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 11.660437303362414,
+      "gpu_us_per_projection": 297.2424030303955
+    },
+    {
+      "round": 4,
+      "kind": "cached",
+      "host_submit_us_per_projection": 11.575137250474654,
+      "gpu_us_per_projection": 295.4184055328369
+    },
+    {
+      "round": 4,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.198462516418658,
+      "gpu_us_per_projection": 306.99760913848877
+    },
+    {
+      "round": 4,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.064487262046896,
+      "gpu_us_per_projection": 307.1171998977661
+    },
+    {
+      "round": 5,
+      "kind": "cached",
+      "host_submit_us_per_projection": 11.487150186439976,
+      "gpu_us_per_projection": 308.15160274505615
+    },
+    {
+      "round": 5,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.035962597816251,
+      "gpu_us_per_projection": 306.6812038421631
+    },
+    {
+      "round": 5,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.923962438246235,
+      "gpu_us_per_projection": 307.29520320892334
+    },
+    {
+      "round": 5,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 11.802962399087846,
+      "gpu_us_per_projection": 306.0800075531006
+    },
+    {
+      "round": 5,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.59892482671421,
+      "gpu_us_per_projection": 316.7207956314087
+    },
+    {
+      "round": 6,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.24517475545872,
+      "gpu_us_per_projection": 297.1292018890381
+    },
+    {
+      "round": 6,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 11.771225035772659,
+      "gpu_us_per_projection": 304.6027898788452
+    },
+    {
+      "round": 6,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.092837439733557,
+      "gpu_us_per_projection": 305.28080463409424
+    },
+    {
+      "round": 6,
+      "kind": "cached",
+      "host_submit_us_per_projection": 11.435950000304729,
+      "gpu_us_per_projection": 306.0631990432739
+    },
+    {
+      "round": 6,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.2137872899184,
+      "gpu_us_per_projection": 318.07920932769775
+    },
+    {
+      "round": 7,
+      "kind": "baseline",
+      "host_submit_us_per_projection": 14.266437574406154,
+      "gpu_us_per_projection": 312.91120052337646
+    },
+    {
+      "round": 7,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 21.35018730768934,
+      "gpu_us_per_projection": 294.04120445251465
+    },
+    {
+      "round": 7,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.200125300092623,
+      "gpu_us_per_projection": 301.63519382476807
+    },
+    {
+      "round": 7,
+      "kind": "cached",
+      "host_submit_us_per_projection": 11.682675176416524,
+      "gpu_us_per_projection": 304.87000942230225
+    },
+    {
+      "round": 7,
+      "kind": "uncached",
+      "host_submit_us_per_projection": 11.629462460405193,
+      "gpu_us_per_projection": 307.2295904159546
+    }
+  ],
+  "summary": {
+    "wrapper": {
+      "host_submit_us_per_projection": 20.5279562578653,
+      "gpu_us_per_projection": 305.2962064743042
+    },
+    "direct": {
+      "host_submit_us_per_projection": 11.222650027775671,
+      "gpu_us_per_projection": 304.1581988334656
+    },
+    "cached": {
+      "host_submit_us_per_projection": 11.563718544493895,
+      "gpu_us_per_projection": 305.4666042327881
+    },
+    "uncached": {
+      "host_submit_us_per_projection": 11.787093717430253,
+      "gpu_us_per_projection": 302.45959758758545
+    },
+    "baseline": {
+      "host_submit_us_per_projection": 14.240112432162277,
+      "gpu_us_per_projection": 316.49839878082275
+    }
+  }
+}

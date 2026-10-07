@@ -1,0 +1,75 @@
+{
+  "source_commit": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+  "python": "/root/qvl/venv-sgl/bin/python",
+  "script": "/root/qvl/experiments/cublaslt-persistent/{script}.py",
+  "arguments": [
+    "--model-path",
+    "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+    "--dtype",
+    "bfloat16",
+    "--kv-cache-dtype",
+    "bfloat16",
+    "--attention-backend",
+    "trtllm_mha",
+    "--page-size",
+    "32",
+    "--enable-mixed-chunk",
+    "--chunked-prefill-size",
+    "16384",
+    "--cuda-graph-backend-prefill",
+    "disabled",
+    "--cuda-graph-max-bs-decode",
+    "2",
+    "--enforce-disable-flashinfer-allreduce-fusion",
+    "--batch-size",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "1",
+    "--input-len",
+    "8192",
+    "--output-len",
+    "2"
+  ],
+  "result_argument": [
+    "--result-filename",
+    "/root/qvl/experiments/cublaslt-persistent/{script}/results.jsonl"
+  ],
+  "environment": {
+    "PYTHONPATH": "/root/qvl/sglang-current-profile/python",
+    "HF_HOME": "/root/qvl/hf",
+    "SGLANG_USE_HND_KVCACHE": "1",
+    "MAX_JOBS": "8"
+  },
+  "runs": [
+    {
+      "script": "model_direct",
+      "CUDA_VISIBLE_DEVICES": "2",
+      "batch_size_repetitions": 12,
+      "pair_order": "AB",
+      "warmup_passes": 6
+    },
+    {
+      "script": "model_direct_balanced",
+      "CUDA_VISIBLE_DEVICES": "2",
+      "batch_size_repetitions": 24,
+      "pair_order": "AB,BA repeating",
+      "warmup_passes": 6
+    }
+  ],
+  "standalone": {
+    "CUDA_VISIBLE_DEVICES": "2",
+    "MAX_JOBS": "8",
+    "script": "/root/qvl/experiments/cublaslt-persistent/screen.py",
+    "source": "/root/qvl/experiments/cublaslt-persistent/persistent.cpp"
+  },
+  "note": "For model_direct_balanced replace the twelve batch-size1 entries with24 entries."
+}
