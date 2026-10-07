@@ -1,0 +1,226 @@
+{
+  "source": "5f60fb8b67",
+  "python_files_verified": 4229,
+  "counts": {
+    "fa4": 144,
+    "fallback": 0
+  },
+  "proof": [
+    {
+      "tokens": 16304,
+      "requests": 3,
+      "prefix": [
+        7968,
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 16304,
+      "requests": 3,
+      "prefix": [
+        7968,
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 16304,
+      "requests": 3,
+      "prefix": [
+        7968,
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 16304,
+      "requests": 3,
+      "prefix": [
+        7968,
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    }
+  ],
+  "configs": [
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    }
+  ],
+  "checks": [
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.00257024890743196,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.0018507272470742464,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.1875,
+      "nrmse": 0.0019184291595593095,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 1.3125,
+      "nrmse": 0.028171155601739883,
+      "greedy_equal": true
+    }
+  ],
+  "results": [
+    {
+      "candidate": false,
+      "prefill_latency": 0.13041416800115258,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    },
+    {
+      "candidate": true,
+      "prefill_latency": 0.12871462097973563,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    },
+    {
+      "candidate": true,
+      "prefill_latency": 0.12889615099993534,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    },
+    {
+      "candidate": false,
+      "prefill_latency": 0.13150319902342744,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    }
+  ],
+  "cache_checks": [
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    }
+  ],
+  "pack_checks": [
+    {
+      "tokens": 24272,
+      "bitwise": true
+    },
+    {
+      "tokens": 24272,
+      "bitwise": true
+    }
+  ],
+  "workspace_reuse": "shape-keyed scratch, cold allocation excluded after warmup",
+  "force_prefix": false
+}

@@ -1,0 +1,87 @@
+import os,json,pathlib,hashlib,statistics,itertools,gc
+import torch,flashinfer
+from sglang.kernels.ops.attention.flash_attn.cute import interface,utils
+root=pathlib.Path('/root/qvl/experiments/context-partition');root.mkdir(exist_ok=True);gpu=os.environ['CUDA_VISIBLE_DEVICES'];torch.manual_seed(512)
+source=pathlib.Path('/root/qvl/sglang-public-lt-clean');expected=json.load(open('/root/qvl/experiments/prefill-graph-check/expected.json'));actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')};assert actual==expected
+class CacheProxy:
+ def __init__(self,base):self.base=base;self.hits=0
+ def __contains__(self,k):return k in self.base
+ def __setitem__(self,k,v):self.base[k]=v
+ def __getitem__(self,k):
+  assert len(k)==62 and k[39] is True
+  self.hits+=1
+  return self.base[k]
+proxy=CacheProxy(interface._flash_attn_fwd.compile_cache);interface._flash_attn_fwd.compile_cache=proxy
+configs=[];orig=interface.FlashAttentionForwardSm100.__init__
+def init(self,*a,**kw):
+ orig(self,*a,**kw);configs.append({k:str(getattr(self,k,None)) for k in ['use_clc_scheduler','scheduling_mode','use_tma_KV']})
+interface.FlashAttentionForwardSm100.__init__=init
+report={'source':'5f60fb8b67','verified_python_files':len(actual),'gpu':gpu,'configs':configs,'rows':[]}
+cases=[([7968,0,0],[232,8200,7872],17)]
+casefile=root/'cases.json'
+if casefile.exists():cases=json.load(open(casefile))
+for prefixes,extends,nd in cases:
+ bs=len(extends);full=[p+n for p,n in zip(prefixes,extends)];context=sum(extends);tails=[8201]*nd;alllength=full+tails;pages=[(n+31)//32 for n in alllength];totalpages=sum(pages)
+ storage=torch.randn(context+nd,6144,device='cuda',dtype=torch.bfloat16);q=storage[:,:4096].view(-1,32,128);k=storage[:,4096:5120].view(-1,8,128);v=storage[:,5120:].view(-1,8,128)
+ pk=torch.randn(totalpages,8,32,128,device='cuda',dtype=torch.bfloat16);pv=torch.randn_like(pk);table=torch.zeros(bs+nd,max(pages),device='cuda',dtype=torch.int32);perm=torch.randperm(totalpages,device='cuda');poff=0;off=0
+ for i,(n,p) in enumerate(zip(alllength,pages)):
+  ids=perm[poff:poff+p];table[i,:p]=ids.to(torch.int32)
+  if i<bs:
+   for pool,fresh in [(pk,k),(pv,v)]:
+    tmp=pool[ids].permute(0,2,1,3).contiguous().view(p*32,8,128);tmp[prefixes[i]:n].copy_(fresh[off:off+extends[i]]);pool[ids]=tmp.view(p,32,8,128).permute(0,2,1,3)
+   off+=extends[i]
+  poff+=p
+ cu=lambda ls:torch.tensor([0]+list(itertools.accumulate(ls)),device='cuda',dtype=torch.int32)
+ cuq=cu(extends);cuk=cu(full);lens=torch.tensor(alllength,device='cuda',dtype=torch.int32);ws=torch.empty(512*1024*1024,device='cuda',dtype=torch.uint8);outs={n:torch.empty(context+nd,32,128,device='cuda',dtype=torch.bfloat16) for n in ['baseline','partition']}
+ starts=[0]+list(itertools.accumulate(extends));groups=[]
+ for fresh in [False,True]:
+  ix=[i for i,p in enumerate(prefixes) if (p==0)==fresh];assert ix
+  contiguous=ix==list(range(ix[0],ix[-1]+1));a,b=starts[ix[0]],starts[ix[-1]+1]
+  if contiguous:qq=q[a:b];kk=k[a:b];vv=v[a:b];gout=None
+  else:
+   count=sum(extends[i] for i in ix);qq=torch.empty(count,32,128,device='cuda',dtype=torch.bfloat16);kk=torch.empty(count,8,128,device='cuda',dtype=torch.bfloat16);vv=torch.empty_like(kk);gout=torch.empty_like(qq)
+  idx=torch.tensor(ix,device='cuda');groups.append(dict(fresh=fresh,ix=ix,contiguous=contiguous,a=a,b=b,q=qq,k=kk,v=vv,out=gout,table=table.index_select(0,idx),lens=lens.index_select(0,idx),cuq=cu([extends[i] for i in ix]),cuk=cu([full[i] for i in ix]),maxq=max(extends[i] for i in ix)))
+ def trt(qq,tt,ll,cq,ck,mq,output):
+  return flashinfer.prefill.trtllm_batch_context_with_kv_cache(query=qq,kv_cache=(pk,pv),workspace_buffer=ws,block_tables=tt,seq_lens=ll,max_q_len=mq,max_kv_len=262144,bmm1_scale=128**-.5,bmm2_scale=1.,batch_size=cq.numel()-1,cum_seq_lens_q=cq,cum_seq_lens_kv=ck,out=output)
+ def decode(output):
+  if nd:flashinfer.decode.trtllm_batch_decode_with_kv_cache(query=q[context:],kv_cache=(pk,pv),workspace_buffer=ws,block_tables=table[bs:],seq_lens=lens[bs:],max_seq_len=262144,bmm1_scale=128**-.5,bmm2_scale=1.,out=output[context:])
+ def call(name):
+  output=outs[name]
+  if name=='baseline':trt(q[:context],table[:bs],lens[:bs],cuq,cuk,max(extends),output[:context])
+  else:
+   for g in groups:
+    oo=output[g['a']:g['b']] if g['contiguous'] else g['out']
+    if not g['contiguous']:
+     pos=0
+     for i in g['ix']:
+      n=extends[i];g['q'][pos:pos+n].copy_(q[starts[i]:starts[i+1]])
+      if g['fresh']:g['k'][pos:pos+n].copy_(k[starts[i]:starts[i+1]]);g['v'][pos:pos+n].copy_(v[starts[i]:starts[i+1]])
+      pos+=n
+    if g['fresh']:
+     utils._fa_clc_enabled=True;interface.flash_attn_varlen_func(g['q'],g['k'],g['v'],cu_seqlens_q=g['cuq'],cu_seqlens_k=g['cuq'],max_seqlen_q=g['maxq'],max_seqlen_k=g['maxq'],softmax_scale=128**-.5,causal=True,out=oo)
+    else:trt(g['q'],g['table'],g['lens'],g['cuq'],g['cuk'],g['maxq'],oo)
+    if not g['contiguous']:
+     pos=0
+     for i in g['ix']:
+      n=extends[i];output[starts[i]:starts[i+1]].copy_(oo[pos:pos+n]);pos+=n
+  decode(output)
+ for name in outs:outs[name].fill_(float('nan'));call(name)
+ torch.cuda.synchronize();assert all(torch.isfinite(o).all() for o in outs.values());torch.testing.assert_close(outs['partition'],outs['baseline'],atol=.02,rtol=.02);diff=outs['partition'].float()-outs['baseline'].float();check={'max_abs':diff.abs().max().item(),'nrms':(diff.norm()/outs['baseline'].float().norm()).item(),'decode_bitwise':torch.equal(outs['partition'][context:],outs['baseline'][context:]),'all_rows_finite':True}
+ graphs={}
+ for name in outs:
+  g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):call(name)
+  graphs[name]=g
+ flush=torch.empty(256*1024*1024,device='cuda',dtype=torch.uint8);times={mode:{n:[] for n in outs} for mode in ['warm','cold']}
+ for rep in range(6):
+  names=list(outs) if (rep+int(gpu))%2==0 else list(outs)[::-1]
+  for name in names:
+   g=graphs[name]
+   for _ in range(5):g.replay()
+   a,b=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);a.record()
+   for _ in range(20):g.replay()
+   b.record();b.synchronize();times['warm'][name].append(a.elapsed_time(b)*1000/20);cs=[]
+   for _ in range(6):flush.zero_();a.record();g.replay();b.record();b.synchronize();cs.append(a.elapsed_time(b)*1000)
+   times['cold'][name].append(statistics.median(cs))
+ row={'prefixes':prefixes,'extends':extends,'decode_suffix':nd,'selected_clc_cache_hits':proxy.hits,'q_stride':list(q.stride()),'groups_contiguous':[g['contiguous'] for g in groups],'check':check,'us':times,'median_us':{mode:{n:statistics.median(vals) for n,vals in rr.items()} for mode,rr in times.items()}};report['rows'].append(row);print(json.dumps(row),flush=True);(root/f'gpu{gpu}.json').write_text(json.dumps(report,indent=2)+'\n')
+ del graphs,outs,storage,q,k,v,pk,pv,ws,flush,groups;gc.collect();torch.cuda.empty_cache()

@@ -1,0 +1,79 @@
+import os,json,pathlib,hashlib,statistics,gc
+import torch,flashinfer,triton
+import triton.language as tl
+@triton.jit
+def pack(PK,PV,K,V,OK,OV,T,CQ,CK,P, TS:tl.constexpr, BLOCK:tl.constexpr):
+ r=tl.program_id(0); seq=tl.program_id(1); x=r*BLOCK+tl.arange(0,BLOCK)
+ start=tl.load(CK+seq); end=tl.load(CK+seq+1); pref=tl.load(P+seq); qs=tl.load(CQ+seq)
+ token=x//1024; h=x%1024//128; d=x%128; valid=token<end-start
+ page=tl.load(T+seq*TS+token//32,valid & (token<pref),other=0)
+ cacheoff=page*32768+h*4096+(token%32)*128+d
+ fresh=(qs+token-pref)*6144+h*128+d
+ a=tl.load(PK+cacheoff,valid & (token<pref),other=0); b=tl.load(K+fresh,valid & (token>=pref),other=0)
+ c=tl.load(PV+cacheoff,valid & (token<pref),other=0); e=tl.load(V+fresh,valid & (token>=pref),other=0)
+ tl.store(OK+start*1024+x,tl.where(token<pref,a,b),valid); tl.store(OV+start*1024+x,tl.where(token<pref,c,e),valid)
+from sglang.kernels.ops.attention.flash_attn.cute import interface,utils
+root=pathlib.Path('/root/qvl/experiments/fa4-prefix');root.mkdir(exist_ok=True)
+gpu=os.environ['CUDA_VISIBLE_DEVICES'];torch.manual_seed(20261007)
+source=pathlib.Path('/root/qvl/sglang-public-lt-clean');expected=json.load(open('/root/qvl/experiments/prefill-graph-check/expected.json'))
+actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')}
+assert actual==expected,'Python source differs from audited5f60fb8b67'
+assert str(interface.__file__).startswith(str(source))
+records=[];original_init=interface.FlashAttentionForwardSm100.__init__
+def init(self,*a,**kw):
+ original_init(self,*a,**kw)
+ record={n:str(getattr(self,n,None)) for n in ['use_clc_scheduler','scheduling_mode','TileScheduler','use_tma_KV','use_2cta_instrs','threads_per_cta','q_stage','m_block_size','n_block_size','kv_stage']}
+ records.append(record);print('CONFIG',json.dumps(record),flush=True)
+interface.FlashAttentionForwardSm100.__init__=init
+report={'source_commit':'5f60fb8b67','python_files_verified':len(actual),'interface':interface.__file__,'gpu':gpu,'seed':20261007,'input':'synthetic BF16, QKV token stride6144','rows':[],'kernel_configs':records}
+for prefixes,lengths in [([7968,0,0],[232,8200,7872]),([6048,0,0],[2152,8200,5888]),([4032,0,0],[4168,8200,3840])]:
+ totals=[p+n for p,n in zip(prefixes,lengths)]
+ m=sum(lengths);bs=len(lengths);storage=torch.randn(m,6144,device='cuda',dtype=torch.bfloat16)
+ q=storage[:,:4096].view(m,32,128);k=storage[:,4096:5120].view(m,8,128);v=storage[:,5120:].view(m,8,128)
+ pages=[(n+31)//32 for n in totals];pc=sum(pages);pk=torch.zeros(pc,8,32,128,device='cuda',dtype=torch.bfloat16);pv=torch.zeros_like(pk)
+ table=torch.zeros(bs,max(pages),device='cuda',dtype=torch.int32);off=poff=0
+ refs_k=[];refs_v=[]
+ for i,(n,p,t,pref) in enumerate(zip(lengths,pages,totals,prefixes)):
+  rk=torch.randn(t,8,128,device='cuda',dtype=torch.bfloat16);rv=torch.randn_like(rk);rk[pref:].copy_(k[off:off+n]);rv[pref:].copy_(v[off:off+n]);refs_k.append(rk);refs_v.append(rv)
+  tmp=torch.zeros(p*32,8,128,device='cuda',dtype=torch.bfloat16);tmp[:t].copy_(rk);pk[poff:poff+p].copy_(tmp.view(p,32,8,128).permute(0,2,1,3));tmp[:t].copy_(rv);pv[poff:poff+p].copy_(tmp.view(p,32,8,128).permute(0,2,1,3));table[i,:p]=torch.arange(poff,poff+p,device='cuda',dtype=torch.int32);off+=n;poff+=p
+ cu=torch.tensor([0]+list(__import__('itertools').accumulate(lengths)),device='cuda',dtype=torch.int32);ck=torch.tensor([0]+list(__import__('itertools').accumulate(totals)),device='cuda',dtype=torch.int32);pr=torch.tensor(prefixes,device='cuda',dtype=torch.int32);lens=torch.tensor(totals,device='cuda',dtype=torch.int32);ws=torch.empty(512*1024*1024,device='cuda',dtype=torch.uint8)
+ ok=torch.empty(sum(totals),8,128,device='cuda',dtype=torch.bfloat16);ov=torch.empty_like(ok)
+ def copy():pack[(triton.cdiv(max(totals)*1024,1024),bs)](pk,pv,k,v,ok,ov,table,cu,ck,pr,table.stride(0),1024)
+ copy();assert torch.equal(ok,torch.cat(refs_k));assert torch.equal(ov,torch.cat(refs_v))
+ outs={name:torch.empty_like(q) for name in ['trt','pack_fa4','fa4_only','pack_only']}
+ def call(name):
+  if name=='trt':return flashinfer.prefill.trtllm_batch_context_with_kv_cache(query=q,kv_cache=(pk,pv),workspace_buffer=ws,block_tables=table,seq_lens=lens,max_q_len=max(lengths),max_kv_len=max(totals),bmm1_scale=128**-.5,bmm2_scale=1.,batch_size=bs,cum_seq_lens_q=cu,cum_seq_lens_kv=ck,out=outs[name])
+  if name in ('pack_fa4','pack_only'):copy()
+  if name=='pack_only':return
+  utils._fa_clc_enabled=True
+  return interface.flash_attn_varlen_func(q,ok,ov,cu_seqlens_q=cu,cu_seqlens_k=ck,max_seqlen_q=max(lengths),max_seqlen_k=max(totals),causal=True,out=outs[name])
+ for name in outs:call(name)
+ torch.cuda.synchronize();checks={}
+ for name,o in outs.items():
+  if name=='pack_only':continue
+  torch.testing.assert_close(o,outs['trt'],atol=.02,rtol=.02)
+  checks[name]={'max_abs':(o.float()-outs['trt'].float()).abs().max().item(),'nrmse':((o.float()-outs['trt'].float()).norm()/outs['trt'].float().norm()).item()}
+
+ checks['packed_KV_bitwise']=True
+ graphs={}
+ for name in outs:
+  g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):call(name)
+  graphs[name]=g
+ times={mode:{n:[] for n in outs} for mode in ['warm','cold']};flush=torch.empty(256*1024*1024,device='cuda',dtype=torch.uint8)
+ names=list(outs)
+ for rep in range(4):
+  order=names if (rep+int(gpu))%2==0 else names[::-1]
+  for name in order:
+   g=graphs[name]
+   for _ in range(10):g.replay()
+   a,b=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True)
+   a.record()
+   for _ in range(20):g.replay()
+   b.record();b.synchronize();times['warm'][name].append(a.elapsed_time(b)*1000/20)
+   cold=[]
+   for _ in range(8):
+    flush.zero_();a.record();g.replay();b.record();b.synchronize();cold.append(a.elapsed_time(b)*1000)
+   times['cold'][name].append(statistics.median(cold))
+ row={'prefixes':prefixes,'scratch_bytes':sum(totals)*4096,'copy_traffic_bytes':sum(totals)*8192,'lengths':lengths,'q_stride':list(q.stride()),'kv_cache_stride':list(pk.stride()),'checks':checks,'us':times,'median_us':{mode:{n:statistics.median(z) for n,z in d.items()} for mode,d in times.items()}}
+ report['rows'].append(row);print(json.dumps(row),flush=True);(root/f'gpu{gpu}-report.json').write_text(json.dumps(report,indent=2))

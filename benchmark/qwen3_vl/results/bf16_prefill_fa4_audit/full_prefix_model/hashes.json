@@ -1,0 +1,11 @@
+{
+  "launch.sh.txt": "18c1d054d2ef13e42a11928b52a2686657753a707f0f59740d561b12046f8569",
+  "gpu5-results.jsonl": "90e212bfab9953da4e5495d4dce3fac50c92620e47633ba3d6f558be7923acbe",
+  "gpu5-report.json": "e27ae5c76d1e4fa5261c6f47dd10f6bf75ff02dcb4bbdc93fc184770bc8537b8",
+  "serving_hook.py.txt": "4fe16403fdf4c050455fbefb78a8ceaa90abe994852d42541ea1fc56ab8677ef",
+  "gpu4-run.log": "70d5f02950f16558e8b68159ec6969fe376445855019f26db854b013f3896aba",
+  "gpu5-run.log": "c3ccc07df86844a607176e671d4ca2eea2f73e4f208c1d7bc37195b6af91454e",
+  "gpu4-report.json": "0b5037d38067fc3d680452551c354ce85e95f41e62fbf786f8d4a3db3654b8a3",
+  "gpu4-results.jsonl": "35a85ab0a594ddbdf6c4c92e94bce8080a484b5a081f07be209da4e95f6fbd75",
+  "model.py.txt": "ebfb23b166d66d720f1585b246d39de07648d4b6c83f3f32af21de231e504779"
+}

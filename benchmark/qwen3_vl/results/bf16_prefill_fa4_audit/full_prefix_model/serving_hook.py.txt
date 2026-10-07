@@ -1,0 +1,87 @@
+import atexit,collections,hashlib,json,os,pathlib
+import torch,flashinfer,triton
+import triton.language as tl
+@triton.jit
+def pack(PK,PV,K,V,OK,OV,T,CQ,CK,P, TS:tl.constexpr, BLOCK:tl.constexpr):
+ r=tl.program_id(0); seq=tl.program_id(1); x=r*BLOCK+tl.arange(0,BLOCK)
+ start=tl.load(CK+seq); end=tl.load(CK+seq+1); pref=tl.load(P+seq); qs=tl.load(CQ+seq)
+ token=x//1024; h=x%1024//128; d=x%128; valid=token<end-start
+ page=tl.load(T+seq*TS+token//32,valid & (token<pref),other=0)
+ cacheoff=page*32768+h*4096+(token%32)*128+d
+ fresh=(qs+token-pref)*6144+h*128+d
+ a=tl.load(PK+cacheoff,valid & (token<pref),other=0); b=tl.load(K+fresh,valid & (token>=pref),other=0)
+ c=tl.load(PV+cacheoff,valid & (token<pref),other=0); e=tl.load(V+fresh,valid & (token>=pref),other=0)
+ tl.store(OK+start*1024+x,tl.where(token<pref,a,b),valid); tl.store(OV+start*1024+x,tl.where(token<pref,c,e),valid)
+
+from sglang.srt.layers.attention.trtllm_mha_backend import TRTLLMHAAttnBackend
+from sglang.kernels.ops.attention.flash_attn.cute import interface,utils
+state={'current':None,'fa4_calls':0,'fa4_tokens':0,'fallback_reasons':collections.Counter(),'proof':[],'clc_cache_hits':0,'packed_tokens':0,'prefix_histogram':collections.Counter(),'max_scratch_bytes':0}
+scratch={}
+path=pathlib.Path(os.environ['QVL_FA4_REPORT'])
+path=path.with_name(path.stem+'-pid'+str(os.getpid())+path.suffix)
+def save():
+ if not state['fa4_calls'] and not state['fallback_reasons']:return
+ path.parent.mkdir(parents=True,exist_ok=True)
+ with path.open('a') as f:f.write(json.dumps({k:v for k,v in state.items() if k!='current'})+'\n')
+class CacheProxy:
+ def __init__(self,base):self.base=base
+ def __contains__(self,k):return k in self.base
+ def __setitem__(self,k,v):self.base[k]=v
+ def __getitem__(self,k):
+  value=self.base[k]
+  if state.get('in_fa4'):
+   assert len(k)==62 and k[39] is True
+   state['clc_cache_hits']+=1
+   if len(state['proof'])<4:state['proof'].append({'selected_clc':True,'cache_key_sha256':hashlib.sha256(repr(k).encode()).hexdigest()})
+  return value
+interface._flash_attn_fwd.compile_cache=CacheProxy(interface._flash_attn_fwd.compile_cache)
+original_extend=TRTLLMHAAttnBackend.forward_extend
+original_context=flashinfer.prefill.trtllm_batch_context_with_kv_cache
+def extend(self,q,k,v,layer,batch,*a,**kw):
+ prev=state['current'];state['current']=(k,v,layer,batch)
+ try:return original_extend(self,q,k,v,layer,batch,*a,**kw)
+ finally:state['current']=prev
+def context(*a,**kw):
+ cur=state['current']
+ if cur is None:return original_context(*a,**kw)
+ k,v,layer,batch=cur;q=kw['query'];n=kw['batch_size'];prefix=batch.extend_prefix_lens_cpu
+ reason=None
+ if k is None or v is None:reason='missing_fresh_kv'
+ elif prefix is None or n<=0 or q.shape[0]<4096:reason='short_or_missing_metadata'
+ elif sum(prefix[:n])+q.shape[0]>32768 or max(p+l for p,l in zip(prefix[:n],batch.extend_seq_lens_cpu[:n]))>16384:reason='workspace_bound'
+ elif batch.contains_mm_inputs():reason='multimodal'
+ elif q.dtype!=torch.bfloat16 or k.dtype!=torch.bfloat16 or v.dtype!=torch.bfloat16:reason='dtype'
+ elif q.shape[1:]!=(32,128):reason='shape'
+ elif kw.get('sinks') is not None or kw.get('window_left',-1) not in [-1,None] or kw.get('kv_cache_sf') is not None:reason='attention_features'
+ elif kw['bmm2_scale']!=1.0:reason='value_scale'
+ elif any(x<=0 for x in batch.extend_seq_lens_cpu[:n]):reason='empty_request'
+ elif k.reshape(-1,8,128).stride()!=(6144,128,1) or v.reshape(-1,8,128).stride()!=(6144,128,1):reason='fresh_stride'
+ elif any(x.dtype!=torch.bfloat16 or x.stride()!=(32768,4096,128,1) for x in kw['kv_cache']):reason='cache_layout'
+ if reason:
+  state['fallback_reasons'][reason]+=1
+  if sum(state['fallback_reasons'].values())%1024==1:save()
+  return original_context(*a,**kw)
+ tokens=q.shape[0]
+ assert sum(batch.extend_seq_lens_cpu[:n])==tokens
+ assert k.numel()//1024>=tokens and v.numel()//1024>=tokens
+ assert kw.get('out') is None or kw['out'].shape==q.shape
+ kk=k.reshape(-1,8,128)[:tokens];vv=v.reshape(-1,8,128)[:tokens]
+ totals=[p+l for p,l in zip(prefix[:n],batch.extend_seq_lens_cpu[:n])];total=sum(totals)
+ capacity=((total+4095)//4096)*4096
+ key=q.device
+ if key not in scratch or scratch[key][0].shape[0]<total:scratch[key]=(torch.empty(capacity,8,128,device=q.device,dtype=q.dtype),torch.empty(capacity,8,128,device=q.device,dtype=q.dtype))
+ ok,ov=(x[:total] for x in scratch[key]);pk,pv=kw['kv_cache'];table=kw['block_tables']
+ pack[(triton.cdiv(max(totals)*1024,1024),n)](pk,pv,kk,vv,ok,ov,table,kw['cum_seq_lens_q'],kw['cum_seq_lens_kv'],batch.extend_prefix_lens,table.stride(0),1024)
+ utils._fa_clc_enabled=True;state['in_fa4']=True
+ try:
+  result=interface.flash_attn_varlen_func(q,ok,ov,cu_seqlens_q=kw['cum_seq_lens_q'],cu_seqlens_k=kw['cum_seq_lens_kv'],max_seqlen_q=kw['max_q_len'],max_seqlen_k=max(totals),softmax_scale=kw['bmm1_scale'],causal=True,out=kw.get('out'))
+ finally:state['in_fa4']=False
+ out=result[0] if isinstance(result,tuple) else result
+ assert kw.get('out') is None or out.data_ptr()==kw['out'].data_ptr()
+ state['fa4_calls']+=1;state['fa4_tokens']+=tokens;state['packed_tokens']+=total;state['prefix_histogram'].update(prefix[:n]);state['max_scratch_bytes']=max(state['max_scratch_bytes'],capacity*4096)
+ if state['fa4_calls']==1:state['first_context']={'tokens':tokens,'requests':n,'prefix':list(prefix[:n]),'q_stride':list(q.stride()),'k_stride':list(kk.stride()),'v_stride':list(vv.stride())}
+ if state['fa4_calls']%1024==1:save()
+ return out
+TRTLLMHAAttnBackend.forward_extend=extend
+flashinfer.prefill.trtllm_batch_context_with_kv_cache=context
+atexit.register(save)
