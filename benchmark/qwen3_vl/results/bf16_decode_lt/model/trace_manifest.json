@@ -1,0 +1,12 @@
+[
+  {
+    "path": "/root/qvl/experiments/decode-lt/control_gpu2/warm_decode_trace.json",
+    "sha256": "0417991894c1bbc0346810982819b6198d70451555f8e80b1a7c7f9f8eadb2d9",
+    "bytes": 419207
+  },
+  {
+    "path": "/root/qvl/experiments/decode-lt/candidate_lt/warm_decode_trace.json",
+    "sha256": "3ff5bb5b299becec9f4c08e367b4e5f2ae857b296226f1ba9837e5af11cecba2",
+    "bytes": 419101
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "phase": "A",
+  "gpu": 4,
+  "variant": "control",
+  "source_commit": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+  "server_command": [
+    "/root/qvl/venv-sgl/bin/python",
+    "-m",
+    "sglang.launch_server",
+    "--model-path",
+    "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+    "--dtype",
+    "bfloat16",
+    "--kv-cache-dtype",
+    "bfloat16",
+    "--attention-backend",
+    "trtllm_mha",
+    "--page-size",
+    "32",
+    "--enable-mixed-chunk",
+    "--chunked-prefill-size",
+    "16384",
+    "--cuda-graph-backend-prefill",
+    "disabled",
+    "--enforce-disable-flashinfer-allreduce-fusion",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "32004"
+  ],
+  "environment": {
+    "CUDA_VISIBLE_DEVICES": "4",
+    "PYTHONPATH": "/root/qvl/experiments/decode-lt-serving/hooks:/root/qvl/sglang-current-profile/python",
+    "SGLANG_USE_HND_KVCACHE": "1",
+    "QVL_LT_PATCH": "0",
+    "MAX_JOBS": "8"
+  }
+}

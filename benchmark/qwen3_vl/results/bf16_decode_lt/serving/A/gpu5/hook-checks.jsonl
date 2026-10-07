@@ -1,0 +1,2 @@
+{"shape": [128, 19456, 2560], "tactic": 1, "bitwise": true, "max_abs": 0.0, "workspace_mib": 40, "pid": 127500}
+{"shape": [128, 2560, 9728], "tactic": 4, "bitwise": true, "max_abs": 0.0, "workspace_mib": 40, "pid": 127500}

@@ -1,0 +1,18 @@
+{
+  "EXTEND_16384": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "nrms": 0.0,
+    "argmax_mismatches": 0
+  },
+  "DECODE_128": {
+    "bitwise": false,
+    "max_abs": 0.31640625,
+    "nrms": 0.005188767332583666,
+    "argmax_mismatches": 5
+  },
+  "candidate_dispatch": {
+    "gateup": "FlashInferLt tactic1,40MiBworkspace",
+    "down": "TGV tactic23, QVL_TGV_DOWN=1; rawchecks tactic4 field is stale Lt mapping, not actual downkernel"
+  }
+}

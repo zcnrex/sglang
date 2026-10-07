@@ -1,0 +1,1796 @@
+{
+  "method": "12 SGLangCuTeTGV tactics per shape; 16 independent rotatingweights (>335MB) captured inCUDAgraphs; timings normalizedperGEMM; threealternating rounds;productionselectorbaseline",
+  "results": [
+    {
+      "shape": "down",
+      "m": 64,
+      "configs": 12,
+      "best_tactic": 8,
+      "production_tactic": null,
+      "baseline_us": 12.694773022035491,
+      "candidate_us": 13.436431544167654,
+      "nrms": 0.0002277244784636423
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "configs": 12,
+      "best_tactic": 23,
+      "production_tactic": null,
+      "baseline_us": 14.89277645281166,
+      "candidate_us": 14.162388379625279,
+      "nrms": 0.00022119497589301318
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "configs": 12,
+      "best_tactic": 8,
+      "production_tactic": 21,
+      "baseline_us": 6.810451456994721,
+      "candidate_us": 7.251950314170435,
+      "nrms": 0.0
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "configs": 12,
+      "best_tactic": 23,
+      "production_tactic": 23,
+      "baseline_us": 7.614930109544233,
+      "candidate_us": 7.611690131762556,
+      "nrms": 0.0
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "configs": 12,
+      "best_tactic": 23,
+      "production_tactic": null,
+      "baseline_us": 7.336030107863406,
+      "candidate_us": 7.3358118975604025,
+      "nrms": 0.0
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "configs": 12,
+      "best_tactic": 24,
+      "production_tactic": null,
+      "baseline_us": 7.765648811808471,
+      "candidate_us": 8.46886502371894,
+      "nrms": 0.0
+    }
+  ],
+  "raw": [
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 1,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.340197020948531,
+          "candidate_us": 26.714914605237436
+        },
+        {
+          "baseline_us": 7.3411495378702,
+          "candidate_us": 26.722779891473785
+        },
+        {
+          "baseline_us": 7.3379672519744386,
+          "candidate_us": 26.71839859750536
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 7,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.338445435469399,
+          "candidate_us": 11.782010137170985
+        },
+        {
+          "baseline_us": 7.343823125385694,
+          "candidate_us": 11.78721615867893
+        },
+        {
+          "baseline_us": 7.333940845604731,
+          "candidate_us": 11.783007225569557
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 8,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.332806493721756,
+          "candidate_us": 11.42374706618926
+        },
+        {
+          "baseline_us": 7.327962646484375,
+          "candidate_us": 11.394852925749385
+        },
+        {
+          "baseline_us": 7.333019146552453,
+          "candidate_us": 11.421748756492226
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 9,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.329933471679688,
+          "candidate_us": 7.713558919289532
+        },
+        {
+          "baseline_us": 7.3423623658443375,
+          "candidate_us": 7.729150004246656
+        },
+        {
+          "baseline_us": 7.329553212874975,
+          "candidate_us": 7.713242901696099
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 10,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.331859154306399,
+          "candidate_us": 10.142490063004821
+        },
+        {
+          "baseline_us": 7.330357218251645,
+          "candidate_us": 10.1266824562131
+        },
+        {
+          "baseline_us": 7.333118258378445,
+          "candidate_us": 10.141974278078735
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 14,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.335192979045438,
+          "candidate_us": 9.990662292197898
+        },
+        {
+          "baseline_us": 7.339061678325338,
+          "candidate_us": 9.96073475782422
+        },
+        {
+          "baseline_us": 7.334387378814893,
+          "candidate_us": 9.9818311797248
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 15,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.337624566596851,
+          "candidate_us": 12.610448771760664
+        },
+        {
+          "baseline_us": 7.348844740125868,
+          "candidate_us": 12.595708193602384
+        },
+        {
+          "baseline_us": 7.341999324239587,
+          "candidate_us": 12.608805939003274
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 22,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.3338747404789055,
+          "candidate_us": 8.052175422366574
+        },
+        {
+          "baseline_us": 7.341741561889648,
+          "candidate_us": 8.036158526385272
+        },
+        {
+          "baseline_us": 7.332781382969448,
+          "candidate_us": 8.056077295846313
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 23,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.330121448195417,
+          "candidate_us": 7.3358118975604025
+        },
+        {
+          "baseline_us": 7.336030107863406,
+          "candidate_us": 7.327326745477341
+        },
+        {
+          "baseline_us": 7.338760536947068,
+          "candidate_us": 7.351573100730554
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 24,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.331644453803059,
+          "candidate_us": 7.938433141636669
+        },
+        {
+          "baseline_us": 7.340334099569138,
+          "candidate_us": 7.91841466931531
+        },
+        {
+          "baseline_us": 7.334075894272118,
+          "candidate_us": 7.938221945379773
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 27,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.330388325016673,
+          "candidate_us": 9.048819541931152
+        },
+        {
+          "baseline_us": 7.331696105079529,
+          "candidate_us": 9.02565068273402
+        },
+        {
+          "baseline_us": 7.33630318795481,
+          "candidate_us": 9.038437119236699
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 64,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 28,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.332661705559464,
+          "candidate_us": 10.837164298811954
+        },
+        {
+          "baseline_us": 7.329094636289379,
+          "candidate_us": 10.808936637990614
+        },
+        {
+          "baseline_us": 7.332361848971333,
+          "candidate_us": 10.822581121886985
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 1,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.757519718795317,
+          "candidate_us": 48.485769748687744
+        },
+        {
+          "baseline_us": 7.752648242929364,
+          "candidate_us": 48.463515674366676
+        },
+        {
+          "baseline_us": 7.7639249404542685,
+          "candidate_us": 48.477704926292496
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 7,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.759152208283593,
+          "candidate_us": 17.036049223657866
+        },
+        {
+          "baseline_us": 7.7586416837548,
+          "candidate_us": 17.030346220818117
+        },
+        {
+          "baseline_us": 7.756842299661198,
+          "candidate_us": 17.040567398071286
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 8,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.758599619402933,
+          "candidate_us": 16.740288734436035
+        },
+        {
+          "baseline_us": 7.756877665551717,
+          "candidate_us": 16.701791234260057
+        },
+        {
+          "baseline_us": 7.760417299205754,
+          "candidate_us": 16.703435994576715
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 9,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.764466019823077,
+          "candidate_us": 13.183851860187671
+        },
+        {
+          "baseline_us": 7.764163488519052,
+          "candidate_us": 13.147693486522426
+        },
+        {
+          "baseline_us": 7.763035577647325,
+          "candidate_us": 13.186989832615508
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 10,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.760598572385667,
+          "candidate_us": 10.737692073539453
+        },
+        {
+          "baseline_us": 7.75597705397495,
+          "candidate_us": 10.71593165397644
+        },
+        {
+          "baseline_us": 7.7608253996251,
+          "candidate_us": 10.743890626587136
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 14,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.75930526240772,
+          "candidate_us": 10.137493331937025
+        },
+        {
+          "baseline_us": 7.764723623336257,
+          "candidate_us": 10.145237933110145
+        },
+        {
+          "baseline_us": 7.763865777946615,
+          "candidate_us": 10.140871556837167
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 15,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.764020542170377,
+          "candidate_us": 13.84313435696844
+        },
+        {
+          "baseline_us": 7.758230650985001,
+          "candidate_us": 13.8229152469924
+        },
+        {
+          "baseline_us": 7.7673862496267185,
+          "candidate_us": 13.846318633468062
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 22,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.760854794306429,
+          "candidate_us": 12.440682080254625
+        },
+        {
+          "baseline_us": 7.766487063686119,
+          "candidate_us": 12.416436274846395
+        },
+        {
+          "baseline_us": 7.768960469434051,
+          "candidate_us": 12.442720737030257
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 23,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.758818758991695,
+          "candidate_us": 12.052242932496249
+        },
+        {
+          "baseline_us": 7.760171108819968,
+          "candidate_us": 12.029840341254847
+        },
+        {
+          "baseline_us": 7.76152823798845,
+          "candidate_us": 12.052908208635118
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 24,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.759913742142236,
+          "candidate_us": 8.46886502371894
+        },
+        {
+          "baseline_us": 7.765648811808471,
+          "candidate_us": 8.445845062571362
+        },
+        {
+          "baseline_us": 7.76643939253025,
+          "candidate_us": 8.46969926957604
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 27,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.763897166718693,
+          "candidate_us": 9.304959433419365
+        },
+        {
+          "baseline_us": 7.7648912949419495,
+          "candidate_us": 9.279119091875412
+        },
+        {
+          "baseline_us": 7.7689093797385285,
+          "candidate_us": 9.307085415896248
+        }
+      ]
+    },
+    {
+      "shape": "qkv",
+      "m": 128,
+      "n": 6144,
+      "k": 2560,
+      "baseline_tactic": null,
+      "tactic": 28,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 503316480,
+      "times": [
+        {
+          "baseline_us": 7.76481268389913,
+          "candidate_us": 11.90274953842163
+        },
+        {
+          "baseline_us": 7.7664887964825,
+          "candidate_us": 11.905687473438405
+        },
+        {
+          "baseline_us": 7.7644833932557615,
+          "candidate_us": 11.890843836930546
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 1,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.655032363008051,
+          "candidate_us": 18.133329823069328
+        },
+        {
+          "baseline_us": 6.639895663745161,
+          "candidate_us": 18.14023080994101
+        },
+        {
+          "baseline_us": 6.642522646562897,
+          "candidate_us": 18.151452057603475
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 7,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.653038193197811,
+          "candidate_us": 8.161414905830666
+        },
+        {
+          "baseline_us": 6.808078199400937,
+          "candidate_us": 8.167189540285053
+        },
+        {
+          "baseline_us": 6.7975564110547975,
+          "candidate_us": 8.167796965801355
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 8,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.810451456994721,
+          "candidate_us": 7.248710429490503
+        },
+        {
+          "baseline_us": 6.81102244711634,
+          "candidate_us": 7.251950314170435
+        },
+        {
+          "baseline_us": 6.804594061428443,
+          "candidate_us": 7.265030082903411
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 9,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.80690154210845,
+          "candidate_us": 8.297579288482666
+        },
+        {
+          "baseline_us": 6.808591065583406,
+          "candidate_us": 8.308062535613331
+        },
+        {
+          "baseline_us": 6.804837739985922,
+          "candidate_us": 8.30913098419414
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 10,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.808345229537399,
+          "candidate_us": 12.924744101131663
+        },
+        {
+          "baseline_us": 6.812474665357106,
+          "candidate_us": 12.936884730401701
+        },
+        {
+          "baseline_us": 6.806115957273954,
+          "candidate_us": 12.93366966040238
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 14,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.803859047817461,
+          "candidate_us": 12.73768575567948
+        },
+        {
+          "baseline_us": 6.807400014278662,
+          "candidate_us": 12.753562927246094
+        },
+        {
+          "baseline_us": 6.805103708196569,
+          "candidate_us": 12.742075566892272
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 15,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.806161541205187,
+          "candidate_us": 17.16463023966009
+        },
+        {
+          "baseline_us": 6.801512424093093,
+          "candidate_us": 17.16377505549678
+        },
+        {
+          "baseline_us": 6.806497100521536,
+          "candidate_us": 17.154910964687375
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 22,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.798989521829705,
+          "candidate_us": 8.697218058714226
+        },
+        {
+          "baseline_us": 6.798902313217862,
+          "candidate_us": 8.685013471227705
+        },
+        {
+          "baseline_us": 6.80256640638104,
+          "candidate_us": 8.688354582497569
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 23,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.804729314675009,
+          "candidate_us": 7.435327813141328
+        },
+        {
+          "baseline_us": 6.804564890970711,
+          "candidate_us": 7.432073813218337
+        },
+        {
+          "baseline_us": 6.81279087794646,
+          "candidate_us": 7.44234888177169
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 24,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.806496914589044,
+          "candidate_us": 8.602980256990621
+        },
+        {
+          "baseline_us": 6.811068751918736,
+          "candidate_us": 8.592756942466455
+        },
+        {
+          "baseline_us": 6.8113511138492155,
+          "candidate_us": 8.59330381665911
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 27,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.815487868858106,
+          "candidate_us": 11.137936422319124
+        },
+        {
+          "baseline_us": 6.803153421645774,
+          "candidate_us": 11.135141707178372
+        },
+        {
+          "baseline_us": 6.803417644079994,
+          "candidate_us": 11.1354963223737
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 64,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 21,
+      "tactic": 28,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 6.8092878117705835,
+          "candidate_us": 14.09273093804381
+        },
+        {
+          "baseline_us": 6.811660573338018,
+          "candidate_us": 14.091604315873349
+        },
+        {
+          "baseline_us": 6.800215126890125,
+          "candidate_us": 14.092923575685225
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 1,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.60066769176856,
+          "candidate_us": 30.44596765980576
+        },
+        {
+          "baseline_us": 7.609412164399118,
+          "candidate_us": 30.470725234228237
+        },
+        {
+          "baseline_us": 7.611671668380054,
+          "candidate_us": 30.464775507686703
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 7,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.611256837844849,
+          "candidate_us": 13.603321349982059
+        },
+        {
+          "baseline_us": 7.614824266144724,
+          "candidate_us": 13.60651548092182
+        },
+        {
+          "baseline_us": 7.610094592771457,
+          "candidate_us": 13.609738932311078
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 8,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.613103001406699,
+          "candidate_us": 12.858528892199198
+        },
+        {
+          "baseline_us": 7.646741135781552,
+          "candidate_us": 12.862990623296692
+        },
+        {
+          "baseline_us": 7.645175612069727,
+          "candidate_us": 12.863424951715988
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 9,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.609751639944133,
+          "candidate_us": 8.466352670247318
+        },
+        {
+          "baseline_us": 7.596004551107233,
+          "candidate_us": 8.465606065896841
+        },
+        {
+          "baseline_us": 7.612586203422255,
+          "candidate_us": 8.471990732046272
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 10,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.595849215094724,
+          "candidate_us": 13.428796963258224
+        },
+        {
+          "baseline_us": 7.6129603021927466,
+          "candidate_us": 13.426364568563608
+        },
+        {
+          "baseline_us": 7.613718283898903,
+          "candidate_us": 13.428041316170729
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 14,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.611996966197078,
+          "candidate_us": 12.696072820461156
+        },
+        {
+          "baseline_us": 7.613628741466638,
+          "candidate_us": 12.706381765030722
+        },
+        {
+          "baseline_us": 7.612230244911078,
+          "candidate_us": 12.710532013859067
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 15,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.614159132495071,
+          "candidate_us": 18.58022616459773
+        },
+        {
+          "baseline_us": 7.613099212864883,
+          "candidate_us": 18.59073510536781
+        },
+        {
+          "baseline_us": 7.615612208388233,
+          "candidate_us": 18.547672491807205
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 22,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.614648387287602,
+          "candidate_us": 8.837610663789691
+        },
+        {
+          "baseline_us": 7.608925204240639,
+          "candidate_us": 8.825818575345552
+        },
+        {
+          "baseline_us": 7.614665689753062,
+          "candidate_us": 8.831359973320595
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 23,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.60957422581586,
+          "candidate_us": 7.60830609184323
+        },
+        {
+          "baseline_us": 7.614930109544233,
+          "candidate_us": 7.611690131762556
+        },
+        {
+          "baseline_us": 7.615818276660133,
+          "candidate_us": 7.6124946579678365
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 24,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.611616333918785,
+          "candidate_us": 9.245868583223713
+        },
+        {
+          "baseline_us": 7.613243644398854,
+          "candidate_us": 9.25604060180205
+        },
+        {
+          "baseline_us": 7.613324670863331,
+          "candidate_us": 9.254896192622365
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 27,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.6070399637575505,
+          "candidate_us": 11.129773021640634
+        },
+        {
+          "baseline_us": 7.615896095906882,
+          "candidate_us": 11.139654931221301
+        },
+        {
+          "baseline_us": 7.6068677400287825,
+          "candidate_us": 11.136703727809527
+        }
+      ]
+    },
+    {
+      "shape": "o",
+      "m": 128,
+      "n": 2560,
+      "k": 4096,
+      "baseline_tactic": 23,
+      "tactic": 28,
+      "nrms": 0.0,
+      "rotating_weight_bytes": 335544320,
+      "times": [
+        {
+          "baseline_us": 7.605995450701033,
+          "candidate_us": 15.197383454351714
+        },
+        {
+          "baseline_us": 7.625104622407393,
+          "candidate_us": 15.213107512547419
+        },
+        {
+          "baseline_us": 7.611952622731527,
+          "candidate_us": 15.201354923104882
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 1,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.68915857957757,
+          "candidate_us": 35.99159911826805
+        },
+        {
+          "baseline_us": 12.698611308788431,
+          "candidate_us": 35.97993356210214
+        },
+        {
+          "baseline_us": 12.707447877494237,
+          "candidate_us": 35.98516663508629
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 7,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.699626710103905,
+          "candidate_us": 15.935164218326268
+        },
+        {
+          "baseline_us": 12.68383126374525,
+          "candidate_us": 15.92208781140916
+        },
+        {
+          "baseline_us": 12.687558947869066,
+          "candidate_us": 15.940362600971467
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 8,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.694773022035491,
+          "candidate_us": 13.436431544167654
+        },
+        {
+          "baseline_us": 12.686528057180427,
+          "candidate_us": 13.431868964819598
+        },
+        {
+          "baseline_us": 12.69545440060204,
+          "candidate_us": 13.442523788205154
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 9,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.67901135262132,
+          "candidate_us": 15.841130649342256
+        },
+        {
+          "baseline_us": 12.695435991875287,
+          "candidate_us": 15.820083343725411
+        },
+        {
+          "baseline_us": 12.682459103771938,
+          "candidate_us": 15.842551906613538
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 10,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.675737052835444,
+          "candidate_us": 27.155517835686677
+        },
+        {
+          "baseline_us": 12.693365436358594,
+          "candidate_us": 27.14951550519025
+        },
+        {
+          "baseline_us": 12.677958462689375,
+          "candidate_us": 27.15900414181452
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 14,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.676725950062115,
+          "candidate_us": 26.2491878341226
+        },
+        {
+          "baseline_us": 12.686244949050572,
+          "candidate_us": 26.25943825525396
+        },
+        {
+          "baseline_us": 12.693618439339303,
+          "candidate_us": 26.247945185060853
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 15,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.683367213687381,
+          "candidate_us": 37.02614576296699
+        },
+        {
+          "baseline_us": 12.68650900642827,
+          "candidate_us": 37.00566183437
+        },
+        {
+          "baseline_us": 12.68417893072987,
+          "candidate_us": 37.044796799168445
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 22,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.705754080126361,
+          "candidate_us": 16.922569812688614
+        },
+        {
+          "baseline_us": 12.698473084357477,
+          "candidate_us": 16.91517616385844
+        },
+        {
+          "baseline_us": 12.68552864524698,
+          "candidate_us": 16.9336175217348
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 23,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.680151251621604,
+          "candidate_us": 13.607856255990487
+        },
+        {
+          "baseline_us": 12.694052416038,
+          "candidate_us": 13.612007393556484
+        },
+        {
+          "baseline_us": 12.684803762617813,
+          "candidate_us": 13.62193265970606
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 24,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.681007128889842,
+          "candidate_us": 16.23743010642833
+        },
+        {
+          "baseline_us": 12.68427681278538,
+          "candidate_us": 16.231727775405435
+        },
+        {
+          "baseline_us": 12.68051875534878,
+          "candidate_us": 16.251373113091315
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 27,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.676383090275591,
+          "candidate_us": 22.165879988132563
+        },
+        {
+          "baseline_us": 12.679363843556997,
+          "candidate_us": 22.155515120847383
+        },
+        {
+          "baseline_us": 12.676701660769876,
+          "candidate_us": 22.170536241669584
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 64,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 28,
+      "nrms": 0.0002277244784636423,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 12.67558969256049,
+          "candidate_us": 28.849631728547994
+        },
+        {
+          "baseline_us": 12.67795048633997,
+          "candidate_us": 28.83465738224804
+        },
+        {
+          "baseline_us": 12.680447552655195,
+          "candidate_us": 28.856612829601065
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 1,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.869226662876507,
+          "candidate_us": 59.85369912113052
+        },
+        {
+          "baseline_us": 14.885878033108181,
+          "candidate_us": 59.866785715861496
+        },
+        {
+          "baseline_us": 14.885356168078768,
+          "candidate_us": 59.86555857830737
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 7,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.894528753438573,
+          "candidate_us": 27.458106664786662
+        },
+        {
+          "baseline_us": 14.901563553583054,
+          "candidate_us": 27.458319067955017
+        },
+        {
+          "baseline_us": 14.896851551683643,
+          "candidate_us": 27.453408872379978
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 8,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.900775197186046,
+          "candidate_us": 25.63836010357806
+        },
+        {
+          "baseline_us": 14.903804385472858,
+          "candidate_us": 25.615879542687363
+        },
+        {
+          "baseline_us": 14.89897955031622,
+          "candidate_us": 25.63001618665807
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 9,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.909519922165643,
+          "candidate_us": 16.049259634160283
+        },
+        {
+          "baseline_us": 14.896623799755314,
+          "candidate_us": 16.028347502659706
+        },
+        {
+          "baseline_us": 14.89955077788055,
+          "candidate_us": 16.047846661867016
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 10,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.897625635540676,
+          "candidate_us": 27.659269767021065
+        },
+        {
+          "baseline_us": 14.895603941671503,
+          "candidate_us": 27.66275423414567
+        },
+        {
+          "baseline_us": 14.896180358114123,
+          "candidate_us": 27.658734530428028
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 14,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.894453785087489,
+          "candidate_us": 26.11531098683675
+        },
+        {
+          "baseline_us": 14.9028187344788,
+          "candidate_us": 26.090976984604545
+        },
+        {
+          "baseline_us": 14.901477667936096,
+          "candidate_us": 26.11278663663303
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 15,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.894858894834092,
+          "candidate_us": 38.64467463155431
+        },
+        {
+          "baseline_us": 14.903148266043196,
+          "candidate_us": 38.625343578068296
+        },
+        {
+          "baseline_us": 14.894611516575903,
+          "candidate_us": 38.646720150324306
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 22,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.960389969840882,
+          "candidate_us": 17.173849468800558
+        },
+        {
+          "baseline_us": 14.865737141303295,
+          "candidate_us": 17.150942367665905
+        },
+        {
+          "baseline_us": 14.86350421247811,
+          "candidate_us": 17.18129902860544
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 23,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.872362342061875,
+          "candidate_us": 14.231967484509504
+        },
+        {
+          "baseline_us": 14.89584788727684,
+          "candidate_us": 14.13615332902783
+        },
+        {
+          "baseline_us": 14.89277645281166,
+          "candidate_us": 14.162388379625279
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 24,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.90302957021273,
+          "candidate_us": 17.01843720763477
+        },
+        {
+          "baseline_us": 14.893850646441496,
+          "candidate_us": 17.018917007167843
+        },
+        {
+          "baseline_us": 14.894696947128054,
+          "candidate_us": 17.020899361937587
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 27,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.902109115842789,
+          "candidate_us": 22.197610406733272
+        },
+        {
+          "baseline_us": 14.901425868650026,
+          "candidate_us": 22.19012688546285
+        },
+        {
+          "baseline_us": 14.898363040511017,
+          "candidate_us": 22.19624806167488
+        }
+      ]
+    },
+    {
+      "shape": "down",
+      "m": 128,
+      "n": 2560,
+      "k": 9728,
+      "baseline_tactic": null,
+      "tactic": 28,
+      "nrms": 0.00022119497589301318,
+      "rotating_weight_bytes": 796917760,
+      "times": [
+        {
+          "baseline_us": 14.895759266652878,
+          "candidate_us": 29.982247746976697
+        },
+        {
+          "baseline_us": 14.898217780680596,
+          "candidate_us": 29.9720177827058
+        },
+        {
+          "baseline_us": 14.89647426302471,
+          "candidate_us": 29.978707984641748
+        }
+      ]
+    }
+  ],
+  "decision": "Only downM128tactic23 modest5%gain; profileagent compares with cuBLASLt before any modeltest. Othercells no improvement."
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "shape": [
+      128,
+      2560,
+      9728
+    ],
+    "weight_name": "model.layers.0.mlp.down_proj.weight",
+    "weight_dtype": "torch.bfloat16",
+    "bitwise_vs_torch": false,
+    "max_abs": 0.00390625,
+    "nrms": 0.00010335261322325096,
+    "tuning_seconds": 1.1689835550205316
+  },
+  {
+    "shape": [
+      128,
+      19456,
+      2560
+    ],
+    "weight_name": "model.layers.0.mlp.gate_up_proj.weight",
+    "weight_dtype": "torch.bfloat16",
+    "bitwise_vs_torch": true,
+    "max_abs": 0.0,
+    "nrms": 0.0,
+    "tuning_seconds": 0.05409838102059439
+  }
+]

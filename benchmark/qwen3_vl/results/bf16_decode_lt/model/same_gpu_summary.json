@@ -1,0 +1,79 @@
+{
+  "control_gpu2": {
+    "median_decode_ms": 4.8320159839931875,
+    "all_decode_ms": [
+      4.813513020053506,
+      4.846523981541395,
+      4.845225979806855,
+      4.7924120153766125,
+      4.825083975447342,
+      4.838947992539033
+    ],
+    "all_prefill_ms": [
+      101.14034998696297,
+      100.47587298322469,
+      99.69105600612238,
+      100.39724101079628,
+      97.65215098741464,
+      100.44421599013731
+    ],
+    "graph_true": 217,
+    "graph_total": 217,
+    "dispatch_counts": {},
+    "gemm_kernels": {
+      "nvjet_sm103_tst_96x64_64x15_2x2_2cta_h_bz_TNN": 36,
+      "kernel_cutlass_kernel_TgvGemmCuteExtKernel_cta64x64x128_2cta1_pdl1_bias0_outbfloat16_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32o1i64i64_ten_0": 36,
+      "nvjet_sm103_tst_320x64_64x4_2x2_2cta_h_bz_TNT": 36,
+      "nvjet_sm103_tst_128x64_64x10_2x2_2cta_h_bz_splitK_TNT": 36,
+      "void cublasLt::splitKreduce_kernel<32, 16, int, float, __nv_bfloat16, float, __nv_bfloat16, false, float, __nv_bfloat16, __nv_bfloat16, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, __nv_bfloat16 const*, float*, __nv_bfloat16*, float const*, float const*, __nv_bfloat16 const*, float const*, __nv_bfloat16*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": 36,
+      "nvjet_sm103_tst_384x64_64x4_2x2_2cta_h_bz_TNT": 1
+    }
+  },
+  "candidate_lt": {
+    "median_decode_ms": 4.399597499286756,
+    "all_decode_ms": [
+      4.376579017844051,
+      4.400022997288033,
+      4.3991720012854785,
+      4.428957996424288,
+      4.386143002193421,
+      4.412754002260044
+    ],
+    "all_prefill_ms": [
+      99.05148402322084,
+      95.98051500506699,
+      97.50311399693601,
+      97.16455900343135,
+      97.4782719858922,
+      96.80594599922188
+    ],
+    "graph_true": 217,
+    "graph_total": 217,
+    "dispatch_counts": {
+      "(128, 19456, 2560)": 108,
+      "(128, 2560, 9728)": 108
+    },
+    "gemm_kernels": {
+      "nvjet_sm103_tst_96x64_64x15_2x2_2cta_h_bz_TNN": 36,
+      "kernel_cutlass_kernel_TgvGemmCuteExtKernel_cta64x64x128_2cta1_pdl1_bias0_outbfloat16_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32o1i64i64_ten_0": 36,
+      "nvjet_sm103_tst_144x128_64x6_2x1_v_bz_TNN": 36,
+      "nvjet_sm103_tst_64x128_64x13_2x1_2cta_v_bz_splitK_TNT": 36,
+      "void cublasLt::splitKreduce_kernel<32, 16, int, float, __nv_bfloat16, float, __nv_bfloat16, false, float, __nv_bfloat16, __nv_bfloat16, true, false, false, false>(cublasLt::cublasSplitKParams<float>, float const*, __nv_bfloat16 const*, float*, __nv_bfloat16*, float const*, float const*, __nv_bfloat16 const*, float const*, __nv_bfloat16*, void*, long, float*, int*, float*, float*, float const*, float const*, float const*, float const*, float const*)": 36,
+      "nvjet_sm103_tst_384x64_64x4_2x2_2cta_h_bz_TNT": 1
+    }
+  },
+  "logits": {
+    "EXTEND_16384": {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "argmax_mismatches": 0
+    },
+    "DECODE_128": {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "argmax_mismatches": 0
+    }
+  }
+}

@@ -1,0 +1,56 @@
+[2026-10-07 20:07:48 TP0] Init parallel begin.
+[2026-10-07 20:07:48 TP0] Init parallel ends. elapsed=0.31 s
+[2026-10-07 20:07:48 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-07 20:07:50 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-07 20:07:50 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-07 20:07:50 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.11it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.04it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.05it/s]
+[2026-10-07 20:07:52 TP0] Load weight end. elapsed=2.66 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-07 20:07:53 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-07 20:07:53 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1611584, K size: 110.66 GB, V size: 110.66 GB
+[2026-10-07 20:07:53 TP0] Memory pool end. avail mem=33.93 GB
+[2026-10-07 20:07:53 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-07 20:07:53 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128], avail mem=32.76 GB
+  0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=32.69 GB):   0%|          | 0/20 [00:00<?, ?it/s]Capturing batches (bs=128 avail_mem=32.69 GB):   5%|▌         | 1/20 [00:03<01:00,  3.19s/it]Capturing batches (bs=120 avail_mem=32.61 GB):   5%|▌         | 1/20 [00:03<01:00,  3.19s/it]Capturing batches (bs=112 avail_mem=32.61 GB):   5%|▌         | 1/20 [00:03<01:00,  3.19s/it]Capturing batches (bs=112 avail_mem=32.61 GB):  15%|█▌        | 3/20 [00:03<00:15,  1.11it/s]Capturing batches (bs=104 avail_mem=32.61 GB):  15%|█▌        | 3/20 [00:03<00:15,  1.11it/s]Capturing batches (bs=96 avail_mem=32.61 GB):  15%|█▌        | 3/20 [00:03<00:15,  1.11it/s] Capturing batches (bs=96 avail_mem=32.61 GB):  25%|██▌       | 5/20 [00:03<00:08,  1.77it/s]Capturing batches (bs=88 avail_mem=32.61 GB):  25%|██▌       | 5/20 [00:03<00:08,  1.77it/s]Capturing batches (bs=80 avail_mem=32.61 GB):  25%|██▌       | 5/20 [00:03<00:08,  1.77it/s]Capturing batches (bs=80 avail_mem=32.61 GB):  35%|███▌      | 7/20 [00:04<00:04,  2.72it/s]Capturing batches (bs=72 avail_mem=32.61 GB):  35%|███▌      | 7/20 [00:04<00:04,  2.72it/s]Capturing batches (bs=72 avail_mem=32.61 GB):  40%|████      | 8/20 [00:04<00:03,  3.28it/s]Capturing batches (bs=64 avail_mem=32.61 GB):  40%|████      | 8/20 [00:04<00:03,  3.28it/s]Capturing batches (bs=64 avail_mem=32.61 GB):  45%|████▌     | 9/20 [00:04<00:02,  3.92it/s]Capturing batches (bs=56 avail_mem=32.60 GB):  45%|████▌     | 9/20 [00:04<00:02,  3.92it/s]Capturing batches (bs=48 avail_mem=32.60 GB):  45%|████▌     | 9/20 [00:04<00:02,  3.92it/s]Capturing batches (bs=48 avail_mem=32.60 GB):  55%|█████▌    | 11/20 [00:04<00:02,  3.98it/s]Capturing batches (bs=40 avail_mem=32.60 GB):  55%|█████▌    | 11/20 [00:04<00:02,  3.98it/s]Capturing batches (bs=40 avail_mem=32.60 GB):  60%|██████    | 12/20 [00:04<00:01,  4.60it/s]Capturing batches (bs=32 avail_mem=32.60 GB):  60%|██████    | 12/20 [00:04<00:01,  4.60it/s]Capturing batches (bs=32 avail_mem=32.60 GB):  65%|██████▌   | 13/20 [00:04<00:01,  5.30it/s]Capturing batches (bs=24 avail_mem=32.60 GB):  65%|██████▌   | 13/20 [00:04<00:01,  5.30it/s]Capturing batches (bs=24 avail_mem=32.60 GB):  70%|███████   | 14/20 [00:05<00:00,  6.01it/s]Capturing batches (bs=16 avail_mem=32.60 GB):  70%|███████   | 14/20 [00:05<00:00,  6.01it/s]Capturing batches (bs=16 avail_mem=32.60 GB):  75%|███████▌  | 15/20 [00:05<00:01,  4.12it/s]Capturing batches (bs=12 avail_mem=32.60 GB):  75%|███████▌  | 15/20 [00:05<00:01,  4.12it/s]Capturing batches (bs=8 avail_mem=32.60 GB):  75%|███████▌  | 15/20 [00:05<00:01,  4.12it/s] Capturing batches (bs=8 avail_mem=32.60 GB):  85%|████████▌ | 17/20 [00:06<00:00,  3.02it/s]Capturing batches (bs=4 avail_mem=32.59 GB):  85%|████████▌ | 17/20 [00:06<00:00,  3.02it/s]Capturing batches (bs=4 avail_mem=32.59 GB):  90%|█████████ | 18/20 [00:06<00:00,  3.56it/s]Capturing batches (bs=2 avail_mem=32.59 GB):  90%|█████████ | 18/20 [00:06<00:00,  3.56it/s]Capturing batches (bs=2 avail_mem=32.59 GB):  95%|█████████▌| 19/20 [00:06<00:00,  4.17it/s]Capturing batches (bs=1 avail_mem=32.59 GB):  95%|█████████▌| 19/20 [00:06<00:00,  4.17it/s]Capturing batches (bs=1 avail_mem=32.59 GB): 100%|██████████| 20/20 [00:06<00:00,  4.81it/s]Capturing batches (bs=1 avail_mem=32.59 GB): 100%|██████████| 20/20 [00:06<00:00,  2.95it/s]
+[2026-10-07 20:08:01 TP0] Capture target decode CUDA graph end. elapsed=7.53 s, mem usage=0.17 GB, avail mem=32.59 GB.
+max_total_num_tokens=1611584
+Warmup ...
+Prefill. latency: 0.22197 s, throughput:  73810.33 token/s
+Decode 0. Batch size: 128, latency: 0.16565 s, throughput:    772.71 token/s
+Decode 1. Batch size: 128, latency: 0.00455 s, throughput:  28159.58 token/s
+Decode 2. Batch size: 128, latency: 0.00429 s, throughput:  29862.75 token/s
+Decode 3. Batch size: 128, latency: 0.00420 s, throughput:  30470.00 token/s
+Decode 4. Batch size: 128, latency: 0.00420 s, throughput:  30494.36 token/s
+Decode.  median latency: 0.00414 s, median throughput:  30891.27 token/s
+Total. latency:  0.513 s, throughput:  39948.01 token/s
+Benchmark ...
+Prefill. latency: 0.10120 s, throughput: 161896.41 token/s
+Decode 0. Batch size: 128, latency: 0.00528 s, throughput:  24233.65 token/s
+Decode 1. Batch size: 128, latency: 0.00516 s, throughput:  24824.58 token/s
+Decode 2. Batch size: 128, latency: 0.00509 s, throughput:  25142.19 token/s
+Decode 3. Batch size: 128, latency: 0.00512 s, throughput:  24985.96 token/s
+Decode 4. Batch size: 128, latency: 0.00470 s, throughput:  27210.11 token/s
+Decode.  median latency: 0.00427 s, median throughput:  29990.90 token/s
+Total. latency:  0.238 s, throughput:  86061.29 token/s
+Prefill. latency: 0.09505 s, throughput: 172365.20 token/s
+Decode 0. Batch size: 128, latency: 0.00528 s, throughput:  24244.72 token/s
+Decode 1. Batch size: 128, latency: 0.00513 s, throughput:  24941.68 token/s
+Decode 2. Batch size: 128, latency: 0.00520 s, throughput:  24617.67 token/s
+Decode 3. Batch size: 128, latency: 0.00518 s, throughput:  24707.29 token/s
+Decode 4. Batch size: 128, latency: 0.00466 s, throughput:  27487.19 token/s
+Decode.  median latency: 0.00430 s, median throughput:  29768.05 token/s
+Total. latency:  0.233 s, throughput:  87757.86 token/s
+Prefill. latency: 0.09993 s, throughput: 163961.30 token/s
+Decode 0. Batch size: 128, latency: 0.00527 s, throughput:  24288.55 token/s
+Decode 1. Batch size: 128, latency: 0.00513 s, throughput:  24966.81 token/s
+Decode 2. Batch size: 128, latency: 0.00505 s, throughput:  25359.49 token/s
+Decode 3. Batch size: 128, latency: 0.00506 s, throughput:  25308.12 token/s
+Decode 4. Batch size: 128, latency: 0.00505 s, throughput:  25345.09 token/s
+Decode.  median latency: 0.00434 s, median throughput:  29512.23 token/s
+Total. latency:  0.238 s, throughput:  86033.44 token/s

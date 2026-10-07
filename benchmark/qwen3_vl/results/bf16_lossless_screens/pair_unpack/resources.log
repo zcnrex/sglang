@@ -1,0 +1,3 @@
+{"name": "raw", "regs": 80, "spills": 0, "shared": 73728, "instructions": {"ld.global.b8": 0, "ld.global.b16": 0, "prmt.b32": 0, "ld.shared": 6, "st.shared": 7}}
+{"name": "old", "regs": 146, "spills": 0, "shared": 139264, "instructions": {"ld.global.b8": 128, "ld.global.b16": 16, "prmt.b32": 128, "ld.shared": 78, "st.shared": 23}}
+{"name": "pair", "regs": 145, "spills": 0, "shared": 155648, "instructions": {"ld.global.b8": 0, "ld.global.b16": 8, "prmt.b32": 128, "ld.shared": 52, "st.shared": 15}}

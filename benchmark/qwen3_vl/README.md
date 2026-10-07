@@ -287,3 +287,49 @@ NCU script was not a production optimization opportunity. Full c128 decode
 uses an exact graph bucket, and inspected synchronization paths are debug
 gated. Source references and limitations are retained in
 `results/bf16_descriptor_screens/`.
+
+## High-batch decode GEMM investigation
+
+M64/M128 screens used independent weight sets larger than L2 and CUDA-graph
+replay. The direct and split-K implementations support only M<=32 and were
+not forced onto larger batches. Most bounded TGV configurations lost to the
+existing selector. TGV down-projection at M128 improved its kernel by about
+5%, but its short-model combination was slower and changed five of 128
+first-decode argmax results; that combination was not promoted.
+
+Explicit cuBLASLt screening found roughly 12% gate/up and 6–7% down-projection
+kernel gains at M128. Pure-Lt model logits were bitwise equal, and traces
+confirmed both changed kernels ran inside decode CUDA graphs. A same-GPU
+short-context model run showed lower decode latency, but this did not
+translate into a comparably large long-context serving gain.
+
+Eight-GPU c128/N128 serving crossovers estimated +0.258% geometric-mean
+throughput, with six of eight paired gains positive. A descriptive paired
+bootstrap 95% interval was [-0.100%, +0.593%]; the t interval also included
+zero. This is an uncertain positive signal, not an established speedup. All
+16 runs completed their exact request/token counts. Two-token greedy probes
+used 128 identical short prompts per run and matched tokens/logprobs; they
+are not a diverse accuracy evaluation.
+
+The supported public BF16 autotuner independently selected the same winning
+algorithms on two GPUs and retained the cold-weight gains with bitwise-equal
+outputs. Its default measurement policy already uses cold L2 and CUDA graphs.
+TGV/public-tuner evidence is in `results/bf16_decode_highm/`; Lt/model/serving
+evidence is in `results/bf16_decode_lt/`. Production integration remains
+conditional on stronger serving confirmation.
+
+The subsequent public-autotuning c128/N640 crossover completed all 16 runs
+with exact counts. All eight GPU pairs improved: geometric mean +0.3156%,
+with descriptive paired bootstrap 95% interval [+0.2651%, +0.3621%].
+The candidate averaged roughly 3821 output tok/s and remains below 4196.5.
+Autotuning selected different down-projection algorithms across starts.
+Probe token IDs matched, while logprobs differed by up to 0.0426643; this
+requires accuracy validation before production promotion. These intervals
+describe eight GPU pairs across two periods, not repeated-day uncertainty.
+
+A separate lossless-cache follow-up reconstructed BF16 pairs using uint32
+operations. All 65536 bit patterns and captured K/V checks passed, but
+register usage barely changed (146 to 145) and shared memory increased
+from 139264 to 155648 bytes. It failed the resource screen, so no full
+attention timing or production integration followed. Evidence is in
+`results/bf16_lossless_screens/pair_unpack/`.
