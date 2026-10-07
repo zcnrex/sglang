@@ -1,0 +1,19 @@
+{
+  "status": "awaiting_transport_auth_recovery",
+  "source": "/root/qvl/sglang-public-lt-clean",
+  "owned_server_pid": 193390,
+  "gpu": 2,
+  "port": 32102,
+  "log": "/root/qvl/experiments/public-lt-validation/clean-server256.log",
+  "confirmed": [
+    "Compared 5,406 tracked Python files against revision 466c9e0f4073bcad6e4403c6f54cfc8c1821b867; only the two intended files differ.",
+    "BF16 weights and KV cache allocated.",
+    "Fresh isolated-cache M128 warmup completed both GEMM profiles."
+  ],
+  "not_yet_confirmed": [
+    "Clean-source READY markers.",
+    "Clean-source graph capture and replay.",
+    "Existing tests rerun against the clean source."
+  ],
+  "blocker": "SSH proxy reports unauthenticated: token invalid or expired; replay command did not execute."
+}

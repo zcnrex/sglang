@@ -1,0 +1,40 @@
+{
+  "tracked_files": 5406,
+  "differences": [
+    [
+      "python/sglang/kernels/jit/csrc/attention/fused_qk_norm_mrope.cuh",
+      "5508f05ceb2e4baa877f448cf1bddd469ff4e5a289d2a9847e50de307ca19125",
+      "01feef4ca6b97a14a3909b107915c277769c2595af680a190e661bca9cf9f286"
+    ],
+    [
+      "python/sglang/kernels/ops/attention/__init__.py",
+      "7a207d3623da46e44781b69dfcbf69005b68b58c86b6635d52beb6400c96a6e7",
+      "bcb71c0fe22242271d4587df8900ba121647261e9ba7bae2684020983c5cf612"
+    ],
+    [
+      "python/sglang/kernels/ops/attention/fused_qk_norm_mrope.py",
+      "db4c6a53c4b5096d09898a3e737b33a3186af1ee961ff131c5116ce0149046ad",
+      "708fcea78005462b12680dd48710397de712fbad3ee5bbe996a72739b3cc727c"
+    ],
+    [
+      "python/sglang/srt/layers/quantization/unquant.py",
+      "f2f232b344aa7042243a1c2a816b169993c13e736e14f0ba6c6ad10754c03875",
+      "9db197749dd28b84f8af16c70187556d035fdaeab148675e043858c565be47f3"
+    ],
+    [
+      "python/sglang/srt/mem_cache/memory_pool.py",
+      "f48358e509bec61982cd9d5e3210a11e5af3d63b04a7952fb6c4f3419c0379a5",
+      "75adccc4516eb4150f7b32b4869a04d0ab91ad090a6651da1ac99f679c34f4ec"
+    ],
+    [
+      "python/sglang/srt/model_executor/runner/flashinfer_autotune.py",
+      "d412e894e0921aa1e3b6e9f317949225400fbd7ecd4bab838ae8d9e1e7e5eea1",
+      "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e"
+    ],
+    [
+      "python/sglang/srt/models/qwen3.py",
+      "641a580710f274ee04e4a759d0a073fe09080c753ec2fefb937a4c2e068947d7",
+      "0605576b91d3f556813e21b7a65f7c2206a53f429488dd06d5fbf8892b7015ba"
+    ]
+  ]
+}

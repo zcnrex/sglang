@@ -1,0 +1,30 @@
+{
+  "status": "candidate_accuracy_not_started_remote_auth_expired",
+  "baseline": {
+    "source": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+    "correct": 1217,
+    "total": 1314,
+    "concurrency": 128,
+    "temperature": 0,
+    "max_tokens": 2048,
+    "num_shots": 5,
+    "completion_tokens": 247114,
+    "latency_seconds": 66.14756759497686,
+    "graph128_replay_observed": true,
+    "raw_results": "/root/qvl/experiments/decode-lt-accuracy/control/results/metrics.json",
+    "raw_results_retrieved": false
+  },
+  "invalid_candidate": {
+    "path": "/root/qvl/sglang-public-lt",
+    "reason": "Unintended source differences versus466c; stopped before GSM evaluation",
+    "evidence": "/root/qvl/experiments/decode-lt-accuracy/candidate"
+  },
+  "corrected_candidate": {
+    "path": "/root/qvl/sglang-public-lt-clean",
+    "scheduler_audit": "5406 tracked files checked; exactly two intended changes",
+    "patch_sha256": "593c46e1f628ea133ac5b7fd650aece3883807dc13ea6b5012b5597978ebc094",
+    "startup_replay_validation": "pending; remote auth expired after tuning",
+    "accuracy_run": "not launched"
+  },
+  "launch_policy": "Wait for scheduler clean-source replay validation, then full candidate GSMc128. Production serving only after accuracy review. Fresh isolated SGLANG_CACHE_DIR per worker."
+}

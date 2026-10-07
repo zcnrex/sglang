@@ -1,0 +1,16 @@
+{
+  "graph_max_bs": 256,
+  "completed_requests": 128,
+  "completion_tokens": 2048,
+  "markers": [
+    "[2026-10-07 21:07:41] Running FlashInfer autotune with cache: /root/.cache/sglang/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "PUBLIC_LT_READY [(0, 2560, 9728), (0, 19456, 2560)]",
+    "PUBLIC_LT_READY [(0, 2560, 9728), (0, 19456, 2560)]",
+    "Capturing batches (bs=128 avail_mem=49.09 GB):  42%|\u2588\u2588\u2588\u2588\u258f     | 15/36 [00:01<00:01, 10.51it/s]PUBLIC_LT_DISPATCH (19456, 2560) capture False",
+    "PUBLIC_LT_DISPATCH (2560, 9728) capture False",
+    "PUBLIC_LT_DISPATCH (19456, 2560) capture True",
+    "PUBLIC_LT_DISPATCH (2560, 9728) capture True"
+  ],
+  "cache_path": "/root/.cache/sglang/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+  "cache_sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba"
+}
