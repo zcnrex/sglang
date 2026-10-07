@@ -1,0 +1,25 @@
+import ast,builtins,json,pathlib,types
+p=pathlib.Path('/root/qvl/sglang-prefix-production/python/sglang/srt/layers/attention/trtllm_mha_backend.py')
+t=ast.parse(p.read_text());cls=next(x for x in t.body if isinstance(x,ast.ClassDef) and x.name=='TRTLLMHAAttnBackend');f=next(x for x in cls.body if isinstance(x,ast.FunctionDef) and x.name=='_init_packed_prefill_metadata')
+ns={'torch':types.SimpleNamespace(cuda=types.SimpleNamespace(is_current_stream_capturing=lambda:False,current_stream=lambda:types.SimpleNamespace(cuda_stream=1))),'is_cp_active':lambda b:False}
+exec(compile(ast.Module(body=[f],type_ignores=[]),str(p),'exec'),ns)
+base=lambda:types.SimpleNamespace(_packed_prefill_enabled=True,_packed_prefill_ops=None,_packed_prefill_stream=None,_swa_kv_pool=None)
+batch=lambda:types.SimpleNamespace(forward_mode=types.SimpleNamespace(is_extend=lambda:True),spec_info=None,contains_mm_inputs=lambda:False,extend_prefix_lens_cpu=[0],extend_seq_lens_cpu=[8192],batch_size=1)
+checks=[]
+for name,change in [('disabled',lambda s,b:setattr(s,'_packed_prefill_enabled',False)),('alternate_stream',lambda s,b:setattr(s,'_packed_prefill_stream',2)),('short',lambda s,b:setattr(b,'extend_seq_lens_cpu',[1])),('empty',lambda s,b:setattr(b,'extend_seq_lens_cpu',[])),('bound',lambda s,b:setattr(b,'extend_seq_lens_cpu',[32769])),('multimodal',lambda s,b:setattr(b,'contains_mm_inputs',lambda:True)),('spec',lambda s,b:setattr(b,'spec_info',object()))]:
+ s=base();b=batch();change(s,b);m=types.SimpleNamespace(mixed_prefill_reqs=0);ns[f.name](s,m,b);assert not hasattr(m,'packed_kv_tokens');checks.append(name)
+s=base();b=batch();m=types.SimpleNamespace(mixed_prefill_reqs=0);orig=builtins.__import__
+def fail(name,*a,**kw):
+ if name.startswith('sglang.kernels.ops.attention'):raise ImportError('simulated optional dependency absence')
+ return orig(name,*a,**kw)
+builtins.__import__=fail
+try:ns[f.name](s,m,b)
+finally:builtins.__import__=orig
+assert s._packed_prefill_enabled is False;checks.append('optional_import_disables_once')
+print(json.dumps({'passed':checks,'method':'extracted unchanged production metadata method, CPU mocks; no GPU'}))
+branch=next(x for x in ast.walk(cls) if isinstance(x,ast.If) and ast.unparse(x.test).startswith('metadata.packed_kv_tokens and'))
+expr=compile(ast.Expression(branch.test),str(p),'eval')
+for capture,stream in [(True,1),(False,2)]:
+ env={'metadata':types.SimpleNamespace(packed_kv_tokens=8192),'self':types.SimpleNamespace(_packed_prefill_stream=1),'torch':types.SimpleNamespace(cuda=types.SimpleNamespace(is_current_stream_capturing=lambda:capture,current_stream=lambda:types.SimpleNamespace(cuda_stream=stream)))}
+ assert not eval(expr,env)
+print(json.dumps({'passed':['dispatch_capture_fallback','dispatch_alternate_stream_fallback'],'method':'unchanged production branch expression, CPU mocks'}))

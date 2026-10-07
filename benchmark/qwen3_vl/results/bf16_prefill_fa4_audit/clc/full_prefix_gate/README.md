@@ -1,0 +1,15 @@
+# Full-prefix packing FA4 CLC bounded serving gate
+
+Audited 5f60fb8b67-equivalent source `/root/qvl/sglang-public-lt-clean` on both variants; M1 production change excluded. Candidate alone loads the external hook. Ordinary BF16 weights, queries and KV; TRT decode HND/page32 retained. No production edits.
+
+Four same-GPU swapped pairs at c128/N128, warm128, 8192/1024 produce mean throughput +0.44864% (all four positive; descriptive paired t95% +0.2112% to +0.6861%). Individual gains: +0.4242%, +0.3134%, +0.3959%, +0.6611%. Median TTFT ratios improve 1.966%, 0.012%, 1.437%, 2.598%. All eight runs completed exactly 128 requests, 1,048,576 nominal input and 131,072 output tokens. This short result does not establish the overall 10% goal or justify production promotion.
+
+Measured layer0 coverage totals 1,044,997 context query tokens per candidate run. A/gpu3 and B/gpu2 process all of these through FA4; A/gpu1 and B/gpu0 process 1,040,952 through FA4 and fall back for the final 4,045-token context, below the 4,096-token threshold. Coverage uses the final 128 fresh-request suffix in per-PID context records, cross-checked with server flush logs. The logs have only second-resolution timestamps, so a naive timestamp filter includes warmup in B/gpu0. Maximum observed scratch is 96 MiB, below the 128 MiB bound. Actual CLC cache hits are recorded.
+
+GSM8K first128 evaluation rows at c128, five shots, greedy/max2048, ordinary radix on both: control118/128, candidate118/128. Control alone correct row115; candidate alone correct row86. Completion tokens23914/24192. Candidate whole-run layer0 telemetry records13,741 FA4 query tokens and11,305 fallback tokens, all fallback for short/missing metadata; this includes78 startup tokens. Maximum scratch64MiB. Coverage is partial, so equal score is a bounded sanity result, not numerical equivalence or full accuracy validation.
+
+Algorithm hook original SHA256 `4fe16403fdf4c050455fbefb78a8ceaa90abe994852d42541ea1fc56ab8677ef` is preserved as `.py.txt`. The separate sitecustomize wrapper adds per-layer0 append-only per-PID telemetry; it changes no dispatch calculation. Its overhead is included in candidate timing. Prior standalone/model packing and KV writes were bitwise, but attention outputs differed (mixed-model decode logits NRMS up to .02817); that risk remains relevant.
+
+Remote roots `/root/qvl/experiments/fa4-pack-serving` and `fa4-pack-accuracy`; original drivers340977–340979 all terminal. GPU process inventory empty after completion. Commands, environment/cache isolation, source hashes, raw logs, probes, results and telemetry are retained. Compiled caches are omitted. Raw source patches are gzip-compressed without modifying bytes. Hook provenance JSON records both algorithm and telemetry wrapper hashes. No reruns were started on observation timeouts.
+
+Original pre-format artifact bytes are retained in `original-artifacts.tar.gz`. Recorded raw hashes apply to files extracted from that archive; readable copies may have whitespace normalized by repository hooks.

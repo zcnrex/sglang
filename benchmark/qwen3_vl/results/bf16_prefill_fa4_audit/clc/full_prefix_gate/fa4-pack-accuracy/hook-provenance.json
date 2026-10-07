@@ -1,0 +1,9 @@
+{
+  "source": "/root/qvl/sglang-public-lt-clean",
+  "source_equivalent_commit": "5f60fb8b67",
+  "m1_excluded": true,
+  "hook_sha256": "4fe16403fdf4c050455fbefb78a8ceaa90abe994852d42541ea1fc56ab8677ef",
+  "hook_path": "/root/qvl/experiments/fa4_prefix_serving_hook.py",
+  "accuracy_only_disable_radix": false,
+  "telemetry_wrapper_sha256": "8c948761d9b3da47958d64e10d942899135ac9ccb57c177e30e637ba8c392829"
+}

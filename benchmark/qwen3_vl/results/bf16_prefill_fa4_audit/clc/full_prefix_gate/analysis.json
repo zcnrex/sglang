@@ -1,0 +1,158 @@
+{
+  "pairs": [
+    {
+      "gpu": 0,
+      "control": {
+        "duration": 34.48902293300489,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3800.397600552734,
+        "median_ttft_ms": 4586.211275003734,
+        "median_tpot_ms": 28.904274756096587
+      },
+      "candidate": {
+        "duration": 34.34334399699583,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3816.51827531604,
+        "median_ttft_ms": 4496.0519510059385,
+        "median_tpot_ms": 28.85324917449459
+      },
+      "throughput_delta_percent": 0.4241839001519754,
+      "ttft_delta_percent": -1.9658781201204567
+    },
+    {
+      "gpu": 1,
+      "control": {
+        "duration": 34.5564508769894,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3792.982111113696,
+        "median_ttft_ms": 4663.559149004868,
+        "median_tpot_ms": 28.883487574766047
+      },
+      "candidate": {
+        "duration": 34.448487654997734,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3804.869500010816,
+        "median_ttft_ms": 4662.98963749432,
+        "median_tpot_ms": 28.79907502054227
+      },
+      "throughput_delta_percent": 0.3134048236686615,
+      "ttft_delta_percent": -0.012211949979656911
+    },
+    {
+      "gpu": 2,
+      "control": {
+        "duration": 34.404238514980534,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3809.763147146178,
+        "median_ttft_ms": 4574.258785010898,
+        "median_tpot_ms": 28.821927177406142
+      },
+      "candidate": {
+        "duration": 34.26857057100278,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3824.845851927944,
+        "median_ttft_ms": 4508.545843505999,
+        "median_tpot_ms": 28.76721779863477
+      },
+      "throughput_delta_percent": 0.39589612790138506,
+      "ttft_delta_percent": -1.436581194755071
+    },
+    {
+      "gpu": 3,
+      "control": {
+        "duration": 34.4152160550002,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3808.547933871143,
+        "median_ttft_ms": 4557.5457905069925,
+        "median_tpot_ms": 28.86330635532785
+      },
+      "candidate": {
+        "duration": 34.18920167599572,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3833.725082034478,
+        "median_ttft_ms": 4439.149658501265,
+        "median_tpot_ms": 28.759754603120516
+      },
+      "throughput_delta_percent": 0.6610694837111852,
+      "ttft_delta_percent": -2.59780455200993
+    }
+  ],
+  "coverage": {
+    "fa4-pack-serving/A/gpu3/layer0-contexts-pid342414.jsonl": {
+      "scope": "final 128 fresh context requests, cross-checked against flush log",
+      "contexts": 65,
+      "fa4_query_tokens": 1044997,
+      "fallback_reasons": {},
+      "max_scratch_bytes": 100663296,
+      "fresh_context_requests": 128,
+      "fallback_query_tokens": 0,
+      "first_record_index": 6
+    },
+    "fa4-pack-serving/A/gpu1/layer0-contexts-pid343978.jsonl": {
+      "scope": "final 128 fresh context requests, cross-checked against flush log",
+      "contexts": 66,
+      "fa4_query_tokens": 1040952,
+      "fallback_query_tokens": 4045,
+      "fallback_reasons": {
+        "short_or_missing_metadata": 4045
+      },
+      "max_scratch_bytes": 100663296,
+      "fresh_context_requests": 128,
+      "first_record_index": 6
+    },
+    "fa4-pack-serving/B/gpu2/layer0-contexts-pid351716.jsonl": {
+      "scope": "final 128 fresh context requests, cross-checked against flush log",
+      "contexts": 65,
+      "fa4_query_tokens": 1044997,
+      "fallback_reasons": {},
+      "max_scratch_bytes": 100663296,
+      "fresh_context_requests": 128,
+      "fallback_query_tokens": 0,
+      "first_record_index": 5
+    },
+    "fa4-pack-serving/B/gpu0/layer0-contexts-pid351060.jsonl": {
+      "scope": "final 128 fresh context requests, cross-checked against flush log",
+      "contexts": 66,
+      "fa4_query_tokens": 1040952,
+      "fallback_query_tokens": 4045,
+      "fallback_reasons": {
+        "short_or_missing_metadata": 4045
+      },
+      "max_scratch_bytes": 100663296,
+      "fresh_context_requests": 128,
+      "first_record_index": 5
+    },
+    "fa4-pack-accuracy/candidate/layer0-contexts-pid342418.jsonl": {
+      "scope": "whole_run",
+      "contexts": 7,
+      "fallback_query_tokens": 11305,
+      "fa4_query_tokens": 13741,
+      "fallback_reasons": {
+        "short_or_missing_metadata": 11305
+      },
+      "max_scratch_bytes": 67108864,
+      "fresh_context_requests": 18
+    }
+  },
+  "mean_delta_percent": 0.4486385838583018,
+  "paired_t95_percent": [
+    0.21120512076291711,
+    0.6860720469536865
+  ]
+}

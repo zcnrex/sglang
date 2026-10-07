@@ -1,0 +1,16 @@
+import importlib.util,torch,json,os
+from sglang.kernels.ops.attention.flash_attn.cute import utils
+spec=importlib.util.spec_from_file_location('sglang.kernels.ops.attention.flash_attn.cute.production_interface','/root/qvl/experiments/pack-production/interface.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+torch.manual_seed(19);q=torch.randn(512,32,128,device='cuda',dtype=torch.bfloat16);k=torch.randn(512,8,128,device='cuda',dtype=torch.bfloat16);v=torch.randn_like(k);cu=torch.tensor([0,512],device='cuda',dtype=torch.int32)
+before=utils._get_use_clc_scheduler_default();outs=[];keys=[]
+for option in [None,False,True,None]:
+ out=torch.empty_like(q);r=m.flash_attn_varlen_func(q,k,v,cu_seqlens_q=cu,cu_seqlens_k=cu,max_seqlen_q=512,max_seqlen_k=512,causal=True,out=out,use_clc_scheduler=option);outs.append(r[0] if isinstance(r,tuple) else r);assert outs[-1].data_ptr()==out.data_ptr();keys.append([key[39] for key in m._flash_attn_fwd.compile_cache.cache]);assert utils._get_use_clc_scheduler_default()==before
+assert torch.equal(outs[0],outs[3]);assert torch.allclose(outs[1],outs[2],atol=.02,rtol=.02)
+print(json.dumps({'pid':os.getpid(),'default':before,'cache_clc_fields':keys,'repeat_default_bitwise':True,'max_diff':float((outs[1].float()-outs[2].float()).abs().max())}),flush=True)
+from torch._subclasses.fake_tensor import FakeTensorMode
+with FakeTensorMode():
+ fq=torch.empty(512,32,128,device='cuda',dtype=torch.bfloat16);fk=torch.empty(512,8,128,device='cuda',dtype=torch.bfloat16);fv=torch.empty_like(fk);fc=torch.empty(2,device='cuda',dtype=torch.int32)
+ for option in [None,False,True]:
+  fr=m.flash_attn_varlen_func(fq,fk,fv,cu_seqlens_q=fc,cu_seqlens_k=fc,max_seqlen_q=512,max_seqlen_k=512,causal=True,use_clc_scheduler=option)
+  assert fr[0].shape==fq.shape
+print(json.dumps({'fake_tensor_options':[None,False,True],'passed':True}),flush=True)

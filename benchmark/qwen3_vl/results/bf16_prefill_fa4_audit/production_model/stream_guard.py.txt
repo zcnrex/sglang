@@ -1,0 +1,14 @@
+import ast,json,pathlib,types,torch
+path=pathlib.Path('/root/qvl/sglang-prefix-production/python/sglang/srt/layers/attention/trtllm_mha_backend.py');tree=ast.parse(path.read_text());fn=next(x for x in ast.walk(tree) if isinstance(x,ast.FunctionDef) and x.name=='_trtllm_context_attn')
+a=torch.cuda.Stream();b=torch.cuda.Stream();out=torch.zeros(1,device='cuda');calls=[]
+def fallback(**kw):
+ calls.append({'stream':torch.cuda.current_stream().cuda_stream,'capturing':torch.cuda.is_current_stream_capturing()});out.add_(1);return out
+ns={'torch':torch,'self':types.SimpleNamespace(_packed_prefill_stream=a.cuda_stream,forward_metadata=types.SimpleNamespace(packed_kv_tokens=8192),workspace_buffer=None,max_context_len=8192,q_data_type=torch.bfloat16),'page_table':None,'cp_active':False,'flashinfer':types.SimpleNamespace(prefill=types.SimpleNamespace(trtllm_batch_context_with_kv_cache=fallback)),'kv_cache':None,'layer':types.SimpleNamespace(sliding_window_size=-1),'attention_sink':None,'bmm1_scale':1.,'bmm2_scale':1.,'uses_native_fp4':False,'kv_cache_block_scales':None,'envs':types.SimpleNamespace(SGLANG_SKIP_SOFTMAX_PREFILL_THRESHOLD_SCALE_FACTOR=types.SimpleNamespace(get=lambda:None))}
+exec(compile(ast.Module(body=[fn],type_ignores=[]),str(path),'exec'),ns)
+q=torch.empty(8192,32,128,device='cuda',dtype=torch.bfloat16);cu=torch.tensor([0,8192],device='cuda',dtype=torch.int32);lens=cu[1:];torch.cuda.synchronize()
+with torch.cuda.stream(b):assert ns[fn.name](q,cu,lens,8192,cu_seqlens_kv=cu).data_ptr()==out.data_ptr()
+b.synchronize();assert len(calls)==1 and not calls[-1]['capturing']
+g=torch.cuda.CUDAGraph()
+with torch.cuda.graph(g,stream=a):ns[fn.name](q,cu,lens,8192,cu_seqlens_kv=cu)
+a.synchronize();assert len(calls)==2 and calls[-1]['capturing'];g.replay();torch.cuda.synchronize();assert out.item()==2
+print(json.dumps({'passed':['actual_cuda_alternate_stream_fallback','actual_cuda_capture_same_stream_fallback'],'calls':calls,'packed_path_entered':False,'scope':'unchanged production nested context function extracted via AST; real CUDA stream/capture, TRT fallback stub executes tiny GPU add; no full model or FA4 kernel'}))

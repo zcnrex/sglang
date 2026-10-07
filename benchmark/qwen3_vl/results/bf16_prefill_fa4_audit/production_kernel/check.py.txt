@@ -1,0 +1,33 @@
+import torch,triton,json,statistics,os
+from production_pack import pack_prefix_current
+from external_pack import pack
+D='cuda';torch.manual_seed(17)
+results=[]
+for pre,ext in [([0,0],[17,33]),([31,64],[7,19]),([7968,0,0],[232,8200,7872])]:
+ n=len(pre); cq=torch.tensor([0]+list(__import__('itertools').accumulate(ext)),device=D,dtype=torch.int32); ki=torch.tensor([0]+list(__import__('itertools').accumulate(pre)),device=D,dtype=torch.int32);ck=cq+ki
+ total=sum(pre)+sum(ext);mx=max(p+e for p,e in zip(pre,ext));pages=max(1,sum((p+31)//32 for p in pre)); width=max(1,max((p+31)//32 for p in pre))
+ table=torch.zeros(n,width,device=D,dtype=torch.int32);perm=torch.randperm(pages,device=D);off=0;ids=[]
+ for r,p in enumerate(pre):
+  z=(p+31)//32;table[r,:z]=perm[off:off+z];off+=z
+  ids.append(table[r,torch.arange(p,device=D)//32]*32+torch.arange(p,device=D)%32)
+ ids=torch.cat(ids).int();pk=torch.randn(pages,8,32,128,device=D,dtype=torch.bfloat16);pv=torch.randn_like(pk)
+ qkv=torch.randn(sum(ext),6144,device=D,dtype=torch.bfloat16);k=qkv[:,4096:5120].view(-1,8,128);v=qkv[:,5120:].view(-1,8,128)
+ ok=torch.empty(total,8,128,device=D,dtype=torch.bfloat16);ov=torch.empty_like(ok);cu=torch.empty_like(cq);ek=torch.empty_like(ok);ev=torch.empty_like(ok);pref=torch.tensor(pre,device=D,dtype=torch.int32)
+ def prod():pack_prefix_current(k,v,pk,pv,cq,ki,ids,ok,ov,cu,mx,page_size=32)
+ def orig():pack[(triton.cdiv(mx*1024,1024),n)](pk,pv,k,v,ek,ev,table,cq,ck,pref,table.stride(0),1024)
+ prod();orig();assert torch.equal(ok,ek) and torch.equal(ov,ev) and torch.equal(cu,ck)
+ rawk=pk.permute(0,2,1,3).contiguous().view(-1,8,128);rawv=pv.permute(0,2,1,3).contiguous().view(-1,8,128)
+ pack_prefix_current(k,v,rawk,rawv,cq,ki,ids,ok,ov,cu,mx);assert torch.equal(ok,ek) and torch.equal(ov,ev) and torch.equal(cu,ck)
+ times={'production':[],'external':[]}
+ graphs={}
+ for name,fn in [('production',prod),('external',orig)]:
+  fn();g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):fn()
+  graphs[name]=g
+ for r in range(6):
+  for name in (['production','external'] if r%2==0 else ['external','production']):
+   flush=torch.empty(96*1024*1024,device=D,dtype=torch.float32);flush.zero_();g=graphs[name];g.replay();a=torch.cuda.Event(enable_timing=True);b=torch.cuda.Event(enable_timing=True);a.record()
+   for _ in range(100):g.replay()
+   b.record();b.synchronize();times[name].append(a.elapsed_time(b)*10)
+ results.append({'prefix':pre,'extend':ext,'bitwise':True,'us':times,'median_us':{k:statistics.median(v) for k,v in times.items()}})
+print(json.dumps({'pid':os.getpid(),'gpu':torch.cuda.get_device_name(),'results':results},indent=2),flush=True)

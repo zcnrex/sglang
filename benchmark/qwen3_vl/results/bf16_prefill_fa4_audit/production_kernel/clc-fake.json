@@ -1,0 +1,2 @@
+{"pid": 356405, "default": false, "cache_clc_fields": [[false], [false], [false, true], [false, true]], "repeat_default_bitwise": true, "max_diff": 0.0}
+{"fake_tensor_options": [null, false, true], "passed": true}

@@ -1,0 +1,14 @@
+import atexit,collections,hashlib,json,os,pathlib
+import torch,flashinfer,triton
+import triton.language as tl
+@triton.jit
+def pack(PK,PV,K,V,OK,OV,T,CQ,CK,P, TS:tl.constexpr, BLOCK:tl.constexpr):
+ r=tl.program_id(0); seq=tl.program_id(1); x=r*BLOCK+tl.arange(0,BLOCK)
+ start=tl.load(CK+seq); end=tl.load(CK+seq+1); pref=tl.load(P+seq); qs=tl.load(CQ+seq)
+ token=x//1024; h=x%1024//128; d=x%128; valid=token<end-start
+ page=tl.load(T+seq*TS+token//32,valid & (token<pref),other=0)
+ cacheoff=page*32768+h*4096+(token%32)*128+d
+ fresh=(qs+token-pref)*6144+h*128+d
+ a=tl.load(PK+cacheoff,valid & (token<pref),other=0); b=tl.load(K+fresh,valid & (token>=pref),other=0)
+ c=tl.load(PV+cacheoff,valid & (token<pref),other=0); e=tl.load(V+fresh,valid & (token>=pref),other=0)
+ tl.store(OK+start*1024+x,tl.where(token<pref,a,b),valid); tl.store(OV+start*1024+x,tl.where(token<pref,c,e),valid)

@@ -1,0 +1,6 @@
+for b in 1 2; do
+ gpu=$((b+5))
+ out=/root/qvl/experiments/prefix-production/v2-gpu$gpu
+ mkdir -p "$out"
+ CUDA_VISIBLE_DEVICES=$gpu PYTHONPATH=/root/qvl/sglang-prefix-production/python HF_HOME=/root/qvl/hf SGLANG_USE_HND_KVCACHE=1 MAX_JOBS=4 QVL_MODEL_OUT=$out nohup /root/qvl/venv-sgl/bin/python /root/qvl/experiments/prefix-production/model.py --model-path /root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17 --dtype bfloat16 --kv-cache-dtype bfloat16 --attention-backend trtllm_mha --page-size 32 --enable-mixed-chunk --chunked-prefill-size 16384 --cuda-graph-backend-prefill disabled --cuda-graph-max-bs-decode 32 --enforce-disable-flashinfer-allreduce-fusion --batch-size 20 20 20 20 --input-len 8200 --output-len 4 --result-filename "$out/results.jsonl" > "$out/run.log" 2>&1 < /dev/null & echo $!
+done

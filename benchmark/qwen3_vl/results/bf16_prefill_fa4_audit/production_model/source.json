@@ -1,0 +1,11 @@
+{
+  "control_git_head": "058959cd5d12f5958aee3986f2d8692e328cd031",
+  "python_files_verified": 4229,
+  "changed_files": {
+    "python/sglang/kernels/ops/attention/dllm_kv_pack.py": "237a1ea2a36e5fcb6b727225efa4a60d86dbe953edde10f8d6c9eb24aa9e73b4",
+    "python/sglang/kernels/ops/attention/flash_attn/cute/interface.py": "9d842bca4c3182562246f290f42479ae644605f4b5b54b0f402030488346b964",
+    "python/sglang/srt/layers/attention/trtllm_mha_backend.py": "4896aa04b862ef0d926b9f0fcb489fcce095aeccb20a2a579be6fa8f85d8476f"
+  },
+  "control_manifest_sha256": "33acd8bf8601079e778c4ab917326fff988cdd06d41ca71710b6de27dd3d6c3d",
+  "candidate_manifest_sha256": "fe00949d89f9d149c574194a57268e878b7a874726f6ab6e314cc8d4b35f6163"
+}

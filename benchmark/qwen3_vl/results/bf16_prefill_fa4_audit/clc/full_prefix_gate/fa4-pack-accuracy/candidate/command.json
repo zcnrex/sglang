@@ -1,0 +1,39 @@
+{
+  "server": [
+    "/root/qvl/venv-sgl/bin/python",
+    "-m",
+    "sglang.launch_server",
+    "--model-path",
+    "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+    "--bf16-gemm-backend",
+    "cutedsl",
+    "--dtype",
+    "bfloat16",
+    "--kv-cache-dtype",
+    "bfloat16",
+    "--attention-backend",
+    "trtllm_mha",
+    "--page-size",
+    "32",
+    "--enable-mixed-chunk",
+    "--chunked-prefill-size",
+    "16384",
+    "--cuda-graph-backend-prefill",
+    "disabled",
+    "--enforce-disable-flashinfer-allreduce-fusion",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "32107"
+  ],
+  "env": {
+    "CUDA_VISIBLE_DEVICES": "7",
+    "PYTHONPATH": "/root/qvl/experiments/fa4-pack-hooks:/root/qvl/sglang-public-lt-clean/python",
+    "HF_HOME": "/root/qvl/hf",
+    "SGLANG_USE_HND_KVCACHE": "1",
+    "QVL_FA4_EVIDENCE_DIR": "/root/qvl/experiments/fa4-pack-accuracy/candidate",
+    "SGLANG_CACHE_DIR": "/root/qvl/experiments/fa4-pack-accuracy/candidate/isolated-cache"
+  },
+  "source": "/root/qvl/sglang-public-lt-clean",
+  "cache_policy": "fresh isolated per worker; no prior tuning cache loaded"
+}

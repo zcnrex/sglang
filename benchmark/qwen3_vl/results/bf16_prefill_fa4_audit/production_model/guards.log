@@ -1,0 +1,2 @@
+{"passed": ["disabled", "alternate_stream", "short", "empty", "bound", "multimodal", "spec", "optional_import_disables_once"], "method": "extracted unchanged production metadata method, CPU mocks; no GPU"}
+{"passed": ["dispatch_capture_fallback", "dispatch_alternate_stream_fallback"], "method": "unchanged production branch expression, CPU mocks"}

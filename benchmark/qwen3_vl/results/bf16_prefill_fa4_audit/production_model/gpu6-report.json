@@ -1,0 +1,129 @@
+{
+  "source": "058959cd+three_file_candidate",
+  "python_files_verified": 4229,
+  "counts": {
+    "fa4": 144,
+    "fallback": 0
+  },
+  "proof": [],
+  "configs": [
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    }
+  ],
+  "checks": [
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.00257024890743196,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.0018507272470742464,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.1875,
+      "nrmse": 0.0019184291595593095,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 1.3125,
+      "nrmse": 0.028171155601739883,
+      "greedy_equal": true
+    }
+  ],
+  "results": [
+    {
+      "candidate": false,
+      "prefill_latency": 0.1345470770029351,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    },
+    {
+      "candidate": true,
+      "prefill_latency": 0.13288604401168413,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    },
+    {
+      "candidate": true,
+      "prefill_latency": 0.1318316159886308,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    },
+    {
+      "candidate": false,
+      "prefill_latency": 0.13409039902035147,
+      "force_prefix": false,
+      "batch_size": 20,
+      "input_tokens": 16321
+    }
+  ],
+  "cache_checks": [
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16321,
+      "k_bitwise": true,
+      "v_bitwise": true
+    }
+  ],
+  "pack_checks": [
+    {
+      "bitwise": true,
+      "tokens": 24272
+    },
+    {
+      "bitwise": true,
+      "tokens": 24272
+    },
+    {
+      "bitwise": true,
+      "tokens": 24272
+    },
+    {
+      "bitwise": true,
+      "tokens": 24272
+    }
+  ],
+  "workspace_reuse": "shape-keyed scratch, cold allocation excluded after warmup",
+  "force_prefix": false
+}

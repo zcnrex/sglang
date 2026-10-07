@@ -1,0 +1,135 @@
+import atexit,copy,hashlib,json,os,pathlib
+import numpy as np
+import torch,flashinfer,triton
+import triton.language as tl
+@triton.jit
+def pack(PK,PV,K,V,OK,OV,T,CQ,CK,P, TS:tl.constexpr, BLOCK:tl.constexpr):
+ r=tl.program_id(0); seq=tl.program_id(1); x=r*BLOCK+tl.arange(0,BLOCK)
+ start=tl.load(CK+seq); end=tl.load(CK+seq+1); pref=tl.load(P+seq); qs=tl.load(CQ+seq)
+ token=x//1024; h=x%1024//128; d=x%128; valid=token<end-start
+ page=tl.load(T+seq*TS+token//32,valid & (token<pref),other=0)
+ cacheoff=page*32768+h*4096+(token%32)*128+d
+ fresh=(qs+token-pref)*6144+h*128+d
+ a=tl.load(PK+cacheoff,valid & (token<pref),other=0); b=tl.load(K+fresh,valid & (token>=pref),other=0)
+ c=tl.load(PV+cacheoff,valid & (token<pref),other=0); e=tl.load(V+fresh,valid & (token>=pref),other=0)
+ tl.store(OK+start*1024+x,tl.where(token<pref,a,b),valid); tl.store(OV+start*1024+x,tl.where(token<pref,c,e),valid)
+
+from sglang.srt.layers.attention.trtllm_mha_backend import TRTLLMHAAttnBackend
+from sglang.srt.model_executor.model_runner import ModelRunner
+from sglang.kernels.ops.attention.flash_attn.cute import interface,utils
+from sglang.benchmark import one_batch as bench
+source=pathlib.Path('/root/qvl/sglang-prefix-production');expected=json.load(open('/root/qvl/experiments/prefix-production/candidate_expected.json'))
+actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')};assert actual==expected
+root=pathlib.Path(os.environ['QVL_MODEL_OUT']);root.mkdir(parents=True,exist_ok=True)
+scratch={};pack_checks=[]
+state={'enabled':False,'call':0,'current':None};counts={'fa4':0,'fallback':0};captures={};results=[];proof=[];configs=[]
+class CacheProxy:
+ def __init__(self,base):self.base=base
+ def __contains__(self,k):return k in self.base
+ def __setitem__(self,k,v):self.base[k]=v
+ def __getitem__(self,k):
+  value=self.base[k]
+  if state['enabled']:
+   assert len(k)==62 and k[39] is True
+   if len(configs)<4:configs.append({'selected_cache_key_clc':k[39],'key_sha256':hashlib.sha256(repr(k).encode()).hexdigest(),'kernel_type':str(type(value))})
+  return value
+interface._flash_attn_fwd.compile_cache=CacheProxy(interface._flash_attn_fwd.compile_cache)
+init=interface.FlashAttentionForwardSm100.__init__
+def init_hook(self,*a,**kw):
+ init(self,*a,**kw);configs.append({'clc':self.use_clc_scheduler,'mode':str(self.scheduling_mode),'threads':self.threads_per_cta})
+interface.FlashAttentionForwardSm100.__init__=init_hook
+metadata_orig=TRTLLMHAAttnBackend._init_packed_prefill_metadata
+def metadata_hook(self,m,b):
+ if state['enabled']:return metadata_orig(self,m,b)
+TRTLLMHAAttnBackend._init_packed_prefill_metadata=metadata_hook
+from sglang.kernels.ops.attention import dllm_kv_pack
+pack_orig=dllm_kv_pack.pack_prefix_current
+def pack_check(*a,**kw):
+ result=pack_orig(*a,**kw)
+ counts['fa4']+=1
+ if state.get('check_cache') and len(pack_checks)<4:
+  k,v,kb,vb,qo,ki,ids,kd,vd,cu,ml=a
+  ql=qo.tolist();il=ki.tolist();rk=[];rv=[]
+  for i in range(len(ql)-1):
+   loc=ids[il[i]:il[i+1]].long();rk.extend([kb[loc//32,:,loc%32,:],k[ql[i]:ql[i+1]]]);rv.extend([vb[loc//32,:,loc%32,:],v[ql[i]:ql[i+1]]])
+  assert torch.equal(kd,torch.cat(rk)) and torch.equal(vd,torch.cat(rv))
+  pack_checks.append({'bitwise':True,'tokens':len(kd)})
+ return result
+dllm_kv_pack.pack_prefix_current=pack_check
+forward=ModelRunner.forward
+def forward_hook(self,b,*a,**kw):
+ r=forward(self,b,*a,**kw)
+ if state['call']==0:captures[state['enabled']].append(r.logits_output.next_token_logits.detach().clone())
+ return r
+ModelRunner.forward=forward_hook
+once_orig=bench.latency_test_run_once
+def once(*a,**kw):
+ variants=[False,True,True,False] if state['call']==0 else [([False,True,True,False]*4)[state['call']-1]]
+ for variant in variants:
+  state['enabled']=variant
+  if state['call']==0:captures[variant]=[]
+  aa=list(a);aa[3]=copy.deepcopy(a[3])
+  for i,req in enumerate(aa[3]):
+   n=8200 if i==0 else 8203;req.origin_input_ids=req.origin_input_ids[:n];req.full_untruncated_fill_ids=req.origin_input_ids;req.set_extend_range(0,n)
+  r=once_orig(*aa,**kw)
+ if state['call']>0:r['candidate']=state['enabled'];results.append(r.copy())
+ state['call']+=1;return r
+def save():
+ checks=[]
+ if len(captures)==2:
+  for a,b in zip(captures[False],captures[True]):checks.append({'bitwise':torch.equal(a,b),'max_abs':(a-b).abs().max().item(),'nrmse':((a.float()-b.float()).norm()/a.float().norm()).item(),'greedy_equal':torch.equal(a.argmax(-1),b.argmax(-1))})
+ (root/'report.json').write_text(json.dumps({'source':'058959cd+three_file_candidate','python_files_verified':len(actual),'counts':counts,'proof':proof,'configs':configs,'checks':checks,'results':results},indent=2))
+atexit.register(save);bench.latency_test_run_once=once
+
+import time
+from array import array
+cache_checks=[]
+old_extend_hook=TRTLLMHAAttnBackend.forward_extend
+def check_extend(self,q,k,v,layer,batch,*a,**kw):
+ result=old_extend_hook(self,q,k,v,layer,batch,*a,**kw)
+ if state.get('check_cache') and layer.layer_id==0:
+  kr,vr=self.token_to_kv_pool.get_kv_buffer(layer.layer_id)
+  kk,vv=self._reshape_paged_kv_cache(kr,vr,layer,128)
+  loc=batch.out_cache_loc
+  gotk=kk[loc//32,:,loc%32,:];gotv=vv[loc//32,:,loc%32,:]
+  okk=torch.equal(gotk,k.view(-1,8,128));okv=torch.equal(gotv,v.view(-1,8,128))
+  assert okk and okv
+  cache_checks.append({'tokens':len(loc),'k_bitwise':okk,'v_bitwise':okv})
+ return result
+TRTLLMHAAttnBackend.forward_extend=check_extend
+fallback=bool(int(os.environ.get('QVL_FORCE_PREFIX','0')))
+def mixed_once(*args,**kwargs):
+ variants=[False,True,True,False] if state['call']==0 else [([False,True,True,False]*2)[state['call']-1]]
+ runner=args[1]
+ for variant in variants:
+  state['enabled']=False;state['check_cache']=False
+  captures.setdefault(False,[]);runner.clear();reqs=copy.deepcopy(args[3])
+  assert len(reqs)==20
+  for i,req in enumerate(reqs):
+   n=8200 if i<2 else (7872 if i==2 else 8192)
+   req.origin_input_ids=req.origin_input_ids[:n];req.full_untruncated_fill_ids=req.origin_input_ids;req.set_extend_range(0,n)
+  tails=reqs[3:]
+  for start in range(0,len(tails),8):
+   group=tails[start:start+8];ids,_,_=runner.extend(group)
+   for req,tok in zip(group,ids.tolist()):
+    req.prefix_indices=runner.torch_runner.req_to_token_pool.req_to_token[req.kv.req_pool_idx,:8192].to(req.prefix_indices.dtype)
+    req.full_untruncated_fill_ids.append(tok);req.set_extend_range(8192,8193)
+  if True:
+   full=reqs[0].origin_input_ids[:];reqs[0].origin_input_ids=full[:7968];reqs[0].full_untruncated_fill_ids=reqs[0].origin_input_ids;reqs[0].set_extend_range(0,7968)
+   runner.extend([reqs[0]])
+   reqs[0].full_untruncated_fill_ids.extend(full[7968:]);reqs[0].prefix_indices=runner.torch_runner.req_to_token_pool.req_to_token[reqs[0].kv.req_pool_idx,:7968].to(reqs[0].prefix_indices.dtype);reqs[0].set_extend_range(7968,8200)
+  state['enabled']=variant;state['check_cache']=state['call']==0
+  if state['call']==0:captures[variant]=[]
+  runner.synchronize();t=time.perf_counter();ids,logits,batch=runner.extend(reqs);runner.synchronize();dt=time.perf_counter()-t
+  for _ in range(3):ids,logits=runner.decode(ids,batch)
+  runner.synchronize()
+  r={'candidate':variant,'prefill_latency':dt,'force_prefix':fallback,'batch_size':20,'input_tokens':sum(len(req.get_fill_ids())-len(req.prefix_indices) for req in reqs)}
+ if state['call']>0:results.append(r)
+ state['call']+=1;print('MIXED_RESULT',json.dumps(r),flush=True);return r
+bench.latency_test_run_once=mixed_once
+old_save=save
+atexit.unregister(save)
+def mixed_save():
+ old_save();p=root/'report.json';d=json.loads(p.read_text());d['cache_checks']=cache_checks;d['pack_checks']=pack_checks;d['workspace_reuse']='shape-keyed scratch, cold allocation excluded after warmup';d['force_prefix']=fallback;p.write_text(json.dumps(d,indent=2))
+atexit.register(mixed_save)
+np.random.seed(42);torch.manual_seed(42);bench.cli_main()
