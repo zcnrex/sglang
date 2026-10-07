@@ -1,0 +1,207 @@
+{
+  "source_commit": "5f60fb8b67",
+  "python_files_verified": 4229,
+  "interface": "/root/qvl/sglang-public-lt-clean/python/sglang/kernels/ops/attention/flash_attn/cute/interface.py",
+  "gpu": "4",
+  "seed": 20261007,
+  "input": "synthetic BF16, QKV token stride6144",
+  "rows": [
+    {
+      "lengths": [
+        8200
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "kv_cache_stride": [
+        32768,
+        4096,
+        128,
+        1
+      ],
+      "checks": {
+        "trt": {
+          "max_abs": 0.0,
+          "nrmse": 0.0
+        },
+        "fa4_default": {
+          "max_abs": 0.00390625,
+          "nrmse": 0.0021968334913253784
+        },
+        "fa4_clc": {
+          "max_abs": 0.00390625,
+          "nrmse": 0.0021968334913253784
+        },
+        "clc_vs_default_bitwise": true
+      },
+      "us": {
+        "warm": {
+          "trt": [
+            398.84800910949707,
+            490.2400016784668,
+            489.1632080078125,
+            491.05920791625977
+          ],
+          "fa4_default": [
+            339.303994178772,
+            415.5407905578613,
+            408.27040672302246,
+            416.6736125946045
+          ],
+          "fa4_clc": [
+            323.2271909713745,
+            334.4928026199341,
+            366.79680347442627,
+            380.00640869140625
+          ]
+        },
+        "cold": {
+          "trt": [
+            399.4719982147217,
+            493.6640113592148,
+            492.3199862241745,
+            490.5279874801636
+          ],
+          "fa4_default": [
+            341.92000329494476,
+            423.93599450588226,
+            413.7440025806427,
+            431.2320053577423
+          ],
+          "fa4_clc": [
+            322.60800898075104,
+            369.6800023317337,
+            377.83999741077423,
+            388.08000087738037
+          ]
+        }
+      },
+      "median_us": {
+        "warm": {
+          "trt": 489.70160484313965,
+          "fa4_default": 411.9055986404419,
+          "fa4_clc": 350.6448030471802
+        },
+        "cold": {
+          "trt": 491.42398685216904,
+          "fa4_default": 418.8399985432625,
+          "fa4_clc": 373.75999987125397
+        }
+      }
+    },
+    {
+      "lengths": [
+        8200,
+        8203
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "kv_cache_stride": [
+        32768,
+        4096,
+        128,
+        1
+      ],
+      "checks": {
+        "trt": {
+          "max_abs": 0.0,
+          "nrmse": 0.0
+        },
+        "fa4_default": {
+          "max_abs": 0.00390625,
+          "nrmse": 0.0021996228024363518
+        },
+        "fa4_clc": {
+          "max_abs": 0.00390625,
+          "nrmse": 0.0021996228024363518
+        },
+        "clc_vs_default_bitwise": true
+      },
+      "us": {
+        "warm": {
+          "trt": [
+            750.9520053863525,
+            911.6144180297852,
+            887.8095626831055,
+            911.1040115356445
+          ],
+          "fa4_default": [
+            679.0192127227783,
+            871.9344139099121,
+            824.4256019592285,
+            850.8463859558105
+          ],
+          "fa4_clc": [
+            660.3807926177979,
+            798.0031967163086,
+            752.0895957946777,
+            764.1583919525146
+          ]
+        },
+        "cold": {
+          "trt": [
+            747.5200295448303,
+            903.1679928302765,
+            888.8159990310669,
+            919.6480214595795
+          ],
+          "fa4_default": [
+            751.664012670517,
+            886.784017086029,
+            843.8079953193665,
+            857.088029384613
+          ],
+          "fa4_clc": [
+            740.2400076389313,
+            806.9120049476624,
+            751.5999972820282,
+            774.256020784378
+          ]
+        }
+      },
+      "median_us": {
+        "warm": {
+          "trt": 899.456787109375,
+          "fa4_default": 837.6359939575195,
+          "fa4_clc": 758.1239938735962
+        },
+        "cold": {
+          "trt": 895.9919959306717,
+          "fa4_default": 850.4480123519897,
+          "fa4_clc": 762.9280090332031
+        }
+      }
+    }
+  ],
+  "kernel_configs": [
+    {
+      "use_clc_scheduler": "False",
+      "scheduling_mode": "2",
+      "TileScheduler": "<class 'sglang.kernels.ops.attention.flash_attn.cute.tile_scheduler.SingleTileVarlenScheduler'>",
+      "use_tma_KV": "True",
+      "use_2cta_instrs": "False",
+      "threads_per_cta": "512",
+      "q_stage": "2",
+      "m_block_size": "128",
+      "n_block_size": "128",
+      "kv_stage": "None"
+    },
+    {
+      "use_clc_scheduler": "True",
+      "scheduling_mode": "4",
+      "TileScheduler": "<class 'sglang.kernels.ops.attention.flash_attn.cute.tile_scheduler.SingleTileVarlenScheduler'>",
+      "use_tma_KV": "True",
+      "use_2cta_instrs": "False",
+      "threads_per_cta": "512",
+      "q_stage": "2",
+      "m_block_size": "128",
+      "n_block_size": "128",
+      "kv_stage": "None"
+    }
+  ]
+}

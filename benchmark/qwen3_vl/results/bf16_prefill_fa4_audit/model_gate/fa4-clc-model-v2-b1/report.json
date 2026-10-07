@@ -1,0 +1,239 @@
+{
+  "source": "5f60fb8b67",
+  "python_files_verified": 4229,
+  "counts": {
+    "fa4": 216,
+    "fallback": 0
+  },
+  "proof": [
+    {
+      "tokens": 8200,
+      "requests": 1,
+      "prefix": [
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 8200,
+      "requests": 1,
+      "prefix": [
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 8200,
+      "requests": 1,
+      "prefix": [
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 8200,
+      "requests": 1,
+      "prefix": [
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    }
+  ],
+  "configs": [],
+  "checks": [
+    {
+      "bitwise": false,
+      "max_abs": 0.0625,
+      "nrmse": 0.0029913128819316626,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.0071919942274689674,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.15625,
+      "nrmse": 0.00971606932580471,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.003191624768078327,
+      "greedy_equal": true
+    }
+  ],
+  "results": [
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06521325200446881,
+      "prefill_throughput": 125787.31696186351,
+      "median_decode_latency": 0.0035158219980075955,
+      "median_decode_throughput": 284.4285064962608,
+      "total_latency": 0.07588752100127749,
+      "overall_throughput": 108146.89808963246,
+      "candidate": false
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06183710100594908,
+      "prefill_throughput": 132654.98974815823,
+      "median_decode_latency": 0.0035178190155420452,
+      "median_decode_throughput": 284.2670403400257,
+      "total_latency": 0.07249202000093646,
+      "overall_throughput": 113212.46117702308,
+      "candidate": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06209385397960432,
+      "prefill_throughput": 132106.4722878113,
+      "median_decode_latency": 0.003585039987228811,
+      "median_decode_throughput": 278.9369166208344,
+      "total_latency": 0.07292831892846152,
+      "overall_throughput": 112535.15946323394,
+      "candidate": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06563448798260652,
+      "prefill_throughput": 124980.02577812198,
+      "median_decode_latency": 0.0035550500033423305,
+      "median_decode_throughput": 281.2899956568363,
+      "total_latency": 0.07637071897624992,
+      "overall_throughput": 107462.65204799561,
+      "candidate": false
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06482806301210076,
+      "prefill_throughput": 126534.7076384009,
+      "median_decode_latency": 0.0035491099988576025,
+      "median_decode_throughput": 281.76077955371426,
+      "total_latency": 0.07554174202959985,
+      "overall_throughput": 108641.92140001505,
+      "candidate": false
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.062435176980216056,
+      "prefill_throughput": 131384.26759964658,
+      "median_decode_latency": 0.003560093988198787,
+      "median_decode_throughput": 280.89146053864306,
+      "total_latency": 0.0732449569622986,
+      "overall_throughput": 112048.66983844897,
+      "candidate": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06189428098150529,
+      "prefill_throughput": 132532.4386989995,
+      "median_decode_latency": 0.0035763510095421225,
+      "median_decode_throughput": 279.6146120254648,
+      "total_latency": 0.07266997298575006,
+      "overall_throughput": 112935.22844172957,
+      "candidate": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 1,
+      "input_len": 8203,
+      "output_len": 4,
+      "prefill_latency": 0.06405031098984182,
+      "prefill_throughput": 128071.19705165789,
+      "median_decode_latency": 0.0035057950008194894,
+      "median_decode_throughput": 285.2420063826456,
+      "total_latency": 0.07465039397357032,
+      "overall_throughput": 109939.13847133421,
+      "candidate": false
+    }
+  ]
+}

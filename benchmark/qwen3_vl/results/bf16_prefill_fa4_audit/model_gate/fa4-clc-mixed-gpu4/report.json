@@ -1,0 +1,211 @@
+{
+  "source": "5f60fb8b67",
+  "python_files_verified": 4229,
+  "counts": {
+    "fa4": 144,
+    "fallback": 0
+  },
+  "proof": [
+    {
+      "tokens": 16207,
+      "requests": 2,
+      "prefix": [
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 16207,
+      "requests": 2,
+      "prefix": [
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 16207,
+      "requests": 2,
+      "prefix": [
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    },
+    {
+      "tokens": 16207,
+      "requests": 2,
+      "prefix": [
+        0,
+        0
+      ],
+      "q_stride": [
+        6144,
+        128,
+        1
+      ],
+      "k_stride": [
+        6144,
+        128,
+        1
+      ],
+      "v_stride": [
+        6144,
+        128,
+        1
+      ],
+      "cache_write": "original forward_extend executed before this hook",
+      "decode": "original TRT method untouched"
+    }
+  ],
+  "configs": [
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    },
+    {
+      "selected_cache_key_clc": true,
+      "key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf",
+      "kernel_type": "<class 'tvm_ffi.core.Function'>"
+    }
+  ],
+  "checks": [
+    {
+      "bitwise": false,
+      "max_abs": 0.09375,
+      "nrmse": 0.0004743459867313504,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.90625,
+      "nrmse": 0.006924977991729975,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.1875,
+      "nrmse": 0.0007049987325444818,
+      "greedy_equal": true
+    },
+    {
+      "bitwise": false,
+      "max_abs": 0.125,
+      "nrmse": 0.0008109223563224077,
+      "greedy_equal": true
+    }
+  ],
+  "results": [
+    {
+      "candidate": false,
+      "prefill_latency": 0.15146516798995435,
+      "force_prefix": false,
+      "batch_size": 126,
+      "input_tokens": 16331
+    },
+    {
+      "candidate": true,
+      "prefill_latency": 0.15117593700415455,
+      "force_prefix": false,
+      "batch_size": 126,
+      "input_tokens": 16331
+    },
+    {
+      "candidate": true,
+      "prefill_latency": 0.14949303300818428,
+      "force_prefix": false,
+      "batch_size": 126,
+      "input_tokens": 16331
+    },
+    {
+      "candidate": false,
+      "prefill_latency": 0.15647936801542528,
+      "force_prefix": false,
+      "batch_size": 126,
+      "input_tokens": 16331
+    }
+  ],
+  "cache_checks": [
+    {
+      "tokens": 16331,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16331,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16331,
+      "k_bitwise": true,
+      "v_bitwise": true
+    },
+    {
+      "tokens": 16331,
+      "k_bitwise": true,
+      "v_bitwise": true
+    }
+  ],
+  "force_prefix": false
+}

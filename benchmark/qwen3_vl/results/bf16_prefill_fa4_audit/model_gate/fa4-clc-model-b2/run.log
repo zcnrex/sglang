@@ -1,0 +1,126 @@
+[2026-10-07 23:04:06 TP0] Init parallel begin.
+[2026-10-07 23:04:06 TP0] Init parallel ends. elapsed=0.31 s
+[2026-10-07 23:04:06 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+[2026-10-07 23:04:07 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-07 23:04:08 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-07 23:04:08 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.15it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.06it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.07it/s]
+[2026-10-07 23:04:10 TP0] Load weight end. elapsed=2.58 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-07 23:04:10 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-07 23:04:10 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1613440, K size: 110.79 GB, V size: 110.79 GB
+[2026-10-07 23:04:10 TP0] Memory pool end. avail mem=33.65 GB
+[2026-10-07 23:04:28 TP0] Running FlashInfer autotune with cache: /root/.cache/sglang/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.30profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.29profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 15.66profile/s]
+[2026-10-07 23:04:31 TP0] FlashInfer autotune completed.
+[2026-10-07 23:04:31 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-07 23:04:31 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2], avail mem=32.19 GB
+  0%|          | 0/2 [00:00<?, ?it/s]Capturing batches (bs=2 avail_mem=32.19 GB):   0%|          | 0/2 [00:00<?, ?it/s]Capturing batches (bs=2 avail_mem=32.19 GB):  50%|█████     | 1/2 [00:02<00:02,  2.08s/it]Capturing batches (bs=1 avail_mem=32.40 GB):  50%|█████     | 1/2 [00:02<00:02,  2.08s/it]Capturing batches (bs=1 avail_mem=32.40 GB): 100%|██████████| 2/2 [00:02<00:00,  1.08it/s]Capturing batches (bs=1 avail_mem=32.40 GB): 100%|██████████| 2/2 [00:02<00:00,  1.10s/it]
+[2026-10-07 23:04:34 TP0] Capture target decode CUDA graph end. elapsed=3.10 s, mem usage=-0.21 GB, avail mem=32.40 GB.
+max_total_num_tokens=1613440
+Warmup ...
+Prefill. latency: 1.05266 s, throughput:  15585.26 token/s
+Decode 0. Batch size: 2, latency: 4.90348 s, throughput:      0.41 token/s
+Decode 1. Batch size: 2, latency: 0.00385 s, throughput:    519.66 token/s
+Decode 2. Batch size: 2, latency: 0.00343 s, throughput:    583.24 token/s
+Decode.  median latency: 0.00385 s, median throughput:    519.66 token/s
+Total. latency:  5.963 s, throughput:   2752.45 token/s
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/root/qvl/experiments/fa4_clc_model.py", line 60, in <module>
+[rank0]:     np.random.seed(42);torch.manual_seed(42);bench.cli_main()
+[rank0]:                                              ^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/benchmark/one_batch.py", line 1107, in cli_main
+[rank0]:     main(server_args, bench_args)
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/benchmark/one_batch.py", line 1069, in main
+[rank0]:     work_func(server_args, port_args, bench_args, 0, 0)
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/benchmark/one_batch.py", line 934, in latency_test
+[rank0]:     latency_test_run_once(
+[rank0]:   File "/root/qvl/experiments/fa4_clc_model.py", line 51, in once
+[rank0]:     r=once_orig(*aa,**kw)
+[rank0]:       ^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/benchmark/one_batch.py", line 806, in latency_test_run_once
+[rank0]:     next_token_ids, _, batch = model_runner.extend(reqs)
+[rank0]:                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/benchmark/one_batch.py", line 577, in extend
+[rank0]:     return extend(reqs, self.torch_runner)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/benchmark/one_batch.py", line 533, in extend
+[rank0]:     logits_output = model_runner.forward(forward_batch).logits_output
+[rank0]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/fa4_clc_model.py", line 38, in forward_hook
+[rank0]:     r=forward(self,b,*a,**kw)
+[rank0]:       ^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/model_executor/model_runner.py", line 1779, in forward
+[rank0]:     output = self._forward_raw(
+[rank0]:              ^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/model_executor/model_runner.py", line 1971, in _forward_raw
+[rank0]:     ret = self.eager_runner.execute(
+[rank0]:           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/model_executor/runner/eager_runner.py", line 228, in execute
+[rank0]:     return self._execute_extend(forward_batch, pp_proxy_tensors)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/model_executor/runner/eager_runner.py", line 376, in _execute_extend
+[rank0]:     ret = model_runner.model.forward(
+[rank0]:           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/models/qwen3_vl.py", line 1661, in forward
+[rank0]:     hidden_states = general_mm_embed_routine(
+[rank0]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/managers/mm_utils.py", line 813, in general_mm_embed_routine
+[rank0]:     hidden_states = language_model(
+[rank0]:                     ^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/models/qwen3_vl.py", line 1265, in forward
+[rank0]:     hidden_states = layer(
+[rank0]:                     ^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/models/qwen3.py", line 485, in forward
+[rank0]:     hidden_states = self.self_attn(
+[rank0]:                     ^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/models/qwen3.py", line 390, in forward
+[rank0]:     attn_output = self.attn(q, k, v, forward_batch, save_kv_cache=save_kv_cache)
+[rank0]:                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/layers/radix_attention.py", line 294, in forward
+[rank0]:     return get_attn_backend().forward(
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/layers/attention/base_attn_backend.py", line 296, in forward
+[rank0]:     return self.forward_extend(
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/fa4_clc_model.py", line 20, in extend_hook
+[rank0]:     try:return extend(self,q,k,v,layer,batch,*a,**kw)
+[rank0]:                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-public-lt-clean/python/sglang/srt/layers/attention/trtllm_mha_backend.py", line 1878, in forward_extend
+[rank0]:     return o.view(-1, layer.tp_q_head_num * layer.head_dim)
+[rank0]:            ^^^^^^
+[rank0]: AttributeError: 'tuple' object has no attribute 'view'

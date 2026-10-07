@@ -1,0 +1,21 @@
+{
+  "pure_launch.sh.txt": "3fb84156a2f73ebc9118b3adf4165278f24770774ec73b62462d42436ce03bf4",
+  "pure_model.py.txt": "ff50622494ed92d0339091771543a86fe6f5d12f3af2e5783e62421832a66040",
+  "serving_hook.py.txt": "4fbc394b593d5a449fdce817569484962fed757eb26b82691597c76cf037aced",
+  "mixed_model.py.txt": "a636596f0665e2f1d2f38729deeae2148cad7a3801f2931a8b678eb6f681f396",
+  "README.md": "0cad050875fa062b3d2c238d884c22fc6215f5efc060b0f381266cc70eec8511",
+  "fa4-clc-model-b2/run.log": "1b9cf6ed2aa15cf9ae2ae5db9913f31c765631cbdc04350839c00e530c9ff16f",
+  "fa4-clc-model-v2-b1/report.json": "21afd7fa535ed516750a8d4973cfba773e6069162fdd1f5d3073a725782d0bf9",
+  "fa4-clc-model-v2-b1/run.log": "9032aaaca485fa53152d3d9b2f81057e097c846c3ea3cfb5db9f8c6e72c6cd8c",
+  "fa4-clc-model-v2-b1/results.jsonl": "bb680166f767f52456327742c880c61bc869b0ba58cf36c68c57ffad0a5fbf51",
+  "fa4-clc-mixed-gpu4/report.json": "61a28c721e59b5af898342389a191c1c088791dd00bf0f4c8bfd3769b3db99a8",
+  "fa4-clc-mixed-gpu4/run.log": "b1fb998066210dcb6fd3ff5e543606d777f19d761fd05c36c275374ea3591eaa",
+  "fa4-clc-mixed-gpu4/results.jsonl": "63dbf580ca2b51a3b5d3b4d16646591851ad3611577afeb63c131c11d8230e30",
+  "fa4-clc-mixed-gpu5/report.json": "51100f1e4013b865d1e4ef2f8f0dff9ea7ae476ec7091534c537ebbec8d5a452",
+  "fa4-clc-mixed-gpu5/run.log": "66ac0c4db550c2d22328d44686398e0c08770603afeeccad917dae0f3a9df9a7",
+  "fa4-clc-mixed-gpu5/results.jsonl": "a061d1bca29ad6a573f6e4794ec846149fc1f6f6359e615b9eafd600c4b8d1af",
+  "fa4-clc-model-b1/run.log": "36e6d5a86faa14a5b4628efff1ce162ea4caf9a50b163a07362905a40119106e",
+  "fa4-clc-model-v2-b2/report.json": "bb501387ea928d20444c8e2d095b31c69110302d2d8a6c6ca40f4d78058c1a0a",
+  "fa4-clc-model-v2-b2/run.log": "bbc51d67f8bd2854eacd8ac97b127d3794f29f8385aaf54cda62509df6a5abee",
+  "fa4-clc-model-v2-b2/results.jsonl": "634e40ca8922ed51f35c1a93cfa5e32218311dece920937c93c756b16cfbf8f1"
+}

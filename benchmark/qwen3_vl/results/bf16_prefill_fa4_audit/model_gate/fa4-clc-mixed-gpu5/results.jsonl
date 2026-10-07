@@ -1,0 +1,4 @@
+{"candidate": false, "prefill_latency": 0.1425488319946453, "force_prefix": true, "batch_size": 126, "input_tokens": 16267}
+{"candidate": true, "prefill_latency": 0.14273857499938458, "force_prefix": true, "batch_size": 126, "input_tokens": 16267}
+{"candidate": true, "prefill_latency": 0.1440717229852453, "force_prefix": true, "batch_size": 126, "input_tokens": 16267}
+{"candidate": false, "prefill_latency": 0.14154663498629816, "force_prefix": true, "batch_size": 126, "input_tokens": 16267}

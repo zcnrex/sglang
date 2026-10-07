@@ -1,0 +1,61 @@
+import atexit,copy,hashlib,json,os,pathlib
+import numpy as np
+import torch,flashinfer
+from sglang.srt.layers.attention.trtllm_mha_backend import TRTLLMHAAttnBackend
+from sglang.srt.model_executor.model_runner import ModelRunner
+from sglang.kernels.ops.attention.flash_attn.cute import interface,utils
+from sglang.benchmark import one_batch as bench
+source=pathlib.Path('/root/qvl/sglang-public-lt-clean');expected=json.load(open('/root/qvl/experiments/prefill-graph-check/expected.json'))
+actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')};assert actual==expected
+root=pathlib.Path(os.environ['QVL_MODEL_OUT']);root.mkdir(parents=True,exist_ok=True)
+state={'enabled':False,'call':0,'current':None};counts={'fa4':0,'fallback':0};captures={};results=[];proof=[];configs=[]
+init=interface.FlashAttentionForwardSm100.__init__
+def init_hook(self,*a,**kw):
+ init(self,*a,**kw);configs.append({'clc':self.use_clc_scheduler,'mode':str(self.scheduling_mode),'threads':self.threads_per_cta})
+interface.FlashAttentionForwardSm100.__init__=init_hook
+extend=TRTLLMHAAttnBackend.forward_extend
+context=flashinfer.prefill.trtllm_batch_context_with_kv_cache
+def extend_hook(self,q,k,v,layer,batch,*a,**kw):
+ prev=state['current'];state['current']=(k,v,layer,batch)
+ try:return extend(self,q,k,v,layer,batch,*a,**kw)
+ finally:state['current']=prev
+def context_hook(*a,**kw):
+ cur=state['current']
+ if not state['enabled'] or cur is None:return context(*a,**kw)
+ k,v,layer,batch=cur;n=kw['batch_size'];q=kw['query'];pref=batch.extend_prefix_lens_cpu
+ if k is None or v is None or pref is None or any(pref[:n]) or q.dtype!=torch.bfloat16 or k.dtype!=torch.bfloat16 or kw.get('sinks') is not None or kw.get('window_left',-1) not in [-1,None] or kw.get('kv_cache_sf') is not None:
+  counts['fallback']+=1;return context(*a,**kw)
+ tokens=q.shape[0];kk=k.reshape(-1,8,128)[:tokens];vv=v.reshape(-1,8,128)[:tokens]
+ utils._fa_clc_enabled=True
+ out=interface.flash_attn_varlen_func(q,kk,vv,cu_seqlens_q=kw['cum_seq_lens_q'],cu_seqlens_k=kw['cum_seq_lens_q'],max_seqlen_q=kw['max_q_len'],max_seqlen_k=kw['max_q_len'],softmax_scale=kw['bmm1_scale'],causal=True,out=kw.get('out'))
+ if isinstance(out,tuple):out=out[0]
+ counts['fa4']+=1
+ if len(proof)<4:proof.append({'tokens':tokens,'requests':n,'prefix':list(pref[:n]),'q_stride':list(q.stride()),'k_stride':list(kk.stride()),'v_stride':list(vv.stride()),'cache_write':'original forward_extend executed before this hook','decode':'original TRT method untouched'})
+ return out
+TRTLLMHAAttnBackend.forward_extend=extend_hook
+flashinfer.prefill.trtllm_batch_context_with_kv_cache=context_hook
+forward=ModelRunner.forward
+def forward_hook(self,b,*a,**kw):
+ r=forward(self,b,*a,**kw)
+ if state['call']==0:captures[state['enabled']].append(r.logits_output.next_token_logits.detach().clone())
+ return r
+ModelRunner.forward=forward_hook
+once_orig=bench.latency_test_run_once
+def once(*a,**kw):
+ variants=[False,True,True,False] if state['call']==0 else [([False,True,True,False]*4)[state['call']-1]]
+ for variant in variants:
+  state['enabled']=variant
+  if state['call']==0:captures[variant]=[]
+  aa=list(a);aa[3]=copy.deepcopy(a[3])
+  for i,req in enumerate(aa[3]):
+   n=8200 if i==0 else 8203;req.origin_input_ids=req.origin_input_ids[:n];req.full_untruncated_fill_ids=req.origin_input_ids;req.set_extend_range(0,n)
+  r=once_orig(*aa,**kw)
+ if state['call']>0:r['candidate']=state['enabled'];results.append(r.copy())
+ state['call']+=1;return r
+def save():
+ checks=[]
+ if len(captures)==2:
+  for a,b in zip(captures[False],captures[True]):checks.append({'bitwise':torch.equal(a,b),'max_abs':(a-b).abs().max().item(),'nrmse':((a.float()-b.float()).norm()/a.float().norm()).item(),'greedy_equal':torch.equal(a.argmax(-1),b.argmax(-1))})
+ (root/'report.json').write_text(json.dumps({'source':'5f60fb8b67','python_files_verified':len(actual),'counts':counts,'proof':proof,'configs':configs,'checks':checks,'results':results},indent=2))
+atexit.register(save);bench.latency_test_run_once=once
+np.random.seed(42);torch.manual_seed(42);bench.cli_main()
