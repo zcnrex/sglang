@@ -1,0 +1,41 @@
+{
+  "host": "chunan-b300-8",
+  "gpu": 0,
+  "precision": "lossless BF16 bit patterns; no quantization",
+  "layout": {
+    "payload_dtype": "uint8",
+    "row_stride_bytes": 256,
+    "metadata_dtype": "uint16",
+    "compressed_flag": 256,
+    "base_exponent_mask": 255,
+    "sign_mantissa_bytes": [0, 128],
+    "delta_bytes": [128, 192],
+    "delta_order": "even position low nibble, odd position high nibble",
+    "fallback": "raw little-endian BF16 words; all exponent-255 rows fall back",
+    "compression_condition": "max exponent - min exponent <= 15 and max exponent < 255",
+    "allocated_capacity": "unchanged 256-byte row stride plus 2-byte metadata per row"
+  },
+  "correctness": {
+    "all_65536_bf16_patterns_bitwise": true,
+    "uniform_random_bit_rows": 4096,
+    "normal_random_rows": 8192,
+    "positive_and_negative_zero": true,
+    "full_4gib_cache_bitwise": true,
+    "real_layer_0_17_35_kv_bitwise": true,
+    "row_sum_note": "FP32 reduction association differs by at most 3.814697265625e-6; reconstructed BF16 bits remain exact."
+  },
+  "large_cache": {
+    "rows": 16777216,
+    "raw_bytes": 4294967296,
+    "metadata_bytes": 33554432,
+    "compressed_fraction": 0.9937401413917542,
+    "packed_logical_read_bytes": 3261501376,
+    "row_sum_output_bytes": 67108864,
+    "best_raw_read_sum_ms": 0.6160448074340821,
+    "best_packed_read_sum_ms": 1.1876416206359863,
+    "copy_write_bytes": 4294967296,
+    "best_raw_copy_ms": 1.2394176006317137,
+    "best_unpack_copy_ms": 1.3840543746948242
+  },
+  "conclusion": "Bit-exact packing works, but this standalone Triton reader is slower despite reduced logical reads. No production integration or serving experiment. Attention-fused reader evaluated separately by scheduler agent."
+}

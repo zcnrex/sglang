@@ -1,0 +1,27 @@
+{
+ "status":"read_only_complete",
+ "dataset":"/root/qvl/hf/hub/datasets--anon8231489123--ShareGPT_Vicuna_unfiltered/snapshots/192ab2185289094fc556ec8ce5ce1e8e587154ca/ShareGPT_V3_unfiltered_cleaned_split.json",
+ "reconstruction":"Seed42, same >=2-turn filter and shuffle, first640 nonempty prompts; tokenizer encode, repeat/truncate to8192, decode, Qwen chat template. CPU reconstruction, not measured server token trace.",
+ "requests":640,
+ "total_reconstructed_chat_tokens":5229225,
+ "duplicate_requests":2,
+ "maximum_page32_shared_prefix_tokens_across_all_requests":16480,
+ "maximum_share_fraction":0.003151518147,
+ "sorted_adjacent_pairs_lcp_ge32":3,
+ "sorted_adjacent_pairs_lcp_ge128":2,
+ "sorted_adjacent_pairs_lcp_ge1024":2,
+ "maximum_lcp":8200,
+ "serving_evidence":{
+  "logs":["/root/qvl/experiments/newhost-comparison/reference/server.log","/root/qvl/experiments/newhost-comparison/combined/server.log"],
+  "both_logs":{"prefill_lines":139,"new_tokens":2126314,"cached_tokens":1048576,"nonzero_cache_lines":3},
+  "interpretation":"All three nonzero cached-token lines (8192,352256,688128) are warmup before the final successful cache flush at16:45:37 (combined lines282-283). Measured phase after that flush has no nonzero cache-hit lines. Do not interpret aggregate warmup hits as measured benchmark reuse."
+ },
+ "source_evidence":[
+  "sgl_bench/_vendored/sglang/benchmark/datasets/random.py:62-145 samples shuffled ShareGPT and repeats/truncates within each request",
+  "sgl_bench/_vendored/sglang/bench_serving.py:989-995 resets engine prefix cache after warmup",
+  "python/sglang/srt/managers/schedule_policy.py:278-289 performs prefix matches even for cache-agnostic policies",
+  "python/sglang/srt/managers/schedule_policy.py:298-308 applies LPM/DFS ordering to cache-aware policies"
+ ],
+ "conclusion":"No material exact prefix-sharing opportunity: even ideal ordering/sharing across all640 requests saves at most about0.315% of reconstructed input token work. Shared-prefix decode memory savings similarly tiny. Repeated token spans inside one request cannot reuse causal K/V because position and prior context differ. Admission reordering can alter batching/latency but cannot eliminate the required distinct K/V reads; no concrete new traffic-reduction lead found.",
+ "limits":"Original old-host vLLM cache-hit traces and client version unavailable. This report makes no baseline hit-parity claim. No GPU jobs, request modifications, approximate attention, or speculative decoding."
+}

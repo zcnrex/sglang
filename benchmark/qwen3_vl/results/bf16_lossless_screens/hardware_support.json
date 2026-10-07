@@ -1,0 +1,11 @@
+{
+  "host": "chunan-b300-8",
+  "device": 0,
+  "driver_query_success": true,
+  "CU_DEVICE_ATTRIBUTE_GENERIC_COMPRESSION_SUPPORTED": 1,
+  "CU_DEVICE_ATTRIBUTE_MEM_DECOMPRESS_ALGORITHM_MASK": 7,
+  "CU_DEVICE_ATTRIBUTE_MEM_DECOMPRESS_MAXIMUM_LENGTH": 4194304,
+  "actual_compressible_allocation": "verified compressionType=1 on both 2GiB KV allocations; identical capacity and bitwise cache/output checks passed",
+  "documentation": "https://docs.nvidia.com/cuda/cuda-programming-guide/04-special-topics/virtual-memory-management.html",
+  "decision": "reject for real BF16 KV: about 0.4% slower; zero-filled positive control 2.61x faster"
+}

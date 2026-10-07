@@ -143,3 +143,35 @@ statistical accuracy equivalence.
 A fresh standalone page-size check found BF16 page16/32/64 outputs bitwise equal
 and throughput differences below 0.35%; the page-16 reference-source lead was
 not promoted. All weights, KV storage and attention queries remain BF16.
+
+## Further memory-traffic investigations
+
+Exact prefix reuse offers little opportunity in this workload: reconstructed
+prompts have at most about 0.315% reusable page-32 prefix tokens, and inspected
+measured-phase logs show zero nonzero prefix-cache hits after flushing.
+
+A standalone lossless BF16 packing prototype reconstructed all 65536 BF16 bit
+patterns, a 4 GiB cache, and captured real K/V exactly. It saved logical reads
+but was slower: best packed attention after bounded tuning took 1.686 ms versus
+0.586 ms for the existing TRT kernel. Register/shared-memory pressure and
+byte-unpacking/layout operations outweighed the memory savings. No packed
+cache format was integrated.
+
+Transparent CUDA memory compression was also tested with actual compressed
+allocation properties verified. It accelerated a zero-filled control from
+588.54 to 225.80 microseconds, but real BF16 K/V from layers 0/17/35 took
+590.62–591.69 microseconds versus 588.11–589.08 in uncompressed VMM storage.
+Caches and outputs were bitwise equal. This option was not promoted.
+
+Scripts, numerical checks, captured-value statistics and timing reports are in
+`results/bf16_lossless_screens/`; large captured tensors remain on the devbox.
+
+A 12-configuration uncompressed Triton attention screen also failed to beat
+TRT: best 616.40 versus 588.50 microseconds on the same GPU. The prototype
+included runtime sequence lengths and page-table lookup, and numerical checks
+passed. No serving tests were launched for these rejected kernels.
+
+TRT supports padded KV page strides, but a final four-layout screen found no
+benefit: padding 0/128/512/4096 BF16 elements per page took respectively
+588.86/590.47/588.95/597.79 microseconds, with bitwise-identical outputs.
+The padded layouts increase cache capacity requirements and were rejected.

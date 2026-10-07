@@ -1,0 +1,30 @@
+{
+ "model_revision":"ebb281ec70b05090aa6165b016eac8ec08e71b17",
+ "source":"Actual config.json and safetensors metadata inspected on chunan-b300-8, without loading weights onto GPU",
+ "dtype":"BF16",
+ "hidden_size":2560,
+ "head_dim":128,
+ "q_heads":32,
+ "kv_heads":8,
+ "intermediate_size":9728,
+ "layers":36,
+ "verified_projection_shapes_N_K":{"q":[4096,2560],"k":[1024,2560],"v":[1024,2560],"qkv_packed":[6144,2560],"o":[2560,4096],"gate":[9728,2560],"up":[9728,2560],"gate_up_packed":[19456,2560],"down":[2560,9728]},
+ "prefill_M":[8192,16384],
+ "flashinfer_version":"0.7.0.post1",
+ "available_mm_bf16_backends":{
+  "cublaslt":"Prior large-M screen completed; no new API path identified",
+  "cudnn":"Prior large-M screen completed; no new API path identified",
+  "cutlass":"Prior large-M screen completed; no new API path identified",
+  "cutile":"Prior large-M screen completed; persistent scheduled exhaustive autotuner",
+  "cute-dsl":"Installed doc explicitly falls back to cuBLASLt for M>32; not a new large-M kernel",
+  "tinygemm":"Small-M backend; not a viable large-prefill lead",
+  "tgv":"Low-M backend already investigated; no concrete untested large-M advantage identified",
+  "auto":"Selects among existing backends, not a new implementation"
+ },
+ "prior_evidence_status":"Old-host per-GEMM scripts/logs were completed but not recovered locally. Prior contemporaneous observations reported cuBLASLt/cuDNN improvements around4% on down projection only, CUTLASS5-27% slower, cuTile slower. Treat these as historical observations, not newly reproduced raw measurements.",
+ "lost_remote_paths":["/root/qvl/experiments/bf16-profile/qvl_prefill_gemm.py","/root/qvl/experiments/bf16-profile/prefill_gemm.log","/root/qvl/experiments/bf16-profile/prefill_gemm16.py","/root/qvl/experiments/bf16-profile/prefill_gemm16.log"],
+ "recovered_related_result":"Corrected single-expert BF16 fused MLP on new host was bitwise equal but2.6%slower at8192 and9.4%slower at16384. Raw evidence retained by parent in /tmp/qvl-rx-mlp.",
+ "conclusion":"No new viable large-M BF16 backend found. Avoid repeating the existing broad backend sweep unless explicitly rebuilding missing evidence. No material prefill compute headroom demonstrated by a fresh candidate in this inspection.",
+ "gpu_jobs":0,
+ "production_or_environment_changes":false
+}

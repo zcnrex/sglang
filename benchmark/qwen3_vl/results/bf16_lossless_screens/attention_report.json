@@ -1,0 +1,133 @@
+{
+  "decision": "reject_current_packed_reader",
+  "reason": "Best bounded packed reader remained 2.88x slower than TRT; no serving integration.",
+  "gpu": "B300 GPU1 on chunan-b300-8",
+  "shape": {
+    "batch": 128,
+    "length": 8192,
+    "q_heads": 32,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "page_size": 32,
+    "layout": "HND"
+  },
+  "precision": "BF16 queries, K and V; packed cache reconstructs original BF16 bits exactly.",
+  "correctness": "Entire K and V cache unpack passed int16 bitwise equality; all attention outputs passed atol=.003 rtol=.03 against TRT.",
+  "timing": "CUDA graph triton.testing.do_bench_cudagraph rep=500, three warm calls",
+  "results": [
+    {
+      "backend": "trt",
+      "batch": 128,
+      "length": 8192,
+      "ms": 0.5858396712124558
+    },
+    {
+      "k_compressed": 0.993726372718811,
+      "v_compressed": 0.9937839508056641
+    },
+    {
+      "backend": "triton",
+      "packed": false,
+      "batch": 128,
+      "length": 8192,
+      "split": 4,
+      "block_n": 128,
+      "warps": 4,
+      "max_abs": 0.00048828125,
+      "rmse": 4.965072002960369e-05,
+      "ms": 0.6112099649865153
+    },
+    {
+      "backend": "triton",
+      "packed": false,
+      "batch": 128,
+      "length": 8192,
+      "split": 8,
+      "block_n": 128,
+      "warps": 4,
+      "max_abs": 0.00048828125,
+      "rmse": 5.077943205833435e-05,
+      "ms": 0.6110811433427578
+    },
+    {
+      "backend": "triton",
+      "packed": false,
+      "batch": 128,
+      "length": 8192,
+      "split": 16,
+      "block_n": 128,
+      "warps": 4,
+      "max_abs": 0.00048828125,
+      "rmse": 5.133595550432801e-05,
+      "ms": 0.6224410647892384
+    },
+    {
+      "backend": "triton",
+      "packed": true,
+      "batch": 128,
+      "length": 8192,
+      "split": 4,
+      "block_n": 128,
+      "warps": 4,
+      "max_abs": 0.00048828125,
+      "rmse": 4.964233812643215e-05,
+      "ms": 3.708660137119578
+    },
+    {
+      "backend": "triton",
+      "packed": true,
+      "batch": 128,
+      "length": 8192,
+      "split": 8,
+      "block_n": 128,
+      "warps": 4,
+      "max_abs": 0.00048828125,
+      "rmse": 5.078608955955133e-05,
+      "ms": 3.7418887030809445
+    },
+    {
+      "backend": "triton",
+      "packed": true,
+      "batch": 128,
+      "length": 8192,
+      "split": 16,
+      "block_n": 128,
+      "warps": 4,
+      "max_abs": 0.00048828125,
+      "rmse": 5.1337527111172676e-05,
+      "ms": 3.8249375798152045
+    }
+  ],
+  "limitations": [
+    "Standalone Gaussian cache. Real-data or serving runs intentionally skipped after strong negative result.",
+    "Current local prototype uses int64 row addressing; executed remote prototype used int32 offsets, safe for this exactly-2GiB-per-cache shape but not larger caches."
+  ],
+  "production_changes": false,
+  "bounded_tuning": {
+    "stages2_raw": {
+      "registers": 96,
+      "spills": 0,
+      "shared_bytes": 73728,
+      "ms": 0.61009
+    },
+    "stages2_packed": {
+      "registers": 184,
+      "spills": 0,
+      "shared_bytes": 139264,
+      "ms": 3.8597
+    },
+    "stages1_packed_bn128": {
+      "registers": 231,
+      "spills": 0,
+      "shared_bytes": 40960,
+      "ms": 2.08503
+    },
+    "stages1_packed_bn64": {
+      "registers": 128,
+      "spills": 0,
+      "shared_bytes": 22528,
+      "ms": 1.68641
+    },
+    "conclusion": "No spills. Lower staging/tile size reduces register/shared pressure and improves packed runtime substantially but remains 2.88x TRT. Scalar byte loads and additional shared-memory layout conversion appear in packed PTX; raw stages2 uses asynchronous vector copy. Reject current approach; no serving changes."
+  }
+}
