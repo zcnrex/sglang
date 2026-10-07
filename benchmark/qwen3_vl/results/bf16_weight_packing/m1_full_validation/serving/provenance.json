@@ -1,0 +1,22 @@
+{
+  "source_equivalent_commit": "5f60fb8b67",
+  "source_audit": {
+    "base": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+    "equivalent_commit": "5f60fb8b67",
+    "differences": [
+      "sglang/srt/layers/quantization/unquant.py",
+      "sglang/srt/model_executor/runner/flashinfer_autotune.py"
+    ],
+    "sha256": {
+      "sglang/srt/layers/quantization/unquant.py": "9db197749dd28b84f8af16c70187556d035fdaeab148675e043858c565be47f3",
+      "sglang/srt/model_executor/runner/flashinfer_autotune.py": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e"
+    }
+  },
+  "file_sha256": {
+    "/root/qvl/experiments/m1-gateup-accuracy/hooks/sitecustomize.py": "5cd08725af07681281c53560d248230a473e140668b93d6583a1f632e439594c",
+    "/tmp/qvl-m1-serving.py": "10ac65f325a8358cccfd85df972d9845a6febae5edd8a229aafb41988c1e2156",
+    "/tmp/qvl-m1-full-gsm.py": "dc4d5a11abf01376dffd7024f6f0ab5ec4aff368bfc973703d6afbfba521358f"
+  },
+  "candidate_switch": "QVL_M1_CANDIDATE=1 for candidate only",
+  "concurrent_work": "four independent c1 accuracy workers on GPUs4-7 during serving GPUs0-3; no GPUsharing"
+}

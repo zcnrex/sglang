@@ -1,0 +1,11 @@
+# External M1 gate/up full validation
+
+The verified 5f60fb8b67-equivalent source is identical between variants. Candidate uses only the external direct M1 gate/up hook; no production edits. Hook/source hashes, commands, isolated tuner exports and execution markers are retained. Four serving GPUs run concurrently with four independent accuracy GPUs; no GPU is shared. All owned jobs completed and the compute-process inventory was empty.
+
+Serving uses c1, N30, warm64, nominal8192/1024, BF16 weights/KV/queries, with four same-GPU pairs across swapped phases. All eight runs have30 completed requests,245760 nominal input tokens and30720 output tokens. Paired throughput improves1.6081% geometrically, all four positive; descriptive t95% interval[1.3342%,1.8827%], bootstrap[1.5119%,1.7779%]. These intervals describe four devices/two periods, not repeated-day validation.
+
+TTFT worsens in all four pairs:6.52%,6.05%,5.63%,4.03%. Mean of run-median TTFT rises81.1470→85.6616ms; median of run medians80.7515→85.8244ms. Candidate TPOT is2.4555–2.4804ms versus control2.5037–2.5213ms. The throughput benefit therefore coexists with a consistent first-token regression. Do not dismiss it as noise; the production-path repeat must check it.
+
+Full GSM8K uses two fixed657-question shards per variant at concurrency1, temperature0, top_p1, max2048. Both shards retain the original first five few-shot rows. `full-accuracy/shards.json` records original dataset hash, shard hashes and global row mapping. All1314 held-out rows are evaluated exactly once per variant. Control scores1219/1314 (612+607); candidate1217/1314 (612+605). Fourteen changed outcomes favor control and twelve favor candidate. This small score difference is inconclusive; outputs are not numerically equivalent. Separate fresh servers avoid the earlier shared-model graph-swapping state concern.
+
+See `serving/paired-summary.json` for throughput, TTFT and counts; `full-accuracy/paired-summary.json` for every mapped outcome. Source patch files are gzip-compressed to preserve raw bytes. Dataset shards remain remote; their complete deterministic reconstruction is in the launch script and mapping manifest. No automatic promotion follows these results.

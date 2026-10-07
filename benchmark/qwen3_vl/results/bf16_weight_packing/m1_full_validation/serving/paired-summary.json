@@ -1,0 +1,170 @@
+{
+  "pairs": [
+    {
+      "gpu": 0,
+      "control": 387.3740688771026,
+      "candidate": 393.238805223283,
+      "ratio": 1.0151397236350403
+    },
+    {
+      "gpu": 1,
+      "candidate": 390.38438965080195,
+      "control": 384.4525892802948,
+      "ratio": 1.0154292116528898
+    },
+    {
+      "gpu": 2,
+      "control": 384.98417771465057,
+      "candidate": 390.79700040733894,
+      "ratio": 1.015098861275792
+    },
+    {
+      "gpu": 3,
+      "candidate": 394.665169203632,
+      "control": 387.43561049804015,
+      "ratio": 1.018660026362312
+    }
+  ],
+  "geomean_ratio": 1.0160808587569194,
+  "uncertainty": {
+    "t_ci95_percent": [
+      1.3341987119209309,
+      1.882713304639294
+    ],
+    "bootstrap_ci95_percent": [
+      1.5119292249808236,
+      1.7778807858137347
+    ],
+    "qualification": "descriptive four GPU pairs/two periods, not repeated-day validation"
+  },
+  "runs": [
+    {
+      "phase": "A",
+      "gpu": 0,
+      "variant": "control",
+      "duration": 79.30319158700877,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 387.3740688771026,
+      "median_ttft_ms": 80.50279147573747,
+      "median_tpot_ms": 2.504059122182303
+    },
+    {
+      "phase": "A",
+      "gpu": 1,
+      "variant": "candidate",
+      "duration": 78.6916711179947,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 390.38438965080195,
+      "median_ttft_ms": 85.89748450322077,
+      "median_tpot_ms": 2.4804323690187577
+    },
+    {
+      "phase": "A",
+      "gpu": 2,
+      "variant": "control",
+      "duration": 79.79548713497934,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 384.98417771465057,
+      "median_ttft_ms": 83.82716249616351,
+      "median_tpot_ms": 2.5158070268880763
+    },
+    {
+      "phase": "A",
+      "gpu": 3,
+      "variant": "candidate",
+      "duration": 77.83813317498425,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 394.665169203632,
+      "median_ttft_ms": 82.45322451693937,
+      "median_tpot_ms": 2.455497003427387
+    },
+    {
+      "phase": "B",
+      "gpu": 0,
+      "variant": "candidate",
+      "duration": 78.12046927199117,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 393.238805223283,
+      "median_ttft_ms": 85.75137399020605,
+      "median_tpot_ms": 2.462322068440397
+    },
+    {
+      "phase": "B",
+      "gpu": 1,
+      "variant": "control",
+      "duration": 79.90582156699384,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 384.4525892802948,
+      "median_ttft_ms": 81.00024198938627,
+      "median_tpot_ms": 2.5212586808473803
+    },
+    {
+      "phase": "B",
+      "gpu": 2,
+      "variant": "candidate",
+      "duration": 78.6085869850067,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 390.79700040733894,
+      "median_ttft_ms": 88.54419449926354,
+      "median_tpot_ms": 2.4750157815193936
+    },
+    {
+      "phase": "B",
+      "gpu": 3,
+      "variant": "control",
+      "duration": 79.2905947920226,
+      "completed": 30,
+      "total_input_tokens": 245760,
+      "total_output_tokens": 30720,
+      "output_throughput": 387.43561049804015,
+      "median_ttft_ms": 79.25788800639566,
+      "median_tpot_ms": 2.5037223988297765
+    }
+  ],
+  "ttft": {
+    "pairs": [
+      {
+        "gpu": 0,
+        "control_ttft_ms": 80.50279147573747,
+        "candidate_ttft_ms": 85.75137399020605,
+        "ratio": 1.0651975219523964
+      },
+      {
+        "gpu": 1,
+        "control_ttft_ms": 81.00024198938627,
+        "candidate_ttft_ms": 85.89748450322077,
+        "ratio": 1.0604596034969402
+      },
+      {
+        "gpu": 2,
+        "control_ttft_ms": 83.82716249616351,
+        "candidate_ttft_ms": 88.54419449926354,
+        "ratio": 1.056270925349715
+      },
+      {
+        "gpu": 3,
+        "control_ttft_ms": 79.25788800639566,
+        "candidate_ttft_ms": 82.45322451693937,
+        "ratio": 1.040315690853204
+      }
+    ],
+    "control_mean_ms": 81.14702099192073,
+    "candidate_mean_ms": 85.66156937740743,
+    "control_median_ms": 80.75151673256187,
+    "candidate_median_ms": 85.82442924671341
+  }
+}

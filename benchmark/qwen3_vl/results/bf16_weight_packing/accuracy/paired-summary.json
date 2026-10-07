@@ -1,0 +1,20 @@
+{
+  "control_correct": 120,
+  "candidate_correct": 120,
+  "total": 128,
+  "dataset_sha256_equal": true,
+  "control_only": [
+    122
+  ],
+  "candidate_only": [
+    116
+  ],
+  "marker": [
+    {
+      "kind": "graph1_replay",
+      "raw_batch": 1,
+      "unique_weights": 36,
+      "capture_dispatches": 36
+    }
+  ]
+}

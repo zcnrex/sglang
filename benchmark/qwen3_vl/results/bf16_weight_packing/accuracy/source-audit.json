@@ -1,0 +1,12 @@
+{
+  "base": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+  "equivalent_commit": "5f60fb8b67",
+  "differences": [
+    "sglang/srt/layers/quantization/unquant.py",
+    "sglang/srt/model_executor/runner/flashinfer_autotune.py"
+  ],
+  "sha256": {
+    "sglang/srt/layers/quantization/unquant.py": "9db197749dd28b84f8af16c70187556d035fdaeab148675e043858c565be47f3",
+    "sglang/srt/model_executor/runner/flashinfer_autotune.py": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e"
+  }
+}
