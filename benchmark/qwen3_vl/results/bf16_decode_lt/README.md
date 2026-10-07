@@ -67,3 +67,22 @@ Historical cache limitation: the external-hook public crossover exported per-run
 `production_validation/accuracy-summary.json` records full GSM8K at concurrency128, five shots, temperature0, top_p1 and max2048. Clean466c controls score1217/1314 and1219/1314; clean466c plus only the two production integration files score1213/1314 and1223/1314 on swapped GPUs. Aggregate correct counts match2436/2628. First pair has12 control-only and8 candidate-only correct rows; second has7 control-only and11 candidate-only. Controls themselves change20 row outcomes between runs. This supports continued throughput validation, not numerical equivalence or a formal noninferiority claim.
 
 Both public GEMM shapes and actual graph128 replay are marked during candidate runs. Fresh isolated tuning caches select gate/up1 with down2 in the first run and down4 in the second. Raw metrics, exact row outcomes, commands and exported startup tuner files are preserved. An earlier candidate copy included unrelated changes, was stopped before evaluation, and is explicitly marked invalid; its provenance evidence remains separate. The corrected source is `/root/qvl/sglang-public-lt-clean`, audited against466c with exactly two intended tracked-file differences.
+
+## Production-path throughput
+
+The short c128 N128 crossover is positive on both GPUs: +0.3405% and +0.2627%, geometric mean +0.3016%. The full c128 N640 crossover then runs eight GPU pairs with fresh isolated tuning caches and shared compiled-kernel caches. Production dispatch contains no external performance hook. All sixteen runs complete640 requests,5,242,880 nominal input tokens and655,360 output tokens.
+
+The full production gain is **+0.3359%**, with8/8 positive pairs. Descriptive 95% intervals are bootstrap **[+0.2804%,+0.4034%]** and t **[+0.2559%,+0.4161%]**. The roughly3,823tok/s candidate remains below4,196.5tok/s target. Probe token IDs match; logprobs differ. The paired uncertainty applies to these eight devices/two periods, not independent repeated-day validation. See `production_validation/full-serving/crossover_summary.json`, per-run source patches/hashes, tuner caches and `tactic-summary.json`.
+
+Remaining concurrency checks use the original request counts and warmup `max(64, concurrency)`, with one same-GPU control/candidate pair per case:
+
+| Concurrency | Requests | Control tok/s | Candidate tok/s | Change |
+| --- | ---: | ---: | ---: | ---: |
+| 1 | 30 | 386.717 | 386.428 | -0.075% |
+| 4 | 40 | 1225.924 | 1224.496 | -0.116% |
+| 8 | 80 | 1882.619 | 1886.536 | +0.208% |
+| 16 | 80 | 2560.314 | 2558.743 | -0.061% |
+| 32 | 160 | 3135.488 | 3133.729 | -0.056% |
+| 64 | 320 | 3526.286 | 3525.424 | -0.024% |
+
+Every run has the expected request, input-token and output-token counts. No material regression is observed; single pairs do not establish statistical noninferiority. These checks and the positive c128 crossover validate a small improvement, not completion of the overall target.

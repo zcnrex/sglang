@@ -1,5 +1,5 @@
 {
-  "status": "accuracy_complete_production_short_crossover_running",
+  "status": "complete_accuracy_and_production_throughput_evidence",
   "baseline": {
     "source": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
     "correct": 1217,
@@ -31,6 +31,16 @@
   "production_short": {
     "pid": 202254,
     "remote_root": "/root/qvl/experiments/decode-lt-production-short",
-    "status": "running"
-  }
+    "status": "complete"
+  },
+  "production_full": {
+    "gain_percent": 0.33593558423262,
+    "t_ci95_percent": [
+      0.25587744320445527,
+      0.4160576547391104
+    ],
+    "positive_pairs": 8,
+    "summary": "full-serving/crossover_summary.json"
+  },
+  "regression": "complete; six single pairs within[-.117,+.209]percent; exact counts"
 }

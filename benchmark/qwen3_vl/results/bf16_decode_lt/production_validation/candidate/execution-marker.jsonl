@@ -1,0 +1,2 @@
+{"kind": "public_mm", "a": [128, 2560], "b": [2560, 19456], "backend": "cublaslt"}
+{"kind": "public_mm", "a": [128, 9728], "b": [9728, 2560], "backend": "cublaslt"}

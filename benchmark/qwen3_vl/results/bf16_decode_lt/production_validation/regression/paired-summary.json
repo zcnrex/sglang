@@ -1,0 +1,50 @@
+[
+  {
+    "concurrency": 1,
+    "requests": 30,
+    "gpu": 0,
+    "control": 386.71687373103214,
+    "candidate": 386.4278059041271,
+    "gain_percent": -0.07474921487549135
+  },
+  {
+    "concurrency": 4,
+    "requests": 40,
+    "gpu": 1,
+    "candidate": 1224.496084383329,
+    "control": 1225.9235830716427,
+    "gain_percent": -0.11644271372421855
+  },
+  {
+    "concurrency": 8,
+    "requests": 80,
+    "gpu": 2,
+    "control": 1882.6187643933358,
+    "candidate": 1886.5363384975087,
+    "gain_percent": 0.2080917378636249
+  },
+  {
+    "concurrency": 16,
+    "requests": 80,
+    "gpu": 3,
+    "candidate": 2558.7427368888825,
+    "control": 2560.3136905936008,
+    "gain_percent": -0.061357860581290335
+  },
+  {
+    "concurrency": 32,
+    "requests": 160,
+    "gpu": 4,
+    "control": 3135.4880977065886,
+    "candidate": 3133.7291456031257,
+    "gain_percent": -0.05609819105195646
+  },
+  {
+    "concurrency": 64,
+    "requests": 320,
+    "gpu": 5,
+    "candidate": 3525.424247406253,
+    "control": 3526.2858815410536,
+    "gain_percent": -0.024434608076195907
+  }
+]

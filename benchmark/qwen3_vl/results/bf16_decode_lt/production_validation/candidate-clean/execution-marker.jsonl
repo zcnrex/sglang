@@ -1,0 +1,10 @@
+{"kind": "public_mm", "a": [128, 2560], "b": [2560, 19456], "backend": "cublaslt"}
+{"kind": "public_mm", "a": [128, 9728], "b": [9728, 2560], "backend": "cublaslt"}
+{"kind": "decode_graph_128", "raw_batch": 128}
+{"kind": "decode_graph_128", "raw_batch": 126}
+{"kind": "decode_graph_128", "raw_batch": 125}
+{"kind": "decode_graph_128", "raw_batch": 124}
+{"kind": "decode_graph_128", "raw_batch": 123}
+{"kind": "decode_graph_128", "raw_batch": 121}
+{"kind": "decode_graph_128", "raw_batch": 122}
+{"kind": "decode_graph_128", "raw_batch": 127}
