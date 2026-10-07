@@ -1,0 +1,23 @@
+{
+  "source_equivalent_commit": "5f60fb8b67",
+  "source_audit": {
+    "base": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+    "equivalent_commit": "5f60fb8b67",
+    "differences": [
+      "sglang/srt/layers/quantization/unquant.py",
+      "sglang/srt/model_executor/runner/flashinfer_autotune.py"
+    ],
+    "sha256": {
+      "sglang/srt/layers/quantization/unquant.py": "9db197749dd28b84f8af16c70187556d035fdaeab148675e043858c565be47f3",
+      "sglang/srt/model_executor/runner/flashinfer_autotune.py": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e"
+    }
+  },
+  "file_sha256": {
+    "/root/qvl/experiments/m1-production-validation/hooks/sitecustomize.py": "1a39c59770be941a63d59c095c5dc2631aa49b005e717506a19eae11025fa4b1",
+    "/tmp/qvl-m1-production-serving.py": "0892ef297d73d5c92685a555771e32217718edc3d9302014a43f319de1e2478f",
+    "/tmp/qvl-m1-production-gsm.py": "9b62ec2691ed765cb11daa62e77e8d195245aedbdfebcb2a42091c5c203c2dd2",
+    "/root/qvl/sglang-m1-production/python/sglang/srt/layers/quantization/unquant.py": "0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431"
+  },
+  "candidate_switch": "production singlefilepatch; serving no externalhook, accuracy observeronly",
+  "concurrent_work": "four independent c1 accuracy workers on GPUs4-7 during serving GPUs0-3; no GPUsharing"
+}

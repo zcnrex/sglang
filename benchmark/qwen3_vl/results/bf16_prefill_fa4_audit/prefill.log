@@ -1,0 +1,11 @@
+{"bs": 1, "mode": "trt8192", "us": 378.9823913574219, "max_abs_diff": 0.0}
+{"bs": 1, "mode": "trt262144", "us": 378.4096145629883, "max_abs_diff": 0.0}
+/root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/dsl.py:2300: UserWarning: Argument aux_data (position 18) cannot be converted to a JitArgument for function 'cutlass___call___sglangkernelsopsattentionflash_attncuteflash_fwd_sm100FlashAttentionForwardSm100_object_at__Tensorgmemoi64i641_Tensorgmemoi64i641_Tensorgmemoi64i641_Tensorgmemoi64'. Its type `<class 'sglang.kernels.ops.attention.flash_attn.cute.utils.AuxData'>` is not supported. If the value is known at compile time, annotate it: `aux_data: Constexpr`. Otherwise, implement the `JitArgument` or `DynamicExpression` protocol for type `<class 'sglang.kernels.ops.attention.flash_attn.cute.utils.AuxData'>`, or register a custom argument adapter.
+  exe_args, func_types, adapted_args = self.generate_mlir_function_types(
+{"bs": 1, "mode": "fa4", "us": 324.9350357055664, "max_abs_diff": 0.00390625}
+{"bs": 2, "mode": "trt8192", "us": 731.6902160644531, "max_abs_diff": 0.0}
+{"bs": 2, "mode": "trt262144", "us": 814.4493103027344, "max_abs_diff": 0.0}
+{"bs": 2, "mode": "fa4", "us": 786.4390563964844, "max_abs_diff": 0.00390625}
+{"bs": 4, "mode": "trt8192", "us": 1523.9564514160156, "max_abs_diff": 0.0}
+{"bs": 4, "mode": "trt262144", "us": 1618.1645202636719, "max_abs_diff": 0.0}
+{"bs": 4, "mode": "fa4", "us": 1575.9776306152344, "max_abs_diff": 0.00390625}

@@ -1,0 +1,34 @@
+[
+  {
+    "gpu": 0,
+    "concurrency": 4,
+    "requests": 40,
+    "control": 1236.6639207052422,
+    "candidate": 1238.6103700604438,
+    "gain_percent": 0.1573951760549086
+  },
+  {
+    "gpu": 1,
+    "concurrency": 8,
+    "requests": 80,
+    "candidate": 1870.9013389362792,
+    "control": 1873.9855531808832,
+    "gain_percent": -0.16458047071755688
+  },
+  {
+    "gpu": 2,
+    "concurrency": 16,
+    "requests": 80,
+    "control": 2554.5185470716683,
+    "candidate": 2557.8908570417443,
+    "gain_percent": 0.13201352458145355
+  },
+  {
+    "gpu": 3,
+    "concurrency": 32,
+    "requests": 160,
+    "candidate": 3135.381962896994,
+    "control": 3137.068457292379,
+    "gain_percent": -0.053760203780850446
+  }
+]

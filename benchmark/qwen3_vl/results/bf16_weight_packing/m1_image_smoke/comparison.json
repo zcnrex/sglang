@@ -1,0 +1,29 @@
+{
+  "text_equal": true,
+  "tokens_equal": true,
+  "control_tokens": 32,
+  "candidate_tokens": 32,
+  "max_abs_logprob_delta": 0.015081878751516342,
+  "control_text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street",
+  "candidate_text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street",
+  "usage_control": {
+    "prompt_tokens": 234,
+    "total_tokens": 266,
+    "completion_tokens": 32,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 216
+    },
+    "reasoning_tokens": 0
+  },
+  "usage_candidate": {
+    "prompt_tokens": 234,
+    "total_tokens": 266,
+    "completion_tokens": 32,
+    "prompt_tokens_details": {
+      "cached_tokens": 0,
+      "image_tokens": 216
+    },
+    "reasoning_tokens": 0
+  }
+}

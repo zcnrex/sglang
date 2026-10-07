@@ -1,0 +1,26 @@
+{
+  "differences": [
+    "sglang/srt/layers/quantization/unquant.py"
+  ],
+  "candidate_sha256": "0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431",
+  "cases": [
+    {
+      "seed": 42,
+      "bitwise_vs_direct": true,
+      "nrms_vs_torch": 0.00012047008203808218,
+      "max_abs_vs_torch": 0.0078125
+    },
+    {
+      "seed": 43,
+      "bitwise_vs_direct": true,
+      "nrms_vs_torch": 9.368953760713339e-05,
+      "max_abs_vs_torch": 0.0078125
+    },
+    {
+      "seed": 44,
+      "bitwise_vs_direct": true,
+      "nrms_vs_torch": 7.1524060331285e-05,
+      "max_abs_vs_torch": 0.0078125
+    }
+  ]
+}

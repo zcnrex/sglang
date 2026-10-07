@@ -21,9 +21,14 @@ Mixed prefill and decode are sliced into separate calls, matching the candidate'
 already implemented split routing. The reference passes actual metadata
 max-sequence length to context; the candidate passes the model limit. That
 specific bound was already isolated experimentally and showed no material
-benefit. Page/layout, FA4/direct-varlen and Q-compaction alternatives were also
-previously screened. The audit identifies no new supported precision-preserving
-attention experiment. No kernel, server or production change resulted.
+benefit. Page/layout and Q-compaction alternatives were also previously
+screened. A retained standalone FA4 direct-varlen comparison covers contiguous
+unpaged BF16 prefill only; it does not establish end-to-end performance of
+FA4 prefill with unchanged TRT page32 decode. No authoritative hybrid-serving
+command or result was located. See `../../bf16_prefill_fa4_audit/README.md` for
+the exact old harness, results and provenance limitations. This source audit
+alone does not rule out that hybrid configuration. No kernel, server or
+production change resulted.
 
 ## Retrieved content hashes
 

@@ -1,0 +1,18 @@
+[
+  {
+    "gpu": 0,
+    "concurrency": 64,
+    "requests": 320,
+    "control": 3500.9156438666946,
+    "candidate": 3499.490141224563,
+    "gain_percent": -0.04071799458033043
+  },
+  {
+    "gpu": 1,
+    "concurrency": 128,
+    "requests": 128,
+    "candidate": 3790.3908327582735,
+    "control": 3800.605077154158,
+    "gain_percent": -0.26875311137385394
+  }
+]
