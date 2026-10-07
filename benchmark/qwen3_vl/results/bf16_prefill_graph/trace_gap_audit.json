@@ -1,0 +1,11 @@
+{
+  "trace": "current-c128-profile/late_mixed/traces/1791400780.3902645-TP-0-EXTEND.trace.json.gz",
+  "sha256": "94da511161838d2bf84929c4b32e07fc134600e381c1325ad9c04cbf6f024ff8",
+  "kernel_count": 2702,
+  "kernel_sum_ms": 705.6716510000015,
+  "kernel_union_ms": 702.2373604736329,
+  "first_to_last_kernel_span_ms": 704.9843910522461,
+  "uncovered_ms": 2.7470305786132485,
+  "uncovered_fraction": 0.0038965835463578014,
+  "limitations": "Profiler sample only; span excludes forward-boundary overhead; no claim that all uncovered intervals are host submission gaps."
+}

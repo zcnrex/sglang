@@ -1,0 +1,31 @@
+digraph dot {
+subgraph cluster_432 {
+label="graph_432" graph[style="dashed"];
+"graph_432_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 2) | nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT\<\<\<104,256,221512\>\>\>}
+| {{node handle | func handle} | {0x0000000043F8E280 | 0x0000000061A333D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_432_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 1) | nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT\<\<\<104,256,221512\>\>\>}
+| {{node handle | func handle} | {0x0000000043F8EA18 | 0x0000000061A333D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_432_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 0) | nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT\<\<\<104,256,221512\>\>\>}
+| {{node handle | func handle} | {0x0000000043F8F1B0 | 0x0000000061A333D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_432_node_0" -> "graph_432_node_1" [headlabel=0];
+"graph_432_node_1" -> "graph_432_node_2" [headlabel=0];
+}
+}

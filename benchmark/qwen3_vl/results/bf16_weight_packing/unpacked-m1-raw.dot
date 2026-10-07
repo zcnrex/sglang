@@ -1,0 +1,31 @@
+digraph dot {
+subgraph cluster_430 {
+label="graph_430" graph[style="dashed"];
+"graph_430_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 2) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_directDirectDenseGemmKernel_object_at__tensorptrbf16gmemalign32o1256025601_tensorptrbf16gmemalign32o19456256025601_tensorptrbf16_0\<\<\<9728,64,16\>\>\>}
+| {{node handle | func handle} | {0x0000000043F8C420 | 0x000000005F1571D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_430_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 1) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_directDirectDenseGemmKernel_object_at__tensorptrbf16gmemalign32o1256025601_tensorptrbf16gmemalign32o19456256025601_tensorptrbf16_0\<\<\<9728,64,16\>\>\>}
+| {{node handle | func handle} | {0x0000000043F8B4F0 | 0x000000005F1571D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_430_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 0) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_directDirectDenseGemmKernel_object_at__tensorptrbf16gmemalign32o1256025601_tensorptrbf16gmemalign32o19456256025601_tensorptrbf16_0\<\<\<9728,64,16\>\>\>}
+| {{node handle | func handle} | {0x0000000043F8BC88 | 0x000000005F1571D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_430_node_0" -> "graph_430_node_1" [headlabel=0];
+"graph_430_node_1" -> "graph_430_node_2" [headlabel=0];
+}
+}

@@ -1,0 +1,53 @@
+{
+  "source": "/root/qvl/sglang-public-lt-clean",
+  "equivalent_commit": "5f60fb8b67",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "runs": [
+    {
+      "gpu": 0,
+      "m": 1,
+      "pid": 258645
+    },
+    {
+      "gpu": 1,
+      "m": 4,
+      "pid": 258462
+    }
+  ],
+  "env": {
+    "PYTHONPATH": "/root/qvl/sglang-public-lt-clean/python",
+    "HF_HOME": "/root/qvl/hf",
+    "SGLANG_USE_HND_KVCACHE": "1",
+    "MAX_JOBS": "4",
+    "SGLANG_CACHE_DIR": "/root/qvl/experiments/weight-pack/model-cache-{M}"
+  },
+  "args": [
+    "--bf16-gemm-backend",
+    "cutedsl",
+    "--dtype",
+    "bfloat16",
+    "--kv-cache-dtype",
+    "bfloat16",
+    "--attention-backend",
+    "trtllm_mha",
+    "--page-size",
+    "32",
+    "--enable-mixed-chunk",
+    "--chunked-prefill-size",
+    "16384",
+    "--cuda-graph-backend-prefill",
+    "disabled",
+    "--enforce-disable-flashinfer-allreduce-fusion",
+    "--mem-fraction-static",
+    "0.5",
+    "--input-len",
+    "8192",
+    "--output-len",
+    "32",
+    "--batch-size",
+    "{M}",
+    "--cuda-graph-bs-decode",
+    "{M}"
+  ],
+  "note": "Initial ambiguous --cuda-graph-bs launch exited2 before load; corrected explicit decode flag. These runs used fresh compiled caches as inherited from isolated SGLANG_CACHE_DIR; subsequent experiments should separately share compiled caches."
+}

@@ -1,0 +1,173 @@
+[2026-10-07 22:24:58 TP0] Init parallel begin.
+[2026-10-07 22:24:59 TP0] Init parallel ends. elapsed=1.00 s
+[2026-10-07 22:24:59 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-07 22:25:01 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-07 22:25:16 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-07 22:25:16 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.11it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.04it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.05it/s]
+[2026-10-07 22:25:18 TP0] Load weight end. elapsed=17.29 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-07 22:25:19 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-07 22:25:19 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 908512, K size: 62.38 GB, V size: 62.38 GB
+[2026-10-07 22:25:19 TP0] Memory pool end. avail mem=131.48 GB
+[2026-10-07 22:25:36 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/weight-pack/model-cache-1/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:20<00:00, 20.85s/profile][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:20<00:00, 20.85s/profile]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  1.00profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  1.00profile/s]
+[2026-10-07 22:27:10 TP0] FlashInfer autotune completed.
+[2026-10-07 22:27:10 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-07 22:27:10 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1], avail mem=130.21 GB
+  0%|          | 0/1 [00:00<?, ?it/s]Capturing batches (bs=1 avail_mem=130.21 GB):   0%|          | 0/1 [00:00<?, ?it/s]Capturing batches (bs=1 avail_mem=130.21 GB): 100%|██████████| 1/1 [00:05<00:00,  5.49s/it]Capturing batches (bs=1 avail_mem=130.21 GB): 100%|██████████| 1/1 [00:05<00:00,  5.49s/it]
+[2026-10-07 22:27:17 TP0] Capture target decode CUDA graph end. elapsed=6.25 s, mem usage=-0.06 GB, avail mem=130.27 GB.
+max_total_num_tokens=908512
+  0%|          | 0/1 [00:00<?, ?it/s]Capturing batches (bs=1 avail_mem=130.17 GB):   0%|          | 0/1 [00:00<?, ?it/s]Capturing batches (bs=1 avail_mem=130.17 GB): 100%|██████████| 1/1 [00:00<00:00, 15.09it/s]
+Warmup ...
+Prefill. latency: 0.05928 s, throughput: 138201.73 token/s
+Decode 0. Batch size: 1, latency: 0.00335 s, throughput:    298.41 token/s
+Decode 1. Batch size: 1, latency: 0.00332 s, throughput:    301.54 token/s
+Decode 2. Batch size: 1, latency: 0.00327 s, throughput:    305.77 token/s
+Decode 3. Batch size: 1, latency: 0.00323 s, throughput:    309.45 token/s
+Decode 4. Batch size: 1, latency: 0.00324 s, throughput:    308.48 token/s
+Decode.  median latency: 0.00306 s, median throughput:    327.32 token/s
+Total. latency:  0.155 s, throughput:  53075.03 token/s
+Prefill. latency: 0.05865 s, throughput: 139678.41 token/s
+Decode 0. Batch size: 1, latency: 0.00335 s, throughput:    298.33 token/s
+Decode 1. Batch size: 1, latency: 0.00328 s, throughput:    305.10 token/s
+Decode 2. Batch size: 1, latency: 0.00324 s, throughput:    308.87 token/s
+Decode 3. Batch size: 1, latency: 0.00322 s, throughput:    310.38 token/s
+Decode 4. Batch size: 1, latency: 0.00319 s, throughput:    313.19 token/s
+Decode.  median latency: 0.00297 s, median throughput:    336.21 token/s
+Total. latency:  0.152 s, throughput:  53967.58 token/s
+Benchmark ...
+Prefill. latency: 0.05813 s, throughput: 140934.52 token/s
+Decode 0. Batch size: 1, latency: 0.00390 s, throughput:    256.72 token/s
+Decode 1. Batch size: 1, latency: 0.00330 s, throughput:    302.87 token/s
+Decode 2. Batch size: 1, latency: 0.00328 s, throughput:    304.99 token/s
+Decode 3. Batch size: 1, latency: 0.00328 s, throughput:    305.05 token/s
+Decode 4. Batch size: 1, latency: 0.00328 s, throughput:    304.75 token/s
+Decode.  median latency: 0.00302 s, median throughput:    331.59 token/s
+Total. latency:  0.154 s, throughput:  53483.93 token/s
+Prefill. latency: 0.05669 s, throughput: 144499.61 token/s
+Decode 0. Batch size: 1, latency: 0.00366 s, throughput:    273.15 token/s
+Decode 1. Batch size: 1, latency: 0.00326 s, throughput:    306.59 token/s
+Decode 2. Batch size: 1, latency: 0.00321 s, throughput:    311.46 token/s
+Decode 3. Batch size: 1, latency: 0.00319 s, throughput:    313.61 token/s
+Decode 4. Batch size: 1, latency: 0.00320 s, throughput:    312.26 token/s
+Decode.  median latency: 0.00297 s, median throughput:    336.72 token/s
+Total. latency:  0.151 s, throughput:  54366.19 token/s
+Prefill. latency: 0.05913 s, throughput: 138532.56 token/s
+Decode 0. Batch size: 1, latency: 0.00330 s, throughput:    302.60 token/s
+Decode 1. Batch size: 1, latency: 0.00323 s, throughput:    309.77 token/s
+Decode 2. Batch size: 1, latency: 0.00319 s, throughput:    313.03 token/s
+Decode 3. Batch size: 1, latency: 0.00320 s, throughput:    312.60 token/s
+Decode 4. Batch size: 1, latency: 0.00318 s, throughput:    314.52 token/s
+Decode.  median latency: 0.00298 s, median throughput:    335.36 token/s
+Total. latency:  0.153 s, throughput:  53870.87 token/s
+Prefill. latency: 0.05914 s, throughput: 138526.09 token/s
+Decode 0. Batch size: 1, latency: 0.00331 s, throughput:    302.07 token/s
+Decode 1. Batch size: 1, latency: 0.00328 s, throughput:    305.01 token/s
+Decode 2. Batch size: 1, latency: 0.00324 s, throughput:    308.57 token/s
+Decode 3. Batch size: 1, latency: 0.00321 s, throughput:    311.07 token/s
+Decode 4. Batch size: 1, latency: 0.00313 s, throughput:    319.38 token/s
+Decode.  median latency: 0.00302 s, median throughput:    331.45 token/s
+Total. latency:  0.154 s, throughput:  53539.64 token/s
+Prefill. latency: 0.05884 s, throughput: 139232.04 token/s
+Decode 0. Batch size: 1, latency: 0.00332 s, throughput:    301.55 token/s
+Decode 1. Batch size: 1, latency: 0.00322 s, throughput:    310.24 token/s
+Decode 2. Batch size: 1, latency: 0.00319 s, throughput:    313.58 token/s
+Decode 3. Batch size: 1, latency: 0.00325 s, throughput:    307.75 token/s
+Decode 4. Batch size: 1, latency: 0.00327 s, throughput:    306.16 token/s
+Decode.  median latency: 0.00301 s, median throughput:    331.89 token/s
+Total. latency:  0.154 s, throughput:  53254.21 token/s
+Prefill. latency: 0.05902 s, throughput: 138810.44 token/s
+Decode 0. Batch size: 1, latency: 0.00327 s, throughput:    305.72 token/s
+Decode 1. Batch size: 1, latency: 0.00323 s, throughput:    309.47 token/s
+Decode 2. Batch size: 1, latency: 0.00320 s, throughput:    312.89 token/s
+Decode 3. Batch size: 1, latency: 0.00317 s, throughput:    315.01 token/s
+Decode 4. Batch size: 1, latency: 0.00322 s, throughput:    310.94 token/s
+Decode.  median latency: 0.00298 s, median throughput:    335.28 token/s
+Total. latency:  0.153 s, throughput:  53909.53 token/s
+Prefill. latency: 0.05873 s, throughput: 139479.35 token/s
+Decode 0. Batch size: 1, latency: 0.00338 s, throughput:    295.81 token/s
+Decode 1. Batch size: 1, latency: 0.00323 s, throughput:    309.32 token/s
+Decode 2. Batch size: 1, latency: 0.00317 s, throughput:    315.21 token/s
+Decode 3. Batch size: 1, latency: 0.00314 s, throughput:    318.50 token/s
+Decode 4. Batch size: 1, latency: 0.00316 s, throughput:    316.20 token/s
+Decode.  median latency: 0.00297 s, median throughput:    336.86 token/s
+Total. latency:  0.152 s, throughput:  54019.41 token/s
+Prefill. latency: 0.05929 s, throughput: 138171.48 token/s
+Decode 0. Batch size: 1, latency: 0.00333 s, throughput:    300.02 token/s
+Decode 1. Batch size: 1, latency: 0.00329 s, throughput:    303.52 token/s
+Decode 2. Batch size: 1, latency: 0.00328 s, throughput:    305.34 token/s
+Decode 3. Batch size: 1, latency: 0.00326 s, throughput:    306.28 token/s
+Decode 4. Batch size: 1, latency: 0.00319 s, throughput:    313.75 token/s
+Decode.  median latency: 0.00302 s, median throughput:    331.38 token/s
+Total. latency:  0.154 s, throughput:  53414.63 token/s
+Prefill. latency: 0.05903 s, throughput: 138781.84 token/s
+Decode 0. Batch size: 1, latency: 0.00333 s, throughput:    300.14 token/s
+Decode 1. Batch size: 1, latency: 0.00320 s, throughput:    312.74 token/s
+Decode 2. Batch size: 1, latency: 0.00319 s, throughput:    313.35 token/s
+Decode 3. Batch size: 1, latency: 0.00321 s, throughput:    311.06 token/s
+Decode 4. Batch size: 1, latency: 0.00320 s, throughput:    312.20 token/s
+Decode.  median latency: 0.00306 s, median throughput:    327.27 token/s
+Total. latency:  0.154 s, throughput:  53552.68 token/s
+Prefill. latency: 0.05892 s, throughput: 139026.39 token/s
+Decode 0. Batch size: 1, latency: 0.00330 s, throughput:    303.48 token/s
+Decode 1. Batch size: 1, latency: 0.00321 s, throughput:    312.01 token/s
+Decode 2. Batch size: 1, latency: 0.00315 s, throughput:    317.13 token/s
+Decode 3. Batch size: 1, latency: 0.00314 s, throughput:    318.93 token/s
+Decode 4. Batch size: 1, latency: 0.00314 s, throughput:    318.36 token/s
+Decode.  median latency: 0.00300 s, median throughput:    333.68 token/s
+Total. latency:  0.152 s, throughput:  53957.55 token/s
+Prefill. latency: 0.05830 s, throughput: 140518.20 token/s
+Decode 0. Batch size: 1, latency: 0.00328 s, throughput:    304.64 token/s
+Decode 1. Batch size: 1, latency: 0.00320 s, throughput:    312.31 token/s
+Decode 2. Batch size: 1, latency: 0.00341 s, throughput:    292.89 token/s
+Decode 3. Batch size: 1, latency: 0.00334 s, throughput:    298.98 token/s
+Decode 4. Batch size: 1, latency: 0.00320 s, throughput:    312.86 token/s
+Decode.  median latency: 0.00300 s, median throughput:    333.88 token/s
+Total. latency:  0.152 s, throughput:  53950.04 token/s
+Prefill. latency: 0.05784 s, throughput: 141620.29 token/s
+Decode 0. Batch size: 1, latency: 0.00342 s, throughput:    292.72 token/s
+Decode 1. Batch size: 1, latency: 0.00330 s, throughput:    303.25 token/s
+Decode 2. Batch size: 1, latency: 0.00324 s, throughput:    308.58 token/s
+Decode 3. Batch size: 1, latency: 0.00322 s, throughput:    310.70 token/s
+Decode 4. Batch size: 1, latency: 0.00323 s, throughput:    309.32 token/s
+Decode.  median latency: 0.00299 s, median throughput:    334.47 token/s
+Total. latency:  0.153 s, throughput:  53644.64 token/s
+Prefill. latency: 0.05905 s, throughput: 138736.12 token/s
+Decode 0. Batch size: 1, latency: 0.00331 s, throughput:    301.96 token/s
+Decode 1. Batch size: 1, latency: 0.00319 s, throughput:    313.33 token/s
+Decode 2. Batch size: 1, latency: 0.00320 s, throughput:    312.87 token/s
+Decode 3. Batch size: 1, latency: 0.00327 s, throughput:    305.59 token/s
+Decode 4. Batch size: 1, latency: 0.00332 s, throughput:    301.31 token/s
+Decode.  median latency: 0.00303 s, median throughput:    330.07 token/s
+Total. latency:  0.154 s, throughput:  53515.86 token/s
+Prefill. latency: 0.05884 s, throughput: 139215.55 token/s
+Decode 0. Batch size: 1, latency: 0.00367 s, throughput:    272.62 token/s
+Decode 1. Batch size: 1, latency: 0.00324 s, throughput:    308.55 token/s
+Decode 2. Batch size: 1, latency: 0.00320 s, throughput:    312.40 token/s
+Decode 3. Batch size: 1, latency: 0.00315 s, throughput:    317.13 token/s
+Decode 4. Batch size: 1, latency: 0.00316 s, throughput:    316.15 token/s
+Decode.  median latency: 0.00300 s, median throughput:    333.29 token/s
+Total. latency:  0.153 s, throughput:  53818.33 token/s
+Prefill. latency: 0.05828 s, throughput: 140552.84 token/s
+Decode 0. Batch size: 1, latency: 0.00331 s, throughput:    302.47 token/s
+Decode 1. Batch size: 1, latency: 0.00322 s, throughput:    310.70 token/s
+Decode 2. Batch size: 1, latency: 0.00316 s, throughput:    316.12 token/s
+Decode 3. Batch size: 1, latency: 0.00317 s, throughput:    315.55 token/s
+Decode 4. Batch size: 1, latency: 0.00316 s, throughput:    316.31 token/s
+Decode.  median latency: 0.00297 s, median throughput:    336.16 token/s
+Total. latency:  0.152 s, throughput:  54245.79 token/s
+Prefill. latency: 0.05742 s, throughput: 142661.78 token/s
+Decode 0. Batch size: 1, latency: 0.00334 s, throughput:    299.03 token/s
+Decode 1. Batch size: 1, latency: 0.00323 s, throughput:    309.65 token/s
+Decode 2. Batch size: 1, latency: 0.00323 s, throughput:    309.15 token/s
+Decode 3. Batch size: 1, latency: 0.00324 s, throughput:    308.27 token/s
+Decode 4. Batch size: 1, latency: 0.00324 s, throughput:    308.76 token/s
+Decode.  median latency: 0.00299 s, median throughput:    334.34 token/s
+Total. latency:  0.153 s, throughput:  53800.27 token/s

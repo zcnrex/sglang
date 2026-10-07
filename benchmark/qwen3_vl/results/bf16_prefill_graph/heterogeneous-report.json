@@ -1,0 +1,160 @@
+{
+  "events": [
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": false,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": true,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "executed": true
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": false,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": true,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "executed": true
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": true,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "executed": true
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": false,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": true,
+      "buckets": [
+        16384
+      ]
+    },
+    {
+      "executed": true
+    },
+    {
+      "tokens": 16331,
+      "batch": 126,
+      "eligible": true,
+      "enabled": false,
+      "buckets": [
+        16384
+      ]
+    }
+  ],
+  "results": [
+    {
+      "run_name": "default",
+      "batch_size": 126,
+      "input_len": 8200,
+      "output_len": 2,
+      "prefill_latency": 0.12375615499331616,
+      "prefill_throughput": 8348675.6683399,
+      "median_decode_latency": 0.006261753995204344,
+      "median_decode_throughput": 20122.157481194397,
+      "total_latency": 0.1300179089885205,
+      "overall_throughput": 7948535.767416819,
+      "graph": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 126,
+      "input_len": 8200,
+      "output_len": 2,
+      "prefill_latency": 0.12314045202219859,
+      "prefill_throughput": 8390419.094886418,
+      "median_decode_latency": 0.006222761003300548,
+      "median_decode_throughput": 20248.24670804,
+      "total_latency": 0.12936321302549914,
+      "overall_throughput": 7988762.615197981,
+      "graph": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 126,
+      "input_len": 8200,
+      "output_len": 2,
+      "prefill_latency": 0.11955460699391551,
+      "prefill_throughput": 8642076.001743559,
+      "median_decode_latency": 0.006203033000929281,
+      "median_decode_throughput": 20312.643827805503,
+      "total_latency": 0.1257576399948448,
+      "overall_throughput": 8217806.886662031,
+      "graph": false
+    },
+    {
+      "run_name": "default",
+      "batch_size": 126,
+      "input_len": 8200,
+      "output_len": 2,
+      "prefill_latency": 0.12254957598634064,
+      "prefill_throughput": 8430873.723424064,
+      "median_decode_latency": 0.0061521700117737055,
+      "median_decode_throughput": 20480.578358346356,
+      "total_latency": 0.12870174599811435,
+      "overall_throughput": 8029821.134012754,
+      "graph": true
+    },
+    {
+      "run_name": "default",
+      "batch_size": 126,
+      "input_len": 8200,
+      "output_len": 2,
+      "prefill_latency": 0.12201655301032588,
+      "prefill_throughput": 8467703.557504723,
+      "median_decode_latency": 0.006158662989037111,
+      "median_decode_throughput": 20458.986020876542,
+      "total_latency": 0.128175215999363,
+      "overall_throughput": 8062806.775415429,
+      "graph": false
+    }
+  ],
+  "check": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "greedy_equal": true
+  }
+}
