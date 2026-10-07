@@ -1,0 +1,98 @@
+{
+  "pairs": [
+    {
+      "gpu": 0,
+      "control": {
+        "duration": 34.54744485500851,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3793.9708869959413,
+        "median_ttft_ms": 4587.535059006768,
+        "median_tpot_ms": 28.962199939399497
+      },
+      "candidate": {
+        "duration": 34.69943247298943,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3777.352845814653,
+        "median_ttft_ms": 4633.093551019556,
+        "median_tpot_ms": 28.898940444756086
+      },
+      "ratio": 0.9956198817343993
+    },
+    {
+      "gpu": 1,
+      "candidate": {
+        "duration": 34.541789650014834,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3794.592038456922,
+        "median_ttft_ms": 4635.06354400306,
+        "median_tpot_ms": 28.90958730596537
+      },
+      "control": {
+        "duration": 34.54329848199268,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3794.4262927967766,
+        "median_ttft_ms": 4652.714027004549,
+        "median_tpot_ms": 28.884891794229976
+      },
+      "ratio": 1.0000436813492624
+    },
+    {
+      "gpu": 2,
+      "control": {
+        "duration": 34.455380744999275,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3804.10830372331,
+        "median_ttft_ms": 4604.365252991556,
+        "median_tpot_ms": 28.84563695014223
+      },
+      "candidate": {
+        "duration": 34.57478162899497,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3790.9711594557375,
+        "median_ttft_ms": 4570.643402505084,
+        "median_tpot_ms": 29.0103180635309
+      },
+      "ratio": 0.9965465903652863
+    },
+    {
+      "gpu": 3,
+      "candidate": {
+        "duration": 34.389057786000194,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3811.4449315723764,
+        "median_ttft_ms": 4542.35070249706,
+        "median_tpot_ms": 28.847174432546538
+      },
+      "control": {
+        "duration": 34.37706453600549,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3812.7746440572078,
+        "median_ttft_ms": 4546.71439199592,
+        "median_tpot_ms": 28.842893122187395
+      },
+      "ratio": 0.9996512480781145
+    }
+  ],
+  "geomean_ratio": 0.9979635119962771,
+  "t_ci95_percent": [
+    -0.554995007347503,
+    0.14893873749899367
+  ],
+  "coverage_qualification": "sparse snapshots; final counters may be overwritten by other server processes; serving preserved positive CLC snapshots, accuracy final zero unverified"
+}

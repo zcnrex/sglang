@@ -1,0 +1,10 @@
+{
+  "control_correct": 121,
+  "candidate_correct": 120,
+  "total": 128,
+  "coverage_status": "candidate final counter zero; unverified",
+  "control_only": [
+    20
+  ],
+  "candidate_only": []
+}

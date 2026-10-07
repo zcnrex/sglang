@@ -1,0 +1,8 @@
+{
+  "source": "/root/qvl/sglang-public-lt-clean",
+  "equivalent_commit": "5f60fb8b67",
+  "unquant_sha256": "9db197749dd28b84f8af16c70187556d035fdaeab148675e043858c565be47f3",
+  "observer_sha256": "d1842dff3398b59575e6b7e8eeac4b1a90c2bfb5108d5b89f7cd89df2739957e",
+  "attention_replacement": false,
+  "measurement_not_performance_claim": true
+}

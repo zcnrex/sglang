@@ -1,0 +1,9 @@
+{
+  "duration": 34.54329848199268,
+  "completed": 128,
+  "total_input_tokens": 1048576,
+  "total_output_tokens": 131072,
+  "output_throughput": 3794.4262927967766,
+  "median_ttft_ms": 4652.714027004549,
+  "median_tpot_ms": 28.884891794229976
+}

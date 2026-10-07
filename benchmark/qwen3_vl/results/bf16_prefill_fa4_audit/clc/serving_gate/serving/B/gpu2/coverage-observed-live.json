@@ -1,0 +1,35 @@
+{
+  "fa4_calls": 1,
+  "fa4_tokens": 78,
+  "fallback_reasons": {},
+  "proof": [
+    {
+      "selected_clc": true,
+      "cache_key_sha256": "d193fda1cde8751bc3ab51cd2011057d9475c3414fe128ad21c9797560934adf"
+    }
+  ],
+  "clc_cache_hits": 1,
+  "in_fa4": false,
+  "first_context": {
+    "tokens": 78,
+    "requests": 1,
+    "prefix": [
+      0
+    ],
+    "q_stride": [
+      6144,
+      128,
+      1
+    ],
+    "k_stride": [
+      6144,
+      128,
+      1
+    ],
+    "v_stride": [
+      6144,
+      128,
+      1
+    ]
+  }
+}
