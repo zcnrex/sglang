@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "token_checks": [
+    {
+      "concurrency": 1,
+      "requests": 30,
+      "input_tokens": 245760,
+      "output_tokens": 30720,
+      "sha256": "6c8faf0ccfc929dfe9467045ee581f35af47aeb6c648629192ad76c866250e30"
+    },
+    {
+      "concurrency": 4,
+      "requests": 40,
+      "input_tokens": 327680,
+      "output_tokens": 40960,
+      "sha256": "50d2cab76a159a8604b557daf72795fbd3041ea3f051f7b1a08e539b455d6ea7"
+    },
+    {
+      "concurrency": 8,
+      "requests": 80,
+      "input_tokens": 655360,
+      "output_tokens": 81920,
+      "sha256": "06066737fab24a84daad11073437490a9cfc126f5cb4caeb5d4f0df7a1874ad2"
+    },
+    {
+      "concurrency": 16,
+      "requests": 80,
+      "input_tokens": 655360,
+      "output_tokens": 81920,
+      "sha256": "f11f669c0be607136a491456091ff4e1038d68e17b2b35fd111d6e53e2ba5846"
+    },
+    {
+      "concurrency": 32,
+      "requests": 160,
+      "input_tokens": 1310720,
+      "output_tokens": 163840,
+      "sha256": "61e63e0ac38587906a88fdaa9451a9a7da51b481f602f8909771a47f0f62eee3"
+    },
+    {
+      "concurrency": 64,
+      "requests": 320,
+      "input_tokens": 2621440,
+      "output_tokens": 327680,
+      "sha256": "a3d5311717180d82b997d5668c97ad47460b845dfe103b8a53cd075a3061ab85"
+    },
+    {
+      "concurrency": 128,
+      "requests": 640,
+      "input_tokens": 5242880,
+      "output_tokens": 655360,
+      "sha256": "bc625137e3227b498731d78669428571ff49d5d4d23089109237aa23e9e4f861"
+    }
+  ],
+  "observed_gpu_pids": [
+    3209596,
+    3210004
+  ],
+  "expected_server_pids": [
+    3209596,
+    3210004
+  ],
+  "foreign_gpu_pids": [],
+  "precision": {
+    "weights": "bfloat16",
+    "queries": "bfloat16",
+    "kv_cache": "bfloat16"
+  },
+  "environment": {
+    "SGLANG_USE_HND_KVCACHE": "1"
+  },
+  "speculative_algorithm": null
+}

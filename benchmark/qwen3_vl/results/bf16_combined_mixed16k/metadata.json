@@ -1,0 +1,41 @@
+{
+  "command": [
+    "/root/qvl/venv-sgl/bin/python",
+    "-m",
+    "sglang.launch_server",
+    "--model-path",
+    "Qwen/Qwen3-VL-4B-Instruct",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "32000",
+    "--dtype",
+    "bfloat16",
+    "--kv-cache-dtype",
+    "auto",
+    "--attention-backend",
+    "trtllm_mha",
+    "--page-size",
+    "32",
+    "--chunked-prefill-size",
+    "16384",
+    "--enable-mixed-chunk",
+    "--cuda-graph-backend-prefill",
+    "disabled",
+    "--enforce-disable-flashinfer-allreduce-fusion"
+  ],
+  "gpu": 0,
+  "screen": false,
+  "baseline_source": "qwen3vl4b-b300-handoff.md, 2026-10-07",
+  "vllm_output_tokens_per_second": {
+    "1": 334,
+    "4": 1125,
+    "8": 1774,
+    "16": 2499,
+    "32": 3084,
+    "64": 3494,
+    "128": 3815
+  },
+  "pythonpath": "/root/qvl/sglang-bf16-kernels/python",
+  "hf_home": "/root/qvl/hf"
+}

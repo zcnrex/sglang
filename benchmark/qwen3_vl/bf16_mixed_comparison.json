@@ -1,0 +1,270 @@
+{
+  "precision": "BF16 weights, KV cache, queries",
+  "attention_backend": "trtllm_mha",
+  "page_size": 32,
+  "chunked_prefill_size": 16384,
+  "each_run_completed_requests": 1350,
+  "each_run_output_tokens": 1382400,
+  "pmon_pids": {
+    "normal": {
+      "3135810": 561,
+      "3135017": 543
+    },
+    "mixed": {
+      "3135521": 598,
+      "3134901": 579
+    },
+    "split_mixed": {
+      "3156405": 561,
+      "3155726": 542
+    },
+    "combined_mixed": {
+      "3190645": 558,
+      "3188824": 539
+    },
+    "combined_normal": {
+      "3194666": 561,
+      "3194501": 542
+    }
+  },
+  "results": [
+    {
+      "concurrency": 1,
+      "normal": {
+        "output_throughput": 371.23986164215023,
+        "median_ttft_ms": 76.51900267228484,
+        "median_tpot_ms": 2.621793702976707
+      },
+      "mixed": {
+        "output_throughput": 368.87514983588846,
+        "median_ttft_ms": 78.20678921416402,
+        "median_tpot_ms": 2.6317727046482493
+      },
+      "mixed_ttft_change_percent": 2.2057090172850513,
+      "mixed_throughput_change_percent": -0.6369768041076362,
+      "split_mixed": {
+        "output_throughput": 375.14597392644555,
+        "median_ttft_ms": 78.1079432927072,
+        "median_tpot_ms": 2.5898571761610865
+      },
+      "split_vs_normal_ttft_change_percent": 2.076530750443095,
+      "split_vs_normal_throughput_change_percent": 1.052180190730856,
+      "split_vs_mixed_ttft_change_percent": -0.12639046104568896,
+      "split_vs_mixed_throughput_change_percent": 1.699985508198898,
+      "combined_mixed": {
+        "output_throughput": 383.81208853150696,
+        "median_ttft_ms": 75.49733202904463,
+        "median_tpot_ms": 2.529116092069495
+      },
+      "combined_normal": {
+        "output_throughput": 383.4856013592047,
+        "median_ttft_ms": 75.08193422108889,
+        "median_tpot_ms": 2.535722139250498
+      }
+    },
+    {
+      "concurrency": 4,
+      "normal": {
+        "output_throughput": 1195.3048611602962,
+        "median_ttft_ms": 187.43464024737477,
+        "median_tpot_ms": 3.1562689277557388
+      },
+      "mixed": {
+        "output_throughput": 1190.1636185298246,
+        "median_ttft_ms": 222.24693652242422,
+        "median_tpot_ms": 3.141326995025719
+      },
+      "mixed_ttft_change_percent": 18.57303230027516,
+      "mixed_throughput_change_percent": -0.4301197792737965,
+      "split_mixed": {
+        "output_throughput": 1199.4932609078119,
+        "median_ttft_ms": 231.57275654375553,
+        "median_tpot_ms": 3.1103879087700173
+      },
+      "split_vs_normal_ttft_change_percent": 23.548537366480193,
+      "split_vs_normal_throughput_change_percent": 0.3504043096963505,
+      "split_vs_mixed_ttft_change_percent": 4.196152337240577,
+      "split_vs_mixed_throughput_change_percent": 0.7838957797678292,
+      "combined_mixed": {
+        "output_throughput": 1234.4852468534325,
+        "median_ttft_ms": 158.93853874877095,
+        "median_tpot_ms": 3.0829492735176665
+      },
+      "combined_normal": {
+        "output_throughput": 1229.768707130131,
+        "median_ttft_ms": 187.2925111092627,
+        "median_tpot_ms": 3.0591463140291206
+      }
+    },
+    {
+      "concurrency": 8,
+      "normal": {
+        "output_throughput": 1846.207776019024,
+        "median_ttft_ms": 379.3528717942536,
+        "median_tpot_ms": 3.9786378491600707
+      },
+      "mixed": {
+        "output_throughput": 1836.2357738959151,
+        "median_ttft_ms": 278.97630957886577,
+        "median_tpot_ms": 4.0767837861117675
+      },
+      "mixed_ttft_change_percent": -26.459945259048467,
+      "mixed_throughput_change_percent": -0.5401343365919242,
+      "split_mixed": {
+        "output_throughput": 1850.5271474409121,
+        "median_ttft_ms": 268.25173711404204,
+        "median_tpot_ms": 4.0613782131463605
+      },
+      "split_vs_normal_ttft_change_percent": -29.287015583862118,
+      "split_vs_normal_throughput_change_percent": 0.23395911760277777,
+      "split_vs_mixed_ttft_change_percent": -3.8442592064585,
+      "split_vs_mixed_throughput_change_percent": 0.7782973051807529,
+      "combined_mixed": {
+        "output_throughput": 1888.6101012678057,
+        "median_ttft_ms": 262.6542020589113,
+        "median_tpot_ms": 3.9643310506592333
+      },
+      "combined_normal": {
+        "output_throughput": 1886.3094260231967,
+        "median_ttft_ms": 384.51868016272783,
+        "median_tpot_ms": 3.8691805229537763
+      }
+    },
+    {
+      "concurrency": 16,
+      "normal": {
+        "output_throughput": 2517.9397751280235,
+        "median_ttft_ms": 563.313820399344,
+        "median_tpot_ms": 5.7995970973623
+      },
+      "mixed": {
+        "output_throughput": 2477.4469755684477,
+        "median_ttft_ms": 415.15925945714116,
+        "median_tpot_ms": 6.05765320560945
+      },
+      "mixed_ttft_change_percent": -26.300537209822615,
+      "mixed_throughput_change_percent": -1.6081718855851856,
+      "split_mixed": {
+        "output_throughput": 2517.9059770551894,
+        "median_ttft_ms": 392.8806181065738,
+        "median_tpot_ms": 5.965260681828242
+      },
+      "split_vs_normal_ttft_change_percent": -30.25546260731661,
+      "split_vs_normal_throughput_change_percent": -0.0013422907556348562,
+      "split_vs_mixed_ttft_change_percent": -5.36628795891454,
+      "split_vs_mixed_throughput_change_percent": 1.6330925297587173,
+      "combined_mixed": {
+        "output_throughput": 2558.436144520004,
+        "median_ttft_ms": 383.80276458337903,
+        "median_tpot_ms": 5.871145162123272
+      },
+      "combined_normal": {
+        "output_throughput": 2547.9335852580657,
+        "median_ttft_ms": 566.1493260413408,
+        "median_tpot_ms": 5.721903545372297
+      }
+    },
+    {
+      "concurrency": 32,
+      "normal": {
+        "output_throughput": 3101.130613493354,
+        "median_ttft_ms": 1070.849639363587,
+        "median_tpot_ms": 9.229772092404895
+      },
+      "mixed": {
+        "output_throughput": 3006.818200179472,
+        "median_ttft_ms": 606.9692354649305,
+        "median_tpot_ms": 10.104266973530995
+      },
+      "mixed_ttft_change_percent": -43.31891115678421,
+      "mixed_throughput_change_percent": -3.041226735291902,
+      "split_mixed": {
+        "output_throughput": 3094.135624098292,
+        "median_ttft_ms": 533.0350650474429,
+        "median_tpot_ms": 9.871882644144206
+      },
+      "split_vs_normal_ttft_change_percent": -50.223164349737345,
+      "split_vs_normal_throughput_change_percent": -0.22556255336766418,
+      "split_vs_mixed_ttft_change_percent": -12.180876080293423,
+      "split_vs_mixed_throughput_change_percent": 2.903980823104235,
+      "combined_mixed": {
+        "output_throughput": 3136.64980551995,
+        "median_ttft_ms": 522.4838550202549,
+        "median_tpot_ms": 9.734549463152128
+      },
+      "combined_normal": {
+        "output_throughput": 3118.6159207417704,
+        "median_ttft_ms": 1080.9211363084614,
+        "median_tpot_ms": 9.190397925186948
+      }
+    },
+    {
+      "concurrency": 64,
+      "normal": {
+        "output_throughput": 3487.8692398593626,
+        "median_ttft_ms": 2145.97144536674,
+        "median_tpot_ms": 16.261526462662953
+      },
+      "mixed": {
+        "output_throughput": 3241.562041199831,
+        "median_ttft_ms": 740.0770899839699,
+        "median_tpot_ms": 19.13538037135629
+      },
+      "mixed_ttft_change_percent": -65.51319023457496,
+      "mixed_throughput_change_percent": -7.06182433230963,
+      "split_mixed": {
+        "output_throughput": 3477.621695665804,
+        "median_ttft_ms": 554.2241684161127,
+        "median_tpot_ms": 17.788466970133115
+      },
+      "split_vs_normal_ttft_change_percent": -74.17373984110039,
+      "split_vs_normal_throughput_change_percent": -0.29380528594505906,
+      "split_vs_mixed_ttft_change_percent": -25.11264354526673,
+      "split_vs_mixed_throughput_change_percent": 7.282280933256424,
+      "combined_mixed": {
+        "output_throughput": 3518.267676440732,
+        "median_ttft_ms": 543.4741587378085,
+        "median_tpot_ms": 17.60220830306003
+      },
+      "combined_normal": {
+        "output_throughput": 3488.0691133707373,
+        "median_ttft_ms": 2158.9889540337026,
+        "median_tpot_ms": 16.24329073103336
+      }
+    },
+    {
+      "concurrency": 128,
+      "normal": {
+        "output_throughput": 3764.665951856228,
+        "median_ttft_ms": 4108.270621392876,
+        "median_tpot_ms": 30.01190252822413
+      },
+      "mixed": {
+        "output_throughput": 3201.1357296370734,
+        "median_ttft_ms": 1005.3898789919913,
+        "median_tpot_ms": 39.61739149208628
+      },
+      "mixed_ttft_change_percent": -75.52766184007805,
+      "mixed_throughput_change_percent": -14.968930296227134,
+      "split_mixed": {
+        "output_throughput": 3777.268717436864,
+        "median_ttft_ms": 585.6388690881431,
+        "median_tpot_ms": 33.18950103437446
+      },
+      "split_vs_normal_ttft_change_percent": -85.74488092292258,
+      "split_vs_normal_throughput_change_percent": 0.3347645114282205,
+      "split_vs_mixed_ttft_change_percent": -41.75007314820919,
+      "split_vs_mixed_throughput_change_percent": 17.99776818164187,
+      "combined_mixed": {
+        "output_throughput": 3801.872513237635,
+        "median_ttft_ms": 577.6246041059494,
+        "median_tpot_ms": 32.95118072892258
+      },
+      "combined_normal": {
+        "output_throughput": 3763.539032484054,
+        "median_ttft_ms": 4120.287189260125,
+        "median_tpot_ms": 29.966663399880584
+      }
+    }
+  ]
+}

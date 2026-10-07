@@ -1,0 +1,72 @@
+[
+  {
+    "completed": 30,
+    "total_input_tokens": 245760,
+    "total_output_tokens": 30720,
+    "output_throughput": 382.57842651818254,
+    "median_ttft_ms": 75.70255035534501,
+    "median_tpot_ms": 2.53870035134773,
+    "concurrency": 1,
+    "versus_vllm": 0.14544439077300164
+  },
+  {
+    "completed": 40,
+    "total_input_tokens": 327680,
+    "total_output_tokens": 40960,
+    "output_throughput": 1230.0608222869664,
+    "median_ttft_ms": 189.1437736339867,
+    "median_tpot_ms": 3.0680007245737557,
+    "concurrency": 4,
+    "versus_vllm": 0.09338739758841452
+  },
+  {
+    "completed": 80,
+    "total_input_tokens": 655360,
+    "total_output_tokens": 81920,
+    "output_throughput": 1891.335646086769,
+    "median_ttft_ms": 317.7578994072974,
+    "median_tpot_ms": 3.9274962878406394,
+    "concurrency": 8,
+    "versus_vllm": 0.06614185236007275
+  },
+  {
+    "completed": 80,
+    "total_input_tokens": 655360,
+    "total_output_tokens": 81920,
+    "output_throughput": 2553.9316487468564,
+    "median_ttft_ms": 386.6722169332206,
+    "median_tpot_ms": 5.874347507513018,
+    "concurrency": 16,
+    "versus_vllm": 0.02198145207957447
+  },
+  {
+    "completed": 160,
+    "total_input_tokens": 1310720,
+    "total_output_tokens": 163840,
+    "output_throughput": 3142.297929104481,
+    "median_ttft_ms": 526.6044638119638,
+    "median_tpot_ms": 9.7047129435645,
+    "concurrency": 32,
+    "versus_vllm": 0.018903349255668278
+  },
+  {
+    "completed": 320,
+    "total_input_tokens": 2621440,
+    "total_output_tokens": 327680,
+    "output_throughput": 3533.8685507755827,
+    "median_ttft_ms": 545.6887781620026,
+    "median_tpot_ms": 17.540771931133076,
+    "concurrency": 64,
+    "versus_vllm": 0.011410575493870256
+  },
+  {
+    "completed": 640,
+    "total_input_tokens": 5242880,
+    "total_output_tokens": 655360,
+    "output_throughput": 3841.0813125388413,
+    "median_ttft_ms": 582.6804763637483,
+    "median_tpot_ms": 32.59066932671726,
+    "concurrency": 128,
+    "versus_vllm": 0.006836517048188995
+  }
+]

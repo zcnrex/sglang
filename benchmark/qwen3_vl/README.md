@@ -1,67 +1,91 @@
-# Qwen3-VL-4B B300 benchmark
+# Qwen3-VL-4B B300 BF16 experiments
 
-`scheduler_bench.py` reproduces the handoff workload: text-only random 8192-token inputs and 1024-token outputs, concurrency 1/4/8/16/32/64/128, 30/40/80/80/160/320/640 requests, and `max(64, concurrency)` warmups followed by a cache flush. `--screen` uses only c1 (3 requests, 1 warmup) and c128 (256 requests, 128 warmups). Screening numbers are provisional because the full sweep uses more requests and warmup.
+## Current status
 
-Run from the source checkout with a fresh output directory. Select an idle GPU and retain `pmon.log` to check for foreign processes. Each run records the GPU state, source revision/diff, installed packages, command, server log, per-point benchmark output, and a summary. It rejects incomplete request counts. Servers terminate on completion unless `--keep-server` is set.
+The target is at least 10% more output throughput than the recorded handoff baseline, with **BF16 weights, BF16 KV cache and BF16 attention queries**. The target is **not met across the seven concurrency points**. Only concurrency 1 clears 10% in the completed native-NHD combined sweep below. Earlier FP8 results are historical and do not satisfy this precision-matched goal. No speculative decoding or draft-model configuration is used in the current candidate.
+
+The handoff reference used one B300, vLLM `0.30.1rc1.dev648+g92044241a`, BF16 model dtype and KV `auto` resolving to BF16. Its server log was checked at `/root/qvl/out-baseline-20261007/vllm/server.log`. Candidate environment: Torch `2.14.1+cu130`, FlashInfer `0.7.0.post1`, Transformers `5.17.0`, CUDA 13.0. Baseline numbers were supplied in the handoff; they were not remeasured here.
+
+## Configuration and reproducibility
+
+```bash
+HF_HOME=/root/qvl/hf CUDA_VISIBLE_DEVICES=0 PYTHONPATH=$PWD/python \
+  /root/qvl/venv-sgl/bin/sglang serve \
+  --model-path Qwen/Qwen3-VL-4B-Instruct \
+  --dtype bfloat16 --kv-cache-dtype auto \
+  --attention-backend trtllm_mha --page-size 32 \
+  --chunked-prefill-size 16384 --enable-mixed-chunk \
+  --enforce-disable-flashinfer-allreduce-fusion \
+  --host 127.0.0.1 --port 30000
+```
+
+This uses the default NHD cache storage. Native HND is a separate opt-in experiment using `SGLANG_USE_HND_KVCACHE=1`; its measurements must not be substituted into the NHD comparison.
+
+`scheduler_bench.py` reproduces text-only random prompts of exactly 8192 input and 1024 output tokens. Concurrency is 1/4/8/16/32/64/128 with 30/40/80/80/160/320/640 measured requests. Each point has `max(64, concurrency)` warmup requests followed by a cache flush. Every completed full sweep has 1,350 requests, 11,059,200 input tokens, and 1,382,400 output tokens. The client is sgl-bench `a9da34ad1f997ca05878d858d3d01970e4a49af9`.
 
 ```bash
 HF_HOME=/root/qvl/hf PYTHONPATH=$PWD/python \
   python benchmark/qwen3_vl/scheduler_bench.py \
   --gpu 0 --port 32000 --output /root/qvl/experiments/example \
   --python /root/qvl/venv-sgl/bin/python \
-  --bench /root/qvl/venv-bench/bin/sgl-bench --screen -- \
+  --bench /root/qvl/venv-bench/bin/sgl-bench -- \
+  --dtype bfloat16 --kv-cache-dtype auto \
   --attention-backend trtllm_mha --page-size 32 \
+  --chunked-prefill-size 16384 --enable-mixed-chunk \
   --enforce-disable-flashinfer-allreduce-fusion
 ```
 
-Remove `--screen` for the complete sweep. Arguments after `--` pass directly to the server, allowing explicit comparisons of `--enable-mixed-chunk`, `--chunked-prefill-size`, and `--kv-cache-dtype`. The model remains multimodal capable; the benchmark sends no images.
+Add `--screen` before the final `--` for a short screen (c1: 3 requests, 1 warmup; c128: 256 requests, 128 warmups). Screening results are provisional. Raw JSONL, commands, installed packages, GPU process monitoring and source provenance are in each `results/bf16_*` directory.
 
-Reference vLLM output tokens/s from `qwen3vl4b-b300-handoff.md` (2026-10-07):
+## Exact BF16 comparison
 
-| Concurrency | vLLM output tokens/s | 10% target |
-|---|---:|---:|
-| 1 | 334 | 367.4 |
-| 4 | 1125 | 1237.5 |
-| 8 | 1774 | 1951.4 |
-| 16 | 2499 | 2748.9 |
-| 32 | 3084 | 3392.4 |
-| 64 | 3494 | 3843.4 |
-| 128 | 3815 | 4196.5 |
+These columns compare the same fusion-enabled source with mixed chunking disabled versus enabled. Throughput counts output tokens only; TTFT and TPOT are medians. Results are single full sweeps, not confidence intervals.
 
-The reference used one B300, vLLM `0.30.1rc1.dev648+g92044241a`, and sgl-bench `a9da34ad1f997ca05878d858d3d01970e4a49af9`. FP8 KV-cache results must be identified separately from BF16 and validated for accuracy before adoption.
+| Concurrency | Handoff output tok/s | Mixed output tok/s | vs handoff | Normal TTFT ms | Mixed TTFT ms | Mixed TPOT ms |
+|---|---:|---:|---:|---:|---:|---:|
+| 1 | 334 | 383.81 | +14.91% | 75.08 | 75.50 | 2.53 |
+| 4 | 1125 | 1234.49 | +9.73% | 187.29 | 158.94 | 3.08 |
+| 8 | 1774 | 1888.61 | +6.46% | 384.52 | 262.65 | 3.96 |
+| 16 | 2499 | 2558.44 | +2.38% | 566.15 | 383.80 | 5.87 |
+| 32 | 3084 | 3136.65 | +1.71% | 1080.92 | 522.48 | 9.73 |
+| 64 | 3494 | 3518.27 | +0.69% | 2158.99 | 543.47 | 17.60 |
+| 128 | 3815 | 3801.87 | -0.34% | 4120.29 | 577.62 | 32.95 |
 
-`screening_results.json` records the short experiments at upstream revision `43b4abd857` before the split-K tuning change. `mixed-*` uses FlashInfer BF16; `trt-*` uses TRTLLM MHA with page size 32; `fp8` denotes E4M3 KV cache. `normal` means mixed chunking is disabled. All use one B300. NGRAM used draft length 4, BFS breadth 1, max running requests 128; its c1 retry followed a port shutdown race and completed normally. Monitor logs contain only the experiments' own launcher/scheduler processes (including outgoing processes during the NGRAM restart). Full logs remain under `/root/qvl/experiments/scheduler/` on the benchmark host.
+At concurrency 128, mixed chunking cuts TTFT from 4120.29 to 577.62 ms (85.98%) while output throughput changes from 3763.54 to 3801.87 tok/s (+1.02%). TPOT increases from 29.97 to 32.95 ms (+9.96%). This is a latency tradeoff, not a uniform speedup.
 
-## Validated deployment configuration
+## Optional native HND layout
 
-The candidate uses BF16 model weights, an FP8 E4M3 KV cache, and TRTLLM generation attention (including FP8 query conversion), page size 32, a 16384-token prefill chunk, and no mixed chunking. This is a precision/configuration change in addition to the split-K kernel optimization; comparisons should retain that distinction. The original multimodal model is loaded and remains available, but these performance and GSM8K evaluations send text only; image behavior was not evaluated.
+The completed exact HND sweep is in `results/bf16_combined_hnd/`. At c128 it reaches 3841.08 output tok/s, only 0.68% above the handoff baseline and below the 4196.5 target. It improves about 1.03% over the combined NHD full sweep, with smaller or noisy changes at other concurrencies. Short c128 crossover runs on each GPU separately found HND gains of 1.30% on GPU5 and 1.64% on GPU7; see `hnd_crossover.json`.
 
-```bash
-HF_HOME=/root/qvl/hf CUDA_VISIBLE_DEVICES=0 PYTHONPATH=$PWD/python \
-  /root/qvl/venv-sgl/bin/python -m sglang.launch_server \
-  --model-path Qwen/Qwen3-VL-4B-Instruct \
-  --attention-backend trtllm_mha --page-size 32 \
-  --kv-cache-dtype fp8_e4m3 --chunked-prefill-size 16384 \
-  --enforce-disable-flashinfer-allreduce-fusion \
-  --host 127.0.0.1 --port 32000
-```
+| Concurrency | HND output tok/s | vs handoff | TTFT ms | TPOT ms |
+|---|---:|---:|---:|---:|
+| 1 | 382.58 | +14.54% | 75.70 | 2.54 |
+| 4 | 1230.06 | +9.34% | 189.14 | 3.07 |
+| 8 | 1891.34 | +6.61% | 317.76 | 3.93 |
+| 16 | 2553.93 | +2.20% | 386.67 | 5.87 |
+| 32 | 3142.30 | +1.89% | 526.60 | 9.70 |
+| 64 | 3533.87 | +1.14% | 545.69 | 17.54 |
+| 128 | 3841.08 | +0.68% | 582.68 | 32.59 |
 
-The candidate source changes are committed in `cd4657fd5b`; the benchmark executable fix is `a2ab66d8f8`. The remote experiment checkout remained at upstream `43b4abd857` with the corresponding patches applied, so its recorded Git HEAD is the upstream base. Saved source diffs identify the actual tested implementation. The full sweep uses exactly the documented prompt counts, warmup counts, input/output lengths, and cache flush behavior.
+## Where the improvements come from
 
-## Final exact sweep
+1. Small-batch BF16 GEMM tuning (`cd4657fd5b`): 12 split-K tactics for QKV, output and down projections at batches 1/2/4/8. The one-batch runner initialization fix (`a2ab66d8f8`) makes its backend match serving.
+2. Mixed attention routing (`d434f638ec`): trailing one-token requests use decode attention while the prefill prefix uses context attention. Before this change, enabling mixed chunking at c128 reduced throughput from 3764.67 to 3201.14 tok/s; routing the tails correctly recovers it to 3777.27 tok/s. A representative standalone mixed batch fell from about 3.79 to 1.00 ms.
+3. BF16 QK RMSNorm plus multimodal RoPE fusion (`7f966e810c`): one kernel replaces separate normalization and rotation for small batches on Blackwell, retaining BF16 rounding. With mixed chunking, c1 throughput changes from 375.15 to 383.81 tok/s and c128 from 3777.27 to 3801.87 tok/s. Full serving changes are small at large batches because attention dominates.
+4. Native HND cache writer (`f81b0bfa51`): an optional layout gets a fused BF16 writer instead of multiple indexing kernels. Standalone writes improved from about 10.2 to 1.45 microseconds at 64 tokens and 86.64 to 10.18 microseconds at 8192 tokens. The default cache layout remains unchanged. Full HND results are recorded separately above.
 
-All seven points exceed the handoff vLLM throughput by at least 10%. Raw unmodified benchmark JSONL files are in `results/final/`; the same FP8 configuration before split-K tuning is in `results/fp8_old_splitk/`.
+`bf16_mixed_comparison.json` contains all five controlled sweeps: original normal, original mixed, corrected mixed routing, corrected mixed routing plus fusion, and fusion with mixed chunking disabled. Original here includes the small-batch GEMM tuning, so this is not a clean-main GEMM ablation. All runs were isolated to one GPU; independent runs used different GPUs, and small differences may include GPU/run variation.
 
-| Concurrency | vLLM tokens/s | Candidate tokens/s | Speedup | TTFT ms | TPOT ms |
-|---|---:|---:|---:|---:|---:|
-| 1 | 334 | 378.19 | 13.23% | 71.09 | 2.57 |
-| 4 | 1125 | 1323.28 | 17.63% | 172.63 | 2.85 |
-| 8 | 1774 | 2193.91 | 23.67% | 352.90 | 3.30 |
-| 16 | 2499 | 3229.05 | 29.21% | 524.67 | 4.44 |
-| 32 | 3084 | 4216.96 | 36.74% | 997.65 | 6.60 |
-| 64 | 3494 | 5046.35 | 44.43% | 2011.10 | 10.72 |
-| 128 | 3815 | 5600.03 | 46.79% | 3821.71 | 19.12 |
+## Accuracy and implementation validation
 
-All 1,350 measured requests completed, with exactly 11,059,200 input tokens and 1,382,400 output tokens. The pmon audit found only the owned launcher PID 3100365 and scheduler PID 3100707 on GPU 3. TTFT at high concurrency remains higher than the handoff vLLM baseline; the optimization target met here is output throughput.
+Full text GSM8K: reference 1215/1314 (92.47%); mixed routing plus fusion 1216/1314 (92.54%); optional HND combined candidate 1220/1314 (92.85%). See `bf16_combined_accuracy.json` and `bf16_combined_hnd_accuracy.json`. The first five dataset rows are few-shot examples, all remaining 1314 are evaluated with temperature 0, top-p 1, max output 2048 and concurrency 32. These single-run checks do not establish statistical or multimodal accuracy equivalence.
 
-Full text GSM8K validation scored 1218/1314 (92.69%) for the final configuration versus 1215/1314 (92.47%) for the BF16 reference. See `accuracy_results.json` and `eval_gsm8k.py` for protocol and evidence; this is a single-run accuracy check, not a statistical equivalence claim.
+Standalone validation: 24 distinct QK norm/MRoPE cases, repeated after formatting, were bitwise equal to the original operations. Shapes cover tokens 1/8/128, Q heads 4/32, KV heads 1/8 and contiguous/interleaved multimodal axes. Eighteen mixed-attention cases cover heterogeneous lengths and shared-output-buffer aliasing (maximum absolute difference 0.001953125). Twenty cache-write cases cover layouts, negative slots, sliding-window destinations and noncontiguous inputs; six BF16/FP16/FP8-scale regressions match original NHD outputs. Existing CPU namespace/fusion/dispatch tests: 123 passed. No standalone benchmark or added test files are included in the code PR.
+
+One image smoke test using `examples/assets/example_image.png` produced identical 32-token greedy descriptions on original main and the combined BF16 candidate (234 prompt tokens, including 216 image tokens). A trace confirmed 144 fused QK norm/MRoPE kernel executions during image decode. Selected-token logprobs were not bitwise identical (maximum absolute difference 0.04090); this comparison includes GEMM tactic changes. Raw responses and source/fixture hashes are in `results/bf16_multimodal_smoke/`. This is a smoke test, not a multimodal accuracy evaluation.
+
+The serving checkouts recorded Git base `b13cd34649` with patches applied, rather than the later clean commits. The saved diffs and SHA256 manifests identify the actual tested files, including untracked JIT source. `f81b0bfa51` is the combined committed implementation; PR #42913 has equivalent cherry-picked commits on its code-only branch.
+
+## Other BF16 screens
+
+`bf16_scheduler_results.json` records short screening runs. Chunk sizes, prefill/decode scheduling interval, context limits, alternative attention backends, attention split counts and expanded GEMM tactics did not produce a further substantial throughput improvement. High-concurrency decode was dominated by BF16 KV reads; the measured attention kernels were near the device's sustainable memory bandwidth. Expanded GEMM tactics yielded less than 1% and were not promoted. Historical FP8 artifacts remain in Git history and old result folders, but are excluded from current candidate claims.

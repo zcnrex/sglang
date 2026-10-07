@@ -1,0 +1,9 @@
+{"prefix": [17, 1, 128], "decode_bs": 1, "max_abs_diff": 0.0009765625, "guard_rows_intact": true}
+{"prefix": [17, 1, 128], "decode_bs": 17, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [17, 1, 128], "decode_bs": 64, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [1024, 2048], "decode_bs": 1, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [1024, 2048], "decode_bs": 17, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [1024, 2048], "decode_bs": 64, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [8192, 4096], "decode_bs": 1, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [8192, 4096], "decode_bs": 17, "max_abs_diff": 0.001953125, "guard_rows_intact": true}
+{"prefix": [8192, 4096], "decode_bs": 64, "max_abs_diff": 0.001953125, "guard_rows_intact": true}

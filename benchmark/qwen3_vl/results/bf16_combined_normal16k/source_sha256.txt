@@ -1,0 +1,5 @@
+bcb71c0fe22242271d4587df8900ba121647261e9ba7bae2684020983c5cf612  python/sglang/kernels/ops/attention/__init__.py
+76bb1825c62a6ba9f22d55537963e06789e79f8fea89b25e9132a1abe1f05726  python/sglang/srt/layers/attention/trtllm_mha_backend.py
+0605576b91d3f556813e21b7a65f7c2206a53f429488dd06d5fbf8892b7015ba  python/sglang/srt/models/qwen3.py
+01feef4ca6b97a14a3909b107915c277769c2595af680a190e661bca9cf9f286  python/sglang/kernels/jit/csrc/attention/fused_qk_norm_mrope.cuh
+708fcea78005462b12680dd48710397de712fbad3ee5bbe996a72739b3cc727c  python/sglang/kernels/ops/attention/fused_qk_norm_mrope.py

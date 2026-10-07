@@ -1,0 +1,30 @@
+{
+  "configuration": "BF16 TRT p32 mixed16k with split routing and QK normalization/MRoPE fusion",
+  "protocol": {
+    "concurrency": 128,
+    "requests": 256,
+    "warmup_requests": 128,
+    "input_tokens_per_request": 8192,
+    "output_tokens_per_request": 1024,
+    "speculative": false
+  },
+  "same_gpu_comparisons": [
+    {
+      "gpu": 5,
+      "hnd_tokens_per_second": 3830.1515829282544,
+      "nhd_tokens_per_second": 3780.924929918825,
+      "hnd_relative_gain": 0.013019738270890757,
+      "hnd_remote_directory": "/root/qvl/experiments/bf16-attention/fusion-hnd1-mid-screen",
+      "nhd_remote_directory": "/root/qvl/experiments/bf16-attention/crossover-hnd0-gpu5"
+    },
+    {
+      "gpu": 7,
+      "hnd_tokens_per_second": 3845.130940821133,
+      "nhd_tokens_per_second": 3783.1600377301097,
+      "hnd_relative_gain": 0.016380724704473826,
+      "hnd_remote_directory": "/root/qvl/experiments/bf16-attention/crossover-hnd1-gpu7",
+      "nhd_remote_directory": "/root/qvl/experiments/bf16-attention/fusion-hnd0-mid-screen"
+    }
+  ],
+  "limitations": "Sequential crossover screens, not confidence intervals; full-sweep results reported separately."
+}

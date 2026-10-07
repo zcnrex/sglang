@@ -1,0 +1,47 @@
+{
+  "status": "complete",
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "source_revision": "b13cd3464903c21ddf9a424e141c7def2f4d7295",
+  "scorer": "sglang.test.simple_eval_mixed_prefix_gsm8k.GSM8KEval",
+  "dataset_url": "https://raw.githubusercontent.com/openai/grade-school-math/master/grade_school_math/data/test.jsonl",
+  "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "selection": {
+    "seed": null,
+    "method": "dataset order; first num_shots rows excluded from evaluation",
+    "num_shots": 5,
+    "first_evaluation_row": 5,
+    "last_evaluation_row": 1318,
+    "row_indexing": "zero-based"
+  },
+  "sampling": {
+    "api": "chat",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "max_tokens": 2048,
+    "concurrency": 32
+  },
+  "total": 1314,
+  "correct": 1216,
+  "score": 0.9254185692541856,
+  "latency_seconds": 55.054881386458874,
+  "completion_tokens": 239580,
+  "precision": "BF16 weights, KV cache and attention queries",
+  "configuration": {
+    "attention_backend": "trtllm_mha",
+    "page_size": 32,
+    "chunked_prefill_size": 16384,
+    "enable_mixed_chunk": true,
+    "hnd_kvcache": false,
+    "speculative_algorithm": null
+  },
+  "implementation_commits": [
+    "d434f638ec",
+    "7f966e810c"
+  ],
+  "source_note": "Remote Git HEAD was b13cd34649 with the implementation patches applied. Full serving sweep source diffs and source_sha256.txt are under results/bf16_combined_mixed16k.",
+  "paired_reference": {
+    "correct": 1215,
+    "total": 1314,
+    "score": 0.9246575342465754
+  }
+}

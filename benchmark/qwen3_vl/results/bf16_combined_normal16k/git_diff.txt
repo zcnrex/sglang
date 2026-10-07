@@ -1,0 +1,200 @@
+diff --git a/python/sglang/kernels/ops/attention/__init__.py b/python/sglang/kernels/ops/attention/__init__.py
+index 3e8b66f5f2..51288f443e 100644
+--- a/python/sglang/kernels/ops/attention/__init__.py
++++ b/python/sglang/kernels/ops/attention/__init__.py
+@@ -407,3 +407,17 @@ for _fn in ("fp4_index_logits_paged", "finish_paged_indexer_topk"):
+         )
+     )
+ del _fn
++
++register_kernel(
++    KernelSpec(
++        op="attention.fused_qk_norm_mrope",
++        backend=KernelBackend.JIT,
++        target="sglang.kernels.ops.attention.fused_qk_norm_mrope:fused_qk_norm_mrope",
++        capabilities=frozenset({CapabilityRequirement.cuda(min_sm=(8, 0))}),
++        format_signature=FormatSignature(
++            supported_dtypes=("bfloat16",),
++            in_place=True,
++            description="Q/K RMSNorm and full-width NeoX MRoPE with 128-element heads.",
++        ),
++    )
++)
+diff --git a/python/sglang/srt/layers/attention/trtllm_mha_backend.py b/python/sglang/srt/layers/attention/trtllm_mha_backend.py
+index 3340beef05..db4459dbf7 100644
+--- a/python/sglang/srt/layers/attention/trtllm_mha_backend.py
++++ b/python/sglang/srt/layers/attention/trtllm_mha_backend.py
+@@ -157,6 +157,9 @@ class TRTLLMMHAMetadata:
+     encoder_cache_seqlens: torch.Tensor = None
+     encoder_page_table: torch.Tensor = None
+     encoder_row_map: torch.Tensor = None
++    # Prefix before trailing one-token requests in an extend-shaped batch.
++    mixed_prefill_reqs: int = 0
++    mixed_prefill_tokens: int = 0
+ 
+ 
+ class TRTLLMHAAttnBackend(FlashInferAttnBackend):
+@@ -1255,6 +1258,19 @@ class TRTLLMHAAttnBackend(FlashInferAttnBackend):
+             # Query-side max length, sourced from the host-resident extend lengths
+             # (sync-free); for plain prefill these equal the full seq lens.
+             metadata.max_seq_len_q = int(max(forward_batch.extend_seq_lens_cpu))
++            if (
++                forward_batch.forward_mode.is_extend()
++                and forward_batch.spec_info is None
++            ):
++                # The eager runner normalizes MIXED to EXTEND. A causal
++                # one-token query can use decode even for a new request.
++                lengths = forward_batch.extend_seq_lens_cpu
++                prefix = len(lengths)
++                while prefix and lengths[prefix - 1] == 1:
++                    prefix -= 1
++                if 0 < prefix < len(lengths):
++                    metadata.mixed_prefill_reqs = prefix
++                    metadata.mixed_prefill_tokens = sum(lengths[:prefix])
+             if (
+                 forward_batch.extend_prefix_lens_cpu is not None
+                 and any(forward_batch.extend_prefix_lens_cpu)
+@@ -1766,8 +1782,11 @@ class TRTLLMHAAttnBackend(FlashInferAttnBackend):
+                 cu_seqlens_kv,
+                 use_zigzag_page_table=False,
+                 out=None,
++                page_table_override=None,
+             ):
+-                block_tables = page_table
++                block_tables = (
++                    page_table if page_table_override is None else page_table_override
++                )
+                 if use_zigzag_page_table:
+                     block_tables = self.forward_metadata.zigzag_page_table
+                     zigzag_swa_pt = self.forward_metadata.zigzag_swa_page_table
+@@ -1810,14 +1829,49 @@ class TRTLLMHAAttnBackend(FlashInferAttnBackend):
+                 out = native_out if uses_native_fp4 else forward_batch._attn_output
+                 if out is not None:
+                     out = out.view_as(q)
+-                o = _trtllm_context_attn(
+-                    q,
+-                    self.forward_metadata.cu_seqlens_q,
+-                    self.forward_metadata.cache_seqlens_int32,
+-                    self.forward_metadata.max_seq_len_q,
+-                    cu_seqlens_kv=self.forward_metadata.cu_seqlens_k,
+-                    out=out,
+-                )
++                metadata = self.forward_metadata
++                if (
++                    metadata.mixed_prefill_reqs
++                    and q.dtype == torch.bfloat16
++                    and self.data_type == torch.bfloat16
++                    and not uses_native_fp4
++                    and layer.attn_type == AttentionType.DECODER
++                ):
++                    # Preserve request order and reuse the shared output buffer.
++                    prefix_reqs = metadata.mixed_prefill_reqs
++                    prefix_tokens = metadata.mixed_prefill_tokens
++                    if out is None:
++                        out = torch.empty_like(q)
++                    _trtllm_context_attn(
++                        q[:prefix_tokens],
++                        metadata.cu_seqlens_q[: prefix_reqs + 1],
++                        metadata.cache_seqlens_int32[:prefix_reqs],
++                        metadata.max_seq_len_q,
++                        cu_seqlens_kv=metadata.cu_seqlens_k[: prefix_reqs + 1],
++                        out=out[:prefix_tokens],
++                        page_table_override=page_table[:prefix_reqs],
++                    )
++                    self._run_fixed_q_len_decode(
++                        q[prefix_tokens:],
++                        kv_cache,
++                        page_table[prefix_reqs:],
++                        metadata.cache_seqlens_int32[prefix_reqs:],
++                        bmm1_scale=bmm1_scale,
++                        bmm2_scale=bmm2_scale,
++                        window_left=layer.sliding_window_size,
++                        sinks=attention_sink,
++                        out=out[prefix_tokens:],
++                    )
++                    o = out
++                else:
++                    o = _trtllm_context_attn(
++                        q,
++                        metadata.cu_seqlens_q,
++                        metadata.cache_seqlens_int32,
++                        metadata.max_seq_len_q,
++                        cu_seqlens_kv=metadata.cu_seqlens_k,
++                        out=out,
++                    )
+ 
+         if uses_native_fp4:
+             o = self._finalize_nvfp4_output(o, forward_batch)
+diff --git a/python/sglang/srt/models/qwen3.py b/python/sglang/srt/models/qwen3.py
+index 1d9752e25a..c57cf6ce7b 100644
+--- a/python/sglang/srt/models/qwen3.py
++++ b/python/sglang/srt/models/qwen3.py
+@@ -5,6 +5,7 @@ from typing import Any, Dict, Iterable, List, Optional, Tuple
+ import torch
+ from torch import nn
+ 
++from sglang.srt.environ import envs
+ from sglang.srt.layers.aux_hidden_states import AuxHiddenStateList
+ from sglang.srt.layers.layer_boundary import (
+     append_stages,
+@@ -37,7 +38,7 @@ from sglang.srt.models.qwen2 import Qwen2MLP as Qwen3MLP
+ from sglang.srt.models.qwen2 import Qwen2Model
+ from sglang.srt.models.utils import apply_qk_norm
+ from sglang.srt.platforms import current_platform
+-from sglang.srt.runtime_context import get_exec, get_parallel, get_stream
++from sglang.srt.runtime_context import get_exec, get_parallel, get_platform, get_stream
+ from sglang.srt.utils import add_prefix, get_bool_env_var, is_cuda, is_hip, is_npu
+ 
+ Qwen3Config = None
+@@ -48,6 +49,9 @@ _is_hip = is_hip()
+ _is_npu = is_npu()
+ _use_aiter = get_bool_env_var("SGLANG_USE_AITER") and _is_hip
+ 
++if _is_cuda:
++    from sglang.kernels.ops.attention.fused_qk_norm_mrope import fused_qk_norm_mrope
++
+ _has_fused_qk_norm_mrope = False
+ if _use_aiter:
+     try:
+@@ -158,6 +162,18 @@ class Qwen3Attention(nn.Module):
+         )
+         self.alt_stream = alt_stream
+ 
++        self.use_fused_qk_norm_mrope_cuda = (
++            _is_cuda
++            and get_platform().is_sm100
++            and self.head_dim == 128
++            and isinstance(self.rotary_emb, MRotaryEmbedding)
++            and self.rotary_emb.rotary_dim == 128
++            and self.rotary_emb.is_neox_style
++            and self.rotary_emb.axis_map is not None
++            and not self.rotary_emb._force_native
++            and not envs.SGLANG_ENABLE_DETERMINISTIC_INFERENCE.get()
++            and get_exec().graph.cuda_graph_config.prefill.tc_compiler != "inductor"
++        )
+         self.use_fused_qk_norm_mrope = (
+             _has_fused_qk_norm_mrope
+             and isinstance(self.rotary_emb, MRotaryEmbedding)
+@@ -174,6 +190,22 @@ class Qwen3Attention(nn.Module):
+     def forward_prepare_native(self, positions, hidden_states):
+         qkv, _ = self.qkv_proj(hidden_states)
+         q, k, v = qkv.split([self.q_size, self.kv_size, self.kv_size], dim=-1)
++        if (
++            self.use_fused_qk_norm_mrope_cuda
++            and q.dtype == torch.bfloat16
++            and self.q_norm.weight.dtype == q.dtype
++            and self.k_norm.weight.dtype == q.dtype
++            and 0 < q.shape[0] <= 128
++            and positions.ndim == 2
++            and positions.dtype == torch.int64
++        ):
++            self.rotary_emb._match_cos_sin_cache_dtype(q)
++            fused_qk_norm_mrope(
++                q, k, self.q_norm.weight, self.k_norm.weight,
++                self.rotary_emb.cos_sin_cache, positions, self.rotary_emb.axis_map,
++                self.q_norm.variance_epsilon,
++            )
++            return q, k, v
+         q, k = apply_qk_norm(
+             q=q,
+             k=k,

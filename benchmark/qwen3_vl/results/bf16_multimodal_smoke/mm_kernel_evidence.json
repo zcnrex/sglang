@@ -1,0 +1,19 @@
+{
+  "fused_kernel_events": 144,
+  "fused_kernel_name": "void sglang::fused_qk_norm_mrope_kernel<true>(sglang::QKNormMRoPEParams)",
+  "trace": "/tmp/qvl-bf16-evidence/profile/1791354394.704402-TP-0.trace.json.gz",
+  "candidate_sha256": {
+    "python/sglang/kernels/jit/csrc/attention/fused_qk_norm_mrope.cuh": "01feef4ca6b97a14a3909b107915c277769c2595af680a190e661bca9cf9f286",
+    "python/sglang/kernels/ops/attention/fused_qk_norm_mrope.py": "708fcea78005462b12680dd48710397de712fbad3ee5bbe996a72739b3cc727c",
+    "python/sglang/kernels/ops/attention/__init__.py": "bcb71c0fe22242271d4587df8900ba121647261e9ba7bae2684020983c5cf612",
+    "python/sglang/srt/models/qwen3.py": "0605576b91d3f556813e21b7a65f7c2206a53f429488dd06d5fbf8892b7015ba",
+    "python/sglang/srt/layers/attention/trtllm_mha_backend.py": "76bb1825c62a6ba9f22d55537963e06789e79f8fea89b25e9132a1abe1f05726",
+    "python/sglang/srt/layers/quantization/unquant.py": "f2f232b344aa7042243a1c2a816b169993c13e736e14f0ba6c6ad10754c03875"
+  },
+  "commands": [
+    "3218754 bash -c CUDA_VISIBLE_DEVICES=3 HF_HOME=/root/qvl/hf PYTHONPATH=/root/qvl/sglang-mm-reference/python /root/qvl/venv-sgl/bin/python -m sglang.launch_server --model-path Qwen/Qwen3-VL-4B-Instruct --attention-backend trtllm_mha --page-size 32 --kv-cache-dtype bfloat16 --dtype bfloat16 --enforce-disable-flashinfer-allreduce-fusion --enable-mixed-chunk --chunked-prefill-size 16384 --cuda-graph-max-bs-decode 4 --host 127.0.0.1 --port 32003 > /tmp/qvl-bf16-evidence/mm_reference_server.log 2>&1",
+    "3218755 /root/qvl/venv-sgl/bin/python -m sglang.launch_server --model-path Qwen/Qwen3-VL-4B-Instruct --attention-backend trtllm_mha --page-size 32 --kv-cache-dtype bfloat16 --dtype bfloat16 --enforce-disable-flashinfer-allreduce-fusion --enable-mixed-chunk --chunked-prefill-size 16384 --cuda-graph-max-bs-decode 4 --host 127.0.0.1 --port 32003",
+    "3220235 bash -c CUDA_VISIBLE_DEVICES=4 HF_HOME=/root/qvl/hf PYTHONPATH=/root/qvl/sglang-bf16-kernels/python /root/qvl/venv-sgl/bin/python -m sglang.launch_server --model-path Qwen/Qwen3-VL-4B-Instruct --attention-backend trtllm_mha --page-size 32 --kv-cache-dtype bfloat16 --dtype bfloat16 --enforce-disable-flashinfer-allreduce-fusion --enable-mixed-chunk --chunked-prefill-size 16384 --cuda-graph-max-bs-decode 4 --host 127.0.0.1 --port 32004 > /tmp/qvl-bf16-evidence/mm_candidate_server.log 2>&1",
+    "3220236 /root/qvl/venv-sgl/bin/python -m sglang.launch_server --model-path Qwen/Qwen3-VL-4B-Instruct --attention-backend trtllm_mha --page-size 32 --kv-cache-dtype bfloat16 --dtype bfloat16 --enforce-disable-flashinfer-allreduce-fusion --enable-mixed-chunk --chunked-prefill-size 16384 --cuda-graph-max-bs-decode 4 --host 127.0.0.1 --port 32004"
+  ]
+}
