@@ -109,4 +109,37 @@ pair improved output throughput by 0.4–0.8%. Same-GPU crossovers on all eight
 GPUs then showed mean gains of 1.41%, 1.73% and 1.37% at concurrency 1, 4 and 8;
 every pair was positive. An additional 24 head-shape cases passed bitwise checks.
 All 24 crossover greedy responses retained identical tokens, with maximum selected
-logprob difference 0.0000224. This prototype is not yet part of the production candidate.
+logprob difference 0.0000224. The guarded production implementation was subsequently committed as `466c9e0f40`; final validation follows.
+
+## BF16 normalization/rotary/cache-write fusion
+
+Commit `466c9e0f40` combines the small-batch QK normalization/rotation kernel
+with HND cache writes during ordinary decode. It preserves the cache pool's
+physical-slot validation, OOB checks and transfer synchronization, and is gated
+to plain BF16 HND page-32 pools with the tested TRT backend. Default NHD is
+unchanged. Raw production validation is in `results/bf16_norm_rope_cache_fusion/`.
+
+| Concurrency | Prior HND output tok/s | Fused output tok/s | Gain | Fused TTFT ms |
+|---|---:|---:|---:|---:|
+| 1 | 379.67 | 383.44 | +0.99% | 87.68 |
+| 4 | 1218.89 | 1230.54 | +0.96% | 222.50 |
+| 8 | 1870.41 | 1886.09 | +0.84% | 392.77 |
+| 16 | 2534.82 | 2557.31 | +0.89% | 512.43 |
+| 32 | 3112.32 | 3125.67 | +0.43% | 561.62 |
+| 64 | 3491.64 | 3504.64 | +0.37% | 718.22 |
+| 128 | 3790.59 | 3797.51 | +0.18% | 610.25 |
+
+These are same-host full sweeps on separate GPUs with exact request/token counts.
+The eight-GPU same-device crossover above provides stronger evidence for the
+small low-concurrency gain. At c128, throughput improves only 0.18%; the
+4196.5 output tok/s target is still unmet.
+
+The production operator passed all 44 bitwise standalone cases. Existing CPU
+regressions: 122 passed, one skipped. Two full GSM8K runs scored 1217 and 1222
+out of 1314 for the candidate, versus 1222 and 1221 for the preceding HND
+implementation with GPUs swapped. These runs demonstrate variation, not
+statistical accuracy equivalence.
+
+A fresh standalone page-size check found BF16 page16/32/64 outputs bitwise equal
+and throughput differences below 0.35%; the page-16 reference-source lead was
+not promoted. All weights, KV storage and attention queries remain BF16.
