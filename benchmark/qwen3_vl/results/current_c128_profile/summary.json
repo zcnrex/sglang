@@ -1,0 +1,24 @@
+{
+  "source_commit": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "diagnostic_only": true,
+  "measured_epoch": 1,
+  "requests": 256,
+  "nominal_input_tokens": 2097152,
+  "output_tokens": 262144,
+  "benchmark_wall_s": 69.04861634899862,
+  "forward_gpu_s": 68.74997818732261,
+  "decode_gpu_s": 49.74892647528648,
+  "prefill_containing_gpu_s": 19.00105171203613,
+  "prefill_containing_forward_fraction": 0.27637902168149187,
+  "unattributed_wall_minus_forward_s": 0.2986381616760099,
+  "target_output_tps": 4196.5,
+  "required_wall_reduction_fraction": 0.09531432378047755,
+  "required_prefill_containing_reduction_if_decode_fixed": 0.34636620514608263,
+  "caveats": [
+    "CUDA-event intervals include gaps within ModelRunner.forward, exclude sampling/scheduling outside it; wall-minus-forward is not a rigorous CPU-only attribution.",
+    "Initial torch prefill trace covers initial admission; late_mixed trace captures a later wave.",
+    "Nominal benchmark input8192 is text before chat templating/retokenization; first actual model prompt8200 tokens.",
+    "Profiled throughput is not a performance claim."
+  ]
+}

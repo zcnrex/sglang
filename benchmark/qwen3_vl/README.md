@@ -175,3 +175,54 @@ TRT supports padded KV page strides, but a final four-layout screen found no
 benefit: padding 0/128/512/4096 BF16 elements per page took respectively
 588.86/590.47/588.95/597.79 microseconds, with bitwise-identical outputs.
 The padded layouts increase cache capacity requirements and were rejected.
+
+Nsight Compute measured the warmed BF16 TRT decode at B128, L8192, Q32/KV8,
+head dimension 128 and HND page32. Actual DRAM reads were 4,296,317,440 bytes,
+only 0.0314% above the 4,294,967,296-byte KV payload. DRAM throughput reached
+94.15% of sustained peak; SM throughput was 46.48% and achieved occupancy
+24.89%. Kernel time under profiling was 595.488 microseconds; a separate
+process without the profiler measured 586.609 microseconds. These counters
+confirm near-minimal traffic and near-saturated bandwidth for this case.
+Raw counters and the standalone script are in
+`results/bf16_lossless_screens/ncu_decode/`.
+
+A separate two-stream CUDA-graph screen overlapped this decode with independent
+BF16 prefill GEMMs. Five alternating measurement orders gave median paired
+speedups of 0.9996x at 8192 prefill rows and 1.0080x at 4096 rows; outputs
+matched bitwise. The negligible benefit did not justify a whole-model overlap
+experiment. See `results/bf16_lossless_screens/overlap/overlap_report.json`; this result
+applies to the tested GEMM/kernel pairing, not all possible overlap schedules.
+
+Explicit green-context partitioning also failed the standalone screen.
+Attention/GEMM partitions of 112/32 and 96/48 SMs took 2.109 and 1.509 ms,
+respectively, versus full-device serial controls of 1.045 and 1.057 ms.
+Outputs matched bitwise; the GEMM slowdown outweighed any overlap.
+Reports and scripts are in `results/bf16_lossless_screens/overlap/`.
+
+## Current whole-workload timing budget
+
+An instrumented c128/N256 run at production source `466c9e0f40` completed
+all requests with nominal 8192-input/1024-output tokens. CUDA events around
+ModelRunner.forward measured 68.750 s against 69.049 s benchmark wall time:
+72.36% of forward time was DECODE, 27.55% MIXED, and 0.09% EXTEND.
+These are diagnostic intervals, not a new throughput claim or rigorous CPU
+overhead attribution. Chat formatting adds tokens beyond nominal input length.
+
+A separate late mixed-batch trace attributed approximately 49.3% of kernel
+time to BF16 GEMMs, 21.1% to context attention, 16.5% to decode attention,
+and 4.8% to SiLU. Later-context pure decode attributed 87.9% to attention.
+Raw automated triage contains known classification errors; use the corrected
+interpretation in `results/current_c128_profile/`. Large traces remain on the
+devbox, with paths and reproduction scripts recorded in that directory.
+
+The current full-sweep c128 result of 3797.51 output tok/s still requires
+about 9.5% less wall time to reach 4196.5. If decode time stayed fixed,
+prefill-containing forwards would need approximately 34% less time.
+
+Ragged mixed-batch GEMM padding was also screened. Padding alone improved
+the down projection by about 6%, but input-copy cost erased the benefit.
+Writing SiLU directly into a padded buffer avoided that copy but produced
+less than 1% pair-level change, no better than the aligned control, with
+timing drift. The padded producer still used an explicit tail-zero launch.
+Neither variant was promoted to production. Scripts and reports are in
+`results/bf16_lossless_screens/ragged_gemm/`.
