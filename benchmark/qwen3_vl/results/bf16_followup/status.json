@@ -1,0 +1,51 @@
+{
+  "recorded_at_utc": "2026-10-07T06:38:33.577646+00:00",
+  "status": "interrupted; remote endpoint refuses SSH",
+  "remote_alias": "runpod-1d",
+  "remote_endpoint": "195.26.233.141:12756",
+  "precision": "BF16 weights, KV cache and attention queries",
+  "production_source_changed": false,
+  "norm_sweep": {
+    "remote_directory": "/root/qvl/experiments/qvl-prefill-norm",
+    "script": "standalone_scripts.tar.gz: norm_launch/sweep.py",
+    "note": "Only the n128 line was retrieved before disconnect. Larger-token outcomes remain unverified. Timings are standalone single sweeps, not serving gains.",
+    "n128_bitwise_equal_variants": [
+      "w4_s0",
+      "w4_s1",
+      "w8_s0",
+      "w8_s1",
+      "w16_s0",
+      "w16_s1"
+    ],
+    "n128_microseconds": {
+      "w4_s0": 3.423581306183763,
+      "w4_s1": 3.2730502851581194,
+      "w8_s0": 2.885148044414419,
+      "w8_s1": 2.762199520046986,
+      "w16_s0": 3.259303489234618,
+      "w16_s1": 3.0875758523212458,
+      "unfused": 5.518526336360149
+    }
+  },
+  "prefill_bound_sweep": {
+    "script": "standalone_scripts.tar.gz: qvl_context_bound.py",
+    "remote_log": "/root/qvl/experiments/bf16-attention/context_bound.log",
+    "status": "launched, no results retrieved"
+  },
+  "decode_inventory": {
+    "status": "completed source inspection, no new benchmark justified",
+    "finding": "Installed exact BF16 GQA4 decode chooses grouped Q8/KV256. No public tactic override; larger query tiles consume more shared memory. KV64/reuse/2CTA controls are MLA-only."
+  },
+  "recovery": [
+    "Verify SSH connectivity and query live processes before restarting any experiment.",
+    "GPU0 server may still be running on port32000. Inspect /root/qvl/experiments/bf16-scheduler-new/profile/server.pid and server.log; stop owned process after verification.",
+    "Inspect existing norm sweep and actual-context-bound processes/logs; do not restart just because SSH observation ended.",
+    "Retrieve raw evidence and finish correctness checks before considering any source change."
+  ],
+  "blocker_audit": {
+    "consecutive_goal_turns": 1,
+    "condition": "runpod-1d SSH connection refused; GPU experiments and live process verification unavailable",
+    "goal_status": "active",
+    "note": "This is the first goal turn with this external blocker. Do not count multiple SSH attempts within one turn as separate turns."
+  }
+}

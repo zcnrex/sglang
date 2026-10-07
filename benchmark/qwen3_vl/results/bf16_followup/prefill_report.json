@@ -1,0 +1,38 @@
+{
+  "status": "remote_unreachable",
+  "constraint": "BF16 weights, KV cache and queries; no speculative decoding",
+  "source_changes": "None; external standalone scripts only",
+  "silu": {
+    "status": "completed",
+    "baseline": "sglang.kernels.ops.activation.activation.run_activation('silu')",
+    "candidate": "Triton flattened SiLU-times-up, FP32 arithmetic and BF16 output",
+    "method": "CUDA graph replay, triton.testing.do_bench_cudagraph(rep=100), GPU3 B300",
+    "input_shape": "[M,19456]",
+    "output_shape": "[M,9728]",
+    "best_configuration": {"block_elements": 1024, "warps": 4},
+    "measurements": [
+      {"M": 8192, "baseline_us": 77.97133516074173, "candidate_us": 69.36232189351738, "normalized_rmse": 0.0, "unequal_elements": 0},
+      {"M": 16384, "baseline_us": 154.04381150465747, "candidate_us": 136.30161684427298, "normalized_rmse": 1.2663504966869965e-10, "unequal_elements": 1}
+    ],
+    "interpretation": "About 11% standalone kernel savings; estimated total prefill benefit below 1%, not measured in serving. No integration pursued.",
+    "remote_script": "/root/qvl/experiments/bf16-profile/new_prefill/silu.py",
+    "remote_log": "/root/qvl/experiments/bf16-profile/new_prefill/silu.log"
+  },
+  "single_expert_fused_mlp": {
+    "status": "INVALID_COMPARISON_CORRECTNESS_UNRESOLVED",
+    "baseline": "BF16 torch.mm gate/up, existing SiLU-times-up, BF16 torch.mm down",
+    "candidate": "flashinfer.fused_moe.cutlass_fused_moe, one expert, top_k=1, BF16 input/weights/output, no quantization scales",
+    "dimensions": {"hidden": 2560, "intermediate": 9728},
+    "method": "GPU4 B300; 21 GEMM1 and 21 GEMM2 autotuning profiles; CUDA graph replay timing",
+    "observed_timings_not_validated": [
+      {"M": 8192, "baseline_us": 920.6118830928096, "candidate_us": 944.2735626941591, "normalized_rmse": 0.774517834186554},
+      {"M": 16384, "baseline_us": 1829.5026524861653, "candidate_us": 1942.118111303297, "normalized_rmse": 0.7750729918479919}
+    ],
+    "unresolved": "Large numerical mismatch. Gate/up half ordering is a hypothesis; reorder check was not performed because SSH connection was refused. The fused MLP has NOT been ruled out by a correctness-valid comparison.",
+    "next_step": "When host returns, establish matching gate/up layout and BF16 intermediate semantics, validate numerics, then repeat autotuned timing before drawing performance conclusions.",
+    "remote_script": "/root/qvl/experiments/bf16-profile/new_prefill/fused_mlp.py",
+    "remote_log": "/root/qvl/experiments/bf16-profile/new_prefill/fused_mlp.log"
+  },
+  "remote_failure": "SSH to runpod-1d, 195.26.233.141 port 12756: Connection refused",
+  "serving_runs": "None for these candidates"
+}

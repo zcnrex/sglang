@@ -1,0 +1,38 @@
+{
+  "status": "low-overhead validation blocked by remote SSH connection refusal",
+  "existing_c128_decode": {
+    "trace": "/root/qvl/experiments/bf16-profile/server128/1791351920.4325776/bs-128-il-8192-1791351920.461777-TP-0-DECODE.trace.json.gz",
+    "kernel_span_ms": 125.41078002929687,
+    "gpu_kernel_union_busy_ms": 125.18031292724609,
+    "idle_percent": 0.1837697700284955,
+    "largest_idle_gap_us": 7.7,
+    "attention_share_percent": 86.0,
+    "inference": "Within the captured GPU-kernel interval, CPU scheduling bubbles cannot explain a several-percent throughput deficit. Host event waits overlap GPU work."
+  },
+  "existing_c128_prefill": {
+    "kernel_span_ms": 625.0123219604492,
+    "gpu_kernel_union_busy_ms": 617.3402149047852,
+    "idle_percent": 1.2275129283210442
+  },
+  "existing_bs1_one_batch": {
+    "trace": "/root/qvl/experiments/bf16-profile/profile_batch1_input8192_output64_decode.trace.json.gz",
+    "kernel_span_ms": 23.8661669921875,
+    "gpu_kernel_union_busy_ms": 12.695599975585937,
+    "idle_percent": 46.80503165949608,
+    "limitation": "Serial one-batch harness with Python-stack recording; cannot attribute these gaps to production serving without a low-overhead capture."
+  },
+  "pending_capture": {
+    "host": "runpod-1d",
+    "gpu": 0,
+    "port": 32000,
+    "source": "/root/qvl/sglang-attention",
+    "pid_file": "/root/qvl/experiments/bf16-scheduler-new/profile/server.pid",
+    "server_log": "/root/qvl/experiments/bf16-scheduler-new/profile/server.log",
+    "precision": "BF16 weights, KV, queries",
+    "hnd_environment": "SGLANG_USE_HND_KVCACHE=1",
+    "command_flags": "--dtype bfloat16 --kv-cache-dtype auto --attention-backend trtllm_mha --page-size 32 --chunked-prefill-size 16384 --enable-mixed-chunk --cuda-graph-backend-prefill disabled",
+    "local_client_script": "/tmp/qvl_cpu_profile.py",
+    "client_uploaded": false,
+    "runtime_source_changed": false
+  }
+}
