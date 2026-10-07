@@ -1,0 +1,1011 @@
+{
+  "decision": "reject_weight_layout_variants",
+  "method": "torch.mm native NT vs weight-only once-transposed NN vs NT weight row stride K+128. Inputs/outputs BF16. No activation copies. Three alternating graph timing rounds per shape, rep250ms.",
+  "summary": [
+    {
+      "shape": "down",
+      "m": 8192,
+      "ms": {
+        "NT": 0.32631184758366766,
+        "NN_pretransposed": 0.3261851626068074,
+        "NT_stride_plus128": 0.32651045619650926
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.176256000995636,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "down",
+      "m": 16331,
+      "ms": {
+        "NT": 0.626468984869462,
+        "NN_pretransposed": 0.6267427386659564,
+        "NT_stride_plus128": 0.6269272932221618
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.16896000504493713,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "gateup",
+      "m": 8192,
+      "ms": {
+        "NT": 0.5660454831178161,
+        "NN_pretransposed": 0.5651492344249378,
+        "NT_stride_plus128": 0.5655559054287997
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 75.05433654785156,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "gateup",
+      "m": 16331,
+      "ms": {
+        "NT": 1.1225080464220694,
+        "NN_pretransposed": 1.122004368294418,
+        "NT_stride_plus128": 1.1226413280040295
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.49167999625205994,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "o",
+      "m": 8192,
+      "ms": {
+        "NT": 0.1307348420134688,
+        "NN_pretransposed": 0.1305073975607225,
+        "NT_stride_plus128": 0.13068272350787857
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.5829086303711,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 16331,
+      "ms": {
+        "NT": 0.25267104892748193,
+        "NN_pretransposed": 0.2537090971031967,
+        "NT_stride_plus128": 0.253353187965925
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.21187199652194977,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "qkv",
+      "m": 8192,
+      "ms": {
+        "NT": 0.186701115416313,
+        "NN_pretransposed": 0.18654383080737136,
+        "NT_stride_plus128": 0.18639174051387652
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.69811248779297,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "qkv",
+      "m": 16331,
+      "ms": {
+        "NT": 0.3669464706123501,
+        "NN_pretransposed": 0.3668894881293887,
+        "NT_stride_plus128": 0.3666787244602592
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.22972799837589264,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    }
+  ],
+  "raw": [
+    {
+      "shape": "qkv",
+      "m": 8192,
+      "n": 6144,
+      "k": 2560,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.18533228715973585,
+        "NN_pretransposed": 0.1858271842246299,
+        "NT_stride_plus128": 0.18637905961676154
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.69811248779297,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "qkv",
+      "m": 8192,
+      "n": 6144,
+      "k": 2560,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.18639174051387652,
+        "NN_pretransposed": 0.18654383080737136,
+        "NT": 0.186701115416313
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.69811248779297,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "qkv",
+      "m": 8192,
+      "n": 6144,
+      "k": 2560,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.1868248680482498,
+        "NN_pretransposed": 0.18695513485399493,
+        "NT_stride_plus128": 0.18740172261649746
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.69811248779297,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "qkv",
+      "m": 16331,
+      "n": 6144,
+      "k": 2560,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.3655574598977732,
+        "NN_pretransposed": 0.36680573779441983,
+        "NT_stride_plus128": 0.3665200461480851
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.22972799837589264,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "qkv",
+      "m": 16331,
+      "n": 6144,
+      "k": 2560,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.3666787244602592,
+        "NN_pretransposed": 0.3668894881293887,
+        "NT": 0.36697515941264885
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.22972799837589264,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "qkv",
+      "m": 16331,
+      "n": 6144,
+      "k": 2560,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.3669464706123501,
+        "NN_pretransposed": 0.36718872619354387,
+        "NT_stride_plus128": 0.36676803244683975
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.22972799837589264,
+      "nn_weight_bytes": 31457280,
+      "padding_extra_bytes": 1572864
+    },
+    {
+      "shape": "down",
+      "m": 8192,
+      "n": 2560,
+      "k": 9728,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.32631184758366766,
+        "NN_pretransposed": 0.32638271050165163,
+        "NT_stride_plus128": 0.32651045619650926
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.176256000995636,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "down",
+      "m": 8192,
+      "n": 2560,
+      "k": 9728,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.32665883585611977,
+        "NN_pretransposed": 0.3261851626068074,
+        "NT": 0.32649031134665735
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.176256000995636,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "down",
+      "m": 8192,
+      "n": 2560,
+      "k": 9728,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.3263056994759463,
+        "NN_pretransposed": 0.325907118820069,
+        "NT_stride_plus128": 0.32647075627678723
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.176256000995636,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "down",
+      "m": 16331,
+      "n": 2560,
+      "k": 9728,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.6255192583869486,
+        "NN_pretransposed": 0.6270267959787876,
+        "NT_stride_plus128": 0.6269272932221618
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.16896000504493713,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "down",
+      "m": 16331,
+      "n": 2560,
+      "k": 9728,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.6268157843094838,
+        "NN_pretransposed": 0.6267427386659564,
+        "NT": 0.6268516850350472
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.16896000504493713,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "down",
+      "m": 16331,
+      "n": 2560,
+      "k": 9728,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.626468984869462,
+        "NN_pretransposed": 0.6267323450388642,
+        "NT_stride_plus128": 0.627249130016656
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.16896000504493713,
+      "nn_weight_bytes": 49807360,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 8192,
+      "n": 2560,
+      "k": 4096,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.13025330364074061,
+        "NN_pretransposed": 0.1305073975607225,
+        "NT_stride_plus128": 0.13068272350787857
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.5829086303711,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 8192,
+      "n": 2560,
+      "k": 4096,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.13098980529424778,
+        "NN_pretransposed": 0.13055564194349242,
+        "NT": 0.13084587175651183
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.5829086303711,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 8192,
+      "n": 2560,
+      "k": 4096,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.1307348420134688,
+        "NN_pretransposed": 0.12999933282598064,
+        "NT_stride_plus128": 0.13000028850861678
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 71.5829086303711,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 16331,
+      "n": 2560,
+      "k": 4096,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.25267104892748193,
+        "NN_pretransposed": 0.25344523185313544,
+        "NT_stride_plus128": 0.25312506351212927
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.21187199652194977,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 16331,
+      "n": 2560,
+      "k": 4096,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.253353187965925,
+        "NN_pretransposed": 0.25379188847219286,
+        "NT": 0.2534266982335767
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.21187199652194977,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "o",
+      "m": 16331,
+      "n": 2560,
+      "k": 4096,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.2524579653949857,
+        "NN_pretransposed": 0.2537090971031967,
+        "NT_stride_plus128": 0.25345385126178716
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.21187199652194977,
+      "nn_weight_bytes": 20971520,
+      "padding_extra_bytes": 655360
+    },
+    {
+      "shape": "gateup",
+      "m": 8192,
+      "n": 19456,
+      "k": 2560,
+      "iteration": 0,
+      "ms": {
+        "NT": 0.5615555386363026,
+        "NN_pretransposed": 0.5645075760764637,
+        "NT_stride_plus128": 0.5655559054287997
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 75.05433654785156,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "gateup",
+      "m": 8192,
+      "n": 19456,
+      "k": 2560,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 0.5665864896226204,
+        "NN_pretransposed": 0.5674923056595931,
+        "NT": 0.5688170346346768
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 75.05433654785156,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "gateup",
+      "m": 8192,
+      "n": 19456,
+      "k": 2560,
+      "iteration": 2,
+      "ms": {
+        "NT": 0.5660454831178161,
+        "NN_pretransposed": 0.5651492344249378,
+        "NT_stride_plus128": 0.5641260771238559
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 75.05433654785156,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "gateup",
+      "m": 16331,
+      "n": 19456,
+      "k": 2560,
+      "iteration": 0,
+      "ms": {
+        "NT": 1.1183721205767463,
+        "NN_pretransposed": 1.1228618656192815,
+        "NT_stride_plus128": 1.1219741061801825
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.49167999625205994,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "gateup",
+      "m": 16331,
+      "n": 19456,
+      "k": 2560,
+      "iteration": 1,
+      "ms": {
+        "NT_stride_plus128": 1.1233910953297335,
+        "NN_pretransposed": 1.1192881438691737,
+        "NT": 1.1225080464220694
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.49167999625205994,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    },
+    {
+      "shape": "gateup",
+      "m": 16331,
+      "n": 19456,
+      "k": 2560,
+      "iteration": 2,
+      "ms": {
+        "NT": 1.12266422993428,
+        "NN_pretransposed": 1.122004368294418,
+        "NT_stride_plus128": 1.1226413280040295
+      },
+      "checks": {
+        "NT": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NN_pretransposed": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        },
+        "NT_stride_plus128": {
+          "nrms": 0.0,
+          "max_abs": 0.0,
+          "exact": true
+        }
+      },
+      "transpose_ms": 0.49167999625205994,
+      "nn_weight_bytes": 99614720,
+      "padding_extra_bytes": 4980736
+    }
+  ],
+  "transpose_cost_note": "Event timing includes first-use transpose initialization on the first shape of each GPU. Later same-process transpose costs are warmed. NN occupies one full additional weight copy if native layout is retained; replacing original could avoid duplication.",
+  "source_audit": "FlashInfer mm_bf16 cuBLASLt hardcodes NT, maximum100heuristic algorithms, default tactic0. Existing SGLang row padding is an XPU MoE optimization, not NVIDIA evidence.",
+  "production_changes": false
+}

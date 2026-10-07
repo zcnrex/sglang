@@ -1,0 +1,52 @@
+[2026-10-07 19:36:49 TP0] Init parallel begin.
+[2026-10-07 19:36:49 TP0] Init parallel ends. elapsed=0.30 s
+[2026-10-07 19:36:49 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-07 19:36:51 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-07 19:36:51 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-07 19:36:51 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.13it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.05it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.06it/s]
+[2026-10-07 19:36:53 TP0] Load weight end. elapsed=2.64 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-07 19:36:54 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-07 19:36:54 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1613440, K size: 110.79 GB, V size: 110.79 GB
+[2026-10-07 19:36:54 TP0] Memory pool end. avail mem=33.65 GB
+[2026-10-07 19:36:54 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-07 19:36:54 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2], avail mem=32.47 GB
+  0%|          | 0/2 [00:00<?, ?it/s]Capturing batches (bs=2 avail_mem=32.47 GB):   0%|          | 0/2 [00:00<?, ?it/s]Capturing batches (bs=2 avail_mem=32.47 GB):  50%|█████     | 1/2 [00:03<00:03,  3.15s/it]Capturing batches (bs=1 avail_mem=32.50 GB):  50%|█████     | 1/2 [00:03<00:03,  3.15s/it]Capturing batches (bs=1 avail_mem=32.50 GB): 100%|██████████| 2/2 [00:03<00:00,  1.41s/it]Capturing batches (bs=1 avail_mem=32.50 GB): 100%|██████████| 2/2 [00:03<00:00,  1.67s/it]
+[2026-10-07 19:36:58 TP0] Capture target decode CUDA graph end. elapsed=4.04 s, mem usage=-0.03 GB, avail mem=32.50 GB.
+max_total_num_tokens=1613440
+Warmup ...
+Prefill. latency: 0.94732 s, throughput:   8647.58 token/s
+Decode 0. Batch size: 1, latency: 0.01636 s, throughput:     61.12 token/s
+Decode.  median latency: 0.01636 s, median throughput:     61.12 token/s
+Total. latency:  0.964 s, throughput:   8502.83 token/s
+Benchmark ...
+Prefill. latency: 0.05941 s, throughput: 137896.25 token/s
+Decode 0. Batch size: 1, latency: 0.00364 s, throughput:    274.84 token/s
+Decode.  median latency: 0.00364 s, median throughput:    274.84 token/s
+Total. latency:  0.063 s, throughput: 129969.78 token/s
+Prefill. latency: 0.06538 s, throughput: 125304.54 token/s
+Decode 0. Batch size: 1, latency: 0.00371 s, throughput:    269.78 token/s
+Decode.  median latency: 0.00371 s, median throughput:    269.78 token/s
+Total. latency:  0.069 s, throughput: 118610.12 token/s
+Prefill. latency: 0.06898 s, throughput: 118764.99 token/s
+Decode 0. Batch size: 1, latency: 0.00363 s, throughput:    275.60 token/s
+Decode.  median latency: 0.00363 s, median throughput:    275.60 token/s
+Total. latency:  0.073 s, throughput: 112857.18 token/s
+Prefill. latency: 0.13262 s, throughput: 123537.85 token/s
+Decode 0. Batch size: 2, latency: 0.00753 s, throughput:    265.76 token/s
+Decode.  median latency: 0.00753 s, median throughput:    265.76 token/s
+Total. latency:  0.140 s, throughput: 116932.75 token/s
+Prefill. latency: 0.12737 s, throughput: 128631.65 token/s
+Decode 0. Batch size: 2, latency: 0.00397 s, throughput:    504.35 token/s
+Decode.  median latency: 0.00397 s, median throughput:    504.35 token/s
+Total. latency:  0.131 s, throughput: 124778.27 token/s
+Prefill. latency: 0.13049 s, throughput: 125556.65 token/s
+Decode 0. Batch size: 2, latency: 0.00395 s, throughput:    505.77 token/s
+Decode.  median latency: 0.00395 s, median throughput:    505.77 token/s
+Total. latency:  0.134 s, throughput: 121893.46 token/s

@@ -1,0 +1,86 @@
+{
+  "rounds": [
+    {
+      "round": 0,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.879525118274614,
+      "gpu_us_per_projection": 241.19319915771484
+    },
+    {
+      "round": 0,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 21.310412557795644,
+      "gpu_us_per_projection": 291.67280197143555
+    },
+    {
+      "round": 1,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.896462456206791,
+      "gpu_us_per_projection": 304.80799674987793
+    },
+    {
+      "round": 1,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.872300228802487,
+      "gpu_us_per_projection": 306.1216115951538
+    },
+    {
+      "round": 2,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.835650138906203,
+      "gpu_us_per_projection": 303.81479263305664
+    },
+    {
+      "round": 2,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.845124754472636,
+      "gpu_us_per_projection": 299.9380111694336
+    },
+    {
+      "round": 3,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.763162547140382,
+      "gpu_us_per_projection": 301.8143892288208
+    },
+    {
+      "round": 3,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.849312568316236,
+      "gpu_us_per_projection": 300.2124071121216
+    },
+    {
+      "round": 4,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.763375005102716,
+      "gpu_us_per_projection": 293.8568115234375
+    },
+    {
+      "round": 4,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 21.302050299709663,
+      "gpu_us_per_projection": 298.7787961959839
+    },
+    {
+      "round": 5,
+      "kind": "direct",
+      "host_submit_us_per_projection": 11.714224820025265,
+      "gpu_us_per_projection": 302.54039764404297
+    },
+    {
+      "round": 5,
+      "kind": "wrapper",
+      "host_submit_us_per_projection": 20.951349870301783,
+      "gpu_us_per_projection": 298.47118854522705
+    }
+  ],
+  "summary": {
+    "wrapper": {
+      "host_submit_us_per_projection": 20.911825049552135,
+      "gpu_us_per_projection": 299.49560165405273
+    },
+    "direct": {
+      "host_submit_us_per_projection": 11.804249879787676,
+      "gpu_us_per_projection": 300.8762001991272
+    }
+  }
+}

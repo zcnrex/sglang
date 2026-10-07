@@ -226,3 +226,40 @@ less than 1% pair-level change, no better than the aligned control, with
 timing drift. The padded producer still used an explicit tail-zero launch.
 Neither variant was promoted to production. Scripts and reports are in
 `results/bf16_lossless_screens/ragged_gemm/`.
+
+## BF16 prefill layout and algorithm screens
+
+Large mixed-batch Q retains the QKV projection stride of 6144 BF16 elements
+per token, versus 4096 for compact Q. Synthetic two-prefill geometries
+matching the observed total rows showed 1.4–2.7% faster context attention
+with compact Q, but a separate copy lost about 10%. An external rotary
+producer writing compact Q directly preserved bitwise outputs but did not
+improve the normalization/rotary/attention chain. It was not promoted.
+
+Context-attention hardware counters showed 81.69% SM throughput, 78.34%
+tensor-pipe activity, and only 3.42% DRAM throughput. This is a compute-heavy
+path, unlike decode. Fresh and steady timing samples differed substantially;
+the evidence records measurement-history differences without attributing an
+unmeasured cause or claiming a speedup from them.
+
+Once-transposed contiguous weights and padded weight-row strides were
+compared against native linear operations at M8192 and M16331 for all four
+projection shapes. Every output was bitwise equal; timing differences were
+below 0.5%. Neither layout was promoted. Reports and reproducible scripts
+are in `results/bf16_prefill_layout_screens/`.
+
+Explicit cuBLASLt heuristic enumeration returned eight algorithms for each
+of eight projection/token-count cases (the API requested up to 100).
+Selected algorithms improved several M8192 kernels, including down projection
+from 330.86 to 298.78 microseconds; M16331 aggregate benefit was much smaller.
+Two short-model passes with GPUs swapped did not retain those gains:
+candidate B1 prefill medians were 66.04 and 65.38 ms, versus 64.09 and
+63.54 ms controls on the respective GPUs. Captured logits and checked
+real-weight projections were bitwise equal. The existing dispatch path was
+not promoted. Evidence is in `results/bf16_prefill_layout_screens/lt_tactics/`.
+
+Bypassing Python runner bookkeeping reduced eager CPU submission from
+20.91 to 11.80 microseconds per projection, but GPU time was unchanged
+(299.50 versus 300.88 microseconds). The lower-level API still constructs
+cuBLASLt descriptors per call. This bounded follow-up did not demonstrate
+a model-level improvement, so no further serving run was launched.
