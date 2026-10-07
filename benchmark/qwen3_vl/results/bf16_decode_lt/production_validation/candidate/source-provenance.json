@@ -1,0 +1,18 @@
+{
+  "different_python_files": [
+    "python/sglang/srt/mem_cache/memory_pool.py",
+    "python/sglang/srt/models/qwen3.py",
+    "python/sglang/srt/layers/quantization/unquant.py",
+    "python/sglang/srt/model_executor/runner/flashinfer_autotune.py",
+    "python/sglang/kernels/ops/attention/__init__.py",
+    "python/sglang/kernels/ops/attention/fused_qk_norm_mrope.py"
+  ],
+  "sha256": {
+    "python/sglang/srt/mem_cache/memory_pool.py": "75adccc4516eb4150f7b32b4869a04d0ab91ad090a6651da1ac99f679c34f4ec",
+    "python/sglang/srt/models/qwen3.py": "0605576b91d3f556813e21b7a65f7c2206a53f429488dd06d5fbf8892b7015ba",
+    "python/sglang/srt/layers/quantization/unquant.py": "9db197749dd28b84f8af16c70187556d035fdaeab148675e043858c565be47f3",
+    "python/sglang/srt/model_executor/runner/flashinfer_autotune.py": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e",
+    "python/sglang/kernels/ops/attention/__init__.py": "bcb71c0fe22242271d4587df8900ba121647261e9ba7bae2684020983c5cf612",
+    "python/sglang/kernels/ops/attention/fused_qk_norm_mrope.py": "708fcea78005462b12680dd48710397de712fbad3ee5bbe996a72739b3cc727c"
+  }
+}

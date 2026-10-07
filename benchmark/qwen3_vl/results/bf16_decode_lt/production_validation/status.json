@@ -1,5 +1,5 @@
 {
-  "status": "candidate_accuracy_not_started_remote_auth_expired",
+  "status": "accuracy_complete_production_short_crossover_running",
   "baseline": {
     "source": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
     "correct": 1217,
@@ -12,7 +12,7 @@
     "latency_seconds": 66.14756759497686,
     "graph128_replay_observed": true,
     "raw_results": "/root/qvl/experiments/decode-lt-accuracy/control/results/metrics.json",
-    "raw_results_retrieved": false
+    "raw_results_retrieved": true
   },
   "invalid_candidate": {
     "path": "/root/qvl/sglang-public-lt",
@@ -23,8 +23,14 @@
     "path": "/root/qvl/sglang-public-lt-clean",
     "scheduler_audit": "5406 tracked files checked; exactly two intended changes",
     "patch_sha256": "593c46e1f628ea133ac5b7fd650aece3883807dc13ea6b5012b5597978ebc094",
-    "startup_replay_validation": "pending; remote auth expired after tuning",
-    "accuracy_run": "not launched"
+    "startup_replay_validation": "passed",
+    "accuracy_run": "complete:1213/1314 first,1223/1314 swapped"
   },
-  "launch_policy": "Wait for scheduler clean-source replay validation, then full candidate GSMc128. Production serving only after accuracy review. Fresh isolated SGLANG_CACHE_DIR per worker."
+  "launch_policy": "Wait for scheduler clean-source replay validation, then full candidate GSMc128. Production serving only after accuracy review. Fresh isolated SGLANG_CACHE_DIR per worker.",
+  "accuracy_summary": "accuracy-summary.json; controls1217/1219, equalaggregate2436/2628",
+  "production_short": {
+    "pid": 202254,
+    "remote_root": "/root/qvl/experiments/decode-lt-production-short",
+    "status": "running"
+  }
 }

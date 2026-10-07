@@ -4,6 +4,5 @@
   "differences": [
     "python/sglang/srt/layers/quantization/unquant.py",
     "python/sglang/srt/model_executor/runner/flashinfer_autotune.py"
-  ],
-  "provenance": "Exact result returned by remote exhaustive git-blob comparison, including symlinks."
+  ]
 }

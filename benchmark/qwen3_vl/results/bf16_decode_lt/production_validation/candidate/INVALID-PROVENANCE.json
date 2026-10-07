@@ -1,0 +1,4 @@
+{
+  "status": "invalid_confounded_source",
+  "reason": "four unintended Python source changes versus466c; candidate stopped; baseline continues"
+}

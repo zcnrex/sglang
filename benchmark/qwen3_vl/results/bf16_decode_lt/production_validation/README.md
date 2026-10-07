@@ -22,3 +22,9 @@ The three existing test files cover autotune synchronization/cache behavior, unq
 The standalone wrapper asserts two verified readiness entries after the actual runner warmup, then records each selected projection in and outside CUDA graph capture. Its initial attempts used an obsolete CLI spelling and a premature initialization marker; those were wrapper errors, not production failures. Clean-source startup/replay and final test results are recorded separately in files prefixed `clean-`.
 
 Both startup validation and subsequent model evaluations use BF16 weights/KV/queries, TRT attention page size 32, HND layout and mixed chunk size 16384. The clean validation uses an isolated `SGLANG_CACHE_DIR`. These correctness/startup checks do not establish a throughput improvement; paired production performance and GSM evaluation are separate evidence.
+
+## Clean-source result
+
+Clean-source startup at maximum graph batch 256 passed, with both M128 projections observed inside CUDA graph capture. A real batch of 128 requests completed exactly 16 tokens each (2048 total). The isolated fresh autotune cache contains verified entries for both shapes. The corrected source then passed all 33 existing tests and 9 subtests in 58.07 seconds, plus the external guard checks. GPU2 validation server PID 193390 was stopped afterward. Paired model accuracy and throughput are evaluated separately.
+
+Cache hashes in the replay reports identify the remote original bytes; archived JSON may have a terminal newline added by pre-commit.

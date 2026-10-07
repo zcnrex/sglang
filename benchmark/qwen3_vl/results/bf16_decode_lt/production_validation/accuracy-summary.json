@@ -1,0 +1,194 @@
+{
+  "runs": {
+    "control": {
+      "correct": 1217,
+      "total": 1314,
+      "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "sampling": {
+        "api": "chat",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "concurrency": 128
+      },
+      "completion_tokens": 247114,
+      "tactics": []
+    },
+    "candidate-clean": {
+      "correct": 1213,
+      "total": 1314,
+      "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "sampling": {
+        "api": "chat",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "concurrency": 128
+      },
+      "completion_tokens": 242035,
+      "tactics": [
+        {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        }
+      ]
+    },
+    "control-swap": {
+      "correct": 1219,
+      "total": 1314,
+      "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "sampling": {
+        "api": "chat",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "concurrency": 128
+      },
+      "completion_tokens": 244349,
+      "tactics": []
+    },
+    "candidate-clean-swap": {
+      "correct": 1223,
+      "total": 1314,
+      "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "sampling": {
+        "api": "chat",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "concurrency": 128
+      },
+      "completion_tokens": 234687,
+      "tactics": [
+        {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            4
+          ]
+        }
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "a": "control",
+      "b": "candidate-clean",
+      "a_only": [
+        143,
+        293,
+        307,
+        529,
+        806,
+        813,
+        827,
+        880,
+        926,
+        1146,
+        1183,
+        1247
+      ],
+      "b_only": [
+        86,
+        409,
+        425,
+        530,
+        740,
+        857,
+        989,
+        1201
+      ]
+    },
+    {
+      "a": "control-swap",
+      "b": "candidate-clean-swap",
+      "a_only": [
+        241,
+        530,
+        989,
+        1084,
+        1088,
+        1097,
+        1146
+      ],
+      "b_only": [
+        86,
+        153,
+        265,
+        422,
+        439,
+        510,
+        675,
+        813,
+        1173,
+        1183,
+        1199
+      ]
+    },
+    {
+      "a": "control",
+      "b": "control-swap",
+      "a_only": [
+        143,
+        153,
+        307,
+        439,
+        529,
+        813,
+        1173,
+        1183,
+        1247
+      ],
+      "b_only": [
+        241,
+        409,
+        530,
+        857,
+        894,
+        955,
+        989,
+        1006,
+        1084,
+        1088,
+        1097
+      ]
+    },
+    {
+      "a": "candidate-clean",
+      "b": "candidate-clean-swap",
+      "a_only": [
+        425,
+        530,
+        740,
+        989,
+        1201
+      ],
+      "b_only": [
+        265,
+        293,
+        422,
+        510,
+        675,
+        806,
+        813,
+        827,
+        880,
+        894,
+        926,
+        955,
+        1006,
+        1183,
+        1199
+      ]
+    }
+  ]
+}

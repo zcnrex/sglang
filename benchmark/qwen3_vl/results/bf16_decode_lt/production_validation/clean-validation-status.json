@@ -1,5 +1,5 @@
 {
-  "status": "awaiting_transport_auth_recovery",
+  "status": "passed",
   "source": "/root/qvl/sglang-public-lt-clean",
   "owned_server_pid": 193390,
   "gpu": 2,
@@ -8,12 +8,15 @@
   "confirmed": [
     "Compared 5,406 tracked Python files against revision 466c9e0f4073bcad6e4403c6f54cfc8c1821b867; only the two intended files differ.",
     "BF16 weights and KV cache allocated.",
-    "Fresh isolated-cache M128 warmup completed both GEMM profiles."
+    "Fresh isolated-cache M128 warmup completed both GEMM profiles.",
+    "READY contains both verified shapes",
+    "both selected GEMMs observed inside CUDA graph capture",
+    "128requests completed16tokens each,2048total",
+    "Clean-source external guards passed",
+    "33 existing tests and9subtests passed in58.07seconds"
   ],
-  "not_yet_confirmed": [
-    "Clean-source READY markers.",
-    "Clean-source graph capture and replay.",
-    "Existing tests rerun against the clean source."
-  ],
-  "blocker": "SSH proxy reports unauthenticated: token invalid or expired; replay command did not execute."
+  "not_yet_confirmed": [],
+  "owned_server_stopped": true,
+  "source_files_frozen": true,
+  "production_diff_sha256": "593c46e1f628ea133ac5b7fd650aece3883807dc13ea6b5012b5597978ebc094"
 }

@@ -61,3 +61,9 @@ All candidates select gate/up tactic 1. Down selects tactic 1 on six GPUs, tacti
 `public_serving/crossover_summary.json` contains paired results and intervals; each run retains its exact cache, numerical checks, benchmark command, logs, counts and probe. Remote root: `/root/qvl/experiments/decode-lt-public-serving`. All owned servers and telemetry processes finished, and the compute-process inventory was empty afterward.
 
 Historical cache limitation: the external-hook public crossover exported per-run tuner choices, but its servers shared the default runtime cache directory. Those exports do not establish eight independent tuner selections. The subsequent production-path validation uses fresh isolated `SGLANG_CACHE_DIR` directories per worker.
+
+## Production-path accuracy validation
+
+`production_validation/accuracy-summary.json` records full GSM8K at concurrency128, five shots, temperature0, top_p1 and max2048. Clean466c controls score1217/1314 and1219/1314; clean466c plus only the two production integration files score1213/1314 and1223/1314 on swapped GPUs. Aggregate correct counts match2436/2628. First pair has12 control-only and8 candidate-only correct rows; second has7 control-only and11 candidate-only. Controls themselves change20 row outcomes between runs. This supports continued throughput validation, not numerical equivalence or a formal noninferiority claim.
+
+Both public GEMM shapes and actual graph128 replay are marked during candidate runs. Fresh isolated tuning caches select gate/up1 with down2 in the first run and down4 in the second. Raw metrics, exact row outcomes, commands and exported startup tuner files are preserved. An earlier candidate copy included unrelated changes, was stopped before evaluation, and is explicitly marked invalid; its provenance evidence remains separate. The corrected source is `/root/qvl/sglang-public-lt-clean`, audited against466c with exactly two intended tracked-file differences.

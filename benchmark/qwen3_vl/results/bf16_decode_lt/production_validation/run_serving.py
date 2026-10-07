@@ -102,6 +102,8 @@ cmd = [
     "sglang.launch_server",
     "--model-path",
     model,
+    "--bf16-gemm-backend",
+    "cutedsl",
     "--dtype",
     "bfloat16",
     "--kv-cache-dtype",
@@ -161,7 +163,13 @@ hashes = {
                     "SGLANG_USE_HND_KVCACHE",
                     "MAX_JOBS",
                     "SGLANG_CACHE_DIR",
+                    "TRITON_CACHE_DIR",
+                    "TORCHINDUCTOR_CACHE_DIR",
+                    "CUDA_CACHE_PATH",
+                    "FLASHINFER_WORKSPACE_BASE",
+                    "SGLANG_CUTE_AOT_CACHE_DIR",
                 ]
+                if k in env
             },
         },
         indent=2,
