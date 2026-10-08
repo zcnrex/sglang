@@ -1,0 +1,14 @@
+compile_done
+initial 36_layers_bitwise
+masked_same_reference 36_layers_bitwise
+changed_input_graph 36_layers_bitwise
+all_valid_slots_graph_before_timing 36_layers_bitwise
+{"reference": 21.779369778103298, "candidate": 19.81218761867947}
+{"candidate": 19.809750450981987, "reference": 21.76898744371202}
+{"reference": 21.760603586832683, "candidate": 19.802932739257812}
+{"candidate": 19.81111102634006, "reference": 21.772516038682724}
+{"reference": 21.77801767985026, "candidate": 19.806408352322048}
+{"candidate": 19.815165201822918, "reference": 21.774319542778862}
+{"reference": 21.77483452690972, "candidate": 19.80012469821506}
+{"candidate": 19.806416829427082, "reference": 21.777093675401474}
+{"reference": 21.77457703484429, "candidate": 19.808083640204536}
