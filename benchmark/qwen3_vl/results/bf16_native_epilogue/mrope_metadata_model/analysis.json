@@ -1,0 +1,78 @@
+[
+  {
+    "gpu": "gpu4",
+    "control_mean_ms": 137.82729800004745,
+    "candidate_mean_ms": 137.67093649948947,
+    "latency_reduction_percent": 0.11344741051074747,
+    "paired_latency_reductions_percent": [
+      0.7020957119304949,
+      -0.44569003642058735,
+      -0.03168176318921745,
+      0.22165841279001564
+    ],
+    "checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      }
+    ]
+  },
+  {
+    "gpu": "gpu5",
+    "control_mean_ms": 134.88508024602197,
+    "candidate_mean_ms": 134.8206765105715,
+    "latency_reduction_percent": 0.04774711579146329,
+    "paired_latency_reductions_percent": [
+      -0.6547360726644635,
+      1.3122553334754428,
+      -0.6351768451251072,
+      0.14519617878127056
+    ],
+    "checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrmse": 0.0,
+        "greedy_equal": true
+      }
+    ]
+  }
+]
