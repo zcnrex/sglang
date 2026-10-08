@@ -1,0 +1,17 @@
+{
+  "original": "raw_evidence.tar.gz",
+  "bytes": 1573515,
+  "sha256": "6d9e31cd52ff9a34d47e0d0feb1132ddfd159b34c15a87c30b7170e89b9e3c3e",
+  "parts": [
+    {
+      "name": "raw_evidence.tar.gz.part00",
+      "bytes": 1048576,
+      "sha256": "510ad2f4c5601ec794b59149f3375168e9030dca86258f8f133770e313b9f66e"
+    },
+    {
+      "name": "raw_evidence.tar.gz.part01",
+      "bytes": 524939,
+      "sha256": "1ea5122c2afcc0d9ded15d753bacd9718be695f12e092e8a32c84071f40dc07b"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "local_files_verified": 4229,
+  "remote_files": 4231,
+  "extra_inherited_nonruntime": {
+    "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/scripts/diffusion_skill_env.py": "954edd99aee9c75fb844ccd4e97b126ff4d4bd5c524b51fdc0577093ab72699f",
+    "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/scripts/bench_diffusion_denoise.py": "cfbec69a0a69921151e3dcf66f8bf8c2c655b2f00935b0b8910d6a4ae8e21e9f"
+  },
+  "diff": [
+    "python/sglang/srt/layers/logits_processor.py",
+    "python/sglang/srt/model_executor/runner/flashinfer_autotune.py"
+  ]
+}

@@ -116,12 +116,22 @@ not establish equivalence or a causal accuracy benefit. Evidence is in
 
 Batch-32 vocabulary tuning passed short-context model checks and external
 serving pairs (+0.120% and +0.144%). Its separate implementation
-`d0d528db4f` is under production validation, outside the PR. Batch-128
-vocabulary serving was mixed and confounded by different active M128
-projection tactics; a matched diagnostic is pending. No larger-batch
-vocabulary change has been promoted. The M32 projection split-K kernels
+`d0d528db4f` is under production validation, outside the PR. The capped-graph,
+fixed-capacity production C32 pairs improved by only 0.012% and 0.102%; a
+matched-startup accuracy check is pending. Batch-128 vocabulary serving was
+mixed and confounded by different active M128 projection tactics. Its matched
+diagnostic was negative (−0.834% and −0.025%) and is rejected without a full
+sweep. No larger-batch vocabulary change has been promoted. The M32 projection split-K kernels
 were slower and rejected. The M16 gate/up public-Lt screen saved only
 1.2–2.1 microseconds across 36 layers and was not advanced.
+
+A separate external compiled logits conversion preserves the full FP32
+output buffer and unchanged argmax. Standalone cast-only savings survived
+short-context model gates (about 13/31 microseconds at batches 64/128), with
+bitwise-equal checked logits, changed-input results and caller-buffer identity.
+The combined compiled cast-plus-argmax approach was slower or flat and was
+rejected. Cast-only serving is pending; no production cast change exists.
+See `results/bf16_greedy_sampling_audit/`.
 
 ## Configuration and reproducibility
 

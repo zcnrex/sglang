@@ -1,0 +1,172 @@
+{
+  "counts": {
+    "capture": 1,
+    "eager": 4,
+    "buffer_identity": 3
+  },
+  "report": {
+    "m": 64,
+    "source": "current frozen /root/qvl/sglang-m16-down-production",
+    "pairs": [],
+    "compile_config": {
+      "fullgraph": true,
+      "dynamic": false,
+      "functions": [
+        "copy_into_existing_fp32_buffer",
+        "float_without_buffer"
+      ],
+      "startup_only": true
+    },
+    "capture_dispatches": {
+      "capture": 1,
+      "eager": 2,
+      "buffer_identity": 3
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": true,
+    "greedy_differences": 0,
+    "logit_checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    ],
+    "gpu_event_diagnostic": {
+      "synthetic_pairs": [
+        {
+          "baseline": 2.8174877166748047,
+          "candidate": 2.8043651580810547
+        },
+        {
+          "candidate": 2.804621458053589,
+          "baseline": 2.8179519176483154
+        },
+        {
+          "baseline": 2.8174753189086914,
+          "candidate": 2.804774284362793
+        },
+        {
+          "candidate": 2.8041648864746094,
+          "baseline": 2.817331314086914
+        },
+        {
+          "baseline": 2.8177030086517334,
+          "candidate": 2.804774284362793
+        },
+        {
+          "candidate": 2.8050315380096436,
+          "baseline": 2.8186051845550537
+        }
+      ],
+      "actual_steps": {
+        "baseline": [
+          3.084127902984619,
+          3.878528118133545,
+          4.017248153686523,
+          3.996095895767212,
+          3.9393599033355713,
+          3.7076799869537354,
+          3.7197439670562744,
+          3.6507198810577393,
+          3.6387839317321777,
+          3.6353600025177,
+          3.617824077606201,
+          3.656064033508301,
+          3.7760961055755615,
+          4.0083842277526855,
+          3.9976000785827637
+        ],
+        "candidate": [
+          3.3781440258026123,
+          3.879551887512207,
+          3.8241920471191406,
+          4.003039836883545,
+          3.88102388381958,
+          3.81548810005188,
+          3.7995200157165527,
+          3.7990400791168213,
+          3.539776086807251,
+          3.538304090499878,
+          3.5334079265594482,
+          3.5200960636138916,
+          3.577984094619751,
+          3.583103895187378,
+          3.553152084350586
+        ]
+      },
+      "shared_buffer_snapshots": [
+        "input_ids",
+        "input_embeds",
+        "req_pool_indices",
+        "seq_lens",
+        "seq_lens_cpu",
+        "out_cache_loc",
+        "positions",
+        "mrope_positions",
+        "custom_mask",
+        "next_token_logits_buffer",
+        "global_num_tokens_gpu",
+        "global_num_tokens_for_logprob_gpu"
+      ],
+      "unchanged_input_buffers": {
+        "input_ids": true,
+        "input_embeds": true,
+        "req_pool_indices": true,
+        "seq_lens": true,
+        "seq_lens_cpu": true,
+        "out_cache_loc": true,
+        "positions": true,
+        "mrope_positions": true,
+        "custom_mask": true,
+        "next_token_logits_buffer": true,
+        "global_num_tokens_gpu": true,
+        "global_num_tokens_for_logprob_gpu": true
+      },
+      "clock_snapshot": "0, 2032 MHz, 3996 MHz, 788.29 W, 56\n1, 2032 MHz, 3996 MHz, 283.32 W, 46\n2, 2032 MHz, 3996 MHz, 982.84 W, 57\n3, 2032 MHz, 3996 MHz, 971.14 W, 58\n4, 2032 MHz, 3996 MHz, 265.40 W, 41\n5, 2032 MHz, 3996 MHz, 238.57 W, 39\n6, 2032 MHz, 3996 MHz, 250.50 W, 36\n7, 2032 MHz, 3996 MHz, 240.62 W, 35\n"
+    },
+    "changed_model_input": {
+      "greedy_equal": true,
+      "logits_equal": true
+    }
+  }
+}

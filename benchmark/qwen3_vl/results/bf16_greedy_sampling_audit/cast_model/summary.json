@@ -1,0 +1,40 @@
+{
+  "m64": {
+    "baseline_ms": 2.817595362663269,
+    "candidate_ms": 2.804697871208191,
+    "paired_saved_us": 13.144493103027344,
+    "trace_casts": {
+      "baseline-graph-trace.json": [
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "dur_us": 24.256
+        }
+      ],
+      "candidate-graph-trace.json": [
+        {
+          "name": "triton_poi_fused_copy_copy__0",
+          "dur_us": 13.248
+        }
+      ]
+    }
+  },
+  "m128": {
+    "baseline_ms": 3.2806025743484497,
+    "candidate_ms": 3.2491904497146606,
+    "paired_saved_us": 31.30972385406494,
+    "trace_casts": {
+      "baseline-graph-trace.json": [
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "dur_us": 49.057
+        }
+      ],
+      "candidate-graph-trace.json": [
+        {
+          "name": "triton_poi_fused_copy_copy__0",
+          "dur_us": 14.72
+        }
+      ]
+    }
+  }
+}

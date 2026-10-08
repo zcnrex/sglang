@@ -1,0 +1,606 @@
+{
+  "pairs": [
+    {
+      "gpu": 2,
+      "control": {
+        "duration": 52.01868631300749,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3149.6374017240632,
+        "median_ttft_ms": 824.5619909866946,
+        "median_tpot_ms": 9.357299024438557
+      },
+      "candidate": {
+        "duration": 52.01257339201402,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3150.0075715376142,
+        "median_ttft_ms": 805.6655690015759,
+        "median_tpot_ms": 9.39413443742762
+      },
+      "percent": {
+        "output_throughput": 0.011752775521034486,
+        "median_ttft_ms": -2.2916920973408694,
+        "median_tpot_ms": 0.39365433222620094
+      }
+    },
+    {
+      "gpu": 3,
+      "control": {
+        "duration": 51.99753128399607,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3150.9188216100383,
+        "median_ttft_ms": 798.7543889903463,
+        "median_tpot_ms": 9.37102750391073
+      },
+      "candidate": {
+        "duration": 51.944724214001326,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3154.1220495273724,
+        "median_ttft_ms": 916.895142494468,
+        "median_tpot_ms": 9.24447715982696
+      },
+      "percent": {
+        "output_throughput": 0.10166012197347918,
+        "median_ttft_ms": 14.790623392186397,
+        "median_tpot_ms": -1.3504425638592665
+      }
+    }
+  ],
+  "proof": [
+    {
+      "phase": "A",
+      "gpu": 2,
+      "capacity": 1600000,
+      "events": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m32-production/serving/A/gpu2/public-tuner-pid539566.json"
+        },
+        {
+          "kind": "graph32_replay"
+        }
+      ],
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "phase": "A",
+      "gpu": 3,
+      "capacity": 1600000,
+      "events": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m32-production/serving/A/gpu3/public-tuner-pid539562.json"
+        },
+        {
+          "kind": "graph32_replay"
+        }
+      ],
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "phase": "B",
+      "gpu": 2,
+      "capacity": 1600000,
+      "events": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m32-production/serving/B/gpu2/public-tuner-pid543878.json"
+        },
+        {
+          "kind": "graph32_replay"
+        }
+      ],
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "phase": "B",
+      "gpu": 3,
+      "capacity": 1600000,
+      "events": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m32-production/serving/B/gpu3/public-tuner-pid543414.json"
+        },
+        {
+          "kind": "graph32_replay"
+        }
+      ],
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    }
+  ]
+}
