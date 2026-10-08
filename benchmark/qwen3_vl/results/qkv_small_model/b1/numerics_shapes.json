@@ -1,0 +1,90 @@
+{
+  "123": {
+    "baseline": {
+      "tokens_shape": [
+        16,
+        1
+      ],
+      "tokens_count": 16,
+      "logits_shapes": [
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ]
+      ]
+    },
+    "candidate": {
+      "tokens_shape": [
+        16,
+        1
+      ],
+      "tokens_count": 16,
+      "logits_shapes": [
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ]
+      ]
+    }
+  },
+  "124": {
+    "baseline": {
+      "tokens_shape": [
+        16,
+        1
+      ],
+      "tokens_count": 16,
+      "logits_shapes": [
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ]
+      ]
+    },
+    "candidate": {
+      "tokens_shape": [
+        16,
+        1
+      ],
+      "tokens_count": 16,
+      "logits_shapes": [
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ],
+        [
+          1,
+          151936
+        ]
+      ]
+    }
+  }
+}

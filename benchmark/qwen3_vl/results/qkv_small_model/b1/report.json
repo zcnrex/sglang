@@ -1,0 +1,439 @@
+{
+  "dispatch": [
+    [
+      0,
+      false
+    ],
+    [
+      0,
+      true
+    ],
+    [
+      1,
+      false
+    ],
+    [
+      1,
+      true
+    ],
+    [
+      2,
+      false
+    ],
+    [
+      2,
+      true
+    ],
+    [
+      3,
+      false
+    ],
+    [
+      3,
+      true
+    ],
+    [
+      4,
+      false
+    ],
+    [
+      4,
+      true
+    ],
+    [
+      5,
+      false
+    ],
+    [
+      5,
+      true
+    ],
+    [
+      6,
+      false
+    ],
+    [
+      6,
+      true
+    ],
+    [
+      7,
+      false
+    ],
+    [
+      7,
+      true
+    ],
+    [
+      8,
+      false
+    ],
+    [
+      8,
+      true
+    ],
+    [
+      9,
+      false
+    ],
+    [
+      9,
+      true
+    ],
+    [
+      10,
+      false
+    ],
+    [
+      10,
+      true
+    ],
+    [
+      11,
+      false
+    ],
+    [
+      11,
+      true
+    ],
+    [
+      12,
+      false
+    ],
+    [
+      12,
+      true
+    ],
+    [
+      13,
+      false
+    ],
+    [
+      13,
+      true
+    ],
+    [
+      14,
+      false
+    ],
+    [
+      14,
+      true
+    ],
+    [
+      15,
+      false
+    ],
+    [
+      15,
+      true
+    ],
+    [
+      16,
+      false
+    ],
+    [
+      16,
+      true
+    ],
+    [
+      17,
+      false
+    ],
+    [
+      17,
+      true
+    ],
+    [
+      18,
+      false
+    ],
+    [
+      18,
+      true
+    ],
+    [
+      19,
+      false
+    ],
+    [
+      19,
+      true
+    ],
+    [
+      20,
+      false
+    ],
+    [
+      20,
+      true
+    ],
+    [
+      21,
+      false
+    ],
+    [
+      21,
+      true
+    ],
+    [
+      22,
+      false
+    ],
+    [
+      22,
+      true
+    ],
+    [
+      23,
+      false
+    ],
+    [
+      23,
+      true
+    ],
+    [
+      24,
+      false
+    ],
+    [
+      24,
+      true
+    ],
+    [
+      25,
+      false
+    ],
+    [
+      25,
+      true
+    ],
+    [
+      26,
+      false
+    ],
+    [
+      26,
+      true
+    ],
+    [
+      27,
+      false
+    ],
+    [
+      27,
+      true
+    ],
+    [
+      28,
+      false
+    ],
+    [
+      28,
+      true
+    ],
+    [
+      29,
+      false
+    ],
+    [
+      29,
+      true
+    ],
+    [
+      30,
+      false
+    ],
+    [
+      30,
+      true
+    ],
+    [
+      31,
+      false
+    ],
+    [
+      31,
+      true
+    ],
+    [
+      32,
+      false
+    ],
+    [
+      32,
+      true
+    ],
+    [
+      33,
+      false
+    ],
+    [
+      33,
+      true
+    ],
+    [
+      34,
+      false
+    ],
+    [
+      34,
+      true
+    ],
+    [
+      35,
+      false
+    ],
+    [
+      35,
+      true
+    ]
+  ],
+  "compiled_layers": 36,
+  "graph_keys": {
+    "baseline": [
+      "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ],
+    "candidate": [
+      "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ]
+  },
+  "checks": [
+    {
+      "seed": 123,
+      "greedy_equal": true,
+      "token_differences": 0,
+      "logits": [
+        {
+          "stage": "prefill",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "first_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "fifteenth_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 124,
+      "greedy_equal": true,
+      "token_differences": 0,
+      "logits": [
+        {
+          "stage": "prefill",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "first_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "fifteenth_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        }
+      ]
+    }
+  ],
+  "fixed_state_pairs_ms": [
+    {
+      "baseline": 2.3350205421447754,
+      "candidate": 2.2161812782287598
+    },
+    {
+      "candidate": 2.2160210609436035,
+      "baseline": 2.3348379135131836
+    },
+    {
+      "baseline": 2.335008382797241,
+      "candidate": 2.215895891189575
+    },
+    {
+      "candidate": 2.228461503982544,
+      "baseline": 2.3343260288238525
+    },
+    {
+      "baseline": 2.334423065185547,
+      "candidate": 2.2154126167297363
+    },
+    {
+      "candidate": 2.215428352355957,
+      "baseline": 2.3343966007232666
+    },
+    {
+      "baseline": 2.3342034816741943,
+      "candidate": 2.2153143882751465
+    },
+    {
+      "candidate": 2.215355634689331,
+      "baseline": 2.334379196166992
+    }
+  ],
+  "unchanged_input_buffers": {
+    "input_ids": true,
+    "input_embeds": true,
+    "req_pool_indices": true,
+    "seq_lens": true,
+    "seq_lens_cpu": true,
+    "out_cache_loc": true,
+    "positions": true,
+    "mrope_positions": true,
+    "custom_mask": true,
+    "next_token_logits_buffer": true,
+    "global_num_tokens_gpu": true,
+    "global_num_tokens_for_logprob_gpu": true
+  }
+}
