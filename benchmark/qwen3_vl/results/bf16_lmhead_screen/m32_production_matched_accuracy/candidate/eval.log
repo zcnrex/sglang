@@ -1,0 +1,30 @@
+ChatCompletionSampler initialized with self.system_message=None self.temperature=0.0 self.max_tokens=2048 self.reasoning_effort=None self.extra_body=None self.stop=None self.record_meta_info=True
+  0%|          | 0/1314 [00:00<?, ?it/s]  0%|          | 1/1314 [00:01<43:41,  2.00s/it]  0%|          | 3/1314 [00:02<14:24,  1.52it/s]  1%|          | 9/1314 [00:02<03:56,  5.53it/s]  1%|          | 11/1314 [00:03<05:38,  3.85it/s]  3%|▎         | 33/1314 [00:07<04:22,  4.88it/s]  6%|▋         | 83/1314 [00:08<01:18, 15.71it/s]  8%|▊         | 111/1314 [00:19<03:49,  5.24it/s]  9%|▉         | 115/1314 [00:23<04:45,  4.20it/s] 28%|██▊       | 364/1314 [00:24<00:35, 27.04it/s] 32%|███▏      | 419/1314 [00:39<01:17, 11.60it/s] 37%|███▋      | 490/1314 [00:42<01:03, 12.90it/s] 46%|████▌     | 607/1314 [00:48<00:46, 15.21it/s] 65%|██████▍   | 848/1314 [00:59<00:25, 18.20it/s] 67%|██████▋   | 876/1314 [01:00<00:23, 18.61it/s] 71%|███████▏  | 939/1314 [01:03<00:19, 19.17it/s] 75%|███████▍  | 985/1314 [01:06<00:17, 19.07it/s] 77%|███████▋  | 1008/1314 [01:07<00:16, 18.60it/s] 82%|████████▏ | 1080/1314 [01:08<00:09, 24.08it/s] 82%|████████▏ | 1084/1314 [01:09<00:09, 23.27it/s] 84%|████████▍ | 1101/1314 [01:09<00:08, 25.53it/s] 95%|█████████▍| 1247/1314 [01:11<00:01, 39.64it/s]100%|██████████| 1314/1314 [01:11<00:00, 18.26it/s]
+{
+  "status": "complete",
+  "model": "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "source_revision": "466c9e0f4073bcad6e4403c6f54cfc8c1821b867",
+  "scorer": "sglang.test.simple_eval_mixed_prefix_gsm8k.GSM8KEval",
+  "dataset_url": "https://raw.githubusercontent.com/openai/grade-school-math/master/grade_school_math/data/test.jsonl",
+  "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "selection": {
+    "seed": null,
+    "method": "dataset order; first num_shots rows excluded from evaluation",
+    "num_shots": 5,
+    "first_evaluation_row": 5,
+    "last_evaluation_row": 1318,
+    "row_indexing": "zero-based"
+  },
+  "sampling": {
+    "api": "chat",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "max_tokens": 2048,
+    "concurrency": 32
+  },
+  "total": 1314,
+  "correct": 1221,
+  "score": 0.9292237442922374,
+  "latency_seconds": 71.99027484998805,
+  "completion_tokens": 237694
+}

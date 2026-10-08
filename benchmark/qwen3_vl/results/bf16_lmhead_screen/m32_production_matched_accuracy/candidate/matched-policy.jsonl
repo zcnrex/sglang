@@ -1,0 +1,4 @@
+{"shape": [128, 2560, 19456], "selected": 1, "valid_tactics": [0, 1, 2, 3, 4, 5, 6, 7], "cache_hit": true}
+{"shape": [128, 9728, 2560], "selected": 1, "valid_tactics": [0, 1, 2, 3, 4, 5, 6, 7], "cache_hit": true}
+{"shape": [4, 2560, 151936], "selected": 2, "valid_tactics": [0, 1, 2, 3, 4, 5, 6, 7], "cache_hit": true}
+{"shape": [8, 2560, 151936], "selected": 2, "valid_tactics": [0, 1, 2, 3, 4, 5, 6, 7], "cache_hit": true}

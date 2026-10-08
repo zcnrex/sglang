@@ -1,0 +1,224 @@
+{
+  "control_correct": 1221,
+  "candidate_correct": 1221,
+  "control_only_rows": [
+    87,
+    143,
+    326,
+    724,
+    740,
+    880,
+    901,
+    1097,
+    1119,
+    1193,
+    1201
+  ],
+  "candidate_only_rows": [
+    86,
+    293,
+    323,
+    510,
+    530,
+    806,
+    953,
+    1030,
+    1084,
+    1146,
+    1173
+  ],
+  "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "sampling": {
+    "api": "chat",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "max_tokens": 2048,
+    "concurrency": 32
+  },
+  "proof": {
+    "control": {
+      "actual_M128_forward": 18,
+      "actual_M128_modes": {
+        "MIXED": 18
+      },
+      "startup": [
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m32-production-matched-accuracy/control/public-tuner-pid551422.json"
+        }
+      ],
+      "restored": [
+        {
+          "kind": "matched_policy_restored",
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              8,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        }
+      ],
+      "graph32_replay": true,
+      "capacity": 1600000
+    },
+    "candidate": {
+      "actual_M128_forward": 12,
+      "actual_M128_modes": {
+        "MIXED": 12
+      },
+      "startup": [
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m32-production-matched-accuracy/candidate/public-tuner-pid551916.json"
+        }
+      ],
+      "restored": [
+        {
+          "kind": "matched_policy_restored",
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              8,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        }
+      ],
+      "graph32_replay": true,
+      "capacity": 1600000
+    }
+  },
+  "tactics": {
+    "control": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ]
+    },
+    "candidate": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ]
+    }
+  }
+}
