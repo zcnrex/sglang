@@ -54,7 +54,12 @@ All exact counts pass. Both runs use cap128, KV1.6M, BF16, normal public
 startup and observed stride128 fusion at all36 layers. No measured M128
 forwards occur, so differing startup M128 tactics did not participate.
 The standalone kernel and two-seed public model gate match bitwise;
-full GSM8K and bounded image checks are pending at this commit.
+normal-startup GSM8K scored1220/1314 versus1217/1314, with different active
+M128 down tactics and9/10 M128 mixed forwards, so this is not a causal
+accuracy improvement. Four image responses match text, token/logprob objects
+and usage; one fixture and24 B4 graph replays do not establish broad multimodal
+accuracy. Complete evidence is in `results/qkv_m4_production_accuracy` and
+`results/qkv_m4_production_image`.
 See `results/qkv_m4_screen/production_kernel`, `results/qkv_m4_production_model`
 and `results/qkv_m4_production_serving` for source provenance and full latency.
 

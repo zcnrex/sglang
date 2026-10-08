@@ -1,0 +1,12 @@
+import pathlib,json,re,hashlib,gzip,sys
+r=pathlib.Path(sys.argv[1]);data={}
+for mode in ['control','candidate']:
+ p=r/mode/'results/report.html';raw=p.read_text();blocks=raw.split('<h3>Prompt conversation</h3>')[1:];assert len(blocks)==1314
+ rows=[]
+ for i,b in enumerate(blocks):
+  prompt,sampled=b.split('<h3>Sampled message</h3>',1);sampled,result=sampled.split('<h3>Results</h3>',1)
+  rows.append(dict(dataset_row=i+5,prompt_sha256=hashlib.sha256(prompt.encode()).hexdigest(),response_html=sampled,correct=float(re.search(r'<p>Score: ([^<]+)</p>',result)[1]),answer=re.search(r'<p>Extracted Answer: ([^<]*)</p>',result)[1]))
+ data[mode]=rows;(r/mode/'rows.json').write_text(json.dumps(rows,indent=2));gzip.open(r/mode/'results/report.html.gz','wb').write(p.read_bytes())
+assert all(a['prompt_sha256']==b['prompt_sha256'] for a,b in zip(data['control'],data['candidate']))
+a,b=data['control'],data['candidate'];out=dict(total=1314,control_correct=sum(x['correct'] for x in a),candidate_correct=sum(x['correct'] for x in b),control_only=[x['dataset_row'] for x,y in zip(a,b) if x['correct'] and not y['correct']],candidate_only=[x['dataset_row'] for x,y in zip(a,b) if y['correct'] and not x['correct']],response_differences=sum(x['response_html']!=y['response_html'] for x,y in zip(a,b)),answer_differences=sum(x['answer']!=y['answer'] for x,y in zip(a,b)))
+(r/'comparison.json').write_text(json.dumps(out,indent=2));print(json.dumps(out))
