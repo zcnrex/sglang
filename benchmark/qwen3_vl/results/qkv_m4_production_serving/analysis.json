@@ -1,0 +1,194 @@
+[
+  {
+    "phase": "A",
+    "gpu": "gpu2",
+    "arm": "control",
+    "output_throughput": 1235.1263602365618,
+    "mean_ttft_ms": 200.90354315107106,
+    "median_ttft_ms": 245.57781549810898,
+    "p95_ttft_ms": 262.70750145049533,
+    "p99_ttft_ms": 269.9189132908941,
+    "mean_tpot_ms": 3.0414712034002673,
+    "median_tpot_ms": 2.9973426016622504,
+    "p95_tpot_ms": 3.135713636066334,
+    "p99_tpot_ms": 3.1469638767691586,
+    "completed": 40,
+    "total_input_tokens": 327680,
+    "total_output_tokens": 40960,
+    "epochs": [
+      {
+        "kind": "epoch_end",
+        "epoch": 0,
+        "m128": {}
+      },
+      {
+        "kind": "epoch_end",
+        "epoch": 1,
+        "m128": {}
+      }
+    ],
+    "tactics": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "_generation": "2da7b958e3a01be3dcaef31d8f6eafaa1b104866555c3c667fbe21057fb1cc3b"
+    }
+  },
+  {
+    "phase": "A",
+    "gpu": "gpu3",
+    "arm": "candidate",
+    "output_throughput": 1298.6796736950537,
+    "mean_ttft_ms": 201.36840520062833,
+    "median_ttft_ms": 239.78139550308697,
+    "p95_ttft_ms": 256.7441910650814,
+    "p99_ttft_ms": 259.95219622709556,
+    "mean_tpot_ms": 2.883721535945974,
+    "median_tpot_ms": 2.8551361617708,
+    "p95_tpot_ms": 2.9866684627996776,
+    "p99_tpot_ms": 2.9879770046261043,
+    "completed": 40,
+    "total_input_tokens": 327680,
+    "total_output_tokens": 40960,
+    "epochs": [
+      {
+        "kind": "epoch_end",
+        "epoch": 0,
+        "m128": {}
+      },
+      {
+        "kind": "epoch_end",
+        "epoch": 1,
+        "m128": {}
+      }
+    ],
+    "tactics": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "_generation": "ce07c52233862b534319fb7e6e997f77ec00b488059a08a9c5e80c19cd1d51ed"
+    }
+  },
+  {
+    "phase": "B",
+    "gpu": "gpu2",
+    "arm": "candidate",
+    "output_throughput": 1280.096382577527,
+    "mean_ttft_ms": 198.59247764907195,
+    "median_ttft_ms": 245.4347620077897,
+    "p95_ttft_ms": 263.95012580615,
+    "p99_ttft_ms": 266.560235665238,
+    "mean_tpot_ms": 2.9305443946000556,
+    "median_tpot_ms": 2.8911494134840185,
+    "p95_tpot_ms": 3.0220325673469577,
+    "p99_tpot_ms": 3.025116640302869,
+    "completed": 40,
+    "total_input_tokens": 327680,
+    "total_output_tokens": 40960,
+    "epochs": [
+      {
+        "kind": "epoch_end",
+        "epoch": 0,
+        "m128": {}
+      },
+      {
+        "kind": "epoch_end",
+        "epoch": 1,
+        "m128": {}
+      }
+    ],
+    "tactics": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "_generation": "471f479da9d89aa6ce8ab7cc892f8848f0fe7461302ca642c4fa606727109d1b"
+    }
+  },
+  {
+    "phase": "B",
+    "gpu": "gpu3",
+    "arm": "control",
+    "output_throughput": 1249.684809415669,
+    "mean_ttft_ms": 202.21925477671903,
+    "median_ttft_ms": 239.87935349578038,
+    "p95_ttft_ms": 258.50039590732194,
+    "p99_ttft_ms": 259.6510231963475,
+    "mean_tpot_ms": 3.0034910906640517,
+    "median_tpot_ms": 2.966875719465384,
+    "p95_tpot_ms": 3.104781146801201,
+    "p99_tpot_ms": 3.1073528300913438,
+    "completed": 40,
+    "total_input_tokens": 327680,
+    "total_output_tokens": 40960,
+    "epochs": [
+      {
+        "kind": "epoch_end",
+        "epoch": 0,
+        "m128": {}
+      },
+      {
+        "kind": "epoch_end",
+        "epoch": 1,
+        "m128": {}
+      }
+    ],
+    "tactics": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "_generation": "471f479da9d89aa6ce8ab7cc892f8848f0fe7461302ca642c4fa606727109d1b"
+    }
+  }
+]

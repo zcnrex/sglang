@@ -41,6 +41,23 @@ No new full task-accuracy evaluation accompanied this sweep. The failed
 original-PR admission and stride fix's standalone/model gates are preserved
 separately. Historical sweeps below retain their original source/settings.
 
+## Batch-four QKV follow-up
+
+Production commit `5add178cd8` extends fused QKV preparation to batch four.
+Two same-GPU C4/N40 crossovers against PR `3016f3b591` improved throughput
+1235.13 → 1280.10 and 1249.68 → 1298.68 output tok/s (+3.64%/+3.92%;
+geometric mean +3.78%). Both candidates clear the C4 target1237.5, unlike
+the earlier consistent snapshot above. These are separate paired runs, not
+an updated seven-point sweep. Mean TTFT changed200.90 → 198.59 and
+202.22 → 201.37ms; median TPOT changed2.997 → 2.891 and2.967 → 2.855ms.
+All exact counts pass. Both runs use cap128, KV1.6M, BF16, normal public
+startup and observed stride128 fusion at all36 layers. No measured M128
+forwards occur, so differing startup M128 tactics did not participate.
+The standalone kernel and two-seed public model gate match bitwise;
+full GSM8K and bounded image checks are pending at this commit.
+See `results/qkv_m4_screen/production_kernel`, `results/qkv_m4_production_model`
+and `results/qkv_m4_production_serving` for source provenance and full latency.
+
 ## Latest committed increments
 
 The following increments were measured separately; their gains must not be
