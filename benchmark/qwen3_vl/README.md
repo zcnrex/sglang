@@ -2,14 +2,49 @@
 
 ## Current status
 
-The target is at least 10% more output throughput than the recorded handoff baseline, with **BF16 weights, BF16 KV cache and BF16 attention queries**. The target is **not met across the seven concurrency points**. Only concurrency 1 clears 10% in the completed native-NHD combined sweep below. Earlier FP8 results are historical and do not satisfy this precision-matched goal. No speculative decoding or draft-model configuration is used in the current candidate.
+The target is at least 10% more output throughput than the recorded handoff baseline, with **BF16 weights, BF16 KV cache and BF16 attention queries**. The target is **not met across the seven concurrency points**. Only concurrency 1 clears 10% in the fresh current-PR HND sweep below. Earlier FP8 results are historical and do not satisfy this precision-matched goal. No speculative decoding or draft-model configuration is used in the current candidate.
 
 The handoff reference used one B300, vLLM `0.30.1rc1.dev648+g92044241a`, BF16 model dtype and KV `auto` resolving to BF16. Its server log was checked at `/root/qvl/out-baseline-20261007/vllm/server.log`. Candidate environment: Torch `2.14.1+cu130`, FlashInfer `0.7.0.post1`, Transformers `5.17.0`, CUDA 13.0. Baseline numbers were supplied in the handoff; they were not remeasured here.
 
+## Fresh current-PR sweep
+
+Exact PR head `3016f3b591`, one B300 per point, BF16 weights/query/KV,
+TRT HND page32, mixed chunk16384, identical 20 decode buckets up to128,
+KV capacity1,600,000, server seed0 and benchmark seed42. All seven points
+use the original request counts and `max(64,C)` warmup followed by flush.
+The graph-buffer stride fix `2b1e4c8651` is included; all 36 QKV fused layers
+activate with the actual stride128 position views before measurement.
+
+| Concurrency | Handoff output tok/s | Current output tok/s | vs handoff | Median TTFT ms | Median TPOT ms | Additional throughput needed for target |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 334 | 393.56 | +17.83% | 87.42 | 2.458 | 0.00% |
+| 4 | 1125 | 1229.73 | +9.31% | 236.64 | 3.022 | 0.63% |
+| 8 | 1774 | 1908.32 | +7.57% | 355.15 | 3.845 | 2.26% |
+| 16 | 2499 | 2583.19 | +3.37% | 644.92 | 5.577 | 6.41% |
+| 32 | 3084 | 3141.89 | +1.88% | 804.63 | 9.402 | 7.97% |
+| 64 | 3494 | 3542.95 | +1.40% | 818.60 | 17.268 | 8.48% |
+| 128 | 3815 | 3833.22 | +0.48% | 600.93 | 32.639 | 9.48% |
+
+A second C128 run reached 3847.33 output tok/s, median TTFT592.38ms and
+TPOT32.533ms. Its normal-public M128 down tactic differs from the primary
+run, so the 0.368% spread is not a controlled device-only comparison.
+All measured request/input/output counts and pre/post source hashes pass.
+These are independent points across GPUs, not a same-device causal speedup
+measurement. Only C1 clears the goal in this snapshot; the earlier individual
+C4 results that cleared it are not reproduced here.
+
+C128 mean TTFT is1421.79ms and p95/p99 are6725.15/8616.83ms. The median
+alone does not describe the first-token tail. Full latency distributions,
+normal startup choices, CPU/GPU telemetry and exact commands are in
+[the frozen sweep](results/current_pr_full_sweep/attempt2/README.md).
+No new full task-accuracy evaluation accompanied this sweep. The failed
+original-PR admission and stride fix's standalone/model gates are preserved
+separately. Historical sweeps below retain their original source/settings.
+
 ## Latest committed increments
 
-The tables below retain the earlier full-sweep results and are not a fresh
-sweep of the latest head. Subsequent controlled increments are:
+The following increments were measured separately; their gains must not be
+multiplied into a synthetic current-head result. The fresh snapshot is above.
 
 | Change | Production commit | Measured serving gain | Accuracy limitation |
 | --- | --- | --- | --- |
@@ -60,7 +95,7 @@ Evidence: `results/bf16_decode_lt/production_validation/`,
 `results/bf16_weight_packing/m1_production_validation/`, and
 `results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
 diagnostic and lower-concurrency regression subdirectories). The code PR
-#42913 includes the QKV fusion at `cd99227527`; #42914 retains the optional deployment recipe.
+#42913 includes the QKV fusion and graph-buffer stride fix at `3016f3b591`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
 The earlier batch-4 increment is BF16 vocabulary-projection tuning

@@ -1,0 +1,5 @@
+# Lossless artifact packaging
+
+Complete original files remain remotely under /root/qvl/experiments/current-pr-full-sweep/attempt2 and locally under /tmp/qvl-current-pr-full-sweep/attempt2-original-files. No original evidence was discarded. packing-manifest.json records original and encoded byte counts/SHA256 plus every ordered part SHA256. All split parts are at most1MiB. Oversized readable JSON/JSONL was losslessly gzipped, then split only if still larger than1500KiB. The raw archive is retained as ordered parts with identity encoding.
+
+To reconstruct an entry, concatenate its `parts` array in listed order (or read `packed_file` when unsplit), verify `packed_sha256`, then gzip-decompress only when `encoding` is `gzip`. Verify the resulting bytes against `original_sha256` and `original_bytes`, and write them to `original`. Restore the raw original.tar.gz first to unpack the complete original remote layout if desired. Readable Python copies outside the raw archive use .py.txt. __pycache__ is excluded.

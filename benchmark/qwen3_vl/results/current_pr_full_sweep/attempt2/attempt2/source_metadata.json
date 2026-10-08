@@ -1,0 +1,5 @@
+{
+  "head": "3016f3b5917650199c12b47195b9dc1be4c26e4e",
+  "files": 10245,
+  "transfer": "COPYFILE_DISABLE=1 git archive; no worktree metadata"
+}

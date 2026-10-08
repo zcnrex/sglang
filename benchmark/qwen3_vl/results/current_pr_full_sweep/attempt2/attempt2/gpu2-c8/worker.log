@@ -1,0 +1,2 @@
+SERVER 656712
+{"duration": 42.92770104599185, "completed": 80, "total_input_tokens": 655360, "total_output_tokens": 81920, "output_throughput": 1908.3248812283846, "mean_ttft_ms": 354.4075051006075, "median_ttft_ms": 355.149804498069, "std_ttft_ms": 136.70473511057975, "p90_ttft_ms": 527.0777901023393, "p95_ttft_ms": 539.9895576978452, "p99_ttft_ms": 549.5558959525079, "mean_tpot_ms": 3.8449947476150297, "median_tpot_ms": 3.8447284770218877, "std_tpot_ms": 0.1336374763596633, "p90_tpot_ms": 4.025802253646492, "p95_tpot_ms": 4.03916279233045, "p99_tpot_ms": 4.066081606483513}
