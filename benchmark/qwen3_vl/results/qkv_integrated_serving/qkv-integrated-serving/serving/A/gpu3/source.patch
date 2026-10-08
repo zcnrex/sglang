@@ -1,0 +1,507 @@
+--- base/python/sglang/kernels/ops/gemm/dense_bf16_gemm_sm100_splitk_epilogue.py
++++ candidate/python/sglang/kernels/ops/gemm/dense_bf16_gemm_sm100_splitk_epilogue.py
+@@ -341,6 +341,7 @@
+         epilogue_mode: str = "none",
+         epilogue_scale: float = 1.0,
+         epilogue_group: int = 1,
++        epilogue_hook=None,
+     ) -> None:
+         self.acc_dtype = cutlass.Float32
+         self.cta_m = tactic.mma_m
+@@ -353,6 +354,9 @@
+         self.epilogue_mode = epilogue_mode
+         self.epilogue_scale = epilogue_scale
+         self.epilogue_group = epilogue_group
++        self.epilogue_hook = epilogue_hook
++        if epilogue_hook is not None and (epilogue_mode != "none" or has_bias):
++            raise ValueError("custom epilogue requires plain GEMM without bias")
+
+         if epilogue_mode not in _EPILOGUE_MODES:
+             raise ValueError(f"unsupported epilogue_mode={epilogue_mode}")
+@@ -411,9 +415,10 @@
+         x: cute.Tensor,
+         out: cute.Tensor,
+         stream: _cuda.CUstream,
++        epilogue_args=None,
+     ):
+         # Grid-y packs output-N tile and cluster rank.
+-        self.kernel(a, b, c, bias, x, out).launch(
++        self.kernel(a, b, c, bias, x, out, epilogue_args).launch(
+             grid=(
+                 cute.ceil_div(c.layout.shape[0], self.cta_m),
+                 cute.ceil_div(c.layout.shape[1], self.cta_n) * self.split_k,
+@@ -435,6 +440,7 @@
+         mBias: cute.Tensor,  # Broadcast bias; dead when has_bias=False
+         mX: cute.Tensor,  # Gate activation; dead unless epilogue_mode="gate"
+         mOut: cute.Tensor,  # Gate output; dead unless epilogue_mode="gate"
++        epilogue_args=None,
+     ):
+         """Allocate storage and dispatch the specialized warps."""
+         stages = self.num_ab_stage
+@@ -540,6 +546,10 @@
+             )
+         else:
+             gate_tile = mailbox
++
++        hook_scratch = None
++        if cutlass.const_expr(self.epilogue_hook is not None):
++            hook_scratch = self.epilogue_hook.allocate_scratch(ab_dtype)
+
+         if warp_idx == 0:
+             with cute.arch.elect_one():
+@@ -627,6 +637,8 @@
+                 mOut,
+                 bidx,
+                 n_idx,
++                hook_scratch,
++                epilogue_args,
+             )
+
+     @cute.experimental.jit
+@@ -759,6 +771,8 @@
+         mOut: cute.Tensor,
+         bidx: cutlass.Int32,
+         n_idx: cutlass.Int32,
++        hook_scratch=None,
++        epilogue_args=None,
+     ):
+         # Wait until MMA publishes the TMEM base pointer.
+         cute.arch.mbarrier_arrive(bar_tmem_alloc)
+@@ -917,7 +931,19 @@
+             else:
+                 rD.store(rAcc.load().to(c_dtype))
+                 # Preserve TMEM coordinates; the copy predicates output tails.
+-                cute_ext.partition_and_copy(thr_t2r, rD, gD_epi[None, None, 0, 0])
++                if cutlass.const_expr(self.epilogue_hook is not None):
++                    self.epilogue_hook.store(
++                        rD,
++                        thr_t2r,
++                        gD_tile,
++                        epi_tid,
++                        bidx,
++                        n_idx,
++                        hook_scratch,
++                        epilogue_args,
++                    )
++                else:
++                    cute_ext.partition_and_copy(thr_t2r, rD, gD_epi[None, None, 0, 0])
+
+         # The reduction mbarrier covers remote stores; no cluster barrier needed.
+
+--- base/python/sglang/kernels/ops/attention/qkv_norm_mrope.py
++++ candidate/python/sglang/kernels/ops/attention/qkv_norm_mrope.py
+@@ -0,0 +1,262 @@
++"""BF16 QKV projection, Q/K RMSNorm, MRoPE, and HND cache write."""
++
++import cuda.bindings.driver as cuda
++import cutlass
++import cutlass.cute as cute
++import torch
++from cutlass._mlir.dialects import llvm
++from cutlass.cute import experimental as cute_ext
++from cutlass.cute.runtime import from_dlpack
++from cutlass.cutlass_dsl import T, dsl_user_op
++
++from sglang.kernels.ops.gemm.dense_bf16_gemm_sm100_splitk_epilogue import (
++    SplitKDenseGemmKernel,
++    SplitKTactic,
++    _align_up,
++    _smem_bytes,
++    _to_cute_swap,
++    validate_tactic,
++)
++
++
++@dsl_user_op
++def _norm_factor(x0, x1, x2, x3, *, loc=None, ip=None):
++    return cutlass.Float32(
++        llvm.inline_asm(
++            T.f32(),
++            [x.ir_value() for x in (x0, x1, x2, x3)],
++            "{ .reg .f32 s,t; mul.rn.f32 s,$1,$1; fma.rn.f32 s,$2,$2,s; fma.rn.f32 s,$3,$3,s; fma.rn.f32 s,$4,$4,s; "
++            "shfl.sync.bfly.b32 t,s,16,31,-1; add.rn.f32 s,s,t; shfl.sync.bfly.b32 t,s,8,31,-1; add.rn.f32 s,s,t; "
++            "shfl.sync.bfly.b32 t,s,4,31,-1; add.rn.f32 s,s,t; shfl.sync.bfly.b32 t,s,2,31,-1; add.rn.f32 s,s,t; "
++            "shfl.sync.bfly.b32 t,s,1,31,-1; add.rn.f32 s,s,t; mul.rn.f32 s,s,0f3C000000; add.rn.f32 s,s,0f358637BD; rsqrt.approx.ftz.f32 $0,s; }",
++            "=f,f,f,f,f",
++            has_side_effects=False,
++            is_align_stack=False,
++            asm_dialect=llvm.AsmDialect.AD_ATT,
++        )
++    )
++
++
++@dsl_user_op
++def _norm_value(x, scale, w, *, loc=None, ip=None):
++    return cutlass.Float32(
++        llvm.inline_asm(
++            T.f32(),
++            [v.ir_value() for v in (x, scale, w)],
++            "{ .reg .f32 t; mul.rn.f32 t,$1,$2; mul.rn.f32 $0,t,$3; }",
++            "=f,f,f,f",
++            has_side_effects=False,
++            is_align_stack=False,
++            asm_dialect=llvm.AsmDialect.AD_ATT,
++        )
++    )
++
++
++@dsl_user_op
++def _rotate(x, y, c, s, upper, *, loc=None, ip=None):
++    return cutlass.Float32(
++        llvm.inline_asm(
++            T.f32(),
++            [v.ir_value() for v in (x, y, c, s, upper)],
++            "{ .reg .b16 a,b,c,d,t,o; .reg .pred p; cvt.rn.bf16.f32 a,$1; cvt.rn.bf16.f32 b,$2; cvt.rn.bf16.f32 c,$3; cvt.rn.bf16.f32 d,$4; "
++            "setp.ne.s32 p,$5,0; @!p mul.rn.bf16 t,b,d; @!p neg.bf16 t,t; @!p fma.rn.bf16 o,a,c,t; "
++            "@p mul.rn.bf16 t,a,c; @p fma.rn.bf16 o,b,d,t; cvt.f32.bf16 $0,o; }",
++            "=f,f,f,f,f,r",
++            has_side_effects=False,
++            is_align_stack=False,
++            asm_dialect=llvm.AsmDialect.AD_ATT,
++        )
++    )
++
++
++class _QKVNormMRopeEpilogue:
++    @cute.experimental.jit
++    def allocate_scratch(self, dtype: cutlass.Constexpr):
++        return cute_ext.allocate(
++            dtype,
++            cute.AddressSpace.smem,
++            cute.make_layout((128, 8), stride=(1, 128)),
++            alignment=128,
++        )
++
++    @cute.experimental.jit
++    def store(self, rD, thr_t2r, gD_tile, epi_tid, head, n_idx, sE, ep):
++        c_dtype = rD.element_type
++        # Redistribute the rounded GEMM result, preserving BF16 before norm.
++        cute_ext.partition_and_copy(thr_t2r, rD, sE)
++        cute.arch.barrier(barrier_id=1, number_of_threads=128)
++        lane = epi_tid % 32
++        warp = epi_tid // 32
++        qw, kw, rope, positions, axes, kc, vc, slots = ep
++        for iteration in cutlass.range_constexpr(2):
++            token = warp + iteration * 4
++            d = lane * 4
++            x0 = sE[d, token].to(cutlass.Float32)
++            x1 = sE[d + 1, token].to(cutlass.Float32)
++            x2 = sE[d + 2, token].to(cutlass.Float32)
++            x3 = sE[d + 3, token].to(cutlass.Float32)
++            scale = cutlass.Float32(1.0)
++            if head < 40:
++                scale = _norm_factor(x0, x1, x2, x3)
++            for component in cutlass.range_constexpr(4):
++                dim = d + component
++                value = sE[dim, token].to(cutlass.Float32)
++                if head < 40:
++                    weight = cutlass.Float32(0.0)
++                    if head < 32:
++                        weight = qw[dim].to(cutlass.Float32)
++                    else:
++                        weight = kw[dim].to(cutlass.Float32)
++                    normalized = (
++                        _norm_value(value, scale, weight)
++                        .to(c_dtype)
++                        .to(cutlass.Float32)
++                    )
++                    partner = cute.arch.shuffle_sync_bfly(normalized, 16)
++                    pair_dim = dim % 64
++                    pos = positions[axes[pair_dim], token]
++                    cosine = rope[pos, pair_dim].to(cutlass.Float32)
++                    sine = rope[pos, pair_dim + 64].to(cutlass.Float32)
++                    value = _rotate(
++                        normalized, partner, cosine, sine, cutlass.Int32(lane >= 16)
++                    )
++                rounded = value.to(c_dtype)
++                gD_tile[dim, token] = rounded
++                slot = slots[token]
++                if head >= 32 and slot >= 0:
++                    if head < 40:
++                        kc[slot // 32, head - 32, slot % 32, dim] = rounded
++                    else:
++                        vc[slot // 32, head - 40, slot % 32, dim] = rounded
++
++
++@cute.experimental.jit
++def _run(kernel: cutlass.Constexpr, a, b, c, ep, stream: cuda.CUstream):
++    c = cute.make_tensor(c.iterator, cute.select(c.layout, mode=[1, 2, 0]))
++    kernel(
++        cute.make_tensor(a.iterator, cute.select(a.layout, mode=[1, 2, 0])),
++        cute.make_tensor(b.iterator, cute.select(b.layout, mode=[2, 1, 0])),
++        c,
++        cute.make_tensor(c.iterator, cute.select(c.layout, mode=[0, 1, 2])),
++        c,
++        c,
++        stream,
++        ep,
++    )
++
++
++_COMPILED = {}
++_TACTIC = SplitKTactic(128, 8, 2, 6)
++
++
++def qkv_norm_mrope(
++    x,
++    weight,
++    q_weight,
++    k_weight,
++    rope,
++    positions,
++    axes,
++    key_cache,
++    value_cache,
++    slots,
++    *,
++    out=None,
++):
++    """Write exact M8 BF16 QKV and HND page32 caches, or return None if unsupported.
++
++    Slots must be valid physical cache locations or negative padding sentinels.
++    Positions and axis values must index the supplied rotary table. Buffers must
++    not overlap inputs or each other. Compilation occurs only outside capture.
++    """
++    if torch.compiler.is_compiling() or torch.is_grad_enabled():
++        return None
++    tensors = (
++        x,
++        weight,
++        q_weight,
++        k_weight,
++        rope,
++        positions,
++        axes,
++        key_cache,
++        value_cache,
++        slots,
++    )
++    if (
++        tuple(x.shape) != (8, 2560)
++        or tuple(weight.shape) != (6144, 2560)
++        or not x.is_cuda
++        or torch.cuda.current_device() != x.device.index
++        or torch.cuda.get_device_capability(x.device) != (10, 3)
++        or any(t.device != x.device or t.requires_grad for t in tensors)
++        or any(not t.is_contiguous() for t in tensors)
++        or any(t.data_ptr() % 8 for t in tensors)
++        or x.data_ptr() % 32
++        or weight.data_ptr() % 32
++        or any(
++            t.dtype != torch.bfloat16
++            for t in (x, weight, q_weight, k_weight, rope, key_cache, value_cache)
++        )
++        or tuple(q_weight.shape) != (128,)
++        or tuple(k_weight.shape) != (128,)
++        or rope.ndim != 2
++        or rope.shape[1] != 128
++        or tuple(positions.shape) != (3, 8)
++        or positions.dtype != torch.int64
++        or tuple(axes.shape) != (64,)
++        or axes.dtype != torch.int64
++        or tuple(slots.shape) != (8,)
++        or slots.dtype != torch.int64
++        or key_cache.ndim != 4
++        or tuple(key_cache.shape[1:]) != (8, 32, 128)
++        or value_cache.shape != key_cache.shape
++    ):
++        return None
++    if out is not None and (
++        tuple(out.shape) != (8, 6144)
++        or out.dtype != torch.bfloat16
++        or out.device != x.device
++        or not out.is_contiguous()
++        or out.requires_grad
++        or out.data_ptr() % 32
++    ):
++        return None
++    outputs = (key_cache, value_cache) + (() if out is None else (out,))
++    inputs = (x, weight, q_weight, k_weight, rope, positions, axes, slots)
++    for index, target in enumerate(outputs):
++        begin = target.data_ptr()
++        end = begin + target.numel() * target.element_size()
++        for other in inputs + outputs[:index]:
++            other_begin = other.data_ptr()
++            if (
++                begin < other_begin + other.numel() * other.element_size()
++                and other_begin < end
++            ):
++                return None
++    ep = (q_weight, k_weight, rope, positions, axes, key_cache, value_cache, slots)
++    key = (
++        x.device.index,
++        tuple((t.dtype, tuple(t.shape), t.stride()) for t in tensors),
++    )
++    compiled = _COMPILED.get(key)
++    if compiled is None and torch.cuda.is_current_stream_capturing():
++        return None
++    if out is None:
++        out = torch.empty((8, 6144), dtype=x.dtype, device=x.device)
++    args = _to_cute_swap(x, weight.T, out, None)
++    extra = tuple(from_dlpack(t, assumed_align=8) for t in ep)
++    stream = cuda.CUstream(torch.cuda.current_stream(x.device).cuda_stream)
++    if compiled is None:
++        validate_tactic(_TACTIC, 8, 6144, 2560)
++        assert _align_up(_smem_bytes(_TACTIC, 6), 128) + 2048 <= 227 * 1024
++        kernel = SplitKDenseGemmKernel(
++            tactic=_TACTIC,
++            use_pdl=True,
++            has_bias=False,
++            epilogue_hook=_QKVNormMRopeEpilogue(),
++        )
++        compiled = cute_ext.compile(_run, kernel, *args[:3], extra, stream)
++        _COMPILED[key] = compiled
++    compiled(*args[:3], extra, stream)
++    return out
+--- base/python/sglang/kernels/ops/attention/__init__.py
++++ candidate/python/sglang/kernels/ops/attention/__init__.py
+@@ -421,3 +421,20 @@
+         ),
+     )
+ )
++
++
++register_kernel(
++    KernelSpec(
++        op="attention.qkv_norm_mrope",
++        backend=KernelBackend.CUTE_DSL,
++        target="sglang.kernels.ops.attention.qkv_norm_mrope:qkv_norm_mrope",
++        capabilities=frozenset(
++            {CapabilityRequirement.cuda(min_sm=(10, 3), max_sm=(10, 3))}
++        ),
++        format_signature=FormatSignature(
++            supported_dtypes=("bfloat16",),
++            in_place=True,
++            description="M8 QKV projection, Q/K RMSNorm, MRoPE and HND page32 cache write.",
++        ),
++    )
++)
+--- base/python/sglang/srt/models/qwen3.py
++++ candidate/python/sglang/srt/models/qwen3.py
+@@ -41,7 +41,14 @@
+ from sglang.srt.models.qwen2 import Qwen2Model
+ from sglang.srt.models.utils import apply_qk_norm
+ from sglang.srt.platforms import current_platform
+-from sglang.srt.runtime_context import get_exec, get_parallel, get_platform, get_stream
++from sglang.srt.runtime_context import (
++    get_exec,
++    get_lora,
++    get_parallel,
++    get_platform,
++    get_spec,
++    get_stream,
++)
+ from sglang.srt.utils import add_prefix, get_bool_env_var, is_cuda, is_hip, is_npu
+
+ Qwen3Config = None
+@@ -177,6 +184,20 @@
+             and not envs.SGLANG_ENABLE_DETERMINISTIC_INFERENCE.get()
+             and get_exec().graph.cuda_graph_config.prefill.tc_compiler != "inductor"
+         )
++        self.use_qkv_norm_mrope = (
++            self.use_fused_qk_norm_mrope_cuda
++            and torch.cuda.get_device_capability() == (10, 3)
++            and hidden_size == 2560
++            and self.q_size == 4096
++            and self.kv_size == 1024
++            and attn_tp_size == 1
++            and quant_config is None
++            and not attention_bias
++            and self.q_norm.variance_epsilon == 1e-6
++            and self.k_norm.variance_epsilon == 1e-6
++            and self.attn.attn_type == AttentionType.DECODER
++            and not self.attn.is_cross_attention
++        )
+         self.use_fused_qk_norm_mrope = (
+             _has_fused_qk_norm_mrope
+             and isinstance(self.rotary_emb, MRotaryEmbedding)
+@@ -190,7 +211,89 @@
+             self._fused_k_scale = torch.tensor(1.0, dtype=torch.float32, device="cpu")
+             self._fused_v_scale = torch.tensor(1.0, dtype=torch.float32, device="cpu")
+
++    def _try_qkv_norm_mrope(self, positions, hidden_states, forward_batch):
++        if (
++            not self.use_qkv_norm_mrope
++            or tuple(hidden_states.shape) != (8, 2560)
++            or hidden_states.dtype != torch.bfloat16
++            or not hidden_states.is_contiguous()
++            or torch.is_grad_enabled()
++            or torch.compiler.is_compiling()
++            or not forward_batch.forward_mode.is_decode()
++            or forward_batch.spec_info is not None
++            or get_spec().speculative_algorithm is not None
++            or get_lora().enable_lora
++            or get_lora().lora_paths
++            or get_exec().kernel.disable_flashinfer_autotune
++            or get_exec().deterministic.enable_deterministic_inference
++            or get_exec().deterministic.rl_on_policy_target is not None
++            or get_parallel().attn_cp_size != 1
++            or get_parallel().attn_dcp_size != 1
++            or type(self.qkv_proj) is not QKVParallelLinear
++            or self.qkv_proj.bias is not None
++            or tuple(positions.shape) != (3, 8)
++            or positions.dtype != torch.int64
++            or forward_batch.out_cache_loc.numel() != 8
++        ):
++            return None
++        from sglang.srt.layers.attention.trtllm_mha_backend import (
++            TRTLLMHAAttnBackend,
++        )
++        from sglang.srt.layers.quantization.unquant import (
++            UnquantizedLinearMethod,
++            get_bf16_gemm_backend,
++            use_bf16_splitk_gemm,
++        )
++        from sglang.srt.mem_cache.memory_pool import KVWriteLoc, MHATokenToKVPool
++
++        if (
++            type(self.qkv_proj.quant_method) is not UnquantizedLinearMethod
++            or not use_bf16_splitk_gemm(8, 6144, 2560)
++            or not get_bf16_gemm_backend().is_cutedsl()
++            or not envs.SGLANG_ENABLE_BF16_SPLITK_GEMM.get()
++        ):
++            return None
++        pool = get_token_to_kv_pool()
++        backend = get_attn_backend()
++        if (
++            type(backend) is not TRTLLMHAAttnBackend
++            or backend.token_to_kv_pool is not pool
++            or backend.data_type != torch.bfloat16
++            or type(pool) is not MHATokenToKVPool
++        ):
++            return None
++        cache_args = pool.get_bf16_hnd_write_args(
++            self.attn, KVWriteLoc.for_batch(forward_batch)
++        )
++        if cache_args is None:
++            return None
++        try:
++            from sglang.kernels.ops.attention.qkv_norm_mrope import qkv_norm_mrope
++        except ImportError:
++            return None
++        self.rotary_emb._match_cos_sin_cache_dtype(hidden_states)
++        qkv = qkv_norm_mrope(
++            hidden_states,
++            self.qkv_proj.weight.detach(),
++            self.q_norm.weight.detach(),
++            self.k_norm.weight.detach(),
++            self.rotary_emb.cos_sin_cache,
++            positions,
++            self.rotary_emb.axis_map,
++            cache_args[0].permute(0, 2, 1, 3),
++            cache_args[1].permute(0, 2, 1, 3),
++            cache_args[2],
++        )
++        if qkv is None:
++            return None
++        q, k, v = qkv.split([self.q_size, self.kv_size, self.kv_size], dim=-1)
++        return q, k, v, False
++
+     def forward_prepare_native(self, positions, hidden_states, forward_batch):
++        if self.use_qkv_norm_mrope and hidden_states.shape[0] == 8:
++            fused = self._try_qkv_norm_mrope(positions, hidden_states, forward_batch)
++            if fused is not None:
++                return fused
+         qkv, _ = self.qkv_proj(hidden_states)
+         q, k, v = qkv.split([self.q_size, self.kv_size, self.kv_size], dim=-1)
+         if (

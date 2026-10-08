@@ -1,0 +1,11 @@
+{
+  "local_head": "f80675cdc925d3accd9cdea5008ff949b9c05e7b",
+  "overlay": {
+    "python/sglang/kernels/ops/gemm/dense_bf16_gemm_sm100_splitk_epilogue.py": "8de336dd179881462bb493bddd2203766e3ba30d7432b4b35c2ebaf447fb9aab",
+    "python/sglang/kernels/ops/attention/qkv_norm_mrope.py": "04d7cf7ea3bb362356a6a41750dfd308526fa024b1034e03eb72604e37037f84",
+    "python/sglang/kernels/ops/attention/__init__.py": "2da31977428189d645b6d1e6b39a8fffdd42fdfe9212d7cc60d2cc0237ecd9f1",
+    "python/sglang/srt/models/qwen3.py": "fb3df9ef36e8bab0be539834d3e392684147ee479fe1aa133b466d0e133fec07"
+  },
+  "remote_base": "/root/qvl/sglang-m16-down-production",
+  "remote_candidate": "/root/qvl/sglang-qkv-integrated"
+}

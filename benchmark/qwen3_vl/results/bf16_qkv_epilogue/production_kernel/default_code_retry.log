@@ -1,0 +1,6 @@
+none original artifacts <class 'NoneType'> <class 'NoneType'> <class 'NoneType'>
+Traceback (most recent call last):
+  File "/root/qvl/experiments/qkv-integrated/default_code.py", line 25, in <module>
+    assert isinstance(sass,str), 'missing SASS'
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: missing SASS

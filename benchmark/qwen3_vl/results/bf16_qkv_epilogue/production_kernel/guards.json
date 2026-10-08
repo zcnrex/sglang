@@ -1,0 +1,33 @@
+{
+  "checks": [
+    "unsupported_m4",
+    "fp32_input",
+    "fp32_output",
+    "noncontiguous_input",
+    "alias_key_value",
+    "alias_weight_output",
+    "wrong_axis_dtype",
+    "other_current_device",
+    "outer_compile",
+    "grad_enabled",
+    "cold_capture_fallback",
+    "nondefault_stream_caller_identity",
+    "isolated_supported_detaches_parameters",
+    "isolated_splitk_disabled",
+    "isolated_backend_disabled",
+    "isolated_autotune_disabled",
+    "isolated_deterministic",
+    "isolated_spec_config",
+    "isolated_spec_batch",
+    "isolated_lora_enabled",
+    "isolated_lora_paths",
+    "isolated_cp",
+    "isolated_dcp",
+    "isolated_bias",
+    "isolated_prefill",
+    "isolated_ineligible_model",
+    "isolated_rl_target"
+  ],
+  "count": 27,
+  "scope": "Actual public wrapper GPU guards plus AST-isolated model guards; model integration is separate."
+}

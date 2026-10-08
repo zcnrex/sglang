@@ -1,0 +1,14 @@
+import pathlib,json,math,numpy as np
+r=pathlib.Path('/root/qvl/experiments/qkv-integrated-serving/serving');runs={}
+for phase in ['A','B']:
+ for gpu in [2,3]:
+  p=r/phase/f'gpu{gpu}';x=json.loads((p/'bench.jsonl').read_text().splitlines()[-1]);assert len(x['ttfts'])==80
+  d={k:v for k,v in x.items() if k in ['duration','completed','total_input_tokens','total_output_tokens','output_throughput'] or 'ttft_ms' in k or 'tpot_ms' in k}
+  t=np.array(x['ttfts'])*1000;d['ttft_request_order_ms']=t.tolist();d['ttft_sorted_ms']=np.sort(t).tolist();d['ttft_groups8_ms']=[dict(mean=float(a.mean()),median=float(np.median(a)),min=float(a.min()),max=float(a.max())) for a in t.reshape(10,8)];d['ttft_bands']={f'{lo}-{hi}':int(((t>=lo)&(t<hi)).sum()) for lo,hi in [(0,200),(200,300),(300,400),(400,500),(500,600),(600,10000)]}
+  proof=[json.loads(z) for f in p.glob('lmhead-proof-pid*.jsonl') for z in f.read_text().splitlines()];d['m128']=[z for z in proof if z['kind']=='actual_M128_forward'];d['tactics']=json.load(open(next(p.glob('public-tuner-pid*.json'))))
+  runs[f'{phase}/gpu{gpu}']=d
+pairs=[]
+for gpu,c,z in [(2,'A/gpu2','B/gpu2'),(3,'B/gpu3','A/gpu3')]:
+ keys=['output_throughput','mean_ttft_ms','median_ttft_ms','p95_ttft_ms','p99_ttft_ms','mean_tpot_ms','median_tpot_ms','p95_tpot_ms','p99_tpot_ms'];pairs.append(dict(gpu=gpu,delta={k:(runs[z][k]/runs[c][k]-1)*100 for k in keys}))
+gain=(math.prod(1+p['delta']['output_throughput']/100 for p in pairs)**.5-1)*100
+result=dict(runs=runs,pairs=pairs,geometric_gain_percent=gain);(r/'analysis.json').write_text(json.dumps(result,indent=2));print(json.dumps({'pairs':pairs,'geometric_gain_percent':gain},indent=2))

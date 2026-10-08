@@ -1,0 +1,11 @@
+
+[91m[1merror:[0m nvdisasm at '/usr/local/cuda/bin/nvdisasm' reports version 13.0, which is not supported for SASS dumping.
+  [94m-->[0m /root/qvl/sglang-qkv-integrated/python/sglang/kernels/ops/gemm/dense_bf16_gemm_sm100_splitk_epilogue.py:17:1
+   |
+15 |
+16 | import cuda.bindings.driver as _cuda
+17 | import cutlass
+   | [91m^^^^^^^^^^^^^^[0m
+  [92msuggestion:[0m SASS dumping requires nvdisasm >= 13.4. Any of the following works:   • pip install
+              nvidia-cutlass-dsl[sass]   • install or upgrade a local CUDA Toolkit and expose it via
+              CUDA_HOME/CUDA_PATH
