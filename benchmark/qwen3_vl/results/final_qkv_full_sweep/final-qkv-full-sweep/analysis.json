@@ -1,0 +1,761 @@
+{
+  "head": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+  "rows": [
+    {
+      "gpu": 0,
+      "concurrency": 1,
+      "replicate": false,
+      "baseline": 334,
+      "target": 367.40000000000003,
+      "target_ratio": 1.1203739873705794,
+      "baseline_gain_percent": 23.241138610763734,
+      "metrics": {
+        "duration": 74.63096246999339,
+        "completed": 30,
+        "total_input_tokens": 245760,
+        "total_output_tokens": 30720,
+        "output_throughput": 411.62540295995086,
+        "mean_ttft_ms": 84.94907869705153,
+        "median_ttft_ms": 85.58376750443131,
+        "std_ttft_ms": 4.490163274271006,
+        "p90_ttft_ms": 90.11360718577635,
+        "p95_ttft_ms": 90.89107670588419,
+        "p99_ttft_ms": 91.63197416142793,
+        "mean_tpot_ms": 2.347187082472749,
+        "median_tpot_ms": 2.346567089439762,
+        "std_tpot_ms": 0.006607927109526031,
+        "p90_tpot_ms": 2.3532727500480686,
+        "p95_tpot_ms": 2.357159239885908,
+        "p99_tpot_ms": 2.3642193766302615
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {},
+      "measured_m128_total": 0,
+      "measured_epoch": {
+        "start": 1791444115.8022823,
+        "end": 1791444191.8588288
+      },
+      "telemetry_samples": 61,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1852.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 444.12,
+          "median": 709.79,
+          "max": 732.64
+        },
+        "temperature_c": {
+          "min": 42.0,
+          "median": 52.0,
+          "max": 56.0
+        },
+        "gpu_util_percent": {
+          "min": 6.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 2.0,
+          "median": 65.0,
+          "max": 67.0
+        },
+        "memory_used_mib": {
+          "min": 240169.0,
+          "median": 240891.0,
+          "max": 240891.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 567.3,
+      "worker_sampled_sum_rss_peak_kib": 33199676
+    },
+    {
+      "gpu": 1,
+      "concurrency": 4,
+      "replicate": false,
+      "baseline": 1125,
+      "target": 1237.5,
+      "target_ratio": 1.0315895359611273,
+      "baseline_gain_percent": 13.474848955724017,
+      "metrics": {
+        "duration": 32.08542617500643,
+        "completed": 40,
+        "total_input_tokens": 327680,
+        "total_output_tokens": 40960,
+        "output_throughput": 1276.5920507518952,
+        "mean_ttft_ms": 209.1635421224055,
+        "median_ttft_ms": 254.63649749872275,
+        "std_ttft_ms": 63.75660630424829,
+        "p90_ttft_ms": 268.09136869269423,
+        "p95_ttft_ms": 280.50566784804687,
+        "p99_ttft_ms": 292.16791837621713,
+        "mean_tpot_ms": 2.928098464884077,
+        "median_tpot_ms": 2.8889154041978466,
+        "std_tpot_ms": 0.061296223037347455,
+        "p90_tpot_ms": 3.0118219780114104,
+        "p95_tpot_ms": 3.0148718578544424,
+        "p99_tpot_ms": 3.019687261823931
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {},
+      "measured_m128_total": 0,
+      "measured_epoch": {
+        "start": 1791444116.2938488,
+        "end": 1791444149.9409
+      },
+      "telemetry_samples": 26,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 2032.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 258.64,
+          "median": 789.53,
+          "max": 875.28
+        },
+        "temperature_c": {
+          "min": 42.0,
+          "median": 53.5,
+          "max": 57.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 75.5,
+          "max": 77.0
+        },
+        "memory_used_mib": {
+          "min": 240213.0,
+          "median": 241693.0,
+          "max": 242301.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 598.4,
+      "worker_sampled_sum_rss_peak_kib": 33191940
+    },
+    {
+      "gpu": 2,
+      "concurrency": 8,
+      "replicate": false,
+      "baseline": 1774,
+      "target": 1951.4,
+      "target_ratio": 0.9775749774048764,
+      "baseline_gain_percent": 7.533247514536412,
+      "metrics": {
+        "duration": 42.943117212998914,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 1907.639810907876,
+        "mean_ttft_ms": 363.5365012123657,
+        "median_ttft_ms": 380.05030500062276,
+        "std_ttft_ms": 141.75966543163057,
+        "p90_ttft_ms": 534.3245687021409,
+        "p95_ttft_ms": 554.7825914924033,
+        "p99_ttft_ms": 563.3494389554835,
+        "mean_tpot_ms": 3.8380497146626644,
+        "median_tpot_ms": 3.827505459929776,
+        "std_tpot_ms": 0.13835955519697524,
+        "p90_tpot_ms": 4.030558959522808,
+        "p95_tpot_ms": 4.052546037006431,
+        "p99_tpot_ms": 4.076141809101204
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          3
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {},
+      "measured_m128_total": 0,
+      "measured_epoch": {
+        "start": 1791444116.115371,
+        "end": 1791444160.688524
+      },
+      "telemetry_samples": 35,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1282.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 308.94,
+          "median": 812.84,
+          "max": 954.74
+        },
+        "temperature_c": {
+          "min": 41.0,
+          "median": 47.0,
+          "max": 56.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 82.0,
+          "max": 83.0
+        },
+        "memory_used_mib": {
+          "min": 240477.0,
+          "median": 242303.0,
+          "max": 242305.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 613.4,
+      "worker_sampled_sum_rss_peak_kib": 33255516
+    },
+    {
+      "gpu": 3,
+      "concurrency": 16,
+      "replicate": false,
+      "baseline": 2499,
+      "target": 2748.9,
+      "target_ratio": 0.9394229988011403,
+      "baseline_gain_percent": 3.3365298681254485,
+      "metrics": {
+        "duration": 31.722675888973754,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 2582.379881404455,
+        "mean_ttft_ms": 608.5472600880166,
+        "median_ttft_ms": 635.0410930026555,
+        "std_ttft_ms": 241.39632822120504,
+        "p90_ttft_ms": 900.5124736984726,
+        "p95_ttft_ms": 940.643050757353,
+        "p99_ttft_ms": 1062.2139710723422,
+        "mean_tpot_ms": 5.597316109432045,
+        "median_tpot_ms": 5.585034588953951,
+        "std_tpot_ms": 0.23161503611190704,
+        "p90_tpot_ms": 5.914055598915199,
+        "p95_tpot_ms": 5.961262469353982,
+        "p99_tpot_ms": 5.971426897683842
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {},
+      "measured_m128_total": 0,
+      "measured_epoch": {
+        "start": 1791444114.89899,
+        "end": 1791444148.3322096
+      },
+      "telemetry_samples": 26,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1327.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 314.64,
+          "median": 881.4000000000001,
+          "max": 1026.13
+        },
+        "temperature_c": {
+          "min": 43.0,
+          "median": 48.0,
+          "max": 58.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 90.0,
+          "max": 92.0
+        },
+        "memory_used_mib": {
+          "min": 241693.0,
+          "median": 242301.0,
+          "max": 242305.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 570.8,
+      "worker_sampled_sum_rss_peak_kib": 33260704
+    },
+    {
+      "gpu": 4,
+      "concurrency": 32,
+      "replicate": false,
+      "baseline": 3084,
+      "target": 3392.4,
+      "target_ratio": 0.9255467794390915,
+      "baseline_gain_percent": 1.810145738300073,
+      "metrics": {
+        "duration": 52.18125389202032,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3139.824894569174,
+        "mean_ttft_ms": 845.0039317818664,
+        "median_ttft_ms": 808.9005100046052,
+        "std_ttft_ms": 376.4671972097824,
+        "p90_ttft_ms": 1245.0047928083222,
+        "p95_ttft_ms": 1729.8350646189647,
+        "p99_ttft_ms": 2177.0230809558416,
+        "mean_tpot_ms": 9.360535073503337,
+        "median_tpot_ms": 9.362926357269277,
+        "std_tpot_ms": 0.3550646954983848,
+        "p90_tpot_ms": 9.754968591200898,
+        "p95_tpot_ms": 9.832912510748734,
+        "p99_tpot_ms": 9.911717772722232
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {},
+      "measured_m128_total": 0,
+      "measured_epoch": {
+        "start": 1791444115.6197207,
+        "end": 1791444169.8641624
+      },
+      "telemetry_samples": 43,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1297.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 353.07,
+          "median": 991.03,
+          "max": 1088.56
+        },
+        "temperature_c": {
+          "min": 44.0,
+          "median": 63.0,
+          "max": 72.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 99.0,
+          "max": 100.0
+        },
+        "memory_used_mib": {
+          "min": 240213.0,
+          "median": 242461.0,
+          "max": 242467.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 511.0,
+      "worker_sampled_sum_rss_peak_kib": 33291324
+    },
+    {
+      "gpu": 5,
+      "concurrency": 64,
+      "replicate": false,
+      "baseline": 3494,
+      "target": 3843.4,
+      "target_ratio": 0.9212794880127634,
+      "baseline_gain_percent": 1.3407436814039775,
+      "metrics": {
+        "duration": 92.54286644398235,
+        "completed": 320,
+        "total_input_tokens": 2621440,
+        "total_output_tokens": 327680,
+        "output_throughput": 3540.8455842282547,
+        "mean_ttft_ms": 986.8469530531002,
+        "median_ttft_ms": 687.2841529984726,
+        "std_ttft_ms": 840.7952479813677,
+        "p90_ttft_ms": 2188.9369681011917,
+        "p95_ttft_ms": 3244.289363648569,
+        "p99_ttft_ms": 4155.456937281124,
+        "mean_tpot_ms": 17.096257037991354,
+        "median_tpot_ms": 17.31127289198428,
+        "std_tpot_ms": 0.7831813577167304,
+        "p90_tpot_ms": 17.506783942230307,
+        "p95_tpot_ms": 17.676328831779152,
+        "p99_tpot_ms": 17.900060651013238
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {},
+      "measured_m128_total": 0,
+      "measured_epoch": {
+        "start": 1791444116.4795065,
+        "end": 1791444211.0503583
+      },
+      "telemetry_samples": 76,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1327.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 360.14,
+          "median": 1033.915,
+          "max": 1113.45
+        },
+        "temperature_c": {
+          "min": 40.0,
+          "median": 66.0,
+          "max": 72.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_used_mib": {
+          "min": 240213.0,
+          "median": 242313.0,
+          "max": 242317.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 473.1,
+      "worker_sampled_sum_rss_peak_kib": 33342516
+    },
+    {
+      "gpu": 6,
+      "concurrency": 128,
+      "replicate": false,
+      "baseline": 3815,
+      "target": 4196.5,
+      "target_ratio": 0.9131852078744755,
+      "baseline_gain_percent": 0.45037286619231676,
+      "metrics": {
+        "duration": 171.01485447600135,
+        "completed": 640,
+        "total_input_tokens": 5242880,
+        "total_output_tokens": 655360,
+        "output_throughput": 3832.1817248452367,
+        "mean_ttft_ms": 1475.7005266852502,
+        "median_ttft_ms": 599.6406714984914,
+        "std_ttft_ms": 1993.9214302014946,
+        "p90_ttft_ms": 4535.186845794669,
+        "p95_ttft_ms": 6803.681690097437,
+        "p99_ttft_ms": 8642.010723064888,
+        "mean_tpot_ms": 31.906763956682592,
+        "median_tpot_ms": 32.68368162804741,
+        "std_tpot_ms": 1.7692940775973394,
+        "p90_tpot_ms": 32.760332193465054,
+        "p95_tpot_ms": 32.76652871460076,
+        "p99_tpot_ms": 33.13383433165212
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {
+        "DECODE": 4795
+      },
+      "measured_m128_total": 4795,
+      "measured_epoch": {
+        "start": 1791444117.6988094,
+        "end": 1791444292.5661335
+      },
+      "telemetry_samples": 144,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1290.0,
+          "median": 2017.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 260.67,
+          "median": 1089.79,
+          "max": 1103.03
+        },
+        "temperature_c": {
+          "min": 35.0,
+          "median": 57.0,
+          "max": 63.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_used_mib": {
+          "min": 240217.0,
+          "median": 242471.0,
+          "max": 242477.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 458.8,
+      "worker_sampled_sum_rss_peak_kib": 33386328
+    },
+    {
+      "gpu": 7,
+      "concurrency": 128,
+      "replicate": true,
+      "baseline": 3815,
+      "target": 4196.5,
+      "target_ratio": 0.9163725832792736,
+      "baseline_gain_percent": 0.8009841607200974,
+      "metrics": {
+        "duration": 170.4200215980236,
+        "completed": 640,
+        "total_input_tokens": 5242880,
+        "total_output_tokens": 655360,
+        "output_throughput": 3845.5575457314717,
+        "mean_ttft_ms": 1466.742595468122,
+        "median_ttft_ms": 591.7982760147424,
+        "std_ttft_ms": 1992.412402194796,
+        "p90_ttft_ms": 4519.721992395353,
+        "p95_ttft_ms": 6799.038578409818,
+        "p99_ttft_ms": 8627.076876233625,
+        "mean_tpot_ms": 31.79982709253016,
+        "median_tpot_ms": 32.53179300733319,
+        "std_tpot_ms": 1.7353950392662316,
+        "p90_tpot_ms": 32.625656799798016,
+        "p95_tpot_ms": 32.64790231797603,
+        "p99_tpot_ms": 33.01217506479432
+      },
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          6
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {
+        "DECODE": 4797
+      },
+      "measured_m128_total": 4797,
+      "measured_epoch": {
+        "start": 1791444118.4772685,
+        "end": 1791444293.240296
+      },
+      "telemetry_samples": 144,
+      "gpu_telemetry": {
+        "sm_clock_mhz": {
+          "min": 1312.0,
+          "median": 2032.0,
+          "max": 2032.0
+        },
+        "memory_clock_mhz": {
+          "min": 3996.0,
+          "median": 3996.0,
+          "max": 3996.0
+        },
+        "power_w": {
+          "min": 248.19,
+          "median": 1071.08,
+          "max": 1090.81
+        },
+        "temperature_c": {
+          "min": 42.0,
+          "median": 54.0,
+          "max": 60.0
+        },
+        "gpu_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_util_percent": {
+          "min": 0.0,
+          "median": 100.0,
+          "max": 100.0
+        },
+        "memory_used_mib": {
+          "min": 240195.0,
+          "median": 242471.0,
+          "max": 242479.0
+        }
+      },
+      "worker_sampled_ps_cpu_peak_percent": 471.7,
+      "worker_sampled_sum_rss_peak_kib": 33362380
+    }
+  ],
+  "host": {
+    "capacity": {
+      "logical_cpus": 256,
+      "affinity_cpus": 256,
+      "cpu_max": "max 100000\n",
+      "observed_after_run": true
+    },
+    "telemetry_samples": 216,
+    "peak_loadavg1": 21.86,
+    "aggregate_cpu_peak_percent": 24.835186788306586,
+    "aggregate_cpu_measured_union_peak_percent": 6.802892172272868,
+    "aggregate_cpu_startup_peak_percent": 24.835186788306586,
+    "foreign_before": "",
+    "foreign_after": ""
+  },
+  "replicate_spread_percent": 0.3490393161554861
+}

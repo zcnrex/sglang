@@ -1,0 +1,217 @@
+{
+  "rows": [
+    {
+      "gpu": 0,
+      "concurrency": 1,
+      "target_ratio": 1.1203739873705794,
+      "baseline_gain_percent": 23.241138610763734,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {}
+    },
+    {
+      "gpu": 1,
+      "concurrency": 4,
+      "target_ratio": 1.0315895359611273,
+      "baseline_gain_percent": 13.474848955724017,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {}
+    },
+    {
+      "gpu": 2,
+      "concurrency": 8,
+      "target_ratio": 0.9775749774048764,
+      "baseline_gain_percent": 7.533247514536412,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          3
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {}
+    },
+    {
+      "gpu": 3,
+      "concurrency": 16,
+      "target_ratio": 0.9394229988011403,
+      "baseline_gain_percent": 3.3365298681254485,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {}
+    },
+    {
+      "gpu": 4,
+      "concurrency": 32,
+      "target_ratio": 0.9255467794390915,
+      "baseline_gain_percent": 1.810145738300073,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {}
+    },
+    {
+      "gpu": 5,
+      "concurrency": 64,
+      "target_ratio": 0.9212794880127634,
+      "baseline_gain_percent": 1.3407436814039775,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {}
+    },
+    {
+      "gpu": 6,
+      "concurrency": 128,
+      "target_ratio": 0.9131852078744755,
+      "baseline_gain_percent": 0.45037286619231676,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {
+        "DECODE": 4795
+      }
+    },
+    {
+      "gpu": 7,
+      "concurrency": 128,
+      "target_ratio": 0.9163725832792736,
+      "baseline_gain_percent": 0.8009841607200974,
+      "tactics": {
+        "M128_gateup": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "M128_down": [
+          "CublasltBf16GemmRunner",
+          6
+        ],
+        "M4_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "M8_vocab": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "measured_m128": {
+        "DECODE": 4797
+      }
+    }
+  ],
+  "host": {
+    "telemetry_samples": 216,
+    "peak_loadavg1": 21.86,
+    "aggregate_cpu_peak_percent": 24.835186788306586,
+    "aggregate_cpu_measured_union_peak_percent": 6.802892172272868,
+    "aggregate_cpu_startup_peak_percent": 24.835186788306586,
+    "foreign_before": "",
+    "foreign_after": ""
+  }
+}

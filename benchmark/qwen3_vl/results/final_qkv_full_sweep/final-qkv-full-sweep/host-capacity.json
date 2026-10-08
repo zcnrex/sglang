@@ -1,0 +1,6 @@
+{
+  "logical_cpus": 256,
+  "affinity_cpus": 256,
+  "cpu_max": "max 100000\n",
+  "observed_after_run": true
+}

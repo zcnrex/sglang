@@ -1,0 +1,30 @@
+[
+  {
+    "path": "final-qkv-full-sweep/gpu5-c64/bench.jsonl.gz",
+    "sha256": "85bec58332f01434d29e759ffef289a71a8fe9318fcd325f44403fcd3b7dde70",
+    "parts": [
+      "final-qkv-full-sweep/gpu5-c64/bench.jsonl.gz.part00",
+      "final-qkv-full-sweep/gpu5-c64/bench.jsonl.gz.part01"
+    ]
+  },
+  {
+    "path": "final-qkv-full-sweep/gpu7-c128/bench.jsonl.gz",
+    "sha256": "d235744f031ab3bffe8653b12fbc66ab1859506fa32df12f39d6095672d53ba8",
+    "parts": [
+      "final-qkv-full-sweep/gpu7-c128/bench.jsonl.gz.part00",
+      "final-qkv-full-sweep/gpu7-c128/bench.jsonl.gz.part01",
+      "final-qkv-full-sweep/gpu7-c128/bench.jsonl.gz.part02",
+      "final-qkv-full-sweep/gpu7-c128/bench.jsonl.gz.part03"
+    ]
+  },
+  {
+    "path": "final-qkv-full-sweep/gpu6-c128/bench.jsonl.gz",
+    "sha256": "0a48472ceb39123be32d805e7e3636933e02867fddbf3c196155f18a0a9dc482",
+    "parts": [
+      "final-qkv-full-sweep/gpu6-c128/bench.jsonl.gz.part00",
+      "final-qkv-full-sweep/gpu6-c128/bench.jsonl.gz.part01",
+      "final-qkv-full-sweep/gpu6-c128/bench.jsonl.gz.part02",
+      "final-qkv-full-sweep/gpu6-c128/bench.jsonl.gz.part03"
+    ]
+  }
+]

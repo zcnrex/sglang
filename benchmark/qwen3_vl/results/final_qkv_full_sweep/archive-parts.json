@@ -1,0 +1,71 @@
+{
+  "bytes": 17243276,
+  "sha256": "8358f6e76e8889e3084e98ac53944c0d88d5b0bf249d3c6268c0058bd7292dc7",
+  "parts": [
+    {
+      "path": "original.tar.gz.part00",
+      "bytes": 1400000,
+      "sha256": "8d8dcc5d2ffaca718297a8628b605d8a93383241c7b41ecc28014284fc804106"
+    },
+    {
+      "path": "original.tar.gz.part01",
+      "bytes": 1400000,
+      "sha256": "f3a15c24dbf03abe18f0359b413cfd8762f0cfb86951af4caca018004aa94c81"
+    },
+    {
+      "path": "original.tar.gz.part02",
+      "bytes": 1400000,
+      "sha256": "ace1391985e88016a262121d96845e8cad37a1a1ccd6ea074a8173ff54b5f5d5"
+    },
+    {
+      "path": "original.tar.gz.part03",
+      "bytes": 1400000,
+      "sha256": "506dbe922b945fefb04ad83bc403537b8dce8dc65c950c22100e715f4632ecae"
+    },
+    {
+      "path": "original.tar.gz.part04",
+      "bytes": 1400000,
+      "sha256": "63ba419ccc9e8a00912f9fe61e348011cc1eb0e505c808f54db68daab8bc8989"
+    },
+    {
+      "path": "original.tar.gz.part05",
+      "bytes": 1400000,
+      "sha256": "0a4a632bb709970cf53f4973a998fab83062bd4d5354a3bf5aaaa7608362b0e9"
+    },
+    {
+      "path": "original.tar.gz.part06",
+      "bytes": 1400000,
+      "sha256": "fc4ace08d0345cab98474decc3b1991978309a30e48ca6a65de0a51dc64e14d4"
+    },
+    {
+      "path": "original.tar.gz.part07",
+      "bytes": 1400000,
+      "sha256": "f7551a276bfd300752179421976bec101202681ef7f400bc117e229764b4f6e8"
+    },
+    {
+      "path": "original.tar.gz.part08",
+      "bytes": 1400000,
+      "sha256": "5bf80edcab67b653c87be1d0feade8e12841a85ffae8559316dc96f51208dbb8"
+    },
+    {
+      "path": "original.tar.gz.part09",
+      "bytes": 1400000,
+      "sha256": "424092b5fe7710d09628f7fedb009a82e48908397958f1ef9d0313092c212c5d"
+    },
+    {
+      "path": "original.tar.gz.part10",
+      "bytes": 1400000,
+      "sha256": "fa5fb16856d20ed91936dca39b8536b8caa1467ac99bd4f0095ed8b11a9ce8e7"
+    },
+    {
+      "path": "original.tar.gz.part11",
+      "bytes": 1400000,
+      "sha256": "61c31792abeb43400d3c69508fd103bd37182257182eda604c200ac68b985eba"
+    },
+    {
+      "path": "original.tar.gz.part12",
+      "bytes": 443276,
+      "sha256": "9d10f927e2587861084e0371b6eb516bc0b6f9eef4c0e049695bd6538cd914fd"
+    }
+  ]
+}

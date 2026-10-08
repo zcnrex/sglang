@@ -2,11 +2,45 @@
 
 ## Current status
 
-The target is at least 10% more output throughput than the recorded handoff baseline, with **BF16 weights, BF16 KV cache and BF16 attention queries**. The target is **not met across the seven concurrency points**. Only concurrency 1 clears 10% in the fresh current-PR HND sweep below. Earlier FP8 results are historical and do not satisfy this precision-matched goal. No speculative decoding or draft-model configuration is used in the current candidate.
+The target is at least 10% more output throughput than the recorded handoff baseline, with **BF16 weights, BF16 KV cache and BF16 attention queries**. The target is **not met across the seven concurrency points**. Concurrency 1 and 4 clear 10% in the final exact-PR HND sweep below. Earlier FP8 results are historical and do not satisfy this precision-matched goal. No speculative decoding or draft-model configuration is used in the current candidate.
 
 The handoff reference used one B300, vLLM `0.30.1rc1.dev648+g92044241a`, BF16 model dtype and KV `auto` resolving to BF16. Its server log was checked at `/root/qvl/out-baseline-20261007/vllm/server.log`. Candidate environment: Torch `2.14.1+cu130`, FlashInfer `0.7.0.post1`, Transformers `5.17.0`, CUDA 13.0. Baseline numbers were supplied in the handoff; they were not remeasured here.
 
-## Fresh current-PR sweep
+## Final exact-PR sweep
+
+Exact code PR head `c76cfaba1a1154a4a24b8694184cb8d3318fc358`, one B300 per point,
+BF16 weights/query/KV, HND page32, mixed chunk16384, identical20 decode
+buckets through128, KV1.6M, serverseed0/clientseed42. Original request counts
+and max(64,C) warmups plus cache flush are unchanged. All counts and before/
+after10,245-file manifests pass. Each worker admits all36 fused layers at
+B1/B2/B4/B8 with actual stride128 positions.
+
+| C | Handoff tok/s | Current tok/s | vs handoff | Median TTFT ms | Median TPOT ms | More throughput needed for target |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 334 | 411.63 | +23.24% | 85.58 | 2.347 | 0.00% |
+| 4 | 1125 | 1276.59 | +13.47% | 254.64 | 2.889 | 0.00% |
+| 8 | 1774 | 1907.64 | +7.53% | 380.05 | 3.828 | 2.29% |
+| 16 | 2499 | 2582.38 | +3.34% | 635.04 | 5.585 | 6.45% |
+| 32 | 3084 | 3139.82 | +1.81% | 808.90 | 9.363 | 8.04% |
+| 64 | 3494 | 3540.85 | +1.34% | 687.28 | 17.311 | 8.54% |
+| 128 | 3815 | 3832.18 | +0.45% | 599.64 | 32.684 | 9.51% |
+
+C1 and C4 clear the target; C8–C128 do not. The second C128 run reaches
+3845.56 tok/s, median TTFT591.80ms and TPOT32.532ms. Public startup selects
+different M128 down tactics4/6 for the C128 pair; their0.349% spread is not
+a controlled device-only comparison. Primary C128 mean/p95/p99 TTFT is
+1475.70/6803.68/8642.01ms. These concurrent distinct-GPU runs are a pinned
+configuration snapshot, not causal attribution of individual changes.
+See [full results](results/final_qkv_full_sweep/README.md) for exact commands,
+latency distributions, startup choices, telemetry and analysis provenance.
+
+Separate small-QKV accuracy: C1 GSM8K1217/1314 in both arms; C2 candidate
+1213/1314 versus1216/1314 despite matching tactics. Four fixed disagreement
+prompts match all512 decode-step logits bitwise; this bounded diagnosis does
+not erase the full-serving deficit or prove its cause. Image smoke checks
+pass for one fixture. Full evidence and limitations are retained below.
+
+## Earlier current-PR sweep
 
 Exact PR head `3016f3b591`, one B300 per point, BF16 weights/query/KV,
 TRT HND page32, mixed chunk16384, identical 20 decode buckets up to128,

@@ -1,0 +1,49 @@
+import pathlib,json,os,statistics,subprocess
+R=pathlib.Path('/root/qvl/experiments/final-qkv-full-sweep')
+BASE={1:334,4:1125,8:1774,16:2499,32:3084,64:3494,128:3815}
+telemetry=[json.loads(z) for z in (R/'telemetry.jsonl').read_text().splitlines()]
+intervals=[]
+for a,b in zip(telemetry,telemetry[1:]):
+ x=list(map(int,a['cpu'].split()[1:9]));y=list(map(int,b['cpu'].split()[1:9]));delta=[v-u for u,v in zip(x,y)];total=sum(delta)
+ intervals.append(dict(time=b['time'],busy_percent=100*(1-(delta[3]+delta[4])/total) if total else 0))
+workers={}
+for line in (R/'driver.log').read_text().splitlines():
+ if line.startswith('WORKER'):
+  _,gpu,c,pid=line.split();workers[int(gpu)]=int(pid)
+rows=[]
+for d in sorted(R.glob('gpu*-c*')):
+ gpu=int(d.name.split('-')[0][3:]);c=int(d.name.split('-c')[1]);x=json.load(open(d/'summary.json'))
+ proof=[json.loads(z) for p in d.glob('observer-*.jsonl') for z in p.read_text().splitlines()]
+ start=next(v['time'] for v in proof if v['kind']=='epoch_start' and v['epoch']==1);end=next(v for v in proof if v['kind']=='epoch_end' and v['epoch']==1)
+ tuning=json.load(open(next(d.glob('public-tuner-*.json'))));tactics={}
+ for k,v in tuning.items():
+  if not k.startswith('_'):
+   if '((128, 2560)' in k:name='M128_gateup'
+   elif '((128, 9728)' in k:name='M128_down'
+   elif '((4, 2560)' in k:name='M4_vocab'
+   elif '((8, 2560)' in k:name='M8_vocab'
+   else:name=k
+   tactics[name]=v
+ samples=[s for s in telemetry if start<=s['time']<=end['time']];gpu_rows=[];process_rows=[]
+ for sample in samples:
+  row=next(z for z in sample['gpus'].splitlines() if int(z.split(',')[0])==gpu).split(',');vals=list(map(lambda v:float(v.strip()),row[2:]));gpu_rows.append(vals)
+  ps={}
+  for z in sample['processes'].splitlines():
+   v=z.split(None,4)
+   if len(v)>=5:ps[int(v[0])]=(int(v[1]),float(v[2]),int(v[3]))
+  ids={workers[gpu]}
+  while True:
+   new=ids|{pid for pid,(ppid,_,_) in ps.items() if ppid in ids}
+   if new==ids:break
+   ids=new
+  process_rows.append(dict(cpu_percent=sum(ps[pid][1] for pid in ids if pid in ps),rss_kib=sum(ps[pid][2] for pid in ids if pid in ps)))
+ gpu_names=['sm_clock_mhz','memory_clock_mhz','power_w','temperature_c','gpu_util_percent','memory_util_percent','memory_used_mib']
+ gpu_summary={name:dict(min=min(v[i] for v in gpu_rows),median=statistics.median(v[i] for v in gpu_rows),max=max(v[i] for v in gpu_rows)) for i,name in enumerate(gpu_names)}
+ row=dict(gpu=gpu,concurrency=c,replicate=gpu==7,baseline=BASE[c],target=BASE[c]*1.1,target_ratio=x['output_throughput']/(BASE[c]*1.1),baseline_gain_percent=100*(x['output_throughput']/BASE[c]-1),metrics=x,tactics=tactics,measured_m128=end['m128'],measured_m128_total=sum(end['m128'].values()),measured_epoch=dict(start=start,end=end['time']),telemetry_samples=len(samples),gpu_telemetry=gpu_summary,worker_sampled_ps_cpu_peak_percent=max(v['cpu_percent'] for v in process_rows),worker_sampled_sum_rss_peak_kib=max(v['rss_kib'] for v in process_rows))
+ rows.append(row)
+allstart=min(x['measured_epoch']['start'] for x in rows);allend=max(x['measured_epoch']['end'] for x in rows)
+capacity=json.load(open(R.parent/'attempt2-host-capacity.json'))
+foreign=subprocess.check_output(['nvidia-smi','--query-compute-apps=gpu_uuid,pid,used_memory','--format=csv,noheader']).decode();(R/'foreign-pids-after.txt').write_text(foreign)
+host=dict(capacity=capacity,telemetry_samples=len(telemetry),peak_loadavg1=max(float(s['loadavg'].split()[0]) for s in telemetry),aggregate_cpu_peak_percent=max(x['busy_percent'] for x in intervals),aggregate_cpu_measured_union_peak_percent=max(x['busy_percent'] for x in intervals if allstart<=x['time']<=allend),aggregate_cpu_startup_peak_percent=max(x['busy_percent'] for x in intervals if x['time']<allstart),foreign_before=(R/'foreign-pids-before.txt').read_text(),foreign_after=foreign)
+result=dict(head='3016f3b5917650199c12b47195b9dc1be4c26e4e',rows=rows,host=host,replicate_spread_percent=100*(rows[-1]['metrics']['output_throughput']/rows[-2]['metrics']['output_throughput']-1))
+(R/'analysis.json').write_text(json.dumps(result,indent=2));print(json.dumps(dict(rows=[{k:v for k,v in x.items() if k in ['gpu','concurrency','target_ratio','baseline_gain_percent','tactics','measured_m128']} for x in rows],host={k:v for k,v in host.items() if k!='capacity'}),indent=2))
