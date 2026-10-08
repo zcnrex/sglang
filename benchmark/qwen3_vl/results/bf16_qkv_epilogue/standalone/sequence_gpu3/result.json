@@ -1,0 +1,632 @@
+{
+  "sequence": "QKV+norm/rope/cache+TRTdecode",
+  "cache_inputs": "seeded finite disjoint BF16, identical between arms",
+  "checks": [
+    {
+      "tag": "initial",
+      "layer": 0,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 1,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 2,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 3,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 4,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 5,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 6,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 7,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 8,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 9,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 10,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 11,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 12,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 13,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 14,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 15,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 16,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 17,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 18,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 19,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 20,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 21,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 22,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 23,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 24,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 25,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 26,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 27,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 28,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 29,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 30,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 31,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 32,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 33,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 34,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 35,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 0,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 1,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 2,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 3,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 4,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 5,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 6,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 7,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 8,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 9,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 10,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 11,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 12,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 13,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 14,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 15,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 16,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 17,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 18,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 19,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 20,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 21,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 22,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 23,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 24,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 25,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 26,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 27,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 28,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 29,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 30,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 31,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 32,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 33,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 34,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 35,
+      "qkv_bitwise": true,
+      "keycache_bitwise": true,
+      "valuecache_bitwise": true,
+      "attention_bitwise": true
+    }
+  ],
+  "rounds": [
+    {
+      "candidate": 51.82840135362413,
+      "reference": 52.59117126464844
+    },
+    {
+      "reference": 52.586097717285156,
+      "candidate": 51.82593875461154
+    },
+    {
+      "candidate": 51.81616889105903,
+      "reference": 52.59453243679471
+    },
+    {
+      "reference": 52.61274549696181,
+      "candidate": 51.8280283610026
+    },
+    {
+      "candidate": 51.81903839111328,
+      "reference": 52.596045600043404
+    },
+    {
+      "reference": 52.60234832763672,
+      "candidate": 51.820780436197914
+    },
+    {
+      "candidate": 51.81999206542969,
+      "reference": 52.5852542453342
+    },
+    {
+      "reference": 52.595553927951386,
+      "candidate": 51.813252766927086
+    }
+  ],
+  "median_us": {
+    "reference": 52.59504318237305,
+    "candidate": 51.8203862508138
+  },
+  "weight_bytes": 1132462080,
+  "cache_bytes_per_arm": 9739173888,
+  "pdl": true,
+  "states": 36,
+  "tactic": [
+    128,
+    8,
+    2,
+    6
+  ],
+  "text_positions_only": true,
+  "prototype_sha256": "41be94f72d594ddc657aa70c0c86aa087b8b37121f990eae8c87ccd2430e7f49"
+}

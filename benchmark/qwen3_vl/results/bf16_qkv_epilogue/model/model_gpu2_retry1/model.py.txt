@@ -1,0 +1,98 @@
+import os,pathlib,json,copy,hashlib,atexit
+import numpy as np
+import torch
+import prototype
+import sglang.benchmark.one_batch as b
+import sglang.srt.models.qwen3 as q3
+from flashinfer.autotuner import AutoTuner
+from sglang.srt.mem_cache.memory_pool import KVWriteLoc,MHATokenToKVPool
+from sglang.srt.layers.attention.trtllm_mha_backend import TRTLLMHAAttnBackend
+out=pathlib.Path(os.environ['QVL_MODEL_OUT']);out.mkdir(exist_ok=True,parents=True)
+active=False;compiled={};seen=set();saved={};report={}
+original=q3.Qwen3Attention.forward_prepare_native
+
+def prepare(self,positions,hidden_states,forward_batch):
+ if not (active and hidden_states.shape==(8,2560) and forward_batch.forward_mode.is_decode()):
+  return original(self,positions,hidden_states,forward_batch)
+ assert self.use_fused_qk_norm_mrope_cuda and hidden_states.dtype==torch.bfloat16
+ assert positions.ndim==2 and positions.shape==(3,8) and positions.dtype==torch.int64
+ assert forward_batch.spec_info is None and q3.get_exec().deterministic.rl_on_policy_target is None
+ assert q3.get_parallel().attn_cp_size==1 and q3.get_parallel().attn_dcp_size==1
+ assert not self.attn.is_cross_attention and self.attn.attn_type==q3.AttentionType.DECODER
+ pool=q3.get_token_to_kv_pool();backend=q3.get_attn_backend()
+ assert type(backend) is TRTLLMHAAttnBackend and type(pool) is MHATokenToKVPool and backend.token_to_kv_pool is pool and backend.data_type==torch.bfloat16
+ cache_args=pool.get_bf16_hnd_write_args(self.attn,KVWriteLoc.for_batch(forward_batch));assert cache_args is not None
+ w=self.qkv_proj.weight.detach()
+ assert w.shape==(6144,2560) and w.dtype==torch.bfloat16 and self.qkv_proj.bias is None and not hasattr(self.qkv_proj,'set_lora')
+ assert self.q_norm.variance_epsilon==1e-6 and self.k_norm.variance_epsilon==1e-6
+ assert self.q_norm.weight.dtype==self.k_norm.weight.dtype==torch.bfloat16
+ self.rotary_emb._match_cos_sin_cache_dtype(hidden_states)
+ qkv=torch.empty((8,6144),device=hidden_states.device,dtype=torch.bfloat16)
+ kc,vc,slots=cache_args
+ ep=(self.q_norm.weight.detach(),self.k_norm.weight.detach(),self.rotary_emb.cos_sin_cache,positions,self.rotary_emb.axis_map,kc.permute(0,2,1,3),vc.permute(0,2,1,3),slots)
+ key=w.data_ptr()
+ if key not in compiled:
+  assert not torch.cuda.is_current_stream_capturing()
+  compiled[key]=prototype.compile_epilogue(hidden_states,w.T,qkv,ep)
+ compiled[key](hidden_states,w.T,qkv,ep)
+ marker=(self.attn.layer_id,torch.cuda.is_current_stream_capturing())
+ if marker not in seen:
+  seen.add(marker);print('FUSED_PREP_DISPATCH',marker,flush=True)
+ q,k,v=qkv.split([4096,1024,1024],dim=-1)
+ return q,k,v,False
+q3.Qwen3Attention.forward_prepare_native=prepare
+
+def choose(wrapper,mode):
+ global active
+ active=mode=='candidate';wrapper.torch_runner.decode_cuda_graph_runner.backend=saved[mode]
+origload=b.load_model
+@torch.no_grad()
+def load(*args,**kw):
+ global active
+ wrapper,tok=origload(*args,**kw);mr=wrapper.torch_runner;dr=mr.decode_cuda_graph_runner
+ assert dr.backend.__class__.__name__=='FullCudaGraphBackend'
+ AutoTuner.get().save_configs(str(out/'cache.json'))
+ saved['baseline']=dr.backend
+ candidate=copy.copy(dr.backend);candidate._graphs={};candidate._outputs={};candidate._output_buffer=None
+ dr.backend=candidate;active=True;dr.capture();saved['candidate']=candidate
+ report['dispatch']=sorted(seen);assert {i for i,c in seen if c}==set(range(36)),seen
+ report['compiled_layers']=len(compiled);assert len(compiled)==36
+ report['graph_keys']={k:[str(s) for s in v._graphs] for k,v in saved.items()}
+ numerics={};checks=[]
+ for seed in [123,124]:
+  inputs=np.random.default_rng(seed).integers(0,10000,(8,8192),dtype=np.int32)
+  captures={};seqs={}
+  for mode in ['baseline','candidate']:
+   choose(wrapper,mode);wrapper.clear();reqs=b.prepare_synthetic_inputs_for_latency_test(8,8192,inputs.tolist())
+   ids,logits,batch=wrapper.extend(reqs);seq=[ids.clone()];vals=[logits.clone()]
+   for j in range(15):
+    ids,logits=wrapper.decode(ids,batch);seq.append(ids.clone())
+    if j in [0,14]:vals.append(logits.clone())
+   torch.cuda.synchronize();seqs[mode]=torch.stack(seq).cpu();captures[mode]=[v.cpu() for v in vals]
+  row=dict(seed=seed,greedy_equal=torch.equal(seqs['baseline'],seqs['candidate']),token_differences=(seqs['baseline']!=seqs['candidate']).sum().item(),logits=[])
+  for stage,a,z in zip(['prefill','first_decode','fifteenth_decode'],captures['baseline'],captures['candidate']):
+   e=a.float()-z.float();row['logits'].append(dict(stage=stage,bitwise=torch.equal(a,z),max_abs=e.abs().max().item(),nrms=(e.square().mean()/a.float().square().mean()).sqrt().item()))
+  checks.append(row);print('MODEL_CHECK',json.dumps(row),flush=True);numerics[seed]=dict(logits=captures,tokens=seqs)
+  assert row['greedy_equal'] and all(x['bitwise'] for x in row['logits']),row
+ report['checks']=checks;torch.save(numerics,out/'numerics.pt')
+ graphs={mode:next(g for key,g in backend._graphs.items() if key.size==8) for mode,backend in saved.items()}
+ snapshots={n:v.clone() for n,v in vars(dr.buffers).items() if isinstance(v,torch.Tensor)}
+ for _ in range(40):graphs['baseline'].replay();graphs['candidate'].replay()
+ pairs=[]
+ for r in range(8):
+  row={}
+  for mode in (['baseline','candidate'] if r%2==0 else ['candidate','baseline']):
+   start,end=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);start.record()
+   for _ in range(256):graphs[mode].replay()
+   end.record();end.synchronize();row[mode]=start.elapsed_time(end)/256
+  pairs.append(row);print('MODEL_PAIR',json.dumps(row),flush=True)
+ report['fixed_state_pairs_ms']=pairs;report['unchanged_input_buffers']={n:torch.equal(v,getattr(dr.buffers,n)) for n,v in snapshots.items()}
+ assert all(report['unchanged_input_buffers'].values()),report['unchanged_input_buffers']
+ for mode in ['baseline','candidate']:
+  with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU,torch.profiler.ProfilerActivity.CUDA]) as prof:
+   graphs[mode].replay();torch.cuda.synchronize()
+  prof.export_chrome_trace(str(out/(mode+'-graph-trace.json')))
+ (out/'report.json').write_text(json.dumps(report,indent=2));raise SystemExit(0)
+b.load_model=load
+atexit.register(lambda:(out/'state.json').write_text(json.dumps(dict(report=report,seen=sorted(seen),compiled=len(compiled)),indent=2)))
+np.random.seed(123);torch.manual_seed(123);b.cli_main()

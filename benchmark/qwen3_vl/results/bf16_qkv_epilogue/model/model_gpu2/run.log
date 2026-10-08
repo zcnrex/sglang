@@ -1,0 +1,116 @@
+[2026-10-08 05:10:35 TP0] Init parallel begin.
+[2026-10-08 05:10:35 TP0] Init parallel ends. elapsed=0.31 s
+[2026-10-08 05:10:35 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 05:10:37 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 05:10:37 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 05:10:37 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.31it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.22it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.23it/s]
+[2026-10-08 05:10:39 TP0] Load weight end. elapsed=2.36 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 05:10:39 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 05:10:39 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1600000, K size: 109.87 GB, V size: 109.87 GB
+[2026-10-08 05:10:39 TP0] Memory pool end. avail mem=35.50 GB
+[2026-10-08 05:10:40 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/bf16-qkv-epilogue/model_gpu2/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.10profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.10profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 15.26profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 24.83profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 31.99profile/s]
+[2026-10-08 05:10:41 TP0] FlashInfer autotune completed.
+[2026-10-08 05:10:41 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 05:10:42 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8], avail mem=34.13 GB
+  0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.13 GB):   0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.13 GB):  25%|██▌       | 1/4 [00:00<00:02,  1.47it/s]Capturing batches (bs=4 avail_mem=34.08 GB):  25%|██▌       | 1/4 [00:00<00:02,  1.47it/s]Capturing batches (bs=2 avail_mem=34.08 GB):  25%|██▌       | 1/4 [00:00<00:02,  1.47it/s]Capturing batches (bs=2 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:00<00:00,  4.33it/s]Capturing batches (bs=1 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:00<00:00,  4.33it/s]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:01<00:00,  4.68it/s]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:01<00:00,  3.97it/s]
+[2026-10-08 05:10:43 TP0] Capture target decode CUDA graph end. elapsed=1.73 s, mem usage=0.05 GB, avail mem=34.08 GB.
+max_total_num_tokens=1600000
+  0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.08 GB):   0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.08 GB):   0%|          | 0/4 [00:00<?, ?it/s]
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/cute/runtime.py", line 185, in __init__
+[rank0]:     self._dlpack_data = tensor.__dlpack__(stream=-1)  # type: ignore[attr-defined]
+[rank0]:                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/_tensor.py", line 1609, in __dlpack__
+[rank0]:     raise BufferError(
+[rank0]: BufferError: Can't export tensors that require gradient, use tensor.detach()
+
+[rank0]: During handling of the above exception, another exception occurred:
+
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/root/qvl/experiments/bf16-qkv-epilogue/model_gpu2/model.py", line 97, in <module>
+[rank0]:     np.random.seed(123);torch.manual_seed(123);b.cli_main()
+[rank0]:                                                ^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/benchmark/one_batch.py", line 1107, in cli_main
+[rank0]:     main(server_args, bench_args)
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/benchmark/one_batch.py", line 1069, in main
+[rank0]:     work_func(server_args, port_args, bench_args, 0, 0)
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/benchmark/one_batch.py", line 925, in latency_test
+[rank0]:     model_runner, tokenizer = load_model(server_args, port_args, gpu_id, tp_rank)
+[rank0]:                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/bf16-qkv-epilogue/model_gpu2/model.py", line 57, in load
+[rank0]:     dr.backend=candidate;active=True;dr.capture();saved['candidate']=candidate
+[rank0]:                                      ^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/model_executor/runner/decode_cuda_graph_runner.py", line 1106, in capture
+[rank0]:     self._capture_one_stream()
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/model_executor/runner/decode_cuda_graph_runner.py", line 1166, in _capture_one_stream
+[rank0]:     self.capture_one_shape(
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/model_executor/runner/decode_cuda_graph_runner.py", line 1297, in capture_one_shape
+[rank0]:     self.backend.capture_one(
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/model_executor/runner_backend/full_cuda_graph_backend.py", line 145, in capture_one
+[rank0]:     output = forward_fn()
+[rank0]:              ^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/model_executor/runner/decode_cuda_graph_runner.py", line 1258, in run_once
+[rank0]:     out = forward(
+[rank0]:           ^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/models/qwen3_vl.py", line 1661, in forward
+[rank0]:     hidden_states = general_mm_embed_routine(
+[rank0]:                     ^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/managers/mm_utils.py", line 813, in general_mm_embed_routine
+[rank0]:     hidden_states = language_model(
+[rank0]:                     ^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/models/qwen3_vl.py", line 1265, in forward
+[rank0]:     hidden_states = layer(
+[rank0]:                     ^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/models/qwen3.py", line 485, in forward
+[rank0]:     hidden_states = self.self_attn(
+[rank0]:                     ^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1783, in _wrapped_call_impl
+[rank0]:     return self._call_impl(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/nn/modules/module.py", line 1794, in _call_impl
+[rank0]:     return forward_call(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/srt/models/qwen3.py", line 374, in forward
+[rank0]:     q, k, v, save_kv_cache = self.forward_prepare_native(
+[rank0]:                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/bf16-qkv-epilogue/model_gpu2/model.py", line 36, in prepare
+[rank0]:     compiled[key]=prototype.compile_epilogue(hidden_states,w.T,qkv,ep)
+[rank0]:                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/bf16-qkv-epilogue/model_gpu2/prototype.py", line 1018, in compile_epilogue
+[rank0]:     eps=tuple(from_dlpack(x,assumed_align=8) for x in ep)
+[rank0]:         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/bf16-qkv-epilogue/model_gpu2/prototype.py", line 1018, in <genexpr>
+[rank0]:     eps=tuple(from_dlpack(x,assumed_align=8) for x in ep)
+[rank0]:               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/_tensor.py", line 1609, in __dlpack__
+[rank0]:     raise BufferError(
+[rank0]: BufferError: Can't export tensors that require gradient, use tensor.detach()

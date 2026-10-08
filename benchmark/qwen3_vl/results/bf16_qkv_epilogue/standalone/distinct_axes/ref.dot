@@ -1,0 +1,22 @@
+digraph dot {
+subgraph cluster_1 {
+label="graph_1" graph[style="dashed"];
+"graph_1_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 1) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,2\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000002529BEE0 | 0x000000001BEC92A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 0) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<80,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000002529C678 | 0x000000001B221650}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_0" -> "graph_1_node_1" [headlabel=0];
+}
+}

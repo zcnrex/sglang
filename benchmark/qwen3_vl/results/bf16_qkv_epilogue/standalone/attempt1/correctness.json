@@ -1,0 +1,42 @@
+{
+  "checks": [
+    {
+      "tag": "initial",
+      "qkv": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "keycache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "valuecache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    },
+    {
+      "tag": "changed_input_graph",
+      "qkv": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "keycache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "valuecache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    }
+  ],
+  "text_positions_only": true,
+  "prototype_sha256": "41be94f72d594ddc657aa70c0c86aa087b8b37121f990eae8c87ccd2430e7f49"
+}

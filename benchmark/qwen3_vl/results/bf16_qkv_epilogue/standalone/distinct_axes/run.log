@@ -1,0 +1,4 @@
+compile_begin
+compile_done
+{"tag": "initial", "qkv": {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, "keycache": {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, "valuecache": {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}}
+{"tag": "changed_input_graph", "qkv": {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, "keycache": {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, "valuecache": {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}}

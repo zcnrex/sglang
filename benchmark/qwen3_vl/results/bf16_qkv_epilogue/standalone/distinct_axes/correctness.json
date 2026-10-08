@@ -1,0 +1,141 @@
+{
+  "checks": [
+    {
+      "tag": "initial",
+      "qkv": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "keycache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "valuecache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    },
+    {
+      "tag": "changed_input_graph",
+      "qkv": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "keycache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      "valuecache": {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    }
+  ],
+  "text_positions_only": false,
+  "scope": "synthetic distinct-axis positions; not image model validation",
+  "axis_map": [
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0
+  ],
+  "positions": [
+    [
+      8213,
+      8214,
+      8215,
+      8216,
+      8217,
+      8218,
+      8219,
+      8220
+    ],
+    [
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209
+    ],
+    [
+      4200,
+      4201,
+      4202,
+      4203,
+      4204,
+      4205,
+      4206,
+      4207
+    ]
+  ],
+  "prototype_sha256": "41be94f72d594ddc657aa70c0c86aa087b8b37121f990eae8c87ccd2430e7f49"
+}

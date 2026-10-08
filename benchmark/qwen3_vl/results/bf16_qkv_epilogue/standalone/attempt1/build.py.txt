@@ -1,0 +1,101 @@
+from pathlib import Path
+s=Path('/tmp/qvl-qkv-epilogue/original.py').read_text()
+# Add a runtime tensor tuple throughout the existing no-bias launch chain.
+s=s.replace('        stream: _cuda.CUstream,\n    ):','        ep,\n        stream: _cuda.CUstream,\n    ):',1)
+s=s.replace('self.kernel(a, b, c, bias).launch(', 'self.kernel(a, b, c, bias, ep).launch(')
+s=s.replace('        mBias: cute.Tensor,  # Broadcast bias; dead when has_bias=False\n','        mBias: cute.Tensor,  # Broadcast bias; dead when has_bias=False\n        ep,\n')
+s=s.replace('        acc_layout = cute_ext.make_tmem_layout_acc(', '''        sE = cute_ext.allocate(ab_dtype, cute.AddressSpace.smem,
+            cute.make_layout((128, 8), stride=(1, 128)), alignment=128)
+        acc_layout = cute_ext.make_tmem_layout_acc(''')
+s=s.replace('                split_rank,\n            )','                split_rank,\n                sE, ep, bidx,\n            )',1)
+s=s.replace('        split_rank: cutlass.Int32,\n    ):','        split_rank: cutlass.Int32,\n        sE: cute.Tensor, ep, head: cutlass.Int32,\n    ):',1)
+old='''            # Preserve TMEM coordinates; the copy predicates output tails.
+            cute_ext.partition_and_copy(thr_t2r, rD, gD_epi[None, None, 0, 0])'''
+new='''            # Redistribute the rounded GEMM result, preserving BF16 before norm.
+            cute_ext.partition_and_copy(thr_t2r, rD, sE)
+            cute.arch.barrier(barrier_id=1, number_of_threads=128)
+            lane = epi_tid % 32
+            warp = epi_tid // 32
+            qw, kw, rope, positions, axes, kc, vc, slots = ep
+            for iteration in cutlass.range_constexpr(2):
+                token = warp + iteration * 4
+                d = lane * 4
+                x0 = sE[d, token].to(cutlass.Float32)
+                x1 = sE[d+1, token].to(cutlass.Float32)
+                x2 = sE[d+2, token].to(cutlass.Float32)
+                x3 = sE[d+3, token].to(cutlass.Float32)
+                scale = cutlass.Float32(1.0)
+                if head < 40:
+                    scale = _norm_factor(x0,x1,x2,x3)
+                for component in cutlass.range_constexpr(4):
+                    dim = d + component
+                    value = sE[dim,token].to(cutlass.Float32)
+                    if head < 40:
+                        weight = cutlass.Float32(0.0)
+                        if head < 32:
+                            weight = qw[dim].to(cutlass.Float32)
+                        else:
+                            weight = kw[dim].to(cutlass.Float32)
+                        normalized = _norm_value(value,scale,weight).to(c_dtype).to(cutlass.Float32)
+                        partner = cute.arch.shuffle_sync_bfly(normalized,16)
+                        pair_dim = dim % 64
+                        pos = positions[axes[pair_dim],token]
+                        cosine = rope[pos,pair_dim].to(cutlass.Float32)
+                        sine = rope[pos,pair_dim+64].to(cutlass.Float32)
+                        value = _rotate(normalized,partner,cosine,sine,cutlass.Int32(lane>=16))
+                    rounded = value.to(c_dtype)
+                    gD_tile[dim,token] = rounded
+                    slot = slots[token]
+                    if head >= 32 and slot >= 0:
+                        if head < 40:
+                            kc[slot//32,head-32,slot%32,dim] = rounded
+                        else:
+                            vc[slot//32,head-40,slot%32,dim] = rounded'''
+assert old in s;s=s.replace(old,new)
+# no-bias wrapper
+start=s.index('@cute.experimental.jit\ndef _bmm_no_bias(');end=s.index('@cute.experimental.jit\ndef _bmm_bias(',start)
+a=s[start:end].replace('    stream: _cuda.CUstream,','    ep,\n    stream: _cuda.CUstream,').replace('        stream,','        ep,\n        stream,');s=s[:start]+a+s[end:]
+# external fixed-shape compilation avoids weakening original public validation
+start=s.index('@functools.cache\ndef _get_compiled_splitk_kernel(');s=s[:start]+'''
+def compile_epilogue(a,b,out,ep,pdl=True):
+    assert tuple(a.shape)==(8,2560) and tuple(b.shape)==(2560,6144)
+    assert out.shape==(8,6144) and a.dtype==_torch.bfloat16
+    tactic=SplitKTactic(128,8,2,6)
+    validate_tactic(tactic,8,6144,2560)
+    kernel=SplitKDenseGemmKernel(tactic=tactic,use_pdl=pdl,has_bias=False)
+    tensors=_to_cute_swap(a,b,out,None)
+    eps=tuple(from_dlpack(x,assumed_align=8) for x in ep)
+    stream=_cuda.CUstream(_torch.cuda.current_stream().cuda_stream)
+    compiled=cute_ext.compile(_bmm_no_bias,kernel,*tensors[:3],eps,stream)
+    def call(a,b,out,ep):
+        tensors=_to_cute_swap(a,b,out,None)
+        compiled(*tensors[:3],tuple(from_dlpack(x,assumed_align=8) for x in ep),_cuda.CUstream(_torch.cuda.current_stream().cuda_stream))
+    return call
+'''
+helpers='''
+@dsl_user_op
+def _norm_factor(x0,x1,x2,x3,*,loc=None,ip=None):
+    return cutlass.Float32(llvm.inline_asm(T.f32(),[x.ir_value() for x in (x0,x1,x2,x3)],
+        "{ .reg .f32 s,t; mul.rn.f32 s,$1,$1; fma.rn.f32 s,$2,$2,s; fma.rn.f32 s,$3,$3,s; fma.rn.f32 s,$4,$4,s; "
+        "shfl.sync.bfly.b32 t,s,16,31,-1; add.rn.f32 s,s,t; shfl.sync.bfly.b32 t,s,8,31,-1; add.rn.f32 s,s,t; "
+        "shfl.sync.bfly.b32 t,s,4,31,-1; add.rn.f32 s,s,t; shfl.sync.bfly.b32 t,s,2,31,-1; add.rn.f32 s,s,t; "
+        "shfl.sync.bfly.b32 t,s,1,31,-1; add.rn.f32 s,s,t; mul.rn.f32 s,s,0f3C000000; add.rn.f32 s,s,0f358637BD; rsqrt.approx.ftz.f32 $0,s; }",
+        "=f,f,f,f,f",has_side_effects=False,is_align_stack=False,asm_dialect=llvm.AsmDialect.AD_ATT))
+
+@dsl_user_op
+def _norm_value(x,scale,w,*,loc=None,ip=None):
+    return cutlass.Float32(llvm.inline_asm(T.f32(),[v.ir_value() for v in (x,scale,w)],
+        "{ .reg .f32 t; mul.rn.f32 t,$1,$2; mul.rn.f32 $0,t,$3; }", "=f,f,f,f",
+        has_side_effects=False,is_align_stack=False,asm_dialect=llvm.AsmDialect.AD_ATT))
+
+@dsl_user_op
+def _rotate(x,y,c,s,upper,*,loc=None,ip=None):
+    return cutlass.Float32(llvm.inline_asm(T.f32(),[v.ir_value() for v in (x,y,c,s,upper)],
+        "{ .reg .b16 a,b,c,d,t,o; .reg .pred p; cvt.rn.bf16.f32 a,$1; cvt.rn.bf16.f32 b,$2; cvt.rn.bf16.f32 c,$3; cvt.rn.bf16.f32 d,$4; "
+        "setp.ne.s32 p,$5,0; @!p mul.rn.bf16 t,b,d; @!p neg.bf16 t,t; @!p fma.rn.bf16 o,a,c,t; "
+        "@p mul.rn.bf16 t,a,c; @p fma.rn.bf16 o,b,d,t; cvt.f32.bf16 $0,o; }", "=f,f,f,f,f,r",
+        has_side_effects=False,is_align_stack=False,asm_dialect=llvm.AsmDialect.AD_ATT))
+
+'''
+pos=s.index('class SplitKDenseGemmKernel:');s=s[:pos]+helpers+s[pos:]
+Path('/tmp/qvl-qkv-epilogue/prototype.py').write_text(s)

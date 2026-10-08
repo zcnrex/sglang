@@ -1,0 +1,115 @@
+[2026-10-08 05:12:07 TP0] Init parallel begin.
+[2026-10-08 05:12:08 TP0] Init parallel ends. elapsed=0.30 s
+[2026-10-08 05:12:08 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 05:12:09 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 05:12:09 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 05:12:09 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.08it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.01it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.02it/s]
+[2026-10-08 05:12:12 TP0] Load weight end. elapsed=2.70 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 05:12:12 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 05:12:12 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1600000, K size: 109.87 GB, V size: 109.87 GB
+[2026-10-08 05:12:12 TP0] Memory pool end. avail mem=35.50 GB
+[2026-10-08 05:12:13 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/bf16-qkv-epilogue/model_gpu2_retry1/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.09profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.08profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  9.31profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  9.30profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 19.93profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 30.26profile/s]
+[2026-10-08 05:12:15 TP0] FlashInfer autotune completed.
+[2026-10-08 05:12:15 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 05:12:15 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8], avail mem=34.13 GB
+  0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.13 GB):   0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.13 GB):  25%|██▌       | 1/4 [00:01<00:03,  1.13s/it]Capturing batches (bs=4 avail_mem=34.08 GB):  25%|██▌       | 1/4 [00:01<00:03,  1.13s/it]Capturing batches (bs=4 avail_mem=34.08 GB):  50%|█████     | 2/4 [00:01<00:01,  1.86it/s]Capturing batches (bs=2 avail_mem=34.08 GB):  50%|█████     | 2/4 [00:01<00:01,  1.86it/s]Capturing batches (bs=2 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:01<00:00,  2.88it/s]Capturing batches (bs=1 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:01<00:00,  2.88it/s]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:01<00:00,  2.96it/s]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:01<00:00,  2.36it/s]
+[2026-10-08 05:12:18 TP0] Capture target decode CUDA graph end. elapsed=2.37 s, mem usage=0.05 GB, avail mem=34.08 GB.
+max_total_num_tokens=1600000
+  0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.08 GB):   0%|          | 0/4 [00:00<?, ?it/s]FUSED_PREP_DISPATCH (0, False)
+FUSED_PREP_DISPATCH (1, False)
+FUSED_PREP_DISPATCH (2, False)
+FUSED_PREP_DISPATCH (3, False)
+FUSED_PREP_DISPATCH (4, False)
+FUSED_PREP_DISPATCH (5, False)
+FUSED_PREP_DISPATCH (6, False)
+FUSED_PREP_DISPATCH (7, False)
+FUSED_PREP_DISPATCH (8, False)
+FUSED_PREP_DISPATCH (9, False)
+FUSED_PREP_DISPATCH (10, False)
+FUSED_PREP_DISPATCH (11, False)
+FUSED_PREP_DISPATCH (12, False)
+FUSED_PREP_DISPATCH (13, False)
+FUSED_PREP_DISPATCH (14, False)
+FUSED_PREP_DISPATCH (15, False)
+FUSED_PREP_DISPATCH (16, False)
+FUSED_PREP_DISPATCH (17, False)
+FUSED_PREP_DISPATCH (18, False)
+FUSED_PREP_DISPATCH (19, False)
+FUSED_PREP_DISPATCH (20, False)
+FUSED_PREP_DISPATCH (21, False)
+FUSED_PREP_DISPATCH (22, False)
+FUSED_PREP_DISPATCH (23, False)
+FUSED_PREP_DISPATCH (24, False)
+FUSED_PREP_DISPATCH (25, False)
+FUSED_PREP_DISPATCH (26, False)
+FUSED_PREP_DISPATCH (27, False)
+FUSED_PREP_DISPATCH (28, False)
+FUSED_PREP_DISPATCH (29, False)
+FUSED_PREP_DISPATCH (30, False)
+FUSED_PREP_DISPATCH (31, False)
+FUSED_PREP_DISPATCH (32, False)
+FUSED_PREP_DISPATCH (33, False)
+FUSED_PREP_DISPATCH (34, False)
+FUSED_PREP_DISPATCH (35, False)
+FUSED_PREP_DISPATCH (0, True)
+FUSED_PREP_DISPATCH (1, True)
+FUSED_PREP_DISPATCH (2, True)
+FUSED_PREP_DISPATCH (3, True)
+FUSED_PREP_DISPATCH (4, True)
+FUSED_PREP_DISPATCH (5, True)
+FUSED_PREP_DISPATCH (6, True)
+FUSED_PREP_DISPATCH (7, True)
+FUSED_PREP_DISPATCH (8, True)
+FUSED_PREP_DISPATCH (9, True)
+FUSED_PREP_DISPATCH (10, True)
+FUSED_PREP_DISPATCH (11, True)
+FUSED_PREP_DISPATCH (12, True)
+FUSED_PREP_DISPATCH (13, True)
+FUSED_PREP_DISPATCH (14, True)
+FUSED_PREP_DISPATCH (15, True)
+FUSED_PREP_DISPATCH (16, True)
+FUSED_PREP_DISPATCH (17, True)
+FUSED_PREP_DISPATCH (18, True)
+FUSED_PREP_DISPATCH (19, True)
+FUSED_PREP_DISPATCH (20, True)
+FUSED_PREP_DISPATCH (21, True)
+FUSED_PREP_DISPATCH (22, True)
+FUSED_PREP_DISPATCH (23, True)
+FUSED_PREP_DISPATCH (24, True)
+FUSED_PREP_DISPATCH (25, True)
+FUSED_PREP_DISPATCH (26, True)
+FUSED_PREP_DISPATCH (27, True)
+FUSED_PREP_DISPATCH (28, True)
+FUSED_PREP_DISPATCH (29, True)
+FUSED_PREP_DISPATCH (30, True)
+FUSED_PREP_DISPATCH (31, True)
+FUSED_PREP_DISPATCH (32, True)
+FUSED_PREP_DISPATCH (33, True)
+FUSED_PREP_DISPATCH (34, True)
+FUSED_PREP_DISPATCH (35, True)
+Capturing batches (bs=8 avail_mem=34.08 GB):  25%|██▌       | 1/4 [00:18<00:55, 18.47s/it]Capturing batches (bs=4 avail_mem=34.08 GB):  25%|██▌       | 1/4 [00:18<00:55, 18.47s/it]Capturing batches (bs=4 avail_mem=34.08 GB):  50%|█████     | 2/4 [00:18<00:15,  7.67s/it]Capturing batches (bs=2 avail_mem=34.08 GB):  50%|█████     | 2/4 [00:18<00:15,  7.67s/it]Capturing batches (bs=2 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:18<00:04,  4.22s/it]Capturing batches (bs=1 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:18<00:04,  4.22s/it]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:18<00:00,  2.60s/it]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:18<00:00,  4.70s/it]
+MODEL_CHECK {"seed": 123, "greedy_equal": true, "token_differences": 0, "logits": [{"stage": "prefill", "bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"stage": "first_decode", "bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"stage": "fifteenth_decode", "bitwise": true, "max_abs": 0.0, "nrms": 0.0}]}
+MODEL_CHECK {"seed": 124, "greedy_equal": true, "token_differences": 0, "logits": [{"stage": "prefill", "bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"stage": "first_decode", "bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"stage": "fifteenth_decode", "bitwise": true, "max_abs": 0.0, "nrms": 0.0}]}
+MODEL_PAIR {"baseline": 3.519604444503784, "candidate": 3.4809508323669434}
+MODEL_PAIR {"candidate": 3.48108172416687, "baseline": 3.519235372543335}
+MODEL_PAIR {"baseline": 3.5195627212524414, "candidate": 3.4804775714874268}
+MODEL_PAIR {"candidate": 3.4804563522338867, "baseline": 3.5192601680755615}
+MODEL_PAIR {"baseline": 3.5193421840667725, "candidate": 3.4805078506469727}
+MODEL_PAIR {"candidate": 3.4807138442993164, "baseline": 3.519202709197998}
+MODEL_PAIR {"baseline": 3.519930362701416, "candidate": 3.480451822280884}
+MODEL_PAIR {"candidate": 3.4805262088775635, "baseline": 3.5194671154022217}
+USDT:2026-10-08 05:12:55 619795:619795 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 05:12:55 619795:619795 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-10-08 05:12:55 619795:619795 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 05:12:55 619795:619795 SyncActivityProfilerHandler.cpp:46] profiler_stop
