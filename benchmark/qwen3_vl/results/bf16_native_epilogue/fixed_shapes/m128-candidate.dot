@@ -1,0 +1,40 @@
+digraph dot {
+subgraph cluster_26 {
+label="graph_26" graph[style="dashed"];
+"graph_26_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 3) | kernel_cutlass_kernel_native_fused_gemmPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TVLayo_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000058CE5920 | 0x000000003E1923A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_26_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 2) | kernel_cutlass_kernel_native_fused_gemmPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TVLayo_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000058CE60B8 | 0x000000003E1923A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_26_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 1) | kernel_cutlass_kernel_native_fused_gemmPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TVLayo_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000058CE6850 | 0x000000003E1923A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_26_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 0) | kernel_cutlass_kernel_native_fused_gemmPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TVLayo_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000058CE6FE8 | 0x000000003E1923A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_26_node_0" -> "graph_26_node_1" [headlabel=0];
+"graph_26_node_1" -> "graph_26_node_2" [headlabel=0];
+"graph_26_node_2" -> "graph_26_node_3" [headlabel=0];
+}
+}

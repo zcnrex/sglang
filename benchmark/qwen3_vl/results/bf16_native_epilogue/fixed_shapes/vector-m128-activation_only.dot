@@ -1,0 +1,40 @@
+digraph dot {
+subgraph cluster_29 {
+label="graph_29" graph[style="dashed"];
+"graph_29_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 3) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402ADFD0 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_29_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 2) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402AE768 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_29_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 1) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402AEF00 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_29_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 0) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402AF698 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_29_node_0" -> "graph_29_node_1" [headlabel=0];
+"graph_29_node_1" -> "graph_29_node_2" [headlabel=0];
+"graph_29_node_2" -> "graph_29_node_3" [headlabel=0];
+}
+}

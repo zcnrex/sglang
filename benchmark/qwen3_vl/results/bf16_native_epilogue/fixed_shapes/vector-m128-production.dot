@@ -1,0 +1,76 @@
+digraph dot {
+subgraph cluster_27 {
+label="graph_27" graph[style="dashed"];
+"graph_27_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 7) | nvjet_sm103_tst_144x128_64x6_2x1_v_bz_TNN\<\<\<136,256,217376\>\>\>}
+| {{node handle | func handle} | {0x00000000402A84B0 | 0x000000004161D2C0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 6) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402A8C48 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 5) | nvjet_sm103_tst_144x128_64x6_2x1_v_bz_TNN\<\<\<136,256,217376\>\>\>}
+| {{node handle | func handle} | {0x00000000402A93E0 | 0x000000004161D2C0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 4) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402A9B78 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_4"[style="bold" shape="record" label="{KERNEL
+| {ID | 4 (topoId: 3) | nvjet_sm103_tst_144x128_64x6_2x1_v_bz_TNN\<\<\<136,256,217376\>\>\>}
+| {{node handle | func handle} | {0x00000000402AA310 | 0x000000004161D2C0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_5"[style="bold" shape="record" label="{KERNEL
+| {ID | 5 (topoId: 2) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402AAAA8 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_6"[style="bold" shape="record" label="{KERNEL
+| {ID | 6 (topoId: 1) | nvjet_sm103_tst_144x128_64x6_2x1_v_bz_TNN\<\<\<136,256,217376\>\>\>}
+| {{node handle | func handle} | {0x00000000402AB240 | 0x000000004161D2C0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_7"[style="bold" shape="record" label="{KERNEL
+| {ID | 7 (topoId: 0) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402AB9D8 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_27_node_0" -> "graph_27_node_1" [headlabel=0];
+"graph_27_node_1" -> "graph_27_node_2" [headlabel=0];
+"graph_27_node_2" -> "graph_27_node_3" [headlabel=0];
+"graph_27_node_3" -> "graph_27_node_4" [headlabel=0];
+"graph_27_node_4" -> "graph_27_node_5" [headlabel=0];
+"graph_27_node_5" -> "graph_27_node_6" [headlabel=0];
+"graph_27_node_6" -> "graph_27_node_7" [headlabel=0];
+}
+}

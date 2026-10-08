@@ -1,0 +1,65 @@
+{
+  "m": 128,
+  "tile": [
+    128,
+    128
+  ],
+  "checks": [
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    }
+  ],
+  "rounds_us": [
+    {
+      "native": 3.18479984998703,
+      "production": 25.702399015426636,
+      "candidate": 0.48639997839927673
+    },
+    {
+      "candidate": 0.470399996265769,
+      "production": 25.72920024394989,
+      "native": 3.1204000115394592
+    },
+    {
+      "candidate": 0.48119998537003994,
+      "production": 25.74079930782318,
+      "native": 3.1252000480890274
+    },
+    {
+      "candidate": 0.4800000227987766,
+      "production": 25.64840018749237,
+      "native": 3.1223999336361885
+    },
+    {
+      "production": 25.749200582504272,
+      "candidate": 0.47320001758635044,
+      "native": 3.1228000298142433
+    },
+    {
+      "native": 3.120799921452999,
+      "candidate": 0.4860000219196081,
+      "production": 25.672799348831177
+    }
+  ],
+  "weight_bytes": 398458880,
+  "transform_ms": 9.458111763000488,
+  "extra_weight_bytes": 398458880,
+  "output_note": "candidate stores contiguous half-width result in first half of full-width allocated buffer; no intermediate store/read"
+}

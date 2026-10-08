@@ -1,0 +1,76 @@
+digraph dot {
+subgraph cluster_25 {
+label="graph_25" graph[style="dashed"];
+"graph_25_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 7) | kernel_cutlass_kernel_dense_gemm_persistentPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TV_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x00000000402A38C0 | 0x00000000260AD000}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 6) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402A2990 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 5) | kernel_cutlass_kernel_dense_gemm_persistentPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TV_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x00000000402A3128 | 0x00000000260AD000}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 4) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402A4058 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_4"[style="bold" shape="record" label="{KERNEL
+| {ID | 4 (topoId: 3) | kernel_cutlass_kernel_dense_gemm_persistentPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TV_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x00000000402A47F0 | 0x00000000260AD000}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_5"[style="bold" shape="record" label="{KERNEL
+| {ID | 5 (topoId: 2) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402A4F88 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_6"[style="bold" shape="record" label="{KERNEL
+| {ID | 6 (topoId: 1) | kernel_cutlass_kernel_dense_gemm_persistentPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK11110000_PermutationMNK____MMAAtom_ThrID10_ShapeMNK12812816_TVLayoutA1128161281128_TV_0\<\<\<\{1,1,148\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x00000000402A5720 | 0x00000000260AD000}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_7"[style="bold" shape="record" label="{KERNEL
+| {ID | 7 (topoId: 0) | _ZN6sglang18act_and_mul_kernelI13__nv_bfloat16LNS_14ActivationKindE0ELb1ELb0ELb0ELb0ELb0EEEvNS_16ActivationParamsE\<\<\<304,256,0\>\>\>}
+| {{node handle | func handle} | {0x00000000402A5EB8 | 0x000000002607D080}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_25_node_0" -> "graph_25_node_1" [headlabel=0];
+"graph_25_node_1" -> "graph_25_node_2" [headlabel=0];
+"graph_25_node_2" -> "graph_25_node_3" [headlabel=0];
+"graph_25_node_3" -> "graph_25_node_4" [headlabel=0];
+"graph_25_node_4" -> "graph_25_node_5" [headlabel=0];
+"graph_25_node_5" -> "graph_25_node_6" [headlabel=0];
+"graph_25_node_6" -> "graph_25_node_7" [headlabel=0];
+}
+}

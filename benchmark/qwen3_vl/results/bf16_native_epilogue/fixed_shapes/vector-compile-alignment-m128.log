@@ -1,0 +1,7 @@
+
+[91m[1merror[INTERNAL]:[0m The compiler could not build valid IR for this code.
+  [91merror:[0m IR verification failed: error: unknown: 'cute.copy' op D ptr alignment (16 bits) does not
+         meet requirement (128 bits) of atom '!cute_nvgpu.atom.universal_copy<bf16, 128 b>'
+  [92msuggestion:[0m Check the source location above for invalid primitive arguments, types, or address
+              spaces. If the code looks valid, report this with the snippet above and your kernel.
+  [92msuggestion:[0m Re-run with CUTE_DSL_SHOW_STACKTRACE=1 to include the full technical detail.

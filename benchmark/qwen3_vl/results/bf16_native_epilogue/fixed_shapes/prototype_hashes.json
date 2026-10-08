@@ -1,0 +1,7 @@
+{
+  "native_epi_map": "961b7936bb3a45890b510e6bb41e207a7510ec3f00b7b5b78a53c876564b51c5",
+  "native_epi_fused": "f63d0df83a70971e29ec4ea7da7fbc132b9cf01005f34fd8e3cf3e6096e680ab",
+  "native_epi_vector": "0908d929b0c7308a0cd128e9c59024ef0101a18dc4c53b668a7c1492923fc5c7",
+  "native_fused_gemm": "3cef4abe76dcf573979b9cde4894507f2b2148c2f05fd4cce521b1d33f605c03",
+  "native_vector_gemm": "243bf152b2eba877223a7d30863502f807df0e3a66c57bd25ffa74af66467414"
+}

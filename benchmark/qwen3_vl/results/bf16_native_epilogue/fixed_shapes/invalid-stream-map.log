@@ -1,0 +1,9 @@
+starting
+LAYOUT_ACC ((128,1),1,1):((1,0),0,0) LAYOUT_C ((128,1),1,1):((1,0),0,0) PARTITION ((128,1),1,1,1,1,?,?,?):((1,0),0,0,0,0,?{i64 div=128},128,?{i64})
+Running Blackwell Persistent Dense GEMM test with:
+mnkl: (128, 256, 256, 1)
+Tolerance: 0.1
+Warmup iterations: 0
+Iterations: 1
+Skip reference checking: False
+Use cold L2: False

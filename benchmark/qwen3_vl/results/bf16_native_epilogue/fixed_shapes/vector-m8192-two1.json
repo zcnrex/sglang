@@ -1,0 +1,77 @@
+{
+  "m": 8192,
+  "tile": [
+    256,
+    256
+  ],
+  "checks": [
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    }
+  ],
+  "rounds_us": [
+    {
+      "production": 539.5339965820312,
+      "candidate": 576.5895843505859,
+      "native": 647.4108219146729,
+      "activation_only": 106.23960494995117,
+      "native_only": 545.2032089233398
+    },
+    {
+      "production": 651.8908023834229,
+      "native_only": 548.6080169677734,
+      "activation_only": 112.25399971008301,
+      "native": 669.0552234649658,
+      "candidate": 601.1291980743408
+    },
+    {
+      "production": 651.661205291748,
+      "candidate": 587.8528118133545,
+      "native_only": 553.5647869110107,
+      "activation_only": 113.26760053634644,
+      "native": 657.5995922088623
+    },
+    {
+      "native": 667.6735877990723,
+      "production": 659.9795818328857,
+      "native_only": 566.488790512085,
+      "activation_only": 113.47320079803467,
+      "candidate": 601.8692016601562
+    },
+    {
+      "native_only": 551.6932010650635,
+      "activation_only": 111.10399961471558,
+      "native": 657.919979095459,
+      "production": 641.1908149719238,
+      "candidate": 581.2228202819824
+    },
+    {
+      "native": 661.5287780761719,
+      "candidate": 576.2303829193115,
+      "native_only": 556.6336154937744,
+      "production": 677.0688056945801,
+      "activation_only": 109.26079750061035
+    }
+  ],
+  "weight_bytes": 398458880,
+  "transform_ms": 6.435232162475586,
+  "extra_weight_bytes": 398458880,
+  "output_note": "candidate stores contiguous half-width result in first half of full-width allocated buffer; no intermediate store/read"
+}

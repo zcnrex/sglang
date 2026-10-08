@@ -1,0 +1,10 @@
+2026-10-08 01:05:58,080 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  1.92profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  1.92profile/s]
+2026-10-08 01:05:58,626 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+{'native': 31.808000802993774, 'production': 25.648000836372375, 'candidate': 44.19640004634857}
+{'candidate': 44.2903995513916, 'production': 25.648000836372375, 'native': 31.795600056648254}
+{'candidate': 44.30280029773712, 'production': 25.683200359344482, 'native': 31.82080090045929}
+{'candidate': 44.30040121078491, 'production': 25.67639946937561, 'native': 31.872400641441345}
+{'production': 25.64760148525238, 'candidate': 44.19879913330078, 'native': 31.73080086708069}
+{'native': 31.82080090045929, 'candidate': 44.37800049781799, 'production': 25.648799538612366}
+{"m": 128, "tile": [128, 128], "checks": [{"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}, {"bitwise": true, "max_abs": 0.0, "nrms": 0.0}], "rounds_us": [{"native": 31.808000802993774, "production": 25.648000836372375, "candidate": 44.19640004634857}, {"candidate": 44.2903995513916, "production": 25.648000836372375, "native": 31.795600056648254}, {"candidate": 44.30280029773712, "production": 25.683200359344482, "native": 31.82080090045929}, {"candidate": 44.30040121078491, "production": 25.67639946937561, "native": 31.872400641441345}, {"production": 25.64760148525238, "candidate": 44.19879913330078, "native": 31.73080086708069}, {"native": 31.82080090045929, "candidate": 44.37800049781799, "production": 25.648799538612366}], "weight_bytes": 398458880, "transform_ms": 9.234047889709473, "extra_weight_bytes": 398458880, "output_note": "candidate stores contiguous half-width result in first half of full-width allocated buffer; no intermediate store/read"}
