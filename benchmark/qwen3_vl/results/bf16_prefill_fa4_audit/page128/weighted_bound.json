@@ -1,0 +1,19 @@
+{
+  "context_savings_us": [
+    28.168022632598877,
+    58.80002677440643,
+    27.624011039733887,
+    49.70400035381317,
+    61.46399676799774,
+    50.17600953578949
+  ],
+  "decode_penalties_us": [
+    2.6472091674804688,
+    3.240799903869629,
+    2.4751901626586914,
+    3.7728071212768555
+  ],
+  "mean_context_saving_seconds_at_131_steps_36_layers": 0.21688574874401093,
+  "mean_decode_penalty_seconds_at_1985_steps_36_layers": 0.21680975353717805,
+  "note": "Illustrative oldprofilecounts, not currentwholemodelprediction. Excludes loss ofpage32-only normrope-cache fusion, changedpageallocation/radixreuse, substantialcontextclockdrift. Reject withoutmodel."
+}

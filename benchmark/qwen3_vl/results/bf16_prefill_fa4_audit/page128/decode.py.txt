@@ -1,0 +1,32 @@
+import torch,flashinfer,pathlib,json,os,hashlib,statistics,gc
+from sglang.srt.layers.attention.trtllm_mla_backend import make_persistent_multi_ctas_kv_counter_buffer
+root=pathlib.Path('/root/qvl/experiments/page128');gpu=int(os.environ['CUDA_VISIBLE_DEVICES']);torch.manual_seed(42)
+source=pathlib.Path('/root/qvl/sglang-prefix-production');expected=json.load(open('/root/qvl/experiments/prefix-production/candidate_expected.json'));actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')};assert actual==expected
+report={'gpu':gpu,'python_files_verified':len(actual),'flashinfer':flashinfer.__version__,'rows':[],'counter':'productionpersistent','note':'attention only; does not include page32-only fused normrope/cache writer loss'}
+for length in [8192,9216]:
+ bs=128;q=torch.randn(bs,32,128,device='cuda',dtype=torch.bfloat16);lens=torch.full((bs,),length,device='cuda',dtype=torch.int32);ws=torch.empty(512*1024*1024,device='cuda',dtype=torch.uint8);counter=make_persistent_multi_ctas_kv_counter_buffer(torch.device('cuda'),32,bs);caches={p:[] for p in [32,128]};tables={p:torch.arange(bs*length//p,device='cuda',dtype=torch.int32).reshape(bs,-1) for p in caches};outs={p:[] for p in caches}
+ for rotation in range(2):
+  rawk=torch.randn(bs*length,8,128,device='cuda',dtype=torch.bfloat16);rawv=torch.randn_like(rawk)
+  for p in caches:
+   k=rawk.view(-1,p,8,128).permute(0,2,1,3).contiguous();v=rawv.view(-1,p,8,128).permute(0,2,1,3).contiguous();assert torch.equal(k.permute(0,2,1,3).reshape_as(rawk),rawk);assert torch.equal(v.permute(0,2,1,3).reshape_as(rawv),rawv);caches[p].append((k,v));outs[p].append(torch.empty_like(q))
+  del rawk,rawv
+ def call(p,r):return flashinfer.decode.trtllm_batch_decode_with_kv_cache(q,caches[p][r],ws,tables[p],lens,length,bmm1_scale=128**-.5,bmm2_scale=1.,out=outs[p][r],multi_ctas_kv_counter_buffer=counter)
+ for r in range(2):
+  for p in caches:call(p,r)
+  torch.testing.assert_close(outs[32][r],outs[128][r],atol=.005,rtol=.005)
+ graphs={}
+ for p in caches:
+  g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):
+   for r in range(2):call(p,r)
+  graphs[p]=g
+ times={p:[] for p in caches}
+ for rep in range(6):
+  order=[32,128] if (rep+gpu)%2 else [128,32]
+  for p in order:
+   for _ in range(3):graphs[p].replay()
+   a,b=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);a.record()
+   for _ in range(10):graphs[p].replay()
+   b.record();b.synchronize();times[p].append(a.elapsed_time(b)*50)
+ row={'length':length,'batch':bs,'rotations':2,'total_cache_bytes_per_layout':2*2*bs*length*8*128*2,'cache_exact':True,'output_bitwise':[torch.equal(outs[32][r],outs[128][r]) for r in range(2)],'max_abs':[float((outs[32][r].float()-outs[128][r].float()).abs().max()) for r in range(2)],'us':times,'median_us':{p:statistics.median(x) for p,x in times.items()}};report['rows'].append(row);print(json.dumps(row),flush=True);(root/f'decode-gpu{gpu}.json').write_text(json.dumps(report,indent=2)+'\n')
+ del graphs,g,caches,k,v,ws,outs;gc.collect();torch.cuda.empty_cache()

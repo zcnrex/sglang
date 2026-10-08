@@ -1,0 +1,57 @@
+import torch,flashinfer,json,pathlib,hashlib,os,statistics,itertools
+from sglang.kernels.ops.attention.flash_attn.cute import interface
+from sglang.kernels.ops.attention.dllm_kv_pack import pack_prefix_current
+from sglang.kernels.ops.kvcache.cache_ops import launch_reshape_and_cache_flash
+root=pathlib.Path('/root/qvl/experiments/page128');root.mkdir(exist_ok=True);gpu=int(os.environ['CUDA_VISIBLE_DEVICES'])
+source=pathlib.Path('/root/qvl/sglang-prefix-production');expected=json.load(open('/root/qvl/experiments/prefix-production/candidate_expected.json'));actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')};assert actual==expected
+configs=[];init=interface.FlashAttentionForwardSm100.__init__
+def init_hook(self,*a,**kw):
+ init(self,*a,**kw);configs.append({x:str(getattr(self,x,None)) for x in ['use_clc_scheduler','use_tma_KV','n_block_size','q_stage']})
+interface.FlashAttentionForwardSm100.__init__=init_hook
+report={'source_manifest_sha256':hashlib.sha256(json.dumps(expected,sort_keys=True).encode()).hexdigest(),'python_files_verified':len(actual),'flashinfer_version':flashinfer.__version__,'gpu':gpu,'rows':[],'configs':configs};torch.manual_seed(42)
+def measure(funcs):
+ graphs={}
+ for name,f in funcs.items():
+  f();g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):f()
+  graphs[name]=g
+ flush=torch.empty(256*1024*1024,device='cuda',dtype=torch.uint8);times={mode:{n:[] for n in funcs} for mode in ['warm','cold']}
+ for rep in range(4):
+  names=list(funcs);names=names if (rep+gpu)%2 else names[::-1]
+  for name in names:
+   g=graphs[name]
+   for _ in range(10):g.replay()
+   a,b=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);a.record()
+   for _ in range(20):g.replay()
+   b.record();b.synchronize();times['warm'][name].append(a.elapsed_time(b)*50)
+   z=[]
+   for _ in range(8):
+    flush.zero_();a.record();g.replay();b.record();b.synchronize();z.append(a.elapsed_time(b)*1000)
+   times['cold'][name].append(statistics.median(z))
+ return times
+for prefixes,lengths in [([7968,0,0],[232,8200,7872]),([6048,0,0],[2152,8200,5888]),([4032,0,0],[4168,8200,3840])]:
+ totals=[p+n for p,n in zip(prefixes,lengths)];m=sum(lengths);n=len(lengths);storage=torch.randn(m,6144,device='cuda',dtype=torch.bfloat16);q=storage[:,:4096].view(m,32,128);k=storage[:,4096:5120].view(m,8,128);v=storage[:,5120:].view(m,8,128);rk=[];rv=[];off=0
+ for pref,l,t in zip(prefixes,lengths,totals):
+  a=torch.randn(t,8,128,device='cuda',dtype=torch.bfloat16);b=torch.randn_like(a);a[pref:].copy_(k[off:off+l]);b[pref:].copy_(v[off:off+l]);rk.append(a);rv.append(b);off+=l
+ caches={};tables={};slots={};ids={}
+ for page in [32,128]:
+  counts=[(t+page-1)//page for t in totals];pk=torch.zeros(sum(counts),8,page,128,device='cuda',dtype=torch.bfloat16);pv=torch.zeros_like(pk);table=torch.zeros(n,max(counts),device='cuda',dtype=torch.int32);sl=[];ii=[];poff=0
+  for row,(t,c,pref,l) in enumerate(zip(totals,counts,prefixes,lengths)):
+   padded=torch.zeros(c*page,8,128,device='cuda',dtype=torch.bfloat16);padded[:t].copy_(rk[row]);pk[poff:poff+c].copy_(padded.view(c,page,8,128).permute(0,2,1,3));padded[:t].copy_(rv[row]);pv[poff:poff+c].copy_(padded.view(c,page,8,128).permute(0,2,1,3));table[row,:c]=torch.arange(poff,poff+c,device='cuda',dtype=torch.int32);sl.extend(range(poff*page+pref,poff*page+t));ii.extend(range(poff*page,poff*page+pref));poff+=c
+  caches[page]=(pk,pv);tables[page]=table;slots[page]=torch.tensor(sl,device='cuda',dtype=torch.int64);ids[page]=torch.tensor(ii,device='cuda',dtype=torch.int32)
+  for row,t in enumerate(totals):
+   ix=torch.arange(t,device='cuda');pp=table[row,ix//page];assert torch.equal(pk[pp,:,ix%page,:],rk[row]);assert torch.equal(pv[pp,:,ix%page,:],rv[row])
+ cq=torch.tensor([0]+list(itertools.accumulate(lengths)),device='cuda',dtype=torch.int32);ck=torch.tensor([0]+list(itertools.accumulate(totals)),device='cuda',dtype=torch.int32);ki=ck-cq;lens=torch.tensor(totals,device='cuda',dtype=torch.int32);packed=[torch.empty(sum(totals),8,128,device='cuda',dtype=torch.bfloat16) for _ in range(2)];packed_cu=torch.empty_like(ck);outs={p:torch.empty_like(q) for p in [32,128]};ws=torch.empty(512*1024*1024,device='cuda',dtype=torch.uint8)
+ def writer(p):launch_reshape_and_cache_flash(k,v,*[x.permute(0,2,1,3) for x in caches[p]],slots[p])
+ def attention(p):
+  if p==32:
+   pack_prefix_current(k,v,*caches[32],cq,ki,ids[32],*packed,packed_cu,max(totals),page_size=32)
+   return interface.flash_attn_varlen_func(q,*packed,cu_seqlens_q=cq,cu_seqlens_k=packed_cu,max_seqlen_q=max(lengths),max_seqlen_k=max(totals),causal=True,out=outs[p],use_clc_scheduler=True)
+  return interface.flash_attn_varlen_func(q,*[x.permute(0,2,1,3) for x in caches[p]],cu_seqlens_q=cq,seqused_k=lens,page_table=tables[p],max_seqlen_q=max(lengths),max_seqlen_k=max(totals),causal=True,out=outs[p],use_clc_scheduler=True)
+ def full(p):writer(p);attention(p)
+ for p in [32,128]:full(p)
+ torch.testing.assert_close(outs[32],outs[128],atol=.02,rtol=.02)
+ ref=flashinfer.prefill.trtllm_batch_context_with_kv_cache(q,caches[32],ws,tables[32],lens,max(lengths),max(totals),128**-.5,1.,n,cq,ck)
+ for p in [32,128]:torch.testing.assert_close(outs[p],ref,atol=.02,rtol=.02)
+ times=measure({'p32_write_pack_fa4':lambda:full(32),'p128_write_paged_fa4':lambda:full(128),'p32_writer':lambda:writer(32),'p128_writer':lambda:writer(128)})
+ row={'prefixes':prefixes,'lengths':lengths,'cache_exact':True,'fa4_paths_bitwise':torch.equal(outs[32],outs[128]),'trt_maxabs':{p:(o.float()-ref.float()).abs().max().item() for p,o in outs.items()},'physical_strides':{p:list(caches[p][0].stride()) for p in caches},'us':times,'medians':{mode:{n:statistics.median(z) for n,z in d.items()} for mode,d in times.items()}};report['rows'].append(row);print(json.dumps(row),flush=True);(root/f'gpu{gpu}.json').write_text(json.dumps(report,indent=2)+'\n')
