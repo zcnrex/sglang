@@ -1,0 +1,40 @@
+{
+  "control_correct": 1213,
+  "candidate_correct": 1219,
+  "control_only_rows": [
+    122,
+    265,
+    422,
+    711,
+    989,
+    1097,
+    1173,
+    1199
+  ],
+  "candidate_only_rows": [
+    86,
+    116,
+    439,
+    505,
+    510,
+    534,
+    663,
+    675,
+    724,
+    953,
+    1006,
+    1119,
+    1146,
+    1183
+  ],
+  "sampling": {
+    "api": "chat",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "max_tokens": 2048,
+    "concurrency": 8
+  },
+  "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "confound": "M128 down tactic1 control vs4 candidate; geometry does not exclude M128",
+  "metrics_source_revision_caveat": "Hardcoded evaluator revision466c9e is stale; full source manifests and launch paths are authoritative."
+}
