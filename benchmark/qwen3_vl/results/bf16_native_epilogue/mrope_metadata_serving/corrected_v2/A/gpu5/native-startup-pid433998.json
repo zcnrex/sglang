@@ -1,0 +1,79 @@
+{
+  "candidate": true,
+  "python_files_verified": 4229,
+  "compile_count": 0,
+  "weight_transforms": 0,
+  "startup_tactics": [
+    {
+      "weight_shape": [
+        2560,
+        19456
+      ],
+      "hit": true,
+      "tactic": 1
+    },
+    {
+      "weight_shape": [
+        2560,
+        19456
+      ],
+      "hit": true,
+      "tactic": 1
+    },
+    {
+      "weight_shape": [
+        2560,
+        19456
+      ],
+      "hit": true,
+      "tactic": 1
+    },
+    {
+      "weight_shape": [
+        9728,
+        2560
+      ],
+      "hit": true,
+      "tactic": 1
+    },
+    {
+      "weight_shape": [
+        9728,
+        2560
+      ],
+      "hit": true,
+      "tactic": 1
+    },
+    {
+      "weight_shape": [
+        9728,
+        2560
+      ],
+      "hit": true,
+      "tactic": 1
+    }
+  ],
+  "ready": [
+    [
+      0,
+      2560,
+      9728
+    ],
+    [
+      0,
+      19456,
+      2560
+    ]
+  ],
+  "captured_lt_shapes": [
+    [
+      2560,
+      9728
+    ],
+    [
+      19456,
+      2560
+    ]
+  ],
+  "startup_policy_restored": true
+}

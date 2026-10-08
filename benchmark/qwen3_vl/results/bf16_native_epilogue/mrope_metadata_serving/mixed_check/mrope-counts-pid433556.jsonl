@@ -1,0 +1,2 @@
+{"kind": "first_mixed", "pid": 433556, "epoch": 0, "counts": {"mixed_calls": 1, "calls": 1, "rows": 16331, "eligible": 1, "fast": 1}, "rows_hist": {"16331": 1}, "time_ns": 1791427238379932775}
+{"kind": "atexit", "pid": 433556, "epoch": 0, "counts": {"mixed_calls": 2, "calls": 2, "rows": 32662, "eligible": 1, "fast": 1, "original": 1, "fallback": 1}, "rows_hist": {"16331": 2}, "time_ns": 1791427238548859709}
