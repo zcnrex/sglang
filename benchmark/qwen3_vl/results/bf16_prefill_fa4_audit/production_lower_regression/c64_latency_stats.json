@@ -1,0 +1,191 @@
+{
+  "archive_sha256": "b2c4575b026cc035c35329584f742a4a56e80803278a6737bd2dce2406c26a7c",
+  "variants": {
+    "candidate": {
+      "server_log_sha256": "ae629a46e9332caefb16e6d1b01becddba2517226ec972ec11506ed981fbed43",
+      "bench_jsonl_sha256": "f513beb58d0d9e6d557c3e3c7264564df8a1b11f8381279a7f4990e7961c29ad",
+      "source_file_sha256": {
+        "python/sglang/kernels/ops/attention/dllm_kv_pack.py": "237a1ea2a36e5fcb6b727225efa4a60d86dbe953edde10f8d6c9eb24aa9e73b4",
+        "python/sglang/kernels/ops/attention/flash_attn/cute/interface.py": "9d842bca4c3182562246f290f42479ae644605f4b5b54b0f402030488346b964",
+        "python/sglang/srt/layers/attention/trtllm_mha_backend.py": "4896aa04b862ef0d926b9f0fcb489fcce095aeccb20a2a579be6fa8f85d8476f",
+        "python/sglang/srt/layers/quantization/unquant.py": "0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431",
+        "python/sglang/srt/model_executor/runner/flashinfer_autotune.py": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e"
+      },
+      "ttft_ms": {
+        "mean_ttft_ms": 992.4691980225361,
+        "median_ttft_ms": 706.2412749946816,
+        "p90_ttft_ms": 2308.6584538803436,
+        "p95_ttft_ms": 3409.972075780388,
+        "p99_ttft_ms": 4252.588352629682
+      },
+      "mean_e2e_latency_ms": 18606.544421476065,
+      "prefill_count": 166,
+      "logged_tokens": 2615309.0,
+      "new_seq_histogram": {
+        "1.0": 7,
+        "2.0": 13,
+        "4.0": 2,
+        "3.0": 144
+      },
+      "queue_histogram": {
+        "0.0": 13,
+        "2.0": 7,
+        "3.0": 53,
+        "15.0": 1,
+        "25.0": 1,
+        "31.0": 1,
+        "44.0": 2,
+        "48.0": 1,
+        "46.0": 1,
+        "42.0": 1,
+        "40.0": 1,
+        "38.0": 1,
+        "36.0": 1,
+        "34.0": 1,
+        "32.0": 1,
+        "30.0": 1,
+        "28.0": 1,
+        "26.0": 1,
+        "24.0": 1,
+        "22.0": 1,
+        "20.0": 1,
+        "18.0": 1,
+        "16.0": 1,
+        "14.0": 1,
+        "12.0": 1,
+        "10.0": 1,
+        "8.0": 1,
+        "6.0": 1,
+        "4.0": 27,
+        "1.0": 39,
+        "5.0": 1
+      },
+      "median_queue": 3.0,
+      "median_pending_tokens": 25476.5,
+      "median_inter_prefill_gap_under1s": 0.14182029442311522,
+      "waves": [
+        {
+          "count": 34,
+          "within_wave_seconds": 4.331210638915705,
+          "median_queue": 21.0,
+          "max_queue": 48.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.465955843985117,
+          "median_queue": 4.0,
+          "max_queue": 5.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.489768411263934,
+          "median_queue": 1.0,
+          "max_queue": 1.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.47556657814255,
+          "median_queue": 3.0,
+          "max_queue": 3.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.473007454731708,
+          "median_queue": 3.0,
+          "max_queue": 3.0
+        }
+      ]
+    },
+    "control": {
+      "server_log_sha256": "da936efdd2bd170296517e4e1ea704e85f173859ae30ae72a21d7da9d170992a",
+      "bench_jsonl_sha256": "9f7da226a3ff82c7fc324f3d2998604fd5935dee51648fd8e419d9091a5f8afd",
+      "source_file_sha256": {
+        "python/sglang/kernels/ops/attention/dllm_kv_pack.py": "7095dd554564440dd6aa744651561fc9173d8d0b5b1b0c314de2e6b137c4c557",
+        "python/sglang/kernels/ops/attention/flash_attn/cute/interface.py": "d065ec56846ddc87ac8e91939f2d6c611b5e2b59e60808f6fb866fd76df7b2bf",
+        "python/sglang/srt/layers/attention/trtllm_mha_backend.py": "76bb1825c62a6ba9f22d55537963e06789e79f8fea89b25e9132a1abe1f05726",
+        "python/sglang/srt/layers/quantization/unquant.py": "0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431",
+        "python/sglang/srt/model_executor/runner/flashinfer_autotune.py": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e"
+      },
+      "ttft_ms": {
+        "mean_ttft_ms": 985.2031992199954,
+        "median_ttft_ms": 579.0202464995673,
+        "p90_ttft_ms": 2374.5997901976807,
+        "p95_ttft_ms": 3498.452004963474,
+        "p99_ttft_ms": 4358.430697731092
+      },
+      "mean_e2e_latency_ms": 18690.290194759928,
+      "prefill_count": 166,
+      "logged_tokens": 2615309.0,
+      "new_seq_histogram": {
+        "1.0": 7,
+        "2.0": 13,
+        "4.0": 2,
+        "3.0": 144
+      },
+      "queue_histogram": {
+        "0.0": 23,
+        "1.0": 59,
+        "7.0": 1,
+        "12.0": 2,
+        "16.0": 2,
+        "23.0": 1,
+        "26.0": 2,
+        "30.0": 2,
+        "35.0": 1,
+        "42.0": 1,
+        "40.0": 1,
+        "38.0": 1,
+        "36.0": 1,
+        "34.0": 1,
+        "32.0": 1,
+        "28.0": 1,
+        "24.0": 1,
+        "22.0": 1,
+        "20.0": 1,
+        "18.0": 1,
+        "14.0": 1,
+        "10.0": 1,
+        "8.0": 1,
+        "6.0": 1,
+        "4.0": 1,
+        "2.0": 27,
+        "3.0": 30
+      },
+      "median_queue": 2.0,
+      "median_pending_tokens": 16919.0,
+      "median_inter_prefill_gap_under1s": 0.14437118667563392,
+      "waves": [
+        {
+          "count": 34,
+          "within_wave_seconds": 4.450771263987765,
+          "median_queue": 17.0,
+          "max_queue": 42.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.575181138410346,
+          "median_queue": 2.0,
+          "max_queue": 3.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.583980365371167,
+          "median_queue": 1.0,
+          "max_queue": 1.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.583436044313906,
+          "median_queue": 3.0,
+          "max_queue": 3.0
+        },
+        {
+          "count": 33,
+          "within_wave_seconds": 4.5804165504907886,
+          "median_queue": 1.0,
+          "max_queue": 1.0
+        }
+      ]
+    }
+  }
+}

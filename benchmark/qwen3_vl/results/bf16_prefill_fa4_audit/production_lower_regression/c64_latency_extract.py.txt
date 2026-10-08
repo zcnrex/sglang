@@ -1,0 +1,16 @@
+import collections,hashlib,json,pathlib,re,statistics,tarfile
+archive=pathlib.Path(__file__).with_name('prefix-lower-evidence.tar.gz');result={'archive_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'variants':{}}
+with tarfile.open(archive) as t:
+ for phase,variant in [('A','candidate'),('B','control')]:
+  prefix=f'c64/{phase}/gpu1/';raw=t.extractfile(prefix+'server.log').read();bench=t.extractfile(prefix+'bench.jsonl').read();b=json.loads(bench.splitlines()[-1]);rows=[]
+  for line in raw.decode().split('Cache flushed successfully!')[-1].splitlines():
+   if 'Prefill batch' not in line:continue
+   def value(key):return float(re.search(key+r': ([\d.]+)',line).group(1))
+   rows.append({'seq':value('#new-seq'),'tokens':value('#new-token'),'queue':value('#queue-req'),'pending':value('#pending-token'),'gap':value('#new-token')/value(r'input throughput \(token/s\)')})
+  waves=[];wave=[]
+  for row in rows:
+   if row['gap']>1 and wave:waves.append(wave);wave=[]
+   wave.append(row)
+  if wave:waves.append(wave)
+  result['variants'][variant]={'server_log_sha256':hashlib.sha256(raw).hexdigest(),'bench_jsonl_sha256':hashlib.sha256(bench).hexdigest(),'source_file_sha256':json.load(t.extractfile(prefix+'metadata.json'))['source_file_sha256'],'ttft_ms':{k:b[k] for k in ['mean_ttft_ms','median_ttft_ms','p90_ttft_ms','p95_ttft_ms','p99_ttft_ms']},'mean_e2e_latency_ms':b['mean_e2e_latency_ms'],'prefill_count':len(rows),'logged_tokens':sum(x['tokens'] for x in rows),'new_seq_histogram':dict(collections.Counter(x['seq'] for x in rows)),'queue_histogram':dict(collections.Counter(x['queue'] for x in rows)),'median_queue':statistics.median(x['queue'] for x in rows),'median_pending_tokens':statistics.median(x['pending'] for x in rows),'median_inter_prefill_gap_under1s':statistics.median(x['gap'] for x in rows if x['gap']<1),'waves':[{'count':len(g),'within_wave_seconds':sum(x['gap'] for x in g[1:]),'median_queue':statistics.median(x['queue'] for x in g),'max_queue':max(x['queue'] for x in g)} for g in waves]}
+print(json.dumps(result,indent=2))
