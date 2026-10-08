@@ -1,0 +1,25 @@
+import sys,os,time,json,statistics,pathlib
+sys.path.insert(0,'/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/data/cutlass/examples/python/CuTeDSL/blackwell')
+import torch,cutlass,cutlass.utils as utils
+from cutlass.cute.runtime import from_dlpack
+import cuda.bindings.driver as cuda
+import native_fused_subtile64 as old
+m,n,k=16331,19456,2560;torch.manual_seed(71)
+x=torch.randn(1,m,k,device='cuda',dtype=torch.bfloat16)*.1;w=torch.randn(n,k,device='cuda',dtype=torch.bfloat16)*.1;wt=w.t().unsqueeze(0);a=torch.full((1,m+256,n),float('nan'),device='cuda',dtype=torch.bfloat16);b=torch.full_like(a,float('nan'));oa=a[:,:m,:];ob=b[:,:m,:]
+xc=from_dlpack(x,assumed_align=16);wc=from_dlpack(wt,assumed_align=16);oc=from_dlpack(oa,assumed_align=16);bc=from_dlpack(ob,assumed_align=16);active=utils.HardwareInfo().get_max_active_clusters(2)
+def compile(mod,out):return mod.compile_bmm((m,n,k,1),xc,wc,out,cutlass.Float32,'k','k','n',(256,256),(2,1),active,True,False)
+f=compile(old,oc)
+def prior():f(from_dlpack(x,assumed_align=16),wc,oc,cuda.CUstream(torch.cuda.current_stream().cuda_stream))
+import native_fused_ffi as new
+ff=compile(new,bc)
+prior();ff(x,wt,ob);torch.cuda.synchronize()
+assert torch.equal(oa.flatten()[:m*n//2],ob.flatten()[:m*n//2])
+assert torch.isnan(b.flatten()[m*n//2:]).all()
+for _ in range(100):ff(x,wt,ob)
+torch.cuda.synchronize()
+print('PROFILE_BEGIN',os.getpid(),flush=True)
+torch.cuda.cudart().cudaProfilerStart()
+ff(x,wt,ob)
+torch.cuda.synchronize()
+torch.cuda.cudart().cudaProfilerStop()
+print('PROFILE_DONE',flush=True)

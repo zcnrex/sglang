@@ -1,0 +1,7 @@
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 416405 (/usr/bin/python3.12)
+PROFILE_BEGIN 416405
+==PROF== Profiling "kernel_cutlass_kernel_native_..." - 0 (1/1): 0%....50%....100% - 19 passes
+PROFILE_DONE
+==PROF== Disconnected from process 416405
+==PROF== Report: /root/qvl/experiments/native-epilogue-instruction-audit/instruction.ncu-rep
