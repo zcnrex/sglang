@@ -1191,22 +1191,6 @@ class LogitsProcessor(nn.Module):
             logits.shape
         ):
             assert logits_buffer.dtype == torch.float
-            if (
-                not torch.compiler.is_compiling()
-                and logits.shape in ((64, 151936), (128, 151936))
-                and logits.dtype == torch.bfloat16
-                and logits.is_cuda
-                and logits.is_contiguous()
-                and logits_buffer.is_contiguous()
-                and logits_buffer.device == logits.device
-                and not torch.is_grad_enabled()
-                and not logits.requires_grad
-                and not logits_buffer.requires_grad
-                and torch.cuda.get_device_capability(logits.device) == (10, 3)
-            ):
-                from sglang.kernels.ops.elementwise.cast import cast_bf16_to_fp32
-
-                return cast_bf16_to_fp32(logits, logits_buffer)
             logits_buffer.copy_(logits)
             logits = logits_buffer
         else:

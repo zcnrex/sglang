@@ -14,16 +14,6 @@ from sglang.kernels.spec import CapabilityRequirement, KernelBackend, KernelSpec
 __all__ = []
 
 
-register_kernel(
-    KernelSpec(
-        op="elementwise.cast_bf16_to_fp32",
-        backend=KernelBackend.TRITON,
-        target="sglang.kernels.ops.elementwise.cast:cast_bf16_to_fp32",
-        capabilities=frozenset({CapabilityRequirement.CUDA}),
-    )
-)
-
-
 # Public entry points inventoried by logical operator group (RFC #29630).
 register_kernel(
     KernelSpec(
