@@ -1,0 +1,12 @@
+TACTIC_SUPPORTED
+{"tag": "initial", "bitwise": true, "max_abs": 0.0, "max_nrms": 0.0, "argmax_equal": true}
+{"tag": "changed_input_graph", "bitwise": true, "max_abs": 0.0, "max_nrms": 0.0, "argmax_equal": true}
+{"installed": 6.136079894171821, "vendored": 6.127226617601183}
+{"vendored": 6.12918217976888, "installed": 6.129635704888238}
+{"installed": 6.119804382324219, "vendored": 6.125511063469781}
+{"vendored": 6.123538017272949, "installed": 6.119359864128961}
+{"installed": 6.123991012573242, "vendored": 6.121457947625054}
+{"vendored": 6.125626564025879, "installed": 6.13026671939426}
+{"installed": 6.121510929531521, "vendored": 6.120506922403972}
+{"vendored": 6.122559971279568, "installed": 6.124044524298774}
+DONE {"installed": 6.124017768436008, "vendored": 6.124524540371365}
