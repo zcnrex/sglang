@@ -1,0 +1,67 @@
+import torch,flashinfer,json,pathlib,statistics,hashlib,os
+root=pathlib.Path(__file__).parent
+torch.backends.cuda.matmul.allow_tf32=False;torch.manual_seed(20261007);torch.cuda.set_device(0)
+lens0=[8192 + i for i in range(int(os.environ['SCREEN_BATCH']))]
+NSTATE=36
+B=len(lens0);P=32;H=8;D=128
+counts=[(x+31)//32 for x in lens0]; total=sum(counts)
+idx=torch.randperm(total,device='cuda',dtype=torch.int32)
+ip=torch.tensor([0]+list(__import__('itertools').accumulate(counts)),device='cuda',dtype=torch.int32)
+last=torch.tensor([(x-1)%32+1 for x in lens0],device='cuda',dtype=torch.int32)
+table=torch.zeros(B,max(counts),device='cuda',dtype=torch.int32)
+for i,c in enumerate(counts):table[i,:c]=idx[sum(counts[:i]):sum(counts[:i+1])]
+lens=torch.tensor(lens0,device='cuda',dtype=torch.int32)
+ws=torch.empty(512*1024**2,device='cuda',dtype=torch.uint8)
+fws=torch.empty_like(ws)
+cb=torch.zeros(flashinfer.utils.get_trtllm_gen_multi_ctas_kv_counter_bytes(8192,32,flashinfer.utils.get_device_sm_count(torch.device('cuda:0'))),device='cuda',dtype=torch.uint8)
+w=flashinfer.BatchDecodeWithPagedKVCacheWrapper(fws,kv_layout='HND',use_tensor_cores=True,backend='fa2')
+w.plan(ip,idx,last,32,8,128,32,q_data_type=torch.bfloat16,kv_data_type=torch.bfloat16,sm_scale=128**-.5)
+states=[]
+for j in range(NSTATE):
+ x=torch.randn(B,6144,device='cuda',dtype=torch.bfloat16);q=x[:,:4096].view(B,32,128)
+ kv=tuple(torch.randn(total,8,32,128,device='cuda',dtype=torch.bfloat16) for _ in range(2))
+ states.append((x,q,kv,torch.empty(B,32,128,device='cuda',dtype=torch.bfloat16),torch.empty(B,32,128,device='cuda',dtype=torch.bfloat16)))
+def run(j,variant):
+ x,q,kv,a,b=states[j]
+ if variant=='trt':return flashinfer.decode.trtllm_batch_decode_with_kv_cache(q,kv,ws,table,lens,262144,bmm1_scale=128**-.5,bmm2_scale=1.,out=a,multi_ctas_kv_counter_buffer=cb)
+ return w.run(q,kv,out=b)
+checks=[]
+for j in range(NSTATE):
+ a=run(j,'trt');b=run(j,'fa2');torch.cuda.synchronize()
+ e=(a.float()-b.float());nr=(e.square().mean()/a.float().square().mean()).sqrt().item()
+ checks.append(dict(state=j,max_abs=e.abs().max().item(),nrms=nr));assert nr<.005
+# Changed input check and reference for all requests, no timings include this.
+states[0][0].normal_();a=run(0,'trt');b=run(0,'fa2');torch.cuda.synchronize();torch.testing.assert_close(a,b,atol=.002,rtol=.02)
+refchecks=[]
+x,q,(k,v),a,b=states[0]
+for i,c in enumerate(counts):
+ pages=table[i,:c].long();kk=k[pages].permute(1,0,2,3).reshape(8,-1,128)[:,:lens0[i]].float().repeat_interleave(4,0);vv=v[pages].permute(1,0,2,3).reshape(8,-1,128)[:,:lens0[i]].float().repeat_interleave(4,0)
+ ref=torch.matmul(torch.softmax(torch.matmul(q[i].float().unsqueeze(1),kk.transpose(-1,-2))*128**-.5,dim=-1),vv).squeeze(1)
+ for label,out in [('trt',a),('fa2',b)]:
+  err=(out[i].float()-ref).square().mean().sqrt()/ref.square().mean().sqrt();assert err.item()<.005
+  refchecks.append(dict(request=i,backend=label,nrms=err.item()))
+graphs={}
+for variant in ['trt','fa2']:
+ for _ in range(5):
+  for j in range(NSTATE):run(j,variant)
+ torch.cuda.synchronize();g=torch.cuda.CUDAGraph(keep_graph=True)
+ with torch.cuda.graph(g):
+  for j in range(NSTATE):run(j,variant)
+ graphs[variant]=g;g.debug_dump(str(root/(variant+'.dot')))
+states[0][0].normal_()
+for g in graphs.values(): g.replay()
+torch.cuda.synchronize()
+torch.testing.assert_close(states[0][3],states[0][4],atol=.002,rtol=.02)
+graph_changed_input_checked=True
+def time(v):
+ a=torch.cuda.Event(enable_timing=True);b=torch.cuda.Event(enable_timing=True);a.record()
+ for _ in range(12):graphs[v].replay()
+ b.record();b.synchronize();return a.elapsed_time(b)*1000/(12*NSTATE)
+for g in graphs.values():
+ for _ in range(3):g.replay()
+torch.cuda.synchronize()
+rounds=[]
+for r in range(8):
+ order=['trt','fa2'] if r%2==0 else ['fa2','trt'];row={v:time(v) for v in order};rounds.append(row);print(json.dumps(row),flush=True)
+result=dict(graph_changed_input_checked=graph_changed_input_checked,states=NSTATE,cache_bytes=sum(counts)*8*32*128*4*NSTATE,lengths=lens0,mandatory_bytes=sum(lens0)*8*128*4,physical_pages=total,q_stride=list(q.stride()),checks=checks,reference_checks=refchecks,rounds=rounds,medians={v:statistics.median(r[v] for r in rounds) for v in ['trt','fa2']},backend='fa2',precision='BF16 Q KV and output',seed=20261007,torch=torch.__version__,flashinfer=flashinfer.__version__)
+(root/'result.json').write_text(json.dumps(result,indent=2));print(json.dumps(result['medians']),flush=True)

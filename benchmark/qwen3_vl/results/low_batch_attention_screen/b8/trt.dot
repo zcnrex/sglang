@@ -1,0 +1,328 @@
+digraph dot {
+subgraph cluster_1 {
+label="graph_1" graph[style="dashed"];
+"graph_1_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 35) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FABB0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 34) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FB348 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 33) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FBAE0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 32) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FC278 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_4"[style="bold" shape="record" label="{KERNEL
+| {ID | 4 (topoId: 31) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FCA10 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_5"[style="bold" shape="record" label="{KERNEL
+| {ID | 5 (topoId: 30) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FD1A8 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_6"[style="bold" shape="record" label="{KERNEL
+| {ID | 6 (topoId: 29) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FD940 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_7"[style="bold" shape="record" label="{KERNEL
+| {ID | 7 (topoId: 28) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FE0D8 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_8"[style="bold" shape="record" label="{KERNEL
+| {ID | 8 (topoId: 27) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FE870 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_9"[style="bold" shape="record" label="{KERNEL
+| {ID | 9 (topoId: 26) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FF008 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_10"[style="bold" shape="record" label="{KERNEL
+| {ID | 10 (topoId: 25) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FF7A0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_11"[style="bold" shape="record" label="{KERNEL
+| {ID | 11 (topoId: 24) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A2FFF38 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_12"[style="bold" shape="record" label="{KERNEL
+| {ID | 12 (topoId: 23) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A3006D0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_13"[style="bold" shape="record" label="{KERNEL
+| {ID | 13 (topoId: 22) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A300E68 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_14"[style="bold" shape="record" label="{KERNEL
+| {ID | 14 (topoId: 21) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A301600 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_15"[style="bold" shape="record" label="{KERNEL
+| {ID | 15 (topoId: 20) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A301D98 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_16"[style="bold" shape="record" label="{KERNEL
+| {ID | 16 (topoId: 19) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A302530 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_17"[style="bold" shape="record" label="{KERNEL
+| {ID | 17 (topoId: 18) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A302CC8 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_18"[style="bold" shape="record" label="{KERNEL
+| {ID | 18 (topoId: 17) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A303460 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_19"[style="bold" shape="record" label="{KERNEL
+| {ID | 19 (topoId: 16) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A303BF8 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_20"[style="bold" shape="record" label="{KERNEL
+| {ID | 20 (topoId: 15) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A304390 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_21"[style="bold" shape="record" label="{KERNEL
+| {ID | 21 (topoId: 14) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A304B28 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_22"[style="bold" shape="record" label="{KERNEL
+| {ID | 22 (topoId: 13) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A3052C0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_23"[style="bold" shape="record" label="{KERNEL
+| {ID | 23 (topoId: 12) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A305A58 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_24"[style="bold" shape="record" label="{KERNEL
+| {ID | 24 (topoId: 11) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A3061F0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_25"[style="bold" shape="record" label="{KERNEL
+| {ID | 25 (topoId: 10) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A306988 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_26"[style="bold" shape="record" label="{KERNEL
+| {ID | 26 (topoId: 9) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A307120 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_27"[style="bold" shape="record" label="{KERNEL
+| {ID | 27 (topoId: 8) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A3078B8 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_28"[style="bold" shape="record" label="{KERNEL
+| {ID | 28 (topoId: 7) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A308050 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_29"[style="bold" shape="record" label="{KERNEL
+| {ID | 29 (topoId: 6) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A3087E8 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_30"[style="bold" shape="record" label="{KERNEL
+| {ID | 30 (topoId: 5) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A308F80 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_31"[style="bold" shape="record" label="{KERNEL
+| {ID | 31 (topoId: 4) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A309718 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_32"[style="bold" shape="record" label="{KERNEL
+| {ID | 32 (topoId: 3) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A309EB0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_33"[style="bold" shape="record" label="{KERNEL
+| {ID | 33 (topoId: 2) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A30A648 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_34"[style="bold" shape="record" label="{KERNEL
+| {ID | 34 (topoId: 1) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A30ADE0 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_35"[style="bold" shape="record" label="{KERNEL
+| {ID | 35 (topoId: 0) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen\<\<\<\{2,8,8\},512,174872\>\>\>}
+| {{node handle | func handle} | {0x000000004A30B578 | 0x00000000274DD0F0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_1_node_0" -> "graph_1_node_1" [headlabel=0];
+"graph_1_node_1" -> "graph_1_node_2" [headlabel=0];
+"graph_1_node_2" -> "graph_1_node_3" [headlabel=0];
+"graph_1_node_3" -> "graph_1_node_4" [headlabel=0];
+"graph_1_node_4" -> "graph_1_node_5" [headlabel=0];
+"graph_1_node_5" -> "graph_1_node_6" [headlabel=0];
+"graph_1_node_6" -> "graph_1_node_7" [headlabel=0];
+"graph_1_node_7" -> "graph_1_node_8" [headlabel=0];
+"graph_1_node_8" -> "graph_1_node_9" [headlabel=0];
+"graph_1_node_9" -> "graph_1_node_10" [headlabel=0];
+"graph_1_node_10" -> "graph_1_node_11" [headlabel=0];
+"graph_1_node_11" -> "graph_1_node_12" [headlabel=0];
+"graph_1_node_12" -> "graph_1_node_13" [headlabel=0];
+"graph_1_node_13" -> "graph_1_node_14" [headlabel=0];
+"graph_1_node_14" -> "graph_1_node_15" [headlabel=0];
+"graph_1_node_15" -> "graph_1_node_16" [headlabel=0];
+"graph_1_node_16" -> "graph_1_node_17" [headlabel=0];
+"graph_1_node_17" -> "graph_1_node_18" [headlabel=0];
+"graph_1_node_18" -> "graph_1_node_19" [headlabel=0];
+"graph_1_node_19" -> "graph_1_node_20" [headlabel=0];
+"graph_1_node_20" -> "graph_1_node_21" [headlabel=0];
+"graph_1_node_21" -> "graph_1_node_22" [headlabel=0];
+"graph_1_node_22" -> "graph_1_node_23" [headlabel=0];
+"graph_1_node_23" -> "graph_1_node_24" [headlabel=0];
+"graph_1_node_24" -> "graph_1_node_25" [headlabel=0];
+"graph_1_node_25" -> "graph_1_node_26" [headlabel=0];
+"graph_1_node_26" -> "graph_1_node_27" [headlabel=0];
+"graph_1_node_27" -> "graph_1_node_28" [headlabel=0];
+"graph_1_node_28" -> "graph_1_node_29" [headlabel=0];
+"graph_1_node_29" -> "graph_1_node_30" [headlabel=0];
+"graph_1_node_30" -> "graph_1_node_31" [headlabel=0];
+"graph_1_node_31" -> "graph_1_node_32" [headlabel=0];
+"graph_1_node_32" -> "graph_1_node_33" [headlabel=0];
+"graph_1_node_33" -> "graph_1_node_34" [headlabel=0];
+"graph_1_node_34" -> "graph_1_node_35" [headlabel=0];
+}
+}
