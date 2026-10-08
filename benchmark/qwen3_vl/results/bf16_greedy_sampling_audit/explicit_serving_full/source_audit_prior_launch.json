@@ -1,0 +1,11 @@
+{
+  "changed": [
+    "python/sglang/srt/layers/logits_processor.py",
+    "python/sglang/kernels/ops/elementwise/__init__.py"
+  ],
+  "added": [
+    "python/sglang/kernels/ops/elementwise/cast.py"
+  ],
+  "base_count": 4231,
+  "candidate_count": 4232
+}

@@ -1,0 +1,4 @@
+{"kind": "matched_policy_restored", "epoch": 0, "validated_shapes": [[4, 2560, 151936], [8, 2560, 151936], [128, 2560, 19456], [128, 9728, 2560]]}
+{"kind": "decode_forward", "epoch": 0, "rows": 128}
+{"kind": "flush", "epoch": 1}
+{"kind": "decode_forward", "epoch": 1, "rows": 128}

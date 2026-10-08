@@ -1,0 +1,20 @@
+import json,math,pathlib
+root=pathlib.Path(__file__).resolve().parent
+runs=[]
+for p in sorted(root.glob('*/*/bench.jsonl')):
+ d=json.loads(p.read_text().splitlines()[-1]);meta=json.loads((p.parent/'metadata.json').read_text())
+ keep={k:v for k,v in d.items() if k in ('completed','total_input_tokens','total_output_tokens','duration','output_throughput') or any(t in k for t in ('ttft','tpot','e2e_latency'))}
+ keep.update({k:meta[k] for k in ('variant','gpu','phase')})
+ assert keep['total_input_tokens']==8192*keep['completed'] and keep['total_output_tokens']==1024*keep['completed']
+ keep['policy']=[json.loads(l) for l in (p.parent/'matched-policy.jsonl').read_text().splitlines()]
+ assert len(keep['policy'])==4 and all(x['cache_hit'] for x in keep['policy'])
+ keep['events']=[json.loads(l) for f in p.parent.glob('observer*.jsonl') for l in f.read_text().splitlines()]
+ assert any(x['kind']=='matched_policy_restored' for x in keep['events'])
+ assert any(x['kind']=='decode_forward' and x['epoch']==1 and x['rows']==128 for x in keep['events'])
+ if keep['variant']=='candidate':assert {x['rows'] for x in keep['events'] if x['kind']=='cast_dispatch' and x['capturing'] and x['same_buffer']}=={64,128}
+ runs.append(keep)
+assert len(runs)==4
+ratios=[]
+for gpu in (0,1):
+ c=next(x for x in runs if x['gpu']==gpu and x['variant']=='control');t=next(x for x in runs if x['gpu']==gpu and x['variant']=='candidate');ratios.append(t['output_throughput']/c['output_throughput'])
+(root/'summary.json').write_text(json.dumps({'runs':runs,'per_gpu_gain_percent':[(x-1)*100 for x in ratios],'geomean_gain_percent':(math.prod(ratios)**.5-1)*100},indent=2)+'\n')

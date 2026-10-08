@@ -1,0 +1,30 @@
+import csv,datetime,json,pathlib,statistics,re
+root=pathlib.Path(__file__).resolve().parent
+samples=[]
+for r in csv.DictReader((root/'telemetry.csv').open()):
+ r={k.strip():v.strip() for k,v in r.items()};r['epoch']=datetime.datetime.strptime(r['timestamp'],'%Y/%m/%d %H:%M:%S.%f').replace(tzinfo=datetime.timezone.utc).timestamp();samples.append(r)
+result={'window_method':'first Prefill batch after Cache flushed successfully plus measured duration; server log UTC timestamps rounded to seconds, 5 seconds excluded at both edges for telemetry; all post-flush prefill rows counted; CPU/background telemetry not recorded','runs':[]}
+for p in sorted(root.glob('*/*/bench.jsonl')):
+ d=json.loads(p.read_text().splitlines()[-1]);lines=(p.parent/'server.log').read_text().splitlines();boundary=max(i for i,line in enumerate(lines) if 'Cache flushed successfully!' in line);measured_lines=lines[boundary+1:];first=next(line for line in measured_lines if 'Prefill batch' in line);start=datetime.datetime.strptime(first[1:20],'%Y-%m-%d %H:%M:%S').replace(tzinfo=datetime.timezone.utc).timestamp();end=start+d['duration'];gpu=int(p.parent.name[-1]);s=[x for x in samples if int(x['index'])==gpu and start+5<=x['epoch']<=end-5];run={'phase':p.parent.parent.name,'gpu':gpu,'start_epoch':start,'end_epoch':end,'samples':len(s),'telemetry':{}}
+ for key in ('clocks.current.sm [MHz]','clocks.current.memory [MHz]','power.draw [W]','temperature.gpu'):
+  vals=[float(x[key].split()[0]) for x in s];run['telemetry'][key]={'min':min(vals),'median':statistics.median(vals),'max':max(vals)}
+ caches=[]
+ for sub in ('startup-cache','isolated-cache'):
+  c=json.loads(next((p.parent/sub).rglob('rank*.json')).read_text());caches.append({k:v for k,v in c.items() if k.startswith("('bf16")})
+ run['startup_final_tactics_equal']=caches[0]==caches[1];run['tactics']=caches[0]
+ rows=[]
+ for line in measured_lines:
+  if 'Prefill batch' not in line:continue
+  ts=datetime.datetime.strptime(line[1:20],'%Y-%m-%d %H:%M:%S').replace(tzinfo=datetime.timezone.utc).timestamp()
+  vals={k:int(v) for k,v in re.findall(r'#([a-z-]+): (\d+)',line)};rows.append(vals)
+ decode=[line for line in measured_lines if 'Decode batch' in line]
+ run['decode_log_count']=len(decode);run['decode_log_cuda_graph_false']=sum('cuda graph: False' in line for line in decode)
+ run['sm_below_1800_samples']=sum(float(x['clocks.current.sm [MHz]'].split()[0])<1800 for x in s)
+ run['power_below_1000_samples']=sum(float(x['power.draw [W]'].split()[0])<1000 for x in s)
+ run['logged_prefill_rows']=rows
+ run['prefill_count']=len(rows);run['new_token_sum']=sum(x.get('new-token',0) for x in rows)
+ run['new_seq_sum']=sum(x.get('new-seq',0) for x in rows)
+ run['median_running_requests_at_prefill']=statistics.median(x['running-req'] for x in rows) if rows else None
+ result['runs'].append(run)
+(root/'phase_audit.json').write_text(json.dumps(result,indent=2)+'\n')
+for x in result['runs']:print(x['phase'],x['gpu'],x['telemetry'],x['prefill_count'],x['new_token_sum'],x['new_seq_sum'],x['median_running_requests_at_prefill'])

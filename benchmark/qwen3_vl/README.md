@@ -138,7 +138,9 @@ conversion, fallback and namespace checks. Its short model gates preserved
 logits and tokens bitwise and saved about 13/31 microseconds at B64/B128;
 the short production serving gate gained 0.224% and 0.186%. The full N640
 crossover was inconclusive (−1.076% and +1.134%, geometric mean +0.023%),
-with a shared slowdown in phase B. It has not been promoted. The
+with a shared slowdown in phase B and no identified invalidating failure.
+The cast path was removed in `240c40df26` and was never promoted. Full
+results and telemetry are in `results/bf16_greedy_sampling_audit/explicit_serving_full/`. The
 batch-64 vocabulary external C64/N128 screen gained 0.335% and 0.352%,
 but full N320 production pairs gained only 0.085% and 0.016%, with mixed
 TTFT results. Both M32/M64 vocabulary extensions were removed from the
