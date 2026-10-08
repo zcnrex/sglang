@@ -1,0 +1,222 @@
+{
+  "geometry": {
+    "default_async": true,
+    "threads_per_row": 32,
+    "num_threads": 128,
+    "rows_per_block": 4,
+    "vec_size": 8,
+    "cols_per_tile": 2560
+  },
+  "results": [
+    {
+      "batch": 8,
+      "checks": [
+        {
+          "kind": "normal",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "small",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "large",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "zeros",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "cancellation",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        }
+      ],
+      "changed_graph_rows": 72,
+      "rounds_us": [
+        {
+          "0": 2.110666698879666,
+          "1": 2.221155497762892
+        },
+        {
+          "1": 2.2214222285482617,
+          "0": 2.110577788617876
+        },
+        {
+          "0": 2.107822232776218,
+          "1": 2.221777704026964
+        },
+        {
+          "1": 2.2216000490718417,
+          "0": 2.108044425646464
+        },
+        {
+          "0": 2.107600039905972,
+          "1": 2.2214222285482617
+        },
+        {
+          "1": 2.221644421418508,
+          "0": 2.107955515384674
+        },
+        {
+          "0": 2.107822232776218,
+          "1": 2.2216889593336315
+        },
+        {
+          "1": 2.2216889593336315,
+          "0": 2.107688950167762
+        }
+      ]
+    },
+    {
+      "batch": 16,
+      "checks": [
+        {
+          "kind": "normal",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "small",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "large",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "zeros",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "cancellation",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        }
+      ],
+      "changed_graph_rows": 72,
+      "rounds_us": [
+        {
+          "0": 2.110311057832506,
+          "1": 2.2212000356780157
+        },
+        {
+          "1": 2.221022215154436,
+          "0": 2.107644412252638
+        },
+        {
+          "0": 2.107644412252638,
+          "1": 2.221244408024682
+        },
+        {
+          "1": 2.221244408024682,
+          "0": 2.107777860429552
+        },
+        {
+          "0": 2.11008886496226,
+          "1": 2.2212000356780157
+        },
+        {
+          "1": 2.2214222285482617,
+          "0": 2.107777860429552
+        },
+        {
+          "0": 2.1079111430380078,
+          "1": 2.2216000490718417
+        },
+        {
+          "1": 2.2214222285482617,
+          "0": 2.1078666051228843
+        }
+      ]
+    },
+    {
+      "batch": 128,
+      "checks": [
+        {
+          "kind": "normal",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "small",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "large",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "zeros",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        },
+        {
+          "kind": "cancellation",
+          "output_bitwise": true,
+          "residual_bitwise": true,
+          "max_abs": 0.0
+        }
+      ],
+      "changed_graph_rows": 72,
+      "rounds_us": [
+        {
+          "0": 2.2214222285482617,
+          "1": 2.2981334063741894
+        },
+        {
+          "1": 2.2952000300089517,
+          "0": 2.221511138810052
+        },
+        {
+          "0": 2.221555511156718,
+          "1": 2.2981777787208557
+        },
+        {
+          "1": 2.292177743381924,
+          "0": 2.221555511156718
+        },
+        {
+          "0": 2.221466600894928,
+          "1": 2.298311061329312
+        },
+        {
+          "1": 2.297911047935486,
+          "0": 2.221511138810052
+        },
+        {
+          "0": 2.221377856201596,
+          "1": 2.2952000300089517
+        },
+        {
+          "1": 2.295333312617408,
+          "0": 2.221644421418508
+        }
+      ]
+    }
+  ]
+}

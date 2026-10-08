@@ -1,0 +1,752 @@
+[
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b1/diagnostic.trace.json",
+    "bytes": 342370,
+    "sha256": "b63f28bd51818ea1a4c6328de49168060083b017a540ae783f823803dad31100",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b1/outputs.pt",
+    "bytes": 3649805,
+    "sha256": "4ad4666d579c7ef669f845313cf8575e5756706cce1d946d1f187ce7a15ad201",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b1/report.json",
+    "bytes": 4887,
+    "sha256": "c7941b69f3d60928be78f8bd6591c4dbc3160b20e3fe00fb28ee5a523d1ebcbf",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b1-ready",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b16/diagnostic.trace.json",
+    "bytes": 357745,
+    "sha256": "1df1e75dd778d27f2d08916111d80ef376aa231fbb5e91a32cc6fc4c53b8bdf2",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b16/outputs.pt",
+    "bytes": 58350349,
+    "sha256": "896fb561f36d9c24bb925f07223a52deadd74b80a17d1f63e300e5729f5beaf2",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b16/report.json",
+    "bytes": 4881,
+    "sha256": "a0293f7a0665c517f552cdec1c35be816bfc961ab79a540099f6b9b67f87661b",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b8/diagnostic.trace.json",
+    "bytes": 326201,
+    "sha256": "04bdad5e8d6c39abafd86bb494e6f266a65a5e39eb05f4257cd42bf48e0c8900",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b8/outputs.pt",
+    "bytes": 29176717,
+    "sha256": "3f9fcc94472993cd77016aaf058a2de10f7cf228beb9f7ceb95d57c191c5c27e",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/b8/report.json",
+    "bytes": 4887,
+    "sha256": "30a9926dfe3b8a635c1c24d5194e7292fecab16151b0913a6ce29bf911c5c3d0",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "bytes": 1288,
+    "sha256": "e24582b3aa7296f0bf31e336330dc43101d107c0332a4bceede8bdc6efb08d36",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/full-source-manifest.json",
+    "bytes": 1783469,
+    "sha256": "023d4b3ec6d7cb4ed4bee3382bf30896898ab90a8ac57c5da085ea0cb7559c40",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/graph-keys.json",
+    "bytes": 1682,
+    "sha256": "6cf5f14f0212af20343cb710e752ed30ef6191ff3140b0a1d924089bf2c1ec4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/launch.json",
+    "bytes": 2583,
+    "sha256": "1847925e9fb8611cdb060c42ad6bcc45063e6d2d335743fb9e69fdbe076845eb",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/run.log",
+    "bytes": 15513,
+    "sha256": "1f4e31429bcb1e852ac5573666ab674c596968cac7b757e8fb12d86638e69f6c",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate/startup-tactics.json",
+    "bytes": 1288,
+    "sha256": "e24582b3aa7296f0bf31e336330dc43101d107c0332a4bceede8bdc6efb08d36",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/candidate-excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/comparison-1-8-16.json",
+    "bytes": 4462,
+    "sha256": "58576a3b0703540b8af62bb891fa5019f463edeb1a1be6aeb70fad5c05296485",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/comparison-1.json",
+    "bytes": 1510,
+    "sha256": "4c90a56f39e04d6ce1edad8b68b41139af3f000a7da6fd56eb108ad664b564f7",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/comparison.log",
+    "bytes": 4463,
+    "sha256": "466be17ca60ec9f61c696d19134cda94b6d89d4b87b08b8d468cf60f9585582b",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/continue-after-b1",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b1/diagnostic.trace.json",
+    "bytes": 342359,
+    "sha256": "d672b0d1b5e9ef11775732a7041d9cd30ab3c2e8334538843efb2b720c206e27",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b1/outputs.pt",
+    "bytes": 3649805,
+    "sha256": "4ad4666d579c7ef669f845313cf8575e5756706cce1d946d1f187ce7a15ad201",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b1/report.json",
+    "bytes": 4884,
+    "sha256": "846f2722a86cc030f842b8f3fa10811e1801c0f5c0ef2c802eb0225c28311cdb",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b1-ready",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b16/diagnostic.trace.json",
+    "bytes": 369624,
+    "sha256": "6808d44e9d7a938667f5295982f42cd86f62c66144df1e50bb27cf2c8207fb84",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b16/outputs.pt",
+    "bytes": 58350349,
+    "sha256": "98e5e2e36f3c17123fb23c90599e22eab0e4da52ed6c5de254da6f126ea6103f",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b16/report.json",
+    "bytes": 4885,
+    "sha256": "e5209d62f942f54855216b975c22074a686c0a7fbbcb7b2e991acdab7e615d73",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b8/diagnostic.trace.json",
+    "bytes": 338079,
+    "sha256": "f200a898a108230eb5b879fe703f3ceeda1c7f29ad76eae4a2248d6cce147033",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b8/outputs.pt",
+    "bytes": 29176717,
+    "sha256": "68f4e56f2fd0259552d87d0efbaede0e17140dbcfe2d73963a3a6102ec0bf34d",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/b8/report.json",
+    "bytes": 4877,
+    "sha256": "d48898c0961474d36438bed411a965ce6b64b2fff3aabcf603d2dd8538539de4",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "bytes": 1288,
+    "sha256": "e24582b3aa7296f0bf31e336330dc43101d107c0332a4bceede8bdc6efb08d36",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/full-source-manifest.json",
+    "bytes": 1783296,
+    "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/graph-keys.json",
+    "bytes": 1682,
+    "sha256": "6cf5f14f0212af20343cb710e752ed30ef6191ff3140b0a1d924089bf2c1ec4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/launch.json",
+    "bytes": 2577,
+    "sha256": "aed209b3f89a8eef468e5e1ca7209d5bf416c2c2aceeed4a2e69bd1e2486e817",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/run.log",
+    "bytes": 15331,
+    "sha256": "b66d45654dc972eecd3f22c31e11a55ff29d36ebf91eb1315769c370cba37e16",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control/startup-tactics.json",
+    "bytes": 1288,
+    "sha256": "e24582b3aa7296f0bf31e336330dc43101d107c0332a4bceede8bdc6efb08d36",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/control-excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model/gpu-admission.json",
+    "bytes": 742,
+    "sha256": "499b221f7fc0e675c6cf9beeddd05023dd7dde66bb76277d0aa9f5fe79f818d1",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/b128/diagnostic.trace.json",
+    "bytes": 399992,
+    "sha256": "59db28c6ae134cc6b8ed46565e70f90f8fd348b86ec2ac14b092b869e9bf62e6",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/b128/outputs.pt",
+    "bytes": 466781197,
+    "sha256": "01178b1fcabc614249f8789bdaeee32010b544f7ecd4a481f097261f12f6963a",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/b128/report.json",
+    "bytes": 4885,
+    "sha256": "beafd7dd5e109b23f0c0e018616ac028ac8a13f3029a92a7cfb9650d0a8bafc3",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "bytes": 1288,
+    "sha256": "7dcd8a06d3cf2f1865bac3f6626749860f1e554ef25aecb4e4afd835bd3a3c7c",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/full-source-manifest.json",
+    "bytes": 1783469,
+    "sha256": "023d4b3ec6d7cb4ed4bee3382bf30896898ab90a8ac57c5da085ea0cb7559c40",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/graph-keys.json",
+    "bytes": 1682,
+    "sha256": "6cf5f14f0212af20343cb710e752ed30ef6191ff3140b0a1d924089bf2c1ec4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/launch.json",
+    "bytes": 2659,
+    "sha256": "026e03d8138728ff1fbb55a93b34f3b8b0e027653a27af996c5c237bf9913d7e",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/run.log",
+    "bytes": 7548,
+    "sha256": "19926ebc2b030c5c7fee63133f14800bf1caf335ebaa9c0f22ede81fabc747d8",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate/startup-tactics.json",
+    "bytes": 1288,
+    "sha256": "7dcd8a06d3cf2f1865bac3f6626749860f1e554ef25aecb4e4afd835bd3a3c7c",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/candidate-excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/comparison-128.json",
+    "bytes": 1774,
+    "sha256": "2354ee40fe326d374e92e189ae4233135cb92ec0133f4a18f214a4296d27de4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/comparison.log",
+    "bytes": 1775,
+    "sha256": "a549a749f8471595adf1f2f1e0535b2319f685f6cc488ab0737d9519df6259df",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/b128/diagnostic.trace.json",
+    "bytes": 411799,
+    "sha256": "a504ed9815c0760c251d3e7b413ea28d35ceeaf8e4826c8cfb820e207dd835b8",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/b128/outputs.pt",
+    "bytes": 466781197,
+    "sha256": "36c4a74ce7484d339c69b17e7aa80d3e28914be221038567e0dc5dd7d283ba6b",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/b128/report.json",
+    "bytes": 4884,
+    "sha256": "3c4b1ada3013c6a188ddf884920556ec1231348cac792dfceb32a0f1030214b1",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "bytes": 1288,
+    "sha256": "0bccce8e3a25a74af171185784271192f60f162fe915bf5f07627ce219a35b28",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/full-source-manifest.json",
+    "bytes": 1783296,
+    "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/graph-keys.json",
+    "bytes": 1682,
+    "sha256": "6cf5f14f0212af20343cb710e752ed30ef6191ff3140b0a1d924089bf2c1ec4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/launch.json",
+    "bytes": 2653,
+    "sha256": "7188b3a139ba82021f12890ea9493a20e7c9364ae4efe1495cf51e8bd3fb65c0",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/run.log",
+    "bytes": 7546,
+    "sha256": "1f0e2edd95fdd541c277cc74169d2bf1f97292f946aa0ba77dd0bf72c2a8fe3f",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control/startup-tactics.json",
+    "bytes": 1288,
+    "sha256": "0bccce8e3a25a74af171185784271192f60f162fe915bf5f07627ce219a35b28",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/control-excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-normalization-model-b128-short/gpu-admission.json",
+    "bytes": 742,
+    "sha256": "499b221f7fc0e675c6cf9beeddd05023dd7dde66bb76277d0aa9f5fe79f818d1",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b1/diagnostic.trace.json",
+    "bytes": 342430,
+    "sha256": "72d9ba80e4deaca4a5a7570abd680714e02465059cfd707c9f076d873327dac0",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b1/outputs.pt",
+    "bytes": 3649805,
+    "sha256": "4ad4666d579c7ef669f845313cf8575e5756706cce1d946d1f187ce7a15ad201",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b1/report.json",
+    "bytes": 4884,
+    "sha256": "f1474f268a95a33625c24fd444f776dc461454ccb20a2c40ed3f81ca68175a60",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b1-ready",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b128/diagnostic.trace.json",
+    "bytes": 414843,
+    "sha256": "7330f2edbc4229ea6e4a0603be15302ff4b2845722459cc71fcc88e5741e7de9",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b128/outputs.pt",
+    "bytes": 466781197,
+    "sha256": "36c4a74ce7484d339c69b17e7aa80d3e28914be221038567e0dc5dd7d283ba6b",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b128/report.json",
+    "bytes": 4882,
+    "sha256": "f452bad4332edd17573d38517f2f4f971cf1f2102f16150bc3ab8d9450b0c887",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b16/diagnostic.trace.json",
+    "bytes": 369730,
+    "sha256": "41c46eb7a59cf0ab033e840d57e6f0144ac89486bda917ae6c12e82e43de00b6",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b16/outputs.pt",
+    "bytes": 58350349,
+    "sha256": "98e5e2e36f3c17123fb23c90599e22eab0e4da52ed6c5de254da6f126ea6103f",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b16/report.json",
+    "bytes": 4883,
+    "sha256": "22a26fc43f2650598707962f66315764ff8761a722cb2e854d309f6dc4259932",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b8/diagnostic.trace.json",
+    "bytes": 338114,
+    "sha256": "2b8b7b78d323e70160dd9bb94d7a1d937d8979da4da62f2f4f0bbcb146ee7b9f",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b8/outputs.pt",
+    "bytes": 29176717,
+    "sha256": "68f4e56f2fd0259552d87d0efbaede0e17140dbcfe2d73963a3a6102ec0bf34d",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/b8/report.json",
+    "bytes": 4887,
+    "sha256": "347aeb6b11934b0e8b34bff4a3cfae9d318422d37331f7e6bbd50571c69afccb",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "bytes": 1288,
+    "sha256": "0bccce8e3a25a74af171185784271192f60f162fe915bf5f07627ce219a35b28",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/excluded-bytecode.json",
+    "bytes": 15017,
+    "sha256": "77bced8faa13e515b3513e528e05c72dde1f1da6120982cb16a3740db8605fa0",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/full-source-manifest.json",
+    "bytes": 1783296,
+    "sha256": "db01e55f190fca6744dea042152d429b1f6c593ce6901ddbaf41a4e7298d7ab7",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/graph-keys.json",
+    "bytes": 1682,
+    "sha256": "6cf5f14f0212af20343cb710e752ed30ef6191ff3140b0a1d924089bf2c1ec4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/launch.json",
+    "bytes": 2595,
+    "sha256": "58046c26f28fe1d238bb742ea9a1cf94c8572cc5aa07be7dc6c26598929e27b2",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/run.log",
+    "bytes": 8141,
+    "sha256": "ebf9a4d19c9c3185cfab296126015fcbaf583206997f466d3e256cde0e87eff4",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate/startup-tactics.json",
+    "bytes": 1288,
+    "sha256": "0bccce8e3a25a74af171185784271192f60f162fe915bf5f07627ce219a35b28",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/candidate-excluded-bytecode.json",
+    "bytes": 15017,
+    "sha256": "77bced8faa13e515b3513e528e05c72dde1f1da6120982cb16a3740db8605fa0",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/comparison-1-8-16-128.json",
+    "bytes": 5506,
+    "sha256": "78a82b59e05a84336527304a9ba8ac3263676a6c3dad6a8c45a066cfc0ecd94a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/comparison-1.json",
+    "bytes": 1510,
+    "sha256": "4c90a56f39e04d6ce1edad8b68b41139af3f000a7da6fd56eb108ad664b564f7",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/comparison-all.log",
+    "bytes": 5507,
+    "sha256": "15f3af04ebd31a0d6ce5e8f157121c5de8c9ab7f3bc50ed9767ea685839d4803",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/comparison-b1.log",
+    "bytes": 1511,
+    "sha256": "b9b53eb46af6b8975f0607d59896743072e9b554c81a65a57796d7d1fe9852f5",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/continue-after-b1",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b1/diagnostic.trace.json",
+    "bytes": 342356,
+    "sha256": "51f1d42b2727bc90dfaa16a151a8264ca1c2347ad5bb176cc69437c9c64e5497",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b1/outputs.pt",
+    "bytes": 3649805,
+    "sha256": "4ad4666d579c7ef669f845313cf8575e5756706cce1d946d1f187ce7a15ad201",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b1/report.json",
+    "bytes": 4877,
+    "sha256": "f6eb154d65d53b5c0150f57f3b4a67966d1035a67ebb2cf3e4a1f9b523b2040b",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b1-ready",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b128/diagnostic.trace.json",
+    "bytes": 414913,
+    "sha256": "f59368c46bbf17cf1c2fbf947e4fdae845bfd7ce9f63b0e72d7bf2ba8d53cd74",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b128/outputs.pt",
+    "bytes": 466781197,
+    "sha256": "5b77cff3d73a753dbcf7875ace9e8e3e4a4b78c74fe42b9997b26ac0de4dcc58",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b128/report.json",
+    "bytes": 4883,
+    "sha256": "753965360ea6130ae3956cc00360dbf492d3731d0a36893cac060fdb679014b4",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b16/diagnostic.trace.json",
+    "bytes": 369621,
+    "sha256": "11b8e574b8fc5d35073f9f1fae99493a5ade067b7da995e32a9d159d401342d7",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b16/outputs.pt",
+    "bytes": 58350349,
+    "sha256": "98e5e2e36f3c17123fb23c90599e22eab0e4da52ed6c5de254da6f126ea6103f",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b16/report.json",
+    "bytes": 4885,
+    "sha256": "798215393aeac347488e4db3e6b31a9c0968870049c7d2f5ad0afcfe7cb6a566",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b8/diagnostic.trace.json",
+    "bytes": 338076,
+    "sha256": "c29b4b6f9631e5166440864b8659efdc3a28d548b67ce6021a5d8ada248932f4",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b8/outputs.pt",
+    "bytes": 29176717,
+    "sha256": "68f4e56f2fd0259552d87d0efbaede0e17140dbcfe2d73963a3a6102ec0bf34d",
+    "copied": false
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/b8/report.json",
+    "bytes": 4874,
+    "sha256": "22e4d896f798212de3095d1d1c4164ae67e0dc7bc60823689a046dbde7f3c57d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "bytes": 1288,
+    "sha256": "af312ab4dd974c29173b2a1cfdc6decf682ee783be759046d30db81fd3e9b3b5",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/full-source-manifest.json",
+    "bytes": 1783296,
+    "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/graph-keys.json",
+    "bytes": 1682,
+    "sha256": "6cf5f14f0212af20343cb710e752ed30ef6191ff3140b0a1d924089bf2c1ec4d",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/launch.json",
+    "bytes": 2559,
+    "sha256": "94621710459e6d14ec0c128cc9c7f4fbb3c537fecc817e3756ac57f04fe732b4",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/run.log",
+    "bytes": 8245,
+    "sha256": "f282a7da753c36e0acf87360e8605e172d6695a15c1657ff2b91e15f578aea84",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control/startup-tactics.json",
+    "bytes": 1288,
+    "sha256": "af312ab4dd974c29173b2a1cfdc6decf682ee783be759046d30db81fd3e9b3b5",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/control-excluded-bytecode.json",
+    "bytes": 2,
+    "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/gpu-admission-830266.json",
+    "bytes": 542,
+    "sha256": "cd5ea296fa7dc346cbe8cff1b478228ff938e7303a319d397af81248316595e2",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-activation-model/gpu-admission.json",
+    "bytes": 742,
+    "sha256": "7b445beef13284bac2d2540bd71263dfcf0f3a3cb9ddf0fc2487530f94c3bec4",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/README.md",
+    "bytes": 2606,
+    "sha256": "89b3306d4a717aa6b6328b0cfcb60473f028b51f243a1d9f6b7e67df3ca03c12",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/__pycache__/model-launch.cpython-310.pyc",
+    "bytes": 4343,
+    "sha256": "21132eb67ef6b63756d4c1730d582c981938834a2af9d127089604799def4a4f",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/__pycache__/model.cpython-310.pyc",
+    "bytes": 5853,
+    "sha256": "a71ba54dd2406e4b98913a56a480c7653891408844a605f6ed7ee11de80533e5",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/compare.py",
+    "bytes": 1867,
+    "sha256": "acc89708f46a90b5b619accdcddb2e13480c2880d2c6e39e6ddd07bddd63eae2",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/model-full.py",
+    "bytes": 5576,
+    "sha256": "a3da1512c1663b0c660516818ebf67995886424ebceee51a939c0779d66d41c2",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/model-launch-first.py",
+    "bytes": 3829,
+    "sha256": "aa5970ecba8abce0bb5cc207ac7d8b26ebf0a5eda96ed6334aecc96d5b622234",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/model-launch.py",
+    "bytes": 4033,
+    "sha256": "12631ea1454d3c4ca3cfb6a1c2965cfed7bb539be05632d2c4a35736026c2fbb",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/model-short.py",
+    "bytes": 5694,
+    "sha256": "b158ed733d18cd9aef32a0eba2b5f60ab219215ee93bae70bd658477df87adbb",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/model.py",
+    "bytes": 5694,
+    "sha256": "b158ed733d18cd9aef32a0eba2b5f60ab219215ee93bae70bd658477df87adbb",
+    "copied": true
+  },
+  {
+    "remote_path": "/root/qvl/experiments/bf16-elementwise-model-tools/repair_activation_cache.py",
+    "bytes": 669,
+    "sha256": "dce654f1acfbfb1de87b057ad53eee9ecdd6fd6061e94712ce147e6e5e76a248",
+    "copied": true
+  }
+]

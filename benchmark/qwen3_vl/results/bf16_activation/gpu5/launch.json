@@ -1,0 +1,17 @@
+{
+  "pid": 825201,
+  "cmd": [
+    "/root/qvl/venv-sgl/bin/python",
+    "/root/qvl/experiments/bf16-activation/screen.py",
+    "--shapes",
+    "1,2,4,8,16,32,64,16384",
+    "--out",
+    "/root/qvl/experiments/bf16-activation/gpu5"
+  ],
+  "env": {
+    "CUDA_VISIBLE_DEVICES": "5",
+    "PYTHONPATH": "/root/qvl/sglang-final-qkv-c76cfaba1a/python",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "MAX_JOBS": "8"
+  }
+}

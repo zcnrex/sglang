@@ -1,0 +1,10 @@
+{
+  "entries": 10245,
+  "changed": [
+    "python/sglang/kernels/jit/csrc/elementwise/activation.cuh",
+    "python/sglang/kernels/ops/activation/activation.py"
+  ],
+  "missing": [],
+  "extra": [],
+  "copy_correction": "Restored two directory and two file baseline symlinks; dereferenced copies preserved separately; no runtime source change"
+}

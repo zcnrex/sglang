@@ -1,0 +1,26 @@
+{
+  "restored": true,
+  "validated": [
+    [
+      4,
+      2560,
+      151936
+    ],
+    [
+      8,
+      2560,
+      151936
+    ],
+    [
+      128,
+      2560,
+      19456
+    ],
+    [
+      128,
+      9728,
+      2560
+    ]
+  ],
+  "seed": "/root/qvl/experiments/bf16-activation-model/control/startup-tactics.json"
+}

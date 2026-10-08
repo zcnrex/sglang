@@ -1,0 +1,12 @@
+{
+  "control_count": 10245,
+  "candidate_count": 10246,
+  "added": [
+    "python/sglang/kernels/ops/layernorm/bf16_residual_rmsnorm.py"
+  ],
+  "removed": [],
+  "changed": [
+    "python/sglang/kernels/ops/layernorm/__init__.py",
+    "python/sglang/srt/layers/layernorm.py"
+  ]
+}

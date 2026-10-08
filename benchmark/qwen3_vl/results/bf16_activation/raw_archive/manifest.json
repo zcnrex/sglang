@@ -1,0 +1,18 @@
+{
+  "original_name": "bf16-activation-evidence.tar.gz",
+  "bytes": 1110013,
+  "sha256": "80fb77e065522c0f9fff882dcab45be7b96bfeb67074111205ae11838470265f",
+  "parts": [
+    {
+      "path": "original.tar.gz.part000",
+      "sha256": "a65573e677c6e38d43300ea2d452f0bdb85d682884b086ef91b3b627a939fe11",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part001",
+      "sha256": "98c0cead84541791374ef9a23fb93d11576a58a0180dda75f0e121ffa5974db5",
+      "bytes": 61437
+    }
+  ],
+  "reconstruct": "cat original.tar.gz.part* > original.tar.gz; tar xzf original.tar.gz"
+}

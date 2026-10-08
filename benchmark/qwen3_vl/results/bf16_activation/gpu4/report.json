@@ -1,0 +1,87 @@
+{
+  "device": "NVIDIA B300 SXM6 AC",
+  "torch": "2.14.1+cu130",
+  "precise_math": true,
+  "pdl": true,
+  "header_sha256": "32ed9f6cd5f5b070a69f2c16b167a1476f807ab6a8ac0bb04bed9d93f04cf42c",
+  "shapes": [
+    {
+      "batch": 128,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "vec4_block128": true,
+        "vec8_block128": true,
+        "vec16_block128": true
+      },
+      "changed_graph_bitwise": {
+        "vec4_block128": true,
+        "vec8_block128": true,
+        "vec16_block128": true
+      },
+      "input_bytes": 179306496,
+      "pairs_us": [
+        {
+          "baseline": 3.612426651848687,
+          "vec4_block128": 3.8158488273620605,
+          "vec8_block128": 3.086951043870714,
+          "vec16_block128": 3.4923378626505532
+        },
+        {
+          "vec16_block128": 3.494551181793213,
+          "vec8_block128": 3.087964322831896,
+          "vec4_block128": 3.8137067688835993,
+          "baseline": 3.608773284488254
+        },
+        {
+          "baseline": 3.6071022351582847,
+          "vec4_block128": 3.8127644856770835,
+          "vec8_block128": 3.0730043517218695,
+          "vec16_block128": 3.491004572974311
+        },
+        {
+          "vec16_block128": 3.4863911734686956,
+          "vec8_block128": 3.0875200695461698,
+          "vec4_block128": 3.814657794104682,
+          "baseline": 3.6132976743910046
+        },
+        {
+          "baseline": 3.6159555117289224,
+          "vec4_block128": 3.814257780710856,
+          "vec8_block128": 3.0707732836405435,
+          "vec16_block128": 3.4915733337402344
+        },
+        {
+          "vec16_block128": 3.489911026424832,
+          "vec8_block128": 3.0876800749037,
+          "vec4_block128": 3.8154488139682345,
+          "baseline": 3.6092710494995117
+        },
+        {
+          "baseline": 3.608142269982232,
+          "vec4_block128": 3.812968995836046,
+          "vec8_block128": 3.071760071648492,
+          "vec16_block128": 3.494035667843289
+        },
+        {
+          "vec16_block128": 3.487697707282172,
+          "vec8_block128": 3.0886933538648815,
+          "vec4_block128": 3.813813262515598,
+          "baseline": 3.606942229800754
+        }
+      ],
+      "median_us": {
+        "baseline": 3.609022166993883,
+        "vec4_block128": 3.814035521613227,
+        "vec8_block128": 3.0872355567084417,
+        "vec16_block128": 3.4912889533572726
+      }
+    }
+  ]
+}

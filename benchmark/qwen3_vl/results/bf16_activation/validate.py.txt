@@ -1,0 +1,52 @@
+import argparse,json,pathlib,statistics,hashlib,time
+import torch
+from sglang.kernels.ops.activation.activation import silu_and_mul
+from sglang.kernels.jit.utils import load_jit,make_cpp_args,is_arch_support_pdl,get_activation_cuda_cflags
+p=argparse.ArgumentParser();p.add_argument('--shapes',required=True);p.add_argument('--out',required=True);a=p.parse_args();root=pathlib.Path(a.out);root.mkdir(parents=True,exist_ok=True)
+assert torch.cuda.get_device_capability()==(10,3)
+assert get_activation_cuda_cflags()==[]
+args=make_cpp_args(torch.bfloat16,is_arch_support_pdl())
+module=load_jit('bf16_activation_original',*args,cuda_files=['/root/qvl/sglang-final-qkv-c76cfaba1a/python/sglang/kernels/jit/csrc/elementwise/activation.cuh'],extra_cuda_cflags=[],cuda_wrappers=[('run',f'ActivationKernel<{args}>::run_activation')])
+variants={'candidate':silu_and_mul}
+report=dict(device=torch.cuda.get_device_name(),torch=torch.__version__,precise_math=True,pdl=is_arch_support_pdl(),shapes=[])
+x=torch.empty((128,19456),device='cuda',dtype=torch.bfloat16)
+bits=torch.arange(65536,dtype=torch.int32,device='cuda').to(torch.int16).view(torch.bfloat16)
+upvalues=[0.,-0.,1.,-1.,0.125,-0.125,128.,-128.,float('inf'),-float('inf'),float('nan')]
+checks=[]
+for up in upvalues:
+ x[:,:9728].copy_(bits.repeat(19)[:128*9728].reshape(128,9728));x[:,9728:].fill_(up)
+ y=torch.empty((128,9728),device='cuda',dtype=torch.bfloat16);z=torch.empty_like(y)
+ module.run(x,y,'silu');silu_and_mul(x,z);torch.cuda.synchronize()
+ equal=torch.equal(y.view(torch.int16),z.view(torch.int16));checks.append(dict(up=str(up),bitwise=equal));assert equal,checks[-1]
+report['exhaustive_bf16']=checks
+for batch in map(int,a.shapes.split(',')):
+ torch.manual_seed(42+batch);x=torch.randn((36,batch,19456),device='cuda',dtype=torch.bfloat16);outs={name:torch.empty((36,batch,9728),device='cuda',dtype=torch.bfloat16) for name in ['baseline',*variants]}
+ def call(name,i):
+  if name=='baseline':module.run(x[i],outs[name][i],'silu')
+  else:variants[name](x[i],outs[name][i])
+ for name in outs:
+  for i in range(36):call(name,i)
+ torch.cuda.synchronize();checks={name:torch.equal(outs[name].view(torch.int16),outs['baseline'].view(torch.int16)) for name in variants};assert all(checks.values()),checks
+ graphs={}
+ for name in outs:
+  g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):
+   for i in range(36):call(name,i)
+  graphs[name]=g
+ x.mul_(2).add_(0.25)
+ for g in graphs.values():g.replay()
+ torch.cuda.synchronize();changed={name:torch.equal(outs[name].view(torch.int16),outs['baseline'].view(torch.int16)) for name in variants};assert all(changed.values()),changed
+ loops=4 if batch==16384 else 100
+ for g in graphs.values():
+  for _ in range(5):g.replay()
+ pairs=[]
+ for round_index in range(8):
+  row={}
+  for name in (list(outs) if round_index%2==0 else list(reversed(outs))):
+   start,end=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);start.record()
+   for _ in range(loops):graphs[name].replay()
+   end.record();end.synchronize();row[name]=start.elapsed_time(end)*1000/loops/36
+  pairs.append(row)
+ row=dict(batch=batch,input_stride=[19456,1],output_stride=[9728,1],initial_bitwise=checks,changed_graph_bitwise=changed,input_bytes=x.numel()*2,pairs_us=pairs,median_us={name:statistics.median(z[name] for z in pairs) for name in outs});report['shapes'].append(row);(root/'report.json').write_text(json.dumps(report,indent=2));print('SHAPE',batch,row['median_us'],flush=True)
+ del graphs,outs,x
+ torch.cuda.empty_cache()

@@ -1,0 +1,46 @@
+import importlib,json,os,pathlib,torch,statistics
+from sgl_kernel import fused_add_rmsnorm
+import importlib.util,sys
+spec=importlib.util.spec_from_file_location('flashinfer.norm.kernels.qvl_early_signal','/tmp/qvl-bf16-normalization-staging/early_signal.py');m=importlib.util.module_from_spec(spec);sys.modules[spec.name]=m;spec.loader.exec_module(m)
+def compile_candidate():
+ dtype=m.get_cutlass_dtype('bfloat16');obj=m.FusedAddRMSNormKernel(dtype,2560,0.0,sm_version=103);before=obj.use_async_copy;obj.use_async_copy=True
+ sym=m.cute.sym_int(64);x=m.cute.runtime.make_fake_compact_tensor(dtype,(sym,2560),stride_order=(1,0),assumed_align=128);r=m.cute.runtime.make_fake_compact_tensor(dtype,(sym,2560),stride_order=(1,0),assumed_align=128);w=m.cute.runtime.make_fake_compact_tensor(dtype,(2560,),assumed_align=16);stream=m.cute.runtime.make_fake_stream(use_tvm_ffi_env_stream=True)
+ kernel=m.cute.compile(obj,x,r,w,m.Int64(1),m.Float32(1e-6),True,stream,options='--enable-tvm-ffi');return kernel,dict(default_async=before,threads_per_row=obj.threads_per_row,num_threads=obj.num_threads,rows_per_block=obj.rows_per_block,vec_size=obj.vec_size,cols_per_tile=obj.cols_per_tile)
+def main():
+ out=pathlib.Path(os.environ['OUT']);out.mkdir(parents=True,exist_ok=True);torch.manual_seed(43);kernel,geometry=compile_candidate();results=[]
+ def candidate(x,r,w):kernel(x,r,w,x.shape[0],1e-6)
+ for b in [8,16,128]:
+  checks=[]
+  for kind,scale in [('normal',1),('small',1e-4),('large',100),('zeros',0),('cancellation',1)]:
+   x=torch.randn(b,2560,device='cuda',dtype=torch.bfloat16)*scale;r=torch.randn_like(x)*scale;w=torch.randn(2560,device='cuda',dtype=x.dtype)
+   if kind=='cancellation':r=-x;x[:,::3]+=.00390625
+   xb=x.clone();rb=r.clone();xc=x.clone();rc=r.clone();fused_add_rmsnorm(xb,rb,w);candidate(xc,rc,w);torch.cuda.synchronize();check=dict(kind=kind,output_bitwise=torch.equal(xb,xc),residual_bitwise=torch.equal(rb,rc),max_abs=(xb.float()-xc.float()).abs().max().item());checks.append(check);assert check['output_bitwise'] and check['residual_bitwise'],check
+  states=[];graphs=[]
+  for fn in [fused_add_rmsnorm,candidate]:
+   tensors=[(torch.randn(b,2560,device='cuda',dtype=torch.bfloat16),torch.randn(b,2560,device='cuda',dtype=torch.bfloat16),torch.randn(2560,device='cuda',dtype=torch.bfloat16)) for _ in range(36)];stream=torch.cuda.Stream();stream.wait_stream(torch.cuda.current_stream())
+   with torch.cuda.stream(stream):
+    for x,r,w in tensors:fn(x,r,w)
+   torch.cuda.current_stream().wait_stream(stream);g=torch.cuda.CUDAGraph()
+   with torch.cuda.graph(g):
+    for x,r,w in tensors:fn(x,r,w)
+   states.append(tensors);graphs.append(g)
+  for seed in [123,124]:
+   torch.manual_seed(seed)
+   for j in range(36):
+    x=torch.randn_like(states[0][j][0]);r=torch.randn_like(x);w=torch.randn_like(states[0][j][2])
+    for variant in states:
+     variant[j][0].copy_(x);variant[j][1].copy_(r);variant[j][2].copy_(w)
+   for g in graphs:g.replay()
+   torch.cuda.synchronize()
+   for a,z in zip(states[0],states[1]):assert torch.equal(a[0],z[0]) and torch.equal(a[1],z[1])
+  rounds=[]
+  for rep in range(8):
+   timing={}
+   for i in ([0,1] if rep%2==0 else [1,0]):
+    for _ in range(3):graphs[i].replay()
+    a=torch.cuda.Event(enable_timing=True);z=torch.cuda.Event(enable_timing=True);a.record()
+    for _ in range(20):graphs[i].replay()
+    z.record();z.synchronize();timing[str(i)]=a.elapsed_time(z)*1000/720
+   rounds.append(timing)
+  result=dict(batch=b,checks=checks,changed_graph_rows=72,rounds_us=rounds);results.append(result);(out/'report.json').write_text(json.dumps(dict(geometry=geometry,results=results),indent=2));print(result,flush=True)
+if __name__=='__main__':main()

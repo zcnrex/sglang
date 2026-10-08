@@ -1,0 +1,77 @@
+from functools import lru_cache
+
+import torch
+import triton
+import triton.language as tl
+
+
+@triton.jit
+def _bf16_residual_rmsnorm_kernel(X, R, W, EPS: tl.constexpr):
+    tl.extra.cuda.gdc_wait()
+    row = tl.program_id(0)
+    columns = tl.arange(0, 4096)
+    mask = columns < 2560
+    offsets = row * 2560 + columns
+    value = tl.load(X + offsets, mask, 0).to(tl.float32)
+    value += tl.load(R + offsets, mask, 0).to(tl.float32)
+    tl.extra.cuda.gdc_launch_dependents()
+    variance = tl.sum(value * value, 0) / 2560
+    factor = tl.rsqrt(variance + EPS)
+    weight = tl.load(W + columns, mask, 0).to(tl.float32)
+    tl.store(R + offsets, value, mask)
+    tl.store(X + offsets, (value * factor) * weight, mask)
+
+
+@lru_cache(maxsize=None)
+def _supports_device(device: torch.device) -> bool:
+    return torch.cuda.get_device_capability(device) == (10, 3)
+
+
+def try_bf16_residual_rmsnorm(
+    input: torch.Tensor,
+    residual: torch.Tensor,
+    weight: torch.Tensor,
+    eps: float,
+) -> bool:
+    if (
+        input.ndim != 2
+        or input.shape[0] not in (2, 4, 8, 16, 32, 64, 128)
+        or input.shape[1] != 2560
+        or eps != 1e-6
+        or torch.compiler.is_compiling()
+        or torch.are_deterministic_algorithms_enabled()
+        or not input.is_cuda
+        or input.dtype != torch.bfloat16
+        or residual.shape != input.shape
+        or weight.shape != (2560,)
+    ):
+        return False
+    tensors = (input, residual, weight)
+    if any(
+        tensor.device != input.device
+        or tensor.dtype != torch.bfloat16
+        or not tensor.is_contiguous()
+        or tensor.requires_grad
+        for tensor in tensors
+    ) or not _supports_device(input.device):
+        return False
+    spans = [
+        (tensor.data_ptr(), tensor.numel() * tensor.element_size())
+        for tensor in tensors
+    ]
+    if any(
+        a < b + size_b and b < a + size_a
+        for index, (a, size_a) in enumerate(spans)
+        for b, size_b in spans[index + 1 :]
+    ):
+        return False
+    _bf16_residual_rmsnorm_kernel[(input.shape[0],)](
+        input,
+        residual,
+        weight,
+        eps,
+        num_warps=4,
+        enable_fp_fusion=False,
+        launch_pdl=True,
+    )
+    return True

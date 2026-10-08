@@ -1,0 +1,18 @@
+{
+  "test/.pytest_cache/.gitignore": {
+    "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+    "bytes": 37
+  },
+  "test/.pytest_cache/README.md": {
+    "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+    "bytes": 302
+  },
+  "test/.pytest_cache/CACHEDIR.TAG": {
+    "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+    "bytes": 191
+  },
+  "test/.pytest_cache/v/cache/nodeids": {
+    "sha256": "e53bbc8c94d7451f4fd5ec5c1a42d5f2d9f77ebbbeba27a247034f31b1189272",
+    "bytes": 13325
+  }
+}

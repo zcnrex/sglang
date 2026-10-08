@@ -1,0 +1,20 @@
+[
+  {
+    "batch": 8,
+    "seeds": 10,
+    "dependent_pairs_per_graph": 36,
+    "all_outputs_bitwise": true
+  },
+  {
+    "batch": 16,
+    "seeds": 10,
+    "dependent_pairs_per_graph": 36,
+    "all_outputs_bitwise": true
+  },
+  {
+    "batch": 128,
+    "seeds": 10,
+    "dependent_pairs_per_graph": 36,
+    "all_outputs_bitwise": true
+  }
+]

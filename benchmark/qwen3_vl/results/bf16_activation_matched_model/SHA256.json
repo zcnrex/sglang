@@ -1,0 +1,210 @@
+{
+  "raw-output-manifest.json": {
+    "sha256": "2697f87fad9c91d17aba0c4cbac392bcee9c56d2f19094be305700972e997cf4",
+    "bytes": 409
+  },
+  "README.md": {
+    "sha256": "86be70ac421cc2acdf18944e8fde1b56b7cff56818b592d5a967bfc5fd5a2fa2",
+    "bytes": 3562
+  },
+  "raw_archive/original.tar.gz.part003": {
+    "sha256": "86afbc937c39c449beed5decd509337c3dbcc6dd533f392f6bfc3840c6f023ac",
+    "bytes": 282350
+  },
+  "raw_archive/original.tar.gz.part002": {
+    "sha256": "ec9d2b647b8ff0afc287b4f5ead85a8f16483576ff070a24f6a4a59b24dea600",
+    "bytes": 1048576
+  },
+  "raw_archive/original.tar.gz.part000": {
+    "sha256": "3cdae591834e113c83017e150c3d18ed996697e65af42af20d744776b6eba779",
+    "bytes": 1048576
+  },
+  "raw_archive/original.tar.gz.part001": {
+    "sha256": "cdf5324af8cfcc4a8078bd2fc5892404f2428c3f024ffbd2ae1e97fc57a5d197",
+    "bytes": 1048576
+  },
+  "raw_archive/manifest.json": {
+    "sha256": "7b4eaa8143604abc59b187b762b7be7b60c42e147903bba009775c37b92d8f63",
+    "bytes": 914
+  },
+  "bf16-activation-matched-model/gpu-admission-831748.json": {
+    "sha256": "287f00f77c410225f42b097023fd9083b33daa2a4620d00ac1a88f3929d43f3c",
+    "bytes": 493
+  },
+  "bf16-activation-matched-model/control-excluded-bytecode.json": {
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "bytes": 3
+  },
+  "bf16-activation-matched-model/candidate-excluded-bytecode.json": {
+    "sha256": "b33808e42ba3f8e902aba49afe97cfbbba9d57302c600c93181c76022a6b3dac",
+    "bytes": 15018
+  },
+  "bf16-activation-matched-model/candidate/full-source-manifest.json.gz": {
+    "sha256": "8617c3f8fcc0e9c29bd999ed3c2c3db8b77465b19195e0394a53998362d1426a",
+    "bytes": 549960
+  },
+  "bf16-activation-matched-model/candidate/run.log.gz": {
+    "sha256": "f9e0529653d9b8bf4680281ae246a367a8a092fb333da9b77a96245aee24ba73",
+    "bytes": 549434
+  },
+  "bf16-activation-matched-model/candidate/launch.json": {
+    "sha256": "4950c627d07730d7ac14e8ccb2112765df13b0169115bebf32e9780a606b37d5",
+    "bytes": 2622
+  },
+  "bf16-activation-matched-model/candidate/excluded-bytecode.json": {
+    "sha256": "b33808e42ba3f8e902aba49afe97cfbbba9d57302c600c93181c76022a6b3dac",
+    "bytes": 15018
+  },
+  "bf16-activation-matched-model/candidate/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json": {
+    "sha256": "2a4bd35718751bbdfe75ff40fea1e64f0b555be3dc05cef5508f9c5b18d9fea4",
+    "bytes": 1289
+  },
+  "bf16-activation-matched-model/control/full-source-manifest.json.gz": {
+    "sha256": "1dd8dd5fb070253568c23ca1c74fa57943994761fc50df233670c39a973df121",
+    "bytes": 549966
+  },
+  "bf16-activation-matched-model/control/run.log.gz": {
+    "sha256": "613918b58f1c33e390dc1daa17060f3533bd870de18c4bfaf6b19be0ad92f1a7",
+    "bytes": 549481
+  },
+  "bf16-activation-matched-model/control/launch.json": {
+    "sha256": "a1b57fdf8664b092d7d20d849ef1ee9cc9e7a594a68329124903b2bae2bad284",
+    "bytes": 2625
+  },
+  "bf16-activation-matched-model/control/excluded-bytecode.json": {
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "bytes": 3
+  },
+  "bf16-activation-matched-model/control/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json": {
+    "sha256": "b2886ddadc2464d2f2b64f3897a17a447a14e73b75c5eec81eeda8cdc2785a86",
+    "bytes": 1289
+  },
+  "bf16-activation-matched-tools/model-attempt1.py.txt": {
+    "sha256": "f9935e868e3015ab3c4509d685d8d7708170703e8cd4c064866ceaf69b7593b4",
+    "bytes": 7704
+  },
+  "bf16-activation-matched-tools/model-launch.py.txt": {
+    "sha256": "3bc39fa0904f4044e4784437bd0663c3d845890093b97ed1a7f9232eb574982b",
+    "bytes": 4057
+  },
+  "bf16-activation-matched-tools/model.py.txt": {
+    "sha256": "c098acf59b29d4f3d4fdc5a1cf21918c797418cd6b863537bc6f9c4136482884",
+    "bytes": 7752
+  },
+  "bf16-activation-matched-model-attempt2/comparison-128.json": {
+    "sha256": "77816e361a1727a7387c6270202e0376645a81b6099c833bd412bf91a65e2363",
+    "bytes": 1523
+  },
+  "bf16-activation-matched-model-attempt2/gpu-admission-833975.json": {
+    "sha256": "cf17379bd7f8c7a1a9a0d56b11ba0e0ce27dce6169e3df6ca99070ed6b93eec8",
+    "bytes": 593
+  },
+  "bf16-activation-matched-model-attempt2/control-excluded-bytecode.json": {
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "bytes": 3
+  },
+  "bf16-activation-matched-model-attempt2/comparison.log": {
+    "sha256": "77816e361a1727a7387c6270202e0376645a81b6099c833bd412bf91a65e2363",
+    "bytes": 1523
+  },
+  "bf16-activation-matched-model-attempt2/candidate-excluded-bytecode.json": {
+    "sha256": "b33808e42ba3f8e902aba49afe97cfbbba9d57302c600c93181c76022a6b3dac",
+    "bytes": 15018
+  },
+  "bf16-activation-matched-model-attempt2/candidate/matched-policy-restored.json": {
+    "sha256": "2c661f87a01d041f39e81daaef3ad20e5f802cf99e008929db7ea5fc6223dfab",
+    "bytes": 319
+  },
+  "bf16-activation-matched-model-attempt2/candidate/run.log": {
+    "sha256": "99b77abfc22cde5e9e30b320d108322fd2fe4ce1cbf362cc50e25e3739d4fc78",
+    "bytes": 7507
+  },
+  "bf16-activation-matched-model-attempt2/candidate/full-source-manifest.json.gz": {
+    "sha256": "8617c3f8fcc0e9c29bd999ed3c2c3db8b77465b19195e0394a53998362d1426a",
+    "bytes": 549960
+  },
+  "bf16-activation-matched-model-attempt2/candidate/graph-keys.json": {
+    "sha256": "02eb9096959b5674b9c9b16ef5d51c01228756ed821cedc561c7a92f8e6518d0",
+    "bytes": 1683
+  },
+  "bf16-activation-matched-model-attempt2/candidate/startup-tactics.json": {
+    "sha256": "bf4fabc3d8b147cf8b0872b31cc964ba850da99f968311193c1e532ba453033c",
+    "bytes": 1289
+  },
+  "bf16-activation-matched-model-attempt2/candidate/matched-policy.jsonl": {
+    "sha256": "773e0e3c3135aa70a58d54ed7bdb60820ea8717afbbfff81f019c57b3673dc2c",
+    "bytes": 417
+  },
+  "bf16-activation-matched-model-attempt2/candidate/launch.json": {
+    "sha256": "76794d2c86fc5d52f2bf56fd87a533215d39f6775693540373e2e9b38a774bdb",
+    "bytes": 2658
+  },
+  "bf16-activation-matched-model-attempt2/candidate/excluded-bytecode.json": {
+    "sha256": "b33808e42ba3f8e902aba49afe97cfbbba9d57302c600c93181c76022a6b3dac",
+    "bytes": 15018
+  },
+  "bf16-activation-matched-model-attempt2/candidate/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json": {
+    "sha256": "bf4fabc3d8b147cf8b0872b31cc964ba850da99f968311193c1e532ba453033c",
+    "bytes": 1289
+  },
+  "bf16-activation-matched-model-attempt2/candidate/b128/report.json": {
+    "sha256": "772d8866a183f1a2a8f3eb49adffd9efb1b5a45da5cffe4ee6bb431ec5e51464",
+    "bytes": 4879
+  },
+  "bf16-activation-matched-model-attempt2/candidate/b128/diagnostic.trace.json": {
+    "sha256": "4f27423f8886bfcd5216ed876b33de323cc13e99032932e58ced954bca718d8e",
+    "bytes": 410958
+  },
+  "bf16-activation-matched-model-attempt2/candidate/b128/activation-kernel-count.json": {
+    "sha256": "9e50128b86711b8ad4d3253a1bb05cf139ddf946a3f3f00c93e39e3d904e8e12",
+    "bytes": 150
+  },
+  "bf16-activation-matched-model-attempt2/control/matched-policy-restored.json": {
+    "sha256": "2c661f87a01d041f39e81daaef3ad20e5f802cf99e008929db7ea5fc6223dfab",
+    "bytes": 319
+  },
+  "bf16-activation-matched-model-attempt2/control/run.log": {
+    "sha256": "afc82df04be4b2aa98364bb1842b2b4138b8c532de34bdb34a98826c38c89353",
+    "bytes": 8108
+  },
+  "bf16-activation-matched-model-attempt2/control/full-source-manifest.json.gz": {
+    "sha256": "1dd8dd5fb070253568c23ca1c74fa57943994761fc50df233670c39a973df121",
+    "bytes": 549966
+  },
+  "bf16-activation-matched-model-attempt2/control/graph-keys.json": {
+    "sha256": "02eb9096959b5674b9c9b16ef5d51c01228756ed821cedc561c7a92f8e6518d0",
+    "bytes": 1683
+  },
+  "bf16-activation-matched-model-attempt2/control/startup-tactics.json": {
+    "sha256": "bf4fabc3d8b147cf8b0872b31cc964ba850da99f968311193c1e532ba453033c",
+    "bytes": 1289
+  },
+  "bf16-activation-matched-model-attempt2/control/matched-policy.jsonl": {
+    "sha256": "773e0e3c3135aa70a58d54ed7bdb60820ea8717afbbfff81f019c57b3673dc2c",
+    "bytes": 417
+  },
+  "bf16-activation-matched-model-attempt2/control/launch.json": {
+    "sha256": "1df94660934c58b68a02622c21105f4c258ce10321ef4adaf345956a4b13168e",
+    "bytes": 2661
+  },
+  "bf16-activation-matched-model-attempt2/control/excluded-bytecode.json": {
+    "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356",
+    "bytes": 3
+  },
+  "bf16-activation-matched-model-attempt2/control/cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json": {
+    "sha256": "bf4fabc3d8b147cf8b0872b31cc964ba850da99f968311193c1e532ba453033c",
+    "bytes": 1289
+  },
+  "bf16-activation-matched-model-attempt2/control/b128/report.json": {
+    "sha256": "ece2efa1ca080a506f630e66cec434067a0d13b6597b02ea4efe90eb61221961",
+    "bytes": 4884
+  },
+  "bf16-activation-matched-model-attempt2/control/b128/diagnostic.trace.json": {
+    "sha256": "ae3cc0079a98813ff60c5648803ea334a722642cef0ec3cfc4dc347a197b74d3",
+    "bytes": 410846
+  },
+  "bf16-activation-matched-model-attempt2/control/b128/activation-kernel-count.json": {
+    "sha256": "52d1c90c73614d17d51a5baa1e2ed28cd363836b9b2cde3470f7025d112b7d2c",
+    "bytes": 146
+  }
+}

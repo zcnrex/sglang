@@ -1,0 +1,152 @@
+import os,json,pathlib,runpy
+from flashinfer.autotuner import AutoTuner
+from sglang.srt.model_executor.model_runner import ModelRunner
+out=pathlib.Path(os.environ['QVL_MODEL_OUT'])
+seed='/root/qvl/experiments/bf16-activation-model/control/startup-tactics.json'
+assert AutoTuner.get().load_configs(seed)
+matched_expected={(128,2560,19456):1,(128,9728,2560):2,(4,2560,151936):2,(8,2560,151936):2}
+original_search=AutoTuner.search_cache
+validated=set()
+def matched_search(self,custom_op,runners,input_shapes,*args,**kwargs):
+ key=(input_shapes[0][0],input_shapes[0][1],input_shapes[1][1]) if len(input_shapes)>1 and len(input_shapes[0])==2 and len(input_shapes[1])==2 else None
+ if custom_op=='bf16_gemm' and key in matched_expected and self.is_tuning_mode:
+  inputs=kwargs.get('inputs');assert inputs is not None
+  assert len(runners)==1 and type(runners[0]).__name__=='CublasltBf16GemmRunner'
+  valid=runners[0].get_valid_tactics(inputs,None);assert matched_expected[key] in valid
+  with self._lock:
+   previous=self.is_tuning_mode
+   try:
+    self.is_tuning_mode=False
+    result=original_search(self,custom_op,runners,input_shapes,*args,**kwargs)
+   finally:self.is_tuning_mode=previous
+  assert result[0] and result[1]==0 and result[2]==matched_expected[key],(key,result)
+  if key not in validated:
+   validated.add(key)
+   with (out/'matched-policy.jsonl').open('a') as f:f.write(json.dumps(dict(shape=key,tactic=result[2],valid_tactics=valid,cache_hit=result[0]))+'\n')
+  return result
+ return original_search(self,custom_op,runners,input_shapes,*args,**kwargs)
+AutoTuner.search_cache=matched_search
+original_init=ModelRunner.init_cuda_graphs
+def initialize(self,*args,**kwargs):
+ result=original_init(self,*args,**kwargs)
+ assert validated==set(matched_expected),(validated,matched_expected)
+ AutoTuner.search_cache=original_search
+ (out/'matched-policy-restored.json').write_text(json.dumps(dict(restored=AutoTuner.search_cache is original_search,validated=sorted(validated),seed=seed),indent=2))
+ return result
+ModelRunner.init_cuda_graphs=initialize
+import hashlib
+import json
+import os
+from pathlib import Path
+
+import numpy as np
+import torch
+import sglang.benchmark.one_batch as b
+from sglang.srt.model_executor.runner.decode_cuda_graph_runner import DecodeCudaGraphRunner
+
+out = Path(os.environ['QVL_MODEL_OUT'])
+source = Path(os.environ['QVL_SOURCE'])
+expected = json.loads(Path(os.environ['QVL_EXPECTED_MANIFEST']).read_text())
+actual = {}
+bytecode = {}
+for p in source.rglob('*'):
+    key = str(p.relative_to(source))
+    if p.is_symlink():
+        actual[key] = {'symlink': os.readlink(p)}
+    elif p.is_file():
+        item = {'sha256': hashlib.sha256(p.read_bytes()).hexdigest(), 'bytes': p.stat().st_size}
+        if '__pycache__' in p.parts and p.suffix == '.pyc':
+            bytecode[key] = item
+        else:
+            actual[key] = item
+assert actual == expected, 'Full source manifest mismatch'
+assert Path(b.__file__).resolve().is_relative_to((source/'python').resolve()), b.__file__
+(out/'excluded-bytecode.json').write_text(json.dumps(bytecode, indent=2))
+(out/'full-source-manifest.json').write_text(json.dumps(actual, indent=2))
+counts = {}
+original_execute = DecodeCudaGraphRunner.execute
+
+def observe_execute(self, *args, **kwargs):
+    result = original_execute(self, *args, **kwargs)
+    counts[self.bs] = counts.get(self.bs, 0) + 1
+    return result
+
+DecodeCudaGraphRunner.execute = observe_execute
+original_load = b.load_model
+
+def digest_tensor(t):
+    return hashlib.sha256(t.detach().contiguous().cpu().view(torch.uint8).numpy().tobytes()).hexdigest()
+
+@torch.no_grad()
+def load(*args, **kwargs):
+    wrapper, tokenizer = original_load(*args, **kwargs)
+    from flashinfer.autotuner import AutoTuner
+    AutoTuner.get().save_configs(str(out / "startup-tactics.json"))
+    dr = wrapper.torch_runner.decode_cuda_graph_runner
+    graph_keys = [str(k) for k in dr.backend._graphs]
+    (out/'graph-keys.json').write_text(json.dumps(graph_keys, indent=2))
+    for bs in map(int, os.environ.get("QVL_MODEL_BATCHES", "1,8,16,128").split(",")):
+        input_len = 1024 if bs == 128 else 8192
+        dest = out/f'b{bs}'
+        dest.mkdir()
+        saved = {}
+        input_hashes = {}
+        for seed in [123, 124]:
+            wrapper.clear()
+            rng = np.random.default_rng(seed)
+            data = rng.integers(0, 10000, (bs, input_len), dtype=np.int32)
+            forced = rng.integers(0, 10000, (15, bs), dtype=np.int64)
+            input_hashes[str(seed)] = {'prompt_sha256': hashlib.sha256(data.tobytes()).hexdigest(), 'forced_sha256': hashlib.sha256(forced.tobytes()).hexdigest()}
+            reqs = b.prepare_synthetic_inputs_for_latency_test(bs, input_len, data.tolist())
+            ids, logits, batch = wrapper.extend(reqs)
+            saved[f'{seed}_prefill'] = logits.detach().cpu().clone()
+            saved[f'{seed}_forced_tokens'] = torch.from_numpy(forced.copy())
+            for step in range(15):
+                ids, logits = wrapper.decode(torch.tensor(forced[step], device='cuda'), batch)
+                if step in [0, 14]:
+                    saved[f'{seed}_decode{step}'] = logits.detach().cpu().clone()
+            assert all(torch.isfinite(t).all() for k, t in saved.items() if 'tokens' not in k)
+        assert counts.get(bs, 0) >= 30, (bs, counts)
+        graphs = [g for k, g in dr.backend._graphs.items() if k.size == bs]
+        assert len(graphs) == 1, (bs, graph_keys)
+        graph = graphs[0]
+        snapshots = {n: v.clone() for n, v in vars(dr.buffers).items() if isinstance(v, torch.Tensor)}
+        before = {n: digest_tensor(v) for n, v in snapshots.items()}
+        for _ in range(10):
+            graph.replay()
+        torch.cuda.synchronize()
+        timings = []
+        for _ in range(5):
+            start, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
+            start.record()
+            for _ in range(50):
+                graph.replay()
+            end.record()
+            end.synchronize()
+            timings.append(start.elapsed_time(end)/50)
+        after = {n: digest_tensor(getattr(dr.buffers, n)) for n in snapshots}
+        assert before == after, 'Replay changed graph input buffers'
+        with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU, torch.profiler.ProfilerActivity.CUDA]) as prof:
+            with torch.profiler.record_function(f'QVL_fixed_graph_B{bs}'):
+                graph.replay()
+            torch.cuda.synchronize()
+        prof.export_chrome_trace(str(dest/'diagnostic.trace.json'))
+        assert all(torch.equal(v, getattr(dr.buffers, n)) for n, v in snapshots.items())
+        torch.save(saved, dest/'outputs.pt')
+        report = {'batch_size': bs, 'input_len': input_len, 'seeds': [123, 124], 'graph_execute_count': counts[bs], 'graph_keys': graph_keys, 'fixed_state_replay_ms': timings, 'warm_replays': 10, 'replays_per_round': 50, 'rounds': 5, 'input_hashes': input_hashes, 'replay_buffer_before': before, 'replay_buffer_after': after, 'finite': True, 'protocol': 'Fixed teacher-forced token prefixes for logits; raw fixed-state graph replay timing, not end-to-end serving.'}
+        (dest/'report.json').write_text(json.dumps(report, indent=2))
+        print('MODEL_BATCH_COMPLETE', bs, flush=True)
+        if bs == 1:
+            (out/'b1-ready').touch()
+            if os.environ.get('QVL_PAUSE_AFTER_B1') == '1':
+                import time
+                while not (out.parent/'continue-after-b1').exists():
+                    if (out.parent/'stop-after-b1').exists():
+                        raise SystemExit(2)
+                    time.sleep(1)
+    raise SystemExit(0)
+
+b.load_model = load
+np.random.seed(123)
+torch.manual_seed(123)
+b.cli_main()

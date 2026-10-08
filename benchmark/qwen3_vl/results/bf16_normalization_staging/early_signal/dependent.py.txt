@@ -1,0 +1,26 @@
+import os,json,pathlib,torch
+from early_screen import compile_candidate
+from sgl_kernel import fused_add_rmsnorm
+kernel,geometry=compile_candidate();results=[]
+for b in [8,16,128]:
+ states=[];graphs=[]
+ for candidate in [False,True]:
+  x=torch.randn(b,2560,device='cuda',dtype=torch.bfloat16);r=torch.randn_like(x);w=torch.randn(2560,device='cuda',dtype=x.dtype)
+  def run():
+   for _ in range(36):
+    if candidate:kernel(x,r,w,b,1e-6)
+    else:fused_add_rmsnorm(x,r,w)
+    fused_add_rmsnorm(x,r,w,enable_pdl=True)
+  stream=torch.cuda.Stream();stream.wait_stream(torch.cuda.current_stream())
+  with torch.cuda.stream(stream):run()
+  torch.cuda.current_stream().wait_stream(stream);g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):run()
+  states.append((x,r,w));graphs.append(g)
+ for seed in range(10):
+  torch.manual_seed(seed);initial=[torch.randn_like(t) for t in states[0]]
+  for state in states:
+   for dst,src in zip(state,initial):dst.copy_(src)
+  for g in graphs:g.replay()
+  torch.cuda.synchronize();assert all(torch.equal(a,z) for a,z in zip(states[0],states[1]))
+ results.append(dict(batch=b,seeds=10,dependent_pairs_per_graph=36,all_outputs_bitwise=True))
+p=pathlib.Path('/root/qvl/experiments/bf16-normalization-staging/early-dependent.json');p.write_text(json.dumps(results,indent=2));print('PASS',results,flush=True)

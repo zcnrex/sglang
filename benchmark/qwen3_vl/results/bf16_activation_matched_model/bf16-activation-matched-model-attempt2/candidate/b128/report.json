@@ -1,0 +1,81 @@
+{
+  "batch_size": 128,
+  "input_len": 1024,
+  "seeds": [
+    123,
+    124
+  ],
+  "graph_execute_count": 30,
+  "graph_keys": [
+    "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+  ],
+  "fixed_state_replay_ms": [
+    5.601743774414063,
+    5.601088256835937,
+    5.60095703125,
+    5.599801025390625,
+    5.599619140625
+  ],
+  "warm_replays": 10,
+  "replays_per_round": 50,
+  "rounds": 5,
+  "input_hashes": {
+    "123": {
+      "prompt_sha256": "b6ff48f156721ed82d89f244588faab9d3a2090688a88115e60ab122d9a94250",
+      "forced_sha256": "9b1852399e40239ebc9d231145c1d77a232a2e2bb4613deee35468774cfe5caa"
+    },
+    "124": {
+      "prompt_sha256": "6af47916467cf573f9f56d46cbb8bf0733f14ef9c78dfe31700c12e8e50ab5e1",
+      "forced_sha256": "265001039588f9289289e8908030fc0163da23e611e1cb4917390966fce6498d"
+    }
+  },
+  "replay_buffer_before": {
+    "input_ids": "84178d03c58086630df584e4152186bad2044893b747dec23e7cc154b2175730",
+    "input_embeds": "ff6335069b6e140eb47149d847aea80bf7e2b06bd80ae9708aa382efb3ae21ee",
+    "req_pool_indices": "5044c28676fba15000f713e6db9074717b9ccc9342c5b48c55b44d069e66893e",
+    "seq_lens": "b6192edd9ce4e8dc808695372f08e84714f02e6eaf9726ab759ab4a874143695",
+    "seq_lens_cpu": "b6192edd9ce4e8dc808695372f08e84714f02e6eaf9726ab759ab4a874143695",
+    "out_cache_loc": "27d772d06deb40142033df25b50ddf466062f7e828b7042b00456b0b3466a64b",
+    "positions": "5aee3cd2e560f41d4052e65b5f3a4138a615f605668872791c722dbb012b2c6f",
+    "mrope_positions": "3d1403fef53c0263680d0a9dc41c487ed61090b60ff6a52fd9ec21d59e839580",
+    "custom_mask": "2661920f2409dd6c8adeb0c44972959f232b6429afa913845d0fd95e7e768234",
+    "next_token_logits_buffer": "77fb3429598409e5325ee07a7f8d049d50655a8d500c91315f6972ffae308534",
+    "global_num_tokens_gpu": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+    "global_num_tokens_for_logprob_gpu": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+  },
+  "replay_buffer_after": {
+    "input_ids": "84178d03c58086630df584e4152186bad2044893b747dec23e7cc154b2175730",
+    "input_embeds": "ff6335069b6e140eb47149d847aea80bf7e2b06bd80ae9708aa382efb3ae21ee",
+    "req_pool_indices": "5044c28676fba15000f713e6db9074717b9ccc9342c5b48c55b44d069e66893e",
+    "seq_lens": "b6192edd9ce4e8dc808695372f08e84714f02e6eaf9726ab759ab4a874143695",
+    "seq_lens_cpu": "b6192edd9ce4e8dc808695372f08e84714f02e6eaf9726ab759ab4a874143695",
+    "out_cache_loc": "27d772d06deb40142033df25b50ddf466062f7e828b7042b00456b0b3466a64b",
+    "positions": "5aee3cd2e560f41d4052e65b5f3a4138a615f605668872791c722dbb012b2c6f",
+    "mrope_positions": "3d1403fef53c0263680d0a9dc41c487ed61090b60ff6a52fd9ec21d59e839580",
+    "custom_mask": "2661920f2409dd6c8adeb0c44972959f232b6429afa913845d0fd95e7e768234",
+    "next_token_logits_buffer": "77fb3429598409e5325ee07a7f8d049d50655a8d500c91315f6972ffae308534",
+    "global_num_tokens_gpu": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+    "global_num_tokens_for_logprob_gpu": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+  },
+  "finite": true,
+  "protocol": "Fixed teacher-forced token prefixes for logits; raw fixed-state graph replay timing, not end-to-end serving."
+}

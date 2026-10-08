@@ -1,0 +1,458 @@
+{
+  ".claude/skills/babysit-pr-to-pass-ci/SKILL.md": {
+    "sha256": "2ca9c6e6f673a111fc751a23def737b2f423ef19bcf03f8a8d086e1b90562515",
+    "bytes": 11878
+  },
+  ".claude/skills/cookbook-add-model/references/vendor-logo.md": {
+    "sha256": "99540428e407890db02eade70272fd38172c93efbf6a44949eb4c6c0c73bffab",
+    "bytes": 3295
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/test_classification.py": {
+    "sha256": "ebe9e1b944af5c29b4a70e192465eaf471c665a9aa9cd80988bf7c2cbbc6d88f",
+    "bytes": 4144
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_extract_to_new_module.py": {
+    "sha256": "6fa23827105ef8849198abdf5bad58b740aa4a0af59ce0968c4c03806256fdcc",
+    "bytes": 3750
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/triage_kernel_helpers.py": {
+    "sha256": "56396046a53358789b563a8531fdbb25bfc7a8f201b3a6c4395c657e022d5ffa",
+    "bytes": 93933
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_call_sites.py": {
+    "sha256": "07486b0d05df1a6582b142b7529742e7d72a84906d4f7395343bdaf98eb04947",
+    "bytes": 8154
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/run_llm_single_model_matrix_host.sh": {
+    "sha256": "0f08056b5970339aa4e8c6540f6265ccbe9248504dde83c2067a965669573dc5",
+    "bytes": 9647
+  },
+  ".claude/skills/sglang-prod-incident-triage/references/case-studies.md": {
+    "sha256": "5c1012145d63168e468f63abd9cb6d62f3452cfdd373dc9c5ebc37ee2049fbd5",
+    "bytes": 2472
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-modelopt-quant/SKILL.md": {
+    "sha256": "d69bf54195574ff5fa2ad5f2f8c3b16dc0c9f17ca0f43796877e484f5a7c8092",
+    "bytes": 19920
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/run_sglang_torch_profile_host.sh": {
+    "sha256": "fe59112a0d2f49864ca721877734e54c605f24549c2fd005890dbf74f12446b5",
+    "bytes": 7162
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/conftest.py": {
+    "sha256": "6a4bd3037df55745a47150d67031fa5a2dc5427da66f0f6bdbe7cdf1cf7a8bfd",
+    "bytes": 514
+  },
+  ".claude/skills/mechanical-refactor-verify/spec-reproduction-cli.md": {
+    "sha256": "38bc30df35279922e47d246fcb89d2f82c9ec8eec908affa239678074004592d",
+    "bytes": 8464
+  },
+  ".claude/skills/sglang-prod-incident-triage/references/endpoints-and-signals.md": {
+    "sha256": "d2b4b9b8b0942ee17dd7fd0b99bc1f7dde946068603596fe039b5de190ed32a6",
+    "bytes": 4519
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/profile_common.py": {
+    "sha256": "d49f394fc9221cd1637a6bc5c00bb8d35cbb5a3283f2089cd1ff2809308243ac",
+    "bytes": 40177
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-cache-dit/SKILL.md": {
+    "sha256": "100c270009f5e4f6c3ef0343b73be134ff45342a7a03be59c0fb6b39716c3af3",
+    "bytes": 28442
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/run_trtllm_pytorch_profile_host.sh": {
+    "sha256": "1122f1649d13d53f0b2543e736537cffc337202840a256b9bdcae8ba8894e1a9",
+    "bytes": 10825
+  },
+  ".claude/skills/sglang-cherrypick/SKILL.md": {
+    "sha256": "5aaa7b381b64365b1cd9da3ab9499659b642ee0663f167af17c1f9759e699264",
+    "bytes": 16256
+  },
+  ".claude/skills/babysit-pr-to-pass-ci/agents/openai.yaml": {
+    "sha256": "13257836e7b00a1d076524a432e36153a2311b97072fb78d84894baaf0c6393c",
+    "bytes": 220
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/reproduction_testlib.py": {
+    "sha256": "6976914c3040c58c073eb7ba18d2eafa39c5b119e7ad1fb6fa4233bf5ebdc0e7",
+    "bytes": 1233
+  },
+  ".claude/skills/cookbook-add-model/templates/benchmarks.jsx.tmpl": {
+    "sha256": "3f4e78bef3f79efde18f5c7e378b610ccdedd4a25c20df68ebb47fba3108135e",
+    "bytes": 2227
+  },
+  ".claude/skills/cookbook-add-model/templates/diffusion-config.jsx.tmpl": {
+    "sha256": "7bfcc2fba5a487fff33e6271a1a19196d61097bbc5f661b285798819fa252ee2",
+    "bytes": 6194
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/benchmark-and-profile.md": {
+    "sha256": "3bea8c82deea21fc5fd1c576be9cb93e9862048b47d0caa0ebc678fdaa3afaa5",
+    "bytes": 47512
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_extract_symbols_to_new_module.py": {
+    "sha256": "f444e3d79eededd35f25cb698b22a14c7e80d1cf53b06b6ac24d16ab9e3a669c",
+    "bytes": 8880
+  },
+  ".claude/skills/kl-consistency-test/SKILL.md": {
+    "sha256": "248b5f6e5d34299b16210703cb091965e949a9c051a399fea76d46e1b013a074",
+    "bytes": 14798
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_move_assign.py": {
+    "sha256": "4758286a15f1ab256a606977e5ecf122b371b47a28e7ad743a05dc1702c4f2ff",
+    "bytes": 2517
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/test_proof_discovery.py": {
+    "sha256": "021b11ca6b55834fc6cab7fd6c3370beb2d47d7fc1164056c99e1fb1d39b33de",
+    "bytes": 3337
+  },
+  ".claude/skills/env-var-conventions/SKILL.md": {
+    "sha256": "36df22f2c62a58d010ffacc712d38f5749d29302dfc2868978be44845e4916f7",
+    "bytes": 11562
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/test_infer_extracts.py": {
+    "sha256": "53cfb01c9b6db2017fe018ee8a7e2d66ee2094803d7537c4a44c67754e382ec2",
+    "bytes": 6747
+  },
+  ".claude/skills/clean-startup-log/SKILL.md": {
+    "sha256": "a173099a353e693cd28ded548090f466d4f7de52d325a4e708b6962efdd192d8",
+    "bytes": 5978
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_repath_import.py": {
+    "sha256": "86aa44d5d0833684ef755e5063f9a6d30e377139ba7da249059c0c32a082cfc4",
+    "bytes": 2905
+  },
+  ".claude/skills/cookbook-add-model/SKILL.md": {
+    "sha256": "37451bf3c47f87401a6b74d354151d96162adbe59336df0bf469691a25c0749e",
+    "bytes": 17104
+  },
+  ".claude/skills/mechanical-refactor-verify/guide-split.md": {
+    "sha256": "d9ec7a12dddfe60a652b25e05208e97e3162e20c24f494fd910d176a8bb0fdb2",
+    "bytes": 19731
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_remove_import.py": {
+    "sha256": "72a6190efff33848b61e2b7ce84a5af01f97d4de5524097ec01b043a79b97237",
+    "bytes": 5288
+  },
+  ".claude/skills/mechanical-refactor-verify/spec-reproduction-utils.md": {
+    "sha256": "c8788c6871eaffae67c84d5058f9a84434bbe9a2fbe701e12e82dca2f20f9f68",
+    "bytes": 12934
+  },
+  ".claude/skills/cookbook-migrate-model/references/dimension-mapping.md": {
+    "sha256": "4e9d2056353e43c50c0dcafbbf51355a453e8b8c8e7c87db36840d53e3838998",
+    "bytes": 23686
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_extract_function.py": {
+    "sha256": "5fe39b8ca88a5a61b185530643140f0cc413b2b65587037083678926e02276ca",
+    "bytes": 6420
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/test_infer_extract_functions.py": {
+    "sha256": "c675fb4d23ca5966b2be92b5c9d1d7aca9dd67ba7f9069d7dda7d53c77788716",
+    "bytes": 10649
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_move_symbol_delegate.py": {
+    "sha256": "dcb221f181cf18768f5218f2841be9140c4f3f9e05c8d1e100b6818c5f839f2b",
+    "bytes": 10351
+  },
+  ".claude/skills/cookbook-review-pr/SKILL.md": {
+    "sha256": "1024013f819f5b2deedf865d1ecb3f90c84a0a96af4e29d8c7bf2f57334a4a3a",
+    "bytes": 17128
+  },
+  ".claude/skills/sglang-bisect-ci-regression/SKILL.md": {
+    "sha256": "8807e22391ab80ca9f9720d88caec205a501a011c08746b8adfa952b7a47699a",
+    "bytes": 9995
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/mechanical_refactor_reproduction_cli.py": {
+    "sha256": "686ec7fce4f0529a5ee9a9d1d3de62f9ef62579a751281babad2ba71d33cc01e",
+    "bytes": 18414
+  },
+  ".claude/skills/sglang-prod-incident-triage/SKILL.md": {
+    "sha256": "7f0cfc4c682909a0ea2506357a62fdf6348571fd5dd074a2c685d25476041af5",
+    "bytes": 8533
+  },
+  ".claude/skills/kernel-organization/SKILL.md": {
+    "sha256": "04af1fc4bc454fc5af774257e9739336bff917d9e1d8f4cd2491d8b0409e6902",
+    "bytes": 5008
+  },
+  ".claude/skills/sglang-prod-incident-triage/references/decision-tree.md": {
+    "sha256": "60ce40e9a8508e8509ff6213f209cf8575f2e2a912c001aa3500f2bcacd977f9",
+    "bytes": 3786
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/SKILL.md": {
+    "sha256": "34dcd853d84eb206599cf5a2507fa355c910358955f678297f9f89e001fc647a",
+    "bytes": 39742
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/mechanical_refactor_reproduction_utils.py": {
+    "sha256": "4118f3f2cf6aa6947a365e72da83c68ac041482e6af6e6c49c57428e8496069c",
+    "bytes": 65594
+  },
+  ".claude/skills/large-class-style/SKILL.md": {
+    "sha256": "e4c7ffb53e47e226bc8c80b263ff8b44cf8287922332cb14737de96e05d61b9e",
+    "bytes": 7791
+  },
+  ".claude/skills/scripted-runtime-notes/SKILL.md": {
+    "sha256": "9d35487900f6c8b751ec18581736d273b2ba10488a849c81c5720a4961ea46dc",
+    "bytes": 1805
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-cache-dit/references/block_adapter.md": {
+    "sha256": "e826fc47f17fe43a22cda27931d431d953848f83e82a217c805050cfc0032abc",
+    "bytes": 24955
+  },
+  ".claude/skills/cookbook-add-model/references/diffusion-authoring.md": {
+    "sha256": "4b1cdd4a9c7897f550c8f53d34203c755336a9fdb9cdf4bde7776c9f8a4bf703",
+    "bytes": 5670
+  },
+  ".claude/skills/mechanical-refactor-verify/guide-modify-skill.md": {
+    "sha256": "6a20c5ab87b807abec04228b9863670999f85ccb53a4d3277737bd6168eb3a80",
+    "bytes": 6457
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_add_imports.py": {
+    "sha256": "5ca3a2c6c5214ea18833f8bb52af7f317767c280aa920c9aef5ed13bb446e9ef",
+    "bytes": 9598
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_verify_and_run.py": {
+    "sha256": "0ef32ea2e878e687a92e7f47619d4112aebbe61ae2b6bf892ed7d01d0ccf3981",
+    "bytes": 6593
+  },
+  ".claude/skills/cookbook-add-model/references/mintlify-authoring.md": {
+    "sha256": "7102730bbdcfbaa2969ca2f3a5dc93932e9028c7029a12776f0a481d60aebf13",
+    "bytes": 6781
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/test_report.py": {
+    "sha256": "dcd0e1629d17161a5395aef195f14aa32e15822f1ab6bec712d6d8e34c5e1db9",
+    "bytes": 3351
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/mechanical_refactor_proof_generator.py": {
+    "sha256": "364f6dc7bbe774389da5d1fd69e407ddc0d671fe70f5eee3b2c259a8c7bef492",
+    "bytes": 64274
+  },
+  ".claude/skills/cookbook-add-model/templates/diffusion-page.mdx.tmpl": {
+    "sha256": "7a38fa6cede33d7a90ebd400f9c6ab246186013261edb4cfba9ac3c16e6cc175",
+    "bytes": 1622
+  },
+  ".claude/skills/add-jit-kernel/SKILL.md": {
+    "sha256": "2494ad3d7b9f2723fbd92cd64293666fe5dbab6ffdc67b64efb967255d9840d5",
+    "bytes": 52284
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/test_verify_chain.py": {
+    "sha256": "e69c23f7da92b13ca870d80ea80ddda5da9a2419d2c86b23588f356686e14e46",
+    "bytes": 7605
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/scripts/diffusion_skill_env.py": {
+    "sha256": "954edd99aee9c75fb844ccd4e97b126ff4d4bd5c524b51fdc0577093ab72699f",
+    "bytes": 5521
+  },
+  ".claude/skills/mechanical-refactor-verify/guide-verify-proof.md": {
+    "sha256": "06a88dbffb8553f2345ee7051a678905dbb9a0e952b6605e8e1a7032b2afffb4",
+    "bytes": 8529
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/run_vllm_torch_profile_host.sh": {
+    "sha256": "37edde43fa2001b1b6acfd53b1a0bb796052a627d203d0ea5ba74f9e860c50eb",
+    "bytes": 9141
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/test_infer_moves.py": {
+    "sha256": "a2b9f12da96d692ba7f4dfcaedcd19e299959f79203d382dfe29936ad2575c16",
+    "bytes": 17236
+  },
+  ".claude/skills/ci-workflow-guide/SKILL.md": {
+    "sha256": "8ac88d896962e6f0622431efbd2e6b904e4207e46bdbe19bcb123825338caa20",
+    "bytes": 24434
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/scripts/bench_diffusion_denoise.py": {
+    "sha256": "cfbec69a0a69921151e3dcf66f8bf8c2c655b2f00935b0b8910d6a4ae8e21e9f",
+    "bytes": 86555
+  },
+  ".claude/skills/add-sgl-kernel/SKILL.md": {
+    "sha256": "841317903dcd19051cce71a2302b4763439af3f07aee815caeebdfed120e9d83",
+    "bytes": 13519
+  },
+  ".claude/skills/compute-mamba-ratio/SKILL.md": {
+    "sha256": "55827de7e89dbbc14a8af705780d55bcb43033eecd8bdf1a7c540551a529e8c7",
+    "bytes": 11941
+  },
+  ".claude/skills/cookbook-add-model/templates/page.mdx.tmpl": {
+    "sha256": "f1249d729a2b9db17251360e5120800b5e5eb80a0a185cc2f9389c0517e050be",
+    "bytes": 5981
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/existing-fast-paths.md": {
+    "sha256": "6a6083ad40bf6392c62061ac20e4815c4d92a46a4cfcd7121b9329a0e7bbe672",
+    "bytes": 42464
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/probe_llm_server.py": {
+    "sha256": "e20dc21abac0affac806e867a0addd1dcd6ecb267d5c932573553e88fbf0762a",
+    "bytes": 6953
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-performance/SKILL.md": {
+    "sha256": "43938f6df6e72856e9bb1889f702507e3b7650d7e78f8982fa5a48230b5f1f30",
+    "bytes": 53216
+  },
+  ".claude/skills/mechanical-refactor-verify/guide-construct-proof.md": {
+    "sha256": "7d2109d3395038ec6b853d1c50fe0bdefb11cbb2bfa4f770c17693062c461417",
+    "bytes": 8793
+  },
+  ".claude/skills/cookbook-add-model/references/authoring-reference.md": {
+    "sha256": "b3459f8c3bb017d15b176100ce9dd9b7cd7a09b3c0a6713077f1b79b3613af08",
+    "bytes": 25680
+  },
+  ".claude/skills/write-sglang-test/SKILL.md": {
+    "sha256": "f9bb83c36946c346e9aeb156e1605496a74f629297fbc1983d05802d9aec9e0f",
+    "bytes": 20806
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/render_triage_markdown_bundle.py": {
+    "sha256": "253d43ebd99b23767bcc25eaf182c08ac0fe55e53d9f0e4a20dc4236d694fff4",
+    "bytes": 7833
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/test_infer_imports.py": {
+    "sha256": "538a691a1fb9ed0a86bce607663101d8c241467db522b71e6ffe4566d76a761a",
+    "bytes": 5205
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/test_main_single_commit.py": {
+    "sha256": "815818b18951b4d86230f67d23c84dc0044a782e6dfd1dd0f4d2ee63c987f9fa",
+    "bytes": 2167
+  },
+  ".claude/skills/generate-profile/SKILL.md": {
+    "sha256": "0d8a29a88eef16e31a892c5ce1377a4edc6611513801424e0bad8bed35ca5e99",
+    "bytes": 4421
+  },
+  ".claude/skills/sglang-prod-incident-triage/scripts/incident_artifact_tool.py": {
+    "sha256": "7a187123d4845e390eee17c22f51fd96f2209b75910a92a25478af463dfd1cb0",
+    "bytes": 26646
+  },
+  ".claude/skills/llm-torch-profiler-analysis/references/fuse-overlap-catalog.md": {
+    "sha256": "ea00b5b2abf2bd59b10bcc0d17fe3b463d933d823f5abbf3ed15a3ef24c9520d",
+    "bytes": 95082
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-benchmark-profile/SKILL.md": {
+    "sha256": "b2a840a8ac8b2507ab4bab3f6404b255028c615af9d9654b0858e506607ab4fe",
+    "bytes": 9443
+  },
+  ".claude/skills/cookbook-add-model/templates/config.jsx.tmpl": {
+    "sha256": "913e5bc06501b8d59f1194a6436e7cefbef906479845d7aa9b4ab9925f7ab7f2",
+    "bytes": 18653
+  },
+  ".claude/skills/sglang-prod-incident-triage/scripts/replay_trusted_request_dump.py": {
+    "sha256": "15f2b3b5dbe226691021eab64aacf2b55ce128c4e7542b31b835492fd9a6c116",
+    "bytes": 6895
+  },
+  ".claude/skills/ci-test-audit/SKILL.md": {
+    "sha256": "4e9141cbd7409727e28135fb12fc14643137d4614c7745b59005e10c784464d9",
+    "bytes": 2079
+  },
+  "python/sglang/multimodal_gen/.claude/skills/sglang-diffusion-add-model/references/testing-and-accuracy.md": {
+    "sha256": "33b247b92654aa65517116c6551ee78907dce01ce830aa8acb27b023ef0da80b",
+    "bytes": 6431
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_infra_helpers.py": {
+    "sha256": "70ed4fb11796ca93832c02a3133736d33a26cd14d13e1f0d60f0d9dc56afe5d7",
+    "bytes": 5459
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/generator_testlib.py": {
+    "sha256": "496bbff7378361bf1c18ec41ecd8924d04181a59a72ba9d257ec26d007c9f8f8",
+    "bytes": 3137
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_delete_file.py": {
+    "sha256": "5769d2c0e1db5ec3dc612c3eeb91aa1b17073d67e0abfd38bf0c731678536cb0",
+    "bytes": 2355
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/analyze_sglang_torch_profile.py": {
+    "sha256": "dd77552750e6c6719845861f31df72e79ce7fddc7033589d3fe4013c85292fa8",
+    "bytes": 506
+  },
+  ".claude/skills/debug-cuda-crash/SKILL.md": {
+    "sha256": "748f8a4449b43db6036f485195ec35be6ebf8aaa97382648fd1fc352e0e66f9c",
+    "bytes": 19737
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/cli_testlib.py": {
+    "sha256": "18297641e02a9b4d881b46075cd2fee9a1355a902950e77ab1c337a1c7ab609c",
+    "bytes": 1882
+  },
+  ".claude/skills/mechanical-refactor-verify/SKILL.md": {
+    "sha256": "418574f046067541fcd1f9a55ae69793a4cacb851c4b380fffcc7bcef09ed6be",
+    "bytes": 5689
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_move_symbol.py": {
+    "sha256": "5fbb4382eaedc02071cd4528f46b33a8cf8bd2a5ecdcb31da91ffad9d1bdfe91",
+    "bytes": 16123
+  },
+  ".claude/skills/ci-test-audit/action-items.md": {
+    "sha256": "c1d6921fa90e6a0a20e8910321a62d6d1844bc4085d5d6044728c8ac01264130",
+    "bytes": 16055
+  },
+  ".claude/skills/cookbook-add-model/references/engine-axis.md": {
+    "sha256": "a509c6436fc7b03104429c423641a06ee2da977d40d77af85b8e75adbeaa05c4",
+    "bytes": 13697
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/test_script_and_diff.py": {
+    "sha256": "6cc1a9047483594705715a34725a3f9de6bcdfb48790ebeda4c4ecda38e8e3c0",
+    "bytes": 6890
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/analyze_llm_torch_profile.py": {
+    "sha256": "71742c5a368ee4b432fe3e4ae9c121f63d54d47f2a384dab6255e9a4cfd8f58b",
+    "bytes": 32183
+  },
+  ".claude/skills/clean-startup-log/references/noise-sources.md": {
+    "sha256": "9ca24a52a3f5b20070c0205105398100514c779599a8b071a0d27829799ad2ff",
+    "bytes": 4510
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/conftest.py": {
+    "sha256": "0c3eec95008da1177c0a3ba7fb90d3d198e2eb711af8606652e7c4c28b41de43",
+    "bytes": 841
+  },
+  ".claude/skills/sglang-prod-incident-triage/references/replay-trace-profile.md": {
+    "sha256": "dfaff39602bb83a68f0d157bdc68efdc6dc27ae1ee5e84460c34836c468fc395",
+    "bytes": 4963
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/triage_overlap_helpers.py": {
+    "sha256": "87b0863319986ea30246c47f4e384980c3d2afcef9c427fd1c51e6970151ff51",
+    "bytes": 57535
+  },
+  ".claude/skills/llm-torch-profiler-analysis/SKILL.md": {
+    "sha256": "90c70c1616e94a229d29cae6c8ce5f9ef433e7f5de6143e40c206ff561a594f7",
+    "bytes": 25470
+  },
+  ".claude/skills/llm-torch-profiler-analysis/references/overlap-catalog.md": {
+    "sha256": "14891abf48d857085fa9e64f26aa125f6be64d338d6fac5a1b5ffdd54582a866",
+    "bytes": 24726
+  },
+  ".claude/skills/llm-torch-profiler-analysis/scripts/make_trtllm_py_executor_override.py": {
+    "sha256": "659e656591d14931714137f11c7e18efd7afe3b118ae8d45ae0b353899825ee8",
+    "bytes": 4372
+  },
+  ".claude/skills/llm-torch-profiler-analysis/references/vllm-torch-compile-fusions.md": {
+    "sha256": "fce78c45749108c81beabe009e974cdc0cdd46a765f8af7299e1b310b495243e",
+    "bytes": 7706
+  },
+  ".claude/skills/speculative-naming/SKILL.md": {
+    "sha256": "f419c34469d1eece939aafc5cbb1a6236e0d3c6e8e24cb57b733e7be56c81992",
+    "bytes": 6298
+  },
+  ".claude/skills/debug-distributed-hang/SKILL.md": {
+    "sha256": "b2287588e589b9c698392d89e2ebc2c6d88228d62639946cbc39c3f77dfb78c1",
+    "bytes": 9504
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/proof_generator/conftest.py": {
+    "sha256": "730d569575ca9000d1f04e95b87f5439a83daa73b0c67d09f827bf893be8fa9d",
+    "bytes": 559
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_cli/test_skip_passed.py": {
+    "sha256": "7133a5cf6c48164b1a371b25157d618193e200297f3e35d5178e05a95bdb5964",
+    "bytes": 6155
+  },
+  ".claude/skills/llm-torch-profiler-analysis/references/heuristics.md": {
+    "sha256": "10782cfa954be4fdb49d78e066462939857152936db38dc9b65d239a4504e6f9",
+    "bytes": 3874
+  },
+  ".claude/skills/sglang-runtime-context/SKILL.md": {
+    "sha256": "1224d6b91a3b9edeaa734185fe5da58fc17d7143603dec05485290c8fe4db661",
+    "bytes": 46006
+  },
+  ".claude/skills/llm-torch-profiler-analysis/references/source-map.md": {
+    "sha256": "e5845da158b209c0635f4487fb1ab999bb09c8f4f717dbf5337a78064ce21a7a",
+    "bytes": 1453
+  },
+  ".claude/skills/cookbook-migrate-model/SKILL.md": {
+    "sha256": "3c7b0798e1b5848d95a73d7981015bd6c9b77ca01866da92cef0c2f6fd647582",
+    "bytes": 16129
+  },
+  ".claude/skills/mechanical-refactor-verify/scripts/tests/reproduction_utils/test_remove_imported_name.py": {
+    "sha256": "618697531077e6169a6a444dbe0e21a3785886f1f18d5c5b449f95115f8fed39",
+    "bytes": 6334
+  }
+}

@@ -1,0 +1,19 @@
+import pathlib,json,math,hashlib,tarfile,shutil,statistics
+root=pathlib.Path('benchmark/qwen3_vl/results/bf16_activation_serving');report={'scope':'Bounded activation-only serving screens; public startup tuning; no algorithm replacement hooks','points':{},'runs':{}}
+for p in root.glob('[ABC]-gpu*'):
+ if not p.is_dir():continue
+ info=json.load(open(p/'server_info.json'));assert info['max_total_num_tokens']==1600000
+ f=next((p/'startup-cache/flashinfer').rglob('*.json'));cache=json.load(open(f));tactics={k:v for k,v in cache.items() if k.startswith('(')}
+ results={}
+ for q in p.glob('c*'):
+  if not q.is_dir():continue
+  x=json.loads((q/'bench.jsonl').read_text().splitlines()[-1]);n=8 if q.name=='c1' else 40 if q.name=='c8' else 128
+  assert (x['completed'],x['total_input_tokens'],x['total_output_tokens'])==(n,n*8192,n*1024)
+  results[q.name]=json.load(open(q/'summary.json'))
+ report['runs'][p.name]={'sanity_score':json.load(open(p/'sanity/metrics.json'))['score'],'source_audit':json.load(open(p/'source-audit.json')),'results':results,'startup_tactics':tactics}
+for c in [1,8,128]:
+ pairs=[]
+ for gpu in [6,7]:
+  cp=('A' if gpu==6 else'B') if c!=128 else('C' if gpu==6 else'B');tp=('B' if gpu==6 else'A') if c!=128 else('B' if gpu==6 else'C');control=f'{cp}-gpu{gpu}-control';candidate=f'{tp}-gpu{gpu}-candidate';a=report['runs'][control];b=report['runs'][candidate];ar=a['results'][f'c{c}'];br=b['results'][f'c{c}'];pairs.append(dict(gpu=gpu,control=control,candidate=candidate,throughput_ratio=br['output_throughput']/ar['output_throughput'],control_metrics=ar,candidate_metrics=br,startup_tactics_equal=a['startup_tactics']==b['startup_tactics']))
+ report['points'][str(c)]={'pairs':pairs,'geomean_throughput_change_percent':100*(math.sqrt(math.prod(p['throughput_ratio'] for p in pairs))-1),'attribution_limit':'M128 startup down-projection tactic differs; measured M128 usage not instrumented at lower concurrency. C128 cannot isolate activation contribution.'}
+(root/'summary.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps({c:v['geomean_throughput_change_percent'] for c,v in report['points'].items()}))

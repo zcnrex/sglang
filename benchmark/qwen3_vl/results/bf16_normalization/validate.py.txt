@@ -1,0 +1,21 @@
+import torch,json,pathlib
+from pdl_screen import candidate
+from sgl_kernel import fused_add_rmsnorm
+out=pathlib.Path('/root/qvl/experiments/bf16-normalization/validation');out.mkdir(exist_ok=True);rows=[]
+torch.manual_seed(123)
+for b in [2,4,8,16,32,64,128]:
+ for scale,kind in [(0.,'zeros'),(1e-4,'small'),(1.,'normal'),(100.,'large'),(1.,'cancellation')]:
+  x=torch.randn(b,2560,device='cuda',dtype=torch.bfloat16)*scale;r=torch.randn_like(x)*scale
+  if kind=='cancellation':r=-x;x[:,::3]+=torch.tensor(.00390625,device='cuda',dtype=x.dtype)
+  w=torch.randn(2560,device='cuda',dtype=x.dtype);v=x.float()+r.float();ref=v*torch.rsqrt(v.square().mean(-1,keepdim=True)+1e-6)*w.float()
+  xb=x.clone();rb=r.clone();xc=x.clone();rc=r.clone();fused_add_rmsnorm(xb,rb,w);candidate(xc,rc,w)
+  eb=(xb.float()-ref).abs();ec=(xc.float()-ref).abs();delta=(xc.float()-xb.float()).abs()
+  ulp=(torch.nextafter(ref.to(torch.bfloat16),torch.full_like(x,float('inf'))).float()-ref.to(torch.bfloat16).float()).abs()
+  assert torch.equal(rb,rc);assert bool((ec<=eb+ulp+1e-6).all())
+  rows.append(dict(batch=b,kind=kind,max_abs=float(delta.max()),nrms=float(delta.square().mean().sqrt()/(xb.float().square().mean().sqrt()+1e-30)),baseline_ref_error=float(eb.max()),candidate_ref_error=float(ec.max()),mismatches=int((xb!=xc).sum())))
+ x=torch.randn(b,2560,device='cuda',dtype=torch.bfloat16);r=torch.randn_like(x);w=torch.randn(2560,device='cuda',dtype=x.dtype);candidate(x,r,w)
+ g=torch.cuda.CUDAGraph()
+ with torch.cuda.graph(g):candidate(x,r,w)
+ for seed in [321,322]:
+  torch.manual_seed(seed);xx=torch.randn_like(x);rr=torch.randn_like(r);x.copy_(xx);r.copy_(rr);fused_add_rmsnorm(xx,rr,w);g.replay();torch.cuda.synchronize();assert torch.equal(r,rr);torch.testing.assert_close(x,xx,rtol=.008,atol=.00001)
+(out/'report.json').write_text(json.dumps(dict(cases=rows,changed_input_graphs=14,residual_bitwise=True,fp32_reference_gate='candidate absolute error <= baseline absolute error + one BF16 output ULP + 1e-6'),indent=2));print('PASS',len(rows),flush=True)

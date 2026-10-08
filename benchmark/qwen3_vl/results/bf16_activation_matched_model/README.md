@@ -1,0 +1,17 @@
+# BF16 activation matched-startup model diagnostic
+
+The controlled batch-128 comparison passes strict bitwise equality for both seeds (123 and 124), including full prefill, decode0 and decode14 logits. Both complete output files have identical SHA256 hashes. The model uses 1024 input tokens, 15 teacher-forced decode steps, BF16 weights/query/KV, HND page32, pool 1.6M and the same 20 graph buckets through 128. Each arm executes 30 decode graphs; all graph input-buffer hashes remain unchanged. The diagnostic trace contains 36 original activation kernels in control and 36 vector 8 activation kernels in candidate.
+
+The original normal-startup comparison remains at `/root/qvl/experiments/bf16-activation-model`: B1/B8/B16 matched bitwise, while B128 decode differed. Its common M128 down-projection tactic was 2 in control and 1 in candidate. This diagnostic holds all four public startup GEMM choices equal: M128 gate/up 1, M128 down 2, vocabulary M4/M8 both 2. It loads the original control cache and verifies cache hits plus registry membership. Only during startup tuning of these exact shapes, the external hook temporarily disables retuning under the tuner lock and restores the flag immediately. After `init_cuda_graphs` finishes, all four validated shapes are asserted and the original `AutoTuner.search_cache` method is restored before evaluation. Production source is unchanged; this is an external correctness diagnostic, not a production tuning policy.
+
+Attempt 1 failed before evaluation because the helper variable `expected` collided with the model harness's source-manifest variable. The failed scripts and logs remain. Attempt 2 renames that helper variable and passes without changing numerical acceptance. Both immutable sources have full manifest checks; only the two activation files differ from control.
+
+Fixed-state graph timing was approximately 5.6773ms on control GPU4 and 5.6010ms on candidate GPU5. Different devices, fixed KV state and retained graph timing prevent interpreting this as a serving gain. Public fresh-startup serving is evaluated separately.
+
+Complete raw output tensors remain remotely at the two paths in `raw-output-manifest.json` (466,781,197 bytes each; identical hash). Automatic approval review rejected exporting this large payload to local storage; no workaround was attempted. The local archive contains reports, full comparisons, trace evidence, source manifests, scripts and retry provenance. Large readable files are losslessly gzip-compressed; archived scripts use `.py.txt`. Full remote roots are `/root/qvl/experiments/bf16-activation-matched-model` (failed attempt) and `/root/qvl/experiments/bf16-activation-matched-model-attempt2` (passing attempt).
+
+Pre-commit normalized trailing newlines/whitespace in readable local metadata. The complete pre-normalization metadata archive remains at `/tmp/bf16-activation-matched-metadata.tar.gz` locally and remotely. Source manifests describe production bytes, not normalized archive copies.
+
+After validation, clang-format removed one blank line immediately after the `ActivationKernel` opening brace in the final local header. The tested remote snapshot stays unchanged; this is a whitespace-only difference with no semantic source change.
+
+The `raw_archive/` directory preserves the complete original metadata archive byte-for-byte as ordered parts. Its manifest records full and per-part hashes and reconstruction commands. Readable copies may have whitespace normalized by pre-commit; `SHA256.json` describes those local copies after normalization.

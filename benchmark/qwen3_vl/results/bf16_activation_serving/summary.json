@@ -1,0 +1,685 @@
+{
+  "scope": "Bounded activation-only serving screens; public startup tuning; no algorithm replacement hooks",
+  "points": {
+    "1": {
+      "pairs": [
+        {
+          "gpu": 6,
+          "control": "A-gpu6-control",
+          "candidate": "B-gpu6-candidate",
+          "throughput_ratio": 1.006867049137768,
+          "control_metrics": {
+            "duration": 19.862915336008882,
+            "completed": 8,
+            "total_input_tokens": 65536,
+            "total_output_tokens": 8192,
+            "output_throughput": 412.42686994436156,
+            "mean_ttft_ms": 73.52030036781798,
+            "median_ttft_ms": 74.37860498612281,
+            "std_ttft_ms": 4.076443122291937,
+            "p90_ttft_ms": 76.93992650893051,
+            "p95_ttft_ms": 77.93168476055143,
+            "p99_ttft_ms": 78.72509136184817,
+            "mean_tpot_ms": 2.3524278781770747,
+            "median_tpot_ms": 2.3547423841632704,
+            "std_tpot_ms": 0.006347212738885577,
+            "p90_tpot_ms": 2.3587799147673847,
+            "p95_tpot_ms": 2.3590351431115613,
+            "p99_tpot_ms": 2.3592393257869024
+          },
+          "candidate_metrics": {
+            "duration": 19.72744599499856,
+            "completed": 8,
+            "total_input_tokens": 65536,
+            "total_output_tokens": 8192,
+            "output_throughput": 415.25902552600536,
+            "mean_ttft_ms": 76.10289799413295,
+            "median_ttft_ms": 76.77544298348948,
+            "std_ttft_ms": 3.811918956355487,
+            "p90_ttft_ms": 79.05360709992237,
+            "p95_ttft_ms": 79.60421904863324,
+            "p99_ttft_ms": 80.04470860760193,
+            "mean_tpot_ms": 2.33339744966099,
+            "median_tpot_ms": 2.3332617419384025,
+            "std_tpot_ms": 0.004339546295977706,
+            "p90_tpot_ms": 2.338597904009411,
+            "p95_tpot_ms": 2.3389620018516073,
+            "p99_tpot_ms": 2.339253280125365
+          },
+          "startup_tactics_equal": false
+        },
+        {
+          "gpu": 7,
+          "control": "B-gpu7-control",
+          "candidate": "A-gpu7-candidate",
+          "throughput_ratio": 1.0090736149781219,
+          "control_metrics": {
+            "duration": 19.961862188007217,
+            "completed": 8,
+            "total_input_tokens": 65536,
+            "total_output_tokens": 8192,
+            "output_throughput": 410.3825546356907,
+            "mean_ttft_ms": 75.02308012772119,
+            "median_ttft_ms": 76.05029550904874,
+            "std_ttft_ms": 3.614506036327496,
+            "p90_ttft_ms": 77.71428010310046,
+            "p95_ttft_ms": 78.11522156116553,
+            "p99_ttft_ms": 78.43597472761758,
+            "mean_tpot_ms": 2.36224717595025,
+            "median_tpot_ms": 2.3646063484783615,
+            "std_tpot_ms": 0.005233739651400901,
+            "p90_tpot_ms": 2.3663050358701234,
+            "p95_tpot_ms": 2.367360526725435,
+            "p99_tpot_ms": 2.368204919409684
+          },
+          "candidate_metrics": {
+            "duration": 19.782364628015785,
+            "completed": 8,
+            "total_input_tokens": 65536,
+            "total_output_tokens": 8192,
+            "output_throughput": 414.106207930193,
+            "mean_ttft_ms": 80.44723912098561,
+            "median_ttft_ms": 81.85889899323229,
+            "std_ttft_ms": 5.237513760001582,
+            "p90_ttft_ms": 85.27820418239571,
+            "p95_ttft_ms": 85.97337908868212,
+            "p99_ttft_ms": 86.52951901371125,
+            "mean_tpot_ms": 2.335331338220466,
+            "median_tpot_ms": 2.33648696528597,
+            "std_tpot_ms": 0.0048278495164972065,
+            "p90_tpot_ms": 2.3388647392982995,
+            "p95_tpot_ms": 2.339089495757024,
+            "p99_tpot_ms": 2.3392693009240033
+          },
+          "startup_tactics_equal": false
+        }
+      ],
+      "geomean_throughput_change_percent": 0.796972825368214,
+      "attribution_limit": "M128 startup down-projection tactic differs; measured M128 usage not instrumented at lower concurrency. C128 cannot isolate activation contribution."
+    },
+    "8": {
+      "pairs": [
+        {
+          "gpu": 6,
+          "control": "A-gpu6-control",
+          "candidate": "B-gpu6-candidate",
+          "throughput_ratio": 1.0008674238065367,
+          "control_metrics": {
+            "duration": 21.387614059000043,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 1915.1271332560714,
+            "mean_ttft_ms": 364.46297755173873,
+            "median_ttft_ms": 382.8694404946873,
+            "std_ttft_ms": 151.80774102378624,
+            "p90_ttft_ms": 540.7771406898974,
+            "p95_ttft_ms": 543.1332394495256,
+            "p99_ttft_ms": 561.4288102090359,
+            "mean_tpot_ms": 3.817874560702779,
+            "median_tpot_ms": 3.8087877312006895,
+            "std_tpot_ms": 0.14791926037494071,
+            "p90_tpot_ms": 4.035893078018431,
+            "p95_tpot_ms": 4.047123299345644,
+            "p99_tpot_ms": 4.055525568497225
+          },
+          "candidate_metrics": {
+            "duration": 21.369078012008686,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 1916.788360124002,
+            "mean_ttft_ms": 362.3609686772397,
+            "median_ttft_ms": 378.09621650376357,
+            "std_ttft_ms": 146.43873025051366,
+            "p90_ttft_ms": 543.6288968863664,
+            "p95_ttft_ms": 548.9889652468264,
+            "p99_ttft_ms": 550.5120960238855,
+            "mean_tpot_ms": 3.816378522505816,
+            "median_tpot_ms": 3.8024019022495645,
+            "std_tpot_ms": 0.14286187609438453,
+            "p90_tpot_ms": 4.013198632626878,
+            "p95_tpot_ms": 4.014253048913577,
+            "p99_tpot_ms": 4.037399669349097
+          },
+          "startup_tactics_equal": false
+        },
+        {
+          "gpu": 7,
+          "control": "B-gpu7-control",
+          "candidate": "A-gpu7-candidate",
+          "throughput_ratio": 1.0044490470373841,
+          "control_metrics": {
+            "duration": 21.458331069996348,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 1908.815735314637,
+            "mean_ttft_ms": 360.1315257510578,
+            "median_ttft_ms": 381.4310250018025,
+            "std_ttft_ms": 146.8252787675414,
+            "p90_ttft_ms": 536.4345444046194,
+            "p95_ttft_ms": 560.0124538555974,
+            "p99_ttft_ms": 561.6120949015021,
+            "mean_tpot_ms": 3.834208832599341,
+            "median_tpot_ms": 3.802733314764697,
+            "std_tpot_ms": 0.1436891653594973,
+            "p90_tpot_ms": 4.047399198123525,
+            "p95_tpot_ms": 4.052399850184397,
+            "p99_tpot_ms": 4.075226980143554
+          },
+          "candidate_metrics": {
+            "duration": 21.363284810999176,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 1917.308146306751,
+            "mean_ttft_ms": 358.83956830075476,
+            "median_ttft_ms": 376.8497760029277,
+            "std_ttft_ms": 144.95955155907822,
+            "p90_ttft_ms": 526.5201385103865,
+            "p95_ttft_ms": 539.6443630044814,
+            "p99_ttft_ms": 546.1336553905858,
+            "mean_tpot_ms": 3.8197167376579215,
+            "median_tpot_ms": 3.813587227778897,
+            "std_tpot_ms": 0.14136025490033752,
+            "p90_tpot_ms": 4.0170967255246515,
+            "p95_tpot_ms": 4.032351787247067,
+            "p99_tpot_ms": 4.050849524761843
+          },
+          "startup_tactics_equal": false
+        }
+      ],
+      "geomean_throughput_change_percent": 0.26566361687521134,
+      "attribution_limit": "M128 startup down-projection tactic differs; measured M128 usage not instrumented at lower concurrency. C128 cannot isolate activation contribution."
+    },
+    "128": {
+      "pairs": [
+        {
+          "gpu": 6,
+          "control": "C-gpu6-control",
+          "candidate": "B-gpu6-candidate",
+          "throughput_ratio": 1.0023032977797133,
+          "control_metrics": {
+            "duration": 34.33503024399397,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3817.4423924652774,
+            "mean_ttft_ms": 4688.488691829434,
+            "median_ttft_ms": 4507.423174494761,
+            "std_ttft_ms": 2406.9169581606347,
+            "p90_ttft_ms": 8139.534565602661,
+            "p95_ttft_ms": 8634.047562064368,
+            "p99_ttft_ms": 8982.243685747671,
+            "mean_tpot_ms": 28.586286113010562,
+            "median_tpot_ms": 28.827860747312766,
+            "std_tpot_ms": 2.0999724674962983,
+            "p90_tpot_ms": 31.11707415259448,
+            "p95_tpot_ms": 31.180153700828853,
+            "p99_tpot_ms": 31.240568259193353
+          },
+          "candidate_metrics": {
+            "duration": 34.25612818001537,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3826.2350990520263,
+            "mean_ttft_ms": 4628.696593992572,
+            "median_ttft_ms": 4503.086623517447,
+            "std_ttft_ms": 2482.2816923275604,
+            "p90_ttft_ms": 8170.6365218007695,
+            "p95_ttft_ms": 8614.16453611746,
+            "p99_ttft_ms": 8998.620893358893,
+            "mean_tpot_ms": 28.56430300761498,
+            "median_tpot_ms": 28.75003257380534,
+            "std_tpot_ms": 2.1727510548448845,
+            "p90_tpot_ms": 31.344965925124516,
+            "p95_tpot_ms": 31.405117344818745,
+            "p99_tpot_ms": 31.452392369954207
+          },
+          "startup_tactics_equal": false
+        },
+        {
+          "gpu": 7,
+          "control": "B-gpu7-control",
+          "candidate": "C-gpu7-candidate",
+          "throughput_ratio": 1.0018857350316164,
+          "control_metrics": {
+            "duration": 34.233561556990026,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3828.7573374975614,
+            "mean_ttft_ms": 4607.254626172107,
+            "median_ttft_ms": 4479.028197500156,
+            "std_ttft_ms": 2459.5278438417427,
+            "p90_ttft_ms": 8118.16387209692,
+            "p95_ttft_ms": 8559.017856119317,
+            "p99_ttft_ms": 8940.583591195173,
+            "mean_tpot_ms": 28.56961658525011,
+            "median_tpot_ms": 28.758324991688266,
+            "std_tpot_ms": 2.149513978339133,
+            "p90_tpot_ms": 31.314017671261794,
+            "p95_tpot_ms": 31.361071229663402,
+            "p99_tpot_ms": 31.42137602562807
+          },
+          "candidate_metrics": {
+            "duration": 34.16912763600703,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3835.977359336439,
+            "mean_ttft_ms": 4684.094688961295,
+            "median_ttft_ms": 4514.693327495479,
+            "std_ttft_ms": 2408.4613051775045,
+            "p90_ttft_ms": 8156.915029112133,
+            "p95_ttft_ms": 8596.341525902972,
+            "p99_ttft_ms": 8978.718388814306,
+            "mean_tpot_ms": 28.415610641877677,
+            "median_tpot_ms": 28.643647205282114,
+            "std_tpot_ms": 2.1004714174657826,
+            "p90_tpot_ms": 30.968778447889523,
+            "p95_tpot_ms": 31.027284864712243,
+            "p99_tpot_ms": 31.07587160099478
+          },
+          "startup_tactics_equal": false
+        }
+      ],
+      "geomean_throughput_change_percent": 0.20944946563878908,
+      "attribution_limit": "M128 startup down-projection tactic differs; measured M128 usage not instrumented at lower concurrency. C128 cannot isolate activation contribution."
+    }
+  },
+  "runs": {
+    "A-gpu6-control": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+      },
+      "results": {
+        "c8": {
+          "duration": 21.387614059000043,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 1915.1271332560714,
+          "mean_ttft_ms": 364.46297755173873,
+          "median_ttft_ms": 382.8694404946873,
+          "std_ttft_ms": 151.80774102378624,
+          "p90_ttft_ms": 540.7771406898974,
+          "p95_ttft_ms": 543.1332394495256,
+          "p99_ttft_ms": 561.4288102090359,
+          "mean_tpot_ms": 3.817874560702779,
+          "median_tpot_ms": 3.8087877312006895,
+          "std_tpot_ms": 0.14791926037494071,
+          "p90_tpot_ms": 4.035893078018431,
+          "p95_tpot_ms": 4.047123299345644,
+          "p99_tpot_ms": 4.055525568497225
+        },
+        "c1": {
+          "duration": 19.862915336008882,
+          "completed": 8,
+          "total_input_tokens": 65536,
+          "total_output_tokens": 8192,
+          "output_throughput": 412.42686994436156,
+          "mean_ttft_ms": 73.52030036781798,
+          "median_ttft_ms": 74.37860498612281,
+          "std_ttft_ms": 4.076443122291937,
+          "p90_ttft_ms": 76.93992650893051,
+          "p95_ttft_ms": 77.93168476055143,
+          "p99_ttft_ms": 78.72509136184817,
+          "mean_tpot_ms": 2.3524278781770747,
+          "median_tpot_ms": 2.3547423841632704,
+          "std_tpot_ms": 0.006347212738885577,
+          "p90_tpot_ms": 2.3587799147673847,
+          "p95_tpot_ms": 2.3590351431115613,
+          "p99_tpot_ms": 2.3592393257869024
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "C-gpu7-candidate": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "db01e55f190fca6744dea042152d429b1f6c593ce6901ddbaf41a4e7298d7ab7"
+      },
+      "results": {
+        "c128": {
+          "duration": 34.16912763600703,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3835.977359336439,
+          "mean_ttft_ms": 4684.094688961295,
+          "median_ttft_ms": 4514.693327495479,
+          "std_ttft_ms": 2408.4613051775045,
+          "p90_ttft_ms": 8156.915029112133,
+          "p95_ttft_ms": 8596.341525902972,
+          "p99_ttft_ms": 8978.718388814306,
+          "mean_tpot_ms": 28.415610641877677,
+          "median_tpot_ms": 28.643647205282114,
+          "std_tpot_ms": 2.1004714174657826,
+          "p90_tpot_ms": 30.968778447889523,
+          "p95_tpot_ms": 31.027284864712243,
+          "p99_tpot_ms": 31.07587160099478
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "A-gpu7-candidate": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "db01e55f190fca6744dea042152d429b1f6c593ce6901ddbaf41a4e7298d7ab7"
+      },
+      "results": {
+        "c8": {
+          "duration": 21.363284810999176,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 1917.308146306751,
+          "mean_ttft_ms": 358.83956830075476,
+          "median_ttft_ms": 376.8497760029277,
+          "std_ttft_ms": 144.95955155907822,
+          "p90_ttft_ms": 526.5201385103865,
+          "p95_ttft_ms": 539.6443630044814,
+          "p99_ttft_ms": 546.1336553905858,
+          "mean_tpot_ms": 3.8197167376579215,
+          "median_tpot_ms": 3.813587227778897,
+          "std_tpot_ms": 0.14136025490033752,
+          "p90_tpot_ms": 4.0170967255246515,
+          "p95_tpot_ms": 4.032351787247067,
+          "p99_tpot_ms": 4.050849524761843
+        },
+        "c1": {
+          "duration": 19.782364628015785,
+          "completed": 8,
+          "total_input_tokens": 65536,
+          "total_output_tokens": 8192,
+          "output_throughput": 414.106207930193,
+          "mean_ttft_ms": 80.44723912098561,
+          "median_ttft_ms": 81.85889899323229,
+          "std_ttft_ms": 5.237513760001582,
+          "p90_ttft_ms": 85.27820418239571,
+          "p95_ttft_ms": 85.97337908868212,
+          "p99_ttft_ms": 86.52951901371125,
+          "mean_tpot_ms": 2.335331338220466,
+          "median_tpot_ms": 2.33648696528597,
+          "std_tpot_ms": 0.0048278495164972065,
+          "p90_tpot_ms": 2.3388647392982995,
+          "p95_tpot_ms": 2.339089495757024,
+          "p99_tpot_ms": 2.3392693009240033
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "B-gpu7-control": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+      },
+      "results": {
+        "c8": {
+          "duration": 21.458331069996348,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 1908.815735314637,
+          "mean_ttft_ms": 360.1315257510578,
+          "median_ttft_ms": 381.4310250018025,
+          "std_ttft_ms": 146.8252787675414,
+          "p90_ttft_ms": 536.4345444046194,
+          "p95_ttft_ms": 560.0124538555974,
+          "p99_ttft_ms": 561.6120949015021,
+          "mean_tpot_ms": 3.834208832599341,
+          "median_tpot_ms": 3.802733314764697,
+          "std_tpot_ms": 0.1436891653594973,
+          "p90_tpot_ms": 4.047399198123525,
+          "p95_tpot_ms": 4.052399850184397,
+          "p99_tpot_ms": 4.075226980143554
+        },
+        "c1": {
+          "duration": 19.961862188007217,
+          "completed": 8,
+          "total_input_tokens": 65536,
+          "total_output_tokens": 8192,
+          "output_throughput": 410.3825546356907,
+          "mean_ttft_ms": 75.02308012772119,
+          "median_ttft_ms": 76.05029550904874,
+          "std_ttft_ms": 3.614506036327496,
+          "p90_ttft_ms": 77.71428010310046,
+          "p95_ttft_ms": 78.11522156116553,
+          "p99_ttft_ms": 78.43597472761758,
+          "mean_tpot_ms": 2.36224717595025,
+          "median_tpot_ms": 2.3646063484783615,
+          "std_tpot_ms": 0.005233739651400901,
+          "p90_tpot_ms": 2.3663050358701234,
+          "p95_tpot_ms": 2.367360526725435,
+          "p99_tpot_ms": 2.368204919409684
+        },
+        "c128": {
+          "duration": 34.233561556990026,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3828.7573374975614,
+          "mean_ttft_ms": 4607.254626172107,
+          "median_ttft_ms": 4479.028197500156,
+          "std_ttft_ms": 2459.5278438417427,
+          "p90_ttft_ms": 8118.16387209692,
+          "p95_ttft_ms": 8559.017856119317,
+          "p99_ttft_ms": 8940.583591195173,
+          "mean_tpot_ms": 28.56961658525011,
+          "median_tpot_ms": 28.758324991688266,
+          "std_tpot_ms": 2.149513978339133,
+          "p90_tpot_ms": 31.314017671261794,
+          "p95_tpot_ms": 31.361071229663402,
+          "p99_tpot_ms": 31.42137602562807
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          6
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "B-gpu6-candidate": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "db01e55f190fca6744dea042152d429b1f6c593ce6901ddbaf41a4e7298d7ab7"
+      },
+      "results": {
+        "c8": {
+          "duration": 21.369078012008686,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 1916.788360124002,
+          "mean_ttft_ms": 362.3609686772397,
+          "median_ttft_ms": 378.09621650376357,
+          "std_ttft_ms": 146.43873025051366,
+          "p90_ttft_ms": 543.6288968863664,
+          "p95_ttft_ms": 548.9889652468264,
+          "p99_ttft_ms": 550.5120960238855,
+          "mean_tpot_ms": 3.816378522505816,
+          "median_tpot_ms": 3.8024019022495645,
+          "std_tpot_ms": 0.14286187609438453,
+          "p90_tpot_ms": 4.013198632626878,
+          "p95_tpot_ms": 4.014253048913577,
+          "p99_tpot_ms": 4.037399669349097
+        },
+        "c1": {
+          "duration": 19.72744599499856,
+          "completed": 8,
+          "total_input_tokens": 65536,
+          "total_output_tokens": 8192,
+          "output_throughput": 415.25902552600536,
+          "mean_ttft_ms": 76.10289799413295,
+          "median_ttft_ms": 76.77544298348948,
+          "std_ttft_ms": 3.811918956355487,
+          "p90_ttft_ms": 79.05360709992237,
+          "p95_ttft_ms": 79.60421904863324,
+          "p99_ttft_ms": 80.04470860760193,
+          "mean_tpot_ms": 2.33339744966099,
+          "median_tpot_ms": 2.3332617419384025,
+          "std_tpot_ms": 0.004339546295977706,
+          "p90_tpot_ms": 2.338597904009411,
+          "p95_tpot_ms": 2.3389620018516073,
+          "p99_tpot_ms": 2.339253280125365
+        },
+        "c128": {
+          "duration": 34.25612818001537,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3826.2350990520263,
+          "mean_ttft_ms": 4628.696593992572,
+          "median_ttft_ms": 4503.086623517447,
+          "std_ttft_ms": 2482.2816923275604,
+          "p90_ttft_ms": 8170.6365218007695,
+          "p95_ttft_ms": 8614.16453611746,
+          "p99_ttft_ms": 8998.620893358893,
+          "mean_tpot_ms": 28.56430300761498,
+          "median_tpot_ms": 28.75003257380534,
+          "std_tpot_ms": 2.1727510548448845,
+          "p90_tpot_ms": 31.344965925124516,
+          "p95_tpot_ms": 31.405117344818745,
+          "p99_tpot_ms": 31.452392369954207
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "C-gpu6-control": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+      },
+      "results": {
+        "c128": {
+          "duration": 34.33503024399397,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3817.4423924652774,
+          "mean_ttft_ms": 4688.488691829434,
+          "median_ttft_ms": 4507.423174494761,
+          "std_ttft_ms": 2406.9169581606347,
+          "p90_ttft_ms": 8139.534565602661,
+          "p95_ttft_ms": 8634.047562064368,
+          "p99_ttft_ms": 8982.243685747671,
+          "mean_tpot_ms": 28.586286113010562,
+          "median_tpot_ms": 28.827860747312766,
+          "std_tpot_ms": 2.0999724674962983,
+          "p90_tpot_ms": 31.11707415259448,
+          "p95_tpot_ms": 31.180153700828853,
+          "p99_tpot_ms": 31.240568259193353
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    }
+  }
+}

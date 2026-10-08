@@ -1,0 +1,390 @@
+{
+  "device": "NVIDIA B300 SXM6 AC",
+  "torch": "2.14.1+cu130",
+  "precise_math": true,
+  "pdl": true,
+  "shapes": [
+    {
+      "batch": 1,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "candidate": true
+      },
+      "changed_graph_bitwise": {
+        "candidate": true
+      },
+      "input_bytes": 1400832,
+      "pairs_us": [
+        {
+          "baseline": 1.8202488952212863,
+          "candidate": 1.0865066448847454
+        },
+        {
+          "candidate": 1.0834399859110515,
+          "baseline": 1.820968919330173
+        },
+        {
+          "baseline": 1.8210132916768391,
+          "candidate": 1.0831111007266574
+        },
+        {
+          "candidate": 1.0827822155422635,
+          "baseline": 1.8208177884419758
+        },
+        {
+          "baseline": 1.820968919330173,
+          "candidate": 1.083244416448805
+        },
+        {
+          "candidate": 1.0844710800382826,
+          "baseline": 1.8212089273664687
+        },
+        {
+          "baseline": 1.82114667362637,
+          "candidate": 1.084480020734999
+        },
+        {
+          "candidate": 1.0837599966261122,
+          "baseline": 1.8212000528971355
+        }
+      ],
+      "median_us": {
+        "baseline": 1.8209911055035062,
+        "candidate": 1.0835999912685819
+      }
+    },
+    {
+      "batch": 8,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "candidate": true
+      },
+      "changed_graph_bitwise": {
+        "candidate": true
+      },
+      "input_bytes": 11206656,
+      "pairs_us": [
+        {
+          "baseline": 1.9908532831403944,
+          "candidate": 1.1969066990746393
+        },
+        {
+          "candidate": 1.1968889501359727,
+          "baseline": 1.9912266731262207
+        },
+        {
+          "baseline": 1.9917599360148113,
+          "candidate": 1.1967110633850098
+        },
+        {
+          "candidate": 1.1970578299628363,
+          "baseline": 1.9918844434950087
+        },
+        {
+          "baseline": 1.9915378093719482,
+          "candidate": 1.1962221728430853
+        },
+        {
+          "candidate": 1.1963821782006159,
+          "baseline": 1.9913332992129855
+        },
+        {
+          "baseline": 1.9915110535091824,
+          "candidate": 1.1966755655076768
+        },
+        {
+          "candidate": 1.1964089340633817,
+          "baseline": 1.991600063112047
+        }
+      ],
+      "median_us": {
+        "baseline": 1.9915244314405653,
+        "candidate": 1.1966933144463434
+      }
+    },
+    {
+      "batch": 16,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "candidate": true
+      },
+      "changed_graph_bitwise": {
+        "candidate": true
+      },
+      "input_bytes": 22413312,
+      "pairs_us": [
+        {
+          "baseline": 1.9928533501095242,
+          "candidate": 1.2199910481770833
+        },
+        {
+          "candidate": 1.2201778093973796,
+          "baseline": 1.9932711124420166
+        },
+        {
+          "baseline": 1.9934933715396457,
+          "candidate": 1.2181156211429172
+        },
+        {
+          "candidate": 1.2188888920678034,
+          "baseline": 1.9935111204783122
+        },
+        {
+          "baseline": 1.9933333661821153,
+          "candidate": 1.2213422192467585
+        },
+        {
+          "candidate": 1.2200978067186143,
+          "baseline": 1.9934666156768799
+        },
+        {
+          "baseline": 1.994231144587199,
+          "candidate": 1.2199289268917508
+        },
+        {
+          "candidate": 1.2181688679589167,
+          "baseline": 1.9933066103193495
+        }
+      ],
+      "median_us": {
+        "baseline": 1.9933999909294977,
+        "candidate": 1.2199599875344171
+      }
+    },
+    {
+      "batch": 64,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "candidate": true
+      },
+      "changed_graph_bitwise": {
+        "candidate": true
+      },
+      "input_bytes": 89653248,
+      "pairs_us": [
+        {
+          "baseline": 2.9169866773817272,
+          "candidate": 2.4444354905022516
+        },
+        {
+          "candidate": 2.44525326622857,
+          "baseline": 2.91611565483941
+        },
+        {
+          "baseline": 2.9153066211276584,
+          "candidate": 2.4435644679599338
+        },
+        {
+          "candidate": 2.44266668955485,
+          "baseline": 2.9154221216837564
+        },
+        {
+          "baseline": 2.9210133022732205,
+          "candidate": 2.4413243929545083
+        },
+        {
+          "candidate": 2.442515426211887,
+          "baseline": 2.918622228834364
+        },
+        {
+          "baseline": 2.9167734252081976,
+          "candidate": 2.4415734079149036
+        },
+        {
+          "candidate": 2.4430489540100098,
+          "baseline": 2.9161066479153104
+        }
+      ],
+      "median_us": {
+        "baseline": 2.9164445400238037,
+        "candidate": 2.4428578217824297
+      }
+    },
+    {
+      "batch": 128,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "candidate": true
+      },
+      "changed_graph_bitwise": {
+        "candidate": true
+      },
+      "input_bytes": 179306496,
+      "pairs_us": [
+        {
+          "baseline": 3.592862288157145,
+          "candidate": 3.0756799379984536
+        },
+        {
+          "candidate": 3.074266645643446,
+          "baseline": 3.5921510060628257
+        },
+        {
+          "baseline": 3.5995377434624567,
+          "candidate": 3.0743556552463107
+        },
+        {
+          "candidate": 3.073857890235053,
+          "baseline": 3.598302205403646
+        },
+        {
+          "baseline": 3.5926845338609485,
+          "candidate": 3.075528939565023
+        },
+        {
+          "candidate": 3.0740621354844837,
+          "baseline": 3.59391106499566
+        },
+        {
+          "baseline": 3.599493238661024,
+          "candidate": 3.0764799647861056
+        },
+        {
+          "candidate": 3.074906667073568,
+          "baseline": 3.5917690065171985
+        }
+      ],
+      "median_us": {
+        "baseline": 3.5933866765764026,
+        "candidate": 3.0746311611599393
+      }
+    },
+    {
+      "batch": 16384,
+      "input_stride": [
+        19456,
+        1
+      ],
+      "output_stride": [
+        9728,
+        1
+      ],
+      "initial_bitwise": {
+        "candidate": true
+      },
+      "changed_graph_bitwise": {
+        "candidate": true
+      },
+      "input_bytes": 22951231488,
+      "pairs_us": [
+        {
+          "baseline": 149.79022079043918,
+          "candidate": 150.51978164248996
+        },
+        {
+          "candidate": 151.04622311062283,
+          "baseline": 151.93222628699408
+        },
+        {
+          "baseline": 151.8604490492079,
+          "candidate": 151.04044808281793
+        },
+        {
+          "candidate": 151.14466349283853,
+          "baseline": 151.65221691131592
+        },
+        {
+          "baseline": 151.65355470445422,
+          "candidate": 151.0453356636895
+        },
+        {
+          "candidate": 151.00622177124023,
+          "baseline": 151.65732966528998
+        },
+        {
+          "baseline": 151.74244509802924,
+          "candidate": 151.6620053185357
+        },
+        {
+          "candidate": 153.58600351545545,
+          "baseline": 155.3682221306695
+        }
+      ],
+      "median_us": {
+        "baseline": 151.6998873816596,
+        "candidate": 151.0457793871562
+      }
+    }
+  ],
+  "exhaustive_bf16": [
+    {
+      "up": "0.0",
+      "bitwise": true
+    },
+    {
+      "up": "-0.0",
+      "bitwise": true
+    },
+    {
+      "up": "1.0",
+      "bitwise": true
+    },
+    {
+      "up": "-1.0",
+      "bitwise": true
+    },
+    {
+      "up": "0.125",
+      "bitwise": true
+    },
+    {
+      "up": "-0.125",
+      "bitwise": true
+    },
+    {
+      "up": "128.0",
+      "bitwise": true
+    },
+    {
+      "up": "-128.0",
+      "bitwise": true
+    },
+    {
+      "up": "inf",
+      "bitwise": true
+    },
+    {
+      "up": "-inf",
+      "bitwise": true
+    },
+    {
+      "up": "nan",
+      "bitwise": true
+    }
+  ]
+}

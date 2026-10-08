@@ -1,0 +1,35 @@
+import json,os,pathlib,time,torch,triton,triton.language as tl
+from sgl_kernel import fused_add_rmsnorm
+@triton.jit
+def norm(X,R,W,N:tl.constexpr,E:tl.constexpr,BLOCK:tl.constexpr):
+ row=tl.program_id(0);c=tl.arange(0,BLOCK);v=tl.load(X+row*N+c,c<N,0).to(tl.float32)+tl.load(R+row*N+c,c<N,0).to(tl.float32)
+ variance=tl.sum(v*v,0)/N;factor=tl.rsqrt(variance+E);w=tl.load(W+c,c<N,0).to(tl.float32)
+ tl.store(R+row*N+c,v,c<N);tl.store(X+row*N+c,(v*factor)*w,c<N)
+def candidate(x,r,w):norm[(x.shape[0],)](x,r,w,2560,1e-6,4096,num_warps=4,enable_fp_fusion=False)
+def main():
+ torch.manual_seed(42);out=pathlib.Path(os.environ['OUT']);out.mkdir(parents=True,exist_ok=True);results=[]
+ for b in [1,2,4,8,16,32,64,128,16384]:
+  x=torch.randn(b,2560,device='cuda',dtype=torch.bfloat16);r=torch.randn_like(x);w=torch.randn(2560,device='cuda',dtype=torch.bfloat16)
+  xb=x.clone();rb=r.clone();xc=x.clone();rc=r.clone();fused_add_rmsnorm(xb,rb,w);candidate(xc,rc,w);torch.cuda.synchronize()
+  delta=(xb.float()-xc.float());check=dict(residual_bitwise=torch.equal(rb,rc),output_bitwise=torch.equal(xb,xc),max_abs=delta.abs().max().item(),nrms=(delta.square().mean().sqrt()/xb.float().square().mean().sqrt()).item(),mismatch=int((xb!=xc).sum()))
+  assert check['residual_bitwise'];assert check['nrms']<.003 and check['max_abs']<.125,check
+  graphs=[];keep=[]
+  for fn in [fused_add_rmsnorm,candidate]:
+   xx=x.clone();rr=r.clone();stream=torch.cuda.Stream();stream.wait_stream(torch.cuda.current_stream())
+   with torch.cuda.stream(stream):
+    for _ in range(10):fn(xx,rr,w)
+   torch.cuda.current_stream().wait_stream(stream);g=torch.cuda.CUDAGraph()
+   with torch.cuda.graph(g):
+    for _ in range(32):fn(xx,rr,w)
+   graphs.append(g);keep.append((xx,rr))
+  rounds=[]
+  for rep in range(8):
+   vals={}
+   for idx in ([0,1] if rep%2==0 else [1,0]):
+    for _ in range(3):graphs[idx].replay()
+    a=torch.cuda.Event(enable_timing=True);z=torch.cuda.Event(enable_timing=True);a.record()
+    for _ in range(20):graphs[idx].replay()
+    z.record();z.synchronize();vals[str(idx)]=a.elapsed_time(z)*1000/640
+   rounds.append(vals)
+  results.append(dict(batch=b,correctness=check,rounds_us=rounds));(out/'report.json').write_text(json.dumps(results,indent=2));print(results[-1],flush=True)
+if __name__=='__main__':main()

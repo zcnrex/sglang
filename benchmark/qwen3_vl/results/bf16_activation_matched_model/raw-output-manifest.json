@@ -1,0 +1,10 @@
+{
+  "/root/qvl/experiments/bf16-activation-matched-model-attempt2/candidate/b128/outputs.pt": {
+    "bytes": 466781197,
+    "sha256": "5b77cff3d73a753dbcf7875ace9e8e3e4a4b78c74fe42b9997b26ac0de4dcc58"
+  },
+  "/root/qvl/experiments/bf16-activation-matched-model-attempt2/control/b128/outputs.pt": {
+    "bytes": 466781197,
+    "sha256": "5b77cff3d73a753dbcf7875ace9e8e3e4a4b78c74fe42b9997b26ac0de4dcc58"
+  }
+}

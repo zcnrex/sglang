@@ -1,0 +1,322 @@
+{
+  "cases": [
+    {
+      "batch": 2,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 2,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.002738475799560547,
+      "candidate_ref_error": 0.002738475799560547,
+      "mismatches": 0
+    },
+    {
+      "batch": 2,
+      "kind": "normal",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.014684200286865234,
+      "candidate_ref_error": 0.014684200286865234,
+      "mismatches": 0
+    },
+    {
+      "batch": 2,
+      "kind": "large",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.014222145080566406,
+      "candidate_ref_error": 0.014222145080566406,
+      "mismatches": 0
+    },
+    {
+      "batch": 2,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.015392780303955078,
+      "candidate_ref_error": 0.015392780303955078,
+      "mismatches": 0
+    },
+    {
+      "batch": 4,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 4,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0019380450248718262,
+      "candidate_ref_error": 0.0019380450248718262,
+      "mismatches": 0
+    },
+    {
+      "batch": 4,
+      "kind": "normal",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.01971721649169922,
+      "candidate_ref_error": 0.01971721649169922,
+      "mismatches": 0
+    },
+    {
+      "batch": 4,
+      "kind": "large",
+      "max_abs": 0.00390625,
+      "nrms": 3.877806739183143e-05,
+      "baseline_ref_error": 0.02017498016357422,
+      "candidate_ref_error": 0.02017498016357422,
+      "mismatches": 1
+    },
+    {
+      "batch": 4,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.015680313110351562,
+      "candidate_ref_error": 0.015680313110351562,
+      "mismatches": 0
+    },
+    {
+      "batch": 8,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 8,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0026984214782714844,
+      "candidate_ref_error": 0.0026984214782714844,
+      "mismatches": 0
+    },
+    {
+      "batch": 8,
+      "kind": "normal",
+      "max_abs": 0.00390625,
+      "nrms": 2.7465082894195803e-05,
+      "baseline_ref_error": 0.01971721649169922,
+      "candidate_ref_error": 0.01971721649169922,
+      "mismatches": 1
+    },
+    {
+      "batch": 8,
+      "kind": "large",
+      "max_abs": 0.00390625,
+      "nrms": 2.7357573344488628e-05,
+      "baseline_ref_error": 0.02017498016357422,
+      "candidate_ref_error": 0.02017498016357422,
+      "mismatches": 1
+    },
+    {
+      "batch": 8,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.015680313110351562,
+      "candidate_ref_error": 0.015680313110351562,
+      "mismatches": 0
+    },
+    {
+      "batch": 16,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 16,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0034112930297851562,
+      "candidate_ref_error": 0.0034112930297851562,
+      "mismatches": 0
+    },
+    {
+      "batch": 16,
+      "kind": "normal",
+      "max_abs": 0.00390625,
+      "nrms": 1.9215807697037235e-05,
+      "baseline_ref_error": 0.031000137329101562,
+      "candidate_ref_error": 0.031000137329101562,
+      "mismatches": 1
+    },
+    {
+      "batch": 16,
+      "kind": "large",
+      "max_abs": 0.00390625,
+      "nrms": 1.9204471755074337e-05,
+      "baseline_ref_error": 0.02671527862548828,
+      "candidate_ref_error": 0.02671527862548828,
+      "mismatches": 1
+    },
+    {
+      "batch": 16,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.026157379150390625,
+      "candidate_ref_error": 0.026157379150390625,
+      "mismatches": 0
+    },
+    {
+      "batch": 32,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 32,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0038889646530151367,
+      "candidate_ref_error": 0.0038889646530151367,
+      "mismatches": 0
+    },
+    {
+      "batch": 32,
+      "kind": "normal",
+      "max_abs": 0.00390625,
+      "nrms": 1.3638083146361168e-05,
+      "baseline_ref_error": 0.031000137329101562,
+      "candidate_ref_error": 0.031000137329101562,
+      "mismatches": 1
+    },
+    {
+      "batch": 32,
+      "kind": "large",
+      "max_abs": 0.00390625,
+      "nrms": 1.556611641717609e-05,
+      "baseline_ref_error": 0.02671527862548828,
+      "candidate_ref_error": 0.02671527862548828,
+      "mismatches": 3
+    },
+    {
+      "batch": 32,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.029000282287597656,
+      "candidate_ref_error": 0.029000282287597656,
+      "mismatches": 0
+    },
+    {
+      "batch": 64,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 64,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0038889646530151367,
+      "candidate_ref_error": 0.0038889646530151367,
+      "mismatches": 0
+    },
+    {
+      "batch": 64,
+      "kind": "normal",
+      "max_abs": 0.00390625,
+      "nrms": 1.7426667909603566e-05,
+      "baseline_ref_error": 0.031000137329101562,
+      "candidate_ref_error": 0.031000137329101562,
+      "mismatches": 4
+    },
+    {
+      "batch": 64,
+      "kind": "large",
+      "max_abs": 0.00390625,
+      "nrms": 1.5405317753902636e-05,
+      "baseline_ref_error": 0.03010272979736328,
+      "candidate_ref_error": 0.03010272979736328,
+      "mismatches": 5
+    },
+    {
+      "batch": 64,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.029000282287597656,
+      "candidate_ref_error": 0.029000282287597656,
+      "mismatches": 0
+    },
+    {
+      "batch": 128,
+      "kind": "zeros",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0,
+      "candidate_ref_error": 0.0,
+      "mismatches": 0
+    },
+    {
+      "batch": 128,
+      "kind": "small",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.0038889646530151367,
+      "candidate_ref_error": 0.0038889646530151367,
+      "mismatches": 0
+    },
+    {
+      "batch": 128,
+      "kind": "normal",
+      "max_abs": 0.00390625,
+      "nrms": 1.2315783351368736e-05,
+      "baseline_ref_error": 0.031000137329101562,
+      "candidate_ref_error": 0.031000137329101562,
+      "mismatches": 4
+    },
+    {
+      "batch": 128,
+      "kind": "large",
+      "max_abs": 0.00390625,
+      "nrms": 1.092531510948902e-05,
+      "baseline_ref_error": 0.030809402465820312,
+      "candidate_ref_error": 0.030809402465820312,
+      "mismatches": 5
+    },
+    {
+      "batch": 128,
+      "kind": "cancellation",
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "baseline_ref_error": 0.029000282287597656,
+      "candidate_ref_error": 0.029000282287597656,
+      "mismatches": 0
+    }
+  ],
+  "changed_input_graphs": 14,
+  "residual_bitwise": true,
+  "fp32_reference_gate": "candidate absolute error <= baseline absolute error + one BF16 output ULP + 1e-6"
+}

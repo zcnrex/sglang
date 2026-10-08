@@ -1,0 +1,66 @@
+{
+  "rows": [
+    {
+      "batch": 128,
+      "checkpoint": "123_prefill",
+      "bitwise_equal": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "kl_mean": 0.0,
+      "kl_max": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "batch": 128,
+      "checkpoint": "123_decode0",
+      "bitwise_equal": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "kl_mean": 0.0,
+      "kl_max": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "batch": 128,
+      "checkpoint": "123_decode14",
+      "bitwise_equal": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "kl_mean": 0.0,
+      "kl_max": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "batch": 128,
+      "checkpoint": "124_prefill",
+      "bitwise_equal": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "kl_mean": 0.0,
+      "kl_max": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "batch": 128,
+      "checkpoint": "124_decode0",
+      "bitwise_equal": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "kl_mean": 0.0,
+      "kl_max": 0.0,
+      "top1_agreement": 1.0
+    },
+    {
+      "batch": 128,
+      "checkpoint": "124_decode14",
+      "bitwise_equal": true,
+      "max_abs": 0.0,
+      "nrms": 0.0,
+      "kl_mean": 0.0,
+      "kl_max": 0.0,
+      "top1_agreement": 1.0
+    }
+  ],
+  "gate": "Strict baseline bitwise preservation; metrics are diagnostics, not relaxed acceptance thresholds. Matches prior fixed-input bitwise gates. Any mismatch requires explicit review rather than silently widening tolerances.",
+  "pass": true
+}

@@ -1,0 +1,3 @@
+{
+  "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false, 8u>(sglang::ActivationParams)": 36
+}

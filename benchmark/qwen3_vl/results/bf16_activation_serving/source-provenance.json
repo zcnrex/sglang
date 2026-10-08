@@ -1,0 +1,32 @@
+{
+  "baseline_files": 10245,
+  "candidate_files": 10245,
+  "changed": {
+    "python/sglang/kernels/ops/activation/activation.py": {
+      "control": {
+        "sha256": "416b4d2eb24d2abfbd215277f508b9786ade0c2fc736e470d37621cc3cd605bc",
+        "bytes": 7619
+      },
+      "tested": {
+        "sha256": "925d447920b7665ac9d8cea8d204d2c469a8c0e0aaffedb3f9fa0c0d23f4548e",
+        "bytes": 8250
+      },
+      "committed_sha256": "925d447920b7665ac9d8cea8d204d2c469a8c0e0aaffedb3f9fa0c0d23f4548e"
+    },
+    "python/sglang/kernels/jit/csrc/elementwise/activation.cuh": {
+      "control": {
+        "sha256": "2e387e17e8a7c300a649cced086297cd67b86a5c06ae5d54cdbe2659a9d54026",
+        "bytes": 12269
+      },
+      "tested": {
+        "sha256": "bc0362e0195b2398d530255bd339ec9b17b21b393cd2860abc79055052bc2fa0",
+        "bytes": 12247
+      },
+      "committed_sha256": "456fd8c322e770db14969ea0d5234a0b7d694d06db403664d6a078bb3e0b814c"
+    }
+  },
+  "added": [],
+  "removed": [],
+  "tested_candidate_note": "Immutable pre-format candidate; final committed header differs by one removed blank line only, as reported by parent review.",
+  "format_delta_verified_nonempty_lines_identical": true
+}

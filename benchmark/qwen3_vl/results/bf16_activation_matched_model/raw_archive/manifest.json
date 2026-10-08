@@ -1,0 +1,28 @@
+{
+  "original_name": "bf16-activation-matched-metadata.tar.gz",
+  "bytes": 3428078,
+  "sha256": "56e2bd74c655be45a7de4752c00c84f034702be780d2f9d277ffdd3fbf2576a7",
+  "parts": [
+    {
+      "path": "original.tar.gz.part000",
+      "sha256": "3cdae591834e113c83017e150c3d18ed996697e65af42af20d744776b6eba779",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part001",
+      "sha256": "cdf5324af8cfcc4a8078bd2fc5892404f2428c3f024ffbd2ae1e97fc57a5d197",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part002",
+      "sha256": "ec9d2b647b8ff0afc287b4f5ead85a8f16483576ff070a24f6a4a59b24dea600",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part003",
+      "sha256": "86afbc937c39c449beed5decd509337c3dbcc6dd533f392f6bfc3840c6f023ac",
+      "bytes": 282350
+    }
+  ],
+  "reconstruct": "cat original.tar.gz.part* > original.tar.gz; tar xzf original.tar.gz"
+}

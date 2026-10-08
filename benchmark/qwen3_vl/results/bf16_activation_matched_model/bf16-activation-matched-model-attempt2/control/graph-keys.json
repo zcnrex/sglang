@@ -1,0 +1,22 @@
+[
+  "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+  "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+]

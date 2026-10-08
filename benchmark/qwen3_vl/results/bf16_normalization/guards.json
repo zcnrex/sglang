@@ -1,0 +1,30 @@
+{
+  "scope": "CPU isolation with fake tensor metadata and kernel; not GPU integration",
+  "passed": 24,
+  "checks": [
+    "eligible",
+    "0-dtype",
+    "0-contiguous",
+    "0-requires_grad",
+    "0-device",
+    "1-dtype",
+    "1-contiguous",
+    "1-requires_grad",
+    "1-device",
+    "2-dtype",
+    "2-contiguous",
+    "2-requires_grad",
+    "2-device",
+    "batch1",
+    "batch3",
+    "batch129",
+    "batch16384",
+    "epsilon",
+    "alias",
+    "weight-overlap",
+    "residual-shape",
+    "weight-shape",
+    "deterministic",
+    "outer-compile"
+  ]
+}
