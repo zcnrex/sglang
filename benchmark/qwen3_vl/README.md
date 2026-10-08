@@ -40,6 +40,20 @@ diagnostic and lower-concurrency regression subdirectories). The code PR is
 #42913 at `ab94cc8a76`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
+The next committed candidate is batch-4 BF16 vocabulary-projection tuning
+(`5e1601731b`). Its external-hook serving crossover improved c4 throughput
+by 0.298% and 0.132%, with exact request/token counts. Clean production
+source checks verified actual tuned graph dispatch and bitwise prefill and
+decode logits. Image requests matched greedy tokens but had different
+prefill batching and log probabilities across servers; a separate same-input
+check matched original and tuned BF16 outputs on 24 observed image decode
+steps. This is limited numerical evidence, not full accuracy equivalence.
+Production serving and full C4 GSM8K validation are pending;
+the code PR has not yet received this increment. See
+`results/bf16_lmhead_screen/` for standalone, model, serving-gate and
+production evidence. This does not establish a new completed full sweep or
+achievement of the overall target.
+
 The latest experimental BF16 gate/up plus SiLU fusion remains outside the
 production PR. Reducing the native CUDA epilogue subtile removed register
 spills and improved the dominant M16331 standalone operation by 5.48–5.82%.
@@ -60,6 +74,13 @@ KV capacity, and more than 99.6% of measured prefill token rows were
 eligible for fusion. This bounded screen establishes no serving gain;
 the experimental kernel is not being promoted. See `dynamic_m/`,
 `dynamic_model/` and `dynamic_serving/` under `results/bf16_native_epilogue/`.
+
+Two further bounded screens were rejected: reusing device text-position
+metadata produced opposite-sign serving changes (−0.185% and +0.157%)
+despite full dispatch coverage, and public FA2 paged decode at the recorded
+39-request mixed suffix was 27.03% slower than TRT. Their evidence is in
+`results/bf16_native_epilogue/mrope_metadata_serving/` and
+`results/mixed_decode_screen/`. Neither changes production behavior.
 
 ## Configuration and reproducibility
 
