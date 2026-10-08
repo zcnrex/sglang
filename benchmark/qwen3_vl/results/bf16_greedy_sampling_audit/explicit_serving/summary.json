@@ -1,0 +1,688 @@
+{
+  "runs": [
+    {
+      "duration": 34.38314079900738,
+      "completed": 128,
+      "total_input_tokens": 1048576,
+      "total_output_tokens": 131072,
+      "output_throughput": 3812.100842276281,
+      "mean_e2e_latency_ms": 33982.97787040588,
+      "median_e2e_latency_ms": 34048.6879965174,
+      "std_e2e_latency_ms": 275.6237249068881,
+      "p90_e2e_latency_ms": 34294.01362059289,
+      "p95_e2e_latency_ms": 34308.13290523511,
+      "p99_e2e_latency_ms": 34316.652471209236,
+      "mean_ttft_ms": 4936.234897437089,
+      "median_ttft_ms": 4543.4872370096855,
+      "std_ttft_ms": 2163.9985469011353,
+      "p90_ttft_ms": 8176.731206983094,
+      "p95_ttft_ms": 8670.475708662705,
+      "p99_ttft_ms": 9035.683034029498,
+      "mean_tpot_ms": 28.39368814561954,
+      "median_tpot_ms": 28.841838474592095,
+      "std_tpot_ms": 1.8742846474168648,
+      "p90_tpot_ms": 30.383649985542664,
+      "p95_tpot_ms": 30.421947034794833,
+      "p99_tpot_ms": 30.47218744944967,
+      "variant": "control",
+      "gpu": 0,
+      "phase": "A",
+      "policy": [
+        {
+          "shape": [
+            128,
+            2560,
+            19456
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            128,
+            9728,
+            2560
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            4,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            8,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        }
+      ],
+      "events": [
+        {
+          "kind": "matched_policy_restored",
+          "epoch": 0,
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              8,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 0,
+          "rows": 128
+        },
+        {
+          "kind": "flush",
+          "epoch": 1
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 128
+        }
+      ]
+    },
+    {
+      "duration": 34.32027259899769,
+      "completed": 128,
+      "total_input_tokens": 1048576,
+      "total_output_tokens": 131072,
+      "output_throughput": 3819.0838846608667,
+      "mean_e2e_latency_ms": 33919.436250085935,
+      "median_e2e_latency_ms": 33983.68847699021,
+      "std_e2e_latency_ms": 273.8916029252321,
+      "p90_e2e_latency_ms": 34230.149281202466,
+      "p95_e2e_latency_ms": 34242.428759799805,
+      "p99_e2e_latency_ms": 34252.44537674822,
+      "mean_ttft_ms": 4964.31913099218,
+      "median_ttft_ms": 4555.009958494338,
+      "std_ttft_ms": 2169.082096654034,
+      "p90_ttft_ms": 8248.265115096001,
+      "p95_ttft_ms": 8695.325425885676,
+      "p99_ttft_ms": 9084.941779981891,
+      "mean_tpot_ms": 28.304122306054506,
+      "median_tpot_ms": 28.76696416471251,
+      "std_tpot_ms": 1.8807859609823576,
+      "p90_tpot_ms": 30.277221798818267,
+      "p95_tpot_ms": 30.334809434589705,
+      "p99_tpot_ms": 30.375983218216863,
+      "variant": "candidate",
+      "gpu": 1,
+      "phase": "A",
+      "policy": [
+        {
+          "shape": [
+            128,
+            2560,
+            19456
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            128,
+            9728,
+            2560
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            4,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            8,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        }
+      ],
+      "events": [
+        {
+          "kind": "cast_ready",
+          "epoch": 0
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 128,
+          "capturing": false,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 128,
+          "capturing": true,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 64,
+          "capturing": false,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 64,
+          "capturing": true,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "matched_policy_restored",
+          "epoch": 0,
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              8,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 0,
+          "rows": 128
+        },
+        {
+          "kind": "flush",
+          "epoch": 1
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 128
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 64
+        }
+      ]
+    },
+    {
+      "duration": 34.306162200984545,
+      "completed": 128,
+      "total_input_tokens": 1048576,
+      "total_output_tokens": 131072,
+      "output_throughput": 3820.654704309606,
+      "mean_e2e_latency_ms": 33919.70786143793,
+      "median_e2e_latency_ms": 33985.71200450533,
+      "std_e2e_latency_ms": 280.02727206677486,
+      "p90_e2e_latency_ms": 34237.880978305475,
+      "p95_e2e_latency_ms": 34251.45349886152,
+      "p99_e2e_latency_ms": 34258.92834703351,
+      "mean_ttft_ms": 4925.494028875846,
+      "median_ttft_ms": 4508.20071848284,
+      "std_ttft_ms": 2150.884781625407,
+      "p90_ttft_ms": 8192.003637584276,
+      "p95_ttft_ms": 8638.165241057868,
+      "p99_ttft_ms": 8990.797411589301,
+      "mean_tpot_ms": 28.34234001227965,
+      "median_tpot_ms": 28.81478040469678,
+      "std_tpot_ms": 1.8584420245025555,
+      "p90_tpot_ms": 30.29667029707437,
+      "p95_tpot_ms": 30.334945338173533,
+      "p99_tpot_ms": 30.384966928200566,
+      "variant": "candidate",
+      "gpu": 0,
+      "phase": "B",
+      "policy": [
+        {
+          "shape": [
+            128,
+            2560,
+            19456
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            128,
+            9728,
+            2560
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            4,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            8,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        }
+      ],
+      "events": [
+        {
+          "kind": "cast_ready",
+          "epoch": 0
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 128,
+          "capturing": false,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 128,
+          "capturing": true,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 64,
+          "capturing": false,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "cast_dispatch",
+          "epoch": 0,
+          "rows": 64,
+          "capturing": true,
+          "same_buffer": true,
+          "production": true
+        },
+        {
+          "kind": "matched_policy_restored",
+          "epoch": 0,
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              8,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 0,
+          "rows": 128
+        },
+        {
+          "kind": "flush",
+          "epoch": 1
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 128
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 64
+        }
+      ]
+    },
+    {
+      "duration": 34.384253377997084,
+      "completed": 128,
+      "total_input_tokens": 1048576,
+      "total_output_tokens": 131072,
+      "output_throughput": 3811.9774932752975,
+      "mean_e2e_latency_ms": 33982.64646221764,
+      "median_e2e_latency_ms": 34047.10228498152,
+      "std_e2e_latency_ms": 274.7879532478097,
+      "p90_e2e_latency_ms": 34294.6118952008,
+      "p95_e2e_latency_ms": 34307.12488495628,
+      "p99_e2e_latency_ms": 34316.13120748167,
+      "mean_ttft_ms": 4957.941714998469,
+      "median_ttft_ms": 4559.187384991674,
+      "std_ttft_ms": 2195.845506708934,
+      "p90_ttft_ms": 8274.061832897132,
+      "p95_ttft_ms": 8723.185031447792,
+      "p99_ttft_ms": 9114.910726396774,
+      "mean_tpot_ms": 28.372145402951297,
+      "median_tpot_ms": 28.824979636362066,
+      "std_tpot_ms": 1.905447350011293,
+      "p90_tpot_ms": 30.389409101644294,
+      "p95_tpot_ms": 30.446292796041448,
+      "p99_tpot_ms": 30.47992814307467,
+      "variant": "control",
+      "gpu": 1,
+      "phase": "B",
+      "policy": [
+        {
+          "shape": [
+            128,
+            2560,
+            19456
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            128,
+            9728,
+            2560
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            4,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            8,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        }
+      ],
+      "events": [
+        {
+          "kind": "matched_policy_restored",
+          "epoch": 0,
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              8,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 0,
+          "rows": 128
+        },
+        {
+          "kind": "flush",
+          "epoch": 1
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 128
+        },
+        {
+          "kind": "decode_forward",
+          "epoch": 1,
+          "rows": 64
+        }
+      ]
+    }
+  ],
+  "per_gpu_gain_percent": [
+    0.2243870869957698,
+    0.18642270050401866
+  ],
+  "geomean_gain_percent": 0.2054030958245967
+}
