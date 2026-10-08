@@ -1,0 +1,28 @@
+{
+  "gpu0": {
+    "median_us": {
+      "reference": 34.02910232543945,
+      "candidate": 31.546435885959202
+    },
+    "latency_reduction_pct": 7.295715343111652,
+    "all_pairs_positive": true,
+    "checks": 72,
+    "positions_stride": [
+      128,
+      1
+    ]
+  },
+  "gpu1": {
+    "median_us": {
+      "reference": 33.973212771945526,
+      "candidate": 31.478640238444008
+    },
+    "latency_reduction_pct": 7.342763106471617,
+    "all_pairs_positive": true,
+    "checks": 72,
+    "positions_stride": [
+      128,
+      1
+    ]
+  }
+}
