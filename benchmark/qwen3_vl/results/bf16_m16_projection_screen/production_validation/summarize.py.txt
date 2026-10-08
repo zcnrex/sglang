@@ -1,0 +1,14 @@
+import hashlib,json,math
+from pathlib import Path
+root=Path(__file__).resolve().parent
+runs=[]
+for p in sorted(root.glob('m16-down-production-serving/*/*/summary.json')):
+ d=json.loads(p.read_text()); events=[json.loads(l) for f in p.parent.glob('observer-*.jsonl') for l in f.read_text().splitlines()]
+ cache=json.loads(next(p.parent.glob('startup-cache/**/*.json')).read_text())
+ d.update(phase=p.parent.parent.name,gpu=int(p.parent.name[-1]),variant='candidate' if (p.parent.name=='gpu1')==(p.parent.parent.name=='A') else 'control',runtime_m128_events=[x for x in events if '128' in x['kind']],events=events,tactics={k:v for k,v in cache.items() if k.startswith("('bf16")})
+ assert (d['completed'],d['total_input_tokens'],d['total_output_tokens'])==(80,655360,81920)
+ runs.append(d)
+ratios=[]
+for gpu in (0,1):
+ c=next(x for x in runs if x['gpu']==gpu and x['variant']=='control'); t=next(x for x in runs if x['gpu']==gpu and x['variant']=='candidate');ratios.append(t['output_throughput']/c['output_throughput'])
+(root/'summary.json').write_text(json.dumps({'runs':runs,'geomean_gain_percent':(math.prod(ratios)**.5-1)*100,'per_gpu_gain_percent':[(r-1)*100 for r in ratios]},indent=2)+'\n')

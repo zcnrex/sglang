@@ -1,0 +1,39 @@
+import os
+if os.environ.get('QVL_DOWN_OUT'):
+ import json,pathlib,time,torch
+ import sglang.srt.layers.quantization.unquant as uq
+ from sglang.srt.model_executor.model_runner import ModelRunner
+ from sglang.srt.managers.scheduler import Scheduler
+ from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import SplitKTactic,run_splitk_dense
+ out=pathlib.Path(os.environ['QVL_DOWN_OUT']);enabled=os.environ.get('QVL_DOWN_ENABLE')=='1';ready=False;seen=set();epoch=0
+ def emit(kind,**kw):
+  with (out/('observer-%s.jsonl'%os.getpid())).open('a') as f:f.write(json.dumps({'kind':kind,'epoch':epoch,'time_ns':time.time_ns(),**kw})+'\n')
+ original_out=uq._bf16_splitk_gemm_out
+ def observe_out(x,w,bias,out_tensor):
+  if x.shape==(16,9728) and w.shape==(2560,9728):
+   assert not uq._prefer_direct(16,2560,9728)
+   assert uq._BF16_SPLITK_TUNED_TACTICS[(16,2560,9728)]==(128,16,4,5)
+   capturing=torch.cuda.is_current_stream_capturing()
+   if capturing not in seen:seen.add(capturing);emit('production_down_dispatch',capturing=capturing,tactic=[128,16,4,5],prefer_direct=False)
+  return original_out(x,w,bias,out_tensor)
+ uq._bf16_splitk_gemm_out=observe_out
+ original_init=ModelRunner.init_cuda_graphs
+ def initialize(self,*a,**kw):
+  result=original_init(self,*a,**kw)
+  if enabled:assert True in seen,'Production candidate never captured'
+  emit('production_initialized',candidate=enabled,algorithm_hook=False)
+  return result
+ ModelRunner.init_cuda_graphs=initialize
+ oldflush=Scheduler.flush_cache
+ def flush(self,*a,**kw):
+  global epoch
+  result=oldflush(self,*a,**kw);epoch+=1;emit('flush',result=str(result));return result
+ Scheduler.flush_cache=flush
+ oldforward=ModelRunner.forward;replayseen=set()
+ def forward(self,batch,*a,**kw):
+  rows=batch.input_ids.numel();mode=batch.forward_mode.name
+  if rows==128:emit('runtime_M128',mode=mode,batch_size=batch.batch_size)
+  result=oldforward(self,batch,*a,**kw)
+  if batch.forward_mode.is_decode() and batch.batch_size==16 and epoch not in replayseen:replayseen.add(epoch);emit('decode16_forward')
+  return result
+ ModelRunner.forward=forward

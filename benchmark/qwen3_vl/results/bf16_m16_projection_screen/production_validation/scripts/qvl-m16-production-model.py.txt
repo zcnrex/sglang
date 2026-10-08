@@ -1,0 +1,27 @@
+import os,json,pathlib,torch
+import sglang.benchmark.one_batch as b
+import sglang.srt.layers.quantization.unquant as uq
+r=pathlib.Path(os.environ['QVL_MODEL_OUT']);r.mkdir(parents=True,exist_ok=True)
+calls=[];old=uq._run_splitk_dense
+# initialize_bf16_gemm_config sets the function; wrap after initialization, before model capture.
+init=uq.initialize_bf16_gemm_config
+def initialize():
+ init();original=uq._run_splitk_dense
+ def observe(*a,**kw):
+  if a[0].shape==(16,9728) and a[1].shape==(9728,2560):calls.append({'capture':torch.cuda.is_current_stream_capturing(),'weight_ptr':a[1].data_ptr(),'tactic':[a[-1].mma_m,a[-1].mma_n,a[-1].split_k,a[-1].ab_stages]})
+  return original(*a,**kw)
+ uq._run_splitk_dense=observe
+uq.initialize_bf16_gemm_config=initialize
+origload=b.load_model
+@torch.no_grad()
+def load(*a,**kw):
+ wrapper,tok=origload(*a,**kw)
+ from sglang.test.few_shot_gsm8k import get_few_shot_examples,get_one_example
+ lines=[json.loads(v) for v in pathlib.Path('/tmp/test.jsonl').read_text().splitlines()];inputs=[tok.encode(get_few_shot_examples(lines,5)+get_one_example(lines,i,False)) for i in range(5,21)]
+ wrapper.clear();reqs=b.prepare_synthetic_inputs_for_latency_test(16,0,inputs);ids,logits,batch=wrapper.extend(reqs);tokens=[ids.cpu().tolist()];checks=[]
+ for _ in range(4):
+  ids,logits=wrapper.decode(ids,batch);tokens.append(ids.cpu().tolist());checks.append({'finite':bool(torch.isfinite(logits).all()),'shape':list(logits.shape)})
+ torch.cuda.synchronize();captured=[v for v in calls if v['capture']];assert len(set(v['weight_ptr'] for v in captured))==36,calls;assert all(v['tactic']==[128,16,4,5] for v in calls);assert all(v['finite'] for v in checks)
+ (r/'model_validation.json').write_text(json.dumps({'actual_capture_unique_weights':36,'observations':calls,'decode_checks':checks,'generated_tokens':tokens,'input_lengths':[len(x) for x in inputs],'algorithm_hook':False},indent=2));print('PRODUCTION_MODEL_VALIDATED',flush=True);raise SystemExit(0)
+b.load_model=load
+b.cli_main()

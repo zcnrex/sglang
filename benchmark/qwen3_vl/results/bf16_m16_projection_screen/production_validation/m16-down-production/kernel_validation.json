@@ -1,0 +1,26 @@
+{
+  "production_external_bitwise": true,
+  "changed_graph_bitwise": true,
+  "production_vs_torch_nrms": 9.862238221103325e-05,
+  "prefer_direct": false,
+  "calls": [
+    {
+      "capture": false,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ]
+    },
+    {
+      "capture": true,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ]
+    }
+  ]
+}

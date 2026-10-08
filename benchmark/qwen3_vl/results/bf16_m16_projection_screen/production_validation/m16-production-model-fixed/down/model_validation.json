@@ -1,0 +1,1334 @@
+{
+  "actual_capture_unique_weights": 36,
+  "observations": [
+    {
+      "capture": false,
+      "weight_ptr": 125619975225344,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619841007616,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619270582272,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619035701248,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618800820224,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618565939200,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618331058176,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618096177152,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617861296128,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617626415104,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617391534080,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617156653056,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616921772032,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616686891008,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616452009984,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616217128960,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615982247936,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615747366912,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615512485888,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615277604864,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615042723840,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614807842816,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614572961792,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614338080768,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614103199744,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613868318720,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613633437696,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613398556672,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613163675648,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612928794624,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612693913600,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612459032576,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612224151552,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125611989270528,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125611754389504,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125611519508480,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619975225344,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619841007616,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619270582272,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125619035701248,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618800820224,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618565939200,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618331058176,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125618096177152,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617861296128,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617626415104,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617391534080,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125617156653056,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616921772032,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616686891008,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616452009984,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125616217128960,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615982247936,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615747366912,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615512485888,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615277604864,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125615042723840,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614807842816,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614572961792,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614338080768,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125614103199744,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613868318720,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613633437696,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613398556672,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125613163675648,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612928794624,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612693913600,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612459032576,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125612224151552,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125611989270528,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125611754389504,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": false,
+      "weight_ptr": 125611519508480,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125619975225344,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125619841007616,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125619270582272,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125619035701248,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125618800820224,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125618565939200,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125618331058176,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125618096177152,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125617861296128,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125617626415104,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125617391534080,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125617156653056,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125616921772032,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125616686891008,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125616452009984,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125616217128960,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125615982247936,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125615747366912,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125615512485888,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125615277604864,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125615042723840,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125614807842816,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125614572961792,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125614338080768,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125614103199744,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125613868318720,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125613633437696,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125613398556672,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125613163675648,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125612928794624,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125612693913600,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125612459032576,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125612224151552,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125611989270528,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125611754389504,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    },
+    {
+      "capture": true,
+      "weight_ptr": 125611519508480,
+      "tactic": [
+        128,
+        16,
+        4,
+        5
+      ],
+      "prefer_direct": false
+    }
+  ],
+  "decode_checks": [
+    {
+      "finite": true,
+      "shape": [
+        16,
+        151936
+      ]
+    },
+    {
+      "finite": true,
+      "shape": [
+        16,
+        151936
+      ]
+    },
+    {
+      "finite": true,
+      "shape": [
+        16,
+        151936
+      ]
+    },
+    {
+      "finite": true,
+      "shape": [
+        16,
+        151936
+      ]
+    }
+  ],
+  "generated_tokens": [
+    [
+      576,
+      1416,
+      220,
+      758,
+      3984,
+      758,
+      576,
+      576,
+      6771,
+      220,
+      576,
+      576,
+      6771,
+      2932,
+      2876,
+      576
+    ],
+    [
+      1156,
+      16355,
+      19,
+      279,
+      17090,
+      279,
+      2783,
+      4916,
+      594,
+      17,
+      11372,
+      2790,
+      594,
+      49677,
+      21429,
+      18575
+    ],
+    [
+      8991,
+      702,
+      15,
+      1156,
+      594,
+      2086,
+      315,
+      686,
+      78064,
+      15,
+      504,
+      6010,
+      1438,
+      220,
+      702,
+      7027
+    ],
+    [
+      7049,
+      220,
+      4,
+      220,
+      5792,
+      2254,
+      279,
+      2783,
+      279,
+      4,
+      279,
+      9761,
+      1495,
+      18,
+      14858,
+      374
+    ],
+    [
+      400,
+      17,
+      315,
+      18,
+      2291,
+      11,
+      1513,
+      400,
+      2856,
+      315,
+      30717,
+      553,
+      279,
+      18805,
+      220,
+      220
+    ]
+  ],
+  "input_lengths": [
+    849,
+    835,
+    862,
+    897,
+    853,
+    853,
+    857,
+    860,
+    850,
+    845,
+    887,
+    846,
+    850,
+    821,
+    858,
+    856
+  ],
+  "algorithm_hook": false
+}

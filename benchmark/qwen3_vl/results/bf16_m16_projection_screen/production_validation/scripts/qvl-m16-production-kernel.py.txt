@@ -1,0 +1,16 @@
+import torch,json,pathlib
+from sglang.srt.server_args import ServerArgs
+from sglang.srt.runtime_context import publish,SpawnRanks
+import sglang.srt.layers.quantization.unquant as uq
+from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import run_splitk_dense,SplitKTactic
+r=pathlib.Path('/root/qvl/experiments/m16-down-production');args=ServerArgs(model_path='/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17',bf16_gemm_backend='cutedsl',dtype='bfloat16');publish(args,role='scheduler',ranks=SpawnRanks(world_rank=0,gpu_id=0));uq.initialize_bf16_gemm_config()
+assert uq.use_bf16_splitk_gemm(16,2560,9728);assert not uq._prefer_direct(16,2560,9728)
+calls=[];old=uq._run_splitk_dense
+def observe(*a,**kw):calls.append({'capture':torch.cuda.is_current_stream_capturing(),'tactic':[a[-1].mma_m,a[-1].mma_n,a[-1].split_k,a[-1].ab_stages]});return old(*a,**kw)
+uq._run_splitk_dense=observe
+torch.manual_seed(914);x=torch.randn(16,9728,device='cuda',dtype=torch.bfloat16);w=torch.randn(2560,9728,device='cuda',dtype=torch.bfloat16)*.02;y=torch.empty(16,2560,device='cuda',dtype=torch.bfloat16)
+a=uq._bf16_gemm_dispatch_impl(x,w,None);run_splitk_dense(x,w.T,None,y,True,SplitKTactic(128,16,4,5));torch.cuda.synchronize();assert torch.equal(a,y)
+g=torch.cuda.CUDAGraph()
+with torch.cuda.graph(g):a=uq._bf16_gemm_dispatch_impl(x,w,None)
+x.add_(.125);g.replay();run_splitk_dense(x,w.T,None,y,True,SplitKTactic(128,16,4,5));torch.cuda.synchronize();assert torch.equal(a,y)
+ref=torch.nn.functional.linear(x,w);report={'production_external_bitwise':True,'changed_graph_bitwise':True,'production_vs_torch_nrms':((a.float()-ref.float()).square().mean()/ref.float().square().mean()).sqrt().item(),'prefer_direct':False,'calls':calls};(r/'kernel_validation.json').write_text(json.dumps(report,indent=2));print(report)

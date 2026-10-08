@@ -1,0 +1,6 @@
+{"kind": "production_down_dispatch", "epoch": 0, "time_ns": 1791431324641287711, "capturing": false, "tactic": [128, 16, 4, 5], "prefer_direct": false}
+{"kind": "production_down_dispatch", "epoch": 0, "time_ns": 1791431325146690476, "capturing": true, "tactic": [128, 16, 4, 5], "prefer_direct": false}
+{"kind": "production_initialized", "epoch": 0, "time_ns": 1791431326780741497, "candidate": true, "algorithm_hook": false}
+{"kind": "decode16_forward", "epoch": 0, "time_ns": 1791431336357471825}
+{"kind": "flush", "epoch": 1, "time_ns": 1791431344320127116, "result": "True"}
+{"kind": "decode16_forward", "epoch": 1, "time_ns": 1791431346339010264}
