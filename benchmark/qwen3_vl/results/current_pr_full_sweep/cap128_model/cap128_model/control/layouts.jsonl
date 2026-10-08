@@ -1,0 +1,2 @@
+{"capture": false, "positions_shape": [3, 8], "positions_stride": [128, 1], "returned_none": true}
+{"capture": true, "positions_shape": [3, 8], "positions_stride": [128, 1], "returned_none": true}
