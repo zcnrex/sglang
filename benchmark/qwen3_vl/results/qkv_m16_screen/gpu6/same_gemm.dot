@@ -1,0 +1,976 @@
+digraph dot {
+subgraph cluster_2 {
+label="graph_2" graph[style="dashed"];
+"graph_2_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 107) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764ADD20 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 106) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764AE4B8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 105) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000764AEC50 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 104) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764AF3E8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_4"[style="bold" shape="record" label="{KERNEL
+| {ID | 4 (topoId: 103) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764AFB80 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_5"[style="bold" shape="record" label="{KERNEL
+| {ID | 5 (topoId: 102) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000764B0318 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_6"[style="bold" shape="record" label="{KERNEL
+| {ID | 6 (topoId: 101) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764B0AB0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_7"[style="bold" shape="record" label="{KERNEL
+| {ID | 7 (topoId: 100) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764B1248 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_8"[style="bold" shape="record" label="{KERNEL
+| {ID | 8 (topoId: 99) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000764B19E0 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_9"[style="bold" shape="record" label="{KERNEL
+| {ID | 9 (topoId: 98) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764B2178 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_10"[style="bold" shape="record" label="{KERNEL
+| {ID | 10 (topoId: 97) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764B2910 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_11"[style="bold" shape="record" label="{KERNEL
+| {ID | 11 (topoId: 96) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000764B30A8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_12"[style="bold" shape="record" label="{KERNEL
+| {ID | 12 (topoId: 95) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764B3840 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_13"[style="bold" shape="record" label="{KERNEL
+| {ID | 13 (topoId: 94) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764B3FD8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_14"[style="bold" shape="record" label="{KERNEL
+| {ID | 14 (topoId: 93) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000764B4770 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_15"[style="bold" shape="record" label="{KERNEL
+| {ID | 15 (topoId: 92) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764B4F08 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_16"[style="bold" shape="record" label="{KERNEL
+| {ID | 16 (topoId: 91) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764B56A0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_17"[style="bold" shape="record" label="{KERNEL
+| {ID | 17 (topoId: 90) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000764B5E38 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_18"[style="bold" shape="record" label="{KERNEL
+| {ID | 18 (topoId: 89) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000764B65D0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_19"[style="bold" shape="record" label="{KERNEL
+| {ID | 19 (topoId: 88) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000764B6D68 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_20"[style="bold" shape="record" label="{KERNEL
+| {ID | 20 (topoId: 87) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007650DA80 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_21"[style="bold" shape="record" label="{KERNEL
+| {ID | 21 (topoId: 86) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007650E218 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_22"[style="bold" shape="record" label="{KERNEL
+| {ID | 22 (topoId: 85) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007650E9B0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_23"[style="bold" shape="record" label="{KERNEL
+| {ID | 23 (topoId: 84) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007650F148 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_24"[style="bold" shape="record" label="{KERNEL
+| {ID | 24 (topoId: 83) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007650F8E0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_25"[style="bold" shape="record" label="{KERNEL
+| {ID | 25 (topoId: 82) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076510078 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_26"[style="bold" shape="record" label="{KERNEL
+| {ID | 26 (topoId: 81) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076510810 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_27"[style="bold" shape="record" label="{KERNEL
+| {ID | 27 (topoId: 80) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076510FA8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_28"[style="bold" shape="record" label="{KERNEL
+| {ID | 28 (topoId: 79) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076511740 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_29"[style="bold" shape="record" label="{KERNEL
+| {ID | 29 (topoId: 78) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076511ED8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_30"[style="bold" shape="record" label="{KERNEL
+| {ID | 30 (topoId: 77) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076512670 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_31"[style="bold" shape="record" label="{KERNEL
+| {ID | 31 (topoId: 76) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076512E08 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_32"[style="bold" shape="record" label="{KERNEL
+| {ID | 32 (topoId: 75) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765135A0 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_33"[style="bold" shape="record" label="{KERNEL
+| {ID | 33 (topoId: 74) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076513D38 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_34"[style="bold" shape="record" label="{KERNEL
+| {ID | 34 (topoId: 73) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000765144D0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_35"[style="bold" shape="record" label="{KERNEL
+| {ID | 35 (topoId: 72) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076514C68 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_36"[style="bold" shape="record" label="{KERNEL
+| {ID | 36 (topoId: 71) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076515400 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_37"[style="bold" shape="record" label="{KERNEL
+| {ID | 37 (topoId: 70) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076515B98 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_38"[style="bold" shape="record" label="{KERNEL
+| {ID | 38 (topoId: 69) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076516330 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_39"[style="bold" shape="record" label="{KERNEL
+| {ID | 39 (topoId: 68) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076516AC8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_40"[style="bold" shape="record" label="{KERNEL
+| {ID | 40 (topoId: 67) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076517260 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_41"[style="bold" shape="record" label="{KERNEL
+| {ID | 41 (topoId: 66) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765179F8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_42"[style="bold" shape="record" label="{KERNEL
+| {ID | 42 (topoId: 65) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076518190 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_43"[style="bold" shape="record" label="{KERNEL
+| {ID | 43 (topoId: 64) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076518928 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_44"[style="bold" shape="record" label="{KERNEL
+| {ID | 44 (topoId: 63) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765190C0 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_45"[style="bold" shape="record" label="{KERNEL
+| {ID | 45 (topoId: 62) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076519858 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_46"[style="bold" shape="record" label="{KERNEL
+| {ID | 46 (topoId: 61) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076519FF0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_47"[style="bold" shape="record" label="{KERNEL
+| {ID | 47 (topoId: 60) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007651A788 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_48"[style="bold" shape="record" label="{KERNEL
+| {ID | 48 (topoId: 59) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007651AF20 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_49"[style="bold" shape="record" label="{KERNEL
+| {ID | 49 (topoId: 58) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007651B6B8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_50"[style="bold" shape="record" label="{KERNEL
+| {ID | 50 (topoId: 57) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007651BE50 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_51"[style="bold" shape="record" label="{KERNEL
+| {ID | 51 (topoId: 56) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007651C5E8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_52"[style="bold" shape="record" label="{KERNEL
+| {ID | 52 (topoId: 55) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007651CD80 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_53"[style="bold" shape="record" label="{KERNEL
+| {ID | 53 (topoId: 54) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007651D518 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_54"[style="bold" shape="record" label="{KERNEL
+| {ID | 54 (topoId: 53) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007651DCB0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_55"[style="bold" shape="record" label="{KERNEL
+| {ID | 55 (topoId: 52) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007651E448 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_56"[style="bold" shape="record" label="{KERNEL
+| {ID | 56 (topoId: 51) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007651EBE0 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_57"[style="bold" shape="record" label="{KERNEL
+| {ID | 57 (topoId: 50) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007651F378 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_58"[style="bold" shape="record" label="{KERNEL
+| {ID | 58 (topoId: 49) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007651FB10 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_59"[style="bold" shape="record" label="{KERNEL
+| {ID | 59 (topoId: 48) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765202A8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_60"[style="bold" shape="record" label="{KERNEL
+| {ID | 60 (topoId: 47) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076520A40 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_61"[style="bold" shape="record" label="{KERNEL
+| {ID | 61 (topoId: 46) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000765211D8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_62"[style="bold" shape="record" label="{KERNEL
+| {ID | 62 (topoId: 45) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076521970 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_63"[style="bold" shape="record" label="{KERNEL
+| {ID | 63 (topoId: 44) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076522108 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_64"[style="bold" shape="record" label="{KERNEL
+| {ID | 64 (topoId: 43) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000765228A0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_65"[style="bold" shape="record" label="{KERNEL
+| {ID | 65 (topoId: 42) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076523038 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_66"[style="bold" shape="record" label="{KERNEL
+| {ID | 66 (topoId: 41) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765237D0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_67"[style="bold" shape="record" label="{KERNEL
+| {ID | 67 (topoId: 40) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076523F68 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_68"[style="bold" shape="record" label="{KERNEL
+| {ID | 68 (topoId: 39) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076524700 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_69"[style="bold" shape="record" label="{KERNEL
+| {ID | 69 (topoId: 38) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076524E98 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_70"[style="bold" shape="record" label="{KERNEL
+| {ID | 70 (topoId: 37) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076525630 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_71"[style="bold" shape="record" label="{KERNEL
+| {ID | 71 (topoId: 36) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076525DC8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_72"[style="bold" shape="record" label="{KERNEL
+| {ID | 72 (topoId: 35) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076526560 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_73"[style="bold" shape="record" label="{KERNEL
+| {ID | 73 (topoId: 34) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076526CF8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_74"[style="bold" shape="record" label="{KERNEL
+| {ID | 74 (topoId: 33) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076527490 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_75"[style="bold" shape="record" label="{KERNEL
+| {ID | 75 (topoId: 32) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076527C28 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_76"[style="bold" shape="record" label="{KERNEL
+| {ID | 76 (topoId: 31) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000765283C0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_77"[style="bold" shape="record" label="{KERNEL
+| {ID | 77 (topoId: 30) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076528B58 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_78"[style="bold" shape="record" label="{KERNEL
+| {ID | 78 (topoId: 29) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765292F0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_79"[style="bold" shape="record" label="{KERNEL
+| {ID | 79 (topoId: 28) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076529A88 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_80"[style="bold" shape="record" label="{KERNEL
+| {ID | 80 (topoId: 27) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007652A220 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_81"[style="bold" shape="record" label="{KERNEL
+| {ID | 81 (topoId: 26) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007652A9B8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_82"[style="bold" shape="record" label="{KERNEL
+| {ID | 82 (topoId: 25) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007652B150 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_83"[style="bold" shape="record" label="{KERNEL
+| {ID | 83 (topoId: 24) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007652B8E8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_84"[style="bold" shape="record" label="{KERNEL
+| {ID | 84 (topoId: 23) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007652C080 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_85"[style="bold" shape="record" label="{KERNEL
+| {ID | 85 (topoId: 22) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007652C818 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_86"[style="bold" shape="record" label="{KERNEL
+| {ID | 86 (topoId: 21) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007652CFB0 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_87"[style="bold" shape="record" label="{KERNEL
+| {ID | 87 (topoId: 20) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007652D748 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_88"[style="bold" shape="record" label="{KERNEL
+| {ID | 88 (topoId: 19) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007652DEE0 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_89"[style="bold" shape="record" label="{KERNEL
+| {ID | 89 (topoId: 18) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007652E678 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_90"[style="bold" shape="record" label="{KERNEL
+| {ID | 90 (topoId: 17) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007652EE10 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_91"[style="bold" shape="record" label="{KERNEL
+| {ID | 91 (topoId: 16) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x000000007652F5A8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_92"[style="bold" shape="record" label="{KERNEL
+| {ID | 92 (topoId: 15) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007652FD40 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_93"[style="bold" shape="record" label="{KERNEL
+| {ID | 93 (topoId: 14) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765304D8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_94"[style="bold" shape="record" label="{KERNEL
+| {ID | 94 (topoId: 13) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076530C70 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_95"[style="bold" shape="record" label="{KERNEL
+| {ID | 95 (topoId: 12) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076531408 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_96"[style="bold" shape="record" label="{KERNEL
+| {ID | 96 (topoId: 11) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076531BA0 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_97"[style="bold" shape="record" label="{KERNEL
+| {ID | 97 (topoId: 10) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076532338 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_98"[style="bold" shape="record" label="{KERNEL
+| {ID | 98 (topoId: 9) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076532AD0 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_99"[style="bold" shape="record" label="{KERNEL
+| {ID | 99 (topoId: 8) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076533268 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_100"[style="bold" shape="record" label="{KERNEL
+| {ID | 100 (topoId: 7) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076533A00 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_101"[style="bold" shape="record" label="{KERNEL
+| {ID | 101 (topoId: 6) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076534198 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_102"[style="bold" shape="record" label="{KERNEL
+| {ID | 102 (topoId: 5) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076534930 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_103"[style="bold" shape="record" label="{KERNEL
+| {ID | 103 (topoId: 4) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x00000000765350C8 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_104"[style="bold" shape="record" label="{KERNEL
+| {ID | 104 (topoId: 3) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076535860 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_105"[style="bold" shape="record" label="{KERNEL
+| {ID | 105 (topoId: 2) | kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076535FF8 | 0x000000005DB09DA0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_106"[style="bold" shape="record" label="{KERNEL
+| {ID | 106 (topoId: 1) | _ZN6sglang26fused_qk_norm_mrope_kernelILb1ELb1EEEvNS_17QKNormMRoPEParamsE\<\<\<160,128,0\>\>\>}
+| {{node handle | func handle} | {0x0000000076536790 | 0x000000005B53B1D0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_107"[style="bold" shape="record" label="{KERNEL
+| {ID | 107 (topoId: 0) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076536F28 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_0" -> "graph_2_node_1" [headlabel=0];
+"graph_2_node_1" -> "graph_2_node_2" [headlabel=0];
+"graph_2_node_2" -> "graph_2_node_3" [headlabel=0];
+"graph_2_node_3" -> "graph_2_node_4" [headlabel=0];
+"graph_2_node_4" -> "graph_2_node_5" [headlabel=0];
+"graph_2_node_5" -> "graph_2_node_6" [headlabel=0];
+"graph_2_node_6" -> "graph_2_node_7" [headlabel=0];
+"graph_2_node_7" -> "graph_2_node_8" [headlabel=0];
+"graph_2_node_8" -> "graph_2_node_9" [headlabel=0];
+"graph_2_node_9" -> "graph_2_node_10" [headlabel=0];
+"graph_2_node_10" -> "graph_2_node_11" [headlabel=0];
+"graph_2_node_11" -> "graph_2_node_12" [headlabel=0];
+"graph_2_node_12" -> "graph_2_node_13" [headlabel=0];
+"graph_2_node_13" -> "graph_2_node_14" [headlabel=0];
+"graph_2_node_14" -> "graph_2_node_15" [headlabel=0];
+"graph_2_node_15" -> "graph_2_node_16" [headlabel=0];
+"graph_2_node_16" -> "graph_2_node_17" [headlabel=0];
+"graph_2_node_17" -> "graph_2_node_18" [headlabel=0];
+"graph_2_node_18" -> "graph_2_node_19" [headlabel=0];
+"graph_2_node_19" -> "graph_2_node_20" [headlabel=0];
+"graph_2_node_20" -> "graph_2_node_21" [headlabel=0];
+"graph_2_node_21" -> "graph_2_node_22" [headlabel=0];
+"graph_2_node_22" -> "graph_2_node_23" [headlabel=0];
+"graph_2_node_23" -> "graph_2_node_24" [headlabel=0];
+"graph_2_node_24" -> "graph_2_node_25" [headlabel=0];
+"graph_2_node_25" -> "graph_2_node_26" [headlabel=0];
+"graph_2_node_26" -> "graph_2_node_27" [headlabel=0];
+"graph_2_node_27" -> "graph_2_node_28" [headlabel=0];
+"graph_2_node_28" -> "graph_2_node_29" [headlabel=0];
+"graph_2_node_29" -> "graph_2_node_30" [headlabel=0];
+"graph_2_node_30" -> "graph_2_node_31" [headlabel=0];
+"graph_2_node_31" -> "graph_2_node_32" [headlabel=0];
+"graph_2_node_32" -> "graph_2_node_33" [headlabel=0];
+"graph_2_node_33" -> "graph_2_node_34" [headlabel=0];
+"graph_2_node_34" -> "graph_2_node_35" [headlabel=0];
+"graph_2_node_35" -> "graph_2_node_36" [headlabel=0];
+"graph_2_node_36" -> "graph_2_node_37" [headlabel=0];
+"graph_2_node_37" -> "graph_2_node_38" [headlabel=0];
+"graph_2_node_38" -> "graph_2_node_39" [headlabel=0];
+"graph_2_node_39" -> "graph_2_node_40" [headlabel=0];
+"graph_2_node_40" -> "graph_2_node_41" [headlabel=0];
+"graph_2_node_41" -> "graph_2_node_42" [headlabel=0];
+"graph_2_node_42" -> "graph_2_node_43" [headlabel=0];
+"graph_2_node_43" -> "graph_2_node_44" [headlabel=0];
+"graph_2_node_44" -> "graph_2_node_45" [headlabel=0];
+"graph_2_node_45" -> "graph_2_node_46" [headlabel=0];
+"graph_2_node_46" -> "graph_2_node_47" [headlabel=0];
+"graph_2_node_47" -> "graph_2_node_48" [headlabel=0];
+"graph_2_node_48" -> "graph_2_node_49" [headlabel=0];
+"graph_2_node_49" -> "graph_2_node_50" [headlabel=0];
+"graph_2_node_50" -> "graph_2_node_51" [headlabel=0];
+"graph_2_node_51" -> "graph_2_node_52" [headlabel=0];
+"graph_2_node_52" -> "graph_2_node_53" [headlabel=0];
+"graph_2_node_53" -> "graph_2_node_54" [headlabel=0];
+"graph_2_node_54" -> "graph_2_node_55" [headlabel=0];
+"graph_2_node_55" -> "graph_2_node_56" [headlabel=0];
+"graph_2_node_56" -> "graph_2_node_57" [headlabel=0];
+"graph_2_node_57" -> "graph_2_node_58" [headlabel=0];
+"graph_2_node_58" -> "graph_2_node_59" [headlabel=0];
+"graph_2_node_59" -> "graph_2_node_60" [headlabel=0];
+"graph_2_node_60" -> "graph_2_node_61" [headlabel=0];
+"graph_2_node_61" -> "graph_2_node_62" [headlabel=0];
+"graph_2_node_62" -> "graph_2_node_63" [headlabel=0];
+"graph_2_node_63" -> "graph_2_node_64" [headlabel=0];
+"graph_2_node_64" -> "graph_2_node_65" [headlabel=0];
+"graph_2_node_65" -> "graph_2_node_66" [headlabel=0];
+"graph_2_node_66" -> "graph_2_node_67" [headlabel=0];
+"graph_2_node_67" -> "graph_2_node_68" [headlabel=0];
+"graph_2_node_68" -> "graph_2_node_69" [headlabel=0];
+"graph_2_node_69" -> "graph_2_node_70" [headlabel=0];
+"graph_2_node_70" -> "graph_2_node_71" [headlabel=0];
+"graph_2_node_71" -> "graph_2_node_72" [headlabel=0];
+"graph_2_node_72" -> "graph_2_node_73" [headlabel=0];
+"graph_2_node_73" -> "graph_2_node_74" [headlabel=0];
+"graph_2_node_74" -> "graph_2_node_75" [headlabel=0];
+"graph_2_node_75" -> "graph_2_node_76" [headlabel=0];
+"graph_2_node_76" -> "graph_2_node_77" [headlabel=0];
+"graph_2_node_77" -> "graph_2_node_78" [headlabel=0];
+"graph_2_node_78" -> "graph_2_node_79" [headlabel=0];
+"graph_2_node_79" -> "graph_2_node_80" [headlabel=0];
+"graph_2_node_80" -> "graph_2_node_81" [headlabel=0];
+"graph_2_node_81" -> "graph_2_node_82" [headlabel=0];
+"graph_2_node_82" -> "graph_2_node_83" [headlabel=0];
+"graph_2_node_83" -> "graph_2_node_84" [headlabel=0];
+"graph_2_node_84" -> "graph_2_node_85" [headlabel=0];
+"graph_2_node_85" -> "graph_2_node_86" [headlabel=0];
+"graph_2_node_86" -> "graph_2_node_87" [headlabel=0];
+"graph_2_node_87" -> "graph_2_node_88" [headlabel=0];
+"graph_2_node_88" -> "graph_2_node_89" [headlabel=0];
+"graph_2_node_89" -> "graph_2_node_90" [headlabel=0];
+"graph_2_node_90" -> "graph_2_node_91" [headlabel=0];
+"graph_2_node_91" -> "graph_2_node_92" [headlabel=0];
+"graph_2_node_92" -> "graph_2_node_93" [headlabel=0];
+"graph_2_node_93" -> "graph_2_node_94" [headlabel=0];
+"graph_2_node_94" -> "graph_2_node_95" [headlabel=0];
+"graph_2_node_95" -> "graph_2_node_96" [headlabel=0];
+"graph_2_node_96" -> "graph_2_node_97" [headlabel=0];
+"graph_2_node_97" -> "graph_2_node_98" [headlabel=0];
+"graph_2_node_98" -> "graph_2_node_99" [headlabel=0];
+"graph_2_node_99" -> "graph_2_node_100" [headlabel=0];
+"graph_2_node_100" -> "graph_2_node_101" [headlabel=0];
+"graph_2_node_101" -> "graph_2_node_102" [headlabel=0];
+"graph_2_node_102" -> "graph_2_node_103" [headlabel=0];
+"graph_2_node_103" -> "graph_2_node_104" [headlabel=0];
+"graph_2_node_104" -> "graph_2_node_105" [headlabel=0];
+"graph_2_node_105" -> "graph_2_node_106" [headlabel=0];
+"graph_2_node_106" -> "graph_2_node_107" [headlabel=0];
+}
+}

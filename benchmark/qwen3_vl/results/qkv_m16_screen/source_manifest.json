@@ -1,0 +1,14 @@
+{
+  "local_head": "3860aa527af0db24862042e07d7774006eb7cb74",
+  "source": "/root/qvl/sglang-qkv-integrated",
+  "files": {
+    "python/sglang/kernels/ops/gemm/dense_bf16_gemm_sm100_splitk_epilogue.py": "8de336dd179881462bb493bddd2203766e3ba30d7432b4b35c2ebaf447fb9aab",
+    "python/sglang/kernels/ops/attention/qkv_norm_mrope.py": "c59c68d8c230652d618b901660b7118f1f2acdc3ce9e2722fdea4f130e49382a",
+    "python/sglang/kernels/ops/attention/fused_qk_norm_mrope.py": "db4c6a53c4b5096d09898a3e737b33a3186af1ee961ff131c5116ce0149046ad",
+    "python/sglang/srt/layers/quantization/unquant.py": "6e7488b6f5c2742d05c49ef49a4744660c5161ce7f4fb2398a21feefbaa31476"
+  },
+  "external_files": {
+    "screen.py.txt": "ccfb7ef4484c6065147546c285733654c3093a19f5023a357a56bea672ad192f",
+    "m16_epilogue.py.txt": "93e23422f687a89c2a518f3bdbfea07ff29f748509eff1051e75c36350670d3d"
+  }
+}

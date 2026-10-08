@@ -1,0 +1,79 @@
+import os,pathlib,json,hashlib,statistics
+import torch,flashinfer
+from safetensors import safe_open
+import m16_epilogue as fused
+from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import run_splitk_dense,SplitKTactic
+from sglang.kernels.ops.attention.fused_qk_norm_mrope import fused_qk_norm_mrope
+from sglang.kernels.ops.gemm.cutedsl_bf16_gemm import use_cutedsl_bf16_gemm
+from sglang.srt.layers.quantization.unquant import use_bf16_splitk_gemm
+root=pathlib.Path(os.environ['RUN_ROOT']);root.mkdir(parents=True,exist_ok=True)
+torch.set_grad_enabled(False);torch.manual_seed(715);torch.backends.cuda.matmul.allow_tf32=False
+assert not use_cutedsl_bf16_gemm(16,6144,2560) and not use_bf16_splitk_gemm(16,6144,2560)
+model=pathlib.Path('/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17');idx=json.loads((model/'model.safetensors.index.json').read_text())['weight_map']
+def load(key):
+ with safe_open(model/idx[key],framework='pt',device='cpu') as f:return f.get_tensor(key).cuda()
+phase=torch.arange(8500,device='cuda')[:,None].float()*torch.arange(1,65,device='cuda')[None,:].float()*.0001
+rope=torch.cat([phase.cos(),phase.sin()],1).bfloat16();pos=torch.arange(8200,8216,device='cuda',dtype=torch.int64)[None,:].expand(3,-1).clone();pos[1].add_(37);pos[2].add_(71)
+axes=torch.tensor([0]*24+[1]*20+[2]*20,device='cuda',dtype=torch.int64);slots=torch.arange(16,device='cuda',dtype=torch.int64)*8256+8200;slots[-1]=-1
+variants=['production','same_gemm','fused'];states=[]
+for layer in range(36):
+ prefix=f'model.language_model.layers.{layer}.self_attn.';w=torch.cat([load(prefix+p+'_proj.weight') for p in ['q','k','v']]);qw=load(prefix+'q_norm.weight');kw=load(prefix+'k_norm.weight')
+ x=torch.randn(16,2560,device='cuda',dtype=torch.bfloat16);k=torch.randn(4128,8,32,128,device='cuda',dtype=torch.bfloat16);v=torch.randn_like(k)
+ outputs={name:torch.empty(16,6144,device='cuda',dtype=torch.bfloat16) for name in variants};caches={'production':(k,v),'same_gemm':(k.clone(),v.clone()),'fused':(k.clone(),v.clone())};att={name:torch.empty(16,32,128,device='cuda',dtype=torch.bfloat16) for name in variants}
+ states.append(dict(x=x,w=w,qw=qw,kw=kw,outputs=outputs,caches=caches,att=att))
+workspace=torch.empty(512*1024**2,device='cuda',dtype=torch.uint8);cb=torch.zeros(flashinfer.utils.get_trtllm_gen_multi_ctas_kv_counter_bytes(8192,32,flashinfer.utils.get_device_sm_count(torch.device('cuda:0'))),device='cuda',dtype=torch.uint8)
+table=torch.arange(4128,device='cuda',dtype=torch.int32).reshape(16,258);lens=torch.full((16,),8201,device='cuda',dtype=torch.int32)
+def run(st,name):
+ x,w,qw,kw=st['x'],st['w'],st['qw'],st['kw'];out=st['outputs'][name];kc,vc=st['caches'][name]
+ if name=='fused':
+  assert fused.qkv_norm_mrope(x,w,qw,kw,rope,pos,axes,kc,vc,slots,out=out) is out
+ else:
+  if name=='production':
+   out=torch.nn.functional.linear(x,w);st['outputs'][name]=out
+  else:run_splitk_dense(x,w.T,None,out,True,SplitKTactic(128,8,2,6))
+  fused_qk_norm_mrope(out[:,:4096],out[:,4096:5120],qw,kw,rope,pos,axes,1e-6,value=out[:,5120:],key_cache=kc.permute(0,2,1,3),value_cache=vc.permute(0,2,1,3),slots=slots)
+ flashinfer.decode.trtllm_batch_decode_with_kv_cache(out[:,:4096].view(16,32,128),(kc,vc),workspace,table,lens,262144,bmm1_scale=128**-.5,bmm2_scale=1.,out=st['att'][name],multi_ctas_kv_counter_buffer=cb)
+def metrics(a,b):
+ d=a.float()-b.float();return dict(bitwise=torch.equal(a,b),max_abs=d.abs().max().item(),nrms=(d.square().mean()/a.float().square().mean().clamp_min(1e-30)).sqrt().item(),changed_elements=(a!=b).sum().item(),elements=a.numel())
+report=dict(pid=os.getpid(),shape=[16,6144,2560],tactic=[128,8,2,6],model_revision=model.name,checks=[],rounds=[],source_sha256=hashlib.sha256(pathlib.Path(fused.__file__).read_bytes()).hexdigest(),production_baseline='actual unquantized F.linear without bias; downstream norm/rope/cache/TRT unchanged',weight_bytes=sum(st['w'].numel()*2 for st in states))
+def check(tag):
+ torch.cuda.synchronize()
+ for i,st in enumerate(states):
+  row=dict(tag=tag,layer=i,production_errors={});a=st['outputs']['same_gemm'];b=st['outputs']['fused']
+  assert torch.equal(a,b),(tag,i,'qkv')
+  assert torch.equal(st['att']['same_gemm'],st['att']['fused']),(tag,i,'attention')
+  for j in range(2):assert torch.equal(st['caches']['same_gemm'][j],st['caches']['fused'][j]),(tag,i,'cache',j)
+  row['same_gemm_qkv_cache_attention_bitwise']=True
+  for label,lo,hi in [('q',0,4096),('k',4096,5120),('v',5120,6144)]:row['production_errors'][label]=metrics(st['outputs']['production'][:,lo:hi],b[:,lo:hi])
+  row['production_errors']['attention']=metrics(st['att']['production'],st['att']['fused'])
+  for j,label in enumerate(['key_cache','value_cache']):
+   c=st['caches']['production'][j];d=st['caches']['fused'][j];valid=slots[slots>=0];row['production_errors'][label]=metrics(c[valid//32,:,valid%32,:],d[valid//32,:,valid%32,:]);row['production_errors'][label]['full_buffer_bitwise']=torch.equal(c,d)
+  report['checks'].append(row)
+ print(tag,'same-GEMM bitwise all36',flush=True);(root/'partial.json').write_text(json.dumps(report,indent=2))
+for name in variants:
+ for st in states:run(st,name)
+check('initial')
+graphs={}
+for name in variants:
+ for _ in range(3):
+  for st in states:run(st,name)
+ torch.cuda.synchronize();g=torch.cuda.CUDAGraph(keep_graph=True)
+ with torch.cuda.graph(g):
+  for st in states:run(st,name)
+ graphs[name]=g;g.debug_dump(str(root/(name+'.dot')))
+for st in states:st['x'].normal_()
+pos.add_(13)
+for g in graphs.values():g.replay()
+check('changed_input_graph')
+for g in graphs.values():
+ for _ in range(5):g.replay()
+torch.cuda.synchronize()
+def timing(name):
+ a=torch.cuda.Event(enable_timing=True);b=torch.cuda.Event(enable_timing=True);a.record()
+ for _ in range(60):graphs[name].replay()
+ b.record();b.synchronize();return a.elapsed_time(b)*1000/(60*36)
+for r in range(8):
+ order=variants if (r+int(os.environ.get('ORDER','0')))%2==0 else variants[::-1]
+ row={name:timing(name) for name in order};report['rounds'].append(row);print(json.dumps(row),flush=True)
+report['median_us']={name:statistics.median(r[name] for r in report['rounds']) for name in variants};report['time_reduction_pct']=100*(1-report['median_us']['fused']/report['median_us']['production'])
+(root/'report.json').write_text(json.dumps(report,indent=2)+'\n');print('DONE',json.dumps(report['median_us']),flush=True)

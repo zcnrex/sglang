@@ -1,0 +1,652 @@
+digraph dot {
+subgraph cluster_3 {
+label="graph_3" graph[style="dashed"];
+"graph_3_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 71) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765376C0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 70) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076537E58 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 69) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765385F0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 68) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076538D88 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_4"[style="bold" shape="record" label="{KERNEL
+| {ID | 4 (topoId: 67) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076539520 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_5"[style="bold" shape="record" label="{KERNEL
+| {ID | 5 (topoId: 66) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076539CB8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_6"[style="bold" shape="record" label="{KERNEL
+| {ID | 6 (topoId: 65) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653A450 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_7"[style="bold" shape="record" label="{KERNEL
+| {ID | 7 (topoId: 64) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007653ABE8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_8"[style="bold" shape="record" label="{KERNEL
+| {ID | 8 (topoId: 63) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653B380 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_9"[style="bold" shape="record" label="{KERNEL
+| {ID | 9 (topoId: 62) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007653BB18 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_10"[style="bold" shape="record" label="{KERNEL
+| {ID | 10 (topoId: 61) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653C2B0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_11"[style="bold" shape="record" label="{KERNEL
+| {ID | 11 (topoId: 60) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007653CA48 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_12"[style="bold" shape="record" label="{KERNEL
+| {ID | 12 (topoId: 59) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653D1E0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_13"[style="bold" shape="record" label="{KERNEL
+| {ID | 13 (topoId: 58) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007653D978 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_14"[style="bold" shape="record" label="{KERNEL
+| {ID | 14 (topoId: 57) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653E110 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_15"[style="bold" shape="record" label="{KERNEL
+| {ID | 15 (topoId: 56) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007653E8A8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_16"[style="bold" shape="record" label="{KERNEL
+| {ID | 16 (topoId: 55) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653F040 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_17"[style="bold" shape="record" label="{KERNEL
+| {ID | 17 (topoId: 54) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007653F7D8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_18"[style="bold" shape="record" label="{KERNEL
+| {ID | 18 (topoId: 53) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007653FF70 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_19"[style="bold" shape="record" label="{KERNEL
+| {ID | 19 (topoId: 52) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076540708 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_20"[style="bold" shape="record" label="{KERNEL
+| {ID | 20 (topoId: 51) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076540EA0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_21"[style="bold" shape="record" label="{KERNEL
+| {ID | 21 (topoId: 50) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076541638 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_22"[style="bold" shape="record" label="{KERNEL
+| {ID | 22 (topoId: 49) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076541DD0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_23"[style="bold" shape="record" label="{KERNEL
+| {ID | 23 (topoId: 48) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076542568 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_24"[style="bold" shape="record" label="{KERNEL
+| {ID | 24 (topoId: 47) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076542D00 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_25"[style="bold" shape="record" label="{KERNEL
+| {ID | 25 (topoId: 46) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076543498 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_26"[style="bold" shape="record" label="{KERNEL
+| {ID | 26 (topoId: 45) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076543C30 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_27"[style="bold" shape="record" label="{KERNEL
+| {ID | 27 (topoId: 44) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765443C8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_28"[style="bold" shape="record" label="{KERNEL
+| {ID | 28 (topoId: 43) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076544B60 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_29"[style="bold" shape="record" label="{KERNEL
+| {ID | 29 (topoId: 42) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765452F8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_30"[style="bold" shape="record" label="{KERNEL
+| {ID | 30 (topoId: 41) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076545A90 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_31"[style="bold" shape="record" label="{KERNEL
+| {ID | 31 (topoId: 40) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076546228 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_32"[style="bold" shape="record" label="{KERNEL
+| {ID | 32 (topoId: 39) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765469C0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_33"[style="bold" shape="record" label="{KERNEL
+| {ID | 33 (topoId: 38) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076547158 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_34"[style="bold" shape="record" label="{KERNEL
+| {ID | 34 (topoId: 37) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765478F0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_35"[style="bold" shape="record" label="{KERNEL
+| {ID | 35 (topoId: 36) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076548088 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_36"[style="bold" shape="record" label="{KERNEL
+| {ID | 36 (topoId: 35) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076548820 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_37"[style="bold" shape="record" label="{KERNEL
+| {ID | 37 (topoId: 34) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076548FB8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_38"[style="bold" shape="record" label="{KERNEL
+| {ID | 38 (topoId: 33) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076549750 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_39"[style="bold" shape="record" label="{KERNEL
+| {ID | 39 (topoId: 32) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076549EE8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_40"[style="bold" shape="record" label="{KERNEL
+| {ID | 40 (topoId: 31) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765882A0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_41"[style="bold" shape="record" label="{KERNEL
+| {ID | 41 (topoId: 30) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076588A38 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_42"[style="bold" shape="record" label="{KERNEL
+| {ID | 42 (topoId: 29) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765891D0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_43"[style="bold" shape="record" label="{KERNEL
+| {ID | 43 (topoId: 28) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076589968 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_44"[style="bold" shape="record" label="{KERNEL
+| {ID | 44 (topoId: 27) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658A100 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_45"[style="bold" shape="record" label="{KERNEL
+| {ID | 45 (topoId: 26) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007658A898 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_46"[style="bold" shape="record" label="{KERNEL
+| {ID | 46 (topoId: 25) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658B030 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_47"[style="bold" shape="record" label="{KERNEL
+| {ID | 47 (topoId: 24) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007658B7C8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_48"[style="bold" shape="record" label="{KERNEL
+| {ID | 48 (topoId: 23) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658BF60 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_49"[style="bold" shape="record" label="{KERNEL
+| {ID | 49 (topoId: 22) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007658C6F8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_50"[style="bold" shape="record" label="{KERNEL
+| {ID | 50 (topoId: 21) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658CE90 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_51"[style="bold" shape="record" label="{KERNEL
+| {ID | 51 (topoId: 20) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007658D628 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_52"[style="bold" shape="record" label="{KERNEL
+| {ID | 52 (topoId: 19) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658DDC0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_53"[style="bold" shape="record" label="{KERNEL
+| {ID | 53 (topoId: 18) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007658E558 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_54"[style="bold" shape="record" label="{KERNEL
+| {ID | 54 (topoId: 17) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658ECF0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_55"[style="bold" shape="record" label="{KERNEL
+| {ID | 55 (topoId: 16) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x000000007658F488 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_56"[style="bold" shape="record" label="{KERNEL
+| {ID | 56 (topoId: 15) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x000000007658FC20 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_57"[style="bold" shape="record" label="{KERNEL
+| {ID | 57 (topoId: 14) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765903B8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_58"[style="bold" shape="record" label="{KERNEL
+| {ID | 58 (topoId: 13) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076590B50 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_59"[style="bold" shape="record" label="{KERNEL
+| {ID | 59 (topoId: 12) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x00000000765912E8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_60"[style="bold" shape="record" label="{KERNEL
+| {ID | 60 (topoId: 11) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076591A80 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_61"[style="bold" shape="record" label="{KERNEL
+| {ID | 61 (topoId: 10) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076592218 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_62"[style="bold" shape="record" label="{KERNEL
+| {ID | 62 (topoId: 9) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765929B0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_63"[style="bold" shape="record" label="{KERNEL
+| {ID | 63 (topoId: 8) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076593148 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_64"[style="bold" shape="record" label="{KERNEL
+| {ID | 64 (topoId: 7) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x00000000765938E0 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_65"[style="bold" shape="record" label="{KERNEL
+| {ID | 65 (topoId: 6) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076594078 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_66"[style="bold" shape="record" label="{KERNEL
+| {ID | 66 (topoId: 5) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076594810 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_67"[style="bold" shape="record" label="{KERNEL
+| {ID | 67 (topoId: 4) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076594FA8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_68"[style="bold" shape="record" label="{KERNEL
+| {ID | 68 (topoId: 3) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076595740 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_69"[style="bold" shape="record" label="{KERNEL
+| {ID | 69 (topoId: 2) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076595ED8 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_70"[style="bold" shape="record" label="{KERNEL
+| {ID | 70 (topoId: 1) | kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0\<\<\<\{48,4\},256,232448\>\>\>}
+| {{node handle | func handle} | {0x0000000076596670 | 0x000000005DEEAA50}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_71"[style="bold" shape="record" label="{KERNEL
+| {ID | 71 (topoId: 0) | fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen\<\<\<\{1,8,16\},512,143232\>\>\>}
+| {{node handle | func handle} | {0x0000000076596E08 | 0x000000005B61AB70}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_0" -> "graph_3_node_1" [headlabel=0];
+"graph_3_node_1" -> "graph_3_node_2" [headlabel=0];
+"graph_3_node_2" -> "graph_3_node_3" [headlabel=0];
+"graph_3_node_3" -> "graph_3_node_4" [headlabel=0];
+"graph_3_node_4" -> "graph_3_node_5" [headlabel=0];
+"graph_3_node_5" -> "graph_3_node_6" [headlabel=0];
+"graph_3_node_6" -> "graph_3_node_7" [headlabel=0];
+"graph_3_node_7" -> "graph_3_node_8" [headlabel=0];
+"graph_3_node_8" -> "graph_3_node_9" [headlabel=0];
+"graph_3_node_9" -> "graph_3_node_10" [headlabel=0];
+"graph_3_node_10" -> "graph_3_node_11" [headlabel=0];
+"graph_3_node_11" -> "graph_3_node_12" [headlabel=0];
+"graph_3_node_12" -> "graph_3_node_13" [headlabel=0];
+"graph_3_node_13" -> "graph_3_node_14" [headlabel=0];
+"graph_3_node_14" -> "graph_3_node_15" [headlabel=0];
+"graph_3_node_15" -> "graph_3_node_16" [headlabel=0];
+"graph_3_node_16" -> "graph_3_node_17" [headlabel=0];
+"graph_3_node_17" -> "graph_3_node_18" [headlabel=0];
+"graph_3_node_18" -> "graph_3_node_19" [headlabel=0];
+"graph_3_node_19" -> "graph_3_node_20" [headlabel=0];
+"graph_3_node_20" -> "graph_3_node_21" [headlabel=0];
+"graph_3_node_21" -> "graph_3_node_22" [headlabel=0];
+"graph_3_node_22" -> "graph_3_node_23" [headlabel=0];
+"graph_3_node_23" -> "graph_3_node_24" [headlabel=0];
+"graph_3_node_24" -> "graph_3_node_25" [headlabel=0];
+"graph_3_node_25" -> "graph_3_node_26" [headlabel=0];
+"graph_3_node_26" -> "graph_3_node_27" [headlabel=0];
+"graph_3_node_27" -> "graph_3_node_28" [headlabel=0];
+"graph_3_node_28" -> "graph_3_node_29" [headlabel=0];
+"graph_3_node_29" -> "graph_3_node_30" [headlabel=0];
+"graph_3_node_30" -> "graph_3_node_31" [headlabel=0];
+"graph_3_node_31" -> "graph_3_node_32" [headlabel=0];
+"graph_3_node_32" -> "graph_3_node_33" [headlabel=0];
+"graph_3_node_33" -> "graph_3_node_34" [headlabel=0];
+"graph_3_node_34" -> "graph_3_node_35" [headlabel=0];
+"graph_3_node_35" -> "graph_3_node_36" [headlabel=0];
+"graph_3_node_36" -> "graph_3_node_37" [headlabel=0];
+"graph_3_node_37" -> "graph_3_node_38" [headlabel=0];
+"graph_3_node_38" -> "graph_3_node_39" [headlabel=0];
+"graph_3_node_39" -> "graph_3_node_40" [headlabel=0];
+"graph_3_node_40" -> "graph_3_node_41" [headlabel=0];
+"graph_3_node_41" -> "graph_3_node_42" [headlabel=0];
+"graph_3_node_42" -> "graph_3_node_43" [headlabel=0];
+"graph_3_node_43" -> "graph_3_node_44" [headlabel=0];
+"graph_3_node_44" -> "graph_3_node_45" [headlabel=0];
+"graph_3_node_45" -> "graph_3_node_46" [headlabel=0];
+"graph_3_node_46" -> "graph_3_node_47" [headlabel=0];
+"graph_3_node_47" -> "graph_3_node_48" [headlabel=0];
+"graph_3_node_48" -> "graph_3_node_49" [headlabel=0];
+"graph_3_node_49" -> "graph_3_node_50" [headlabel=0];
+"graph_3_node_50" -> "graph_3_node_51" [headlabel=0];
+"graph_3_node_51" -> "graph_3_node_52" [headlabel=0];
+"graph_3_node_52" -> "graph_3_node_53" [headlabel=0];
+"graph_3_node_53" -> "graph_3_node_54" [headlabel=0];
+"graph_3_node_54" -> "graph_3_node_55" [headlabel=0];
+"graph_3_node_55" -> "graph_3_node_56" [headlabel=0];
+"graph_3_node_56" -> "graph_3_node_57" [headlabel=0];
+"graph_3_node_57" -> "graph_3_node_58" [headlabel=0];
+"graph_3_node_58" -> "graph_3_node_59" [headlabel=0];
+"graph_3_node_59" -> "graph_3_node_60" [headlabel=0];
+"graph_3_node_60" -> "graph_3_node_61" [headlabel=0];
+"graph_3_node_61" -> "graph_3_node_62" [headlabel=0];
+"graph_3_node_62" -> "graph_3_node_63" [headlabel=0];
+"graph_3_node_63" -> "graph_3_node_64" [headlabel=0];
+"graph_3_node_64" -> "graph_3_node_65" [headlabel=0];
+"graph_3_node_65" -> "graph_3_node_66" [headlabel=0];
+"graph_3_node_66" -> "graph_3_node_67" [headlabel=0];
+"graph_3_node_67" -> "graph_3_node_68" [headlabel=0];
+"graph_3_node_68" -> "graph_3_node_69" [headlabel=0];
+"graph_3_node_69" -> "graph_3_node_70" [headlabel=0];
+"graph_3_node_70" -> "graph_3_node_71" [headlabel=0];
+}
+}

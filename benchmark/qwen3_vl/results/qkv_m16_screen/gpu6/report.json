@@ -1,0 +1,3740 @@
+{
+  "pid": 644718,
+  "shape": [
+    16,
+    6144,
+    2560
+  ],
+  "tactic": [
+    128,
+    8,
+    2,
+    6
+  ],
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "checks": [
+    {
+      "tag": "initial",
+      "layer": 0,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016924568626563996,
+          "changed_elements": 64,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.125,
+          "nrms": 0.00033112853998318315,
+          "changed_elements": 26,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001359031448373571,
+          "changed_elements": 24,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00022005733626428992,
+          "changed_elements": 1067,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.125,
+          "nrms": 0.00033921527210623026,
+          "changed_elements": 24,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00014039849338587373,
+          "changed_elements": 23,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 1,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00014007717254571617,
+          "changed_elements": 45,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.206929952488281e-05,
+          "changed_elements": 10,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.824228330515325e-05,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0001634101936360821,
+          "changed_elements": 773,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.334111144999042e-05,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.032163557596505e-05,
+          "changed_elements": 23,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 2,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00021618443133775145,
+          "changed_elements": 73,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.890105527825654e-05,
+          "changed_elements": 8,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.162529123481363e-05,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0004439285839907825,
+          "changed_elements": 1219,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 9.173507714876905e-05,
+          "changed_elements": 8,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.319906631484628e-05,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 3,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00017302081687375903,
+          "changed_elements": 58,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011973664368269965,
+          "changed_elements": 11,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013129887520335615,
+          "changed_elements": 22,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00033883118885569274,
+          "changed_elements": 990,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012357297237031162,
+          "changed_elements": 11,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013521734217647463,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 4,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001240068959305063,
+          "changed_elements": 50,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.2023615454381797e-05,
+          "changed_elements": 4,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011603753955569118,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0004086027620360255,
+          "changed_elements": 1049,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.2433243682608008e-05,
+          "changed_elements": 4,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011982894648099318,
+          "changed_elements": 22,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 5,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015897813136689365,
+          "changed_elements": 76,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 5.368336132960394e-05,
+          "changed_elements": 13,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 2.856598439393565e-05,
+          "changed_elements": 18,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 8.195984264602885e-05,
+          "changed_elements": 1283,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 5.5508808145532385e-05,
+          "changed_elements": 13,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 2.9368353352765553e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 6,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016511154535692185,
+          "changed_elements": 50,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 3.4028849768219516e-05,
+          "changed_elements": 2,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 5.228228110354394e-05,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00030978236463852227,
+          "changed_elements": 1008,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 3.5464032407617196e-05,
+          "changed_elements": 2,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 5.392883758759126e-05,
+          "changed_elements": 18,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 7,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001253188675036654,
+          "changed_elements": 62,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016140693332999945,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.0915722163626924e-05,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00045654302812181413,
+          "changed_elements": 1171,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00014900186215527356,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.973994221771136e-05,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 8,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010030351404566318,
+          "changed_elements": 34,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.171482477337122e-05,
+          "changed_elements": 8,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 6.08654081588611e-05,
+          "changed_elements": 25,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0003264003898948431,
+          "changed_elements": 747,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.078010897501372e-05,
+          "changed_elements": 4,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 6.271471647778526e-05,
+          "changed_elements": 24,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 9,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00017153807857539505,
+          "changed_elements": 63,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0002050756593234837,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011185956827830523,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0002156592527171597,
+          "changed_elements": 903,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012919136497657746,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011561389692360535,
+          "changed_elements": 18,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 10,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00015545224596280605,
+          "changed_elements": 68,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00010338810534449294,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011113955406472087,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0004328883660491556,
+          "changed_elements": 1256,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00010666077287169173,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011428576544858515,
+          "changed_elements": 13,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 11,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.111679198918864e-05,
+          "changed_elements": 28,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00012808410974685103,
+          "changed_elements": 4,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010765104525489733,
+          "changed_elements": 22,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00019377577700652182,
+          "changed_elements": 387,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00013222753477748483,
+          "changed_elements": 4,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001112317040679045,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 12,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 6.674663018202409e-05,
+          "changed_elements": 37,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013165350537747145,
+          "changed_elements": 14,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.9098339180345647e-05,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.564761810703203e-05,
+          "changed_elements": 487,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013595995551440865,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.9767447156482376e-05,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 13,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001514344767201692,
+          "changed_elements": 61,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001343347830697894,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.0311889935983345e-05,
+          "changed_elements": 14,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0003139321052003652,
+          "changed_elements": 951,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013866896915715188,
+          "changed_elements": 18,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.192961180000566e-05,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 14,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001417357852915302,
+          "changed_elements": 49,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001962249807547778,
+          "changed_elements": 13,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.806139183230698e-05,
+          "changed_elements": 13,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.000412773311836645,
+          "changed_elements": 1156,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00020282267360016704,
+          "changed_elements": 13,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.037203224375844e-05,
+          "changed_elements": 13,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 15,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00020921413670293987,
+          "changed_elements": 75,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0003239390498492867,
+          "changed_elements": 36,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.389494253904559e-05,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0003327259619254619,
+          "changed_elements": 1564,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00032806245144456625,
+          "changed_elements": 34,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.5549713579239324e-05,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 16,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013446326192934066,
+          "changed_elements": 67,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00023020280059427023,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.980623922776431e-05,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.000194631633348763,
+          "changed_elements": 1342,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0002371499576838687,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.217370486818254e-05,
+          "changed_elements": 22,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 17,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016962007794063538,
+          "changed_elements": 66,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00018687680130824447,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001371656690025702,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00035073707113042474,
+          "changed_elements": 1119,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001931425358634442,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00013109469728078693,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 18,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00012323215196374804,
+          "changed_elements": 42,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00018614248256199062,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.868848893442191e-05,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00020462615066207945,
+          "changed_elements": 1019,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00019210159371141344,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.0531961935339496e-05,
+          "changed_elements": 17,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 19,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00011348774569341913,
+          "changed_elements": 49,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0003228401474189013,
+          "changed_elements": 28,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 4.3228475988144055e-05,
+          "changed_elements": 22,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00034161334042437375,
+          "changed_elements": 1156,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0003337055677548051,
+          "changed_elements": 27,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 4.416143201524392e-05,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 20,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.696342800045386e-05,
+          "changed_elements": 26,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016296272224280983,
+          "changed_elements": 14,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.198678602231666e-05,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00016341307491529733,
+          "changed_elements": 803,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016813904221635312,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.404067244147882e-05,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 21,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.064095967100002e-05,
+          "changed_elements": 37,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.562806422356516e-05,
+          "changed_elements": 7,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.570994057459757e-05,
+          "changed_elements": 12,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0001327052596025169,
+          "changed_elements": 842,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.815002754796296e-05,
+          "changed_elements": 6,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.842640479793772e-05,
+          "changed_elements": 11,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 22,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016638293163850904,
+          "changed_elements": 51,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.618189895059913e-05,
+          "changed_elements": 12,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 9.715367195894942e-05,
+          "changed_elements": 22,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.000248182681389153,
+          "changed_elements": 1172,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.55274629429914e-05,
+          "changed_elements": 11,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00010063692752737552,
+          "changed_elements": 21,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 23,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.000140937787364237,
+          "changed_elements": 36,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.245850767707452e-05,
+          "changed_elements": 13,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001597024966031313,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0005018571973778307,
+          "changed_elements": 848,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.506650920026004e-05,
+          "changed_elements": 13,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001646957971388474,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 24,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0002154362155124545,
+          "changed_elements": 83,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0003532444825395942,
+          "changed_elements": 34,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.760384712833911e-05,
+          "changed_elements": 24,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0009907950880005956,
+          "changed_elements": 1413,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0003647246630862355,
+          "changed_elements": 34,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 4.371376780909486e-05,
+          "changed_elements": 21,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 25,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001037392794387415,
+          "changed_elements": 38,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.089716119575314e-05,
+          "changed_elements": 10,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.252047048998065e-05,
+          "changed_elements": 18,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.00013477966422215104,
+          "changed_elements": 969,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.192305666743778e-05,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.4098203690955415e-05,
+          "changed_elements": 18,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 26,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001306050253333524,
+          "changed_elements": 49,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0009765625,
+          "nrms": 4.447093942872016e-06,
+          "changed_elements": 5,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010953150922432542,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00044286923366598785,
+          "changed_elements": 992,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0009765625,
+          "nrms": 4.594583515427075e-06,
+          "changed_elements": 5,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011332805297570303,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 27,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016113914898596704,
+          "changed_elements": 37,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.498092938680202e-05,
+          "changed_elements": 8,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.81804371601902e-05,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.00020825299725402147,
+          "changed_elements": 693,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.577766857342795e-05,
+          "changed_elements": 7,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 9.126728400588036e-05,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 28,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012157109449617565,
+          "changed_elements": 56,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00019490293925628066,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.242231418378651e-05,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00024827130255289376,
+          "changed_elements": 1412,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0002014112687902525,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.404078547144309e-05,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 29,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001522770762676373,
+          "changed_elements": 55,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00024133879924193025,
+          "changed_elements": 22,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.523288978612982e-05,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.0003277351788710803,
+          "changed_elements": 1162,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00024916292750276625,
+          "changed_elements": 22,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.306417784187943e-05,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 30,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.847368735587224e-05,
+          "changed_elements": 30,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010802673205034807,
+          "changed_elements": 11,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.99646441009827e-05,
+          "changed_elements": 18,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.0001918829802889377,
+          "changed_elements": 798,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010597019718261436,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.26301402412355e-05,
+          "changed_elements": 17,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 31,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001419193868059665,
+          "changed_elements": 54,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00014609421486966312,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.795521454070695e-05,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.00021576853760052472,
+          "changed_elements": 1376,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015094608534127474,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.955462645739317e-05,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 32,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00014503137208521366,
+          "changed_elements": 61,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.0764725629996974e-05,
+          "changed_elements": 4,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001534837210783735,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00020026584388688207,
+          "changed_elements": 1293,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.1109883416793309e-05,
+          "changed_elements": 4,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015142634219955653,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 33,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00019619801605585963,
+          "changed_elements": 92,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.877950388821773e-05,
+          "changed_elements": 9,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 2.5151750378427096e-05,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00048828125,
+          "nrms": 0.00047469133278355,
+          "changed_elements": 1586,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 2.8391616069711745e-05,
+          "changed_elements": 7,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 2.590238000266254e-05,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 34,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 6.614109588554129e-05,
+          "changed_elements": 26,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.110716589726508e-05,
+          "changed_elements": 9,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.727186726289801e-05,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00020719777967315167,
+          "changed_elements": 546,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.357567276107147e-05,
+          "changed_elements": 9,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.9180725656915456e-05,
+          "changed_elements": 21,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "initial",
+      "layer": 35,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 9.646447142586112e-05,
+          "changed_elements": 38,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.419430115376599e-05,
+          "changed_elements": 7,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.597057315753773e-05,
+          "changed_elements": 32,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00040696203359402716,
+          "changed_elements": 750,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.568013537209481e-05,
+          "changed_elements": 7,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.6346962082898244e-05,
+          "changed_elements": 29,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 0,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010490723798284307,
+          "changed_elements": 47,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.795763667672873e-05,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011310839181533083,
+          "changed_elements": 10,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00023709458764642477,
+          "changed_elements": 804,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.094390796031803e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001166759102488868,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 1,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.000152524997247383,
+          "changed_elements": 44,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00020045691053383052,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 5.204368426348083e-05,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00041577848605811596,
+          "changed_elements": 1030,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001549645239720121,
+          "changed_elements": 9,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 5.3860268963035196e-05,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 2,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016775348922237754,
+          "changed_elements": 62,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00021782553812954575,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 9.78900061454624e-05,
+          "changed_elements": 20,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00048828125,
+          "nrms": 0.00010040446795755997,
+          "changed_elements": 1150,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00022533208539243788,
+          "changed_elements": 22,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 9.735162166180089e-05,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 3,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001159287930931896,
+          "changed_elements": 49,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.0843082640785724e-05,
+          "changed_elements": 8,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.2215098548913375e-05,
+          "changed_elements": 20,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00014201801968738437,
+          "changed_elements": 1185,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.1894440326141194e-05,
+          "changed_elements": 8,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.401790258474648e-05,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 4,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001997911458602175,
+          "changed_elements": 75,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.000156062058522366,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 5.905819125473499e-05,
+          "changed_elements": 20,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0005806783447042108,
+          "changed_elements": 1478,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00016050359408836812,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 5.505087392521091e-05,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 5,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001685360912233591,
+          "changed_elements": 47,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0625,
+          "nrms": 0.0002091801434289664,
+          "changed_elements": 12,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.086723391897976e-05,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 9.408329060534015e-05,
+          "changed_elements": 908,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0625,
+          "nrms": 0.00021530540834646672,
+          "changed_elements": 12,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.132914081215858e-05,
+          "changed_elements": 21,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 6,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00017284348723478615,
+          "changed_elements": 78,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.818109199637547e-05,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.225814963225275e-05,
+          "changed_elements": 18,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00041136975050903857,
+          "changed_elements": 1670,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 9.124630014412105e-05,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.514390356140211e-05,
+          "changed_elements": 18,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 7,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00013331214722711593,
+          "changed_elements": 61,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 3.7105492083355784e-05,
+          "changed_elements": 6,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012353010242804885,
+          "changed_elements": 29,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0001682650181464851,
+          "changed_elements": 1005,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 3.831376670859754e-05,
+          "changed_elements": 6,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001250332861673087,
+          "changed_elements": 27,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 8,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001367054646834731,
+          "changed_elements": 53,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00016727938782423735,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 9.387848695041612e-05,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0002837520733010024,
+          "changed_elements": 1141,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00017242519243154675,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.34500533528626e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 9,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001520459627499804,
+          "changed_elements": 51,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.2178158764727414e-05,
+          "changed_elements": 8,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.4715319593960885e-05,
+          "changed_elements": 11,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.958106289152056e-05,
+          "changed_elements": 715,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.244409137754701e-05,
+          "changed_elements": 6,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 1.3887474779039621e-05,
+          "changed_elements": 9,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 10,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001457375183235854,
+          "changed_elements": 64,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 9.639938070904464e-05,
+          "changed_elements": 11,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.006530384183861e-05,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00019116318435408175,
+          "changed_elements": 1202,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 9.768518793862313e-05,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.210470746736974e-05,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 11,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00014560519775841385,
+          "changed_elements": 55,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.336375059210695e-05,
+          "changed_elements": 9,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011025318235624582,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00020226779452059418,
+          "changed_elements": 905,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.444398291525431e-05,
+          "changed_elements": 8,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011393982276786119,
+          "changed_elements": 23,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 12,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.247052755905315e-05,
+          "changed_elements": 36,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.8395348130725324e-05,
+          "changed_elements": 6,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.31455729692243e-05,
+          "changed_elements": 24,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 9.641941142035648e-05,
+          "changed_elements": 851,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.000175951863639e-05,
+          "changed_elements": 5,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.577755604870617e-05,
+          "changed_elements": 23,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 13,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010440372716402635,
+          "changed_elements": 41,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00015693607565481216,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.522884799167514e-05,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00022319740673992783,
+          "changed_elements": 806,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016217965458054096,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.6332698073238134e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 14,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011657796858344227,
+          "changed_elements": 53,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.464491838822141e-05,
+          "changed_elements": 10,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.2940846217097715e-05,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00013588466390501708,
+          "changed_elements": 855,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 8.758841431699693e-05,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.4769188864156604e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 15,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012181141937617213,
+          "changed_elements": 55,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.607493247021921e-05,
+          "changed_elements": 10,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.60615667887032e-05,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00021664376254193485,
+          "changed_elements": 951,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.754491601488553e-05,
+          "changed_elements": 10,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.7289450119715184e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 16,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.01953125,
+          "nrms": 0.00014672351244371384,
+          "changed_elements": 57,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00019170163432136178,
+          "changed_elements": 23,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011066799925174564,
+          "changed_elements": 26,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00044351848191581666,
+          "changed_elements": 1037,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00019813381368294358,
+          "changed_elements": 23,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011402776726754382,
+          "changed_elements": 26,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 17,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.0625,
+          "nrms": 0.0001948763383552432,
+          "changed_elements": 33,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.531953451689333e-05,
+          "changed_elements": 12,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.578621832886711e-05,
+          "changed_elements": 14,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00032174738589674234,
+          "changed_elements": 674,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.783139881212264e-05,
+          "changed_elements": 12,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.234730972209945e-05,
+          "changed_elements": 12,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 18,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011522669956320897,
+          "changed_elements": 51,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00017603130254428834,
+          "changed_elements": 9,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.474873564206064e-05,
+          "changed_elements": 25,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00018961343448609114,
+          "changed_elements": 1105,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00018155304132960737,
+          "changed_elements": 9,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.700687274336815e-05,
+          "changed_elements": 24,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 19,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00010405200737295672,
+          "changed_elements": 31,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 6.512436084449291e-05,
+          "changed_elements": 5,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.433121598092839e-05,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00018651789287105203,
+          "changed_elements": 624,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 6.727114669047296e-05,
+          "changed_elements": 5,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 6.642797234235331e-05,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 20,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.033372821751982e-05,
+          "changed_elements": 33,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00020874632173217833,
+          "changed_elements": 33,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011426350829424337,
+          "changed_elements": 20,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00023564585717394948,
+          "changed_elements": 972,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00021553576516453177,
+          "changed_elements": 31,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011800081847468391,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 21,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00016903234063647687,
+          "changed_elements": 68,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 9.342829434899613e-05,
+          "changed_elements": 5,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.058881702600047e-05,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0004672076611313969,
+          "changed_elements": 841,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 9.637989569455385e-05,
+          "changed_elements": 5,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 3.168595503666438e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 22,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00014081672998145223,
+          "changed_elements": 59,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0625,
+          "nrms": 0.00038834434235468507,
+          "changed_elements": 36,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012247356062289327,
+          "changed_elements": 13,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0004951515584252775,
+          "changed_elements": 1538,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0625,
+          "nrms": 0.0004015853919554502,
+          "changed_elements": 36,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011392256419640034,
+          "changed_elements": 12,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 23,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.98049513832666e-05,
+          "changed_elements": 42,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00017787082470022142,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001193360221805051,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00022088662080932409,
+          "changed_elements": 1173,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001731697266222909,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012316255015321076,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 24,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00012390637130010873,
+          "changed_elements": 61,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.014630369259976e-05,
+          "changed_elements": 8,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 4.2949963244609535e-05,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.00028228567680343986,
+          "changed_elements": 1189,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.174500256543979e-05,
+          "changed_elements": 8,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 4.433025969774462e-05,
+          "changed_elements": 21,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 25,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00015709253784734756,
+          "changed_elements": 43,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011087421444244683,
+          "changed_elements": 13,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001206443557748571,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.000313008640659973,
+          "changed_elements": 652,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011455945787020028,
+          "changed_elements": 13,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012174165021860972,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 26,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00013216481602285057,
+          "changed_elements": 46,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010264622687827796,
+          "changed_elements": 10,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.730419434257783e-05,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00048828125,
+          "nrms": 0.00021420289704110473,
+          "changed_elements": 1080,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010586626740405336,
+          "changed_elements": 8,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.9227510064374655e-05,
+          "changed_elements": 16,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 27,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00018966890638694167,
+          "changed_elements": 63,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00014573297812603414,
+          "changed_elements": 18,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.48000418045558e-05,
+          "changed_elements": 25,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.000351751601556316,
+          "changed_elements": 1344,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015049429202917963,
+          "changed_elements": 18,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 8.33563826745376e-05,
+          "changed_elements": 24,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 28,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012384250294417143,
+          "changed_elements": 55,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015551748219877481,
+          "changed_elements": 16,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010722711158450693,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.0001447902322979644,
+          "changed_elements": 1176,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015648557746317238,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011080445983679965,
+          "changed_elements": 17,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 29,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012100380990887061,
+          "changed_elements": 41,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015693757450208068,
+          "changed_elements": 15,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011238755541853607,
+          "changed_elements": 22,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.00030914595117792487,
+          "changed_elements": 1101,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00016183266416192055,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011619321594480425,
+          "changed_elements": 22,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 30,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00021131362882442772,
+          "changed_elements": 77,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 3.8440528442151845e-05,
+          "changed_elements": 3,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012690020957961679,
+          "changed_elements": 25,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.00031502856290899217,
+          "changed_elements": 1363,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 3.9650036342209205e-05,
+          "changed_elements": 3,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012067852367181331,
+          "changed_elements": 23,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 31,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.70517872297205e-05,
+          "changed_elements": 30,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 4.4677170080831274e-05,
+          "changed_elements": 9,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010079889034386724,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00020299412426538765,
+          "changed_elements": 677,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 2.9482303943950683e-05,
+          "changed_elements": 8,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00010137430217582732,
+          "changed_elements": 15,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 32,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.501306390622631e-05,
+          "changed_elements": 34,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0002280833723489195,
+          "changed_elements": 20,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012113336561014876,
+          "changed_elements": 17,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00027081804000772536,
+          "changed_elements": 980,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.00023503680131398141,
+          "changed_elements": 20,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00012512123794294894,
+          "changed_elements": 17,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 33,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00011147774057462811,
+          "changed_elements": 43,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.00015503809845540673,
+          "changed_elements": 19,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 2.0393817976582795e-05,
+          "changed_elements": 24,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 0.00034392194356769323,
+          "changed_elements": 1078,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001600491814315319,
+          "changed_elements": 19,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.001953125,
+          "nrms": 2.11174956348259e-05,
+          "changed_elements": 22,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 34,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.03125,
+          "nrms": 0.0001367453660350293,
+          "changed_elements": 51,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.055679503129795e-05,
+          "changed_elements": 14,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.262268627528101e-05,
+          "changed_elements": 18,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.00390625,
+          "nrms": 0.00015600273036397994,
+          "changed_elements": 942,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 5.223054176894948e-05,
+          "changed_elements": 14,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.503828237531707e-05,
+          "changed_elements": 17,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    },
+    {
+      "tag": "changed_input_graph",
+      "layer": 35,
+      "production_errors": {
+        "q": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 0.0001410093973390758,
+          "changed_elements": 50,
+          "elements": 65536
+        },
+        "k": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 7.851277769077569e-05,
+          "changed_elements": 4,
+          "elements": 16384
+        },
+        "v": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.078674389049411e-05,
+          "changed_elements": 21,
+          "elements": 16384
+        },
+        "attention": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 0.0004105911066289991,
+          "changed_elements": 964,
+          "elements": 65536
+        },
+        "key_cache": {
+          "bitwise": false,
+          "max_abs": 0.015625,
+          "nrms": 6.825583841418847e-05,
+          "changed_elements": 2,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        },
+        "value_cache": {
+          "bitwise": false,
+          "max_abs": 0.0078125,
+          "nrms": 7.308510248549283e-05,
+          "changed_elements": 21,
+          "elements": 15360,
+          "full_buffer_bitwise": false
+        }
+      },
+      "same_gemm_qkv_cache_attention_bitwise": true
+    }
+  ],
+  "rounds": [
+    {
+      "production": 88.94280327690973,
+      "same_gemm": 92.51874287923177,
+      "fused": 126.60107082790799
+    },
+    {
+      "fused": 126.59519336841724,
+      "same_gemm": 92.48617666739004,
+      "production": 88.93138037787543
+    },
+    {
+      "production": 88.92272666648581,
+      "same_gemm": 92.4859294184932,
+      "fused": 126.64048936631944
+    },
+    {
+      "fused": 126.5960834644459,
+      "same_gemm": 92.49515533447266,
+      "production": 88.91694810655382
+    },
+    {
+      "production": 88.91672911467376,
+      "same_gemm": 92.49453368010344,
+      "fused": 126.62239074707031
+    },
+    {
+      "fused": 126.59020600495515,
+      "same_gemm": 92.49983893500433,
+      "production": 88.92772109420211
+    },
+    {
+      "production": 88.90479758933738,
+      "same_gemm": 92.49859562626591,
+      "fused": 126.59742567274306
+    },
+    {
+      "fused": 126.61979110152633,
+      "same_gemm": 92.48204407868562,
+      "production": 88.91167110866971
+    }
+  ],
+  "source_sha256": "93e23422f687a89c2a518f3bdbfea07ff29f748509eff1051e75c36350670d3d",
+  "production_baseline": "actual unquantized F.linear without bias; downstream norm/rope/cache/TRT unchanged",
+  "weight_bytes": 1132462080,
+  "median_us": {
+    "production": 88.91983738651982,
+    "same_gemm": 92.49484450728805,
+    "fused": 126.59924825032553
+  },
+  "time_reduction_pct": -42.37458363764157
+}
