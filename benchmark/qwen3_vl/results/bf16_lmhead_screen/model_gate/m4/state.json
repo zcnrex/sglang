@@ -1,0 +1,146 @@
+{
+  "counts": {
+    "capture": 1,
+    "eager": 8
+  },
+  "report": {
+    "m": 4,
+    "source": "current frozen /root/qvl/sglang-prefix-production",
+    "pairs": [
+      {
+        "baseline": {
+          "run_name": "baseline",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.2473288750043139,
+          "prefill_throughput": 132487.56336852486,
+          "median_decode_latency": 0.0037173079908825457,
+          "median_decode_throughput": 1076.0475079844914,
+          "total_latency": 0.30239478501607664,
+          "overall_throughput": 108573.3009524437
+        },
+        "candidate": {
+          "run_name": "candidate",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.24585931398905814,
+          "prefill_throughput": 133279.47381101994,
+          "median_decode_latency": 0.0037772340001538396,
+          "median_decode_throughput": 1058.9759596141218,
+          "total_latency": 0.30065745097817853,
+          "overall_throughput": 109200.68633982705
+        }
+      },
+      {
+        "candidate": {
+          "run_name": "candidate",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.2464998490177095,
+          "prefill_throughput": 132933.14430243656,
+          "median_decode_latency": 0.003755920013645664,
+          "median_decode_throughput": 1064.9854058306798,
+          "total_latency": 0.3010540330433287,
+          "overall_throughput": 109056.83497445361
+        },
+        "baseline": {
+          "run_name": "baseline",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.2468910779862199,
+          "prefill_throughput": 132722.4955525891,
+          "median_decode_latency": 0.003547569998772815,
+          "median_decode_throughput": 1127.5323676160558,
+          "total_latency": 0.301375818089582,
+          "overall_throughput": 108940.39278971248
+        }
+      },
+      {
+        "baseline": {
+          "run_name": "baseline",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.24798884300980717,
+          "prefill_throughput": 132134.97672838502,
+          "median_decode_latency": 0.0037046719808131456,
+          "median_decode_throughput": 1079.7177241916118,
+          "total_latency": 0.30308368196710944,
+          "overall_throughput": 108326.51823057541
+        },
+        "candidate": {
+          "run_name": "candidate",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.2458634089853149,
+          "prefill_throughput": 133277.25396485164,
+          "median_decode_latency": 0.0034852729877457023,
+          "median_decode_throughput": 1147.6862828432922,
+          "total_latency": 0.30023079001693986,
+          "overall_throughput": 109355.87252109461
+        }
+      },
+      {
+        "candidate": {
+          "run_name": "candidate",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.24836992600467056,
+          "prefill_throughput": 131932.23723625785,
+          "median_decode_latency": 0.0037404680042527616,
+          "median_decode_throughput": 1069.3848992832343,
+          "total_latency": 0.3028351799584925,
+          "overall_throughput": 108415.40934742143
+        },
+        "baseline": {
+          "run_name": "baseline",
+          "batch_size": 4,
+          "input_len": 8192,
+          "output_len": 16,
+          "prefill_latency": 0.24775546599994414,
+          "prefill_throughput": 132259.44326898275,
+          "median_decode_latency": 0.003582525998353958,
+          "median_decode_throughput": 1116.5306272272292,
+          "total_latency": 0.3023794499458745,
+          "overall_throughput": 108578.80721020189
+        }
+      }
+    ],
+    "capture_dispatches": {
+      "capture": 1,
+      "eager": 2
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": true,
+    "greedy_differences": 0,
+    "logit_checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"run_name": "candidate", "batch_size": 16, "input_len": 8192, "output_len": 16, "prefill_latency": 1.0385047089948785, "prefill_throughput": 126212.23463383102, "median_decode_latency": 0.00591325102141127, "median_decode_throughput": 2705.7873819436477, "total_latency": 1.1292654719436541, "overall_throughput": 116295.06370540368}

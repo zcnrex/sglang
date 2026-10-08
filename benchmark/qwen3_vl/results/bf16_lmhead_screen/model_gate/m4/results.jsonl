@@ -1,0 +1,1 @@
+{"run_name": "baseline", "batch_size": 4, "input_len": 8192, "output_len": 16, "prefill_latency": 0.24775546599994414, "prefill_throughput": 132259.44326898275, "median_decode_latency": 0.003582525998353958, "median_decode_throughput": 1116.5306272272292, "total_latency": 0.3023794499458745, "overall_throughput": 108578.80721020189}

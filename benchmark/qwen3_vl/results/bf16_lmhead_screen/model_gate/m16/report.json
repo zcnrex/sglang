@@ -1,0 +1,146 @@
+{
+  "m": 16,
+  "source": "current frozen /root/qvl/sglang-prefix-production",
+  "pairs": [
+    {
+      "candidate": {
+        "run_name": "candidate",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.0303142699995078,
+        "prefill_throughput": 127215.55336709315,
+        "median_decode_latency": 0.006085711997002363,
+        "median_decode_throughput": 2629.108969974444,
+        "total_latency": 1.122244940022938,
+        "overall_throughput": 117022.58153849706
+      },
+      "baseline": {
+        "run_name": "baseline",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.0323830879933666,
+        "prefill_throughput": 126960.62297452336,
+        "median_decode_latency": 0.005904088990064338,
+        "median_decode_throughput": 2709.986253074015,
+        "total_latency": 1.123323991021607,
+        "overall_throughput": 116910.17110794877
+      }
+    },
+    {
+      "baseline": {
+        "run_name": "baseline",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.033239626995055,
+        "prefill_throughput": 126855.37466385549,
+        "median_decode_latency": 0.005888265994144604,
+        "median_decode_throughput": 2717.2685500129724,
+        "total_latency": 1.124541288940236,
+        "overall_throughput": 116783.61772182067
+      },
+      "candidate": {
+        "run_name": "candidate",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.0351156779797748,
+        "prefill_throughput": 126625.46108451564,
+        "median_decode_latency": 0.005923726013861597,
+        "median_decode_throughput": 2701.0027071744694,
+        "total_latency": 1.125981422024779,
+        "overall_throughput": 116634.25117959887
+      }
+    },
+    {
+      "candidate": {
+        "run_name": "candidate",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.0355181609920692,
+        "prefill_throughput": 126576.24456767384,
+        "median_decode_latency": 0.006133126997156069,
+        "median_decode_throughput": 2608.7834162604495,
+        "total_latency": 1.1268051050719805,
+        "overall_throughput": 116548.99273074446
+      },
+      "baseline": {
+        "run_name": "baseline",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.036244537011953,
+        "prefill_throughput": 126487.51845577941,
+        "median_decode_latency": 0.005956014996627346,
+        "median_decode_throughput": 2686.3599250606594,
+        "total_latency": 1.1271652470168192,
+        "overall_throughput": 116511.75401971949
+      }
+    },
+    {
+      "baseline": {
+        "run_name": "baseline",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.0363268090004567,
+        "prefill_throughput": 126477.4768554137,
+        "median_decode_latency": 0.005899099982343614,
+        "median_decode_throughput": 2712.278152241703,
+        "total_latency": 1.1277490438951645,
+        "overall_throughput": 116451.4398934026
+      },
+      "candidate": {
+        "run_name": "candidate",
+        "batch_size": 16,
+        "input_len": 8192,
+        "output_len": 16,
+        "prefill_latency": 1.0385047089948785,
+        "prefill_throughput": 126212.23463383102,
+        "median_decode_latency": 0.00591325102141127,
+        "median_decode_throughput": 2705.7873819436477,
+        "total_latency": 1.1292654719436541,
+        "overall_throughput": 116295.06370540368
+      }
+    }
+  ],
+  "capture_dispatches": {
+    "capture": 1,
+    "eager": 2
+  },
+  "graph_keys": {
+    "baseline": [
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ],
+    "candidate": [
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ]
+  },
+  "greedy_equal": true,
+  "greedy_differences": 0,
+  "logit_checks": [
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    }
+  ]
+}

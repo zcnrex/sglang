@@ -1,0 +1,154 @@
+import atexit
+import copy
+import json
+import os
+import pathlib
+
+import numpy as np
+import torch
+from flashinfer import autotune
+from flashinfer.autotuner import AutoTuner
+from flashinfer.gemm import mm_bf16
+import sglang.benchmark.one_batch as b
+from sglang.srt.layers.logits_processor import LogitsProcessor, should_apply_lm_head_quant_method
+
+M = int(os.environ["QVL_M"])
+out = pathlib.Path(os.environ["QVL_MODEL_OUT"])
+out.mkdir(parents=True, exist_ok=True)
+active = False
+counts = {"capture": 0, "eager": 0}
+orig = LogitsProcessor._compute_lm_head
+
+def dispatch(self, x, lm_head, embedding_bias=None):
+    w = getattr(lm_head, 'weight', None)
+    if (active and x.shape == (M,2560) and w is not None and w.shape == (151936,2560)
+        and x.dtype == w.dtype == torch.bfloat16 and x.is_contiguous() and w.is_contiguous()
+        and embedding_bias is None and not self.use_fp32_lm_head and self.rl_on_policy_target is None
+        and not hasattr(lm_head, 'set_lora')
+        and not should_apply_lm_head_quant_method(lm_head, getattr(lm_head,'quant_method',None))):
+        y = mm_bf16(x,w.T,backend='cublaslt')
+        counts['capture' if torch.cuda.is_current_stream_capturing() else 'eager'] += 1
+        return y
+    return orig(self,x,lm_head,embedding_bias)
+
+LogitsProcessor._compute_lm_head = dispatch
+report = {
+    "m": M,
+    "source": "current frozen /root/qvl/sglang-prefix-production",
+    "pairs": [],
+}
+saved = {}
+origload = b.load_model
+
+
+def choose(wrapper, mode):
+    global active
+    active = mode == "candidate"
+    wrapper.torch_runner.decode_cuda_graph_runner.backend = saved[mode]
+
+
+@torch.no_grad()
+def load(*args, **kw):
+    global active
+    wrapper, tok = origload(*args, **kw)
+    mr = wrapper.torch_runner
+    dr = mr.decode_cuda_graph_runner
+    assert dr.backend.__class__.__name__ == "FullCudaGraphBackend"
+    w = next(
+        mod.weight
+        for mod in mr.model.modules()
+        if hasattr(mod, "weight") and mod.weight.shape == (151936, 2560)
+    )
+    x = torch.randn(M, 2560, device=w.device, dtype=torch.bfloat16)
+    with autotune(tuning_buckets=(M,), round_up=False):
+        mm_bf16(x, w.t(), backend="cublaslt")
+    AutoTuner.get().save_configs(str(out / "cache.json"))
+    saved["baseline"] = dr.backend
+    candidate = copy.copy(dr.backend)
+    candidate._graphs = {}
+    candidate._outputs = {}
+    candidate._output_buffer = None
+    dr.backend = candidate
+    active = True
+    dr.capture()
+    saved["candidate"] = candidate
+    assert counts["capture"] >= 1, counts
+    report["capture_dispatches"] = dict(counts)
+    report["graph_keys"] = {k: [str(s) for s in v._graphs] for k, v in saved.items()}
+    inputs = np.random.default_rng(123).integers(0, 10000, (M, 8192), dtype=np.int32)
+    captures = {}
+    seqs = {}
+    for mode in ["baseline", "candidate"]:
+        choose(wrapper, mode)
+        wrapper.clear()
+        reqs = b.prepare_synthetic_inputs_for_latency_test(M, 8192, inputs.tolist())
+        ids, logits, batch = wrapper.extend(reqs)
+        seq = [ids.clone()]
+        vals = []
+        for j in range(15):
+            ids, logits = wrapper.decode(ids, batch)
+            seq.append(ids.clone())
+            if j in [0, 14]:
+                vals.append(logits.clone())
+        torch.cuda.synchronize()
+        seqs[mode] = torch.stack(seq).cpu()
+        captures[mode] = [v.cpu() for v in vals]
+    report["greedy_equal"] = torch.equal(seqs["baseline"], seqs["candidate"])
+    report["greedy_differences"] = (seqs["baseline"] != seqs["candidate"]).sum().item()
+    report["logit_checks"] = [
+        {
+            "bitwise": torch.equal(a, z),
+            "max_abs": (a - z).abs().max().item(),
+            "nrms": ((a - z).square().mean() / a.square().mean()).sqrt().item(),
+        }
+        for a, z in zip(captures["baseline"], captures["candidate"])
+    ]
+    torch.save({"logits": captures, "tokens": seqs}, out / "numerics.pt")
+    choose(wrapper, "baseline")
+    return wrapper, tok
+
+
+b.load_model = load
+origonce = b.latency_test_run_once
+calls = 0
+
+
+def once(*args, **kw):
+    global calls
+    calls += 1
+    wrapper = args[1]
+    if calls == 1:
+        result = None
+        for mode in ["baseline", "candidate"]:
+            choose(wrapper, mode)
+            np.random.seed(123)
+            a = list(args)
+            a[3] = b.prepare_synthetic_inputs_for_latency_test(M, 8192)
+            result = origonce(*a, **kw)
+        return result
+    result = None
+    for r in range(4):
+        order = ["baseline", "candidate"] if (r + int(os.environ.get("PAIR_OFFSET","0"))) % 2 == 0 else ["candidate", "baseline"]
+        row = {}
+        for mode in order:
+            choose(wrapper, mode)
+            np.random.seed(123)
+            a = list(args)
+            a[0] = mode
+            a[3] = b.prepare_synthetic_inputs_for_latency_test(M, 8192)
+            result = origonce(*a, **kw)
+            row[mode] = result
+        report["pairs"].append(row)
+        (out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    return result
+
+
+b.latency_test_run_once = once
+atexit.register(
+    lambda: (out / "state.json").write_text(
+        json.dumps({"counts": counts, "report": report}, indent=2) + "\n"
+    )
+)
+np.random.seed(123)
+torch.manual_seed(123)
+b.cli_main()
