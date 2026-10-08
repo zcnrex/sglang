@@ -1,0 +1,8 @@
+extern "C" __global__ void wait_then_load(const float* input, float* output) {
+  asm volatile("griddepcontrol.wait;" ::: "memory");
+  output[threadIdx.x] = input[threadIdx.x];
+}
+extern "C" __global__ void early_trigger(float* output) {
+  asm volatile("griddepcontrol.launch_dependents;" ::: "memory");
+  output[threadIdx.x] = 1.f;
+}

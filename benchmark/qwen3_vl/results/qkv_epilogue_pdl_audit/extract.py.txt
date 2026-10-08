@@ -1,0 +1,13 @@
+import pathlib,hashlib,json,re
+fi=pathlib.Path('/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer')
+k='fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen'
+cubin=pathlib.Path('/root/.cache/flashinfer/cubins/2d6a5a029eefcc388ec0ceb87efb55d8bcce5c3c/fmha/trtllm-gen')/(k+'.cubin')
+paths=[cubin,fi/'decode.py',fi/'utils.py',fi/'data/csrc/trtllm_fmha_kernel_launcher.cu',fi/'data/include/flashinfer/trtllm/fmha/fmhaKernels.cuh',fi/'data/include/flashinfer/trtllm/fmha/kernelParams.h',pathlib.Path('/tmp/qvl-pdl-map.cu')]
+print(json.dumps({'sha256':{str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}},indent=2))
+for filename in ['consumer.sass','map.sass']:
+ print('\nFILE',filename)
+ for line in open('/tmp/qvl-pdl-audit/'+filename):
+  m=re.search(r'/\*([0-9a-f]+)\*/\s+(.*?)\s*/\*',line)
+  if m:
+   a=int(m[1],16)
+   if filename=='map.sass' or 0x880<=a<=0x9e0 or 0x1070<=a<=0x1270 or 0x8e50<=a<=0x8f50 or 'ACQBULK' in m[2]:print(m[1],m[2])

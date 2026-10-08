@@ -1,0 +1,141 @@
+{
+  "sha256": {
+    "/root/.cache/flashinfer/cubins/2d6a5a029eefcc388ec0ceb87efb55d8bcce5c3c/fmha/trtllm-gen/fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen.cubin": "068b18d8ddd129eef79204ac663f5956bafe2da8162097a3862c69ecb4dfb0cc",
+    "/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/decode.py": "df105a90074609961925686572b7b7e4930bf7e065003829f788452607932d6c",
+    "/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/utils.py": "23c676230039e972f32343741398990002340bf1cb85b5981f2212328cba628e",
+    "/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/data/csrc/trtllm_fmha_kernel_launcher.cu": "bb747da4a9eed68a6b8d92e406eed85daf224e7c33d2c07335d025ff95a007f7",
+    "/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/data/include/flashinfer/trtllm/fmha/fmhaKernels.cuh": "569ef1734e1db60050f5d4a9f029cd1f5a40cdd71677135bd408b52fdf30c3c7",
+    "/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/data/include/flashinfer/trtllm/fmha/kernelParams.h": "e001011b323fe86eb7af84c44108d9e6ee2a1d79acdb685a0c9b47a0feff80ab",
+    "/tmp/qvl-pdl-map.cu": "1691c9e209cc5d161fc858bd3d606b3a6ac1ae48c0b21c8b691ff0acdb94c9bd"
+  }
+}
+
+FILE consumer.sass
+0880 LDC.64 R2, c[0x0][0x728] ;
+0890 S2R R4, SR_CTAID.Z ;
+08a0 LDCU.64 UR4, c[0x0][0x358] ;
+08b0 S2UR UR10, SR_CTAID.Y ;
+08c0 LDC R5, c[0x0][0x7ec] ;
+08d0 ISETP.NE.U32.AND P0, PT, R2, RZ, PT ;
+08e0 LDC.U8 R10, c[0x0][0x884] ;
+08f0 ISETP.NE.AND.EX P0, PT, R3, RZ, PT, P0 ;
+0900 LDC.64 R6, c[0x0][0x7c8] ;
+0910 IMAD R11, R5, UR10, R4 ;
+0920 @!P0 LDC R13, c[0x0][0x814] ;
+0930 @P0 LDC.64 R8, c[0x0][0x728] ;
+0940 ISETP.NE.AND P1, PT, R10, RZ, PT ;
+0950 SEL R11, R4, R11, !P1 ;
+0960 @P0 LDC.64 R2, c[0x0][0x728] ;
+0970 IMAD.WIDE R6, R11, 0x4, R6 ;
+0980 @!P0 IMAD R12, R4.reuse, R13, RZ ;
+0990 LDG.E R6, desc[UR4][R6.64] ;
+09a0 LDC R16, c[0x0][0x820] ;
+09b0 @P0 IMAD.WIDE.U32 R8, R4, 0x4, R8 ;
+09c0 @P0 LDG.E R9, desc[UR4][R8.64+0x4] ;
+09d0 @P0 IMAD.WIDE.U32 R2, R4, 0x4, R2 ;
+09e0 @P0 LDG.E R12, desc[UR4][R2.64] ;
+1070 LDCU.64 UR12, c[0x0][0x778] ;
+1080 ULEA UR7, UR5, UR4, 0x18 ;
+1090 UMOV UR4, URZ ;
+10a0 UMOV UR5, URZ ;
+10b0 LEA R0, R0, UR7, 0x2 ;
+10c0 VIADD R0, R0, 0x22000 ;
+10d0 ULEA UR11, UR5, UR7, 0x3 ;
+10e0 SHF.L.U32 R5, R4, 0x1f, RZ ;
+10f0 VIADD R2, R10, UR4 ;
+1100 UIADD3 UR6, UPT, UPT, UR5, 0x1, URZ ;
+1110 IMAD.U32 R13, RZ, RZ, UR5 ;
+1120 IMAD R3, R2, 0x4, R9 ;
+1130 UISETP.NE.AND UP0, UPT, UR6, 0x6, UPT ;
+1140 IMAD R13, R13, 0x80, R0 ;
+1150 SYNCS.PHASECHK.TRANS64.TRYWAIT P0, [UR11+0x2a9d0], R5 ;
+1160 VIMNMX R3, PT, PT, R6, R3, PT ;
+1170 USEL UR9, URZ, 0x1, UP0 ;
+1180 USEL UR5, UR6, URZ, UP0 ;
+1190 IADD3 R12, P1, PT, R3, R8, RZ ;
+11a0 LEA.HI.X.SX32 R3, R3, R16, 0x1, P1 ;
+11b0 LEA R2, P1, R12, UR12, 0x2 ;
+11c0 LEA.HI.X R3, R12, UR13, R3, 0x2, P1 ;
+11d0 LOP3.LUT R12, R4, UR9, RZ, 0x3c, !PT ;
+11e0 @P0 BRA 0x1210 ;
+11f0 SYNCS.PHASECHK.TRANS64.TRYWAIT P0, [UR11+0x2a9d0], R5 ;
+1200 @!P0 BRA 0xd850 ;
+1210 LDCU.64 UR14, c[0x0][0x358] ;
+1220 IMAD.U32 R4, R12, -0x80000000, RZ ;
+1230 ULEA UR6, UR5, UR7, 0x3 ;
+1240 @!PT LDS RZ, [RZ] ;
+1250 @!PT LDS RZ, [RZ] ;
+1260 @!PT LDS RZ, [RZ] ;
+1270 LDGSTS.E.LTC128B [R13+-0x680], desc[UR14][R2.64] ;
+1ce0 ACQBULK ;
+1d00 ACQBULK ;
+8e50 @!P0 SYNCS.ARRIVE.TRANS64 RZ, [UR16+0x2a910], R0 ;
+8e60 UIADD3 UR8, UPT, UPT, UR16, 0x400, URZ ;
+8e70 ACQBULK ;
+8e80 UIADD3 UR9, UPT, UPT, UR16, 0x2a910, URZ ;
+8e90 UMOV UR18, URZ ;
+8ea0 UMOV UR19, URZ ;
+8eb0 UMOV UR20, UR68 ;
+8ec0 @P1 IMAD.MOV.U32 R3, RZ, RZ, 0x800 ;
+8ed0 UMOV UR10, 0x40 ;
+8ee0 @P1 IMAD R4, R4, UR6, RZ ;
+8ef0 UMOV UR11, URZ ;
+8f00 UMOV UR12, UR68 ;
+8f10 UMOV UR13, UR21 ;
+8f20 @P1 IMAD R4, R4, -0x100, R3 ;
+8f30 UTMALDG.4D [UR16], [UR22] ;
+8f40 UTMALDG.4D [UR8], [UR22] ;
+8f50 @P1 SYNCS.ARRIVE.TRANS64.RED.A0TX RZ, [UR16+0x2a910], R4 ;
+c1f0 ACQBULK ;
+c2a0 ACQBULK ;
+c2e0 ACQBULK ;
+
+FILE map.sass
+0000 LDC R1, c[0x0][0x37c] ;
+0010 LDCU.64 UR4, c[0x0][0x358] ;
+0020 NOP ;
+0030 S2R R5, SR_TID.X ;
+0040 LDC.64 R2, c[0x0][0x380] ;
+0050 HFMA2 R7, -RZ, RZ, 1.875, 0 ;
+0060 PREEXIT ;
+0070 IMAD.WIDE.U32 R2, R5, 0x4, R2 ;
+0080 STG.E desc[UR4][R2.64], R7 ;
+0090 EXIT ;
+00a0 BRA 0xa0;
+00b0 NOP;
+00c0 NOP;
+00d0 NOP;
+00e0 NOP;
+00f0 NOP;
+0100 NOP;
+0110 NOP;
+0120 NOP;
+0130 NOP;
+0140 NOP;
+0150 NOP;
+0160 NOP;
+0170 NOP;
+0000 LDC R1, c[0x0][0x37c] ;
+0010 S2R R7, SR_TID.X ;
+0020 LDC.64 R2, c[0x0][0x380] ;
+0030 LDCU.64 UR4, c[0x0][0x358] ;
+0040 ACQBULK ;
+0050 LDC.64 R4, c[0x0][0x388] ;
+0060 IMAD.WIDE.U32 R2, R7, 0x4, R2 ;
+0070 LDG.E R3, desc[UR4][R2.64] ;
+0080 IMAD.WIDE.U32 R4, R7, 0x4, R4 ;
+0090 STG.E desc[UR4][R4.64], R3 ;
+00a0 EXIT ;
+00b0 BRA 0xb0;
+00c0 NOP;
+00d0 NOP;
+00e0 NOP;
+00f0 NOP;
+0100 NOP;
+0110 NOP;
+0120 NOP;
+0130 NOP;
+0140 NOP;
+0150 NOP;
+0160 NOP;
+0170 NOP;

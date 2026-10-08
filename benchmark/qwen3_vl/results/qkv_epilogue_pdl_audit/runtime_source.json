@@ -1,0 +1,6 @@
+{
+  "local_head": "4531ca9e40390844dbfbf9d8ac78833dad5eb523",
+  "path": "python/sglang/srt/layers/attention/trtllm_mha_backend.py",
+  "sha256": "4896aa04b862ef0d926b9f0fcb489fcce095aeccb20a2a579be6fa8f85d8476f",
+  "scope": "Read-only local runtime call-site inspection; installed FlashInfer hashes recorded separately."
+}
