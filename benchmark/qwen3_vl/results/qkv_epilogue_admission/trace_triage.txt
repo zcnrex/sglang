@@ -1,0 +1,26 @@
+Triage View
+Mode: single-trace
+Framework: SGLang
+Input traces: /private/tmp/qvl-m8-prep-trace.json
+
+Kernel Table
+| Kernel | Category | GPU time | Share | Launches | Python location (site share) | CPU op |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen | attention | 1.59 ms | 40.0% | 36 | unresolved | cudaGraphLaunch |
+| kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0 | gemm | 0.92 ms | 23.2% | 108 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT | gemm | 0.65 ms | 16.3% | 36 | unresolved | cudaGraphLaunch |
+| kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0 | gemm | 0.35 ms | 8.8% | 72 | unresolved | cudaGraphLaunch |
+| void sglang::fused_qk_norm_mrope_kernel<true, true> | norm | 0.19 ms | 4.8% | 36 | unresolved | cudaGraphLaunch |
+| void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false> | activation | 0.14 ms | 3.4% | 36 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_384x8_64x4_4x1_v_bz_TNT | gemm | 0.12 ms | 3.1% | 1 | unresolved | cudaGraphLaunch |
+
+Overlap Opportunity Table
+| Priority | Verdict | Kernel | Python scope | Formal signal | Dep risk | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| - | - | No rows cleared the 1.0% reporting bar. Use mapping/formal mode for overlap attribution. | - | - | - | - |
+
+Fuse Opportunity Table
+| Pattern | Confidence | Related GPU time | Share | Evidence kernels | Current kernel Python location | Candidate fused Python path | Rationale |
+| --- | --- | ---: | ---: | --- | --- | --- | --- |
+| Fused QK RoPE reshape + KV cache write | Confirmed | 1.78 ms | 44.8% | void sglang::fused_qk_norm_mrope_kernel<true, true> (4.8%)<br>fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen (40.0%) | unresolved | python/sglang/srt/layers/attention/utils.py | Split kernels in this family take 44.8% of GPU time. This tree already has a matching path. Attention prep already has a fused RoPE plus reshape plus cache write path. |
+| Fused residual add + RMSNorm | Confirmed | 0.35 ms | 8.8% | kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0 (8.8%) | unresolved | python/sglang/srt/layers/layernorm.py<br>python/sglang/srt/layers/quantization/modelslim/modelslim.py | `Fused residual add + RMSNorm` is present in this trace (8.8% related GPU time). Residual add plus RMSNorm already has fused implementations across several backends. |

@@ -1,0 +1,46 @@
+{
+  "trace_sha256": "ebf58a35cbaa6f52b2957dc2d34ea673ef92d83bfa89b5cf117d5164a6afe328",
+  "prep": {
+    "count": 36,
+    "sum_us": 191.39100000000008,
+    "mean_us": 5.316416666666667,
+    "min_us": 4.8,
+    "median_us": 5.312,
+    "p95_nearest_rank_us": 5.793,
+    "max_us": 5.888
+  },
+  "qkv_by_immediate_predecessor": {
+    "count": 36,
+    "sum_us": 287.492,
+    "mean_us": 7.985888888888889,
+    "min_us": 7.745,
+    "median_us": 7.936,
+    "p95_nearest_rank_us": 8.352,
+    "max_us": 8.832
+  },
+  "qkv_to_prep_gap": {
+    "count": 36,
+    "sum_us": -82.3045654296875,
+    "mean_us": -2.2862379286024304,
+    "min_us": -2.8800048828125,
+    "median_us": -2.28802490234375,
+    "p95_nearest_rank_us": -1.9520263671875,
+    "max_us": -1.760009765625
+  },
+  "prep_to_attention_gap": {
+    "count": 36,
+    "sum_us": -15.3922119140625,
+    "mean_us": -0.4275614420572917,
+    "min_us": -0.54296875,
+    "median_us": -0.47998046875,
+    "p95_nearest_rank_us": -0.320068359375,
+    "max_us": -0.3199462890625
+  },
+  "qkv_grids": [
+    "[48, 2, 1]"
+  ],
+  "all_predecessors_splitk": true,
+  "all_successors_attention": true,
+  "kernel_sum_us": 3975.6290000000017,
+  "kernel_span_us": 4297.5849609375
+}
