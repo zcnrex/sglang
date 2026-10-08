@@ -1,0 +1,41 @@
+[2026-10-08 02:04:12 TP0] Init parallel begin.
+[2026-10-08 02:04:12 TP0] Init parallel ends. elapsed=0.30 s
+[2026-10-08 02:04:12 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 02:04:14 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 02:04:14 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 02:04:14 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.14it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.06it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.07it/s]
+[2026-10-08 02:04:16 TP0] Load weight end. elapsed=2.57 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 02:04:16 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 02:04:17 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1613440, K size: 110.79 GB, V size: 110.79 GB
+[2026-10-08 02:04:17 TP0] Memory pool end. avail mem=33.65 GB
+[2026-10-08 02:04:17 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/native-epilogue-component-model/gpu4/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.05profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.05profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  9.95profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  9.93profile/s]
+[2026-10-08 02:04:20 TP0] FlashInfer autotune completed.
+[2026-10-08 02:04:20 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 02:04:20 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 42], avail mem=32.19 GB
+  0%|          | 0/10 [00:00<?, ?it/s]Capturing batches (bs=42 avail_mem=32.16 GB):   0%|          | 0/10 [00:00<?, ?it/s]Capturing batches (bs=42 avail_mem=32.16 GB):  10%|█         | 1/10 [00:00<00:04,  2.22it/s]Capturing batches (bs=40 avail_mem=32.35 GB):  10%|█         | 1/10 [00:00<00:04,  2.22it/s]Capturing batches (bs=32 avail_mem=32.35 GB):  10%|█         | 1/10 [00:00<00:04,  2.22it/s]Capturing batches (bs=32 avail_mem=32.35 GB):  30%|███       | 3/10 [00:00<00:01,  5.29it/s]Capturing batches (bs=24 avail_mem=32.35 GB):  30%|███       | 3/10 [00:00<00:01,  5.29it/s]Capturing batches (bs=16 avail_mem=32.35 GB):  30%|███       | 3/10 [00:00<00:01,  5.29it/s]Capturing batches (bs=16 avail_mem=32.35 GB):  50%|█████     | 5/10 [00:01<00:01,  4.32it/s]Capturing batches (bs=12 avail_mem=32.35 GB):  50%|█████     | 5/10 [00:01<00:01,  4.32it/s]Capturing batches (bs=8 avail_mem=32.35 GB):  50%|█████     | 5/10 [00:01<00:01,  4.32it/s] Capturing batches (bs=8 avail_mem=32.35 GB):  70%|███████   | 7/10 [00:02<00:00,  3.10it/s]Capturing batches (bs=4 avail_mem=32.35 GB):  70%|███████   | 7/10 [00:02<00:00,  3.10it/s]Capturing batches (bs=4 avail_mem=32.35 GB):  80%|████████  | 8/10 [00:02<00:00,  3.64it/s]Capturing batches (bs=2 avail_mem=32.35 GB):  80%|████████  | 8/10 [00:02<00:00,  3.64it/s]Capturing batches (bs=2 avail_mem=32.35 GB):  90%|█████████ | 9/10 [00:02<00:00,  4.24it/s]Capturing batches (bs=1 avail_mem=32.35 GB):  90%|█████████ | 9/10 [00:02<00:00,  4.24it/s]Capturing batches (bs=1 avail_mem=32.35 GB): 100%|██████████| 10/10 [00:02<00:00,  3.86it/s]Capturing batches (bs=1 avail_mem=32.35 GB): 100%|██████████| 10/10 [00:02<00:00,  3.78it/s]
+[2026-10-08 02:04:23 TP0] Capture target decode CUDA graph end. elapsed=3.35 s, mem usage=-0.16 GB, avail mem=32.34 GB.
+max_total_num_tokens=1613440
+Warmup ...
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.1384897230018396, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+Benchmark ...
+USDT:2026-10-08 02:04:39 415885:415885 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 02:04:39 415885:415885 SyncActivityProfilerHandler.cpp:46] profiler_stop
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.1332927430048585, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+USDT:2026-10-08 02:04:42 415885:415885 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 02:04:42 415885:415885 SyncActivityProfilerHandler.cpp:46] profiler_stop
+MIXED_RESULT {"candidate": true, "prefill_latency": 0.1379465610079933, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+USDT:2026-10-08 02:04:45 415885:415885 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 02:04:45 415885:415885 SyncActivityProfilerHandler.cpp:46] profiler_stop
+MIXED_RESULT {"candidate": true, "prefill_latency": 0.13946137798484415, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+USDT:2026-10-08 02:04:48 415885:415885 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 02:04:48 415885:415885 SyncActivityProfilerHandler.cpp:46] profiler_stop
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.13666140698478557, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}

@@ -1,0 +1,32 @@
+Triage View
+Mode: single-trace
+Framework: SGLang
+Input traces: /private/tmp/native-component-results/gpu4/trace-3-1.json.gz
+
+Kernel Table
+##### extend/prefill
+| Kernel | Category | GPU time | Share | Launches | Python location (site share) | CPU op |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| nvjet_sm103_tst_128x256_64x6_2x1_2cta_v_bz_TNT | gemm | 41.38 ms | 31.2% | 108 | unresolved | cuLaunchKernelEx |
+| kernel_cutlass_kernel_native_fused_ffiPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK21111000_PermutationMNK____MMAAtom_ThrID21_ShapeMNK25625616_TVLayoutA2128161281256_TVLayou_0 | gemm | 39.40 ms | 29.7% | 36 | unresolved | cudaLaunchKernelExC |
+| kernel_cutlass_kernel_sglangkernelsopsattentionflash_attncuteflash_fwd_sm100FlashAttentionForwardSm100_object_at__tensor0000o411121013_tensor000o111012_tensor000o101112_tensorptrbf16gmema_0 | attention | 29.01 ms | 21.9% | 36 | unresolved | cudaLaunchKernelExC |
+| fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen | attention | 8.17 ms | 6.2% | 36 | unresolved | cuLaunchKernelEx |
+| kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0 | gemm | 4.80 ms | 3.6% | 72 | unresolved | cudaLaunchKernelExC |
+| void sglang::fused_qknorm_warp<128l, true, __nv_bfloat16> | other | 4.19 ms | 3.2% | 36 | unresolved | cudaLaunchKernelExC |
+| _triton_mrope_forward_fused | rope | 2.49 ms | 1.9% | 36 | unresolved | cuLaunchKernelEx |
+| reshape_and_cache_flash | other | 1.41 ms | 1.1% | 36 | unresolved | cuLaunchKernelEx |
+| _pack_kv | other | 1.36 ms | 1.0% | 36 | unresolved | cuLaunchKernelEx |
+
+Overlap Opportunity Table
+| Priority | Verdict | Kernel | Python scope | Formal signal | Dep risk | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| - | - | No rows cleared the 1.0% reporting bar. Use mapping/formal mode for overlap attribution. | - | - | - | - |
+
+Fuse Opportunity Table
+##### extend/prefill
+| Pattern | Confidence | Related GPU time | Share | Evidence kernels | Current kernel Python location | Candidate fused Python path | Rationale |
+| --- | --- | ---: | ---: | --- | --- | --- | --- |
+| PR #22392 CUTLASS FP8 scaled MM replacing nvjet | Confirmed | 41.53 ms | 31.3% | nvjet_sm103_tst_128x256_64x6_2x1_2cta_v_bz_TNT (31.2%) | unresolved | PR #22392<br>python/sglang/kernels/aot/python/sgl_kernel/gemm.py<br>python/sglang/srt/layers/quantization/fp8_utils.py | Matches an open upstream path (31.3% related GPU time). Open SGLang PR replaces nvjet FP8 GEMM with CUTLASS to remove memset bubbles and extra copies. |
+| Fused QK RoPE reshape + KV cache write | Confirmed | 12.07 ms | 9.1% | _triton_mrope_forward_fused (1.9%)<br>fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen (6.2%)<br>reshape_and_cache_flash (1.1%) | unresolved | python/sglang/srt/layers/attention/utils.py | Split kernels in this family take 9.1% of GPU time. This tree already has a matching path. Attention prep already has a fused RoPE plus reshape plus cache write path. |
+| Fused residual add + RMSNorm | Confirmed | 4.80 ms | 3.6% | kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0 (3.6%) | unresolved | python/sglang/srt/layers/layernorm.py<br>python/sglang/srt/layers/quantization/modelslim/modelslim.py | `Fused residual add + RMSNorm` is present in this trace (3.6% related GPU time). Residual add plus RMSNorm already has fused implementations across several backends. |
+| In-place QK RMSNorm | Confirmed | 4.19 ms | 3.2% | void sglang::fused_qknorm_warp<128l, true, __nv_bfloat16> (3.2%) | unresolved | python/sglang/srt/models/utils.py<br>python/sglang/kernels/ops/layernorm/norm.py | Split kernels in this family take 3.2% of GPU time. This tree already has a matching path. Q/K normalization already has in-place or model-specific fused implementations. |
