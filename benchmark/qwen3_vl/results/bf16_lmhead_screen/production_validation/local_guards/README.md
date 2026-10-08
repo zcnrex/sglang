@@ -1,0 +1,9 @@
+# Production guard audit
+
+Read-only review and AST-isolated metadata probes against the recorded uncommitted three-file candidate hashes. No production edits or GPU jobs. These probes do not import real Torch or FlashInfer and do not substitute for runtime validation.
+
+26 helper probes pass: exact M4 success, legacy M128 success, M128 key cannot admit M4, cleared READY, dtype/device/layout/gradient/bias/addend/backend/disabled/deterministic rejection, output buffer contract and identity. Ten actual logits-method branch probes pass: ordinary optimized route, disabled flag, unsupported shape/dtype, FP32/RL/LoRA/quantized precedence, compile fallback and original Torch fallback when READY is cleared.
+
+All seven READY references use the new (device, M, N, K) key consistently. Initialization and autotune entry retain their clear boundaries. Cache verification still requires a public search hit, correct runner and nonnegative tactic before readiness publication. Explicit M128 warmups remain in the collected shape map; the new M4 warmup does not replace them. The implementation worker supplied 11 passing startup admission/lifecycle probes, archived here with exact output; inspect the script for its precise mock scope. These include tied model admission, TP/PP, LoRA and startup policy rejection. No real FlashInfer cache lookup is exercised by these CPU isolations. Runtime GPU validation remains separately owned by the profile worker.
+
+A same-shape weight replacement after startup was raised as a lifecycle consideration: cached model eligibility must not silently claim tied identity after replacement. No such mutation occurs in the validated serving workflow. Root reviewed the scope and did not request an additional hypothetical identity guard. No other actionable review finding was found.

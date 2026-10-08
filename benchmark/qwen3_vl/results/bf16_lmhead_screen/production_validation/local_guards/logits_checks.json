@@ -1,0 +1,65 @@
+{
+  "passed": 10,
+  "checks": [
+    {
+      "name": "ordinary",
+      "calls": [
+        "tuned"
+      ]
+    },
+    {
+      "name": "flag_disabled",
+      "calls": [
+        "torch"
+      ]
+    },
+    {
+      "name": "M8",
+      "calls": [
+        "torch"
+      ]
+    },
+    {
+      "name": "fp16",
+      "calls": [
+        "torch"
+      ]
+    },
+    {
+      "name": "FP32_priority",
+      "calls": [
+        "torch"
+      ]
+    },
+    {
+      "name": "RL_priority",
+      "calls": [
+        "torch"
+      ]
+    },
+    {
+      "name": "compile_fallback",
+      "calls": [
+        "torch"
+      ]
+    },
+    {
+      "name": "lora_priority",
+      "calls": [
+        "lora"
+      ]
+    },
+    {
+      "name": "quant_priority",
+      "calls": []
+    },
+    {
+      "name": "cleared_ready",
+      "calls": [
+        "tuned",
+        "torch"
+      ]
+    }
+  ],
+  "scope": "AST-isolated method metadata mocks, not Torch/GPU"
+}

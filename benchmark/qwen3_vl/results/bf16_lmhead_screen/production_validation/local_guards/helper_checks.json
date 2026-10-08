@@ -1,0 +1,32 @@
+{
+  "checks": [
+    "valid_m4",
+    "output_identity",
+    "M8",
+    "fp16_input",
+    "fp16_weight",
+    "x_grad",
+    "w_grad",
+    "x_layout",
+    "w_layout",
+    "other_device",
+    "wrong_weight",
+    "cpu",
+    "wrong_k",
+    "bias",
+    "addend",
+    "out_dtype",
+    "out_device",
+    "out_shape",
+    "out_grad",
+    "out_layout",
+    "disabled",
+    "deterministic",
+    "backend",
+    "cleared_ready",
+    "m128_not_m4",
+    "legacy_m128"
+  ],
+  "passed": 26,
+  "scope": "AST-isolated helper with fake metadata; not real GPU/torch execution"
+}

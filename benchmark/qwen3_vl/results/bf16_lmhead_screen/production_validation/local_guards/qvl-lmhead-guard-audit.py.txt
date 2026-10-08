@@ -1,0 +1,33 @@
+import ast,sys,types,json,pathlib
+from types import SimpleNamespace as NS
+source=pathlib.Path(sys.argv[1]); tree=ast.parse(source.read_text()); fn=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='_try_tuned_bf16_cublaslt')
+class Tensor:
+ def __init__(self,shape,dtype='bf16',device='cuda:0',grad=False,contiguous=True):self.shape=shape;self.dtype=dtype;self.device=NS(index=int(device[-1]) if device.startswith('cuda') else None,type=device);self.requires_grad=grad;self.contiguous=contiguous;self.is_cuda=device.startswith('cuda');self.ndim=len(shape)
+ def numel(self):
+  import math
+  return math.prod(self.shape)
+ def is_contiguous(self):return self.contiguous
+ def view(self,*shape):return Tensor(shape,self.dtype,self.device.type)
+ @property
+ def T(self):return Tensor(self.shape[::-1],self.dtype,self.device.type)
+class Device:
+ def __init__(self,name):self.name=name;self.index=int(name[-1]) if name.startswith('cuda') else None
+ def __eq__(self,other):return isinstance(other,Device) and self.name==other.name
+# Replace SimpleNamespace equality already compares same attributes.
+state=NS(backend=True,disabled=False,deterministic=False);ready=set();calls=[]
+def mm(x,w,out=None,backend=None):calls.append(1);return out if out is not None else Tensor((x.shape[0],w.shape[1]))
+sys.modules['flashinfer']=types.ModuleType('flashinfer');mod=types.ModuleType('flashinfer.gemm');mod.mm_bf16=mm;sys.modules['flashinfer.gemm']=mod
+g={'torch':NS(bfloat16='bf16'),'_CUBLASLT_BF16_READY':ready,'get_bf16_gemm_backend':lambda:NS(is_cutedsl=lambda:state.backend),'get_exec':lambda:NS(kernel=NS(disable_flashinfer_autotune=state.disabled),deterministic=NS(enable_deterministic_inference=state.deterministic))}
+exec(compile(ast.Module(body=[fn],type_ignores=[]),str(source),'exec'),g);f=g[fn.name];checks=[]
+def check(name,x=None,w=None,bias=None,addend=None,out=None,expected=False):
+ x=x or Tensor((4,2560));w=w or Tensor((151936,2560));before=len(calls);r=f(x,w,bias,addend,out);assert (r is not None)==expected,name;assert len(calls)-before==int(expected),name
+ if out is not None and expected:assert r is out,name
+ checks.append(name)
+ready.add((0,4,151936,2560));check('valid_m4',expected=True);check('output_identity',out=Tensor((4,151936)),expected=True)
+for name,x,w in [('M8',Tensor((8,2560)),None),('fp16_input',Tensor((4,2560),'fp16'),None),('fp16_weight',None,Tensor((151936,2560),'fp16')),('x_grad',Tensor((4,2560),grad=True),None),('w_grad',None,Tensor((151936,2560),grad=True)),('x_layout',Tensor((4,2560),contiguous=False),None),('w_layout',None,Tensor((151936,2560),contiguous=False)),('other_device',None,Tensor((151936,2560),device='cuda:1')),('wrong_weight',None,Tensor((151935,2560))),('cpu',Tensor((4,2560),device='cpu'),None),('wrong_k',Tensor((4,1280)),None)]:check(name,x,w)
+check('bias',bias=object());check('addend',addend=object())
+for name,out in [('out_dtype',Tensor((4,151936),'fp32')),('out_device',Tensor((4,151936),device='cuda:1')),('out_shape',Tensor((4,151935))),('out_grad',Tensor((4,151936),grad=True)),('out_layout',Tensor((4,151936),contiguous=False))]:check(name,out=out)
+for key in ('disabled','deterministic','backend'):
+ setattr(state,key,key!='backend');check(key);setattr(state,key,key=='backend')
+ready.clear();check('cleared_ready');ready.add((0,128,151936,2560));check('m128_not_m4');ready.clear();ready.add((0,128,19456,2560));check('legacy_m128',x=Tensor((128,2560)),w=Tensor((19456,2560)),expected=True)
+print(json.dumps({'checks':checks,'passed':len(checks),'scope':'AST-isolated helper with fake metadata; not real GPU/torch execution'},indent=2))
