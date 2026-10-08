@@ -1,0 +1,10 @@
+{
+  "files": 10245,
+  "changed": [
+    "python/sglang/kernels/ops/attention/__init__.py",
+    "python/sglang/kernels/ops/attention/qkv_norm_mrope.py",
+    "python/sglang/srt/models/qwen3.py"
+  ],
+  "extra": [],
+  "missing": []
+}
