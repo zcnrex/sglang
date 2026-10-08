@@ -1,0 +1,74 @@
+{
+  "baseline_median_ms": 2.80960750579834,
+  "candidate_median_ms": 2.7148338556289673,
+  "saving_us": 94.77365016937256,
+  "time_reduction_percent": 3.3731989245395666,
+  "positive_pairs": 8,
+  "checks": [
+    {
+      "seed": 123,
+      "greedy_equal": true,
+      "token_differences": 0,
+      "logits": [
+        {
+          "stage": "prefill",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "first_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "fifteenth_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        }
+      ]
+    },
+    {
+      "seed": 124,
+      "greedy_equal": true,
+      "token_differences": 0,
+      "logits": [
+        {
+          "stage": "prefill",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "first_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        },
+        {
+          "stage": "fifteenth_decode",
+          "bitwise": true,
+          "max_abs": 0.0,
+          "nrms": 0.0
+        }
+      ]
+    }
+  ],
+  "capture_layers": 36,
+  "unchanged_buffers": {
+    "input_ids": true,
+    "input_embeds": true,
+    "req_pool_indices": true,
+    "seq_lens": true,
+    "seq_lens_cpu": true,
+    "out_cache_loc": true,
+    "positions": true,
+    "mrope_positions": true,
+    "custom_mask": true,
+    "next_token_logits_buffer": true,
+    "global_num_tokens_gpu": true,
+    "global_num_tokens_for_logprob_gpu": true
+  }
+}

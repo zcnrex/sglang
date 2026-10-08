@@ -1,0 +1,11 @@
+# External B4 fused QKV actual-model gate
+
+PASS: both seeds123/124, B4 input8192/output16, full prefill/first/fifteenth logits bitwise and all64 generated tokens per seed identical. All36 candidate layers capture at actual positions stride(128,1); all12 shared graph input buffers are unchanged after paired replay.
+
+Whole-model retained-graph median **2.809607506→2.714833856 ms**, saving **94.773650 µs** or **3.373199% time**. All eight opposite-order pairs are positive, each measuring256 graph replays after40 warm replay pairs. These are fixed-state graph intervals on one GPU, not serving throughput or growing-context measurements. Two real input seeds exercise changed-input replay correctness before timing.
+
+Exact PR3016f3b591 source /root/qvl/sglang-current-pr-full-sweep-3016f3b591 is unchanged. Frozen external M4 prototype SHA256 d19127b32f11ed29b9cb1d6da38a48ebe3132fca62f991ba07004e2ed00f2f86 is verified at import. The hook replaces only exact B4 decode QKV projection plus normalization/rotary/cache preparation, returning save_kv_cache=False to avoid duplicate writes. All prefill and other batch shapes use original production code, including accepted B8 fusion. Actual weights and zero-copy detached norm/QKV views preserve pointers and strides. BF16 weights/query/KV/output, TRT HND page32, mixed chunk16384, cap128 explicit20 buckets, pool1,600,000, server seed0 and normal public startup are preserved.
+
+Baseline and candidate graphs share the same loaded model, graph input buffers, CUDA execution context and startup tactics. Candidate recapture uses the existing normal startup state; no timed autotune occurs. The external prototype uses the caller's current CUDA stream. This diagnostic makes no serving, full GSM or multimodal-model claim.
+
+GPU2 PID670999 completed successfully; no failed model attempt. Raw archive contains frozen source scripts/prototype, launch and source hashes, tuning cache record, complete reports and compressed diagnostic traces. Readable Python copies end .py.txt. Large numerics.pt remains remote with SHA256/size in numerics_hash.json; generated cache directories and uncompressed trace copies are omitted. No production files, serving jobs or full accuracy jobs were changed/launched for this gate.
