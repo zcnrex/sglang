@@ -1,0 +1,1536 @@
+{
+  "pairs": [
+    {
+      "gpu": 2,
+      "control": {
+        "duration": 43.391560099000344,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 1887.9247441920686,
+        "median_ttft_ms": 381.3088430033531,
+        "median_tpot_ms": 3.8693614061476884
+      },
+      "candidate": {
+        "duration": 43.24679980499786,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 1894.244206955929,
+        "median_ttft_ms": 337.79451450391207,
+        "median_tpot_ms": 3.8770614755758697
+      },
+      "percent": {
+        "output_throughput": 0.33473064979423484,
+        "median_ttft_ms": -11.411833031907515,
+        "median_tpot_ms": 0.19900103970509342
+      }
+    },
+    {
+      "gpu": 3,
+      "control": {
+        "duration": 43.076969043002464,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 1901.7122564547585,
+        "median_ttft_ms": 361.4020850218367,
+        "median_tpot_ms": 3.85894525071794
+      },
+      "candidate": {
+        "duration": 42.94723945000442,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 1907.4567084891314,
+        "median_ttft_ms": 375.68228151940275,
+        "median_tpot_ms": 3.8323700850341744
+      },
+      "percent": {
+        "output_throughput": 0.3020673613936653,
+        "median_ttft_ms": 3.9513320728914003,
+        "median_tpot_ms": -0.6886639731108257
+      }
+    }
+  ],
+  "audit": [
+    {
+      "phase": "A",
+      "gpu": 2,
+      "flush_count": 1,
+      "prefill_intervals": [
+        [
+          8200,
+          8200
+        ],
+        [
+          16326,
+          16327
+        ],
+        [
+          16328,
+          16331
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8141,
+          8147
+        ],
+        [
+          8095,
+          8095
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16300,
+          16303
+        ],
+        [
+          16315,
+          16320
+        ],
+        [
+          200,
+          207
+        ],
+        [
+          8193,
+          8193
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16325,
+          16328
+        ],
+        [
+          16303,
+          16308
+        ],
+        [
+          180,
+          187
+        ],
+        [
+          8175,
+          8175
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16341,
+          16343
+        ],
+        [
+          16323,
+          16326
+        ],
+        [
+          16304,
+          16309
+        ],
+        [
+          168,
+          175
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16304,
+          16307
+        ],
+        [
+          16327,
+          16332
+        ],
+        [
+          200,
+          207
+        ],
+        [
+          8188,
+          8188
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16301,
+          16304
+        ],
+        [
+          15800,
+          15805
+        ],
+        [
+          7979,
+          7979
+        ],
+        [
+          8150,
+          8151
+        ],
+        [
+          16319,
+          16321
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          16304,
+          16310
+        ],
+        [
+          8059,
+          8059
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16230,
+          16232
+        ],
+        [
+          16341,
+          16345
+        ],
+        [
+          16298,
+          16303
+        ],
+        [
+          136,
+          143
+        ],
+        [
+          7791,
+          7792
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16304,
+          16306
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8464,
+          8470
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          16346,
+          16347
+        ],
+        [
+          16308,
+          16310
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8368,
+          8374
+        ]
+      ],
+      "m128_possible": false,
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m8-production/serving/A/gpu2/public-tuner-pid496928.json"
+        },
+        {
+          "kind": "graph8_replay"
+        }
+      ]
+    },
+    {
+      "phase": "A",
+      "gpu": 3,
+      "flush_count": 1,
+      "prefill_intervals": [
+        [
+          8200,
+          8200
+        ],
+        [
+          16326,
+          16327
+        ],
+        [
+          16328,
+          16331
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8141,
+          8147
+        ],
+        [
+          8095,
+          8095
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16300,
+          16302
+        ],
+        [
+          16315,
+          16319
+        ],
+        [
+          8400,
+          8406
+        ],
+        [
+          8193,
+          8193
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16325,
+          16327
+        ],
+        [
+          16303,
+          16307
+        ],
+        [
+          8380,
+          8386
+        ],
+        [
+          8175,
+          8175
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16317,
+          16319
+        ],
+        [
+          16323,
+          16327
+        ],
+        [
+          8368,
+          8374
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16304,
+          16306
+        ],
+        [
+          16327,
+          16331
+        ],
+        [
+          8400,
+          8406
+        ],
+        [
+          8188,
+          8188
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16301,
+          16304
+        ],
+        [
+          15800,
+          15805
+        ],
+        [
+          7979,
+          7979
+        ],
+        [
+          8150,
+          8151
+        ],
+        [
+          16319,
+          16321
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          16304,
+          16310
+        ],
+        [
+          8059,
+          8059
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16230,
+          16232
+        ],
+        [
+          16341,
+          16345
+        ],
+        [
+          16298,
+          16303
+        ],
+        [
+          136,
+          143
+        ],
+        [
+          7791,
+          7791
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16304,
+          16307
+        ],
+        [
+          16304,
+          16309
+        ],
+        [
+          264,
+          271
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16346,
+          16347
+        ],
+        [
+          16308,
+          16310
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8368,
+          8374
+        ]
+      ],
+      "m128_possible": false,
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m8-production/serving/A/gpu3/public-tuner-pid497391.json"
+        },
+        {
+          "kind": "graph8_replay"
+        }
+      ]
+    },
+    {
+      "phase": "B",
+      "gpu": 2,
+      "flush_count": 1,
+      "prefill_intervals": [
+        [
+          8200,
+          8200
+        ],
+        [
+          16326,
+          16327
+        ],
+        [
+          16328,
+          16331
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8141,
+          8147
+        ],
+        [
+          8095,
+          8095
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16300,
+          16302
+        ],
+        [
+          16315,
+          16319
+        ],
+        [
+          8400,
+          8406
+        ],
+        [
+          8193,
+          8193
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16325,
+          16327
+        ],
+        [
+          16303,
+          16307
+        ],
+        [
+          8380,
+          8386
+        ],
+        [
+          8175,
+          8175
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16317,
+          16319
+        ],
+        [
+          16323,
+          16327
+        ],
+        [
+          8368,
+          8374
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16304,
+          16306
+        ],
+        [
+          16327,
+          16331
+        ],
+        [
+          8400,
+          8406
+        ],
+        [
+          8188,
+          8188
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16304,
+          16306
+        ],
+        [
+          16301,
+          16305
+        ],
+        [
+          7696,
+          7702
+        ],
+        [
+          7979,
+          7979
+        ],
+        [
+          16342,
+          16343
+        ],
+        [
+          16295,
+          16297
+        ],
+        [
+          16304,
+          16309
+        ],
+        [
+          8136,
+          8143
+        ],
+        [
+          8059,
+          8059
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16315,
+          16317
+        ],
+        [
+          16322,
+          16327
+        ],
+        [
+          8240,
+          8246
+        ],
+        [
+          7791,
+          7791
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16304,
+          16306
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8464,
+          8470
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          8186,
+          8187
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16308,
+          16311
+        ],
+        [
+          16304,
+          16309
+        ],
+        [
+          200,
+          207
+        ]
+      ],
+      "m128_possible": false,
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m8-production/serving/B/gpu2/public-tuner-pid503737.json"
+        },
+        {
+          "kind": "graph8_replay"
+        }
+      ]
+    },
+    {
+      "phase": "B",
+      "gpu": 3,
+      "flush_count": 1,
+      "prefill_intervals": [
+        [
+          8200,
+          8200
+        ],
+        [
+          16326,
+          16327
+        ],
+        [
+          16328,
+          16331
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          8141,
+          8147
+        ],
+        [
+          8095,
+          8095
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16300,
+          16302
+        ],
+        [
+          16315,
+          16319
+        ],
+        [
+          8400,
+          8406
+        ],
+        [
+          8193,
+          8193
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16325,
+          16327
+        ],
+        [
+          16303,
+          16307
+        ],
+        [
+          8380,
+          8386
+        ],
+        [
+          8175,
+          8175
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16317,
+          16319
+        ],
+        [
+          16323,
+          16327
+        ],
+        [
+          8368,
+          8374
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16304,
+          16307
+        ],
+        [
+          16327,
+          16332
+        ],
+        [
+          200,
+          207
+        ],
+        [
+          8188,
+          8188
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16301,
+          16304
+        ],
+        [
+          15800,
+          15805
+        ],
+        [
+          7979,
+          7979
+        ],
+        [
+          8150,
+          8151
+        ],
+        [
+          16319,
+          16321
+        ],
+        [
+          16304,
+          16308
+        ],
+        [
+          16304,
+          16310
+        ],
+        [
+          8059,
+          8059
+        ],
+        [
+          16328,
+          16329
+        ],
+        [
+          16251,
+          16253
+        ],
+        [
+          16322,
+          16327
+        ],
+        [
+          8304,
+          8310
+        ],
+        [
+          7791,
+          7791
+        ],
+        [
+          8200,
+          8201
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16304,
+          16307
+        ],
+        [
+          16304,
+          16309
+        ],
+        [
+          264,
+          271
+        ],
+        [
+          8200,
+          8200
+        ],
+        [
+          8186,
+          8187
+        ],
+        [
+          16328,
+          16330
+        ],
+        [
+          16308,
+          16311
+        ],
+        [
+          16304,
+          16309
+        ],
+        [
+          200,
+          207
+        ]
+      ],
+      "m128_possible": false,
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            2560
+          ],
+          "weight_shape": [
+            19456,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            128,
+            9728
+          ],
+          "weight_shape": [
+            2560,
+            9728
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m8-production/serving/B/gpu3/public-tuner-pid503733.json"
+        },
+        {
+          "kind": "graph8_replay"
+        }
+      ]
+    }
+  ],
+  "tactics": [
+    {
+      "phase": "A",
+      "gpu": 2,
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "phase": "A",
+      "gpu": 3,
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "phase": "B",
+      "gpu": 2,
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "phase": "B",
+      "gpu": 3,
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    }
+  ]
+}
