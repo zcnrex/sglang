@@ -1,0 +1,76 @@
+import os,pathlib,json,hashlib,importlib
+import numpy as np
+import torch
+import sglang.benchmark.one_batch as b
+from flashinfer.autotuner import AutoTuner
+out=pathlib.Path(os.environ['QVL_MODEL_OUT']);out.mkdir(parents=True,exist_ok=True)
+source=pathlib.Path(os.environ['QVL_SOURCE'])
+actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')}
+expected=json.load(open(os.environ['QVL_EXPECTED_MANIFEST']));assert actual==expected
+(out/'source-manifest.json').write_text(json.dumps(actual,indent=2))
+batch_size=int(os.environ['QVL_BATCH_SIZE'])
+seen=set();report={'source':str(source),'source_files':len(actual)};saved={}
+if os.environ['QVL_VARIANT']=='candidate':
+ import sglang.srt.models.qwen3 as q3
+ original_prepare=q3.Qwen3Attention._try_qkv_norm_mrope
+ def observe(self,*args,**kwargs):
+  result=original_prepare(self,*args,**kwargs)
+  if result is not None and args[1].shape==(batch_size,2560):
+   marker=(self.attn.layer_id,torch.cuda.is_current_stream_capturing())
+   if marker not in seen: seen.add(marker);print('INTEGRATED_DISPATCH',marker,flush=True)
+  return result
+ q3.Qwen3Attention._try_qkv_norm_mrope=observe
+import importlib
+module=importlib.import_module('sglang.kernels.ops.attention.qkv_norm_mrope')
+original_op=module.qkv_norm_mrope
+layout_seen=set()
+def layout_observer(*args,**kwargs):
+ result=original_op(*args,**kwargs)
+ if args[0].shape[0]!=batch_size:return result
+ key=(torch.cuda.is_current_stream_capturing(),tuple(args[5].stride()),result is None)
+ if key not in layout_seen:
+  layout_seen.add(key)
+  with (out/'layouts.jsonl').open('a') as f:f.write(json.dumps(dict(capture=key[0],positions_shape=list(args[5].shape),positions_stride=list(key[1]),returned_none=key[2]))+'\n')
+ return result
+module.qkv_norm_mrope=layout_observer
+from sglang.srt.model_executor.runner.decode_cuda_graph_runner import DecodeCudaGraphRunner
+original_execute=DecodeCudaGraphRunner.execute
+replay_count=0
+def observed_execute(self,*args,**kwargs):
+ global replay_count
+ result=original_execute(self,*args,**kwargs)
+ if self.bs==batch_size:replay_count+=1
+ return result
+DecodeCudaGraphRunner.execute=observed_execute
+original=b.load_model
+@torch.no_grad()
+def load(*args,**kwargs):
+ wrapper,tok=original(*args,**kwargs)
+ dr=wrapper.torch_runner.decode_cuda_graph_runner
+ report['graph_keys']=[str(k) for k in dr.backend._graphs];report['dispatch']=sorted(seen)
+ if os.environ['QVL_VARIANT']=='candidate': assert {i for i,c in seen if c}==set(range(36)),seen
+ AutoTuner.get().save_configs(str(out/'cache.json'))
+ for seed in [123,124]:
+  wrapper.clear();data=np.random.default_rng(seed).integers(0,10000,(batch_size,8192),dtype=np.int32)
+  reqs=b.prepare_synthetic_inputs_for_latency_test(batch_size,8192,data.tolist())
+  ids,logits,batch=wrapper.extend(reqs);saved[f'{seed}_prefill']=logits.cpu();seq=[ids.cpu()]
+  for step in range(15):
+   ids,logits=wrapper.decode(ids,batch);seq.append(ids.cpu())
+   if step in [0,14]:saved[f'{seed}_decode{step}']=logits.cpu()
+  saved[f'{seed}_greedy']=torch.stack(seq)
+  print('MODEL_SEED_COMPLETE',seed,flush=True)
+ snapshots={n:v.clone() for n,v in vars(dr.buffers).items() if isinstance(v,torch.Tensor)}
+ graph=next(g for k,g in dr.backend._graphs.items() if k.size==batch_size)
+ for _ in range(8):graph.replay()
+ torch.cuda.synchronize()
+ report['graph_execute_count']=replay_count
+ report['layout_records']=[dict(capture=k[0],positions_stride=list(k[1]),returned_none=k[2]) for k in sorted(layout_seen)]
+ if os.environ['QVL_VARIANT']=='candidate':
+  assert (False,(128,1),False) in layout_seen and (True,(128,1),False) in layout_seen,layout_seen
+ assert replay_count>=30,replay_count
+ report['unchanged_input_buffers']={n:torch.equal(v,getattr(dr.buffers,n)) for n,v in snapshots.items()}
+ assert all(report['unchanged_input_buffers'].values()),report
+ torch.save(saved,out/'outputs.pt');(out/'report.json').write_text(json.dumps(report,indent=2))
+ raise SystemExit(0)
+b.load_model=load
+np.random.seed(123);torch.manual_seed(123);b.cli_main()

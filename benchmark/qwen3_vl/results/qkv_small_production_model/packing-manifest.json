@@ -1,0 +1,48 @@
+{
+  "original_sha256": "6ad1aa61059fb952d353b9631d60ad4343dad6a6617fdd59e49b62cb78c88cec",
+  "parts": [
+    {
+      "path": "original.tar.gz.part000",
+      "bytes": 1048576,
+      "sha256": "37c81021bc17f08d22b8a1bf01751c910244caead08f50857bd373c5edfae3db"
+    },
+    {
+      "path": "original.tar.gz.part001",
+      "bytes": 1048576,
+      "sha256": "2b8de8bc8e93e0733c3f097eea5738d691a3a68f6abf82183d038c372f0c078f"
+    },
+    {
+      "path": "original.tar.gz.part002",
+      "bytes": 1048576,
+      "sha256": "22928af9cdfa6e92046d7e4b4e52a7428f6744fc9317b5029b705550ed6850fe"
+    },
+    {
+      "path": "original.tar.gz.part003",
+      "bytes": 970085,
+      "sha256": "b719adeac6f8721d16b0464099d2b5be8fe8bf0fb3faf54f284d7d3ca1e2cdd4"
+    }
+  ],
+  "compressed": [
+    {
+      "original": "b2/model/candidate/full-source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f",
+      "gzip": "b2/model/candidate/full-source-manifest.json.gz"
+    },
+    {
+      "original": "b2/model/control/full-source-manifest.json",
+      "sha256": "c87c966057f59a6ec059fdf71b0dc94f41f06c9832bacfe7ad6cca5d54c78ea4",
+      "gzip": "b2/model/control/full-source-manifest.json.gz"
+    },
+    {
+      "original": "b1/model/candidate/full-source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f",
+      "gzip": "b1/model/candidate/full-source-manifest.json.gz"
+    },
+    {
+      "original": "b1/model/control/full-source-manifest.json",
+      "sha256": "c87c966057f59a6ec059fdf71b0dc94f41f06c9832bacfe7ad6cca5d54c78ea4",
+      "gzip": "b1/model/control/full-source-manifest.json.gz"
+    }
+  ],
+  "reconstruct": "cat original.tar.gz.part* > original.tar.gz"
+}

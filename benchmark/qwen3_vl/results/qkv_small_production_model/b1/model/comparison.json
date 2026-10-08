@@ -1,0 +1,66 @@
+{
+  "123_prefill": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      1,
+      151936
+    ]
+  },
+  "123_decode0": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      1,
+      151936
+    ]
+  },
+  "123_decode14": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      1,
+      151936
+    ]
+  },
+  "123_greedy": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      16,
+      1
+    ]
+  },
+  "124_prefill": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      1,
+      151936
+    ]
+  },
+  "124_decode0": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      1,
+      151936
+    ]
+  },
+  "124_decode14": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      1,
+      151936
+    ]
+  },
+  "124_greedy": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "shape": [
+      16,
+      1
+    ]
+  }
+}
