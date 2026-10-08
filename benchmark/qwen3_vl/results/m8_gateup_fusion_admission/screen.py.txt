@@ -1,0 +1,50 @@
+import pathlib,json,glob,statistics
+import torch
+from safetensors import safe_open
+from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import run_splitk_dense,SplitKTactic
+from sglang.kernels.ops.activation import silu_and_mul
+from sglang.kernels.ops.gemm.cutedsl_bf16_gemm import use_cutedsl_bf16_gemm
+root=pathlib.Path(__file__).parent;torch.set_grad_enabled(False);torch.manual_seed(198)
+assert not use_cutedsl_bf16_gemm(8,19456,2560)
+model='/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17';raw={}
+for p in glob.glob(model+'/*.safetensors'):
+ with safe_open(p,framework='pt',device='cpu') as f:
+  for k in f.keys():
+   if '.mlp.' in k and k.endswith(('gate_proj.weight','up_proj.weight')):raw[k]=f.get_tensor(k)
+states=[]
+for i in range(36):
+ p=f'model.language_model.layers.{i}.mlp.';w=torch.cat([raw[p+'gate_proj.weight'],raw[p+'up_proj.weight']]).cuda();x=torch.randn(8,2560,device='cuda',dtype=torch.bfloat16);a=torch.empty(8,19456,device='cuda',dtype=torch.bfloat16);z=torch.empty_like(a);y=torch.empty(8,9728,device='cuda',dtype=torch.bfloat16);states.append((x,w,a,z,y))
+raw.clear();tactic=SplitKTactic(128,8,2,6)
+def run(mode):
+ for x,w,a,z,y in states:
+  if mode=='production':
+   torch.mm(x,w.T,out=a);silu_and_mul(a,out=y)
+  else:run_splitk_dense(x,w.T,None,z,True,tactic)
+run('production');run('producer');torch.cuda.synchronize()
+def check(tag):
+ rows=[]
+ for i,(x,w,a,z,y) in enumerate(states):
+  d=a.float()-z.float();rows.append(dict(layer=i,bitwise=torch.equal(a,z),max_abs=d.abs().max().item(),nrms=(d.square().mean()/a.float().square().mean()).sqrt().item()))
+ assert max(r['nrms'] for r in rows)<.005
+ return dict(tag=tag,layers=rows)
+checks=[check('initial')];graphs={}
+for mode in ['production','producer']:
+ for _ in range(3):run(mode)
+ torch.cuda.synchronize();g=torch.cuda.CUDAGraph(keep_graph=True)
+ with torch.cuda.graph(g):run(mode)
+ graphs[mode]=g;g.debug_dump(str(root/(mode+'.dot')))
+for x,*_ in states:x.normal_()
+for g in graphs.values():g.replay()
+torch.cuda.synchronize();checks.append(check('changed_input_graph'))
+for _ in range(10):
+ for g in graphs.values():g.replay()
+pairs=[]
+for i in range(8):
+ row={}
+ for mode in (['production','producer'] if i%2==0 else ['producer','production']):
+  a,b=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);a.record()
+  for _ in range(100):graphs[mode].replay()
+  b.record();b.synchronize();row[mode]=a.elapsed_time(b)*1000/3600
+ pairs.append(row);print(row,flush=True)
+result=dict(checks=checks,pairs=pairs,median_us={k:statistics.median(p[k] for p in pairs) for k in graphs},tactic=[128,8,2,6],weight_bytes=sum(w.numel()*w.element_size() for x,w,*_ in states),scope='bare producer versus full production GEMM+SiLU; necessary but not sufficient fusion admission')
+(root/'report.json').write_text(json.dumps(result,indent=2));print(result['median_us'],flush=True)

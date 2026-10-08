@@ -1,0 +1,11 @@
+# Rejected M8 gate/up fusion producer admission
+
+The single fixed split-K producer fails admission: bare GEMM21.2259 µs/layer exceeds the complete production-equivalent GEMM plus SiLU chain18.9158 µs by12.21%. All eight alternating pairs are worse. No fused epilogue implementation, model run, serving run, alternate tactic search or production edit followed.
+
+The shape is M8/N19456/K2560, tactic(128,8,2,6), BF16 input/weights/output. Thirty-six actual layer weights rotate across graph replays (3,586,129,920 bytes). The selector assertion confirms current TGV ineligibility. Production's F.linear dense operation is represented by Torch mm with caller-owned BF16 output, followed by the existing silu_and_mul. The candidate is the bare installed split-K GEMM, deliberately excluding any activation cost. Initial and changed-input retained graph outputs pass NRMS<0.005 versus Torch; exact per-layer errors/bitwise indicators are retained. Graphs and tensor lifetimes remain owned for every measurement.
+
+A frozen native persistent alternative was considered but not repeated: its paired epilogue requires startup-interleaved weights, fixed M128 harness requires row multiples128, and M128 already measured30.144 µs versus25.697 µs full Lt+activation. M8 would retain the same128-row MMA tile without a separate tail specialization. Thus the bounded screen chose the existing small-M split-K producer, not a broad native/tactic sweep.
+
+Historical B8 trace /root/qvl/experiments/lmhead-m8-diagnostic/m8/baseline-graph-trace.json contains36 act_and_mul kernels totaling135.234 µs; union-overlap subtraction leaves52.480 µs exclusive. This establishes only a diagnostic upper bound before producer/epilogue overhead, not a predicted model gain. Existing M16 Lt tests were unfused and flat; no M8/M16 paired epilogue result was found, but this particular producer now fails the prerequisite.
+
+Worker702852/GPU0 is terminal. Remote root /root/qvl/experiments/m8-gateup-admission. Run archived script as screen.py with CUDA_VISIBLE_DEVICES=0, PYTHONDONTWRITEBYTECODE=1, MAX_JOBS=4, PYTHONPATH=/root/qvl/sglang-qkv-m4-production/python and /root/qvl/venv-sgl/bin/python. The pinned model snapshot is in the script. A different producer may warrant its own grounded analysis; this result does not reject all possible tiny-batch fusion algorithms.
