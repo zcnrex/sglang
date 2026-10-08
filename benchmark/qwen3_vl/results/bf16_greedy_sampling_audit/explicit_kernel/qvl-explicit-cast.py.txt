@@ -1,0 +1,18 @@
+import torch
+import triton
+import triton.language as tl
+
+@triton.jit
+def _cast_kernel(x, y, n: tl.constexpr, BLOCK: tl.constexpr):
+    offsets = tl.program_id(0) * BLOCK + tl.arange(0, BLOCK)
+    values = tl.load(x + offsets, offsets < n, other=0).to(tl.float32)
+    tl.store(y + offsets, values, offsets < n)
+
+def cast_bf16_to_fp32(x, out):
+    assert x.is_cuda and out.device == x.device
+    assert x.dtype == torch.bfloat16 and out.dtype == torch.float32
+    assert x.is_contiguous() and out.is_contiguous() and x.shape == out.shape
+    n = x.numel()
+    block, warps = (512, 8) if n <= 64 * 151936 else (1024, 4)
+    _cast_kernel[(triton.cdiv(n, block),)](x, out, n, block, num_warps=warps, num_stages=1)
+    return out

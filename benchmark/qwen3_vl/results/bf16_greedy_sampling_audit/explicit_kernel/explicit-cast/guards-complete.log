@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/tmp/qvl-cast-guards.py", line 65, in <module>
+    buffer=torch.empty_like(x,dtype=torch.float32);r=cf(x,buffer)
+                                                     ^^^^^^^^^^^^
+  File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/_dynamo/eval_frame.py", line 1272, in compile_wrapper
+    raise e.with_traceback(
+torch._dynamo.exc.Unsupported: Unsupported function call
+  Explanation: Dynamo does not know how to trace the function `<class 'types.SimpleNamespace'>`
+  Hint: Avoid calling `<class 'types.SimpleNamespace'>` in your code.
+  Hint: Please report an issue to PyTorch.
+
+  Developer debug context: call_function UserDefinedClassVariable(<class 'types.SimpleNamespace'>) [] {'next_token_logits_buffer': LazyVariableTracker(realized: TensorVariable())}
+
+ For more details about this graph break, please visit: https://meta-pytorch.github.io/compile-graph-break-site/gb/gb0147.html
+
+from user code:
+   File "/tmp/qvl-cast-guards.py", line 63, in outer
+    return f(self,a,types.SimpleNamespace(next_token_logits_buffer=buffer))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Set TORCHDYNAMO_VERBOSE=1 for the internal stack trace (please do this especially if you're reporting a bug to PyTorch). For even more developer context, set TORCH_LOGS="+dynamo"

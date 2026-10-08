@@ -1,0 +1,68 @@
+import ast,json,pathlib,types,torch
+import sglang.kernels.ops.elementwise.cast as kernel
+p=pathlib.Path('/root/qvl/sglang-cast-unit/python/sglang/srt/layers/logits_processor.py')
+a=ast.parse(p.read_text());cl=next(x for x in a.body if isinstance(x,ast.ClassDef) and x.name=='LogitsProcessor');fn=next(x for x in cl.body if isinstance(x,ast.FunctionDef) and x.name=='_copy_logits_to_buffer');fn.returns=None
+for x in fn.args.args:x.annotation=None
+fn.args.kwonlyargs=[]
+g={'torch':torch,'Optional':object};exec(compile(ast.Module(body=[fn],type_ignores=[]),str(p),'exec'),g)
+f=g['_copy_logits_to_buffer'];self=types.SimpleNamespace(vocab_size=151936);calls=[];original=kernel.cast_bf16_to_fp32
+
+def observe(x,out):
+ calls.append(tuple(x.shape));r=original(x,out);assert r is out;return r
+kernel.cast_bf16_to_fp32=observe
+results=[]
+def check(name,x,out,expected,use_buffer=True,softcap=None):
+ n=len(calls);meta=types.SimpleNamespace(next_token_logits_buffer=out)
+ r=f(self,x,meta,use_buffer,softcap)
+ ref=x[:,:self.vocab_size].float()
+ assert torch.equal(r.view(torch.int32),ref.view(torch.int32)),name
+ assert len(calls)-n==expected,(name,calls)
+ if out is not None and use_buffer and tuple(out.shape)==tuple(ref.shape):assert r is out,name
+ results.append({'name':name,'kernel_calls':len(calls)-n,'bits_equal':True})
+with torch.no_grad():
+ x=torch.randn(64,151936,device='cuda',dtype=torch.bfloat16)
+ check('eligible64',x,torch.empty_like(x,dtype=torch.float32),1)
+ x128=torch.randn(128,151936,device='cuda',dtype=torch.bfloat16)
+ check('eligible128',x128,torch.empty_like(x128,dtype=torch.float32),1)
+ check('cpu',x.cpu(),torch.empty(x.shape,dtype=torch.float32),0)
+ check('no_buffer',x,None,0)
+ check('use_buffer_false',x,torch.empty_like(x,dtype=torch.float32),0,False)
+ check('mismatched_buffer',x,torch.empty(32,151936,device='cuda'),0)
+ check('fp32_input',x.float(),torch.empty_like(x,dtype=torch.float32),0)
+ check('noncontiguous_input',torch.randn(64,303872,device='cuda',dtype=torch.bfloat16)[:,::2],torch.empty_like(x,dtype=torch.float32),0)
+ check('noncontiguous_output',x,torch.empty(64,303872,device='cuda')[:,::2],0)
+ check('truncated_vocab',torch.randn(64,151940,device='cuda',dtype=torch.bfloat16),torch.empty_like(x,dtype=torch.float32),0)
+ cap=torch.cuda.get_device_capability;torch.cuda.get_device_capability=lambda *a:(9,0)
+ try:check('other_arch',x,torch.empty_like(x,dtype=torch.float32),0)
+ finally:torch.cuda.get_device_capability=cap
+ compiling=torch.compiler.is_compiling;torch.compiler.is_compiling=lambda:True
+ try:check('outer_compile_guard',x,torch.empty_like(x,dtype=torch.float32),0)
+ finally:torch.compiler.is_compiling=compiling
+ special=torch.arange(65536,device='cuda',dtype=torch.int32).to(torch.int16).view(torch.bfloat16);xx=torch.empty(64,151936,device='cuda',dtype=torch.bfloat16);xx.zero_();xx[0,:65536]=special
+ check('all_bf16_bits',xx,torch.empty_like(xx,dtype=torch.float32),1)
+ yy=torch.empty_like(x,dtype=torch.float32);stream=torch.cuda.Stream()
+ with torch.cuda.stream(stream):original(x,yy)
+ stream.synchronize();assert torch.equal(yy,x.float())
+ graph=torch.cuda.CUDAGraph()
+ with torch.cuda.graph(graph):original(x,yy)
+ x.add_(.25);graph.replay();torch.cuda.synchronize();assert torch.equal(yy,x.float())
+ results.append({'name':'nondefault_stream_and_changed_input_graph','bits_equal':True})
+check('grad_enabled',x,torch.empty_like(x,dtype=torch.float32),0)
+x.requires_grad_(True)
+check('requires_grad',x,torch.empty_like(x,dtype=torch.float32),0)
+with torch.no_grad():
+ x=x.detach();meta=types.SimpleNamespace(next_token_logits_buffer=torch.empty_like(x,dtype=torch.float32));n=len(calls)
+ softcap_calls=[]
+ def softcap_reference(a,cap,buffer):
+  softcap_calls.append(cap);buffer.copy_(torch.tanh(a.float()/cap)*cap);return buffer
+ g['softcap_to_float32_logits']=softcap_reference
+ r=f(self,x,meta,True,10.)
+ assert r is meta.next_token_logits_buffer and len(calls)==n and softcap_calls==[10.]
+ results.append({'name':'softcap_fallback','kernel_calls':0,'helper_called':True,'same_buffer':True})
+ def outer(a,buffer):
+  return f(self,a,meta)
+ cf=torch.compile(outer,fullgraph=True,dynamic=False)
+ buffer=torch.empty_like(x,dtype=torch.float32);meta.next_token_logits_buffer=buffer;r=cf(x,buffer)
+ assert r is buffer and len(calls)==n and torch.equal(r,x.float())
+ results.append({'name':'actual_outer_torch_compile','kernel_calls':0,'bits_equal':True,'same_buffer':True})
+print(json.dumps({'scope':'AST-isolated actual method with actual production kernel; not full model integration','results':results},indent=2))

@@ -1,0 +1,84 @@
+{
+  "scope": "AST-isolated actual method with actual production kernel; not full model integration",
+  "results": [
+    {
+      "name": "eligible64",
+      "kernel_calls": 1,
+      "bits_equal": true
+    },
+    {
+      "name": "eligible128",
+      "kernel_calls": 1,
+      "bits_equal": true
+    },
+    {
+      "name": "cpu",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "no_buffer",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "use_buffer_false",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "mismatched_buffer",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "fp32_input",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "noncontiguous_input",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "noncontiguous_output",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "truncated_vocab",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "other_arch",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "outer_compile_guard",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "all_bf16_bits",
+      "kernel_calls": 1,
+      "bits_equal": true
+    },
+    {
+      "name": "nondefault_stream_and_changed_input_graph",
+      "bits_equal": true
+    },
+    {
+      "name": "grad_enabled",
+      "kernel_calls": 0,
+      "bits_equal": true
+    },
+    {
+      "name": "requires_grad",
+      "kernel_calls": 0,
+      "bits_equal": true
+    }
+  ]
+}
