@@ -136,13 +136,32 @@ rejected. The external cast-only short C128/N128 crossover improved throughput b
 0.193% on both GPUs. An explicit Triton production implementation passed exhaustive BF16
 conversion, fallback and namespace checks. Its short model gates preserved
 logits and tokens bitwise and saved about 13/31 microseconds at B64/B128;
-production serving validation is running. It has not been promoted. The
+the short production serving gate gained 0.224% and 0.186%. The full N640
+crossover was inconclusive (−1.076% and +1.134%, geometric mean +0.023%),
+with a shared slowdown in phase B. It has not been promoted. The
 batch-64 vocabulary external C64/N128 screen gained 0.335% and 0.352%,
 but full N320 production pairs gained only 0.085% and 0.016%, with mixed
 TTFT results. Both M32/M64 vocabulary extensions were removed from the
 working implementation in `6b0f33ca59`. These results do not establish the
 full-sweep target.
 See `results/bf16_greedy_sampling_audit/`.
+
+Current-source mixed-chunk on/off crossovers at C8/C16 use the frozen M16
+production source, HND page 32, equal 1.6M-token pools and graph caps 8/16.
+Mean TTFT improved 4.75–11.34% at C8 and 7.09–8.02% at C16, while mean
+TPOT increased 0.32–0.98%. C8 median TTFT increased 0.36–6.37%; C16
+median TTFT improved 2.27–5.03%. Throughput gains were inconsistent. These
+results do not reproduce the older NHD sweep's roughly 32% median TTFT
+reduction at those points. Full distributions, exact counts and the absence
+of measured M128 projection execution are recorded in
+`results/current_mixed_c8_c16/`.
+
+A short C128 boundary screen rejected chunk size 16640 versus 16384:
+throughput changed by −0.699% and −0.167%. Only the first pair naturally
+matched active M128 tactics. Variable retokenized prompt lengths meant the
+larger budget often began a small third chunk; it did not reliably remove
+continuations. The screen used warmup 64, unlike standard C128 warmup 128.
+See `results/chunk_boundary_screen/`.
 
 ## Configuration and reproducibility
 

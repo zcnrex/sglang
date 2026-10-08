@@ -1,0 +1,194 @@
+{
+  "runs": {
+    "A/gpu2": {
+      "summary": {
+        "duration": 34.27630517198122,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3823.982758420045,
+        "median_ttft_ms": 4539.610086998437,
+        "median_tpot_ms": 28.744904738025287
+      },
+      "extend_count": 65,
+      "tiny_new_chunks": [
+        64
+      ],
+      "continuation_count": 62,
+      "continuation_prefix_tokens": 402016,
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "actual_M128": [
+        {
+          "kind": "actual_M128_forward",
+          "epoch": 1,
+          "mode": "DECODE",
+          "batch_size": 128
+        }
+      ]
+    },
+    "A/gpu3": {
+      "summary": {
+        "duration": 34.3403899060213,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3816.8465867365594,
+        "median_ttft_ms": 4542.621971500921,
+        "median_tpot_ms": 28.80578810117073
+      },
+      "extend_count": 64,
+      "tiny_new_chunks": [
+        256,
+        416,
+        480
+      ],
+      "continuation_count": 59,
+      "continuation_prefix_tokens": 192608,
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "actual_M128": [
+        {
+          "kind": "actual_M128_forward",
+          "epoch": 1,
+          "mode": "DECODE",
+          "batch_size": 128
+        }
+      ]
+    },
+    "B/gpu2": {
+      "summary": {
+        "duration": 34.517403153993655,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3797.2729123116264,
+        "median_ttft_ms": 4542.684127998655,
+        "median_tpot_ms": 28.92467216471914
+      },
+      "extend_count": 65,
+      "tiny_new_chunks": [
+        256,
+        416,
+        480
+      ],
+      "continuation_count": 60,
+      "continuation_prefix_tokens": 197152,
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "actual_M128": [
+        {
+          "kind": "actual_M128_forward",
+          "epoch": 1,
+          "mode": "DECODE",
+          "batch_size": 128
+        }
+      ]
+    },
+    "B/gpu3": {
+      "summary": {
+        "duration": 34.283074400998885,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3823.2277090114485,
+        "median_ttft_ms": 4490.412286002538,
+        "median_tpot_ms": 28.805451165684563
+      },
+      "extend_count": 65,
+      "tiny_new_chunks": [
+        64
+      ],
+      "continuation_count": 62,
+      "continuation_prefix_tokens": 402016,
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "actual_M128": [
+        {
+          "kind": "actual_M128_forward",
+          "epoch": 1,
+          "mode": "DECODE",
+          "batch_size": 128
+        }
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "gpu": 2,
+      "throughput_change_percent": -0.6984823885412661,
+      "ttft_change_percent": 0.06771596990284845,
+      "tpot_change_percent": 0.6253888413693343
+    },
+    {
+      "gpu": 3,
+      "throughput_change_percent": -0.16690406014395753,
+      "ttft_change_percent": 1.1626924694895013,
+      "tpot_change_percent": 0.001169693486935408
+    }
+  ]
+}
