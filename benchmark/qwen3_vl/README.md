@@ -6,6 +6,40 @@ The target is at least 10% more output throughput than the recorded handoff base
 
 The handoff reference used one B300, vLLM `0.30.1rc1.dev648+g92044241a`, BF16 model dtype and KV `auto` resolving to BF16. Its server log was checked at `/root/qvl/out-baseline-20261007/vllm/server.log`. Candidate environment: Torch `2.14.1+cu130`, FlashInfer `0.7.0.post1`, Transformers `5.17.0`, CUDA 13.0. Baseline numbers were supplied in the handoff; they were not remeasured here.
 
+## Latest committed increments
+
+The tables below retain the earlier full-sweep results and are not a fresh
+sweep of the latest head. Subsequent controlled increments are:
+
+| Change | Production commit | Measured serving gain | Accuracy limitation |
+| --- | --- | --- | --- |
+| Public M128 BF16 GEMM autotuning | `5f60fb8b67` | +0.336% at c128, eight N640 pairs | Equal aggregate GSM8K scores across two GPU-swapped pairs; individual scores and outputs differ |
+| Direct M1 BF16 gate/up GEMM | `bedf8a4c15` | +1.692% at c1, four pairs | Repeated 1217/1314 versus 1219/1314 control; reproducible two-question loss |
+| Bounded packed-prefix FA4 prefill | `91042a055f` | +0.446% at c128, four N640 pairs | Matched-tactic diagnostic 1216/1314 versus 1217/1314; only one context batch used packing |
+
+The packed-prefill change retains BF16 weights, K/V and queries, and uses an
+explicit CLC scheduler override only for its eligible attention calls.
+Existing packing and decode fallbacks remain available. Its six short
+lower-concurrency pairs improved throughput by 0.10–0.54%, but median TTFT
+regressed by 7.54%, 12.54% and 21.97% at c4, c32 and c64. One c128 pair also
+regressed TTFT by 21.94%. This is not a consistent latency improvement.
+Lower-concurrency checks used warmup equal to concurrency, unlike the
+original full-sweep protocol.
+
+An initial full packed-prefill accuracy pair scored 1207 versus 1218, but
+selected different M128 down-projection tactics. The matched-tactic result
+above came from a separate external startup-policy diagnostic that verified
+both optimized paths during graph capture and held both tactics fixed.
+It does not establish numerical equivalence or broad cached-prefix accuracy.
+The external diagnostic is not included in production code.
+
+Evidence: `results/bf16_decode_lt/production_validation/`,
+`results/bf16_weight_packing/m1_production_validation/`, and
+`results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
+diagnostic and lower-concurrency regression subdirectories). The code PR is
+#42913 at `ab94cc8a76`; #42914 retains the optional deployment recipe.
+None of these increments meets the remaining high-concurrency target.
+
 ## Configuration and reproducibility
 
 ```bash
@@ -315,8 +349,8 @@ The supported public BF16 autotuner independently selected the same winning
 algorithms on two GPUs and retained the cold-weight gains with bitwise-equal
 outputs. Its default measurement policy already uses cold L2 and CUDA graphs.
 TGV/public-tuner evidence is in `results/bf16_decode_highm/`; Lt/model/serving
-evidence is in `results/bf16_decode_lt/`. Production integration remains
-conditional on stronger serving confirmation.
+evidence is in `results/bf16_decode_lt/`. The initial screen required stronger serving confirmation; the later
+production result and committed integration are summarized at the top.
 
 The subsequent public-autotuning c128/N640 crossover completed all 16 runs
 with exact counts. All eight GPU pairs improved: geometric mean +0.3156%,
