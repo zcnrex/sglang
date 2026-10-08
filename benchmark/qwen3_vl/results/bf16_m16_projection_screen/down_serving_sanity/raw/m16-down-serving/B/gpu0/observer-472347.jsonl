@@ -1,0 +1,6 @@
+{"kind": "ready", "epoch": 0, "time_ns": 1791429702207057113}
+{"kind": "down_dispatch", "epoch": 0, "time_ns": 1791429708029110581, "capturing": false}
+{"kind": "down_dispatch", "epoch": 0, "time_ns": 1791429708073282894, "capturing": true}
+{"kind": "decode16_forward", "epoch": 0, "time_ns": 1791429726533291051}
+{"kind": "flush", "epoch": 1, "time_ns": 1791429733403991128, "result": "True"}
+{"kind": "decode16_forward", "epoch": 1, "time_ns": 1791429735480721546}

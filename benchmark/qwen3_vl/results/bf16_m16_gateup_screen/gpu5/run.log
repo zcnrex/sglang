@@ -1,0 +1,13 @@
+2026-10-08 03:25:58,894 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  1.70profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  1.70profile/s]
+2026-10-08 03:25:59,691 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+2026-10-08 03:25:59,783 - INFO - autotuner.py:3554 - flashinfer.jit: [Autotuner]: Saved 1 configs to /root/qvl/experiments/m16-gateup-screen/gpu5/cache.json (1 new, 0 from previous config)
+{"lt": 17.911734183629353, "torch": 17.95026659965515}
+{"torch": 17.94160008430481, "lt": 17.932534217834473}
+{"lt": 17.910534143447876, "torch": 17.94133385022481}
+{"torch": 17.937733729680378, "lt": 17.889199654261272}
+{"lt": 17.941067616144817, "torch": 17.976399262746174}
+{"torch": 17.992399136225384, "lt": 17.902932564417522}
+{"lt": 17.873066663742065, "torch": 17.907599608103435}
+{"torch": 17.948933442433674, "lt": 17.950000365575153}
+{"torch": 17.94526676336924, "lt": 17.911134163538613}

@@ -1,0 +1,731 @@
+{
+  "pairs": [
+    {
+      "gpu": 0,
+      "control": {
+        "duration": 31.980374676000793,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 2561.570989394182,
+        "median_ttft_ms": 601.3406894926447,
+        "median_tpot_ms": 5.669985018579066
+      },
+      "candidate": {
+        "duration": 31.823269630025607,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 2574.2169472965647,
+        "median_ttft_ms": 591.0303519922309,
+        "median_tpot_ms": 5.627395514169397
+      },
+      "gain_pct": 0.4936797752137734
+    },
+    {
+      "gpu": 1,
+      "candidate": {
+        "duration": 31.97037023899611,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 2562.372577721275,
+        "median_ttft_ms": 629.7747990029166,
+        "median_tpot_ms": 5.653854811344798
+      },
+      "control": {
+        "duration": 32.07000025801244,
+        "completed": 80,
+        "total_input_tokens": 655360,
+        "total_output_tokens": 81920,
+        "output_throughput": 2554.412202710629,
+        "median_ttft_ms": 622.6925420050975,
+        "median_tpot_ms": 5.681599052777111
+      },
+      "gain_pct": 0.3116323591861425
+    }
+  ],
+  "startup_tactics": [
+    {
+      "gpu": 0,
+      "phase": "A",
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "gpu": 0,
+      "phase": "B",
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "gpu": 1,
+      "phase": "A",
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    {
+      "gpu": 1,
+      "phase": "B",
+      "records": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    }
+  ],
+  "runtime_m128": [
+    {
+      "gpu": 0,
+      "phase": "A",
+      "events": [],
+      "flush_epochs": [
+        1
+      ]
+    },
+    {
+      "gpu": 0,
+      "phase": "B",
+      "events": [],
+      "flush_epochs": [
+        1
+      ]
+    },
+    {
+      "gpu": 1,
+      "phase": "A",
+      "events": [],
+      "flush_epochs": [
+        1
+      ]
+    },
+    {
+      "gpu": 1,
+      "phase": "B",
+      "events": [],
+      "flush_epochs": [
+        1
+      ]
+    }
+  ],
+  "geomean_gain_pct": 0.402614806752033,
+  "sanity": {
+    "control": {
+      "status": "complete",
+      "model": "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+      "source_revision": null,
+      "scorer": "sglang.test.simple_eval_mixed_prefix_gsm8k.GSM8KEval",
+      "dataset_url": "https://raw.githubusercontent.com/openai/grade-school-math/master/grade_school_math/data/test.jsonl",
+      "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "selection": {
+        "seed": null,
+        "method": "dataset order; first num_shots rows excluded from evaluation",
+        "num_shots": 5,
+        "first_evaluation_row": 5,
+        "last_evaluation_row": 68,
+        "row_indexing": "zero-based"
+      },
+      "sampling": {
+        "api": "chat",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "concurrency": 16
+      },
+      "total": 64,
+      "correct": 61,
+      "score": 0.953125,
+      "latency_seconds": 4.410022418975132,
+      "completion_tokens": 9687,
+      "outcomes": [
+        {
+          "dataset_row": 5,
+          "correct": true
+        },
+        {
+          "dataset_row": 6,
+          "correct": true
+        },
+        {
+          "dataset_row": 7,
+          "correct": true
+        },
+        {
+          "dataset_row": 8,
+          "correct": true
+        },
+        {
+          "dataset_row": 9,
+          "correct": true
+        },
+        {
+          "dataset_row": 10,
+          "correct": true
+        },
+        {
+          "dataset_row": 11,
+          "correct": true
+        },
+        {
+          "dataset_row": 12,
+          "correct": false
+        },
+        {
+          "dataset_row": 13,
+          "correct": true
+        },
+        {
+          "dataset_row": 14,
+          "correct": true
+        },
+        {
+          "dataset_row": 15,
+          "correct": true
+        },
+        {
+          "dataset_row": 16,
+          "correct": true
+        },
+        {
+          "dataset_row": 17,
+          "correct": true
+        },
+        {
+          "dataset_row": 18,
+          "correct": true
+        },
+        {
+          "dataset_row": 19,
+          "correct": true
+        },
+        {
+          "dataset_row": 20,
+          "correct": true
+        },
+        {
+          "dataset_row": 21,
+          "correct": true
+        },
+        {
+          "dataset_row": 22,
+          "correct": true
+        },
+        {
+          "dataset_row": 23,
+          "correct": true
+        },
+        {
+          "dataset_row": 24,
+          "correct": true
+        },
+        {
+          "dataset_row": 25,
+          "correct": true
+        },
+        {
+          "dataset_row": 26,
+          "correct": true
+        },
+        {
+          "dataset_row": 27,
+          "correct": true
+        },
+        {
+          "dataset_row": 28,
+          "correct": true
+        },
+        {
+          "dataset_row": 29,
+          "correct": true
+        },
+        {
+          "dataset_row": 30,
+          "correct": true
+        },
+        {
+          "dataset_row": 31,
+          "correct": true
+        },
+        {
+          "dataset_row": 32,
+          "correct": true
+        },
+        {
+          "dataset_row": 33,
+          "correct": true
+        },
+        {
+          "dataset_row": 34,
+          "correct": true
+        },
+        {
+          "dataset_row": 35,
+          "correct": true
+        },
+        {
+          "dataset_row": 36,
+          "correct": true
+        },
+        {
+          "dataset_row": 37,
+          "correct": true
+        },
+        {
+          "dataset_row": 38,
+          "correct": true
+        },
+        {
+          "dataset_row": 39,
+          "correct": true
+        },
+        {
+          "dataset_row": 40,
+          "correct": true
+        },
+        {
+          "dataset_row": 41,
+          "correct": true
+        },
+        {
+          "dataset_row": 42,
+          "correct": true
+        },
+        {
+          "dataset_row": 43,
+          "correct": true
+        },
+        {
+          "dataset_row": 44,
+          "correct": true
+        },
+        {
+          "dataset_row": 45,
+          "correct": true
+        },
+        {
+          "dataset_row": 46,
+          "correct": true
+        },
+        {
+          "dataset_row": 47,
+          "correct": true
+        },
+        {
+          "dataset_row": 48,
+          "correct": true
+        },
+        {
+          "dataset_row": 49,
+          "correct": true
+        },
+        {
+          "dataset_row": 50,
+          "correct": true
+        },
+        {
+          "dataset_row": 51,
+          "correct": true
+        },
+        {
+          "dataset_row": 52,
+          "correct": true
+        },
+        {
+          "dataset_row": 53,
+          "correct": true
+        },
+        {
+          "dataset_row": 54,
+          "correct": true
+        },
+        {
+          "dataset_row": 55,
+          "correct": true
+        },
+        {
+          "dataset_row": 56,
+          "correct": true
+        },
+        {
+          "dataset_row": 57,
+          "correct": true
+        },
+        {
+          "dataset_row": 58,
+          "correct": true
+        },
+        {
+          "dataset_row": 59,
+          "correct": true
+        },
+        {
+          "dataset_row": 60,
+          "correct": true
+        },
+        {
+          "dataset_row": 61,
+          "correct": true
+        },
+        {
+          "dataset_row": 62,
+          "correct": false
+        },
+        {
+          "dataset_row": 63,
+          "correct": true
+        },
+        {
+          "dataset_row": 64,
+          "correct": true
+        },
+        {
+          "dataset_row": 65,
+          "correct": true
+        },
+        {
+          "dataset_row": 66,
+          "correct": true
+        },
+        {
+          "dataset_row": 67,
+          "correct": false
+        },
+        {
+          "dataset_row": 68,
+          "correct": true
+        }
+      ]
+    },
+    "candidate": {
+      "status": "complete",
+      "model": "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+      "source_revision": null,
+      "scorer": "sglang.test.simple_eval_mixed_prefix_gsm8k.GSM8KEval",
+      "dataset_url": "https://raw.githubusercontent.com/openai/grade-school-math/master/grade_school_math/data/test.jsonl",
+      "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+      "selection": {
+        "seed": null,
+        "method": "dataset order; first num_shots rows excluded from evaluation",
+        "num_shots": 5,
+        "first_evaluation_row": 5,
+        "last_evaluation_row": 68,
+        "row_indexing": "zero-based"
+      },
+      "sampling": {
+        "api": "chat",
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_tokens": 2048,
+        "concurrency": 16
+      },
+      "total": 64,
+      "correct": 60,
+      "score": 0.9375,
+      "latency_seconds": 4.03201030800119,
+      "completion_tokens": 9435,
+      "outcomes": [
+        {
+          "dataset_row": 5,
+          "correct": true
+        },
+        {
+          "dataset_row": 6,
+          "correct": true
+        },
+        {
+          "dataset_row": 7,
+          "correct": true
+        },
+        {
+          "dataset_row": 8,
+          "correct": true
+        },
+        {
+          "dataset_row": 9,
+          "correct": true
+        },
+        {
+          "dataset_row": 10,
+          "correct": true
+        },
+        {
+          "dataset_row": 11,
+          "correct": true
+        },
+        {
+          "dataset_row": 12,
+          "correct": false
+        },
+        {
+          "dataset_row": 13,
+          "correct": true
+        },
+        {
+          "dataset_row": 14,
+          "correct": true
+        },
+        {
+          "dataset_row": 15,
+          "correct": true
+        },
+        {
+          "dataset_row": 16,
+          "correct": true
+        },
+        {
+          "dataset_row": 17,
+          "correct": true
+        },
+        {
+          "dataset_row": 18,
+          "correct": true
+        },
+        {
+          "dataset_row": 19,
+          "correct": true
+        },
+        {
+          "dataset_row": 20,
+          "correct": false
+        },
+        {
+          "dataset_row": 21,
+          "correct": true
+        },
+        {
+          "dataset_row": 22,
+          "correct": true
+        },
+        {
+          "dataset_row": 23,
+          "correct": true
+        },
+        {
+          "dataset_row": 24,
+          "correct": true
+        },
+        {
+          "dataset_row": 25,
+          "correct": true
+        },
+        {
+          "dataset_row": 26,
+          "correct": true
+        },
+        {
+          "dataset_row": 27,
+          "correct": true
+        },
+        {
+          "dataset_row": 28,
+          "correct": true
+        },
+        {
+          "dataset_row": 29,
+          "correct": true
+        },
+        {
+          "dataset_row": 30,
+          "correct": true
+        },
+        {
+          "dataset_row": 31,
+          "correct": true
+        },
+        {
+          "dataset_row": 32,
+          "correct": true
+        },
+        {
+          "dataset_row": 33,
+          "correct": true
+        },
+        {
+          "dataset_row": 34,
+          "correct": true
+        },
+        {
+          "dataset_row": 35,
+          "correct": true
+        },
+        {
+          "dataset_row": 36,
+          "correct": true
+        },
+        {
+          "dataset_row": 37,
+          "correct": true
+        },
+        {
+          "dataset_row": 38,
+          "correct": true
+        },
+        {
+          "dataset_row": 39,
+          "correct": true
+        },
+        {
+          "dataset_row": 40,
+          "correct": true
+        },
+        {
+          "dataset_row": 41,
+          "correct": true
+        },
+        {
+          "dataset_row": 42,
+          "correct": true
+        },
+        {
+          "dataset_row": 43,
+          "correct": true
+        },
+        {
+          "dataset_row": 44,
+          "correct": true
+        },
+        {
+          "dataset_row": 45,
+          "correct": true
+        },
+        {
+          "dataset_row": 46,
+          "correct": true
+        },
+        {
+          "dataset_row": 47,
+          "correct": true
+        },
+        {
+          "dataset_row": 48,
+          "correct": true
+        },
+        {
+          "dataset_row": 49,
+          "correct": true
+        },
+        {
+          "dataset_row": 50,
+          "correct": true
+        },
+        {
+          "dataset_row": 51,
+          "correct": true
+        },
+        {
+          "dataset_row": 52,
+          "correct": true
+        },
+        {
+          "dataset_row": 53,
+          "correct": true
+        },
+        {
+          "dataset_row": 54,
+          "correct": true
+        },
+        {
+          "dataset_row": 55,
+          "correct": true
+        },
+        {
+          "dataset_row": 56,
+          "correct": true
+        },
+        {
+          "dataset_row": 57,
+          "correct": true
+        },
+        {
+          "dataset_row": 58,
+          "correct": true
+        },
+        {
+          "dataset_row": 59,
+          "correct": true
+        },
+        {
+          "dataset_row": 60,
+          "correct": true
+        },
+        {
+          "dataset_row": 61,
+          "correct": true
+        },
+        {
+          "dataset_row": 62,
+          "correct": false
+        },
+        {
+          "dataset_row": 63,
+          "correct": true
+        },
+        {
+          "dataset_row": 64,
+          "correct": true
+        },
+        {
+          "dataset_row": 65,
+          "correct": true
+        },
+        {
+          "dataset_row": 66,
+          "correct": true
+        },
+        {
+          "dataset_row": 67,
+          "correct": false
+        },
+        {
+          "dataset_row": 68,
+          "correct": true
+        }
+      ]
+    }
+  }
+}
