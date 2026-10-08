@@ -1,0 +1,12 @@
+{"kind": "model_identity", "model_type": "Qwen3VLForConditionalGeneration", "model_module": "sglang.srt.models.qwen3_vl", "tied_embedding": true, "quant_method": "UnquantizedEmbeddingMethod", "weight_shape": [151936, 2560], "dtype": "torch.bfloat16", "requires_grad": false}
+{"kind": "optimized_dispatch", "input_shape": [128, 2560], "weight_shape": [19456, 2560], "capture": false, "runtime": false}
+{"kind": "optimized_dispatch", "input_shape": [128, 9728], "weight_shape": [2560, 9728], "capture": false, "runtime": false}
+{"kind": "optimized_dispatch", "input_shape": [128, 2560], "weight_shape": [19456, 2560], "capture": true, "runtime": false}
+{"kind": "optimized_dispatch", "input_shape": [128, 9728], "weight_shape": [2560, 9728], "capture": true, "runtime": false}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": false, "runtime": false}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": true, "runtime": false}
+{"kind": "startup", "ready": [[0, 4, 151936, 2560], [0, 128, 2560, 9728], [0, 128, 19456, 2560]], "lmhead_enabled": true, "cache": "/root/qvl/experiments/lmhead-production-accuracy/candidate/public-tuner-pid454842.json"}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": false, "runtime": true}
+{"kind": "graph4_replay"}
+{"kind": "optimized_dispatch", "input_shape": [128, 2560], "weight_shape": [19456, 2560], "capture": false, "runtime": true}
+{"kind": "optimized_dispatch", "input_shape": [128, 9728], "weight_shape": [2560, 9728], "capture": false, "runtime": true}

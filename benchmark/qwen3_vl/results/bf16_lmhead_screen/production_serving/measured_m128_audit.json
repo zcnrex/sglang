@@ -1,0 +1,1003 @@
+[
+  {
+    "phase": "A",
+    "gpu": "gpu4",
+    "prefill_rows": [
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:12] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 5922.73"
+      },
+      {
+        "new_rows": 16326,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16326,
+        "maximum_total": 16327,
+        "raw_line": "[2026-10-08 03:03:12] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 8200, cuda graph: False, input throughput (token/s): 119485.36"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 8200,
+        "maximum_total": 8203,
+        "raw_line": "[2026-10-08 03:03:12] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 412778.14"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:15] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2611.98"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:15] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 8045, cuda graph: False, input throughput (token/s): 113832.04"
+      },
+      {
+        "new_rows": 8045,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8045,
+        "maximum_total": 8047,
+        "raw_line": "[2026-10-08 03:03:15] Prefill batch, #new-seq: 2, #new-token: 8045, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 441542.10"
+      },
+      {
+        "new_rows": 8095,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8095,
+        "maximum_total": 8095,
+        "raw_line": "[2026-10-08 03:03:18] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2567.51"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:19] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 180316.44"
+      },
+      {
+        "new_rows": 8236,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8236,
+        "maximum_total": 8238,
+        "raw_line": "[2026-10-08 03:03:19] Prefill batch, #new-seq: 2, #new-token: 8236, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118806.96"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:22] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2617.40"
+      },
+      {
+        "new_rows": 16339,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16339,
+        "maximum_total": 16340,
+        "raw_line": "[2026-10-08 03:03:22] Prefill batch, #new-seq: 2, #new-token: 16339, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 8240, cuda graph: False, input throughput (token/s): 176921.36"
+      },
+      {
+        "new_rows": 8240,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8240,
+        "maximum_total": 8242,
+        "raw_line": "[2026-10-08 03:03:22] Prefill batch, #new-seq: 2, #new-token: 8240, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118264.64"
+      },
+      {
+        "new_rows": 8193,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8193,
+        "maximum_total": 8193,
+        "raw_line": "[2026-10-08 03:03:25] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2615.19"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:25] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 165180.13"
+      },
+      {
+        "new_rows": 8261,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8261,
+        "maximum_total": 8263,
+        "raw_line": "[2026-10-08 03:03:25] Prefill batch, #new-seq: 2, #new-token: 8261, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118614.37"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:28] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2619.71"
+      },
+      {
+        "new_rows": 8167,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8167,
+        "maximum_total": 8168,
+        "raw_line": "[2026-10-08 03:03:28] Prefill batch, #new-seq: 1, #new-token: 8167, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 169958.21"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:03:29] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 52, cuda graph: False, input throughput (token/s): 136051.88"
+      },
+      {
+        "new_rows": 52,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 52,
+        "maximum_total": 55,
+        "raw_line": "[2026-10-08 03:03:29] Prefill batch, #new-seq: 1, #new-token: 52, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 5641.09"
+      },
+      {
+        "new_rows": 8175,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8175,
+        "maximum_total": 8175,
+        "raw_line": "[2026-10-08 03:03:32] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2609.00"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:03:32] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 170407.30"
+      },
+      {
+        "new_rows": 16341,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16341,
+        "maximum_total": 16343,
+        "raw_line": "[2026-10-08 03:03:32] Prefill batch, #new-seq: 2, #new-token: 16341, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 137178.64"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:03:32] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4359.83"
+      },
+      {
+        "new_rows": 8155,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8155,
+        "maximum_total": 8155,
+        "raw_line": "[2026-10-08 03:03:35] Prefill batch, #new-seq: 1, #new-token: 8155, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2599.72"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:35] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 160706.56"
+      },
+      {
+        "new_rows": 8272,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8272,
+        "maximum_total": 8274,
+        "raw_line": "[2026-10-08 03:03:35] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118691.78"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:38] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2619.40"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:38] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 157945.90"
+      },
+      {
+        "new_rows": 8240,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8240,
+        "maximum_total": 8242,
+        "raw_line": "[2026-10-08 03:03:38] Prefill batch, #new-seq: 2, #new-token: 8240, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118553.60"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:42] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2624.68"
+      },
+      {
+        "new_rows": 8191,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8191,
+        "maximum_total": 8192,
+        "raw_line": "[2026-10-08 03:03:42] Prefill batch, #new-seq: 1, #new-token: 8191, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 173514.94"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:03:42] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 136888.02"
+      },
+      {
+        "new_rows": 72,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 72,
+        "maximum_total": 75,
+        "raw_line": "[2026-10-08 03:03:42] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7646.62"
+      }
+    ],
+    "m128_in_any_interval": false
+  },
+  {
+    "phase": "A",
+    "gpu": "gpu5",
+    "prefill_rows": [
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:11] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 5890.58"
+      },
+      {
+        "new_rows": 16326,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16326,
+        "maximum_total": 16327,
+        "raw_line": "[2026-10-08 03:03:11] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 8200, cuda graph: False, input throughput (token/s): 204413.56"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 8200,
+        "maximum_total": 8203,
+        "raw_line": "[2026-10-08 03:03:11] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 124673.75"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:14] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2609.60"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:15] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 121522.83"
+      },
+      {
+        "new_rows": 8045,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8045,
+        "maximum_total": 8047,
+        "raw_line": "[2026-10-08 03:03:15] Prefill batch, #new-seq: 2, #new-token: 8045, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 495126.74"
+      },
+      {
+        "new_rows": 8095,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8095,
+        "maximum_total": 8095,
+        "raw_line": "[2026-10-08 03:03:18] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2586.91"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:03:18] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 145538.51"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:03:18] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 36, cuda graph: False, input throughput (token/s): 184495.80"
+      },
+      {
+        "new_rows": 36,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 36,
+        "maximum_total": 39,
+        "raw_line": "[2026-10-08 03:03:18] Prefill batch, #new-seq: 1, #new-token: 36, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4093.45"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:21] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2631.11"
+      },
+      {
+        "new_rows": 8179,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8179,
+        "maximum_total": 8180,
+        "raw_line": "[2026-10-08 03:03:21] Prefill batch, #new-seq: 1, #new-token: 8179, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 158832.30"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:03:21] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 170178.04"
+      },
+      {
+        "new_rows": 72,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 72,
+        "maximum_total": 75,
+        "raw_line": "[2026-10-08 03:03:21] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7801.32"
+      },
+      {
+        "new_rows": 8193,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8193,
+        "maximum_total": 8193,
+        "raw_line": "[2026-10-08 03:03:24] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2628.75"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:24] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 171113.28"
+      },
+      {
+        "new_rows": 8261,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8261,
+        "maximum_total": 8263,
+        "raw_line": "[2026-10-08 03:03:24] Prefill batch, #new-seq: 2, #new-token: 8261, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 121265.51"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:28] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2620.93"
+      },
+      {
+        "new_rows": 16327,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16327,
+        "maximum_total": 16328,
+        "raw_line": "[2026-10-08 03:03:28] Prefill batch, #new-seq: 2, #new-token: 16327, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 169234.17"
+      },
+      {
+        "new_rows": 8220,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8220,
+        "maximum_total": 8222,
+        "raw_line": "[2026-10-08 03:03:28] Prefill batch, #new-seq: 2, #new-token: 8220, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 122199.77"
+      },
+      {
+        "new_rows": 8175,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8175,
+        "maximum_total": 8175,
+        "raw_line": "[2026-10-08 03:03:31] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2622.53"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:03:31] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 105533.81"
+      },
+      {
+        "new_rows": 16341,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16341,
+        "maximum_total": 16343,
+        "raw_line": "[2026-10-08 03:03:31] Prefill batch, #new-seq: 2, #new-token: 16341, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 201576.82"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:03:31] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4441.36"
+      },
+      {
+        "new_rows": 8155,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8155,
+        "maximum_total": 8155,
+        "raw_line": "[2026-10-08 03:03:34] Prefill batch, #new-seq: 1, #new-token: 8155, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2608.77"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:03:34] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 174403.07"
+      },
+      {
+        "new_rows": 8272,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8272,
+        "maximum_total": 8274,
+        "raw_line": "[2026-10-08 03:03:34] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 121669.85"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:37] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2625.89"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:03:37] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 166283.89"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:03:38] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 146698.22"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:03:38] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4488.48"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:03:41] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2633.08"
+      },
+      {
+        "new_rows": 16351,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16351,
+        "maximum_total": 16352,
+        "raw_line": "[2026-10-08 03:03:41] Prefill batch, #new-seq: 2, #new-token: 16351, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 170747.74"
+      },
+      {
+        "new_rows": 8240,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8240,
+        "maximum_total": 8242,
+        "raw_line": "[2026-10-08 03:03:41] Prefill batch, #new-seq: 2, #new-token: 8240, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 122035.99"
+      }
+    ],
+    "m128_in_any_interval": false
+  },
+  {
+    "phase": "B",
+    "gpu": "gpu4",
+    "prefill_rows": [
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:04:49] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 5986.21"
+      },
+      {
+        "new_rows": 16326,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16326,
+        "maximum_total": 16327,
+        "raw_line": "[2026-10-08 03:04:49] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 173054.28"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 8200,
+        "maximum_total": 8203,
+        "raw_line": "[2026-10-08 03:04:49] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 120660.16"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:04:52] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2619.75"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:04:52] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 111668.66"
+      },
+      {
+        "new_rows": 8045,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8045,
+        "maximum_total": 8047,
+        "raw_line": "[2026-10-08 03:04:52] Prefill batch, #new-seq: 2, #new-token: 8045, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 389310.41"
+      },
+      {
+        "new_rows": 8095,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8095,
+        "maximum_total": 8095,
+        "raw_line": "[2026-10-08 03:04:55] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2585.50"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:04:55] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 160948.75"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:04:56] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 36, cuda graph: False, input throughput (token/s): 143663.12"
+      },
+      {
+        "new_rows": 36,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 36,
+        "maximum_total": 39,
+        "raw_line": "[2026-10-08 03:04:56] Prefill batch, #new-seq: 1, #new-token: 36, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4048.85"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:04:59] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2630.46"
+      },
+      {
+        "new_rows": 8179,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8179,
+        "maximum_total": 8180,
+        "raw_line": "[2026-10-08 03:04:59] Prefill batch, #new-seq: 1, #new-token: 8179, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 169094.45"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:04:59] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 135794.38"
+      },
+      {
+        "new_rows": 72,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 72,
+        "maximum_total": 75,
+        "raw_line": "[2026-10-08 03:04:59] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7641.37"
+      },
+      {
+        "new_rows": 8193,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8193,
+        "maximum_total": 8193,
+        "raw_line": "[2026-10-08 03:05:02] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2617.44"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:05:02] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 159203.26"
+      },
+      {
+        "new_rows": 8261,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8261,
+        "maximum_total": 8263,
+        "raw_line": "[2026-10-08 03:05:02] Prefill batch, #new-seq: 2, #new-token: 8261, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118046.19"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2624.57"
+      },
+      {
+        "new_rows": 8167,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8167,
+        "maximum_total": 8168,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 1, #new-token: 8167, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 170333.15"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 52, cuda graph: False, input throughput (token/s): 134130.93"
+      },
+      {
+        "new_rows": 52,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 52,
+        "maximum_total": 55,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 1, #new-token: 52, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 5651.15"
+      },
+      {
+        "new_rows": 8175,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8175,
+        "maximum_total": 8175,
+        "raw_line": "[2026-10-08 03:05:09] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2612.75"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:05:09] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 162814.97"
+      },
+      {
+        "new_rows": 16341,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16341,
+        "maximum_total": 16343,
+        "raw_line": "[2026-10-08 03:05:09] Prefill batch, #new-seq: 2, #new-token: 16341, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 138973.56"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:05:09] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4366.00"
+      },
+      {
+        "new_rows": 8155,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8155,
+        "maximum_total": 8155,
+        "raw_line": "[2026-10-08 03:05:12] Prefill batch, #new-seq: 1, #new-token: 8155, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2606.78"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:05:12] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 167873.98"
+      },
+      {
+        "new_rows": 8272,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8272,
+        "maximum_total": 8274,
+        "raw_line": "[2026-10-08 03:05:12] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118066.71"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2626.72"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 169870.81"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 132694.20"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4387.06"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:05:19] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2626.07"
+      },
+      {
+        "new_rows": 8191,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8191,
+        "maximum_total": 8192,
+        "raw_line": "[2026-10-08 03:05:19] Prefill batch, #new-seq: 1, #new-token: 8191, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 168423.42"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:05:19] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 136830.28"
+      },
+      {
+        "new_rows": 72,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 72,
+        "maximum_total": 75,
+        "raw_line": "[2026-10-08 03:05:19] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7657.70"
+      }
+    ],
+    "m128_in_any_interval": false
+  },
+  {
+    "phase": "B",
+    "gpu": "gpu5",
+    "prefill_rows": [
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:04:48] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 6080.14"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:04:48] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 159524.92"
+      },
+      {
+        "new_rows": 16326,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16326,
+        "maximum_total": 16328,
+        "raw_line": "[2026-10-08 03:04:48] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 131693.55"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:04:51] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2640.66"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:04:52] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 106896.30"
+      },
+      {
+        "new_rows": 8045,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8045,
+        "maximum_total": 8047,
+        "raw_line": "[2026-10-08 03:04:52] Prefill batch, #new-seq: 2, #new-token: 8045, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 220066.53"
+      },
+      {
+        "new_rows": 8095,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8095,
+        "maximum_total": 8095,
+        "raw_line": "[2026-10-08 03:04:55] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2606.72"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:04:55] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 129747.03"
+      },
+      {
+        "new_rows": 8236,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8236,
+        "maximum_total": 8238,
+        "raw_line": "[2026-10-08 03:04:55] Prefill batch, #new-seq: 2, #new-token: 8236, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 122113.00"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:04:58] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2650.27"
+      },
+      {
+        "new_rows": 8179,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8179,
+        "maximum_total": 8180,
+        "raw_line": "[2026-10-08 03:04:58] Prefill batch, #new-seq: 1, #new-token: 8179, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 127106.32"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:04:58] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 131906.88"
+      },
+      {
+        "new_rows": 72,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 72,
+        "maximum_total": 75,
+        "raw_line": "[2026-10-08 03:04:58] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7805.77"
+      },
+      {
+        "new_rows": 8193,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8193,
+        "maximum_total": 8193,
+        "raw_line": "[2026-10-08 03:05:01] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2659.58"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 16328,
+        "maximum_total": 16329,
+        "raw_line": "[2026-10-08 03:05:01] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 131982.09"
+      },
+      {
+        "new_rows": 8261,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8261,
+        "maximum_total": 8263,
+        "raw_line": "[2026-10-08 03:05:01] Prefill batch, #new-seq: 2, #new-token: 8261, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 122946.29"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2645.11"
+      },
+      {
+        "new_rows": 8167,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8167,
+        "maximum_total": 8168,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 1, #new-token: 8167, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 127510.10"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 52, cuda graph: False, input throughput (token/s): 131883.14"
+      },
+      {
+        "new_rows": 52,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 52,
+        "maximum_total": 55,
+        "raw_line": "[2026-10-08 03:05:05] Prefill batch, #new-seq: 1, #new-token: 52, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 5834.00"
+      },
+      {
+        "new_rows": 8175,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8175,
+        "maximum_total": 8175,
+        "raw_line": "[2026-10-08 03:05:08] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2635.79"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:05:08] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 134595.63"
+      },
+      {
+        "new_rows": 16341,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16341,
+        "maximum_total": 16343,
+        "raw_line": "[2026-10-08 03:05:08] Prefill batch, #new-seq: 2, #new-token: 16341, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 132072.24"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:05:08] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4479.66"
+      },
+      {
+        "new_rows": 8155,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8155,
+        "maximum_total": 8155,
+        "raw_line": "[2026-10-08 03:05:11] Prefill batch, #new-seq: 1, #new-token: 8155, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2629.63"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:05:11] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 127954.57"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 8200,
+        "maximum_total": 8202,
+        "raw_line": "[2026-10-08 03:05:11] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 126116.23"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 8200,
+        "maximum_total": 8203,
+        "raw_line": "[2026-10-08 03:05:11] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 125829.70"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:05:14] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2642.18"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8200,
+        "maximum_total": 8201,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 126611.49"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 131726.09"
+      },
+      {
+        "new_rows": 40,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 40,
+        "maximum_total": 43,
+        "raw_line": "[2026-10-08 03:05:15] Prefill batch, #new-seq: 1, #new-token: 40, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4502.28"
+      },
+      {
+        "new_rows": 8200,
+        "max_decode_tail_rows": 0,
+        "minimum_total": 8200,
+        "maximum_total": 8200,
+        "raw_line": "[2026-10-08 03:05:18] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2650.62"
+      },
+      {
+        "new_rows": 8191,
+        "max_decode_tail_rows": 1,
+        "minimum_total": 8191,
+        "maximum_total": 8192,
+        "raw_line": "[2026-10-08 03:05:18] Prefill batch, #new-seq: 1, #new-token: 8191, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 132646.47"
+      },
+      {
+        "new_rows": 16328,
+        "max_decode_tail_rows": 2,
+        "minimum_total": 16328,
+        "maximum_total": 16330,
+        "raw_line": "[2026-10-08 03:05:18] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.02, #running-req: 2, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 131153.55"
+      },
+      {
+        "new_rows": 72,
+        "max_decode_tail_rows": 3,
+        "minimum_total": 72,
+        "maximum_total": 75,
+        "raw_line": "[2026-10-08 03:05:18] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 7807.65"
+      }
+    ],
+    "m128_in_any_interval": false
+  }
+]

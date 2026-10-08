@@ -1,0 +1,9 @@
+# Full production LM-head GSM8K C4 comparison
+
+Control scored 1216/1314 (92.5419%); production candidate scored 1218/1314 (92.6941%). Nine rows were correct only for control and eleven only for candidate, a net +2. This completed paired evaluation supports proceeding without an observed aggregate accuracy regression; it does not establish numerical equivalence or statistically prove improved accuracy.
+
+Both evaluated dataset rows 5–1318 exactly once, using the original first five examples as few-shot context, temperature 0, top_p 1, max 2048, concurrency 4 and ordinary radix settings. Dataset SHA and complete per-row correctness mapping are in comparison.json and original metrics.json. Full rendered answer reports are gzip-preserved with original uncompressed SHA hashes.
+
+Control source is unchanged prefix-production; candidate is the exact 4229-file-audited three-file LM-head overlay, committed as 5e1601731b. BF16 weights/query/KV, TRT HND page 32/mixed 16384. Normal public startup autotuning used separate fresh caches. Both control and candidate selected identical M128 projection tactics (gate/up 1, down 1); candidate M4 LM-head selected 2. Actual candidate READY/captured optimized LM-head and graph 4 replay are recorded. Unlike serving, the accuracy observer did observe M128 calls; identical tactics avoid that particular mismatch. No private tuner policy or external algorithm hook was used.
+
+Drivers 453834/453835 and servers 453840/453841 completed and cleaned up. Evaluation elapsed 202.49s control/193.56s candidate is reported for provenance, not used as a serving benchmark. The serving crossover ran concurrently on separate GPUs 4–5. Raw pre-format archive `/tmp/lmhead-production-accuracy.tar.gz` is retained as `original-artifacts.tar.gz`, with the same remote archive path. Exact commands, startup/public caches, source manifests and observer source accompany the reports.

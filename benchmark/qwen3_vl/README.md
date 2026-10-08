@@ -16,6 +16,7 @@ sweep of the latest head. Subsequent controlled increments are:
 | Public M128 BF16 GEMM autotuning | `5f60fb8b67` | +0.336% at c128, eight N640 pairs | Equal aggregate GSM8K scores across two GPU-swapped pairs; individual scores and outputs differ |
 | Direct M1 BF16 gate/up GEMM | `bedf8a4c15` | +1.692% at c1, four pairs | Repeated 1217/1314 versus 1219/1314 control; reproducible two-question loss |
 | Bounded packed-prefix FA4 prefill | `91042a055f` | +0.446% at c128, four N640 pairs | Matched-tactic diagnostic 1216/1314 versus 1217/1314; only one context batch used packing |
+| Batch-4 BF16 vocabulary projection | `5e1601731b` | +0.191% at c4, two N40 pairs | Full C4 GSM8K 1218/1314 versus 1216/1314; one paired check, not equivalence |
 
 The packed-prefill change retains BF16 weights, K/V and queries, and uses an
 explicit CLC scheduler override only for its eligible attention calls.
@@ -37,10 +38,10 @@ Evidence: `results/bf16_decode_lt/production_validation/`,
 `results/bf16_weight_packing/m1_production_validation/`, and
 `results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
 diagnostic and lower-concurrency regression subdirectories). The code PR is
-#42913 at `ab94cc8a76`; #42914 retains the optional deployment recipe.
+#42913 is being updated from `ab94cc8a76`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
-The next committed candidate is batch-4 BF16 vocabulary-projection tuning
+The latest committed increment is batch-4 BF16 vocabulary-projection tuning
 (`5e1601731b`). Its external-hook serving crossover improved c4 throughput
 by 0.298% and 0.132%, with exact request/token counts. Clean production
 source checks verified actual tuned graph dispatch and bitwise prefill and
@@ -48,8 +49,12 @@ decode logits. Image requests matched greedy tokens but had different
 prefill batching and log probabilities across servers; a separate same-input
 check matched original and tuned BF16 outputs on 24 observed image decode
 steps. This is limited numerical evidence, not full accuracy equivalence.
-Production serving and full C4 GSM8K validation are pending;
-the code PR has not yet received this increment. See
+Production serving improved by 0.160% and 0.221% in two same-GPU pairs,
+reaching 1240.50 and 1246.50 output tokens/s. Both exceed the C4 target of
+1237.5, but this is not a new seven-point sweep. Median TTFT was 215.67 and
+209.95 ms, above the handoff C4 value of 200 ms. Full C4 GSM8K scored
+1218/1314 versus 1216/1314 control (9 control-only and 11 candidate-only
+correct). This is a single empirical accuracy comparison. See
 `results/bf16_lmhead_screen/` for standalone, model, serving-gate and
 production evidence. This does not establish a new completed full sweep or
 achievement of the overall target.

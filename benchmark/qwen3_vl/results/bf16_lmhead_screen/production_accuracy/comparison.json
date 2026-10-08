@@ -1,0 +1,48 @@
+{
+  "control_correct": 1216,
+  "candidate_correct": 1218,
+  "control_only_rows": [
+    67,
+    323,
+    419,
+    821,
+    1006,
+    1097,
+    1105,
+    1146,
+    1158
+  ],
+  "candidate_only_rows": [
+    87,
+    143,
+    241,
+    505,
+    529,
+    813,
+    943,
+    953,
+    1088,
+    1183,
+    1201
+  ],
+  "dataset_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "selection": {
+    "seed": null,
+    "method": "dataset order; first num_shots rows excluded from evaluation",
+    "num_shots": 5,
+    "first_evaluation_row": 5,
+    "last_evaluation_row": 1318,
+    "row_indexing": "zero-based"
+  },
+  "sampling": {
+    "api": "chat",
+    "temperature": 0.0,
+    "top_p": 1.0,
+    "max_tokens": 2048,
+    "concurrency": 4
+  },
+  "source_report_sha256": {
+    "control": "12745429e8e25169c1efb544fdb4693b0a346d67e9047476e0865bfa1d088667",
+    "candidate": "be095e8b59ba86d2b85c81a2faa505d1d3a202909057b03c02f134308d181390"
+  }
+}

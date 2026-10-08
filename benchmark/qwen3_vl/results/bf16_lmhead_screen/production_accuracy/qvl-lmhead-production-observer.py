@@ -1,0 +1,113 @@
+import json
+import os
+import pathlib
+
+import torch
+from flashinfer.autotuner import AutoTuner
+
+from sglang.srt.layers.quantization import unquant
+from sglang.srt.model_executor.model_runner import ModelRunner
+from sglang.srt.model_executor.runner.decode_cuda_graph_runner import (
+    DecodeCudaGraphRunner,
+)
+
+root = pathlib.Path(os.environ["QVL_LMHEAD_OUT"])
+root.mkdir(parents=True, exist_ok=True)
+seen = set()
+runtime = False
+
+
+def record(kind, **data):
+    with (root / f"lmhead-proof-pid{os.getpid()}.jsonl").open("a") as f:
+        f.write(json.dumps({"kind": kind, **data}) + "\n")
+
+
+original = unquant._try_tuned_bf16_cublaslt
+
+
+def dispatch(x, w, *a, **kw):
+    y = original(x, w, *a, **kw)
+    if y is not None:
+        key = (
+            tuple(x.shape),
+            tuple(w.shape),
+            torch.cuda.is_current_stream_capturing(),
+            runtime,
+        )
+        if key not in seen:
+            seen.add(key)
+            record(
+                "optimized_dispatch",
+                input_shape=key[0],
+                weight_shape=key[1],
+                capture=key[2],
+                runtime=key[3],
+            )
+    return y
+
+
+unquant._try_tuned_bf16_cublaslt = dispatch
+init = ModelRunner.init_cuda_graphs
+
+
+def initialize(self, *a, **kw):
+    global runtime
+    head = getattr(self.model, "lm_head", None)
+    w = getattr(head, "weight", None)
+    record(
+        "model_identity",
+        model_type=type(self.model).__name__,
+        model_module=type(self.model).__module__,
+        tied_embedding=head
+        is getattr(getattr(self.model, "model", None), "embed_tokens", None),
+        quant_method=type(getattr(head, "quant_method", None)).__name__,
+        weight_shape=list(w.shape) if w is not None else None,
+        dtype=str(w.dtype) if w is not None else None,
+        requires_grad=w.requires_grad if w is not None else None,
+    )
+    assert (
+        type(self.model).__name__ == "Qwen3VLForConditionalGeneration"
+        and type(self.model).__module__ == "sglang.srt.models.qwen3_vl"
+    )
+    assert head is getattr(getattr(self.model, "model", None), "embed_tokens", None)
+    assert (
+        type(getattr(head, "quant_method", None)).__name__
+        == "UnquantizedEmbeddingMethod"
+    )
+    assert (
+        tuple(w.shape) == (151936, 2560)
+        and w.dtype == torch.bfloat16
+        and not w.requires_grad
+    )
+    y = init(self, *a, **kw)
+    cache = root / f"public-tuner-pid{os.getpid()}.json"
+    AutoTuner.get().save_configs(str(cache))
+    record(
+        "startup",
+        ready=sorted(unquant._CUBLASLT_BF16_READY),
+        lmhead_enabled=getattr(
+            getattr(self.model, "logits_processor", None),
+            "_use_bf16_cublaslt_lm_head",
+            False,
+        ),
+        cache=str(cache),
+    )
+    runtime = True
+    return y
+
+
+ModelRunner.init_cuda_graphs = initialize
+execute = DecodeCudaGraphRunner.execute
+replayed = False
+
+
+def replay(self, *a, **kw):
+    global replayed
+    y = execute(self, *a, **kw)
+    if getattr(self, "bs", None) == 4 and not replayed:
+        replayed = True
+        record("graph4_replay")
+    return y
+
+
+DecodeCudaGraphRunner.execute = replay
