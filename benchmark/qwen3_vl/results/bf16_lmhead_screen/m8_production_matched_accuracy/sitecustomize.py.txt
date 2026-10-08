@@ -1,0 +1,147 @@
+import os
+if os.environ.get('QVL_LMHEAD_OUT'):
+ import json,pathlib
+ from flashinfer.autotuner import AutoTuner
+ expected={(128,2560,19456):1,(128,9728,2560):1,(4,2560,151936):2}
+ original_search=AutoTuner.search_cache
+ validated=set()
+ def pinned_search(self,custom_op,runners,input_shapes,*args,**kwargs):
+  key=(input_shapes[0][0],input_shapes[0][1],input_shapes[1][1]) if len(input_shapes)>1 and len(input_shapes[0])==2 and len(input_shapes[1])==2 else None
+  if custom_op=='bf16_gemm' and key in expected and self.is_tuning_mode:
+   inputs=kwargs.get('inputs');assert inputs is not None,'No input contract for tactic validation'
+   assert len(runners)==1 and type(runners[0]).__name__=='CublasltBf16GemmRunner'
+   valid=runners[0].get_valid_tactics(inputs,None);assert expected[key] in valid,(key,valid)
+   with self._lock:
+    previous=self.is_tuning_mode
+    try:
+     self.is_tuning_mode=False
+     result=original_search(self,custom_op,runners,input_shapes,*args,**kwargs)
+    finally:self.is_tuning_mode=previous
+   assert result[0] and result[1]==0 and result[2]==expected[key],(key,result)
+   if key not in validated:
+    validated.add(key)
+    with (pathlib.Path(os.environ['QVL_LMHEAD_OUT'])/'matched-policy.jsonl').open('a') as f:f.write(json.dumps({'shape':key,'selected':result[2],'valid_tactics':valid,'cache_hit':result[0]})+'\n')
+   return result
+  return original_search(self,custom_op,runners,input_shapes,*args,**kwargs)
+ AutoTuner.search_cache=pinned_search
+
+import json
+import os
+import pathlib
+
+import torch
+from flashinfer.autotuner import AutoTuner
+
+from sglang.srt.layers.quantization import unquant
+from sglang.srt.model_executor.model_runner import ModelRunner
+from sglang.srt.model_executor.runner.decode_cuda_graph_runner import (
+    DecodeCudaGraphRunner,
+)
+
+root = pathlib.Path(os.environ["QVL_LMHEAD_OUT"])
+root.mkdir(parents=True, exist_ok=True)
+seen = set()
+
+
+def record(kind, **data):
+    with (root / f"lmhead-proof-pid{os.getpid()}.jsonl").open("a") as f:
+        f.write(json.dumps({"kind": kind, **data}) + "\n")
+
+
+original = unquant._try_tuned_bf16_cublaslt
+
+
+def dispatch(x, w, *a, **kw):
+    y = original(x, w, *a, **kw)
+    if y is not None:
+        key = (tuple(x.shape), tuple(w.shape), torch.cuda.is_current_stream_capturing())
+        if key not in seen:
+            seen.add(key)
+            record(
+                "optimized_dispatch",
+                input_shape=key[0],
+                weight_shape=key[1],
+                capture=key[2],
+            )
+    return y
+
+
+unquant._try_tuned_bf16_cublaslt = dispatch
+init = ModelRunner.init_cuda_graphs
+
+
+def initialize(self, *a, **kw):
+    head = getattr(self.model, "lm_head", None)
+    w = getattr(head, "weight", None)
+    record(
+        "model_identity",
+        model_type=type(self.model).__name__,
+        model_module=type(self.model).__module__,
+        tied_embedding=head
+        is getattr(getattr(self.model, "model", None), "embed_tokens", None),
+        quant_method=type(getattr(head, "quant_method", None)).__name__,
+        weight_shape=list(w.shape) if w is not None else None,
+        dtype=str(w.dtype) if w is not None else None,
+        requires_grad=w.requires_grad if w is not None else None,
+    )
+    assert (
+        type(self.model).__name__ == "Qwen3VLForConditionalGeneration"
+        and type(self.model).__module__ == "sglang.srt.models.qwen3_vl"
+    )
+    assert head is getattr(getattr(self.model, "model", None), "embed_tokens", None)
+    assert (
+        type(getattr(head, "quant_method", None)).__name__
+        == "UnquantizedEmbeddingMethod"
+    )
+    assert (
+        tuple(w.shape) == (151936, 2560)
+        and w.dtype == torch.bfloat16
+        and not w.requires_grad
+    )
+    y = init(self, *a, **kw)
+    cache = root / f"public-tuner-pid{os.getpid()}.json"
+    AutoTuner.get().save_configs(str(cache))
+    record(
+        "startup",
+        ready=sorted(unquant._CUBLASLT_BF16_READY),
+        lmhead_enabled=getattr(
+            getattr(self.model, "logits_processor", None),
+            "_use_bf16_cublaslt_lm_head",
+            False,
+        ),
+        cache=str(cache),
+    )
+    return y
+
+
+ModelRunner.init_cuda_graphs = initialize
+execute = DecodeCudaGraphRunner.execute
+replayed = False
+
+
+def replay(self, *a, **kw):
+    global replayed
+    y = execute(self, *a, **kw)
+    if getattr(self, "bs", None) == 8 and not replayed:
+        replayed = True
+        record("graph8_replay")
+    return y
+
+
+DecodeCudaGraphRunner.execute = replay
+
+
+old_init_matched=ModelRunner.init_cuda_graphs
+def matched_initialize(self,*a,**kw):
+ result=old_init_matched(self,*a,**kw)
+ assert set(validated)==set(expected),('Missing startup targets',validated)
+ AutoTuner.search_cache=original_search
+ record('matched_policy_restored',validated_shapes=sorted(validated))
+ return result
+ModelRunner.init_cuda_graphs=matched_initialize
+old_forward_matched=ModelRunner.forward
+def matched_forward(self,batch,*a,**kw):
+ if batch.input_ids.numel()==128:
+  record('actual_M128_forward',mode=batch.forward_mode.name,batch_size=batch.batch_size)
+ return old_forward_matched(self,batch,*a,**kw)
+ModelRunner.forward=matched_forward

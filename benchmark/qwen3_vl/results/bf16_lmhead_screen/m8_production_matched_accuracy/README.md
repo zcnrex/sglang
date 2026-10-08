@@ -1,0 +1,11 @@
+# Production M8 matched-startup full GSM8K diagnostic
+
+Control scores **1217/1314**, candidate **1225/1314**. Eight questions are correct only in control and sixteen only in candidate; exact rows are in comparison.json. This single pair provides no observed aggregate accuracy regression, but does not establish accuracy equivalence or attribute an eight-question increase to the LM-head change. Generated requests can still follow different batching schedules.
+
+Runtime sources are unchanged frozen M4 control and exact production M8 overlay5babd15f4f, with complete source-manifest verification. Both use BF16 weights/query/KV, TRT HND page32, mixed chunk16384, temperature0, top_p1, max output2048 and concurrency8. Identical dataset hash and selection cover all1314 evaluation rows after five few-shot examples. The evaluator's hardcoded source_revision466c9e is stale; verified manifests and command paths identify runtime source.
+
+This is an **external startup diagnostic**, not production tuning policy. Both workers seed normal-control cache JSON. For only the three common shapes (M128 gate/up, M128 down, M4 LM-head), an external search_cache wrapper validates an existing hit and selected tactic against the runner's registered valid_tactics. Under the tuner lock it temporarily disables tuning for that lookup and immediately restores the prior flag. The original search_cache method is restored after init_cuda_graphs, with all three validations asserted. No inference GEMM algorithm is replaced. Candidate M8 remains outside this policy and uses normal public autotuning.
+
+Recorded common tactics are gate/up1, down1 and M4 LM-head2 in both arms; candidate M8 selects2. Actual forward instrumentation records **7 control and6 candidate MIXED forwards with exactly128 input rows**, so matched M128 coverage is real. Candidate READY, optimized M8 capture and graph8 replay are recorded. This resolves the unrelated startup-tactic confound in the preceding normal pair1213/1219, which remains preserved separately.
+
+Drivers525798/525799 and servers525801/525800 completed normally and were absent after results were written. GPUs2–3 were released. Raw archive retains policy/driver scripts, cache JSON, logs, metrics and gzip HTML reports; no production source changed. No additional runs or PR promotion were performed by this worker.
