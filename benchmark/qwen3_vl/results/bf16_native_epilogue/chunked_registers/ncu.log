@@ -1,0 +1,9 @@
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 412251 (/usr/bin/python3.12)
+TAIL_CANARY_PASS 16331
+PRODUCTION_DISPATCH [[16331, 2560]] 0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431
+PROFILE_BEGIN candidate
+==PROF== Profiling "kernel_cutlass_kernel_native_..." - 0 (1/1): 0%....50%....100% - 9 passes
+PROFILE_DONE candidate
+==PROF== Disconnected from process 412251
+==PROF== Report: /root/qvl/experiments/native-epilogue-chunk/chunk.ncu-rep

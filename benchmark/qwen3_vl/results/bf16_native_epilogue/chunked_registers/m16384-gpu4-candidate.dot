@@ -1,0 +1,40 @@
+digraph dot {
+subgraph cluster_3 {
+label="graph_3" graph[style="dashed"];
+"graph_3_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 3) | kernel_cutlass_kernel_native_fused_chunkPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK21111000_PermutationMNK____MMAAtom_ThrID21_ShapeMNK25625616_TVLayoutA2128161281256_TVLay_0\<\<\<\{2,1,74\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000039556060 | 0x00000000399DDD90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 2) | kernel_cutlass_kernel_native_fused_chunkPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK21111000_PermutationMNK____MMAAtom_ThrID21_ShapeMNK25625616_TVLayoutA2128161281256_TVLay_0\<\<\<\{2,1,74\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x00000000395567F8 | 0x00000000399DDD90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 1) | kernel_cutlass_kernel_native_fused_chunkPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK21111000_PermutationMNK____MMAAtom_ThrID21_ShapeMNK25625616_TVLayoutA2128161281256_TVLay_0\<\<\<\{2,1,74\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000039556F90 | 0x00000000399DDD90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_3"[style="bold" shape="record" label="{KERNEL
+| {ID | 3 (topoId: 0) | kernel_cutlass_kernel_native_fused_chunkPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK21111000_PermutationMNK____MMAAtom_ThrID21_ShapeMNK25625616_TVLayoutA2128161281256_TVLay_0\<\<\<\{2,1,74\},192,229632\>\>\>}
+| {{node handle | func handle} | {0x0000000039557728 | 0x00000000399DDD90}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_3_node_0" -> "graph_3_node_1" [headlabel=0];
+"graph_3_node_1" -> "graph_3_node_2" [headlabel=0];
+"graph_3_node_2" -> "graph_3_node_3" [headlabel=0];
+}
+}
