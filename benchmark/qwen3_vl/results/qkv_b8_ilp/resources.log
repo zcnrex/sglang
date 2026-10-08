@@ -1,0 +1,6 @@
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 712083 (/usr/bin/python3.12)
+==PROF== Profiling "kernel_cutlass_kernel_sglangk..." - 0 (1/2): 0%....50%....100% - 3 passes
+==PROF== Profiling "kernel_cutlass_kernel_sglangk..." - 1 (2/2): 0%....50%....100% - 3 passes
+==PROF== Disconnected from process 712083
+==PROF== Report: /root/qvl/experiments/qkv-b8-ilp/resources.ncu-rep

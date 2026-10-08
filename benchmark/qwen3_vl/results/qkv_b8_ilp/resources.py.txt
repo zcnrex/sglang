@@ -1,0 +1,45 @@
+import flashinfer
+import torch,json,pathlib,glob,os,hashlib,statistics
+from safetensors import safe_open
+import candidate as prototype
+from sglang.kernels.ops.attention import qkv_norm_mrope as old
+from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import run_splitk_dense,SplitKTactic
+from sglang.kernels.ops.attention.fused_qk_norm_mrope import fused_qk_norm_mrope
+root=pathlib.Path(__file__).parent
+torch.set_grad_enabled(False);torch.manual_seed(9107);torch.backends.cuda.matmul.allow_tf32=False
+model='/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17'
+d={}
+for p in glob.glob(model+'/*.safetensors'):
+ with safe_open(p,framework='pt',device='cpu') as f:
+  for key in f.keys():
+   if '.self_attn.' in key and any(key.endswith(x+'.weight') for x in ['q_proj','k_proj','v_proj','q_norm','k_norm']):d[key]=f.get_tensor(key).cuda().bfloat16()
+phase=torch.arange(8400,device='cuda')[:,None].float()*torch.arange(1,65,device='cuda')[None,:].float()*.0001
+rope=torch.cat([phase.cos(),phase.sin()],1).bfloat16();pos=torch.arange(8200,8208,device='cuda',dtype=torch.int64)[None,:].expand(3,-1).clone();axes=torch.tensor([0]*24+[1]*20+[2]*20,device='cuda',dtype=torch.int64)
+# Each layer retains disjoint full-length HND caches. All variants write the same valid token slots.
+slots=torch.arange(8,device='cuda',dtype=torch.int64)*8256+8200
+slots[-1]=-1
+pos[1].add_(37);pos[2].add_(71)
+position_storage=torch.empty((3,128),device='cuda',dtype=torch.int64);position_storage[:,:8].copy_(pos);pos=position_storage[:,:8]
+states=[]
+for layer in range(36):
+ prefix=f'model.language_model.layers.{layer}.self_attn.'
+ w=torch.cat([d[prefix+x+'_proj.weight'] for x in ['q','k','v']]);qw=d[prefix+'q_norm.weight'];kw=d[prefix+'k_norm.weight']
+ x=torch.randn(8,2560,device='cuda',dtype=torch.bfloat16);a=torch.empty(8,6144,device='cuda',dtype=torch.bfloat16);b=torch.empty_like(a)
+ ka=torch.randn((2064,8,32,128),device='cuda',dtype=torch.bfloat16);va=torch.randn_like(ka);kb=ka.clone();vb=va.clone()
+ ep=(qw,kw,rope,pos,axes,kb,vb,slots)
+ states.append((x,w,a,b,ka,va,kb,vb,ep))
+d.clear();torch.cuda.empty_cache()
+def f(x,wt,out,ep):
+ qw,kw,rope,pos,axes,kc,vc,slots=ep
+ result=prototype.qkv_norm_mrope(x,wt.T,qw,kw,rope,pos,axes,kc,vc,slots,out=out)
+ assert result is out
+f(states[0][0],states[0][1].T,states[0][3],states[0][-1])
+
+x,w,a,b,ka,va,kb,vb,ep=states[0];qw,kw,rope,pos,axes,kb,vb,slots=ep
+old.qkv_norm_mrope(x,w,qw,kw,rope,pos,axes,ka,va,slots,out=a)
+torch.cuda.synchronize()
+torch.cuda.cudart().cudaProfilerStart()
+old.qkv_norm_mrope(x,w,qw,kw,rope,pos,axes,ka,va,slots,out=a)
+f(x,w.T,b,ep)
+torch.cuda.synchronize()
+torch.cuda.cudart().cudaProfilerStop()

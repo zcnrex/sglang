@@ -1,0 +1,11 @@
+# Rejected B8 dual-token epilogue ILP
+
+The single external variant is slower: current fused sequence 51.9542 µs/layer versus dual-token 52.5684 µs, a 1.182% latency increase. All eight alternating pairs favor the existing kernel. No GPU1 confirmation, model test, production change or further variant followed.
+
+The custom dual-output inline PTX helper alternates two independent tokens' instructions while retaining each token's four-value FP32 mul/FMA accumulation, XOR 16/8/4/2/1 reduction order, scale/epsilon/rsqrt sequence. Component-major rotary processing keeps normalization BF16 rounding and the original BF16 multiply/FMA order. GEMM, four epilogue warps, 128 threads, 2 KiB scratch and uniform barrier are unchanged.
+
+All 108 layer checks pass bitwise against the current fused B8 kernel: 36 actual weights initially, changed-input/stride128-position retained graphs, and restored-all-valid cache slots before timing. Each check covers full QKV, complete K/V caches and dependent TRT attention. Timings cycle 36 cold rotating weights and include attention, with 100 graph replays per event interval.
+
+A separate bounded NCU pass samples one baseline kernel then one candidate kernel. Baseline uses 32 registers/thread, candidate 30; reported shared memory is 233.472 KB for both. Local-memory load/store sectors are zero in both. This does not support spills as the cause of the slowdown. NCU uses unmodified clocks and three replay passes; its profiled timing is not used for the performance decision. Raw compressed report and CSV are retained.
+
+Workers 711863 (sequence) and 712059 (NCU, child 712083) are terminal. Remote root /root/qvl/experiments/qkv-b8-ilp; source dependencies /root/qvl/sglang-qkv-small-production/python. Interpreter /root/qvl/venv-sgl/bin/python, CUDA_VISIBLE_DEVICES=0, PYTHONDONTWRITEBYTECODE=1, MAX_JOBS=4. Run sequence.py.txt restored as sequence.py beside candidate.py; resources.py.txt retains exactly the two profiled calls, baseline first. NCU command: ncu --profile-from-start off --launch-count 2 --section LaunchStats --metrics l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum,l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum --clock-control none --force-overwrite -o resources python resources.py. This is rejection of one arithmetic-order-preserving schedule, not proof that no epilogue optimization exists.

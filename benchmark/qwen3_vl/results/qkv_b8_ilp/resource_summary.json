@@ -1,0 +1,16 @@
+[
+  {
+    "ID": "0",
+    "launch__registers_per_thread": "32",
+    "launch__shared_mem_per_block": "233.472000",
+    "l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum": "0",
+    "l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum": "0"
+  },
+  {
+    "ID": "1",
+    "launch__registers_per_thread": "30",
+    "launch__shared_mem_per_block": "233.472000",
+    "l1tex__t_sectors_pipe_lsu_mem_local_op_ld.sum": "0",
+    "l1tex__t_sectors_pipe_lsu_mem_local_op_st.sum": "0"
+  }
+]

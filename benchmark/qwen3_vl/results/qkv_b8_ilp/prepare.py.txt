@@ -1,0 +1,59 @@
+from pathlib import Path
+s=Path('python/sglang/kernels/ops/attention/qkv_norm_mrope.py').read_text()
+asm=['{ .reg .f32 s0,s1,t0,t1;']
+for j in range(4):
+ for t in range(2):
+  a=2+t*4+j
+  asm.append(f'mul.rn.f32 s{t},${a},${a};' if j==0 else f'fma.rn.f32 s{t},${a},${a},s{t};')
+for delta in [16,8,4,2,1]:
+ for t in range(2):asm.append(f'shfl.sync.bfly.b32 t{t},s{t},{delta},31,-1;')
+ for t in range(2):asm.append(f'add.rn.f32 s{t},s{t},t{t};')
+for t in range(2):asm.append(f'mul.rn.f32 s{t},s{t},0f3C000000;')
+for t in range(2):asm.append(f'add.rn.f32 s{t},s{t},0f358637BD;')
+for t in range(2):asm.append(f'rsqrt.approx.ftz.f32 ${t},s{t};')
+asm.append('}')
+helper='''@dsl_user_op
+def _norm_pair(a0,a1,a2,a3,b0,b1,b2,b3,*,loc=None,ip=None):
+    result=llvm.inline_asm(llvm.StructType.get_literal([T.f32(),T.f32()]),
+        [x.ir_value() for x in (a0,a1,a2,a3,b0,b1,b2,b3)],
+        %r, "=f,=f,f,f,f,f,f,f,f,f",has_side_effects=False,is_align_stack=False,asm_dialect=llvm.AsmDialect.AD_ATT)
+    return cutlass.Float32(llvm.extractvalue(T.f32(),result,[0],loc=loc,ip=ip)),cutlass.Float32(llvm.extractvalue(T.f32(),result,[1],loc=loc,ip=ip))
+
+
+''' % ' '.join(asm)
+s=s.replace('class _QKVNormMRopeEpilogue:',helper+'class _QKVNormMRopeEpilogue:')
+a=s.index('        for iteration in cutlass.range_constexpr(self.iterations):');b=s.index('\n\n\n@cute.experimental.jit\ndef _run',a)
+body='''        d=lane*4
+        scale0=cutlass.Float32(1.0)
+        scale1=cutlass.Float32(1.0)
+        if head<40:
+            scale0,scale1=_norm_pair(sE[d,warp].to(cutlass.Float32),sE[d+1,warp].to(cutlass.Float32),sE[d+2,warp].to(cutlass.Float32),sE[d+3,warp].to(cutlass.Float32),sE[d,warp+4].to(cutlass.Float32),sE[d+1,warp+4].to(cutlass.Float32),sE[d+2,warp+4].to(cutlass.Float32),sE[d+3,warp+4].to(cutlass.Float32))
+        scales=(scale0,scale1)
+        for component in cutlass.range_constexpr(4):
+            dim=d+component
+            weight=cutlass.Float32(0.0)
+            if head<32:
+                weight=qw[dim].to(cutlass.Float32)
+            elif head<40:
+                weight=kw[dim].to(cutlass.Float32)
+            for iteration in cutlass.range_constexpr(2):
+                token=warp+iteration*4
+                value=sE[dim,token].to(cutlass.Float32)
+                if head<40:
+                    normalized=_norm_value(value,scales[iteration],weight).to(c_dtype).to(cutlass.Float32)
+                    partner=cute.arch.shuffle_sync_bfly(normalized,16)
+                    pair_dim=dim%64
+                    pos=positions[axes[pair_dim],token]
+                    cosine=rope[pos,pair_dim].to(cutlass.Float32)
+                    sine=rope[pos,pair_dim+64].to(cutlass.Float32)
+                    value=_rotate(normalized,partner,cosine,sine,cutlass.Int32(lane>=16))
+                rounded=value.to(c_dtype)
+                gD_tile[dim,token]=rounded
+                slot=slots[token]
+                if head>=32 and slot>=0:
+                    if head<40:kc[slot//32,head-32,slot%32,dim]=rounded
+                    else:vc[slot//32,head-40,slot%32,dim]=rounded
+'''
+s=s[:a]+body.rstrip()+s[b:]
+s=s.replace('((1, 2560), (2, 2560), (4, 2560), (8, 2560))','((8,2560),)')
+Path('/tmp/qvl-qkv-ilp/candidate.py').write_text(s)
