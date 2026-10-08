@@ -1,0 +1,133 @@
+{
+  "checks": {
+    "123_prefill": {
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    "123_decode0": {
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    "123_decode14": {
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    "123_greedy": {
+      "bitwise": true,
+      "max_abs": 0
+    },
+    "124_prefill": {
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    "124_decode0": {
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    "124_decode14": {
+      "bitwise": true,
+      "max_abs": 0.0
+    },
+    "124_greedy": {
+      "bitwise": true,
+      "max_abs": 0
+    }
+  },
+  "proof": [
+    {
+      "kind": "model_identity",
+      "model_type": "Qwen3VLForConditionalGeneration",
+      "model_module": "sglang.srt.models.qwen3_vl",
+      "tied_embedding": true,
+      "quant_method": "UnquantizedEmbeddingMethod",
+      "weight_shape": [
+        151936,
+        2560
+      ],
+      "dtype": "torch.bfloat16",
+      "requires_grad": false
+    },
+    {
+      "kind": "optimized_dispatch",
+      "input_shape": [
+        8,
+        2560
+      ],
+      "weight_shape": [
+        151936,
+        2560
+      ],
+      "capture": false
+    },
+    {
+      "kind": "optimized_dispatch",
+      "input_shape": [
+        8,
+        2560
+      ],
+      "weight_shape": [
+        151936,
+        2560
+      ],
+      "capture": true
+    },
+    {
+      "kind": "optimized_dispatch",
+      "input_shape": [
+        4,
+        2560
+      ],
+      "weight_shape": [
+        151936,
+        2560
+      ],
+      "capture": false
+    },
+    {
+      "kind": "optimized_dispatch",
+      "input_shape": [
+        4,
+        2560
+      ],
+      "weight_shape": [
+        151936,
+        2560
+      ],
+      "capture": true
+    },
+    {
+      "kind": "startup",
+      "ready": [
+        [
+          0,
+          4,
+          151936,
+          2560
+        ],
+        [
+          0,
+          8,
+          151936,
+          2560
+        ],
+        [
+          0,
+          128,
+          2560,
+          9728
+        ],
+        [
+          0,
+          128,
+          19456,
+          2560
+        ]
+      ],
+      "lmhead_enabled": true,
+      "cache": "/root/qvl/experiments/lmhead-m8-production/model/candidate/public-tuner-pid495624.json"
+    },
+    {
+      "kind": "graph8_replay"
+    }
+  ]
+}
