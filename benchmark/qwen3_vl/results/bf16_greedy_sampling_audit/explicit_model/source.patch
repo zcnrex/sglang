@@ -1,0 +1,79 @@
+diff --git a/python/sglang/kernels/ops/elementwise/__init__.py b/python/sglang/kernels/ops/elementwise/__init__.py
+index 0fa42400cb..12ea50739a 100644
+--- a/python/sglang/kernels/ops/elementwise/__init__.py
++++ b/python/sglang/kernels/ops/elementwise/__init__.py
+@@ -14,6 +14,16 @@ from sglang.kernels.spec import CapabilityRequirement, KernelBackend, KernelSpec
+ __all__ = []
+
+
++register_kernel(
++    KernelSpec(
++        op="elementwise.cast_bf16_to_fp32",
++        backend=KernelBackend.TRITON,
++        target="sglang.kernels.ops.elementwise.cast:cast_bf16_to_fp32",
++        capabilities=frozenset({CapabilityRequirement.CUDA}),
++    )
++)
++
++
+ # Public entry points inventoried by logical operator group (RFC #29630).
+ register_kernel(
+     KernelSpec(
+diff --git a/python/sglang/kernels/ops/elementwise/cast.py b/python/sglang/kernels/ops/elementwise/cast.py
+new file mode 100644
+index 0000000000..132a656f9c
+--- /dev/null
++++ b/python/sglang/kernels/ops/elementwise/cast.py
+@@ -0,0 +1,25 @@
++import torch
++import triton
++import triton.language as tl
++
++
++@triton.jit
++def _cast_bf16_to_fp32_kernel(x, out, numel: tl.constexpr, BLOCK: tl.constexpr):
++    offsets = tl.program_id(0) * BLOCK + tl.arange(0, BLOCK)
++    values = tl.load(x + offsets, offsets < numel, other=0).to(tl.float32)
++    tl.store(out + offsets, values, offsets < numel)
++
++
++def cast_bf16_to_fp32(x: torch.Tensor, out: torch.Tensor) -> torch.Tensor:
++    """Copy contiguous CUDA BF16 values into a same-shaped FP32 output buffer."""
++    assert x.is_cuda and out.device == x.device
++    assert x.dtype == torch.bfloat16 and out.dtype == torch.float32
++    assert x.shape == out.shape and x.is_contiguous() and out.is_contiguous()
++    assert not x.requires_grad and not out.requires_grad
++    numel = x.numel()
++    if numel:
++        block, warps = (512, 8) if numel <= 1 << 24 else (1024, 4)
++        _cast_bf16_to_fp32_kernel[(triton.cdiv(numel, block),)](
++            x, out, numel, block, num_warps=warps, num_stages=1
++        )
++    return out
+diff --git a/python/sglang/srt/layers/logits_processor.py b/python/sglang/srt/layers/logits_processor.py
+index d9f9a8ac42..b2a6d7f4d1 100644
+--- a/python/sglang/srt/layers/logits_processor.py
++++ b/python/sglang/srt/layers/logits_processor.py
+@@ -1192,6 +1192,22 @@ class LogitsProcessor(nn.Module):
+             logits.shape
+         ):
+             assert logits_buffer.dtype == torch.float
++            if (
++                not torch.compiler.is_compiling()
++                and logits.shape in ((64, 151936), (128, 151936))
++                and logits.dtype == torch.bfloat16
++                and logits.is_cuda
++                and logits.is_contiguous()
++                and logits_buffer.is_contiguous()
++                and logits_buffer.device == logits.device
++                and not torch.is_grad_enabled()
++                and not logits.requires_grad
++                and not logits_buffer.requires_grad
++                and torch.cuda.get_device_capability(logits.device) == (10, 3)
++            ):
++                from sglang.kernels.ops.elementwise.cast import cast_bf16_to_fp32
++
++                return cast_bf16_to_fp32(logits, logits_buffer)
+             logits_buffer.copy_(logits)
+             logits = logits_buffer
+         else:

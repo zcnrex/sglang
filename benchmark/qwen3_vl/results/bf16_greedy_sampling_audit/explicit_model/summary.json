@@ -1,0 +1,14 @@
+{
+  "m64": {
+    "baseline_ms": 2.8176076412200928,
+    "candidate_ms": 2.8044402599334717,
+    "paired_saved_us": 13.167381286621094,
+    "numerics_sha256": "4baca5778fe8cec37d486625ecc7e2ef2eb1d7e07fd66815c48a786a9bfe23fb"
+  },
+  "m128": {
+    "baseline_ms": 3.2799588441848755,
+    "candidate_ms": 3.2485620975494385,
+    "paired_saved_us": 31.430602073669434,
+    "numerics_sha256": "97cbee5624ae4f32e64303bf3fe315ba49ce9d752d9545c5aaf9f96d6b0ed80c"
+  }
+}

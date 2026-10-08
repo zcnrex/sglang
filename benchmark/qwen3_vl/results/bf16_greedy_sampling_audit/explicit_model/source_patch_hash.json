@@ -1,0 +1,5 @@
+{
+  "commit": "f9a704d70a",
+  "sha256": "2f7fabe07c75c313d26b09840b36077f3b9b8cd57c1c3d5dd61f948ae97af347",
+  "note": "source.patch is whitespace-normalized by repository hooks; gzip preserves exact git-show patch."
+}

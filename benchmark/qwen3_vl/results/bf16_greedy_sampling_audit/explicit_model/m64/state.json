@@ -1,0 +1,168 @@
+{
+  "counts": {
+    "capture": 1,
+    "eager": 2,
+    "buffer_identity": 3
+  },
+  "report": {
+    "m": 64,
+    "source": "current frozen /root/qvl/sglang-cast-production; cast-only patch over M16",
+    "pairs": [],
+    "compile_config": {
+      "implementation": "committed explicit Triton cast",
+      "startup_warmup": true,
+      "model_hook": "baseline AST method versus unmodified production method; public kernel observation only"
+    },
+    "capture_dispatches": {
+      "capture": 1,
+      "eager": 2,
+      "buffer_identity": 3
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": true,
+    "greedy_differences": 0,
+    "logit_checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    ],
+    "gpu_event_diagnostic": {
+      "synthetic_pairs": [
+        {
+          "baseline": 2.818232536315918,
+          "candidate": 2.8038980960845947
+        },
+        {
+          "candidate": 2.804636001586914,
+          "baseline": 2.8172569274902344
+        },
+        {
+          "baseline": 2.817282199859619,
+          "candidate": 2.8050191402435303
+        },
+        {
+          "candidate": 2.804553270339966,
+          "baseline": 2.817335605621338
+        },
+        {
+          "baseline": 2.8179173469543457,
+          "candidate": 2.804192304611206
+        },
+        {
+          "candidate": 2.8043272495269775,
+          "baseline": 2.8178796768188477
+        }
+      ],
+      "actual_steps": {
+        "baseline": [
+          3.447295904159546,
+          4.052159786224365,
+          3.9322879314422607,
+          3.854464054107666,
+          3.9346559047698975,
+          3.8763840198516846,
+          3.934175968170166,
+          3.64847993850708,
+          3.712224006652832,
+          3.7017600536346436,
+          3.521984100341797,
+          3.521696090698242,
+          3.512063980102539,
+          3.531712055206299,
+          3.5448639392852783
+        ],
+        "candidate": [
+          3.367295980453491,
+          4.009471893310547,
+          3.8747520446777344,
+          3.771104097366333,
+          3.6899518966674805,
+          3.739392042160034,
+          3.7867839336395264,
+          3.749567985534668,
+          3.742432117462158,
+          3.7379839420318604,
+          3.6757760047912598,
+          3.588383913040161,
+          3.5610239505767822,
+          3.557408094406128,
+          3.4445760250091553
+        ]
+      },
+      "shared_buffer_snapshots": [
+        "input_ids",
+        "input_embeds",
+        "req_pool_indices",
+        "seq_lens",
+        "seq_lens_cpu",
+        "out_cache_loc",
+        "positions",
+        "mrope_positions",
+        "custom_mask",
+        "next_token_logits_buffer",
+        "global_num_tokens_gpu",
+        "global_num_tokens_for_logprob_gpu"
+      ],
+      "unchanged_input_buffers": {
+        "input_ids": true,
+        "input_embeds": true,
+        "req_pool_indices": true,
+        "seq_lens": true,
+        "seq_lens_cpu": true,
+        "out_cache_loc": true,
+        "positions": true,
+        "mrope_positions": true,
+        "custom_mask": true,
+        "next_token_logits_buffer": true,
+        "global_num_tokens_gpu": true,
+        "global_num_tokens_for_logprob_gpu": true
+      },
+      "clock_snapshot": "0, 2032 MHz, 3996 MHz, 800.27 W, 49\n1, 2032 MHz, 3996 MHz, 586.94 W, 47\n2, 120 MHz, 3996 MHz, 186.05 W, 33\n3, 120 MHz, 3996 MHz, 184.09 W, 33\n4, 2032 MHz, 3996 MHz, 252.17 W, 45\n5, 2032 MHz, 3996 MHz, 245.94 W, 45\n6, 120 MHz, 3996 MHz, 186.78 W, 33\n7, 120 MHz, 3996 MHz, 186.58 W, 32\n"
+    },
+    "changed_model_input": {
+      "greedy_equal": true,
+      "logits_equal": true
+    }
+  }
+}

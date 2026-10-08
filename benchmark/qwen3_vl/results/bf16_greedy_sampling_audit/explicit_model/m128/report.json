@@ -1,0 +1,177 @@
+{
+  "m": 128,
+  "source": "current frozen /root/qvl/sglang-cast-production; cast-only patch over M16",
+  "pairs": [],
+  "compile_config": {
+    "implementation": "committed explicit Triton cast",
+    "startup_warmup": true,
+    "model_hook": "baseline AST method versus unmodified production method; public kernel observation only"
+  },
+  "capture_dispatches": {
+    "capture": 2,
+    "eager": 4,
+    "buffer_identity": 6
+  },
+  "graph_keys": {
+    "baseline": [
+      "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ],
+    "candidate": [
+      "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ]
+  },
+  "greedy_equal": true,
+  "greedy_differences": 0,
+  "logit_checks": [
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    }
+  ],
+  "gpu_event_diagnostic": {
+    "synthetic_pairs": [
+      {
+        "candidate": 3.2485971450805664,
+        "baseline": 3.294454574584961
+      },
+      {
+        "baseline": 3.2798900604248047,
+        "candidate": 3.248558759689331
+      },
+      {
+        "candidate": 3.248565435409546,
+        "baseline": 3.2800259590148926
+      },
+      {
+        "baseline": 3.2798917293548584,
+        "candidate": 3.2485129833221436
+      },
+      {
+        "candidate": 3.248481512069702,
+        "baseline": 3.2798914909362793
+      },
+      {
+        "baseline": 3.280296802520752,
+        "candidate": 3.2488455772399902
+      }
+    ],
+    "actual_steps": {
+      "baseline": [
+        4.319583892822266,
+        5.269216060638428,
+        5.158143997192383,
+        5.163104057312012,
+        5.069920063018799,
+        4.555808067321777,
+        4.521312236785889,
+        4.553823947906494,
+        4.635583877563477,
+        4.6473917961120605,
+        4.432672023773193,
+        4.3821120262146,
+        4.350783824920654,
+        4.274303913116455,
+        4.231359958648682
+      ],
+      "candidate": [
+        4.3021440505981445,
+        5.191679954528809,
+        5.1552958488464355,
+        5.070240020751953,
+        5.108640193939209,
+        5.091360092163086,
+        5.061567783355713,
+        4.855711936950684,
+        4.5417280197143555,
+        4.462463855743408,
+        4.339935779571533,
+        4.299583911895752,
+        4.32371187210083,
+        4.349599838256836,
+        4.417056083679199
+      ]
+    },
+    "shared_buffer_snapshots": [
+      "input_ids",
+      "input_embeds",
+      "req_pool_indices",
+      "seq_lens",
+      "seq_lens_cpu",
+      "out_cache_loc",
+      "positions",
+      "mrope_positions",
+      "custom_mask",
+      "next_token_logits_buffer",
+      "global_num_tokens_gpu",
+      "global_num_tokens_for_logprob_gpu"
+    ],
+    "unchanged_input_buffers": {
+      "input_ids": true,
+      "input_embeds": true,
+      "req_pool_indices": true,
+      "seq_lens": true,
+      "seq_lens_cpu": true,
+      "out_cache_loc": true,
+      "positions": true,
+      "mrope_positions": true,
+      "custom_mask": true,
+      "next_token_logits_buffer": true,
+      "global_num_tokens_gpu": true,
+      "global_num_tokens_for_logprob_gpu": true
+    },
+    "clock_snapshot": "0, 120 MHz, 3996 MHz, 186.68 W, 36\n1, 2032 MHz, 3996 MHz, 907.70 W, 54\n2, 120 MHz, 3996 MHz, 185.58 W, 32\n3, 120 MHz, 3996 MHz, 184.05 W, 32\n4, 120 MHz, 3996 MHz, 186.85 W, 41\n5, 120 MHz, 3996 MHz, 186.57 W, 40\n6, 120 MHz, 3996 MHz, 186.33 W, 32\n7, 120 MHz, 3996 MHz, 185.26 W, 31\n"
+  },
+  "changed_model_input": {
+    "greedy_equal": true,
+    "logits_equal": true
+  }
+}

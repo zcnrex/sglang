@@ -133,10 +133,15 @@ short-context model gates (about 13/31 microseconds at batches 64/128), with
 bitwise-equal checked logits, changed-input results and caller-buffer identity.
 The combined compiled cast-plus-argmax approach was slower or flat and was
 rejected. The external cast-only short C128/N128 crossover improved throughput by
-0.193% on both GPUs. An explicit Triton production implementation is under
-validation; it has not been promoted. The batch-64 vocabulary external
-C64/N128 screen gained 0.335% and 0.352%; full N320 production validation
-is running. These short screens do not establish the full-sweep target.
+0.193% on both GPUs. An explicit Triton production implementation passed exhaustive BF16
+conversion, fallback and namespace checks. Its short model gates preserved
+logits and tokens bitwise and saved about 13/31 microseconds at B64/B128;
+production serving validation is running. It has not been promoted. The
+batch-64 vocabulary external C64/N128 screen gained 0.335% and 0.352%,
+but full N320 production pairs gained only 0.085% and 0.016%, with mixed
+TTFT results. Both M32/M64 vocabulary extensions were removed from the
+working implementation in `6b0f33ca59`. These results do not establish the
+full-sweep target.
 See `results/bf16_greedy_sampling_audit/`.
 
 ## Configuration and reproducibility
