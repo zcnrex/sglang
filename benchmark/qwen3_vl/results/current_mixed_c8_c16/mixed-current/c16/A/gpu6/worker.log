@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/qvl-mixed-current-serving.py", line 189, in <module>
+    assert manifest==json.load(open('/root/qvl/experiments/m16-down-production/candidate_expected.json'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

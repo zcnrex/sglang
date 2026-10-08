@@ -1,0 +1,22 @@
+{
+  "mixed-current-fixed/c8/A/gpu5/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c8/A/gpu4/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c8/B/gpu5/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c8/B/gpu4/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c16/A/gpu6/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c16/A/gpu7/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c16/B/gpu6/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c16/B/gpu7/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current/c8/A/gpu5/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current/c8/A/gpu4/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current/c16/A/gpu6/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current/c16/A/gpu7/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "mixed-current-fixed/c8/A/gpu5/bench.jsonl": "e14eea86bbbd72be331edc8682152e32f2ba66cb18956491196b6dfe7fa8b1b8",
+  "mixed-current-fixed/c8/A/gpu4/bench.jsonl": "95d7958abec0f2222cf2cdf50278c28ccda6cea25671403ed22a0a230f12892c",
+  "mixed-current-fixed/c8/B/gpu5/bench.jsonl": "71edbc78fabcd762f71698c3c971f3993dd5e67171e2f7395dc053a6d7931cfa",
+  "mixed-current-fixed/c8/B/gpu4/bench.jsonl": "cc7455becd34d879d26d170a7a8c474380a1a0b12faa0c2b6c4847a32c3aa6ad",
+  "mixed-current-fixed/c16/A/gpu6/bench.jsonl": "237c2f627e9b345af7e237ccfa1e99639052e3aafbbf147e018de73a8b2c8a73",
+  "mixed-current-fixed/c16/A/gpu7/bench.jsonl": "30ff9dcbbc1e47247449510027bb606451137e0316c6a777263e0e1a06ec6af2",
+  "mixed-current-fixed/c16/B/gpu6/bench.jsonl": "8bb2292afeb1dd3c6038d28b426c04880cf3efa94c59f17663fe96342a42295f",
+  "mixed-current-fixed/c16/B/gpu7/bench.jsonl": "868fb445f28330381fbd2ace4d5dcc3b00911612e73d81b4541dd3f1c458159a"
+}

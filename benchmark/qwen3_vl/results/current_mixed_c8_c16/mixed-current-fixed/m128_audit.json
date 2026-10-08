@@ -1,0 +1,2508 @@
+[
+  {
+    "c": 8,
+    "phase": "A",
+    "gpu": 4,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:12] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3712.99"
+      },
+      {
+        "new": 16358,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:12] Prefill batch, #new-seq: 3, #new-token: 16358, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 3, #pending-token: 8168, cuda graph: False, input throughput (token/s): 133305.78"
+      },
+      {
+        "new": 16360,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:12] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 1, #pending-token: 24381, cuda graph: False, input throughput (token/s): 185340.45"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8045, cuda graph: False, input throughput (token/s): 95254.02"
+      },
+      {
+        "new": 8045,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 2, #new-token: 8045, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 269784.13"
+      },
+      {
+        "new": 8095,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2078.07"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 40, cuda graph: False, input throughput (token/s): 165044.73"
+      },
+      {
+        "new": 16332,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 3, #new-token: 16332, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16451, cuda graph: False, input throughput (token/s): 128046.07"
+      },
+      {
+        "new": 16347,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 3, #new-token: 16347, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8304, cuda graph: False, input throughput (token/s): 125524.04"
+      },
+      {
+        "new": 8304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 2, #new-token: 8304, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117615.85"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2110.42"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 8229, cuda graph: False, input throughput (token/s): 154049.31"
+      },
+      {
+        "new": 16357,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16357, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8239, cuda graph: False, input throughput (token/s): 127504.38"
+      },
+      {
+        "new": 16335,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16335, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8284, cuda graph: False, input throughput (token/s): 124566.79"
+      },
+      {
+        "new": 8284,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 2, #new-token: 8284, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117621.71"
+      },
+      {
+        "new": 8175,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:25] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2101.93"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:25] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 3, #pending-token: 8221, cuda graph: False, input throughput (token/s): 172045.58"
+      },
+      {
+        "new": 16349,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:25] Prefill batch, #new-seq: 3, #new-token: 16349, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 24627, cuda graph: False, input throughput (token/s): 127122.50"
+      },
+      {
+        "new": 16355,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 3, #new-token: 16355, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 124302.04"
+      },
+      {
+        "new": 8272,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 115624.35"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2113.09"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 40, cuda graph: False, input throughput (token/s): 152498.73"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8263, cuda graph: False, input throughput (token/s): 126913.16"
+      },
+      {
+        "new": 16359,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 3, #new-token: 16359, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8304, cuda graph: False, input throughput (token/s): 124379.53"
+      },
+      {
+        "new": 8304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 2, #new-token: 8304, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117096.31"
+      },
+      {
+        "new": 8188,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 1, #new-token: 8188, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2101.21"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 40, cuda graph: False, input throughput (token/s): 161524.46"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8301, cuda graph: False, input throughput (token/s): 127037.53"
+      },
+      {
+        "new": 16333,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 3, #new-token: 16333, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 7600, cuda graph: False, input throughput (token/s): 124113.80"
+      },
+      {
+        "new": 7600,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 7600, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 119669.84"
+      },
+      {
+        "new": 7979,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:38] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2060.56"
+      },
+      {
+        "new": 16350,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:38] Prefill batch, #new-seq: 2, #new-token: 16350, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 163716.62"
+      },
+      {
+        "new": 16351,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:38] Prefill batch, #new-seq: 3, #new-token: 16351, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 7976, cuda graph: False, input throughput (token/s): 128543.58"
+      },
+      {
+        "new": 16336,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 8040, cuda graph: False, input throughput (token/s): 123797.55"
+      },
+      {
+        "new": 8040,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 1, #new-token: 8040, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117746.72"
+      },
+      {
+        "new": 8059,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:42] Prefill batch, #new-seq: 1, #new-token: 8059, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2066.52"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 164207.50"
+      },
+      {
+        "new": 16219,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 3, #new-token: 16219, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 125770.01"
+      },
+      {
+        "new": 16354,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 2, #new-token: 16354, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 125712.36"
+      },
+      {
+        "new": 8272,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 115905.96"
+      },
+      {
+        "new": 7791,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2003.22"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 40, cuda graph: False, input throughput (token/s): 161600.28"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8304, cuda graph: False, input throughput (token/s): 127708.58"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8368, cuda graph: False, input throughput (token/s): 125434.94"
+      },
+      {
+        "new": 8368,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 2, #new-token: 8368, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118548.71"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:51] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2107.92"
+      },
+      {
+        "new": 16378,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:51] Prefill batch, #new-seq: 2, #new-token: 16378, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 8, cuda graph: False, input throughput (token/s): 157437.38"
+      },
+      {
+        "new": 16340,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:51] Prefill batch, #new-seq: 3, #new-token: 16340, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8208, cuda graph: False, input throughput (token/s): 128286.37"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:51] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 125718.72"
+      },
+      {
+        "new": 8272,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:52] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 116660.86"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434171637692576,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 8,
+    "phase": "A",
+    "gpu": 5,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:09] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 4504.83"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:09] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 87158.64"
+      },
+      {
+        "new": 8126,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:09] Prefill batch, #new-seq: 1, #new-token: 8126, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 0, cuda graph: False, input throughput (token/s): 131546.63"
+      },
+      {
+        "new": 16328,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:09] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 1, #pending-token: 16472, cuda graph: False, input throughput (token/s): 130553.34"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:09] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8141, cuda graph: False, input throughput (token/s): 153517.50"
+      },
+      {
+        "new": 8141,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:09] Prefill batch, #new-seq: 2, #new-token: 8141, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117316.63"
+      },
+      {
+        "new": 8095,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2113.02"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 72, cuda graph: False, input throughput (token/s): 129661.74"
+      },
+      {
+        "new": 16300,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 3, #new-token: 16300, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8315, cuda graph: False, input throughput (token/s): 130727.02"
+      },
+      {
+        "new": 16315,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 3, #new-token: 16315, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8400, cuda graph: False, input throughput (token/s): 127230.46"
+      },
+      {
+        "new": 8400,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:13] Prefill batch, #new-seq: 2, #new-token: 8400, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117934.94"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2137.79"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 8261, cuda graph: False, input throughput (token/s): 131388.75"
+      },
+      {
+        "new": 16325,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:17] Prefill batch, #new-seq: 3, #new-token: 16325, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8303, cuda graph: False, input throughput (token/s): 130830.94"
+      },
+      {
+        "new": 16303,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:18] Prefill batch, #new-seq: 3, #new-token: 16303, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8380, cuda graph: False, input throughput (token/s): 127289.74"
+      },
+      {
+        "new": 8380,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:18] Prefill batch, #new-seq: 2, #new-token: 8380, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118226.50"
+      },
+      {
+        "new": 8175,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2140.10"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 133302.60"
+      },
+      {
+        "new": 16341,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 2, #new-token: 16341, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 40, cuda graph: False, input throughput (token/s): 132577.56"
+      },
+      {
+        "new": 16323,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 3, #new-token: 16323, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 16472, cuda graph: False, input throughput (token/s): 128604.28"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 168, cuda graph: False, input throughput (token/s): 104237.69"
+      },
+      {
+        "new": 168,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 1, #new-token: 168, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 81561.00"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2143.86"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 138006.65"
+      },
+      {
+        "new": 8200,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 0, cuda graph: False, input throughput (token/s): 126699.90"
+      },
+      {
+        "new": 16328,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 1, #pending-token: 16431, cuda graph: False, input throughput (token/s): 132356.14"
+      },
+      {
+        "new": 16327,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 3, #new-token: 16327, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8304, cuda graph: False, input throughput (token/s): 126634.09"
+      },
+      {
+        "new": 8304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 2, #new-token: 8304, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118238.68"
+      },
+      {
+        "new": 8188,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 1, #new-token: 8188, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2127.50"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 141659.51"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 72, cuda graph: False, input throughput (token/s): 132037.33"
+      },
+      {
+        "new": 16301,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 3, #new-token: 16301, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 15800, cuda graph: False, input throughput (token/s): 128626.50"
+      },
+      {
+        "new": 15800,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:30] Prefill batch, #new-seq: 3, #new-token: 15800, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 124575.72"
+      },
+      {
+        "new": 7979,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2094.73"
+      },
+      {
+        "new": 8150,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 1, #new-token: 8150, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 129032.08"
+      },
+      {
+        "new": 16319,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 3, #new-token: 16319, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 8008, cuda graph: False, input throughput (token/s): 132133.39"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:35] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 16304, cuda graph: False, input throughput (token/s): 128396.73"
+      },
+      {
+        "new": 16304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:35] Prefill batch, #new-seq: 2, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 124155.03"
+      },
+      {
+        "new": 8059,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 1, #new-token: 8059, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2101.38"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 127560.26"
+      },
+      {
+        "new": 8200,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 126690.20"
+      },
+      {
+        "new": 16339,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 3, #new-token: 16339, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 8066, cuda graph: False, input throughput (token/s): 132028.77"
+      },
+      {
+        "new": 16298,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 3, #new-token: 16298, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 8168, cuda graph: False, input throughput (token/s): 125949.30"
+      },
+      {
+        "new": 8168,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 1, #new-token: 8168, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117139.13"
+      },
+      {
+        "new": 7791,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2036.09"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 127796.51"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 72, cuda graph: False, input throughput (token/s): 132276.31"
+      },
+      {
+        "new": 16304,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 16568, cuda graph: False, input throughput (token/s): 128381.66"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 264, cuda graph: False, input throughput (token/s): 103693.86"
+      },
+      {
+        "new": 264,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:43] Prefill batch, #new-seq: 1, #new-token: 264, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 126526.59"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2143.98"
+      },
+      {
+        "new": 16346,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 2, #new-token: 16346, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 131054.46"
+      },
+      {
+        "new": 8180,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 2, #new-token: 8180, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 0, cuda graph: False, input throughput (token/s): 122321.59"
+      },
+      {
+        "new": 16328,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:47] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 16472, cuda graph: False, input throughput (token/s): 130575.47"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:48] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 168, cuda graph: False, input throughput (token/s): 123697.20"
+      },
+      {
+        "new": 168,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:48] Prefill batch, #new-seq: 1, #new-token: 168, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 15502.98"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434168042473881,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 8,
+    "phase": "B",
+    "gpu": 4,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3688.44"
+      },
+      {
+        "new": 16326,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117826.41"
+      },
+      {
+        "new": 16328,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 1, #pending-token: 72, cuda graph: False, input throughput (token/s): 122843.05"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:58] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8141, cuda graph: False, input throughput (token/s): 205259.37"
+      },
+      {
+        "new": 8141,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:58] Prefill batch, #new-seq: 2, #new-token: 8141, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 115345.68"
+      },
+      {
+        "new": 8095,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2079.49"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 149116.47"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 8236, cuda graph: False, input throughput (token/s): 168733.96"
+      },
+      {
+        "new": 16300,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 3, #new-token: 16300, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 16515, cuda graph: False, input throughput (token/s): 124749.02"
+      },
+      {
+        "new": 16315,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 3, #new-token: 16315, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 200, cuda graph: False, input throughput (token/s): 91312.54"
+      },
+      {
+        "new": 200,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 1, #new-token: 200, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 55923.95"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:06] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2111.54"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:06] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 151233.08"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:06] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 8261, cuda graph: False, input throughput (token/s): 154370.37"
+      },
+      {
+        "new": 16325,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:06] Prefill batch, #new-seq: 3, #new-token: 16325, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 8303, cuda graph: False, input throughput (token/s): 124377.20"
+      },
+      {
+        "new": 16303,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:06] Prefill batch, #new-seq: 3, #new-token: 16303, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 180, cuda graph: False, input throughput (token/s): 90954.46"
+      },
+      {
+        "new": 180,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:06] Prefill batch, #new-seq: 1, #new-token: 180, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 49730.60"
+      },
+      {
+        "new": 8175,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2104.52"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 148826.59"
+      },
+      {
+        "new": 16341,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 2, #new-token: 16341, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 8195, cuda graph: False, input throughput (token/s): 164293.43"
+      },
+      {
+        "new": 16323,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 3, #new-token: 16323, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 124156.39"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:11] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 168, cuda graph: False, input throughput (token/s): 94456.06"
+      },
+      {
+        "new": 168,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:11] Prefill batch, #new-seq: 1, #new-token: 168, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 46729.24"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2111.71"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 152901.52"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 40, cuda graph: False, input throughput (token/s): 153093.51"
+      },
+      {
+        "new": 16304,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 8327, cuda graph: False, input throughput (token/s): 124001.11"
+      },
+      {
+        "new": 16327,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16327, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 200, cuda graph: False, input throughput (token/s): 122215.74"
+      },
+      {
+        "new": 200,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 1, #new-token: 200, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 18129.02"
+      },
+      {
+        "new": 8188,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:19] Prefill batch, #new-seq: 1, #new-token: 8188, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2103.71"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:19] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 151757.99"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:19] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 72, cuda graph: False, input throughput (token/s): 160440.24"
+      },
+      {
+        "new": 16301,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:19] Prefill batch, #new-seq: 3, #new-token: 16301, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 0, #pending-token: 8344, cuda graph: False, input throughput (token/s): 126062.74"
+      },
+      {
+        "new": 15800,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:19] Prefill batch, #new-seq: 3, #new-token: 15800, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 122121.75"
+      },
+      {
+        "new": 7979,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:23] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2052.49"
+      },
+      {
+        "new": 16342,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:23] Prefill batch, #new-seq: 2, #new-token: 16342, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 8, cuda graph: False, input throughput (token/s): 180001.94"
+      },
+      {
+        "new": 7935,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:23] Prefill batch, #new-seq: 2, #new-token: 7935, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 0, cuda graph: False, input throughput (token/s): 119497.77"
+      },
+      {
+        "new": 16328,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:23] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 16472, cuda graph: False, input throughput (token/s): 128306.15"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:24] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 168, cuda graph: False, input throughput (token/s): 121143.79"
+      },
+      {
+        "new": 168,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:24] Prefill batch, #new-seq: 1, #new-token: 168, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 15606.91"
+      },
+      {
+        "new": 8059,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:27] Prefill batch, #new-seq: 1, #new-token: 8059, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2085.59"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:28] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 72, cuda graph: False, input throughput (token/s): 169448.08"
+      },
+      {
+        "new": 16315,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:28] Prefill batch, #new-seq: 4, #new-token: 16315, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16362, cuda graph: False, input throughput (token/s): 126747.39"
+      },
+      {
+        "new": 16322,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:28] Prefill batch, #new-seq: 2, #new-token: 16322, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 8240, cuda graph: False, input throughput (token/s): 124912.94"
+      },
+      {
+        "new": 8240,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:28] Prefill batch, #new-seq: 2, #new-token: 8240, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 114802.84"
+      },
+      {
+        "new": 7791,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:32] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2009.81"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:32] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 8272, cuda graph: False, input throughput (token/s): 171532.89"
+      },
+      {
+        "new": 16304,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:32] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16568, cuda graph: False, input throughput (token/s): 127067.70"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:32] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8464, cuda graph: False, input throughput (token/s): 122998.29"
+      },
+      {
+        "new": 8464,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:32] Prefill batch, #new-seq: 2, #new-token: 8464, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 113944.10"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:36] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2123.97"
+      },
+      {
+        "new": 16346,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:36] Prefill batch, #new-seq: 2, #new-token: 16346, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 40, cuda graph: False, input throughput (token/s): 169133.57"
+      },
+      {
+        "new": 16308,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:36] Prefill batch, #new-seq: 3, #new-token: 16308, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16472, cuda graph: False, input throughput (token/s): 126824.75"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:36] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8368, cuda graph: False, input throughput (token/s): 122069.35"
+      },
+      {
+        "new": 8368,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:37] Prefill batch, #new-seq: 2, #new-token: 8368, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 114361.85"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434276571475334,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 8,
+    "phase": "B",
+    "gpu": 5,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3694.26"
+      },
+      {
+        "new": 16358,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16358, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 3, #pending-token: 8168, cuda graph: False, input throughput (token/s): 135870.67"
+      },
+      {
+        "new": 16360,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 1, #pending-token: 24381, cuda graph: False, input throughput (token/s): 194042.99"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8045, cuda graph: False, input throughput (token/s): 99530.34"
+      },
+      {
+        "new": 8045,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 2, #new-token: 8045, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 264530.45"
+      },
+      {
+        "new": 8095,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:00] Prefill batch, #new-seq: 1, #new-token: 8095, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2082.18"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:00] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 8204, cuda graph: False, input throughput (token/s): 179128.87"
+      },
+      {
+        "new": 16332,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:00] Prefill batch, #new-seq: 3, #new-token: 16332, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16451, cuda graph: False, input throughput (token/s): 131579.46"
+      },
+      {
+        "new": 16347,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:00] Prefill batch, #new-seq: 3, #new-token: 16347, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8304, cuda graph: False, input throughput (token/s): 128421.94"
+      },
+      {
+        "new": 8304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:00] Prefill batch, #new-seq: 2, #new-token: 8304, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 119077.85"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:04] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 2105.11"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:04] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 8229, cuda graph: False, input throughput (token/s): 172564.65"
+      },
+      {
+        "new": 16357,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:05] Prefill batch, #new-seq: 3, #new-token: 16357, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16439, cuda graph: False, input throughput (token/s): 131353.00"
+      },
+      {
+        "new": 16335,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:05] Prefill batch, #new-seq: 3, #new-token: 16335, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8284, cuda graph: False, input throughput (token/s): 128826.49"
+      },
+      {
+        "new": 8284,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:05] Prefill batch, #new-seq: 2, #new-token: 8284, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 119611.68"
+      },
+      {
+        "new": 8175,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 1, #new-token: 8175, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2097.64"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 21, cuda graph: False, input throughput (token/s): 174251.79"
+      },
+      {
+        "new": 16349,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16349, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16427, cuda graph: False, input throughput (token/s): 130899.56"
+      },
+      {
+        "new": 16355,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16355, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 128398.68"
+      },
+      {
+        "new": 8272,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117770.43"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:13] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2103.12"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:13] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 40, cuda graph: False, input throughput (token/s): 179299.73"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:13] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8263, cuda graph: False, input throughput (token/s): 130527.14"
+      },
+      {
+        "new": 16359,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:13] Prefill batch, #new-seq: 3, #new-token: 16359, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8304, cuda graph: False, input throughput (token/s): 126551.19"
+      },
+      {
+        "new": 8304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:13] Prefill batch, #new-seq: 2, #new-token: 8304, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117762.58"
+      },
+      {
+        "new": 8188,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:17] Prefill batch, #new-seq: 1, #new-token: 8188, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2098.31"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:17] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 177450.49"
+      },
+      {
+        "new": 8240,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:17] Prefill batch, #new-seq: 2, #new-token: 8240, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 0, cuda graph: False, input throughput (token/s): 122696.36"
+      },
+      {
+        "new": 16357,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:18] Prefill batch, #new-seq: 2, #new-token: 16357, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 15672, cuda graph: False, input throughput (token/s): 132928.93"
+      },
+      {
+        "new": 15672,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:18] Prefill batch, #new-seq: 3, #new-token: 15672, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 123636.60"
+      },
+      {
+        "new": 7979,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:22] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2061.39"
+      },
+      {
+        "new": 16350,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:22] Prefill batch, #new-seq: 2, #new-token: 16350, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 179107.80"
+      },
+      {
+        "new": 16127,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:22] Prefill batch, #new-seq: 2, #new-token: 16127, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 132414.04"
+      },
+      {
+        "new": 16360,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:22] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 8240, cuda graph: False, input throughput (token/s): 129647.97"
+      },
+      {
+        "new": 8240,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:22] Prefill batch, #new-seq: 2, #new-token: 8240, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 116887.12"
+      },
+      {
+        "new": 8059,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:26] Prefill batch, #new-seq: 1, #new-token: 8059, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2071.63"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:26] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 195674.36"
+      },
+      {
+        "new": 16230,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:26] Prefill batch, #new-seq: 2, #new-token: 16230, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 139502.56"
+      },
+      {
+        "new": 16373,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:26] Prefill batch, #new-seq: 2, #new-token: 16373, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 2, cuda graph: False, input throughput (token/s): 132479.98"
+      },
+      {
+        "new": 16330,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:26] Prefill batch, #new-seq: 3, #new-token: 16330, #cached-token: 0, token usage: 0.04, #running-req: 5, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 95943.13"
+      },
+      {
+        "new": 72,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:26] Prefill batch, #new-seq: 1, #new-token: 72, #cached-token: 0, token usage: 0.04, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 22637.30"
+      },
+      {
+        "new": 7791,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:30] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1996.71"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:30] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 186056.29"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:30] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 104, cuda graph: False, input throughput (token/s): 132451.22"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:31] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8368, cuda graph: False, input throughput (token/s): 129036.01"
+      },
+      {
+        "new": 8368,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:31] Prefill batch, #new-seq: 2, #new-token: 8368, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118058.53"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:35] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 2116.55"
+      },
+      {
+        "new": 16378,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:35] Prefill batch, #new-seq: 2, #new-token: 16378, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 8, cuda graph: False, input throughput (token/s): 165211.07"
+      },
+      {
+        "new": 16340,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:35] Prefill batch, #new-seq: 3, #new-token: 16340, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 16408, cuda graph: False, input throughput (token/s): 131664.16"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:35] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 126565.45"
+      },
+      {
+        "new": 8272,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:35] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.04, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 117263.56"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434275159740875,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 16,
+    "phase": "A",
+    "gpu": 6,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3731.04"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 96189.80"
+      },
+      {
+        "new": 16358,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 3, #new-token: 16358, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 3, #pending-token: 8168, cuda graph: False, input throughput (token/s): 131992.42"
+      },
+      {
+        "new": 16360,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 6, #pending-token: 24276, cuda graph: False, input throughput (token/s): 183609.60"
+      },
+      {
+        "new": 16309,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 4, #new-token: 16309, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 5, #pending-token: 57110, cuda graph: False, input throughput (token/s): 121119.32"
+      },
+      {
+        "new": 16359,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 3, #new-token: 16359, #cached-token: 0, token usage: 0.06, #running-req: 8, #queue-req: 3, #pending-token: 48951, cuda graph: False, input throughput (token/s): 124886.38"
+      },
+      {
+        "new": 16332,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 3, #new-token: 16332, #cached-token: 0, token usage: 0.07, #running-req: 10, #queue-req: 1, #pending-token: 32619, cuda graph: False, input throughput (token/s): 125151.10"
+      },
+      {
+        "new": 16347,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 3, #new-token: 16347, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 16272, cuda graph: False, input throughput (token/s): 125555.95"
+      },
+      {
+        "new": 16272,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 2, #new-token: 16272, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 124743.87"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1507.42"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 40, cuda graph: False, input throughput (token/s): 153566.65"
+      },
+      {
+        "new": 16357,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16357, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 3, #pending-token: 72, cuda graph: False, input throughput (token/s): 127667.03"
+      },
+      {
+        "new": 16335,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16335, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 7, #pending-token: 24659, cuda graph: False, input throughput (token/s): 124478.41"
+      },
+      {
+        "new": 16348,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16348, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 57447, cuda graph: False, input throughput (token/s): 122412.50"
+      },
+      {
+        "new": 16343,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16343, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 41104, cuda graph: False, input throughput (token/s): 124334.85"
+      },
+      {
+        "new": 16349,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16349, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24755, cuda graph: False, input throughput (token/s): 124420.99"
+      },
+      {
+        "new": 16355,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 3, #new-token: 16355, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8400, cuda graph: False, input throughput (token/s): 124181.96"
+      },
+      {
+        "new": 8400,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:22] Prefill batch, #new-seq: 2, #new-token: 8400, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118389.35"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1510.77"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 169369.45"
+      },
+      {
+        "new": 16360,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 8, cuda graph: False, input throughput (token/s): 129455.62"
+      },
+      {
+        "new": 16336,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 5, #pending-token: 8263, cuda graph: False, input throughput (token/s): 125717.45"
+      },
+      {
+        "new": 16359,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:28] Prefill batch, #new-seq: 3, #new-token: 16359, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 6, #pending-token: 41089, cuda graph: False, input throughput (token/s): 121623.73"
+      },
+      {
+        "new": 16356,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:28] Prefill batch, #new-seq: 3, #new-token: 16356, #cached-token: 0, token usage: 0.06, #running-req: 7, #queue-req: 4, #pending-token: 48565, cuda graph: False, input throughput (token/s): 123571.43"
+      },
+      {
+        "new": 16336,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:28] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 32229, cuda graph: False, input throughput (token/s): 123537.70"
+      },
+      {
+        "new": 16333,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:28] Prefill batch, #new-seq: 3, #new-token: 16333, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 15896, cuda graph: False, input throughput (token/s): 124487.61"
+      },
+      {
+        "new": 15896,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:28] Prefill batch, #new-seq: 3, #new-token: 15896, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 123852.62"
+      },
+      {
+        "new": 7979,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1470.80"
+      },
+      {
+        "new": 16350,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 16350, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 156488.61"
+      },
+      {
+        "new": 16127,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 16127, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 3, #pending-token: 0, cuda graph: False, input throughput (token/s): 129364.36"
+      },
+      {
+        "new": 16360,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 5, #pending-token: 24499, cuda graph: False, input throughput (token/s): 125181.68"
+      },
+      {
+        "new": 16331,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 4, #new-token: 16331, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 48973, cuda graph: False, input throughput (token/s): 121578.10"
+      },
+      {
+        "new": 16360,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 40813, cuda graph: False, input throughput (token/s): 126373.15"
+      },
+      {
+        "new": 16347,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 4, #new-token: 16347, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 0, #pending-token: 24466, cuda graph: False, input throughput (token/s): 125238.75"
+      },
+      {
+        "new": 16330,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 3, #new-token: 16330, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 8136, cuda graph: False, input throughput (token/s): 124973.42"
+      },
+      {
+        "new": 8136,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 1, #new-token: 8136, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 119259.12"
+      },
+      {
+        "new": 7791,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1435.43"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 185479.93"
+      },
+      {
+        "new": 16360,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 0, #pending-token: 8240, cuda graph: False, input throughput (token/s): 142220.18"
+      },
+      {
+        "new": 16336,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 4, #pending-token: 104, cuda graph: False, input throughput (token/s): 127111.98"
+      },
+      {
+        "new": 16336,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 6, #pending-token: 32894, cuda graph: False, input throughput (token/s): 120693.85"
+      },
+      {
+        "new": 16336,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.06, #running-req: 7, #queue-req: 4, #pending-token: 49358, cuda graph: False, input throughput (token/s): 123719.19"
+      },
+      {
+        "new": 16354,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:41] Prefill batch, #new-seq: 3, #new-token: 16354, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 33004, cuda graph: False, input throughput (token/s): 125240.41"
+      },
+      {
+        "new": 16340,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:41] Prefill batch, #new-seq: 3, #new-token: 16340, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 16664, cuda graph: False, input throughput (token/s): 125292.74"
+      },
+      {
+        "new": 16336,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:41] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 328, cuda graph: False, input throughput (token/s): 96095.45"
+      },
+      {
+        "new": 328,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:41] Prefill batch, #new-seq: 1, #new-token: 328, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 106851.70"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434173715695276,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 16,
+    "phase": "A",
+    "gpu": 7,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3740.04"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 162509.56"
+      },
+      {
+        "new": 16326,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 2, #pending-token: 8200, cuda graph: False, input throughput (token/s): 103915.42"
+      },
+      {
+        "new": 16328,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 4, #queue-req: 7, #pending-token: 16245, cuda graph: False, input throughput (token/s): 120700.08"
+      },
+      {
+        "new": 16277,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 4, #new-token: 16277, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 5, #pending-token: 65406, cuda graph: False, input throughput (token/s): 185116.25"
+      },
+      {
+        "new": 16327,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 3, #new-token: 16327, #cached-token: 0, token usage: 0.06, #running-req: 8, #queue-req: 4, #pending-token: 49079, cuda graph: False, input throughput (token/s): 92789.60"
+      },
+      {
+        "new": 16300,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 2, #new-token: 16300, #cached-token: 0, token usage: 0.07, #running-req: 10, #queue-req: 2, #pending-token: 32779, cuda graph: False, input throughput (token/s): 181079.34"
+      },
+      {
+        "new": 16328,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:14] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 16451, cuda graph: False, input throughput (token/s): 125429.80"
+      },
+      {
+        "new": 16315,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 3, #new-token: 16315, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 136, cuda graph: False, input throughput (token/s): 92231.07"
+      },
+      {
+        "new": 136,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:15] Prefill batch, #new-seq: 1, #new-token: 136, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 34149.97"
+      },
+      {
+        "new": 8193,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:20] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1518.90"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:20] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 181768.58"
+      },
+      {
+        "new": 16325,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:20] Prefill batch, #new-seq: 3, #new-token: 16325, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 2, #pending-token: 136, cuda graph: False, input throughput (token/s): 125729.66"
+      },
+      {
+        "new": 16303,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:20] Prefill batch, #new-seq: 3, #new-token: 16303, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 7, #pending-token: 16555, cuda graph: False, input throughput (token/s): 120830.40"
+      },
+      {
+        "new": 16316,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16316, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 57575, cuda graph: False, input throughput (token/s): 122550.34"
+      },
+      {
+        "new": 16311,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16311, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 41264, cuda graph: False, input throughput (token/s): 124873.92"
+      },
+      {
+        "new": 16317,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16317, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24947, cuda graph: False, input throughput (token/s): 124579.59"
+      },
+      {
+        "new": 16323,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 3, #new-token: 16323, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8624, cuda graph: False, input throughput (token/s): 122862.22"
+      },
+      {
+        "new": 8624,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:21] Prefill batch, #new-seq: 2, #new-token: 8624, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 115401.89"
+      },
+      {
+        "new": 8200,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1517.41"
+      },
+      {
+        "new": 16328,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:26] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 3, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 174016.96"
+      },
+      {
+        "new": 16304,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 3, #pending-token: 136, cuda graph: False, input throughput (token/s): 125209.77"
+      },
+      {
+        "new": 16327,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16327, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 7, #pending-token: 24788, cuda graph: False, input throughput (token/s): 121442.87"
+      },
+      {
+        "new": 16304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 56913, cuda graph: False, input throughput (token/s): 122733.21"
+      },
+      {
+        "new": 16324,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16324, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 40589, cuda graph: False, input throughput (token/s): 123773.50"
+      },
+      {
+        "new": 16304,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24285, cuda graph: False, input throughput (token/s): 123096.03"
+      },
+      {
+        "new": 16301,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 3, #new-token: 16301, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 7984, cuda graph: False, input throughput (token/s): 93518.25"
+      },
+      {
+        "new": 7984,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:27] Prefill batch, #new-seq: 2, #new-token: 7984, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 275304.71"
+      },
+      {
+        "new": 7979,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 6, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1481.17"
+      },
+      {
+        "new": 16342,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 2, #new-token: 16342, #cached-token: 0, token usage: 0.03, #running-req: 3, #queue-req: 0, #pending-token: 8, cuda graph: False, input throughput (token/s): 180015.80"
+      },
+      {
+        "new": 16135,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 3, #new-token: 16135, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 2, #pending-token: 0, cuda graph: False, input throughput (token/s): 124529.03"
+      },
+      {
+        "new": 16328,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 6, #pending-token: 16331, cuda graph: False, input throughput (token/s): 122318.08"
+      },
+      {
+        "new": 16304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 49032, cuda graph: False, input throughput (token/s): 121462.79"
+      },
+      {
+        "new": 16323,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 3, #new-token: 16323, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 2, #pending-token: 40909, cuda graph: False, input throughput (token/s): 125113.19"
+      },
+      {
+        "new": 16315,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:33] Prefill batch, #new-seq: 4, #new-token: 16315, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24594, cuda graph: False, input throughput (token/s): 124488.84"
+      },
+      {
+        "new": 16322,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 16322, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 8272, cuda graph: False, input throughput (token/s): 125092.33"
+      },
+      {
+        "new": 8272,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:34] Prefill batch, #new-seq: 2, #new-token: 8272, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 114789.03"
+      },
+      {
+        "new": 7791,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.02, #running-req: 3, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1445.15"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 181140.31"
+      },
+      {
+        "new": 16304,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 2, #pending-token: 168, cuda graph: False, input throughput (token/s): 126666.51"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:39] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 6, #pending-token: 16664, cuda graph: False, input throughput (token/s): 123385.72"
+      },
+      {
+        "new": 16304,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 49486, cuda graph: False, input throughput (token/s): 123101.96"
+      },
+      {
+        "new": 16322,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16322, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 41364, cuda graph: False, input throughput (token/s): 124765.99"
+      },
+      {
+        "new": 16308,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16308, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 25056, cuda graph: False, input throughput (token/s): 123839.38"
+      },
+      {
+        "new": 16304,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8752, cuda graph: False, input throughput (token/s): 124168.49"
+      },
+      {
+        "new": 8752,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:36:40] Prefill batch, #new-seq: 2, #new-token: 8752, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 115406.68"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434173008481843,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 16,
+    "phase": "B",
+    "gpu": 6,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 3703.48"
+      },
+      {
+        "new": 16326,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 2, #new-token: 16326, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 4, #pending-token: 8200, cuda graph: False, input throughput (token/s): 121752.67"
+      },
+      {
+        "new": 16328,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 9, #pending-token: 32540, cuda graph: False, input throughput (token/s): 116844.90"
+      },
+      {
+        "new": 16304,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 6, #pending-token: 73579, cuda graph: False, input throughput (token/s): 124281.98"
+      },
+      {
+        "new": 16300,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 4, #new-token: 16300, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 57279, cuda graph: False, input throughput (token/s): 120030.40"
+      },
+      {
+        "new": 16328,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 3, #pending-token: 40951, cuda graph: False, input throughput (token/s): 192485.78"
+      },
+      {
+        "new": 16300,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 3, #new-token: 16300, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24651, cuda graph: False, input throughput (token/s): 122865.96"
+      },
+      {
+        "new": 16315,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 3, #new-token: 16315, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8336, cuda graph: False, input throughput (token/s): 122423.50"
+      },
+      {
+        "new": 8336,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:51] Prefill batch, #new-seq: 2, #new-token: 8336, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 113203.40"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1519.49"
+      },
+      {
+        "new": 16328,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 0, #pending-token: 72, cuda graph: False, input throughput (token/s): 178733.59"
+      },
+      {
+        "new": 16325,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 3, #new-token: 16325, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 2, #pending-token: 136, cuda graph: False, input throughput (token/s): 126447.08"
+      },
+      {
+        "new": 16303,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 3, #new-token: 16303, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 6, #pending-token: 16555, cuda graph: False, input throughput (token/s): 122176.15"
+      },
+      {
+        "new": 16316,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 3, #new-token: 16316, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 49375, cuda graph: False, input throughput (token/s): 122584.27"
+      },
+      {
+        "new": 16311,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 3, #new-token: 16311, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 41264, cuda graph: False, input throughput (token/s): 123859.68"
+      },
+      {
+        "new": 16317,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:57] Prefill batch, #new-seq: 3, #new-token: 16317, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24947, cuda graph: False, input throughput (token/s): 124085.79"
+      },
+      {
+        "new": 16323,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:58] Prefill batch, #new-seq: 3, #new-token: 16323, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8624, cuda graph: False, input throughput (token/s): 123256.63"
+      },
+      {
+        "new": 8624,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:58] Prefill batch, #new-seq: 2, #new-token: 8624, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 114643.93"
+      },
+      {
+        "new": 8200,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.01, #running-req: 4, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1514.15"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 152681.75"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 8240, cuda graph: False, input throughput (token/s): 172134.19"
+      },
+      {
+        "new": 16304,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 3, #pending-token: 8327, cuda graph: False, input throughput (token/s): 123063.23"
+      },
+      {
+        "new": 16327,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 3, #new-token: 16327, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 6, #pending-token: 24788, cuda graph: False, input throughput (token/s): 121160.58"
+      },
+      {
+        "new": 16324,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:04] Prefill batch, #new-seq: 3, #new-token: 16324, #cached-token: 0, token usage: 0.06, #running-req: 7, #queue-req: 4, #pending-token: 48693, cuda graph: False, input throughput (token/s): 123793.97"
+      },
+      {
+        "new": 16304,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:04] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 32389, cuda graph: False, input throughput (token/s): 123385.33"
+      },
+      {
+        "new": 16301,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:04] Prefill batch, #new-seq: 3, #new-token: 16301, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 16088, cuda graph: False, input throughput (token/s): 122512.84"
+      },
+      {
+        "new": 16088,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:04] Prefill batch, #new-seq: 3, #new-token: 16088, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 122148.63"
+      },
+      {
+        "new": 7979,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 7, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1480.40"
+      },
+      {
+        "new": 16342,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 2, #new-token: 16342, #cached-token: 0, token usage: 0.03, #running-req: 4, #queue-req: 0, #pending-token: 8, cuda graph: False, input throughput (token/s): 211627.00"
+      },
+      {
+        "new": 16295,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 4, #new-token: 16295, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 1, #pending-token: 8040, cuda graph: False, input throughput (token/s): 123929.10"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 5, #pending-token: 16195, cuda graph: False, input throughput (token/s): 119538.62"
+      },
+      {
+        "new": 16323,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 3, #new-token: 16323, #cached-token: 0, token usage: 0.06, #running-req: 7, #queue-req: 4, #pending-token: 48877, cuda graph: False, input throughput (token/s): 122799.42"
+      },
+      {
+        "new": 16304,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 40773, cuda graph: False, input throughput (token/s): 123541.51"
+      },
+      {
+        "new": 16339,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 3, #new-token: 16339, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 24434, cuda graph: False, input throughput (token/s): 123996.49"
+      },
+      {
+        "new": 16298,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 3, #new-token: 16298, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 8136, cuda graph: False, input throughput (token/s): 121821.07"
+      },
+      {
+        "new": 8136,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:10] Prefill batch, #new-seq: 1, #new-token: 8136, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 114318.50"
+      },
+      {
+        "new": 7791,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.01, #running-req: 1, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1446.13"
+      },
+      {
+        "new": 8200,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 156443.11"
+      },
+      {
+        "new": 16328,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 2, #new-token: 16328, #cached-token: 0, token usage: 0.03, #running-req: 2, #queue-req: 1, #pending-token: 8272, cuda graph: False, input throughput (token/s): 155797.19"
+      },
+      {
+        "new": 16304,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 4, #pending-token: 8368, cuda graph: False, input throughput (token/s): 123398.06"
+      },
+      {
+        "new": 16304,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 6, #pending-token: 32990, cuda graph: False, input throughput (token/s): 121313.01"
+      },
+      {
+        "new": 16304,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.06, #running-req: 7, #queue-req: 4, #pending-token: 49486, cuda graph: False, input throughput (token/s): 121986.47"
+      },
+      {
+        "new": 16322,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 3, #new-token: 16322, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 33164, cuda graph: False, input throughput (token/s): 122627.97"
+      },
+      {
+        "new": 16308,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 3, #new-token: 16308, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 16856, cuda graph: False, input throughput (token/s): 122350.72"
+      },
+      {
+        "new": 16304,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:17] Prefill batch, #new-seq: 3, #new-token: 16304, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 552, cuda graph: False, input throughput (token/s): 121613.86"
+      },
+      {
+        "new": 552,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:17] Prefill batch, #new-seq: 1, #new-token: 552, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 37552.11"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434269635784767,
+        "result": "True"
+      }
+    ]
+  },
+  {
+    "c": 16,
+    "phase": "B",
+    "gpu": 7,
+    "intervals": [
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:49] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 3722.37"
+      },
+      {
+        "new": 16358,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:49] Prefill batch, #new-seq: 3, #new-token: 16358, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 4, #pending-token: 8168, cuda graph: False, input throughput (token/s): 133791.29"
+      },
+      {
+        "new": 16360,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:49] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 9, #pending-token: 32476, cuda graph: False, input throughput (token/s): 186002.24"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:49] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 6, #pending-token: 73483, cuda graph: False, input throughput (token/s): 125917.59"
+      },
+      {
+        "new": 16332,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 4, #new-token: 16332, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 4, #pending-token: 57151, cuda graph: False, input throughput (token/s): 123323.58"
+      },
+      {
+        "new": 16336,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 40815, cuda graph: False, input throughput (token/s): 125232.05"
+      },
+      {
+        "new": 16332,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 3, #new-token: 16332, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 24483, cuda graph: False, input throughput (token/s): 125386.64"
+      },
+      {
+        "new": 16347,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 3, #new-token: 16347, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 8136, cuda graph: False, input throughput (token/s): 125793.45"
+      },
+      {
+        "new": 8136,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:50] Prefill batch, #new-seq: 1, #new-token: 8136, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 120193.37"
+      },
+      {
+        "new": 8193,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:55] Prefill batch, #new-seq: 1, #new-token: 8193, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 1501.93"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 8229, cuda graph: False, input throughput (token/s): 164260.50"
+      },
+      {
+        "new": 16357,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16357, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 8, #pending-token: 16439, cuda graph: False, input throughput (token/s): 127571.87"
+      },
+      {
+        "new": 16335,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16335, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 7, #pending-token: 65595, cuda graph: False, input throughput (token/s): 125914.79"
+      },
+      {
+        "new": 16348,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16348, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 57447, cuda graph: False, input throughput (token/s): 123831.46"
+      },
+      {
+        "new": 16343,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16343, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 41104, cuda graph: False, input throughput (token/s): 126252.82"
+      },
+      {
+        "new": 16349,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16349, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24755, cuda graph: False, input throughput (token/s): 126034.02"
+      },
+      {
+        "new": 16355,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 3, #new-token: 16355, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8400, cuda graph: False, input throughput (token/s): 126368.83"
+      },
+      {
+        "new": 8400,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:37:56] Prefill batch, #new-seq: 2, #new-token: 8400, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 119089.54"
+      },
+      {
+        "new": 8200,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 1, #new-token: 8200, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1508.65"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 2, #pending-token: 40, cuda graph: False, input throughput (token/s): 158573.99"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 7, #pending-token: 16463, cuda graph: False, input throughput (token/s): 128143.75"
+      },
+      {
+        "new": 16359,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 3, #new-token: 16359, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 7, #pending-token: 57489, cuda graph: False, input throughput (token/s): 124286.68"
+      },
+      {
+        "new": 16336,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 56785, cuda graph: False, input throughput (token/s): 124292.99"
+      },
+      {
+        "new": 16356,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:02] Prefill batch, #new-seq: 3, #new-token: 16356, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 40429, cuda graph: False, input throughput (token/s): 125866.23"
+      },
+      {
+        "new": 16336,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24093, cuda graph: False, input throughput (token/s): 125634.11"
+      },
+      {
+        "new": 16333,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 3, #new-token: 16333, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 7760, cuda graph: False, input throughput (token/s): 97970.28"
+      },
+      {
+        "new": 7760,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:03] Prefill batch, #new-seq: 2, #new-token: 7760, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 263359.43"
+      },
+      {
+        "new": 7979,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:08] Prefill batch, #new-seq: 1, #new-token: 7979, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1464.34"
+      },
+      {
+        "new": 16350,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:08] Prefill batch, #new-seq: 2, #new-token: 16350, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 0, cuda graph: False, input throughput (token/s): 167473.43"
+      },
+      {
+        "new": 16351,
+        "tail_max": 3,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:08] Prefill batch, #new-seq: 3, #new-token: 16351, #cached-token: 0, token usage: 0.04, #running-req: 3, #queue-req: 5, #pending-token: 16176, cuda graph: False, input throughput (token/s): 130159.37"
+      },
+      {
+        "new": 16336,
+        "tail_max": 5,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.05, #running-req: 5, #queue-req: 6, #pending-token: 48678, cuda graph: False, input throughput (token/s): 125854.11"
+      },
+      {
+        "new": 16355,
+        "tail_max": 7,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16355, #cached-token: 0, token usage: 0.06, #running-req: 7, #queue-req: 4, #pending-token: 56949, cuda graph: False, input throughput (token/s): 124088.58"
+      },
+      {
+        "new": 16336,
+        "tail_max": 9,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.07, #running-req: 9, #queue-req: 2, #pending-token: 40613, cuda graph: False, input throughput (token/s): 125475.23"
+      },
+      {
+        "new": 16371,
+        "tail_max": 11,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16371, #cached-token: 0, token usage: 0.08, #running-req: 11, #queue-req: 0, #pending-token: 24242, cuda graph: False, input throughput (token/s): 127804.86"
+      },
+      {
+        "new": 16330,
+        "tail_max": 13,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 3, #new-token: 16330, #cached-token: 0, token usage: 0.08, #running-req: 13, #queue-req: 0, #pending-token: 7912, cuda graph: False, input throughput (token/s): 126218.94"
+      },
+      {
+        "new": 7912,
+        "tail_max": 15,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:09] Prefill batch, #new-seq: 1, #new-token: 7912, #cached-token: 0, token usage: 0.08, #running-req: 15, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118463.77"
+      },
+      {
+        "new": 7791,
+        "tail_max": 0,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 1, #new-token: 7791, #cached-token: 0, token usage: 0.02, #running-req: 0, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 1431.60"
+      },
+      {
+        "new": 16360,
+        "tail_max": 1,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 2, #new-token: 16360, #cached-token: 0, token usage: 0.03, #running-req: 1, #queue-req: 1, #pending-token: 40, cuda graph: False, input throughput (token/s): 171198.78"
+      },
+      {
+        "new": 16336,
+        "tail_max": 2,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.04, #running-req: 2, #queue-req: 6, #pending-token: 8304, cuda graph: False, input throughput (token/s): 128504.78"
+      },
+      {
+        "new": 16336,
+        "tail_max": 4,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.05, #running-req: 4, #queue-req: 7, #pending-token: 49294, cuda graph: False, input throughput (token/s): 126231.32"
+      },
+      {
+        "new": 16336,
+        "tail_max": 6,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.06, #running-req: 6, #queue-req: 5, #pending-token: 57558, cuda graph: False, input throughput (token/s): 123493.22"
+      },
+      {
+        "new": 16354,
+        "tail_max": 8,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16354, #cached-token: 0, token usage: 0.07, #running-req: 8, #queue-req: 3, #pending-token: 41204, cuda graph: False, input throughput (token/s): 124821.38"
+      },
+      {
+        "new": 16340,
+        "tail_max": 10,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16340, #cached-token: 0, token usage: 0.08, #running-req: 10, #queue-req: 1, #pending-token: 24864, cuda graph: False, input throughput (token/s): 125005.32"
+      },
+      {
+        "new": 16336,
+        "tail_max": 12,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:15] Prefill batch, #new-seq: 3, #new-token: 16336, #cached-token: 0, token usage: 0.08, #running-req: 12, #queue-req: 0, #pending-token: 8528, cuda graph: False, input throughput (token/s): 125921.64"
+      },
+      {
+        "new": 8528,
+        "tail_max": 14,
+        "possible128": false,
+        "line": "[2026-10-08 04:38:16] Prefill batch, #new-seq: 2, #new-token: 8528, #cached-token: 0, token usage: 0.08, #running-req: 14, #queue-req: 0, #pending-token: 0, cuda graph: False, input throughput (token/s): 118095.81"
+      }
+    ],
+    "possible128": 0,
+    "measured_M128_dispatch": [],
+    "flush_events": [
+      {
+        "kind": "flush",
+        "epoch": 1,
+        "time_ns": 1791434268411485427,
+        "result": "True"
+      }
+    ]
+  }
+]

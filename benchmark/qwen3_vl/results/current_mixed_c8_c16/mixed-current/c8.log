@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/qvl-mixed-current-serving.py", line 51, in <module>
+    raise RuntimeError("Worker failed before readiness")
+RuntimeError: Worker failed before readiness

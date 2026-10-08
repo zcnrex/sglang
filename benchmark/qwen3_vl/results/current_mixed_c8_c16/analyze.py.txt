@@ -1,0 +1,19 @@
+from pathlib import Path
+import json,re
+root=Path('/tmp/mixed-current-results/mixed-current-fixed');result={};audits=[]
+for c in [8,16]:
+ rows=[]
+ for p in sorted((root/f'c{c}').glob('*/*/bench.jsonl')):
+  r=p.parent;gpu=int(r.name[3:]);phase=r.parent.name;v='on' if (gpu%2==1)==(phase=='A') else 'off';d=json.loads(p.read_text().splitlines()[-1]);assert (d['completed'],d['total_input_tokens'],d['total_output_tokens'])==(80,655360,81920)
+  rec={k:x for k,x in d.items() if not isinstance(x,(list,dict))};rec.update(gpu=gpu,phase=phase,mixed=v);rec['tactics']={k:v for f in r.glob('public-tuner*.json') for k,v in json.load(open(f)).items() if 'bf16_gemm' in k};rows.append(rec)
+  log=(r/'server.log').read_text().split('Cache flushed successfully!');assert len(log)==2;intervals=[]
+  for line in log[1].splitlines():
+   if 'Prefill batch' in line:
+    n=int(re.search(r'#new-token: (\d+)',line)[1]);t=int(re.search(r'#running-req: (\d+)',line)[1]);intervals.append({'new':n,'tail_max':t,'possible128':n<=128<=n+t,'line':line})
+  events=[json.loads(line) for f in r.glob('observer-*.jsonl') for line in f.read_text().splitlines()];measured=[x for x in events if x['kind']=='M128_dispatch' and x['epoch']>=1 and not x['capture']]
+  audits.append({'c':c,'phase':phase,'gpu':gpu,'intervals':intervals,'possible128':sum(x['possible128'] for x in intervals),'measured_M128_dispatch':measured,'flush_events':[x for x in events if x['kind']=='flush']})
+ pairs=[]
+ for gpu in sorted({r['gpu'] for r in rows}):
+  x={r['mixed']:r for r in rows if r['gpu']==gpu};pairs.append({'gpu':gpu,**{k:100*(x['on'][k]/x['off'][k]-1) for k in ['output_throughput','mean_ttft_ms','median_ttft_ms','p90_ttft_ms','p95_ttft_ms','p99_ttft_ms','mean_tpot_ms','median_tpot_ms','p95_tpot_ms','p99_tpot_ms']}})
+ result[str(c)]={'runs':rows,'on_vs_off_percent':pairs}
+(root/'analysis.json').write_text(json.dumps(result,indent=2)+'\n');(root/'m128_audit.json').write_text(json.dumps(audits,indent=2)+'\n');print([(x['c'],x['phase'],x['gpu'],x['possible128'],len(x['measured_M128_dispatch'])) for x in audits])
