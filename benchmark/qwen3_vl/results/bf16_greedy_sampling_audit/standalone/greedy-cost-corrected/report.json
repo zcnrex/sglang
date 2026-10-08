@@ -1,0 +1,384 @@
+{
+  "pid": 535466,
+  "weight_key": "model.language_model.embed_tokens.weight",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "input_scope": "Actual tied checkpoint weight times seeded synthetic hidden states; not saved model activations. GEMM excluded from timings.",
+  "torch": "2.14.1+cu130",
+  "cases": [
+    {
+      "m": 32,
+      "checks": [
+        {
+          "case": "initial",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            101214,
+            125959,
+            103860,
+            59731
+          ],
+          "candidate_first4": [
+            101214,
+            125959,
+            103860,
+            59731
+          ]
+        },
+        {
+          "case": "changed",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            101214,
+            125959,
+            103860,
+            35450
+          ],
+          "candidate_first4": [
+            101214,
+            125959,
+            103860,
+            35450
+          ]
+        },
+        {
+          "case": "ties_nans",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            7,
+            17,
+            0,
+            9
+          ],
+          "candidate_first4": [
+            7,
+            17,
+            0,
+            9
+          ]
+        }
+      ],
+      "rounds": [
+        {
+          "cast_us": 12.316160202026367,
+          "argmax_us": 16.423360109329224,
+          "baseline_us": 29.20128107070923,
+          "compiled_us": 61.66111946105957
+        },
+        {
+          "compiled_us": 61.66272163391113,
+          "baseline_us": 29.191360473632812,
+          "argmax_us": 16.423360109329224,
+          "cast_us": 12.30944037437439
+        },
+        {
+          "cast_us": 12.313599586486816,
+          "argmax_us": 16.429439783096313,
+          "baseline_us": 28.903679847717285,
+          "compiled_us": 46.022400856018066
+        },
+        {
+          "compiled_us": 46.00448131561279,
+          "baseline_us": 29.034879207611084,
+          "argmax_us": 16.388479471206665,
+          "cast_us": 12.306239604949951
+        },
+        {
+          "cast_us": 12.308800220489502,
+          "argmax_us": 16.385600566864014,
+          "baseline_us": 29.007999897003174,
+          "compiled_us": 45.71712017059326
+        },
+        {
+          "compiled_us": 45.73631763458252,
+          "baseline_us": 29.086720943450928,
+          "argmax_us": 16.403520107269287,
+          "cast_us": 12.309759855270386
+        },
+        {
+          "cast_us": 12.310080528259277,
+          "argmax_us": 16.42591953277588,
+          "baseline_us": 28.965120315551758,
+          "compiled_us": 47.24959850311279
+        },
+        {
+          "compiled_us": 47.36480236053467,
+          "baseline_us": 29.067199230194092,
+          "argmax_us": 16.40992045402527,
+          "cast_us": 12.309759855270386
+        },
+        {
+          "cast_us": 12.30944037437439,
+          "argmax_us": 16.382720470428467,
+          "baseline_us": 29.076480865478516,
+          "compiled_us": 45.49248218536377
+        },
+        {
+          "compiled_us": 45.59679985046387,
+          "baseline_us": 29.087679386138916,
+          "argmax_us": 16.42624020576477,
+          "cast_us": 12.309759855270386
+        }
+      ],
+      "medians_us": {
+        "cast": 12.309759855270386,
+        "argmax": 16.416640281677246,
+        "baseline": 29.071840047836304,
+        "compiled": 46.01344108581543
+      },
+      "saved_us": -16.941601037979126
+    },
+    {
+      "m": 64,
+      "checks": [
+        {
+          "case": "initial",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            108934,
+            48465,
+            43213,
+            85214
+          ],
+          "candidate_first4": [
+            108934,
+            48465,
+            43213,
+            85214
+          ]
+        },
+        {
+          "case": "changed",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            108934,
+            48465,
+            43213,
+            85214
+          ],
+          "candidate_first4": [
+            108934,
+            48465,
+            43213,
+            85214
+          ]
+        },
+        {
+          "case": "ties_nans",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            7,
+            17,
+            0,
+            9
+          ],
+          "candidate_first4": [
+            7,
+            17,
+            0,
+            9
+          ]
+        }
+      ],
+      "rounds": [
+        {
+          "cast_us": 18.497920036315918,
+          "argmax_us": 20.536959171295166,
+          "baseline_us": 40.30303955078125,
+          "compiled_us": 78.43232154846191
+        },
+        {
+          "compiled_us": 78.61760139465332,
+          "baseline_us": 40.32063961029053,
+          "argmax_us": 20.556800365447998,
+          "cast_us": 18.48096013069153
+        },
+        {
+          "cast_us": 18.47808003425598,
+          "argmax_us": 20.529279708862305,
+          "baseline_us": 40.42111873626709,
+          "compiled_us": 78.02464008331299
+        },
+        {
+          "compiled_us": 77.98240184783936,
+          "baseline_us": 40.30816078186035,
+          "argmax_us": 20.524799823760986,
+          "cast_us": 18.477439880371094
+        },
+        {
+          "cast_us": 18.479360342025757,
+          "argmax_us": 20.557119846343994,
+          "baseline_us": 40.422401428222656,
+          "compiled_us": 77.92064189910889
+        },
+        {
+          "compiled_us": 77.90048122406006,
+          "baseline_us": 40.421438217163086,
+          "argmax_us": 20.556800365447998,
+          "cast_us": 18.47551941871643
+        },
+        {
+          "cast_us": 18.47648024559021,
+          "argmax_us": 20.53312063217163,
+          "baseline_us": 40.6496000289917,
+          "compiled_us": 77.94112205505371
+        },
+        {
+          "compiled_us": 77.94079780578613,
+          "baseline_us": 40.39999961853027,
+          "argmax_us": 20.532801151275635,
+          "cast_us": 18.479360342025757
+        },
+        {
+          "cast_us": 18.47808003425598,
+          "argmax_us": 20.54784059524536,
+          "baseline_us": 40.25023937225342,
+          "compiled_us": 77.87775993347168
+        },
+        {
+          "compiled_us": 77.87744045257568,
+          "baseline_us": 40.512962341308594,
+          "argmax_us": 20.526399612426758,
+          "cast_us": 18.479679822921753
+        }
+      ],
+      "medians_us": {
+        "cast": 18.47872018814087,
+        "argmax": 20.5350399017334,
+        "baseline": 40.41055917739868,
+        "compiled": 77.94095993041992
+      },
+      "saved_us": -37.53040075302124
+    },
+    {
+      "m": 128,
+      "checks": [
+        {
+          "case": "initial",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            70013,
+            116335,
+            34756,
+            108230
+          ],
+          "candidate_first4": [
+            70013,
+            116335,
+            34756,
+            108230
+          ]
+        },
+        {
+          "case": "changed",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            70013,
+            116335,
+            34756,
+            108230
+          ],
+          "candidate_first4": [
+            70013,
+            116335,
+            34756,
+            108230
+          ]
+        },
+        {
+          "case": "ties_nans",
+          "fp32_bits_equal": true,
+          "ids_equal": true,
+          "reference_first4": [
+            7,
+            17,
+            0,
+            9
+          ],
+          "candidate_first4": [
+            7,
+            17,
+            0,
+            9
+          ]
+        }
+      ],
+      "rounds": [
+        {
+          "cast_us": 53.275837898254395,
+          "argmax_us": 30.510718822479248,
+          "baseline_us": 84.04447555541992,
+          "compiled_us": 84.1756820678711
+        },
+        {
+          "compiled_us": 84.15679931640625,
+          "baseline_us": 84.14655685424805,
+          "argmax_us": 30.509440898895264,
+          "cast_us": 53.253440856933594
+        },
+        {
+          "cast_us": 53.2528018951416,
+          "argmax_us": 30.560638904571533,
+          "baseline_us": 84.0652847290039,
+          "compiled_us": 84.11711692810059
+        },
+        {
+          "compiled_us": 84.18560028076172,
+          "baseline_us": 84.04607772827148,
+          "argmax_us": 30.509440898895264,
+          "cast_us": 53.27167987823486
+        },
+        {
+          "cast_us": 53.25215816497803,
+          "argmax_us": 30.529279708862305,
+          "baseline_us": 84.0236759185791,
+          "compiled_us": 84.19679641723633
+        },
+        {
+          "compiled_us": 84.15488243103027,
+          "baseline_us": 83.96191596984863,
+          "argmax_us": 30.511040687561035,
+          "cast_us": 53.254079818725586
+        },
+        {
+          "cast_us": 53.256001472473145,
+          "argmax_us": 30.498239994049072,
+          "baseline_us": 83.94240379333496,
+          "compiled_us": 84.16031837463379
+        },
+        {
+          "compiled_us": 84.13824081420898,
+          "baseline_us": 83.9846420288086,
+          "argmax_us": 30.548479557037354,
+          "cast_us": 53.2528018951416
+        },
+        {
+          "cast_us": 53.2531213760376,
+          "argmax_us": 30.4915189743042,
+          "baseline_us": 84.07072067260742,
+          "compiled_us": 84.17951583862305
+        },
+        {
+          "compiled_us": 84.19743537902832,
+          "baseline_us": 83.96384239196777,
+          "argmax_us": 30.489919185638428,
+          "cast_us": 53.25119972229004
+        }
+      ],
+      "medians_us": {
+        "cast": 53.253281116485596,
+        "argmax": 30.510079860687256,
+        "baseline": 84.03407573699951,
+        "compiled": 84.16800022125244
+      },
+      "saved_us": -0.1339244842529297
+    }
+  ]
+}

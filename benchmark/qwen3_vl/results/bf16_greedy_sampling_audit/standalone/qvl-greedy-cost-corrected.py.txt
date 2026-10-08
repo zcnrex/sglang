@@ -1,0 +1,45 @@
+import os,json,time,statistics,pathlib
+import torch
+from safetensors import safe_open
+root=pathlib.Path('/root/qvl/experiments/greedy-cost-corrected');root.mkdir(parents=True,exist_ok=True)
+model=pathlib.Path('/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17')
+idx=json.loads((model/'model.safetensors.index.json').read_text())['weight_map'];key=next(k for k in idx if k.endswith('embed_tokens.weight'))
+with safe_open(model/idx[key],framework='pt',device='cpu') as f:w=f.get_tensor(key).cuda()
+assert w.shape==(151936,2560) and w.dtype==torch.bfloat16
+report={'pid':os.getpid(),'weight_key':key,'model_revision':model.name,'input_scope':'Actual tied checkpoint weight times seeded synthetic hidden states; not saved model activations. GEMM excluded from timings.','torch':torch.__version__,'cases':[]};keep=[]
+def fused(x,out,ids):
+ out.copy_(x)
+ torch.argmax(out,dim=-1,out=ids)
+compiled=torch.compile(fused,fullgraph=True,dynamic=False)
+for m in (32,64,128):
+ torch.manual_seed(930+m);h=torch.randn(m,2560,device='cuda',dtype=torch.bfloat16);x=torch.mm(h,w.T);out=torch.empty_like(x,dtype=torch.float32);ids=torch.empty(m,device='cuda',dtype=torch.int64);co=torch.empty_like(out);ci=torch.empty_like(ids)
+ funcs={'cast':lambda:out.copy_(x),'argmax':lambda:torch.argmax(out,dim=-1,out=ids),'baseline':lambda:fused(x,out,ids),'compiled':lambda:compiled(x,co,ci)}
+ case={'m':m,'checks':[],'rounds':[]};graphs={}
+ for name,fn in funcs.items():
+  for _ in range(3):fn()
+  torch.cuda.synchronize();g=torch.cuda.CUDAGraph()
+  with torch.cuda.graph(g):fn()
+  graphs[name]=g
+ for tag in ('initial','changed','ties_nans'):
+  if tag=='changed': h.add_(.125);x.copy_(torch.mm(h,w.T))
+  if tag=='ties_nans':
+   x[0].fill_(0);x[0,7]=10;x[0,11]=10
+   x[1].fill_(0);x[1,17]=float('nan');x[1,31]=float('nan')
+   x[2].fill_(float('-inf'));x[3].fill_(0);x[3,9]=float('inf');x[3,19]=float('inf')
+  graphs['baseline'].replay();graphs['compiled'].replay();torch.cuda.synchronize()
+  eq=torch.equal(out.view(torch.int32),co.view(torch.int32));ieq=torch.equal(ids,ci)
+  case['checks'].append({'case':tag,'fp32_bits_equal':eq,'ids_equal':ieq,'reference_first4':ids[:4].tolist(),'candidate_first4':ci[:4].tolist()})
+  assert eq and ieq,case
+ x.copy_(torch.mm(h,w.T));fused(x,out,ids)
+ for r in range(10):
+  row={}
+  names=list(graphs);names=names if r%2==0 else names[::-1]
+  for name in names:
+   g=graphs[name]
+   for _ in range(5):g.replay()
+   s=torch.cuda.Event(enable_timing=True);e=torch.cuda.Event(enable_timing=True);s.record()
+   for _ in range(100):g.replay()
+   e.record();e.synchronize();row[name+'_us']=s.elapsed_time(e)*10
+  case['rounds'].append(row)
+ case['medians_us']={n:statistics.median(r[n+'_us'] for r in case['rounds']) for n in graphs};case['saved_us']=case['medians_us']['baseline']-case['medians_us']['compiled'];report['cases'].append(case);keep.append((h,x,out,ids,co,ci,graphs,funcs));(root/'report.json').write_text(json.dumps(report,indent=2));print(json.dumps(case),flush=True)
+print('DONE',flush=True)
