@@ -1,0 +1,9 @@
+{"kind": "model_identity", "model_type": "Qwen3VLForConditionalGeneration", "model_module": "sglang.srt.models.qwen3_vl", "tied_embedding": true, "quant_method": "UnquantizedEmbeddingMethod", "weight_shape": [151936, 2560], "dtype": "torch.bfloat16", "requires_grad": false}
+{"kind": "optimized_dispatch", "input_shape": [8, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [8, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "startup", "ready": [[0, 4, 151936, 2560], [0, 8, 151936, 2560], [0, 128, 2560, 9728], [0, 128, 19456, 2560]], "lmhead_enabled": true, "cache": "/root/qvl/experiments/qkv-integrated-image/candidate/public-tuner-pid639357.json"}
+{"kind": "extend_geometry", "epoch": 0, "mode": "EXTEND", "rows": 78, "batch_size": 1, "extend_lens": [78], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 0, "mode": "EXTEND", "rows": 1872, "batch_size": 8, "extend_lens": [234, 234, 234, 234, 234, 234, 234, 234], "prefix_lens": [0, 0, 0, 0, 0, 0, 0, 0]}
+{"kind": "graph8_replay"}

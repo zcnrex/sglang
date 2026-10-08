@@ -1,0 +1,58 @@
+[
+  {
+    "index": 0,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 1,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 2,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 3,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 4,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 5,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 6,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  },
+  {
+    "index": 7,
+    "text_equal": true,
+    "logprobs_equal": true,
+    "usage_equal": true,
+    "text": "A man in a yellow shirt irons a blue shirt on a portable ironing board set up on the back of a yellow SUV parked on a busy city street"
+  }
+]

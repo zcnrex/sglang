@@ -1,0 +1,7 @@
+# Integrated production multimodal smoke
+
+Eight concurrent identical image requests per arm pass. Frozen M16 versus public integrated candidate returns identical text, token logprobs and usage for all eight responses. Each has234 prompt tokens (216 image tokens),32 completion tokens. The established local example_image.png fixture has SHA256 e06917184a00b14abd70cd8ea0ff5dca9abfbbad29f7b25c02f97133d4cd060e. No download was performed.
+
+Both actual prefills exhibit distinct MRoPE axes: recorded shape[3,78],56 positions differ between axes0/1 and56 between0/2. Both execute24 graph8 replays during image requests. Candidate public fusion captures all36 layers. Observers do not replace any computation. The existing prompt, deterministic sampling and max32 are preserved; concurrent request count is raised from4 to8 to exercise exact B8 fusion. BF16 weights/query/KV/output, HND page32 and TRT are unchanged. This is bounded one-image coverage, not broad image accuracy validation; decode positions themselves need not have distinct axes.
+
+Drivers639057/639058 on free GPUs4/5 are terminal. Both report SUCCESS before standard fixture cleanup (SIGTERM then SIGKILL after30s; stopped=-9 records cleanup, not failed generation). Raw responses, comparison, axis/replay proofs, launch and source audit are in original.tar.gz and readable files. Python copies end .py.txt; cache directory is excluded, while public startup tuning records are retained.

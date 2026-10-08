@@ -1,0 +1,23 @@
+import runpy,os,pathlib,json,torch
+runpy.run_path('/root/qvl/experiments/qkv-integrated-serving/serving_hook/sitecustomize.py')
+import sglang.srt.models.qwen3 as q3
+from sglang.srt.model_executor.runner.decode_cuda_graph_runner import DecodeCudaGraphRunner
+root=pathlib.Path(os.environ['QVL_LMHEAD_OUT']);axis_seen=False
+original=q3.Qwen3Attention.forward_prepare_native
+def prepare(self,positions,hidden_states,forward_batch):
+ global axis_seen
+ if not axis_seen and not torch.cuda.is_current_stream_capturing() and (root/'image-active').exists() and positions.ndim==2:
+  pos=positions.detach().cpu()
+  if not torch.equal(pos[0],pos[1]) or not torch.equal(pos[0],pos[2]):
+   axis_seen=True;(root/'distinct-axes.json').write_text(json.dumps(dict(shape=list(pos.shape),axis01_differences=(pos[0]!=pos[1]).sum().item(),axis02_differences=(pos[0]!=pos[2]).sum().item(),mode=forward_batch.forward_mode.name)))
+ return original(self,positions,hidden_states,forward_batch)
+q3.Qwen3Attention.forward_prepare_native=prepare
+execute=DecodeCudaGraphRunner.execute
+steps=0
+def replay(self,*args,**kwargs):
+ global steps
+ result=execute(self,*args,**kwargs)
+ if getattr(self,'bs',None)==8 and (root/'image-active').exists():
+  steps+=1;(root/'image-graph8.json').write_text(json.dumps(dict(steps=steps)))
+ return result
+DecodeCudaGraphRunner.execute=replay
