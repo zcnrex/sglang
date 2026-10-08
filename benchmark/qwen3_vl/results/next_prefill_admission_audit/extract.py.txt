@@ -1,0 +1,20 @@
+import collections,gzip,hashlib,json,pathlib,re,statistics
+base=pathlib.Path('benchmark/qwen3_vl/results');out=[]
+for family in ['qkv_integrated_serving','current_mixed_c8_c16']:
+ for p in sorted((base/family).rglob('bench.jsonl.gz')):
+  d=json.loads(gzip.open(p,'rt').readline());log=p.parent/'server.log'
+  if not log.exists():continue
+  text=log.read_text();measured=text.rsplit('Cache flushed successfully!',1)[-1]
+  records=[]
+  for line in measured.splitlines():
+   if 'Prefill batch' not in line:continue
+   fields={k:int(v) for k,v in re.findall(r'#([\w-]+):\s*(\d+)',line)}
+   records.append(fields)
+  vals=sorted(t*1000 for t in d['ttfts'])
+  def percentile(q):
+   at=(len(vals)-1)*q;i=int(at);return vals[i]+(vals[min(i+1,len(vals)-1)]-vals[i])*(at-i)
+  info=d.get('server_info',{})
+  flags={k:v for k,v in info.items() if any(t in k for t in ['prefill_delay','exact_chunk','min_free_slots','schedule_policy','prefill_decode_interval','chunked_prefill'])}
+  out.append({'path':str(p),'bench_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'log_sha256':hashlib.sha256(log.read_bytes()).hexdigest(),'concurrency':d['max_concurrency'],'completed':d['completed'],'request_detail_keys':[k for k,v in d.items() if isinstance(v,list)],'ttft_ms':{'mean':statistics.mean(vals),'median':statistics.median(vals),'p90':percentile(.9),'p95':percentile(.95),'p99':percentile(.99)},'prefill_records':len(records),'new_token_total':sum(r.get('new-token',0) for r in records),'new_seq_histogram':dict(collections.Counter(r.get('new-seq') for r in records)),'queue_histogram':dict(collections.Counter(r.get('queue-req') for r in records)),'running_histogram':dict(collections.Counter(r.get('running-req') for r in records)),'under_512_new_tokens':sum(r.get('new-token',0)<=512 for r in records),'server_flags':flags})
+pathlib.Path('benchmark/qwen3_vl/results/next_prefill_admission_audit/extraction.json').write_text(json.dumps(out,indent=2)+'\n')
+for r in out:print(r['path'],r['prefill_records'],r['new_seq_histogram'],r['queue_histogram'],r['under_512_new_tokens'])

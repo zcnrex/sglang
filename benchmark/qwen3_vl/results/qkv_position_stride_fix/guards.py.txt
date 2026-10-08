@@ -1,0 +1,59 @@
+import ast,copy,json,pathlib,types
+from unittest.mock import patch
+import torch
+import importlib.util
+spec=importlib.util.spec_from_file_location('stride_candidate',str(pathlib.Path(__file__).parent/'qkv_norm_mrope.py'));op=importlib.util.module_from_spec(spec);spec.loader.exec_module(op)
+root=pathlib.Path(__file__).parent
+torch.set_grad_enabled(False)
+x=torch.randn(8,2560,device='cuda',dtype=torch.bfloat16);w=torch.randn(6144,2560,device='cuda',dtype=torch.bfloat16)
+qw=torch.ones(128,device='cuda',dtype=torch.bfloat16);kw=qw.clone();rope=torch.randn(64,128,device='cuda',dtype=torch.bfloat16)
+pos=torch.zeros(3,8,device='cuda',dtype=torch.int64);axes=torch.zeros(64,device='cuda',dtype=torch.int64)
+k=torch.zeros(1,8,32,128,device='cuda',dtype=torch.bfloat16);v=k.clone();slots=torch.arange(8,device='cuda',dtype=torch.int64);out=torch.empty(8,6144,device='cuda',dtype=torch.bfloat16)
+args=[x,w,qw,kw,rope,pos,axes,k,v,slots];checks=[]
+def rejected(name,mutate):
+ a=list(args);o=out
+ r=mutate(a,o)
+ if r is not None:a,o=r
+ assert op.qkv_norm_mrope(*a,out=o) is None,name
+ checks.append(name)
+rejected('unsupported_m4',lambda a,o:([a[0][:4]]+a[1:],o))
+rejected('fp32_input',lambda a,o:([a[0].float()]+a[1:],o))
+rejected('fp32_output',lambda a,o:(a,o.float()))
+rejected('noncontiguous_input',lambda a,o:([a[0].T.contiguous().T]+a[1:],o))
+rejected('alias_key_value',lambda a,o:(a[:8]+[a[7]]+a[9:],o))
+rejected('alias_weight_output',lambda a,o:(a,w.flatten()[:out.numel()].view_as(out)))
+rejected('wrong_axis_dtype',lambda a,o:(a[:6]+[a[6].int()]+a[7:],o))
+with patch.object(torch.cuda,'current_device',return_value=1):rejected('other_current_device',lambda a,o:None)
+with patch.object(torch.compiler,'is_compiling',return_value=True):rejected('outer_compile',lambda a,o:None)
+with torch.enable_grad():rejected('grad_enabled',lambda a,o:None)
+with patch.object(torch.cuda,'is_current_stream_capturing',return_value=True):rejected('cold_capture_fallback',lambda a,o:None)
+stream=torch.cuda.Stream();stream.wait_stream(torch.cuda.current_stream())
+with torch.cuda.stream(stream):
+ assert op.qkv_norm_mrope(*args,out=out) is out
+stream.synchronize();checks.append('nondefault_stream_caller_identity')
+
+for stride in (8,128):
+ storage=torch.zeros(3,stride,device='cuda',dtype=torch.int64);a=list(args);a[5]=storage[:,:8]
+ before=len(op._COMPILED)
+ assert op.qkv_norm_mrope(*a,out=out) is out
+ after=len(op._COMPILED)
+ assert after==before+(stride==128)
+ assert op.qkv_norm_mrope(*a,out=out) is out and len(op._COMPILED)==after
+ g=torch.cuda.CUDAGraph()
+ with torch.cuda.graph(g):assert op.qkv_norm_mrope(*a,out=out) is out
+ g.replay();torch.cuda.synchronize();checks.append('warm_capture_key_reuse_stride'+str(stride))
+a=list(args);a[5]=torch.zeros(3,256,device='cuda',dtype=torch.int64)[:,:8]
+with patch.object(torch.cuda,'is_current_stream_capturing',return_value=True):assert op.qkv_norm_mrope(*a,out=out) is None
+checks.append('unseen_stride_capture_falls_back')
+rejected('positions_column_stride2',lambda a,o:(a[:5]+[torch.zeros(3,16,device='cuda',dtype=torch.int64)[:,::2]]+a[6:],o))
+rejected('positions_row_overlap',lambda a,o:(a[:5]+[torch.zeros(32,device='cuda',dtype=torch.int64).as_strided((3,8),(4,1))]+a[6:],o))
+rejected('positions_row_broadcast',lambda a,o:(a[:5]+[torch.zeros(1,8,device='cuda',dtype=torch.int64).expand(3,8)]+a[6:],o))
+# Caller output starts at row 2 of positions, beyond the old 24-element bound.
+raw=torch.empty(out.numel()*2+2048,device='cuda',dtype=torch.uint8)
+a=list(args);a[5]=raw[:2112].view(torch.int64).as_strided((3,8),(128,1))
+alias_out=raw[2048:].view(torch.bfloat16).view_as(out)
+assert op.qkv_norm_mrope(*a,out=alias_out) is None;checks.append('output_alias_positions_row2')
+rawcache=torch.empty(k.numel()*2+2048,device='cuda',dtype=torch.uint8)
+a=list(args);a[5]=rawcache[:2112].view(torch.int64).as_strided((3,8),(128,1));a[7]=rawcache[2048:].view(torch.bfloat16).view_as(k)
+assert op.qkv_norm_mrope(*a,out=out) is None;checks.append('cache_alias_positions_row2')
+(root/'guards.json').write_text(json.dumps(dict(checks=checks,count=len(checks)),indent=2));print('PASS',len(checks),flush=True)

@@ -1,0 +1,22 @@
+import pathlib,os,json,importlib
+import torch
+import sglang.benchmark.one_batch as b
+m=importlib.import_module('sglang.kernels.ops.attention.qkv_norm_mrope');original=m.qkv_norm_mrope
+out=pathlib.Path(os.environ['QVL_ADMISSION_OUT']);out.mkdir(parents=True,exist_ok=True);seen=set()
+def observed(*args,**kwargs):
+ key=(torch.cuda.is_current_stream_capturing(),tuple(args[5].stride()))
+ result=original(*args,**kwargs)
+ if key not in seen:
+  seen.add(key);names=['x','weight','q_weight','k_weight','rope','positions','axes','key_cache','value_cache','slots']
+  row=dict(capture=key[0],returned_none=result is None,grad_enabled=torch.is_grad_enabled(),compiling=torch.compiler.is_compiling(),current_device=torch.cuda.current_device(),capability=torch.cuda.get_device_capability(args[0].device),tensors={n:dict(shape=list(t.shape),stride=list(t.stride()),contiguous=t.is_contiguous(),requires_grad=t.requires_grad,device=str(t.device),dtype=str(t.dtype),alignment8=t.data_ptr()%8,alignment32=t.data_ptr()%32) for n,t in zip(names,args)})
+  row['first_failed_guard']='any(not t.is_contiguous() for t in tensors)' if any(not t.is_contiguous() for t in args) else None
+  with (out/'admission.jsonl').open('a') as f:f.write(json.dumps(row)+'\n')
+ return result
+m.qkv_norm_mrope=observed
+load=b.load_model
+def initialize(*args,**kwargs):
+ wrapper,tok=load(*args,**kwargs)
+ (out/'complete.json').write_text(json.dumps(dict(capture_bs=wrapper.torch_runner.decode_cuda_graph_runner.capture_bs)))
+ raise SystemExit(0)
+b.load_model=initialize
+b.cli_main()

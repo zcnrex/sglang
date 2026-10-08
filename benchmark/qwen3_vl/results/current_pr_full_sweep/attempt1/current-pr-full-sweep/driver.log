@@ -1,0 +1,13 @@
+WORKER 0 1 647210
+WORKER 1 4 647212
+WORKER 2 8 647213
+WORKER 3 16 647214
+WORKER 4 32 647216
+WORKER 5 64 647217
+WORKER 6 128 647218
+WORKER 7 128 647219
+Traceback (most recent call last):
+  File "/root/qvl/experiments/current-pr-full-sweep/run.py", line 33, in <module>
+    failed=[str(out) for p,out in workers if p.poll() is not None];assert not failed,failed;time.sleep(2)
+                                                                          ^^^^^^^^^^
+AssertionError: ['/root/qvl/experiments/current-pr-full-sweep/gpu3-c16']

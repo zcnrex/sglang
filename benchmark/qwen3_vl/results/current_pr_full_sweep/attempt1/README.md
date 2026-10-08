@@ -1,0 +1,11 @@
+# Exact PR sweep admission failure: cd99227527
+
+No measured benchmark ran. All eight independent servers reached graph capture, then the external admission observer stopped startup because zero fused QKV calls succeeded. This was a terminal assertion failure, not a timeout. Exact PR head cd99227527cb08f84274d282a87a53c8771a0822 was clean and all 10,245 tracked files matched the immutable git-archive snapshot with zero missing/extra/changed files. COPYFILE_DISABLE=1 and git archive produced no AppleDouble files. Source archive hash and full manifest are retained; the large source archive itself remains remote.
+
+A single original-source startup (PID654791, GPU0) confirmed the cause without changing computation: both eager warmup and graph capture pass positions shape[3,8], stride[128,1], noncontiguous. All other nine tensors are contiguous, correctly aligned, same CUDA device, BF16 where required and require no gradients. No-grad/not-compiling/SM103 guards pass. The wrapper first rejects `any(not t.is_contiguous() for t in tensors)`, returns None and falls back. The preceding cap8 diagnostics had contiguous positions and did not cover this graph-buffer view.
+
+The original approved sweep used all eight GPUs with C1/4/8/16/32/64/128/128-replicate, shared exact server settings including explicit 20-bucket decode graph list capped128, pinned KV capacity1,600,000, BF16/TRT/HND32/mixed chunk16384. No benchmark barrier opened. Startup logs, foreign-PID audit, per-second host/process/GPU telemetry, worker/server handles and single-admission tensor metadata are preserved. Driver647206 and all eight servers are terminal. No failed run is reported as a performance result.
+
+The immutable source /root/qvl/sglang-current-pr-full-sweep remains unchanged. Follow-up stride-fix work and any future sweep require separate snapshots/evidence. This archive excludes source.tar.gz and __pycache__; source_metadata.json, expected_source.json and transfer_metadata.json identify exact source bytes. Readable Python copies end .py.txt.
+
+The readable `expected_source.json` is losslessly compressed as `expected_source.json.gz` to meet repository file-size limits; the raw archive also preserves it.

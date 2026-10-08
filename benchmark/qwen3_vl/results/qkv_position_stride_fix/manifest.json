@@ -1,0 +1,14 @@
+{
+  "guards.json": "ac64f648a3a56cb4d8e0874cbfc6e13a6e31ac03fabf9e5e40d17fa82ec335fc",
+  "sequence.py.txt": "f43b4e403f8770127e77275e10a02b4ccfaba917c92199e40e96dc5fa449fedf",
+  "README.md": "6a0f49a98abbc8e138b4ab1d37ba150611b4e47b5f75ff5d81c78aed0567acee",
+  "stride8.log": "2ad5579b3c85b4248c5389836886b92d22cfc4d2dcabfaa8d4d27c780b0b2277",
+  "guards.py.txt": "b11420fd5e1d6da0726f1d157ed3764f01433d7f970ab7805ed6c53f4c38783e",
+  "format_verification.json": "213924b95d61ea3a9610c3511ba42dc6d830aa4055ca4d3305b88d541829c000",
+  "stride128.log": "2ad5579b3c85b4248c5389836886b92d22cfc4d2dcabfaa8d4d27c780b0b2277",
+  "driver.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "qkv_norm_mrope.py.txt": "4c9d946f0b826b8607760c3d4a86c498efaf720812214938666fcab2ceb584ec",
+  "guards.log": "2486e525a88a0bdc396420ab3be9c0a9035f9215a3b0d79f4ff0ab58bbf9fa0f",
+  "stride128/report.json": "29b8c0a69239d40354e3a419a037156222edb3fc5d55d10ed5fd85c12874546c",
+  "stride8/report.json": "101697e86e678f74b828fc274ca8ca7377cb09fd16cf31bfcb19a2b977b2843d"
+}

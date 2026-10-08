@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "unsupported_m4",
+    "fp32_input",
+    "fp32_output",
+    "noncontiguous_input",
+    "alias_key_value",
+    "alias_weight_output",
+    "wrong_axis_dtype",
+    "other_current_device",
+    "outer_compile",
+    "grad_enabled",
+    "cold_capture_fallback",
+    "nondefault_stream_caller_identity",
+    "warm_capture_key_reuse_stride8",
+    "warm_capture_key_reuse_stride128",
+    "unseen_stride_capture_falls_back",
+    "positions_column_stride2",
+    "positions_row_overlap",
+    "positions_row_broadcast",
+    "output_alias_positions_row2",
+    "cache_alias_positions_row2"
+  ],
+  "count": 20
+}

@@ -1,0 +1,6 @@
+{
+  "head": "cd99227527cb08f84274d282a87a53c8771a0822",
+  "file_count": 10245,
+  "transfer": "git archive; COPYFILE_DISABLE=1; no worktree metadata",
+  "source_worktree": "/tmp/qvl-bf16-code-pr"
+}

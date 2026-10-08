@@ -1,0 +1,12 @@
+{
+  "head": "55ba69d2e7c193bf4f63a68e29bbe2373611dcaf",
+  "files": {
+    "python/sglang/srt/managers/scheduler.py": "ca5ad84c96135c37a7b4f91d46aeda29a3dac4106a4f657aa2dfb5d4769df847",
+    "python/sglang/srt/managers/schedule_policy.py": "33f1ed8f5420d40ac25b9374c48ba0e6c3246d427969b76cc1f0361c807ed982",
+    "benchmark/qwen3_vl/README.md": "60fc964bcc85476db5721d2eb508e3f9e2ad98f704e7998526f24dd20f301865",
+    "benchmark/qwen3_vl/bf16_scheduler_results.json": "e1507981887e4825e244ca5fbdf598e26cd92005736b513db3a212b11bf1dc0c",
+    "benchmark/qwen3_vl/results/current_c128_profile/report.md": "fcc2a52be0c14cba0fddfd0d8b6ba43a02c490b330694d74d00f01d327c47d3c",
+    "benchmark/qwen3_vl/results/chunk_boundary_screen/README.md": "a5bde800d9f63f43846156525b604f9c059e34462e3cb2181b46185d1acdf814",
+    "benchmark/qwen3_vl/results/bf16_prefill_fa4_audit/production_lower_regression/c64_latency_audit.md": "30392d5bfe610730ac79eb116c65a5ce9bdb7019ced46d47caf293ded99caa1c"
+  }
+}

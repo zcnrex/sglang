@@ -1,0 +1,6 @@
+SERVER 647355
+Traceback (most recent call last):
+  File "/root/qvl/experiments/current-pr-full-sweep/run.py", line 55, in <module>
+    assert server.poll() is None,'Server terminal before readiness'
+           ^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Server terminal before readiness
