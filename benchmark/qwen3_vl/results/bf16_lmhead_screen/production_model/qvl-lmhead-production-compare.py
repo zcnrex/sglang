@@ -1,0 +1,35 @@
+import json
+import pathlib
+
+import torch
+
+r = pathlib.Path("/root/qvl/experiments/lmhead-production/model")
+a = torch.load(r / "control/outputs.pt", weights_only=True)
+b = torch.load(r / "candidate/outputs.pt", weights_only=True)
+checks = {
+    k: {"bitwise": torch.equal(a[k], b[k]), "max_abs": (a[k] - b[k]).abs().max().item()}
+    for k in a
+}
+proof = [
+    json.loads(x)
+    for p in (r / "candidate").glob("lmhead-proof-pid*.jsonl")
+    for x in p.read_text().splitlines()
+]
+assert any(
+    x["kind"] == "startup"
+    and x["lmhead_enabled"]
+    and [0, 4, 151936, 2560] in x["ready"]
+    for x in proof
+), proof
+assert any(
+    x["kind"] == "optimized_dispatch"
+    and x["weight_shape"] == [151936, 2560]
+    and x["capture"]
+    for x in proof
+), proof
+assert any(x["kind"] == "graph4_replay" for x in proof)
+(r / "comparison.json").write_text(
+    json.dumps({"checks": checks, "proof": proof}, indent=2)
+)
+print(json.dumps(checks))
+assert all(x["bitwise"] for x in checks.values())

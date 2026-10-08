@@ -1,0 +1,7 @@
+# Production M4 LM-head: short model proof
+
+Control is unchanged `/root/qvl/sglang-prefix-production`; candidate is `/root/qvl/sglang-lmhead-production`, exactly the three reviewed production files later committed as 5e1601731b. Both full 4229-file manifests and the three SHA differences are retained. No external algorithm hook or private tuner policy was used. The external observer records model admission, optimized dispatch and graph replay only.
+
+B4 fixed seed 123 input 8192, sixteen greedy tokens/request: prefill, decode0 and decode14 full logits are bitwise identical across control/candidate; all 64 greedy tokens match. Candidate READY includes(device0,M4,N151936,K2560), public LM-head startup tuning is serialized, actual optimized M4 capture and graph4 replay are recorded. Actual model type/module, tied embedding identity, UnquantizedEmbeddingMethod, BF16 weight and no-grad admission assertions passed before capture. Existing M128 records remain visible.
+
+Workers 449207/449208 completed normally. Output tensors remain remote in model/{control,candidate}/outputs.pt; compact comparison checks and reports are archived. The raw archive is retained as `original-artifacts.tar.gz`, with a remote copy at `/tmp/lmhead-production-model.tar.gz`. This is a short deterministic model check, not a full accuracy-equivalence claim or serving result. Image and full evaluation are separate gates.

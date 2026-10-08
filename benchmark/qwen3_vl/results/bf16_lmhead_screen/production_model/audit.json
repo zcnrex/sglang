@@ -1,0 +1,20 @@
+{
+  "control": "/root/qvl/sglang-prefix-production",
+  "candidate": "/root/qvl/sglang-lmhead-production",
+  "control_files": 4229,
+  "candidate_files": 4229,
+  "differences": {
+    "python/sglang/srt/layers/logits_processor.py": {
+      "control": "5643e7542ea6540b1f95f0e6c9aaa1b6f8eb1ea49dc8075d6dd327839ff8aa82",
+      "candidate": "ea78736fd0b28463b08b965c89109ff109bc8c5bf3167b9f95635e9677281ac7"
+    },
+    "python/sglang/srt/layers/quantization/unquant.py": {
+      "control": "0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431",
+      "candidate": "2f29ef6421341efe8e91e20df1356fd0bea78f3e1cd2439e79f73138d19f34ea"
+    },
+    "python/sglang/srt/model_executor/runner/flashinfer_autotune.py": {
+      "control": "7f57b1688bb7a53a2b34aa13465392a187b42b8c774ed22851a2399a0726711e",
+      "candidate": "1c663fb5af30d0faf9a841ac1b86559eb0dda80e03592d0973173fd235f19209"
+    }
+  }
+}
