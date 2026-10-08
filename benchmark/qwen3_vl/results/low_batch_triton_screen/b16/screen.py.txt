@@ -1,0 +1,81 @@
+import torch, flashinfer, json, pathlib, statistics, hashlib, os, itertools
+from sglang.kernels.ops.attention import decode_attention as mod
+root=pathlib.Path(__file__).parent
+torch.backends.cuda.matmul.allow_tf32=False;torch.manual_seed(20261007);torch.cuda.set_device(0)
+B=int(os.environ['SCREEN_BATCH']);NSTATE=36;P=32;H=8;D=128
+lens0=[8192+i for i in range(B)];counts=[(x+31)//32 for x in lens0];total=sum(counts)
+idx=torch.randperm(total,device='cuda',dtype=torch.int32)
+table=torch.zeros(B,max(counts),device='cuda',dtype=torch.int32)
+for i,c in enumerate(counts):table[i,:c]=idx[sum(counts[:i]):sum(counts[:i+1])]
+lens=torch.tensor(lens0,device='cuda',dtype=torch.int32)
+ip=torch.tensor([0]+list(itertools.accumulate(lens0)),device='cuda',dtype=torch.int32)
+indices=torch.cat([(table[i,:c,None]*P+torch.arange(P,device='cuda',dtype=torch.int32)[None,:]).flatten()[:lens0[i]] for i,c in enumerate(counts)])
+ws=torch.empty(512*1024**2,device='cuda',dtype=torch.uint8)
+cb=torch.zeros(flashinfer.utils.get_trtllm_gen_multi_ctas_kv_counter_bytes(8192,32,flashinfer.utils.get_device_sm_count(torch.device('cuda:0'))),device='cuda',dtype=torch.uint8)
+# External metadata-only adapter. Logical NHD view retains original physical HND bytes.
+old_extract=mod._extract_kv_strides
+def extract(buf,page_size):
+ if buf.ndim==4:
+  assert tuple(buf.shape[1:])==(32,8,128) and tuple(buf.stride()[1:])==(128,4096,1)
+  return buf.stride(1),buf.stride(2),buf.stride(0),buf.stride(1)
+ return old_extract(buf,page_size)
+mod._extract_kv_strides=extract
+variants=['trt','triton8','triton16','triton32']
+scratch={s:(torch.empty(B,32,s,128,device='cuda',dtype=torch.float32),torch.empty(B,32,s,device='cuda',dtype=torch.float32),torch.full((B,),s,device='cuda',dtype=torch.int32)) for s in [8,16,32]}
+states=[]
+for j in range(NSTATE):
+ x=torch.randn(B,6144,device='cuda',dtype=torch.bfloat16);q=x[:,:4096].view(B,32,128)
+ kv=tuple(torch.randn(total,8,32,128,device='cuda',dtype=torch.bfloat16) for _ in range(2))
+ views=tuple(t.permute(0,2,1,3) for t in kv)
+ assert all(a.data_ptr()==b.data_ptr() for a,b in zip(kv,views))
+ outs={v:torch.empty(B,32,128,device='cuda',dtype=torch.bfloat16) for v in variants}
+ states.append((x,q,kv,views,outs))
+def run(j,v):
+ x,q,kv,views,outs=states[j]
+ if v=='trt':flashinfer.decode.trtllm_batch_decode_with_kv_cache(q,kv,ws,table,lens,262144,bmm1_scale=128**-.5,bmm2_scale=1.,out=outs[v],multi_ctas_kv_counter_buffer=cb)
+ else:
+  s=int(v[6:]);a,l,ns=scratch[s]
+  mod.decode_attention_fwd(q,*views,outs[v],ip,indices,a,l,ns,s,128**-.5,1.,1.,page_size=P,use_pdl=False)
+ return outs[v]
+checks=[]
+for j in range(NSTATE):
+ a=run(j,'trt')
+ for v in variants[1:]:
+  b=run(j,v);e=a.float()-b.float();nr=(e.square().mean()/a.float().square().mean()).sqrt().item();assert nr<.005
+  checks.append(dict(state=j,variant=v,max_abs=e.abs().max().item(),nrms=nr))
+refs=[]
+def reference_checks():
+ x,q,(k,v),views,outs=states[0]
+ for i,c in enumerate(counts):
+  pages=table[i,:c].long();kk=k[pages].permute(1,0,2,3).reshape(8,-1,128)[:,:lens0[i]].float().repeat_interleave(4,0);vv=v[pages].permute(1,0,2,3).reshape(8,-1,128)[:,:lens0[i]].float().repeat_interleave(4,0)
+  ref=torch.matmul(torch.softmax(torch.matmul(q[i].float().unsqueeze(1),kk.transpose(-1,-2))*128**-.5,dim=-1),vv).squeeze(1)
+  for label,out in outs.items():
+   err=(out[i].float()-ref).square().mean().sqrt()/ref.square().mean().sqrt();assert err.item()<.005
+   refs.append(dict(request=i,variant=label,nrms=err.item()))
+states[0][0].normal_()
+for v in variants:run(0,v)
+reference_checks()
+graphs={}
+for v in variants:
+ for _ in range(3):
+  for j in range(NSTATE):run(j,v)
+ torch.cuda.synchronize();g=torch.cuda.CUDAGraph(keep_graph=True)
+ with torch.cuda.graph(g):
+  for j in range(NSTATE):run(j,v)
+ graphs[v]=g;g.debug_dump(str(root/(v+'.dot')))
+states[0][0].normal_()
+for g in graphs.values():g.replay()
+torch.cuda.synchronize();reference_checks()
+for g in graphs.values():
+ for _ in range(3):g.replay()
+torch.cuda.synchronize()
+def time(v):
+ a=torch.cuda.Event(enable_timing=True);b=torch.cuda.Event(enable_timing=True);a.record()
+ for _ in range(12):graphs[v].replay()
+ b.record();b.synchronize();return a.elapsed_time(b)*1000/(12*NSTATE)
+rounds=[]
+for r in range(8):
+ for v in variants[1:]:
+  order=['trt',v] if r%2==0 else [v,'trt'];row=dict(round=r,candidate=v,times={z:time(z) for z in order});rounds.append(row);print(json.dumps(row),flush=True)
+result=dict(batch=B,lengths=lens0,states=NSTATE,cache_bytes=total*8*32*128*4*NSTATE,checks=checks,reference_checks=refs,rounds=rounds,source=str(pathlib.Path(mod.__file__)),source_sha256=hashlib.sha256(pathlib.Path(mod.__file__).read_bytes()).hexdigest(),script_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),q_stride=list(states[0][1].stride()),hnd_stride=list(states[0][2][0].stride()),adapter_stride=list(extract(states[0][3][0],P)),torch=torch.__version__,flashinfer=flashinfer.__version__,medians={v:{z:statistics.median(x['times'][z] for x in rounds if x['candidate']==v) for z in ['trt',v]} for v in variants[1:]})
+(root/'result.json').write_text(json.dumps(result,indent=2));print(json.dumps(result['medians']),flush=True)

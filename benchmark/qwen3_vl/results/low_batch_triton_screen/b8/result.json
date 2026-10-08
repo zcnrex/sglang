@@ -1,0 +1,1217 @@
+{
+  "batch": 8,
+  "lengths": [
+    8192,
+    8193,
+    8194,
+    8195,
+    8196,
+    8197,
+    8198,
+    8199
+  ],
+  "states": 36,
+  "cache_bytes": 9696706560,
+  "checks": [
+    {
+      "state": 0,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003362772986292839
+    },
+    {
+      "state": 0,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003373999847099185
+    },
+    {
+      "state": 0,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033603396732360125
+    },
+    {
+      "state": 1,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033318784553557634
+    },
+    {
+      "state": 1,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033354132901877165
+    },
+    {
+      "state": 1,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003349730744957924
+    },
+    {
+      "state": 2,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033454494550824165
+    },
+    {
+      "state": 2,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003371706698089838
+    },
+    {
+      "state": 2,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033836429938673973
+    },
+    {
+      "state": 3,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033173710107803345
+    },
+    {
+      "state": 3,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003336838446557522
+    },
+    {
+      "state": 3,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033561717718839645
+    },
+    {
+      "state": 4,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003361195558682084
+    },
+    {
+      "state": 4,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034086040686815977
+    },
+    {
+      "state": 4,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034383467864245176
+    },
+    {
+      "state": 5,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003374166786670685
+    },
+    {
+      "state": 5,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003393755294382572
+    },
+    {
+      "state": 5,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034326366148889065
+    },
+    {
+      "state": 6,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003345547476783395
+    },
+    {
+      "state": 6,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00337221403606236
+    },
+    {
+      "state": 6,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033781034871935844
+    },
+    {
+      "state": 7,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033389395102858543
+    },
+    {
+      "state": 7,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033845966681838036
+    },
+    {
+      "state": 7,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00338954571634531
+    },
+    {
+      "state": 8,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033672507852315903
+    },
+    {
+      "state": 8,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033973047975450754
+    },
+    {
+      "state": 8,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033961841836571693
+    },
+    {
+      "state": 9,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034154593013226986
+    },
+    {
+      "state": 9,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003417665371671319
+    },
+    {
+      "state": 9,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034111449494957924
+    },
+    {
+      "state": 10,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003314271103590727
+    },
+    {
+      "state": 10,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033353676553815603
+    },
+    {
+      "state": 10,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033904570154845715
+    },
+    {
+      "state": 11,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00335265276953578
+    },
+    {
+      "state": 11,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003379842732101679
+    },
+    {
+      "state": 11,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033580574672669172
+    },
+    {
+      "state": 12,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033735744655132294
+    },
+    {
+      "state": 12,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003383122617378831
+    },
+    {
+      "state": 12,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034164683893322945
+    },
+    {
+      "state": 13,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033603119663894176
+    },
+    {
+      "state": 13,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033853715285658836
+    },
+    {
+      "state": 13,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033902497962117195
+    },
+    {
+      "state": 14,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033479155972599983
+    },
+    {
+      "state": 14,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003385133808478713
+    },
+    {
+      "state": 14,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033969618380069733
+    },
+    {
+      "state": 15,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003360654693096876
+    },
+    {
+      "state": 15,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033961408771574497
+    },
+    {
+      "state": 15,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00342035130597651
+    },
+    {
+      "state": 16,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0032973827328532934
+    },
+    {
+      "state": 16,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033601108007133007
+    },
+    {
+      "state": 16,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003361030714586377
+    },
+    {
+      "state": 17,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00332649820484221
+    },
+    {
+      "state": 17,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033740438520908356
+    },
+    {
+      "state": 17,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003370086895301938
+    },
+    {
+      "state": 18,
+      "variant": "triton8",
+      "max_abs": 0.000244140625,
+      "nrms": 0.0033400841057300568
+    },
+    {
+      "state": 18,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00336938607506454
+    },
+    {
+      "state": 18,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033726522233337164
+    },
+    {
+      "state": 19,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003302093595266342
+    },
+    {
+      "state": 19,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003356575733050704
+    },
+    {
+      "state": 19,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003347557270899415
+    },
+    {
+      "state": 20,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033582886680960655
+    },
+    {
+      "state": 20,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033753279130905867
+    },
+    {
+      "state": 20,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003422683337703347
+    },
+    {
+      "state": 21,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003326456993818283
+    },
+    {
+      "state": 21,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033546406775712967
+    },
+    {
+      "state": 21,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003386205527931452
+    },
+    {
+      "state": 22,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003328426508232951
+    },
+    {
+      "state": 22,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003347838530316949
+    },
+    {
+      "state": 22,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033688002731651068
+    },
+    {
+      "state": 23,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00334738427773118
+    },
+    {
+      "state": 23,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033558965660631657
+    },
+    {
+      "state": 23,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033572313841432333
+    },
+    {
+      "state": 24,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003348693484440446
+    },
+    {
+      "state": 24,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003379784757271409
+    },
+    {
+      "state": 24,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00338914361782372
+    },
+    {
+      "state": 25,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003345932811498642
+    },
+    {
+      "state": 25,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033672801218926907
+    },
+    {
+      "state": 25,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034033088013529778
+    },
+    {
+      "state": 26,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033121362794190645
+    },
+    {
+      "state": 26,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033479759003967047
+    },
+    {
+      "state": 26,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003367574419826269
+    },
+    {
+      "state": 27,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033689169213175774
+    },
+    {
+      "state": 27,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033979543950408697
+    },
+    {
+      "state": 27,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034008037764579058
+    },
+    {
+      "state": 28,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003338584443554282
+    },
+    {
+      "state": 28,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003355574794113636
+    },
+    {
+      "state": 28,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0034000342711806297
+    },
+    {
+      "state": 29,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033473954536020756
+    },
+    {
+      "state": 29,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033919187262654305
+    },
+    {
+      "state": 29,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033848201856017113
+    },
+    {
+      "state": 30,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003337891772389412
+    },
+    {
+      "state": 30,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033586728386580944
+    },
+    {
+      "state": 30,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003376451088115573
+    },
+    {
+      "state": 31,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003356438595801592
+    },
+    {
+      "state": 31,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033874332439154387
+    },
+    {
+      "state": 31,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033886481542140245
+    },
+    {
+      "state": 32,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003323658835142851
+    },
+    {
+      "state": 32,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003349010366946459
+    },
+    {
+      "state": 32,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003390990663319826
+    },
+    {
+      "state": 33,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003340496215969324
+    },
+    {
+      "state": 33,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033806264400482178
+    },
+    {
+      "state": 33,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003354644402861595
+    },
+    {
+      "state": 34,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033769707661122084
+    },
+    {
+      "state": 34,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033996214624494314
+    },
+    {
+      "state": 34,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003393013495951891
+    },
+    {
+      "state": 35,
+      "variant": "triton8",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0032981361728161573
+    },
+    {
+      "state": 35,
+      "variant": "triton16",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0033592674881219864
+    },
+    {
+      "state": 35,
+      "variant": "triton32",
+      "max_abs": 0.00048828125,
+      "nrms": 0.003353888401761651
+    }
+  ],
+  "reference_checks": [
+    {
+      "request": 0,
+      "variant": "trt",
+      "nrms": 0.002797316526994109
+    },
+    {
+      "request": 0,
+      "variant": "triton8",
+      "nrms": 0.0022230995818972588
+    },
+    {
+      "request": 0,
+      "variant": "triton16",
+      "nrms": 0.0021887742914259434
+    },
+    {
+      "request": 0,
+      "variant": "triton32",
+      "nrms": 0.002157163107767701
+    },
+    {
+      "request": 1,
+      "variant": "trt",
+      "nrms": 0.0028237374499440193
+    },
+    {
+      "request": 1,
+      "variant": "triton8",
+      "nrms": 0.002268487121909857
+    },
+    {
+      "request": 1,
+      "variant": "triton16",
+      "nrms": 0.002228811848908663
+    },
+    {
+      "request": 1,
+      "variant": "triton32",
+      "nrms": 0.0021791423205286264
+    },
+    {
+      "request": 2,
+      "variant": "trt",
+      "nrms": 0.0027835990767925978
+    },
+    {
+      "request": 2,
+      "variant": "triton8",
+      "nrms": 0.0021649589762091637
+    },
+    {
+      "request": 2,
+      "variant": "triton16",
+      "nrms": 0.002147686667740345
+    },
+    {
+      "request": 2,
+      "variant": "triton32",
+      "nrms": 0.002102937549352646
+    },
+    {
+      "request": 3,
+      "variant": "trt",
+      "nrms": 0.002819056622684002
+    },
+    {
+      "request": 3,
+      "variant": "triton8",
+      "nrms": 0.0022324989549815655
+    },
+    {
+      "request": 3,
+      "variant": "triton16",
+      "nrms": 0.002227101707831025
+    },
+    {
+      "request": 3,
+      "variant": "triton32",
+      "nrms": 0.0021945226471871138
+    },
+    {
+      "request": 4,
+      "variant": "trt",
+      "nrms": 0.0028139501810073853
+    },
+    {
+      "request": 4,
+      "variant": "triton8",
+      "nrms": 0.0022089118137955666
+    },
+    {
+      "request": 4,
+      "variant": "triton16",
+      "nrms": 0.0021795069333165884
+    },
+    {
+      "request": 4,
+      "variant": "triton32",
+      "nrms": 0.002140077529475093
+    },
+    {
+      "request": 5,
+      "variant": "trt",
+      "nrms": 0.0027971086092293262
+    },
+    {
+      "request": 5,
+      "variant": "triton8",
+      "nrms": 0.002240770263597369
+    },
+    {
+      "request": 5,
+      "variant": "triton16",
+      "nrms": 0.002222456969320774
+    },
+    {
+      "request": 5,
+      "variant": "triton32",
+      "nrms": 0.002188304206356406
+    },
+    {
+      "request": 6,
+      "variant": "trt",
+      "nrms": 0.0028508505783975124
+    },
+    {
+      "request": 6,
+      "variant": "triton8",
+      "nrms": 0.0022173631004989147
+    },
+    {
+      "request": 6,
+      "variant": "triton16",
+      "nrms": 0.0021904187742620707
+    },
+    {
+      "request": 6,
+      "variant": "triton32",
+      "nrms": 0.0021765062119811773
+    },
+    {
+      "request": 7,
+      "variant": "trt",
+      "nrms": 0.002773360116407275
+    },
+    {
+      "request": 7,
+      "variant": "triton8",
+      "nrms": 0.002218821318820119
+    },
+    {
+      "request": 7,
+      "variant": "triton16",
+      "nrms": 0.002182458993047476
+    },
+    {
+      "request": 7,
+      "variant": "triton32",
+      "nrms": 0.0021103075705468655
+    },
+    {
+      "request": 0,
+      "variant": "trt",
+      "nrms": 0.002796107903122902
+    },
+    {
+      "request": 0,
+      "variant": "triton8",
+      "nrms": 0.002240639179944992
+    },
+    {
+      "request": 0,
+      "variant": "triton16",
+      "nrms": 0.002199132228270173
+    },
+    {
+      "request": 0,
+      "variant": "triton32",
+      "nrms": 0.002157966373488307
+    },
+    {
+      "request": 1,
+      "variant": "trt",
+      "nrms": 0.0027810961473733187
+    },
+    {
+      "request": 1,
+      "variant": "triton8",
+      "nrms": 0.0022174431942403316
+    },
+    {
+      "request": 1,
+      "variant": "triton16",
+      "nrms": 0.002192490501329303
+    },
+    {
+      "request": 1,
+      "variant": "triton32",
+      "nrms": 0.0021140333265066147
+    },
+    {
+      "request": 2,
+      "variant": "trt",
+      "nrms": 0.002784980461001396
+    },
+    {
+      "request": 2,
+      "variant": "triton8",
+      "nrms": 0.002234459389001131
+    },
+    {
+      "request": 2,
+      "variant": "triton16",
+      "nrms": 0.0021730803418904543
+    },
+    {
+      "request": 2,
+      "variant": "triton32",
+      "nrms": 0.0021558834705501795
+    },
+    {
+      "request": 3,
+      "variant": "trt",
+      "nrms": 0.002761198440566659
+    },
+    {
+      "request": 3,
+      "variant": "triton8",
+      "nrms": 0.002218977315351367
+    },
+    {
+      "request": 3,
+      "variant": "triton16",
+      "nrms": 0.002207915298640728
+    },
+    {
+      "request": 3,
+      "variant": "triton32",
+      "nrms": 0.0021762377582490444
+    },
+    {
+      "request": 4,
+      "variant": "trt",
+      "nrms": 0.002815217711031437
+    },
+    {
+      "request": 4,
+      "variant": "triton8",
+      "nrms": 0.002273179590702057
+    },
+    {
+      "request": 4,
+      "variant": "triton16",
+      "nrms": 0.0021896869875490665
+    },
+    {
+      "request": 4,
+      "variant": "triton32",
+      "nrms": 0.0021438654512166977
+    },
+    {
+      "request": 5,
+      "variant": "trt",
+      "nrms": 0.002842772752046585
+    },
+    {
+      "request": 5,
+      "variant": "triton8",
+      "nrms": 0.002255501924082637
+    },
+    {
+      "request": 5,
+      "variant": "triton16",
+      "nrms": 0.002205467550083995
+    },
+    {
+      "request": 5,
+      "variant": "triton32",
+      "nrms": 0.002146380487829447
+    },
+    {
+      "request": 6,
+      "variant": "trt",
+      "nrms": 0.002825134666636586
+    },
+    {
+      "request": 6,
+      "variant": "triton8",
+      "nrms": 0.0022341033909469843
+    },
+    {
+      "request": 6,
+      "variant": "triton16",
+      "nrms": 0.0022101362701505423
+    },
+    {
+      "request": 6,
+      "variant": "triton32",
+      "nrms": 0.0021697934716939926
+    },
+    {
+      "request": 7,
+      "variant": "trt",
+      "nrms": 0.0027999565936625004
+    },
+    {
+      "request": 7,
+      "variant": "triton8",
+      "nrms": 0.0021954018156975508
+    },
+    {
+      "request": 7,
+      "variant": "triton16",
+      "nrms": 0.0021616113372147083
+    },
+    {
+      "request": 7,
+      "variant": "triton32",
+      "nrms": 0.0021496557164937258
+    }
+  ],
+  "rounds": [
+    {
+      "round": 0,
+      "candidate": "triton8",
+      "times": {
+        "trt": 43.30673924198857,
+        "triton8": 69.66896410341616
+      }
+    },
+    {
+      "round": 0,
+      "candidate": "triton16",
+      "times": {
+        "trt": 43.27948005111129,
+        "triton16": 54.494222005208336
+      }
+    },
+    {
+      "round": 0,
+      "candidate": "triton32",
+      "times": {
+        "trt": 43.2720007719817,
+        "triton32": 64.66133506209762
+      }
+    },
+    {
+      "round": 1,
+      "candidate": "triton8",
+      "times": {
+        "triton8": 69.65014669630263,
+        "trt": 43.261629563790784
+      }
+    },
+    {
+      "round": 1,
+      "candidate": "triton16",
+      "times": {
+        "triton16": 54.52963157936379,
+        "trt": 43.25666692521837
+      }
+    },
+    {
+      "round": 1,
+      "candidate": "triton32",
+      "times": {
+        "triton32": 64.6795564227634,
+        "trt": 43.24133307845504
+      }
+    },
+    {
+      "round": 2,
+      "candidate": "triton8",
+      "times": {
+        "trt": 43.220074088485156,
+        "triton8": 69.68103514777289
+      }
+    },
+    {
+      "round": 2,
+      "candidate": "triton16",
+      "times": {
+        "trt": 43.239924642774795,
+        "triton16": 54.50851828963668
+      }
+    },
+    {
+      "round": 2,
+      "candidate": "triton32",
+      "times": {
+        "trt": 43.24540827009413,
+        "triton32": 64.68807326422797
+      }
+    },
+    {
+      "round": 3,
+      "candidate": "triton8",
+      "times": {
+        "triton8": 69.68400213453505,
+        "trt": 43.26629638671875
+      }
+    },
+    {
+      "round": 3,
+      "candidate": "triton16",
+      "times": {
+        "triton16": 57.96540666509558,
+        "trt": 47.31985374733254
+      }
+    },
+    {
+      "round": 3,
+      "candidate": "triton32",
+      "times": {
+        "triton32": 64.71022411629006,
+        "trt": 43.1909649460404
+      }
+    },
+    {
+      "round": 4,
+      "candidate": "triton8",
+      "times": {
+        "trt": 43.190223199349866,
+        "triton8": 69.68659383279306
+      }
+    },
+    {
+      "round": 4,
+      "candidate": "triton16",
+      "times": {
+        "trt": 43.212444693953906,
+        "triton16": 54.51244336587411
+      }
+    },
+    {
+      "round": 4,
+      "candidate": "triton32",
+      "times": {
+        "trt": 43.20318610579879,
+        "triton32": 64.71940764674434
+      }
+    },
+    {
+      "round": 5,
+      "candidate": "triton8",
+      "times": {
+        "triton8": 69.68526045481364,
+        "trt": 43.18733127028854
+      }
+    },
+    {
+      "round": 5,
+      "candidate": "triton16",
+      "times": {
+        "triton16": 54.51918531347204,
+        "trt": 43.19829410976834
+      }
+    },
+    {
+      "round": 5,
+      "candidate": "triton32",
+      "times": {
+        "triton32": 64.65977651101572,
+        "trt": 43.212815567299174
+      }
+    },
+    {
+      "round": 6,
+      "candidate": "triton8",
+      "times": {
+        "trt": 43.171260091993545,
+        "triton8": 69.64392573745162
+      }
+    },
+    {
+      "round": 6,
+      "candidate": "triton16",
+      "times": {
+        "trt": 43.195481653566716,
+        "triton16": 54.51822280883789
+      }
+    },
+    {
+      "round": 6,
+      "candidate": "triton32",
+      "times": {
+        "trt": 43.19933167210332,
+        "triton32": 64.7288163503011
+      }
+    },
+    {
+      "round": 7,
+      "candidate": "triton8",
+      "times": {
+        "triton8": 69.6503718694051,
+        "trt": 43.20785292872676
+      }
+    },
+    {
+      "round": 7,
+      "candidate": "triton16",
+      "times": {
+        "triton16": 54.46733368767632,
+        "trt": 43.19014814164903
+      }
+    },
+    {
+      "round": 7,
+      "candidate": "triton32",
+      "times": {
+        "triton32": 64.67281447516547,
+        "trt": 43.21999903078432
+      }
+    }
+  ],
+  "source": "/root/qvl/sglang-m16-down-production/python/sglang/kernels/ops/attention/decode_attention.py",
+  "source_sha256": "dc359a15c41fb416875d7ff176299ecf2f8cc3428d7253943888037282f34641",
+  "script_sha256": "af3551ac00f90cd4acecf4aefa5bd425de7c3b190565fe7e4e9d69cb3c370db7",
+  "q_stride": [
+    6144,
+    128,
+    1
+  ],
+  "hnd_stride": [
+    32768,
+    4096,
+    128,
+    1
+  ],
+  "adapter_stride": [
+    128,
+    4096,
+    32768,
+    128
+  ],
+  "torch": "2.14.1+cu130",
+  "flashinfer": "0.7.0.post1",
+  "medians": {
+    "triton8": {
+      "trt": 43.21396350860596,
+      "triton8": 69.67499962559452
+    },
+    "triton16": {
+      "trt": 43.226184668364354,
+      "triton16": 54.515333087356
+    },
+    "triton32": {
+      "trt": 43.21640729904175,
+      "triton32": 64.68381484349568
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{"round": 0, "candidate": "triton8", "times": {"trt": 43.30673924198857, "triton8": 69.66896410341616}}
+{"round": 0, "candidate": "triton16", "times": {"trt": 43.27948005111129, "triton16": 54.494222005208336}}
+{"round": 0, "candidate": "triton32", "times": {"trt": 43.2720007719817, "triton32": 64.66133506209762}}
+{"round": 1, "candidate": "triton8", "times": {"triton8": 69.65014669630263, "trt": 43.261629563790784}}
+{"round": 1, "candidate": "triton16", "times": {"triton16": 54.52963157936379, "trt": 43.25666692521837}}
+{"round": 1, "candidate": "triton32", "times": {"triton32": 64.6795564227634, "trt": 43.24133307845504}}
+{"round": 2, "candidate": "triton8", "times": {"trt": 43.220074088485156, "triton8": 69.68103514777289}}
+{"round": 2, "candidate": "triton16", "times": {"trt": 43.239924642774795, "triton16": 54.50851828963668}}
+{"round": 2, "candidate": "triton32", "times": {"trt": 43.24540827009413, "triton32": 64.68807326422797}}
+{"round": 3, "candidate": "triton8", "times": {"triton8": 69.68400213453505, "trt": 43.26629638671875}}
+{"round": 3, "candidate": "triton16", "times": {"triton16": 57.96540666509558, "trt": 47.31985374733254}}
+{"round": 3, "candidate": "triton32", "times": {"triton32": 64.71022411629006, "trt": 43.1909649460404}}
+{"round": 4, "candidate": "triton8", "times": {"trt": 43.190223199349866, "triton8": 69.68659383279306}}
+{"round": 4, "candidate": "triton16", "times": {"trt": 43.212444693953906, "triton16": 54.51244336587411}}
+{"round": 4, "candidate": "triton32", "times": {"trt": 43.20318610579879, "triton32": 64.71940764674434}}
+{"round": 5, "candidate": "triton8", "times": {"triton8": 69.68526045481364, "trt": 43.18733127028854}}
+{"round": 5, "candidate": "triton16", "times": {"triton16": 54.51918531347204, "trt": 43.19829410976834}}
+{"round": 5, "candidate": "triton32", "times": {"triton32": 64.65977651101572, "trt": 43.212815567299174}}
+{"round": 6, "candidate": "triton8", "times": {"trt": 43.171260091993545, "triton8": 69.64392573745162}}
+{"round": 6, "candidate": "triton16", "times": {"trt": 43.195481653566716, "triton16": 54.51822280883789}}
+{"round": 6, "candidate": "triton32", "times": {"trt": 43.19933167210332, "triton32": 64.7288163503011}}
+{"round": 7, "candidate": "triton8", "times": {"triton8": 69.6503718694051, "trt": 43.20785292872676}}
+{"round": 7, "candidate": "triton16", "times": {"triton16": 54.46733368767632, "trt": 43.19014814164903}}
+{"round": 7, "candidate": "triton32", "times": {"triton32": 64.67281447516547, "trt": 43.21999903078432}}
+{"triton8": {"trt": 43.21396350860596, "triton8": 69.67499962559452}, "triton16": {"trt": 43.226184668364354, "triton16": 54.515333087356}, "triton32": {"trt": 43.21640729904175, "triton32": 64.68381484349568}}
