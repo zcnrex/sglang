@@ -63,6 +63,21 @@ accuracy. Complete evidence is in `results/qkv_m4_production_accuracy` and
 See `results/qkv_m4_screen/production_kernel`, `results/qkv_m4_production_model`
 and `results/qkv_m4_production_serving` for source provenance and full latency.
 
+## Batch-one/two QKV follow-up
+
+Production commit `5a009dde20` extends the same BF16 fusion to batches one
+and two. Paired C1/N30 serving improves391.50 → 410.67 and394.36 → 413.34
+output tok/s, geometric gain4.86%. Paired C2/N40 improves716.63 → 746.32
+and716.83 → 747.12, geometric gain4.19%; no handoff target exists for C2.
+Mean TTFT increases0.07–2.32ms across the four pairs, with mixed median
+changes, so this establishes throughput improvement rather than a general
+TTFT gain. M128 forwards are absent from all measured intervals despite
+normal startup tactic differences. B1/B2 public short-model logits/tokens
+match bitwise for two seeds; B4/B8 kernel regression checks also match.
+Full accuracy and bounded image evaluation are pending at this commit.
+See `results/qkv_small_production_kernel`, `results/qkv_small_production_model`
+and `results/qkv_small_production_serving` for complete evidence.
+
 ## Latest committed increments
 
 The following increments were measured separately; their gains must not be

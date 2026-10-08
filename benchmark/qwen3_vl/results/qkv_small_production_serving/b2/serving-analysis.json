@@ -1,0 +1,46 @@
+[
+  {
+    "phase": "A",
+    "gpu": 4,
+    "arm": "control",
+    "output_throughput": 716.6295574779964,
+    "mean_ttft_ms": 117.98280827715644,
+    "median_ttft_ms": 119.67266601277515,
+    "p95_ttft_ms": 136.58393384102962,
+    "p99_ttft_ms": 147.8047681011958,
+    "median_tpot_ms": 2.6750323059632946
+  },
+  {
+    "phase": "A",
+    "gpu": 5,
+    "arm": "candidate",
+    "output_throughput": 747.1226621425748,
+    "mean_ttft_ms": 121.34273295087041,
+    "median_ttft_ms": 121.54367999755777,
+    "p95_ttft_ms": 143.74444205750478,
+    "p99_ttft_ms": 146.938959278923,
+    "median_tpot_ms": 2.562369508294385
+  },
+  {
+    "phase": "B",
+    "gpu": 4,
+    "arm": "candidate",
+    "output_throughput": 746.3225676790191,
+    "mean_ttft_ms": 120.29822719778167,
+    "median_ttft_ms": 119.22635800146963,
+    "p95_ttft_ms": 144.55408716603415,
+    "p99_ttft_ms": 147.56274601444602,
+    "median_tpot_ms": 2.5632251436836455
+  },
+  {
+    "phase": "B",
+    "gpu": 5,
+    "arm": "control",
+    "output_throughput": 716.8251806922273,
+    "mean_ttft_ms": 120.24647197467857,
+    "median_ttft_ms": 120.87619450176135,
+    "p95_ttft_ms": 143.9615363968187,
+    "p99_ttft_ms": 147.97679552139016,
+    "median_tpot_ms": 2.6759234012547473
+  }
+]

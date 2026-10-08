@@ -1,0 +1,46 @@
+[
+  {
+    "phase": "A",
+    "gpu": 2,
+    "arm": "control",
+    "output_throughput": 391.5007864707933,
+    "mean_ttft_ms": 80.34963083531086,
+    "median_ttft_ms": 78.30072099750396,
+    "p95_ttft_ms": 90.61385895765852,
+    "p99_ttft_ms": 93.27504080574727,
+    "median_tpot_ms": 2.4754502761320194
+  },
+  {
+    "phase": "A",
+    "gpu": 3,
+    "arm": "candidate",
+    "output_throughput": 413.34260933907524,
+    "mean_ttft_ms": 80.44601930402375,
+    "median_ttft_ms": 80.09087400569115,
+    "p95_ttft_ms": 86.31229855964193,
+    "p99_ttft_ms": 88.79415943840287,
+    "median_tpot_ms": 2.340983195996339
+  },
+  {
+    "phase": "B",
+    "gpu": 2,
+    "arm": "candidate",
+    "output_throughput": 410.67346469717023,
+    "mean_ttft_ms": 82.02426463055114,
+    "median_ttft_ms": 82.67314349359367,
+    "p95_ttft_ms": 87.97465348616242,
+    "p99_ttft_ms": 88.06745478359517,
+    "median_tpot_ms": 2.3546567448477
+  },
+  {
+    "phase": "B",
+    "gpu": 3,
+    "arm": "control",
+    "output_throughput": 394.35861716098185,
+    "mean_ttft_ms": 80.37548926464903,
+    "median_ttft_ms": 82.04830199247226,
+    "p95_ttft_ms": 89.63476028875448,
+    "p99_ttft_ms": 91.20079878834076,
+    "median_tpot_ms": 2.4569816256084462
+  }
+]

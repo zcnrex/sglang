@@ -1,0 +1,32 @@
+{
+  "original_sha256": "bc92a357a93801913bc8d6771fc9f3fdfa45135ed864664e1495a45283cf0370",
+  "parts": [
+    {
+      "path": "original.tar.gz.part000",
+      "sha256": "e6613dc9a46a2654504ebaca245f36341962ecf693492739fe0ea1c3e0fa37cb",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part001",
+      "sha256": "f90aed4d22f20b357402d3d1950fae4fb2d9d797cc1b94cc497c7d7b35228ffc",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part002",
+      "sha256": "324564a80113235a5853e2bef1e45ecb231b6db13197dc702f739dded0202271",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part003",
+      "sha256": "409d34993ab9cad23f709c332d098e94b2de4c59a2d746ec8b7a5f348828dc04",
+      "bytes": 1048576
+    },
+    {
+      "path": "original.tar.gz.part004",
+      "sha256": "9cf053616c20e2bca98690f8c710dc33e69188d10b3febcb20e0ceb115acc615",
+      "bytes": 341846
+    }
+  ],
+  "compressed": [],
+  "reconstruct": "cat original.tar.gz.part* > original.tar.gz"
+}
