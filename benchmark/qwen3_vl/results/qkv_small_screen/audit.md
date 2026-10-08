@@ -1,0 +1,15 @@
+# B1/B2 QKV fusion audit (read-only)
+
+No prior B1/B2 fused QKV epilogue test or rejection was found in the archived README/index search. The original qkv_epilogue_admission note identifies mapped M1/2/4/8 shapes but proposes and measures B8 only. Subsequent fused screens cover B4, B8 and rejected B16; low-M projection tuning is not fusion evidence.
+
+Production maps both (1,6144,2560) and (2,6144,2560) to (128,8,2,6). The installed direct predicate requires K8192, so both stay on this split-K path. One 128×8 shared tile remains sufficient, unlike B16's two token tiles. Preserve initial BF16 GEMM rounding, normalization rounding and rotary arithmetic exactly; comparison can use the actual same-GEMM production reference.
+
+Do not reuse m//4 as the loop count: it would be zero for M1/M2. A bounded external variant should execute exactly one iteration, keep all 128 threads in shared redistribution and its barrier, then guard warp<batch before any shared norm reads/global positions/slots/output/cache access. Each active warp has all 32 lanes, so warp shuffle/reduction participation remains valid. No barrier may move inside this condition. Other warps remain inactive only after the uniform barrier. Stride128 positions and their full positive-stride alias spans remain supported. This is static admissibility, not compiled correctness proof.
+
+Headroom is plausible but not measured specifically at B1/B2. Existing B8 real-model trace has 36 preparation calls totaling191.391us, 82.305us overlap with preceding QKV and15.392us overlap with attention; exclusive preparation is93.694us (2.65% of separately measured3.532ms unprofiled graph). These trace numbers must not be extrapolated as B1/B2 ceilings. B4 standalone saves approximately2.48us/layer (~89us across36), and its actual-model graph saves94.78us. This establishes launch/preparation overhead worth a bounded small-batch check, but actual B1/B2 dependencies and consumer kernels may differ. A 50–100us/model saving is an order-of-magnitude hypothesis, not a prediction.
+
+Difference from failed B16: B16's tested fusion used two N8 tiles and a split-K producer that differed from its actual F.linear baseline, producing rounding differences and42% sequence regression. B1/B2 already use the exact same one-tile producer as the proven B4/B8 paths. They do introduce inactive whole warps, so the performance advantage is not guaranteed.
+
+Propose one bounded external screen of the same masked one-iteration kernel at B1 and B2, actual36weights, positions stride128/distinct axes/negative slots, caller-buffer canaries, changed-input graph and dependent TRT attention. Compare directly against production split-K+prep, requiring bitwise QKV/fullcache/attention before timing. Eight paired cold rotating-weight rounds per shape; no tactic/tile search. Stop if full-sequence gain is absent. No model/serving or production extension follows without separate review.
+
+No source edits or GPU launches occurred. Existing B4 production files remain frozen.

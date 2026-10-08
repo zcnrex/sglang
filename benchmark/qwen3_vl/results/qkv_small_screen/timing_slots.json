@@ -1,0 +1,11 @@
+{
+  "b1": [
+    8200
+  ],
+  "b2": [
+    8200,
+    16456
+  ],
+  "check_tag": "all_valid_slots_graph_before_timing",
+  "sentinel_diagnostic": "Original negative-slot timing preserved; not used for positive admission."
+}
