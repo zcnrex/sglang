@@ -1,0 +1,7 @@
+# Integrated production B8 model gate
+
+PASS: seeds123/124, B8 input8192/output16. Complete [8,151936] prefill, first-decode and fifteenth-decode logits are bitwise against frozen M16 control, as are all128 generated tokens per seed. Candidate public dispatch captures all36 layers. Graphs8/4/2/1 exist in both arms; all12 shared input buffers remain unchanged after retained-graph replay. Both use BF16 weights/query/KV/output, HND page32, TRT, mixed chunk16384, graph cap8 and1,600,000 KV capacity. No algorithm replacement: external helper wrapper only observes successful public dispatch.
+
+Control GPU2 PID627569 and candidate GPU3 PID628070 are terminal. Candidate admission first stopped before launch due to four AppleDouble ._*.py transfer metadata files. Original expected manifest and separately hashed metadata are retained; explicit complete manifest then admitted the candidate. No expected runtime file differed from the four-file frozen overlay. Source remains unchanged.
+
+`original.tar.gz` preserves scripts, manifests, reports, cache records and logs. Readable Python copies end .py.txt. Full numerical tensors remain at /root/qvl/experiments/qkv-integrated-model/{control,candidate}/outputs.pt with hashes in numerics_hashes.json. comparison.json records every full-tensor comparison. Two real input seeds exercise changed-input graphs, but this is short text-model coverage, not full task accuracy or image validation. No performance conclusion is drawn from this gate.

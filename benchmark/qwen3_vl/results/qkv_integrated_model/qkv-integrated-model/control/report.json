@@ -1,0 +1,25 @@
+{
+  "source": "/root/qvl/sglang-m16-down-production",
+  "source_files": 4231,
+  "graph_keys": [
+    "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+  ],
+  "dispatch": [],
+  "unchanged_input_buffers": {
+    "input_ids": true,
+    "input_embeds": true,
+    "req_pool_indices": true,
+    "seq_lens": true,
+    "seq_lens_cpu": true,
+    "out_cache_loc": true,
+    "positions": true,
+    "mrope_positions": true,
+    "custom_mask": true,
+    "next_token_logits_buffer": true,
+    "global_num_tokens_gpu": true,
+    "global_num_tokens_for_logprob_gpu": true
+  }
+}

@@ -1,0 +1,102 @@
+[2026-10-08 05:28:35 TP0] Init parallel begin.
+[2026-10-08 05:28:35 TP0] Init parallel ends. elapsed=0.30 s
+[2026-10-08 05:28:35 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 05:28:37 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 05:28:37 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 05:28:37 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.12it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.05it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.06it/s]
+[2026-10-08 05:28:39 TP0] Load weight end. elapsed=2.64 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 05:28:40 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 05:28:40 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1600000, K size: 109.87 GB, V size: 109.87 GB
+[2026-10-08 05:28:40 TP0] Memory pool end. avail mem=35.50 GB
+[2026-10-08 05:28:40 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/qkv-integrated-model/candidate/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.05profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.05profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 10.23profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 19.99profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 30.50profile/s]
+[2026-10-08 05:28:43 TP0] FlashInfer autotune completed.
+[2026-10-08 05:28:43 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 05:28:43 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8], avail mem=34.13 GB
+  0%|          | 0/4 [00:00<?, ?it/s]Capturing batches (bs=8 avail_mem=34.13 GB):   0%|          | 0/4 [00:00<?, ?it/s]INTEGRATED_DISPATCH (0, False)
+INTEGRATED_DISPATCH (1, False)
+INTEGRATED_DISPATCH (2, False)
+INTEGRATED_DISPATCH (3, False)
+INTEGRATED_DISPATCH (4, False)
+INTEGRATED_DISPATCH (5, False)
+INTEGRATED_DISPATCH (6, False)
+INTEGRATED_DISPATCH (7, False)
+INTEGRATED_DISPATCH (8, False)
+INTEGRATED_DISPATCH (9, False)
+INTEGRATED_DISPATCH (10, False)
+INTEGRATED_DISPATCH (11, False)
+INTEGRATED_DISPATCH (12, False)
+INTEGRATED_DISPATCH (13, False)
+INTEGRATED_DISPATCH (14, False)
+INTEGRATED_DISPATCH (15, False)
+INTEGRATED_DISPATCH (16, False)
+INTEGRATED_DISPATCH (17, False)
+INTEGRATED_DISPATCH (18, False)
+INTEGRATED_DISPATCH (19, False)
+INTEGRATED_DISPATCH (20, False)
+INTEGRATED_DISPATCH (21, False)
+INTEGRATED_DISPATCH (22, False)
+INTEGRATED_DISPATCH (23, False)
+INTEGRATED_DISPATCH (24, False)
+INTEGRATED_DISPATCH (25, False)
+INTEGRATED_DISPATCH (26, False)
+INTEGRATED_DISPATCH (27, False)
+INTEGRATED_DISPATCH (28, False)
+INTEGRATED_DISPATCH (29, False)
+INTEGRATED_DISPATCH (30, False)
+INTEGRATED_DISPATCH (31, False)
+INTEGRATED_DISPATCH (32, False)
+INTEGRATED_DISPATCH (33, False)
+INTEGRATED_DISPATCH (34, False)
+INTEGRATED_DISPATCH (35, False)
+INTEGRATED_DISPATCH (0, True)
+INTEGRATED_DISPATCH (1, True)
+INTEGRATED_DISPATCH (2, True)
+INTEGRATED_DISPATCH (3, True)
+INTEGRATED_DISPATCH (4, True)
+INTEGRATED_DISPATCH (5, True)
+INTEGRATED_DISPATCH (6, True)
+INTEGRATED_DISPATCH (7, True)
+INTEGRATED_DISPATCH (8, True)
+INTEGRATED_DISPATCH (9, True)
+INTEGRATED_DISPATCH (10, True)
+INTEGRATED_DISPATCH (11, True)
+INTEGRATED_DISPATCH (12, True)
+INTEGRATED_DISPATCH (13, True)
+INTEGRATED_DISPATCH (14, True)
+INTEGRATED_DISPATCH (15, True)
+INTEGRATED_DISPATCH (16, True)
+INTEGRATED_DISPATCH (17, True)
+INTEGRATED_DISPATCH (18, True)
+INTEGRATED_DISPATCH (19, True)
+INTEGRATED_DISPATCH (20, True)
+INTEGRATED_DISPATCH (21, True)
+INTEGRATED_DISPATCH (22, True)
+INTEGRATED_DISPATCH (23, True)
+INTEGRATED_DISPATCH (24, True)
+INTEGRATED_DISPATCH (25, True)
+INTEGRATED_DISPATCH (26, True)
+INTEGRATED_DISPATCH (27, True)
+INTEGRATED_DISPATCH (28, True)
+INTEGRATED_DISPATCH (29, True)
+INTEGRATED_DISPATCH (30, True)
+INTEGRATED_DISPATCH (31, True)
+INTEGRATED_DISPATCH (32, True)
+INTEGRATED_DISPATCH (33, True)
+INTEGRATED_DISPATCH (34, True)
+INTEGRATED_DISPATCH (35, True)
+Capturing batches (bs=8 avail_mem=34.13 GB):  25%|██▌       | 1/4 [00:01<00:04,  1.46s/it]Capturing batches (bs=4 avail_mem=34.08 GB):  25%|██▌       | 1/4 [00:01<00:04,  1.46s/it]Capturing batches (bs=4 avail_mem=34.08 GB):  50%|█████     | 2/4 [00:01<00:01,  1.18it/s]Capturing batches (bs=2 avail_mem=34.08 GB):  50%|█████     | 2/4 [00:01<00:01,  1.18it/s]Capturing batches (bs=2 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:01<00:00,  1.94it/s]Capturing batches (bs=1 avail_mem=34.08 GB):  75%|███████▌  | 3/4 [00:01<00:00,  1.94it/s]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:02<00:00,  2.27it/s]Capturing batches (bs=1 avail_mem=34.08 GB): 100%|██████████| 4/4 [00:02<00:00,  1.72it/s]
+[2026-10-08 05:28:46 TP0] Capture target decode CUDA graph end. elapsed=3.03 s, mem usage=0.05 GB, avail mem=34.08 GB.
+max_total_num_tokens=1600000
+MODEL_SEED_COMPLETE 123
+MODEL_SEED_COMPLETE 124
