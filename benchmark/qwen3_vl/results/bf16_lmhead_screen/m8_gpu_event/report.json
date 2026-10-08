@@ -1,0 +1,134 @@
+{
+  "m": 8,
+  "source": "current frozen /root/qvl/sglang-lmhead-production",
+  "pairs": [],
+  "capture_dispatches": {
+    "capture": 1,
+    "eager": 2
+  },
+  "graph_keys": {
+    "baseline": [
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ],
+    "candidate": [
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ]
+  },
+  "greedy_equal": true,
+  "greedy_differences": 0,
+  "logit_checks": [
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    }
+  ],
+  "gpu_event_diagnostic": {
+    "synthetic_pairs": [
+      {
+        "baseline": 3.532212495803833,
+        "candidate": 3.5226058959960938
+      },
+      {
+        "candidate": 3.5229902267456055,
+        "baseline": 3.532024621963501
+      },
+      {
+        "baseline": 3.5319135189056396,
+        "candidate": 3.5230443477630615
+      },
+      {
+        "candidate": 3.5227913856506348,
+        "baseline": 3.5315418243408203
+      },
+      {
+        "baseline": 3.5316827297210693,
+        "candidate": 3.5223891735076904
+      },
+      {
+        "candidate": 3.5228054523468018,
+        "baseline": 3.5319013595581055
+      }
+    ],
+    "actual_steps": {
+      "baseline": [
+        4.065152168273926,
+        4.6532158851623535,
+        4.500768184661865,
+        4.380703926086426,
+        4.379903793334961,
+        4.412896156311035,
+        4.40064001083374,
+        4.432767868041992,
+        4.39628791809082,
+        4.45900821685791,
+        4.370880126953125,
+        4.362048149108887,
+        4.243423938751221,
+        4.115839958190918,
+        4.139967918395996
+      ],
+      "candidate": [
+        4.0814080238342285,
+        4.651167869567871,
+        4.498432159423828,
+        4.505792140960693,
+        4.51804780960083,
+        4.485599994659424,
+        4.506783962249756,
+        4.46560001373291,
+        4.211775779724121,
+        4.158207893371582,
+        4.0747199058532715,
+        4.065567970275879,
+        4.076096057891846,
+        4.0602240562438965,
+        4.073567867279053
+      ]
+    },
+    "shared_buffer_snapshots": [
+      "input_ids",
+      "input_embeds",
+      "req_pool_indices",
+      "seq_lens",
+      "seq_lens_cpu",
+      "out_cache_loc",
+      "positions",
+      "mrope_positions",
+      "custom_mask",
+      "next_token_logits_buffer",
+      "global_num_tokens_gpu",
+      "global_num_tokens_for_logprob_gpu"
+    ],
+    "unchanged_input_buffers": {
+      "input_ids": true,
+      "input_embeds": true,
+      "req_pool_indices": true,
+      "seq_lens": true,
+      "seq_lens_cpu": true,
+      "out_cache_loc": true,
+      "positions": true,
+      "mrope_positions": true,
+      "custom_mask": true,
+      "next_token_logits_buffer": true,
+      "global_num_tokens_gpu": true,
+      "global_num_tokens_for_logprob_gpu": true
+    },
+    "clock_snapshot": "0, 2032 MHz, 3996 MHz, 528.95 W, 47\n1, 2032 MHz, 3996 MHz, 491.50 W, 47\n2, 2032 MHz, 3996 MHz, 769.67 W, 46\n3, 120 MHz, 3996 MHz, 184.55 W, 34\n4, 120 MHz, 3996 MHz, 184.59 W, 38\n5, 120 MHz, 3996 MHz, 184.36 W, 36\n6, 120 MHz, 3996 MHz, 186.78 W, 33\n7, 120 MHz, 3996 MHz, 186.53 W, 32\n"
+  },
+  "changed_model_input": {
+    "greedy_equal": true,
+    "logits_equal": true
+  }
+}
