@@ -1,0 +1,27 @@
+import os,pathlib,json,torch
+from sglang.srt.models.qwen3 import Qwen3Attention
+from sglang.srt.model_executor.runner.decode_cuda_graph_runner import DecodeCudaGraphRunner
+from sglang.srt.model_executor.model_runner import ModelRunner
+r=pathlib.Path(os.environ['QVL_LMHEAD_OUT']);seen=set()
+def emit(name,data):
+ with (r/(name+'.jsonl')).open('a') as f:f.write(json.dumps(dict(data,phase=(r/'image-active').read_text() if (r/'image-active').exists() else None))+'\n')
+old=Qwen3Attention._try_qkv_norm_mrope
+def fused(self,positions,hidden_states,batch):
+ result=old(self,positions,hidden_states,batch)
+ if result is not None:
+  key=(self.attn.layer_id,hidden_states.shape[0],torch.cuda.is_current_stream_capturing())
+  if key not in seen:seen.add(key);emit('fused',dict(layer=key[0],m=key[1],capture=key[2],stride=positions.stride()))
+ return result
+Qwen3Attention._try_qkv_norm_mrope=fused
+exe=DecodeCudaGraphRunner.execute
+def replay(self,*a,**kw):
+ result=exe(self,*a,**kw)
+ if (r/'image-active').exists():emit('replay',dict(bs=getattr(self,'bs',None)))
+ return result
+DecodeCudaGraphRunner.execute=replay
+fw=ModelRunner.forward
+def forward(self,batch,*a,**kw):
+ if (r/'image-active').exists():
+  emit('geometry',dict(mode=batch.forward_mode.name,bs=batch.batch_size,rows=batch.input_ids.numel()))
+ return fw(self,batch,*a,**kw)
+ModelRunner.forward=forward

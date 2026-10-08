@@ -1,0 +1,5 @@
+{
+  "control": "matches qkv_small_production_model/b1/control_expected.json",
+  "candidate": "matches qkv_small_production_model/b1/candidate_expected.json",
+  "scope": "all expected runtime Python hashes; complete runtime source manifests retained and unchanged at end"
+}

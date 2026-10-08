@@ -1,0 +1,11 @@
+# B1/B2 integrated QKV image gate
+
+PASS: one image request at B1, followed by two concurrent requests at B2, produced identical response text, returned token/logprob/top-logprob sequences, usage and finish reasons across frozen M4 control and small-QKV candidate. Each request generated32 tokens and reported234 prompt tokens (216 image tokens, zero cached tokens). This single-fixture smoke gate is not broad multimodal accuracy or full-logit equivalence.
+
+Control /root/qvl/sglang-qkv-m4-production and candidate /root/qvl/sglang-qkv-small-production match all expected runtime Python hashes from qkv_small_production_model/b1. Complete .py/.cuh/.cu/.h/.cpp manifests were saved before execution and asserted unchanged afterward. No production edits or algorithm substitutions were made.
+
+Both servers use BF16 weights/query/KV/output, TP1, TRT HND page32, mixed chunk16384, prefill graphs disabled, explicit20 decode graph buckets through128, server seed0 and verified KV capacity1,600,000. Normal public startup autotuning uses fresh per-worker caches. The harness waits for the explicit server-ready log emitted after ordinary warmup, then flushes before each phase. Model snapshot ebb281ec70b05090aa6165b016eac8ec08e71b17; existing local example_image.png fixture SHA256 e06917184a00b14abd70cd8ea0ff5dca9abfbbad29f7b25c02f97133d4cd060e. No network fixture was fetched.
+
+Candidate B1 and B2 capture succeeded at all36 layers with positions stride(128,1). Each arm recorded exactly32 graph1 replays in phase1 and32 graph2 replays in phase2. Phase1 prefill was EXTEND/batch1/234rows; phase2 had two EXTEND/batch1/234row calls. Full geometry is retained; no MIXED forward occurred, and no mixed-prefill coverage is claimed. Startup warmup did not overlap either phase.
+
+Drivers709264/709265 and servers709267/709266 completed and disappeared from process listings. GPUs6/7 were free before launch and released afterward. original.tar.gz preserves scripts, logs, source manifests, commands/environment, server info, observer records and responses; compilation cache directories and __pycache__ are excluded. Readable script copies end .py.txt. comparison.json contains paired assertions and every image-phase geometry record; archive-manifest.json records the raw archive hash and size. No additional image runs were launched.
