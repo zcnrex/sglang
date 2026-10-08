@@ -1,0 +1,5 @@
+cd /root/qvl/experiments/pack-production/existing-tests
+export CUDA_VISIBLE_DEVICES=4
+export PYTHONPATH=/root/qvl/test-deps:/root/qvl/sglang-prefix-production/python
+/root/qvl/venv-sgl/bin/python -m pytest -q test_trtllm_mha_paged_kv.py test_kernels_namespace.py -k 'reshape or import_stays_metadata_only or inventory_targets_survive_module_moves or reclassified_public_entry_points_are_inventoried'
+/root/qvl/venv-sgl/bin/python -m pytest -q 'test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]' 'test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]' 'test_flash_attention_4_sm103.py::test_red_max_varlen_output[4096-4096-128-True-gqa]' 'test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]'

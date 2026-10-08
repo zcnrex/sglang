@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/qvl-fa4-production-accuracy-pinned.py", line 121, in <module>
+    verify_tactics("startup")
+  File "/tmp/qvl-fa4-production-accuracy-pinned.py", line 34, in verify_tactics
+    assert {k:v for k,v in actual.items() if not k.startswith('_')}=={k:v for k,v in expected.items() if not k.startswith('_')}, 'Tactic mismatch'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tactic mismatch

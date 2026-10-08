@@ -1,0 +1,131 @@
+....                                                                     [100%]
+=============================== warnings summary ===============================
+../../../venv-sgl/lib/python3.12/site-packages/quack/copy_utils.py:15
+../../../venv-sgl/lib/python3.12/site-packages/quack/copy_utils.py:15
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/quack/copy_utils.py:15: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    from cutlass.utils import LayoutEnum, block_copy
+
+../../../venv-sgl/lib/python3.12/site-packages/quack/copy_utils.py:562
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/quack/copy_utils.py:562: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    layout_c: cutlass.utils.LayoutEnum,
+
+../../../sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd.py:18
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd.py:18: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+../../../sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm90.py:13
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm90.py:13: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+../../../sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm90.py:17
+../../../sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm90.py:17
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm90.py:17: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    from cutlass.utils import LayoutEnum
+
+../../../venv-sgl/lib/python3.12/site-packages/quack/sm90_utils.py:11
+../../../venv-sgl/lib/python3.12/site-packages/quack/sm90_utils.py:11
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/quack/sm90_utils.py:11: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    from cutlass.utils import LayoutEnum
+
+../../../sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:37
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:37: DeprecationWarning: Arch from arch.py is deprecated. Use Arch from enums.py instead.
+    from cutlass.base_dsl.arch import Arch
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/base_dsl/dsl.py:2300: UserWarning: Argument aux_data (position 18) cannot be converted to a JitArgument for function 'cutlass___call___sglangkernelsopsattentionflash_attncuteflash_fwd_sm100FlashAttentionForwardSm100_object_at__Tensorgmemoi64i641_Tensorgmemoi64i641_Tensorgmemoi64i641_Tensorgmemoi64'. Its type `<class 'sglang.kernels.ops.attention.flash_attn.cute.utils.AuxData'>` is not supported. If the value is known at compile time, annotate it: `aux_data: Constexpr`. Otherwise, implement the `JitArgument` or `DynamicExpression` protocol for type `<class 'sglang.kernels.ops.attention.flash_attn.cute.utils.AuxData'>`, or register a custom argument adapter.
+    exe_args, func_types, adapted_args = self.generate_mlir_function_types(
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:945: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    q_major_mode = tcgen05.OperandMajorMode.K
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:946: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    k_major_mode = tcgen05.OperandMajorMode.K
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:947: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    v_major_mode = tcgen05.OperandMajorMode.MN
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:948: DeprecationWarning: cutlass.utils.LayoutEnum is deprecated; use cutlass.tensor_utils.LayoutEnum instead. It will be removed in a future release.
+    self.o_layout = cutlass.utils.LayoutEnum.from_tensor(mO)
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:951: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+    p_major_mode = tcgen05.OperandMajorMode.K
+
+test_flash_attention_4_sm103.py: 12 warnings
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/_mlir_helpers/op.py:493: DeprecationWarning: make_trivial_tiled_mma with ab_dtype is deprecated, use the overload with separate a_dtype and b_dtype instead
+    res_or_list = opFunc(*args, **kwargs, loc=loc)
+
+test_flash_attention_4_sm103.py: 12 warnings
+  <string>:11: DeprecationWarning: tcgen05.OperandMajorMode is deprecated, use cute.nvgpu.OperandMajorMode instead
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/_mlir_helpers/op.py:493: DeprecationWarning: FastDivmodDivisor is deprecated in favor of cute.FastDivmodDivisorV2 / cute.fast_divmod_create_divisor_v2. V2 additionally carries the scalar divisor across kernel boundaries (2 MLIR values per object instead of 1), so '.divisor' is readable inside kernels; arithmetic (divmod, //, %) is unchanged.
+    res_or_list = opFunc(*args, **kwargs, loc=loc)
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:1754: DeprecationWarning: cutlass.utils.smem_allocator.SmemAllocator is deprecated; use cutlass.memory.SmemAllocator instead. It will be removed in a future release.
+    smem = cutlass.utils.SmemAllocator()
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+test_flash_attention_4_sm103.py::test_red_max_features[chunked_prefill]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/flash_fwd_sm100.py:1770: DeprecationWarning: cutlass.utils.tmem_allocator.TmemAllocator is deprecated; use cutlass.memory.TmemAllocator instead. It will be removed in a future release.
+    tmem = cutlass.utils.TmemAllocator(
+
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-False-gqa]
+test_flash_attention_4_sm103.py::test_red_max_varlen_output[256-256-128-True-gqa]
+  /root/qvl/sglang-prefix-production/python/sglang/kernels/ops/attention/flash_attn/cute/pack_gqa.py:176: DSLOptimizationWarning: This static loop has 64 iterations, which may be very slow to compile, consider using `cutlass.range(..., unroll_full=True)` instead.
+    for m in cutlass.range_constexpr(cute.size(tQsQ.shape[1])):
+
+test_flash_attention_4_sm103.py: 54 warnings
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/cute/core.py:5905: DeprecationWarning: Using `struct.scalar` as pointer is deprecated.
+    return [self.value]
+
+test_flash_attention_4_sm103.py: 54 warnings
+  /root/qvl/venv-sgl/lib/python3.12/site-packages/nvidia_cutlass_dsl/dsl_packages/cutlass/memory/tmem.py:420: DeprecationWarning: cutlass.utils.tmem_allocator.TmemAllocator is deprecated; use cutlass.memory.TmemAllocator instead. It will be removed in a future release.
+    return type(self)(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+4 passed, 193 warnings in 48.92s

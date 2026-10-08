@@ -1,0 +1,5 @@
+# Failed normal-cache pinning attempt
+
+Candidate GPU6 stopped before evaluation because startup tactics changed from seeded gateup1/down1 to gateup1/down4. Control GPU7 completed1220/1314, but its down1 selection was profiled again rather than successfully pinned. No matched comparison is valid from this attempt.
+
+Installed FlashInfer autotuner/autotuner.py search_cache lines1970–1974 intentionally bypass v1 file configs in tuning mode when requested profiling policy differs from legacy policy. BF16 configuration gemm/gemm_base.py1464 requests coldL2, while _default_profiling_policy at3304 assumes hotL2 for persisted entries. Both startup logs show profiling despite cache seeds. The candidate assertion correctly prevented evaluation; it was not bypassed. Source and serving algorithms remain unchanged. Seed hashes, actual rejected configuration, startup/terminal control checks, observer, and raw reports are retained. Both drivers373669/373670 terminal. Any future scoped tuning-mode override must be explicitly labeled as diagnostic.

@@ -1,0 +1,15 @@
+import torch,json,pathlib,hashlib
+from sglang.kernels.ops.attention.flash_attn.cute.interface import flash_attn_varlen_func
+root=pathlib.Path('/root/qvl/experiments/fa4-numerics');torch.backends.cuda.matmul.allow_tf32=False;torch.set_float32_matmul_precision('highest')
+report={'reference':'FP32 QK, softmax, PV; TF32 disabled; original Q/K/V BF16 unchanged','rows':[]}
+def metrics(o,r):
+ x=o.float();d=x-r;rb=r.bfloat16();ab=x.bfloat16();ai=ab.view(torch.int16).int()&65535;ri=rb.view(torch.int16).int()&65535
+ order=lambda z:torch.where(z&32768!=0,32768-(z&32767),32768+z)
+ ulp=(order(ai)-order(ri)).abs().float();cos=torch.nn.functional.cosine_similarity(x.flatten(1),r.flatten(1),dim=1)
+ return {'relative_l2':(d.norm()/r.norm()).item(),'max_abs':d.abs().max().item(),'cosine_min':cos.min().item(),'cosine_mean':cos.mean().item(),'bf16_reference_equal_fraction':(ab==rb).float().mean().item(),'bf16_ulp_quantiles':torch.quantile(ulp.flatten(),torch.tensor([.5,.9,.99,1.],device='cuda')).tolist()}
+for layer in (0,17,35):
+ path=root/f'layer{layer}.pt';data=torch.load(path,weights_only=True);q0=data['q'];m=len(q0);storage=torch.empty(m,6144,device='cuda',dtype=torch.bfloat16);q=storage[:,:4096].view(m,32,128);k=storage[:,4096:5120].view(m,8,128);v=storage[:,5120:].view(m,8,128);q.copy_(q0);k.copy_(data['k']);v.copy_(data['v']);cu=torch.tensor([0,m],device='cuda',dtype=torch.int32)
+ result=flash_attn_varlen_func(q,k,v,cu_seqlens_q=cu,cu_seqlens_k=cu,max_seqlen_q=m,max_seqlen_k=m,softmax_scale=data['scale'],causal=True,use_clc_scheduler=True);fa=result[0] if isinstance(result,tuple) else result
+ positions=torch.tensor(sorted(set(torch.linspace(0,m-1,64).long().tolist()+list(range(min(8,m)))+list(range(max(0,m-16),m)))),device='cuda');qq=q[positions].transpose(0,1).float();kk=k.repeat_interleave(4,dim=1).transpose(0,1).float();vv=v.repeat_interleave(4,dim=1).transpose(0,1).float();scores=qq@kk.transpose(-1,-2)*data['scale'];mask=torch.arange(m,device='cuda')[None,:]>positions[:,None];scores.masked_fill_(mask[None],-torch.inf);ref=(scores.softmax(-1)@vv).transpose(0,1)
+ ds=qq[:,:4].double()@kk.double().transpose(-1,-2)*data['scale'];ds.masked_fill_(mask[None,:4],-torch.inf);dr=(ds.softmax(-1)@vv.double()).transpose(0,1);refcheck=((ref[:4].double()-dr).norm()/dr.norm()).item()
+ row={'layer':layer,'tokens':m,'input_sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'query_positions':positions.tolist(),'fp32_vs_fp64_first4_relative_l2':refcheck,'trt':metrics(data['trt'].to('cuda')[positions],ref),'fa4':metrics(fa[positions],ref)};report['rows'].append(row);print(json.dumps(row),flush=True);(root/'reference-report.json').write_text(json.dumps(report,indent=2)+'\n')
