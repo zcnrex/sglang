@@ -116,9 +116,11 @@ not establish equivalence or a causal accuracy benefit. Evidence is in
 
 Batch-32 vocabulary tuning passed short-context model checks and external
 serving pairs (+0.120% and +0.144%). Its separate implementation
-`d0d528db4f` is under production validation, outside the PR. The capped-graph,
-fixed-capacity production C32 pairs improved by only 0.012% and 0.102%; a
-matched-startup accuracy check is pending. Batch-128 vocabulary serving was
+`d0d528db4f` remains outside the PR. The capped-graph, fixed-capacity
+production C32 pairs improved by only 0.012% and 0.102%; final confirmation
+showed 0.086% and 0.004%, with median TTFT increasing 19.45% and 0.15%.
+The gain is too small to justify promotion. Matched full accuracy scored
+1221/1314 in both arms, with 11 correctness flips each way. Batch-128 vocabulary serving was
 mixed and confounded by different active M128 projection tactics. Its matched
 diagnostic was negative (−0.834% and −0.025%) and is rejected without a full
 sweep. No larger-batch vocabulary change has been promoted. The M32 projection split-K kernels
@@ -130,7 +132,11 @@ output buffer and unchanged argmax. Standalone cast-only savings survived
 short-context model gates (about 13/31 microseconds at batches 64/128), with
 bitwise-equal checked logits, changed-input results and caller-buffer identity.
 The combined compiled cast-plus-argmax approach was slower or flat and was
-rejected. Cast-only serving is pending; no production cast change exists.
+rejected. The external cast-only short C128/N128 crossover improved throughput by
+0.193% on both GPUs. An explicit Triton production implementation is under
+validation; it has not been promoted. The batch-64 vocabulary external
+C64/N128 screen gained 0.335% and 0.352%; full N320 production validation
+is running. These short screens do not establish the full-sweep target.
 See `results/bf16_greedy_sampling_audit/`.
 
 ## Configuration and reproducibility

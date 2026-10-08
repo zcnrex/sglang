@@ -1,0 +1,10 @@
+{"kind": "model_identity", "model_type": "Qwen3VLForConditionalGeneration", "model_module": "sglang.srt.models.qwen3_vl", "tied_embedding": true, "quant_method": "UnquantizedEmbeddingMethod", "weight_shape": [151936, 2560], "dtype": "torch.bfloat16", "requires_grad": false}
+{"kind": "optimized_dispatch", "input_shape": [32, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [32, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "optimized_dispatch", "input_shape": [8, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [8, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "startup", "ready": [[0, 4, 151936, 2560], [0, 8, 151936, 2560], [0, 32, 151936, 2560], [0, 128, 2560, 9728], [0, 128, 19456, 2560]], "lmhead_enabled": true, "cache": "/root/qvl/experiments/lmhead-m32-production/serving_confirmation/A/gpu3/public-tuner-pid566278.json"}
+{"kind": "matched_policy_restored", "validated_shapes": [[4, 2560, 151936], [8, 2560, 151936], [128, 2560, 19456], [128, 9728, 2560]]}
+{"kind": "graph32_replay"}

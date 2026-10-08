@@ -1,0 +1,31 @@
+[2026-10-08 04:22:09 TP0] Init parallel begin.
+[2026-10-08 04:22:09 TP0] Init parallel ends. elapsed=0.26 s
+[2026-10-08 04:22:09 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 04:22:10 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 04:22:10 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 04:22:10 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.29it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.18it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.19it/s]
+[2026-10-08 04:22:12 TP0] Load weight end. elapsed=2.30 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 04:22:13 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 04:22:13 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1613440, K size: 110.79 GB, V size: 110.79 GB
+[2026-10-08 04:22:13 TP0] Memory pool end. avail mem=33.65 GB
+[2026-10-08 04:22:13 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/lmhead-m64-production/model/control/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.14profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.14profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 15.21profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 25.07profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 32.39profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 28.43profile/s]
+[2026-10-08 04:22:17 TP0] FlashInfer autotune completed.
+[2026-10-08 04:22:17 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 04:22:17 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 48, 56, 64], avail mem=32.28 GB
+  0%|          | 0/12 [00:00<?, ?it/s]Capturing batches (bs=64 avail_mem=32.24 GB):   0%|          | 0/12 [00:00<?, ?it/s]Capturing batches (bs=64 avail_mem=32.24 GB):   8%|▊         | 1/12 [00:00<00:06,  1.69it/s]Capturing batches (bs=56 avail_mem=32.19 GB):   8%|▊         | 1/12 [00:00<00:06,  1.69it/s]Capturing batches (bs=56 avail_mem=32.19 GB):  17%|█▋        | 2/12 [00:00<00:03,  2.69it/s]Capturing batches (bs=48 avail_mem=32.18 GB):  17%|█▋        | 2/12 [00:00<00:03,  2.69it/s]Capturing batches (bs=48 avail_mem=32.18 GB):  25%|██▌       | 3/12 [00:01<00:03,  2.60it/s]Capturing batches (bs=40 avail_mem=32.18 GB):  25%|██▌       | 3/12 [00:01<00:03,  2.60it/s]Capturing batches (bs=40 avail_mem=32.18 GB):  33%|███▎      | 4/12 [00:01<00:02,  3.60it/s]Capturing batches (bs=32 avail_mem=32.18 GB):  33%|███▎      | 4/12 [00:01<00:02,  3.60it/s]Capturing batches (bs=32 avail_mem=32.18 GB):  42%|████▏     | 5/12 [00:01<00:01,  3.94it/s]Capturing batches (bs=24 avail_mem=32.18 GB):  42%|████▏     | 5/12 [00:01<00:01,  3.94it/s]Capturing batches (bs=24 avail_mem=32.18 GB):  50%|█████     | 6/12 [00:01<00:01,  4.15it/s]Capturing batches (bs=16 avail_mem=32.18 GB):  50%|█████     | 6/12 [00:01<00:01,  4.15it/s]Capturing batches (bs=16 avail_mem=32.18 GB):  58%|█████▊    | 7/12 [00:02<00:02,  2.05it/s]Capturing batches (bs=12 avail_mem=32.18 GB):  58%|█████▊    | 7/12 [00:02<00:02,  2.05it/s]Capturing batches (bs=12 avail_mem=32.18 GB):  67%|██████▋   | 8/12 [00:02<00:01,  2.50it/s]Capturing batches (bs=8 avail_mem=32.18 GB):  67%|██████▋   | 8/12 [00:02<00:01,  2.50it/s] Capturing batches (bs=8 avail_mem=32.18 GB):  75%|███████▌  | 9/12 [00:04<00:02,  1.25it/s]Capturing batches (bs=4 avail_mem=32.18 GB):  75%|███████▌  | 9/12 [00:04<00:02,  1.25it/s]Capturing batches (bs=4 avail_mem=32.18 GB):  83%|████████▎ | 10/12 [00:04<00:01,  1.68it/s]Capturing batches (bs=2 avail_mem=32.17 GB):  83%|████████▎ | 10/12 [00:04<00:01,  1.68it/s]Capturing batches (bs=2 avail_mem=32.17 GB):  92%|█████████▏| 11/12 [00:05<00:00,  2.07it/s]Capturing batches (bs=1 avail_mem=32.17 GB):  92%|█████████▏| 11/12 [00:05<00:00,  2.07it/s]Capturing batches (bs=1 avail_mem=32.17 GB): 100%|██████████| 12/12 [00:05<00:00,  2.25it/s]Capturing batches (bs=1 avail_mem=32.17 GB): 100%|██████████| 12/12 [00:05<00:00,  2.24it/s]
+[2026-10-08 04:22:23 TP0] Capture target decode CUDA graph end. elapsed=6.41 s, mem usage=0.11 GB, avail mem=32.17 GB.
+max_total_num_tokens=1613440
+Warmup ...
+Benchmark ...
