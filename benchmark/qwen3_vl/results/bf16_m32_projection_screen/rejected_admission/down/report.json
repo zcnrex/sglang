@@ -1,0 +1,72 @@
+{
+  "pid": 481934,
+  "shape": "down",
+  "m": 32,
+  "n": 2560,
+  "k": 9728,
+  "baseline": "production selector F.linear",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "weight_keys": [
+    [
+      "model.language_model.layers.0.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.1.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.2.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.3.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.4.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.5.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.6.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.7.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.8.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.9.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.10.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.11.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.12.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.13.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.14.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.15.mlp.down_proj.weight"
+    ]
+  ],
+  "weight_bytes": 796917760,
+  "results": [
+    {
+      "kind": [
+        128,
+        32,
+        4,
+        5
+      ],
+      "error": "tactic SplitKTactic(mma_m=128, mma_n=32, split_k=4, ab_stages=5) needs 254088 B of shared memory but only 232448 B are available; max ab_stages is 4",
+      "stage": "admission_or_correctness_before_timing"
+    }
+  ]
+}

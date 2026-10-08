@@ -1,0 +1,104 @@
+{
+  "pid": 481933,
+  "shape": "qkv",
+  "m": 32,
+  "n": 6144,
+  "k": 2560,
+  "baseline": "production selector F.linear",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "weight_keys": [
+    [
+      "model.language_model.layers.0.self_attn.q_proj.weight",
+      "model.language_model.layers.0.self_attn.k_proj.weight",
+      "model.language_model.layers.0.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.1.self_attn.q_proj.weight",
+      "model.language_model.layers.1.self_attn.k_proj.weight",
+      "model.language_model.layers.1.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.2.self_attn.q_proj.weight",
+      "model.language_model.layers.2.self_attn.k_proj.weight",
+      "model.language_model.layers.2.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.3.self_attn.q_proj.weight",
+      "model.language_model.layers.3.self_attn.k_proj.weight",
+      "model.language_model.layers.3.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.4.self_attn.q_proj.weight",
+      "model.language_model.layers.4.self_attn.k_proj.weight",
+      "model.language_model.layers.4.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.5.self_attn.q_proj.weight",
+      "model.language_model.layers.5.self_attn.k_proj.weight",
+      "model.language_model.layers.5.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.6.self_attn.q_proj.weight",
+      "model.language_model.layers.6.self_attn.k_proj.weight",
+      "model.language_model.layers.6.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.7.self_attn.q_proj.weight",
+      "model.language_model.layers.7.self_attn.k_proj.weight",
+      "model.language_model.layers.7.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.8.self_attn.q_proj.weight",
+      "model.language_model.layers.8.self_attn.k_proj.weight",
+      "model.language_model.layers.8.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.9.self_attn.q_proj.weight",
+      "model.language_model.layers.9.self_attn.k_proj.weight",
+      "model.language_model.layers.9.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.10.self_attn.q_proj.weight",
+      "model.language_model.layers.10.self_attn.k_proj.weight",
+      "model.language_model.layers.10.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.11.self_attn.q_proj.weight",
+      "model.language_model.layers.11.self_attn.k_proj.weight",
+      "model.language_model.layers.11.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.12.self_attn.q_proj.weight",
+      "model.language_model.layers.12.self_attn.k_proj.weight",
+      "model.language_model.layers.12.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.13.self_attn.q_proj.weight",
+      "model.language_model.layers.13.self_attn.k_proj.weight",
+      "model.language_model.layers.13.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.14.self_attn.q_proj.weight",
+      "model.language_model.layers.14.self_attn.k_proj.weight",
+      "model.language_model.layers.14.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.15.self_attn.q_proj.weight",
+      "model.language_model.layers.15.self_attn.k_proj.weight",
+      "model.language_model.layers.15.self_attn.v_proj.weight"
+    ]
+  ],
+  "weight_bytes": 503316480,
+  "results": [
+    {
+      "kind": [
+        128,
+        32,
+        2,
+        6
+      ],
+      "error": "tactic SplitKTactic(mma_m=128, mma_n=32, split_k=2, ab_stages=6) needs 262280 B of shared memory but only 232448 B are available; max ab_stages is 5",
+      "stage": "admission_or_correctness_before_timing"
+    }
+  ]
+}

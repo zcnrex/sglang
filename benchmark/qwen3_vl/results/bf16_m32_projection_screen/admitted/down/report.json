@@ -1,0 +1,112 @@
+{
+  "pid": 482598,
+  "shape": "down",
+  "m": 32,
+  "n": 2560,
+  "k": 9728,
+  "baseline": "production selector F.linear",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "weight_keys": [
+    [
+      "model.language_model.layers.0.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.1.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.2.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.3.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.4.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.5.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.6.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.7.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.8.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.9.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.10.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.11.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.12.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.13.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.14.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.15.mlp.down_proj.weight"
+    ]
+  ],
+  "weight_bytes": 796917760,
+  "results": [
+    {
+      "kind": [
+        128,
+        32,
+        4,
+        4
+      ],
+      "nrms": 0.00011724322394002229,
+      "max_abs": 0.03125,
+      "bitwise": false,
+      "argmax_equal": true,
+      "changed_input_nrms": 0.00012264307588338852,
+      "fp32_reference": {
+        "baseline": {
+          "nrms": 0.0016548908315598965,
+          "max_abs": 0.04637336730957031
+        },
+        "candidate": {
+          "nrms": 0.0016548887360841036,
+          "max_abs": 0.04637336730957031
+        }
+      },
+      "rounds": [
+        {
+          "baseline_us": 12.07266648610433,
+          "candidate_us": 13.54033350944519
+        },
+        {
+          "candidate_us": 13.538066546122232,
+          "baseline_us": 12.06226646900177
+        },
+        {
+          "baseline_us": 12.06380029519399,
+          "candidate_us": 13.512067000071207
+        },
+        {
+          "candidate_us": 13.523266712824503,
+          "baseline_us": 12.076800068219503
+        },
+        {
+          "baseline_us": 12.081133325894674,
+          "candidate_us": 13.527933756510416
+        },
+        {
+          "candidate_us": 13.538066546122232,
+          "baseline_us": 12.085133790969849
+        }
+      ],
+      "median_speedup_pct": -10.725261856710976
+    }
+  ]
+}
