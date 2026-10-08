@@ -1,0 +1,50 @@
+[
+  {
+    "gpu": 6,
+    "m": 16331,
+    "median_us": {
+      "candidate": 1273.2679843902588,
+      "unchanged_chunk": 1326.2077808380127,
+      "production": 1351.9672393798828
+    },
+    "latency_reduction_vs_production_percent": 5.821091865045602,
+    "latency_reduction_vs_chunk_percent": 3.9918176633153224,
+    "positive_rounds_vs_production": 8
+  },
+  {
+    "gpu": 6,
+    "m": 16384,
+    "median_us": {
+      "candidate": 1277.9450416564941,
+      "unchanged_chunk": 1316.9987678527832,
+      "production": 1328.480577468872
+    },
+    "latency_reduction_vs_production_percent": 3.804010135297742,
+    "latency_reduction_vs_chunk_percent": 2.9653578385621215,
+    "positive_rounds_vs_production": 8
+  },
+  {
+    "gpu": 7,
+    "m": 16331,
+    "median_us": {
+      "candidate": 1287.1296405792236,
+      "unchanged_chunk": 1341.8564319610596,
+      "production": 1361.7531776428223
+    },
+    "latency_reduction_vs_production_percent": 5.479960560310282,
+    "latency_reduction_vs_chunk_percent": 4.078438652476057,
+    "positive_rounds_vs_production": 8
+  },
+  {
+    "gpu": 7,
+    "m": 16384,
+    "median_us": {
+      "candidate": 1274.067211151123,
+      "unchanged_chunk": 1322.374439239502,
+      "production": 1343.6148166656494
+    },
+    "latency_reduction_vs_production_percent": 5.176156488592287,
+    "latency_reduction_vs_chunk_percent": 3.6530672897882366,
+    "positive_rounds_vs_production": 8
+  }
+]
