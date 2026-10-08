@@ -1,0 +1,37 @@
+[2026-10-08 01:54:35 TP0] Init parallel begin.
+[2026-10-08 01:54:35 TP0] Init parallel ends. elapsed=0.29 s
+[2026-10-08 01:54:35 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 01:54:37 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 01:54:37 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 01:54:37 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.12it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.03it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.04it/s]
+[2026-10-08 01:54:39 TP0] Load weight end. elapsed=2.67 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 01:54:40 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 01:54:40 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1613440, K size: 110.79 GB, V size: 110.79 GB
+[2026-10-08 01:54:40 TP0] Memory pool end. avail mem=33.65 GB
+[2026-10-08 01:54:40 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/native-epilogue-ffi-model/gpu5/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.05profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.05profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 10.67profile/s]
+[2026-10-08 01:54:43 TP0] FlashInfer autotune completed.
+[2026-10-08 01:54:43 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 01:54:43 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8, 12, 16, 24, 32, 40, 42], avail mem=32.19 GB
+  0%|          | 0/10 [00:00<?, ?it/s]Capturing batches (bs=42 avail_mem=32.16 GB):   0%|          | 0/10 [00:00<?, ?it/s]Capturing batches (bs=42 avail_mem=32.16 GB):  10%|█         | 1/10 [00:00<00:04,  2.24it/s]Capturing batches (bs=40 avail_mem=32.35 GB):  10%|█         | 1/10 [00:00<00:04,  2.24it/s]Capturing batches (bs=32 avail_mem=32.35 GB):  10%|█         | 1/10 [00:00<00:04,  2.24it/s]Capturing batches (bs=32 avail_mem=32.35 GB):  30%|███       | 3/10 [00:00<00:01,  5.30it/s]Capturing batches (bs=24 avail_mem=32.35 GB):  30%|███       | 3/10 [00:00<00:01,  5.30it/s]Capturing batches (bs=24 avail_mem=32.35 GB):  40%|████      | 4/10 [00:00<00:00,  6.32it/s]Capturing batches (bs=16 avail_mem=32.35 GB):  40%|████      | 4/10 [00:00<00:00,  6.32it/s]Capturing batches (bs=16 avail_mem=32.35 GB):  50%|█████     | 5/10 [00:01<00:01,  3.96it/s]Capturing batches (bs=12 avail_mem=32.35 GB):  50%|█████     | 5/10 [00:01<00:01,  3.96it/s]Capturing batches (bs=8 avail_mem=32.35 GB):  50%|█████     | 5/10 [00:01<00:01,  3.96it/s] Capturing batches (bs=8 avail_mem=32.35 GB):  70%|███████   | 7/10 [00:02<00:01,  2.91it/s]Capturing batches (bs=4 avail_mem=32.35 GB):  70%|███████   | 7/10 [00:02<00:01,  2.91it/s]Capturing batches (bs=4 avail_mem=32.35 GB):  80%|████████  | 8/10 [00:02<00:00,  3.50it/s]Capturing batches (bs=2 avail_mem=32.35 GB):  80%|████████  | 8/10 [00:02<00:00,  3.50it/s]Capturing batches (bs=2 avail_mem=32.35 GB):  90%|█████████ | 9/10 [00:02<00:00,  4.13it/s]Capturing batches (bs=1 avail_mem=32.35 GB):  90%|█████████ | 9/10 [00:02<00:00,  4.13it/s]Capturing batches (bs=1 avail_mem=32.35 GB): 100%|██████████| 10/10 [00:02<00:00,  3.76it/s]Capturing batches (bs=1 avail_mem=32.35 GB): 100%|██████████| 10/10 [00:02<00:00,  3.79it/s]
+[2026-10-08 01:54:46 TP0] Capture target decode CUDA graph end. elapsed=3.51 s, mem usage=-0.16 GB, avail mem=32.34 GB.
+max_total_num_tokens=1613440
+Warmup ...
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.13526522199390456, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+Benchmark ...
+MIXED_RESULT {"candidate": true, "prefill_latency": 0.13412039499962702, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.1348617049807217, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.13632301599136554, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": true, "prefill_latency": 0.13463256100658327, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": true, "prefill_latency": 0.1342385390016716, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.1338982449960895, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": false, "prefill_latency": 0.13417379101156257, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}
+MIXED_RESULT {"candidate": true, "prefill_latency": 0.1341332070005592, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0, "weight_transform": 0}}

@@ -1,0 +1,30 @@
+[
+  {
+    "gpu": 4,
+    "control_mean_ms": 137.6796880067559,
+    "candidate_mean_ms": 136.792828241596,
+    "mean_latency_reduction_pct": 0.6441471345550842,
+    "paired_reductions_pct": [
+      -0.2642091030111482,
+      1.3870729804690063,
+      0.5176827781926074,
+      0.92985935233032
+    ],
+    "positive_pairs": 3,
+    "pairs": 4
+  },
+  {
+    "gpu": 5,
+    "control_mean_ms": 134.81418924493482,
+    "candidate_mean_ms": 134.28117550211027,
+    "mean_latency_reduction_pct": 0.3953691713089347,
+    "paired_reductions_pct": [
+      0.5496816024983864,
+      1.2400363742607778,
+      -0.25414373847247873,
+      0.030247346145173548
+    ],
+    "positive_pairs": 3,
+    "pairs": 4
+  }
+]
