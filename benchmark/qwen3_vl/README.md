@@ -19,6 +19,26 @@ sweep of the latest head. Subsequent controlled increments are:
 | Batch-4 BF16 vocabulary projection | `5e1601731b` | +0.191% at c4, two N40 pairs | Full C4 GSM8K 1218/1314 versus 1216/1314; one paired check, not equivalence |
 | Batch-8 BF16 vocabulary projection | `5babd15f4f` | +0.318% at c8, two N80 pairs | Matched-startup C8 GSM8K 1225/1314 versus 1217/1314; one empirical pair |
 | Batch-16 BF16 down projection | `06d1a12172` | +0.443% at c16, two N80 pairs | Matched-startup external-kernel GSM8K 1220/1314 versus 1221/1314; production kernel matches it bitwise |
+| Batch-8 fused BF16 QKV preparation | `583595f8ae` | +1.071% at c8, two N80 pairs | Normal GSM8K 1218/1314 versus 1220/1314 with differing common tactics; matched diagnostic 1213/1314 versus 1216/1314; eight disagreement prompts then matched all 128 decode-step logits/tokens bitwise |
+
+The QKV fusion uses the existing GEMM epilogue to perform Q/K normalization,
+MRoPE and HND page-32 cache writes after the GEMM BF16 rounding. It does not
+change weights, query or KV precision. Production serving improves
+1895.15 → 1914.50 and 1912.55 → 1934.01 output tokens/s at C8, still below
+the 1951.4 target. Mean TTFT changes 356.06 → 355.40 and 353.46 → 339.37 ms;
+median TTFT changes 345.16 → 379.22 and 370.68 → 366.01 ms. This is not a
+general TTFT improvement. These crossover runs use graph cap 8 and KV
+capacity 1,600,000 and are not a replacement for the older full sweep.
+All 36 standalone QKV/cache/attention outputs and two short model seeds
+match bitwise; 77 existing tests and 27 guard probes pass. Eight requests
+using one image fixture match responses, token logprobs and usage.
+Evidence is in `results/bf16_qkv_epilogue/production_kernel/`,
+`results/qkv_integrated_model/`, `results/qkv_integrated_serving/`,
+`results/qkv_integrated_image/` and the separate normal/matched accuracy
+folders. The fixed-batch disagreement diagnostic matches full prefill and all 128
+decode-step logits and greedy tokens bitwise on eight control-only-correct
+prompts. It does not establish the cause of the full-evaluation disagreement
+or broad accuracy equivalence.
 
 The packed-prefill change retains BF16 weights, K/V and queries, and uses an
 explicit CLC scheduler override only for its eligible attention calls.
@@ -40,7 +60,7 @@ Evidence: `results/bf16_decode_lt/production_validation/`,
 `results/bf16_weight_packing/m1_production_validation/`, and
 `results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
 diagnostic and lower-concurrency regression subdirectories). The code PR
-#42913 is at `704684ae99`; #42914 retains the optional deployment recipe.
+#42913 includes the QKV fusion at `cd99227527`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
 The earlier batch-4 increment is BF16 vocabulary-projection tuning

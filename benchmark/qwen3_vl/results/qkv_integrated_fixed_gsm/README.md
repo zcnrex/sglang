@@ -1,0 +1,15 @@
+# Fixed-input GSM disagreement math diagnostic
+
+PASS: full prefill logits and **all 128 decode-step full logits are bitwise equal**, including requested steps 0/15/63/127. All 129 × 8 greedy tokens match. No greedy divergence occurs. The candidate consumes the baseline's identical token sequence, so it is also free-running-equivalent throughout this bounded interval. This isolates arithmetic on identical model inputs; it does not prove scheduling causality for the full-serving disagreements or broad accuracy equivalence.
+
+Selected the first eight control-only-correct rows from the startup-matched full GSM pair, in dataset order: **87, 122, 326, 425, 510, 796, 813, 858** (zero-based). Exact five-shot user prompts are recovered from retained evaluation HTML, then passed through the loaded Qwen processor chat template with generation prompt. Token lengths are **880, 862, 870, 901, 880, 864, 887, 828**. Both arms assert identical complete token IDs. No padding, truncation, altered few-shot examples, or replacement questions are used. All eight requests remain in one fixed batch through 128 decode steps, including any generated termination tokens; this is a model diagnostic, not normal request lifecycle behavior.
+
+Control is frozen M16 production; candidate is the exact public integrated four-file overlay. BF16 weights/query/KV/output, TRT HND page 32, graph cap 8, pool 1,600,000. The established external startup-only policy validates cache hits and tactic registry membership for common gate/up=3, down=4, M4/M8 vocabulary=2; restores ordinary search_cache after graph initialization and before model evaluation. Candidate capture includes all 36 fused layers. No computation is replaced by the observer.
+
+First driver 644958/control 644959 failed before prefill because the loaded processor returns BatchEncoding, which was not JSON serializable as token IDs. `model-attempt1.py.txt`, `driver-attempt1.log`, and `control_attempt1/` preserve that failure. Retry normalizes only the processor's existing input_ids to a list, without changing prompt text, token values or model arithmetic. Retry driver 645733/control 645734/candidate 646361 completed and is terminal.
+
+`original.tar.gz` preserves scripts, all input prompts/token IDs, full source manifests, cache-validation/restoration proofs, dispatch logs and all 129 comparison records. Readable Python ends .py.txt. Full numerical tensors remain at `/root/qvl/experiments/qkv-integrated-fixed-gsm/{control,candidate}/outputs.pt`; `numerics_hashes.json` records size/SHA256. These large tensors and cache directories are excluded from the archive, while per-step full-tensor equality/max-error results are retained. No additional GPU job was launched after this gate.
+
+The separate full-serving GSM results remain normal startup **1220→1218/1314** and matched startup **1216→1213/1314**. This bounded result does not erase those observations or justify claiming complete accuracy equivalence.
+
+The raw archive is split byte-for-byte into `original.tar.gz.part*`; concatenate in lexical order. `archive-parts.json` records original and part hashes.

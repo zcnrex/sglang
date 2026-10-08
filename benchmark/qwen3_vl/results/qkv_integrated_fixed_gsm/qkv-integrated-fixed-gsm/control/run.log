@@ -1,0 +1,41 @@
+[2026-10-08 05:51:03 TP0] Init parallel begin.
+[2026-10-08 05:51:03 TP0] Init parallel ends. elapsed=0.26 s
+[2026-10-08 05:51:03 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 05:51:04 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 05:51:04 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 05:51:04 TP0] Using fa4 as multimodal attention backend.
+
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.30it/s]
+Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.20it/s]
+Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.21it/s]
+[2026-10-08 05:51:06 TP0] Load weight end. elapsed=2.16 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 05:51:06 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 05:51:06 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1600000, K size: 109.87 GB, V size: 109.87 GB
+[2026-10-08 05:51:06 TP0] Memory pool end. avail mem=35.50 GB
+[2026-10-08 05:51:07 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/qkv-integrated-fixed-gsm/control/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[2026-10-08 05:51:08 TP0] FlashInfer autotune completed.
+[2026-10-08 05:51:08 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 05:51:08 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8], avail mem=34.22 GB
+
+  0%|          | 0/4 [00:00<?, ?it/s]
+Capturing batches (bs=8 avail_mem=34.22 GB):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing batches (bs=8 avail_mem=34.22 GB):  25%|██▌       | 1/4 [00:00<00:02,  1.48it/s]
+Capturing batches (bs=4 avail_mem=34.26 GB):  25%|██▌       | 1/4 [00:00<00:02,  1.48it/s]
+Capturing batches (bs=2 avail_mem=34.26 GB):  25%|██▌       | 1/4 [00:00<00:02,  1.48it/s]
+Capturing batches (bs=2 avail_mem=34.26 GB):  75%|███████▌  | 3/4 [00:00<00:00,  4.42it/s]
+Capturing batches (bs=1 avail_mem=34.26 GB):  75%|███████▌  | 3/4 [00:00<00:00,  4.42it/s]
+Capturing batches (bs=1 avail_mem=34.26 GB): 100%|██████████| 4/4 [00:01<00:00,  4.64it/s]
+Capturing batches (bs=1 avail_mem=34.26 GB): 100%|██████████| 4/4 [00:01<00:00,  3.96it/s]
+[2026-10-08 05:51:10 TP0] Capture target decode CUDA graph end. elapsed=1.63 s, mem usage=-0.04 GB, avail mem=34.26 GB.
+max_total_num_tokens=1600000
+FIXED_STEP 0
+FIXED_STEP 15
+FIXED_STEP 63
+FIXED_STEP 127

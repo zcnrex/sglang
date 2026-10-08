@@ -1,0 +1,10 @@
+{
+  "candidate/outputs.pt": {
+    "sha256": "a78655df0e43775db1ebb1f0179d4e60c6a418ed652609913701948c6dcff212",
+    "bytes": 627235643
+  },
+  "control/outputs.pt": {
+    "sha256": "a78655df0e43775db1ebb1f0179d4e60c6a418ed652609913701948c6dcff212",
+    "bytes": 627235643
+  }
+}

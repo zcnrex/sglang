@@ -1,0 +1,13 @@
+{
+  "mode": "control",
+  "records": [],
+  "first_greedy_divergence": null,
+  "teacher_forced_common_sequence": false,
+  "decode_steps": 128,
+  "graph_keys": [
+    "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+  ]
+}

@@ -1,0 +1,73 @@
+[2026-10-08 05:49:40 TP0] Init parallel begin.
+[2026-10-08 05:49:40 TP0] Init parallel ends. elapsed=0.30 s
+[2026-10-08 05:49:40 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 05:49:41 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 05:49:42 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 05:49:42 TP0] Using fa4 as multimodal attention backend.
+
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]
+Multi-thread loading shards:  50% Completed | 1/2 [00:00<00:00,  1.04it/s]
+Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.01it/s]
+Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.02it/s]
+[2026-10-08 05:49:44 TP0] Load weight end. elapsed=2.92 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 05:49:44 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 05:49:44 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1600000, K size: 109.87 GB, V size: 109.87 GB
+[2026-10-08 05:49:44 TP0] Memory pool end. avail mem=35.50 GB
+[2026-10-08 05:49:45 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/qkv-integrated-fixed-gsm/control/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[2026-10-08 05:49:47 TP0] FlashInfer autotune completed.
+[2026-10-08 05:49:47 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 05:49:47 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8], avail mem=34.22 GB
+
+  0%|          | 0/4 [00:00<?, ?it/s]
+Capturing batches (bs=8 avail_mem=34.22 GB):   0%|          | 0/4 [00:00<?, ?it/s]
+Capturing batches (bs=8 avail_mem=34.22 GB):  25%|██▌       | 1/4 [00:01<00:03,  1.18s/it]
+Capturing batches (bs=4 avail_mem=34.26 GB):  25%|██▌       | 1/4 [00:01<00:03,  1.18s/it]
+Capturing batches (bs=4 avail_mem=34.26 GB):  50%|█████     | 2/4 [00:01<00:01,  1.77it/s]
+Capturing batches (bs=2 avail_mem=34.26 GB):  50%|█████     | 2/4 [00:01<00:01,  1.77it/s]
+Capturing batches (bs=2 avail_mem=34.26 GB):  75%|███████▌  | 3/4 [00:01<00:00,  2.76it/s]
+Capturing batches (bs=1 avail_mem=34.26 GB):  75%|███████▌  | 3/4 [00:01<00:00,  2.76it/s]
+Capturing batches (bs=1 avail_mem=34.26 GB): 100%|██████████| 4/4 [00:01<00:00,  2.87it/s]
+Capturing batches (bs=1 avail_mem=34.26 GB): 100%|██████████| 4/4 [00:01<00:00,  2.27it/s]
+[2026-10-08 05:49:50 TP0] Capture target decode CUDA graph end. elapsed=2.60 s, mem usage=-0.04 GB, avail mem=34.26 GB.
+max_total_num_tokens=1600000
+[rank0]: Traceback (most recent call last):
+[rank0]:   File "/root/qvl/experiments/qkv-integrated-fixed-gsm/model.py", line 41, in <module>
+[rank0]:     np.random.seed(123);torch.manual_seed(123);b.cli_main()
+[rank0]:                                                ^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/benchmark/one_batch.py", line 1107, in cli_main
+[rank0]:     main(server_args, bench_args)
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/benchmark/one_batch.py", line 1069, in main
+[rank0]:     work_func(server_args, port_args, bench_args, 0, 0)
+[rank0]:   File "/root/qvl/sglang-m16-down-production/python/sglang/benchmark/one_batch.py", line 925, in latency_test
+[rank0]:     model_runner, tokenizer = load_model(server_args, port_args, gpu_id, tp_rank)
+[rank0]:                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/utils/_contextlib.py", line 124, in decorate_context
+[rank0]:     return func(*args, **kwargs)
+[rank0]:            ^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/root/qvl/experiments/qkv-integrated-fixed-gsm/model.py", line 15, in load
+[rank0]:     (out/'inputs.json').write_text(json.dumps(dict(rows=[x['dataset_row'] for x in prompts],lengths=list(map(len,ids_list)),input_ids=ids_list),indent=2))
+[rank0]:                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[rank0]:   File "/usr/lib/python3.12/json/__init__.py", line 238, in dumps
+[rank0]:     **kw).encode(obj)
+[rank0]:           ^^^^^^^^^^^
+[rank0]:   File "/usr/lib/python3.12/json/encoder.py", line 202, in encode
+[rank0]:     chunks = list(chunks)
+[rank0]:              ^^^^^^^^^^^^
+[rank0]:   File "/usr/lib/python3.12/json/encoder.py", line 432, in _iterencode
+[rank0]:     yield from _iterencode_dict(o, _current_indent_level)
+[rank0]:   File "/usr/lib/python3.12/json/encoder.py", line 406, in _iterencode_dict
+[rank0]:     yield from chunks
+[rank0]:   File "/usr/lib/python3.12/json/encoder.py", line 326, in _iterencode_list
+[rank0]:     yield from chunks
+[rank0]:   File "/usr/lib/python3.12/json/encoder.py", line 439, in _iterencode
+[rank0]:     o = _default(o)
+[rank0]:         ^^^^^^^^^^^
+[rank0]:   File "/usr/lib/python3.12/json/encoder.py", line 180, in default
+[rank0]:     raise TypeError(f'Object of type {o.__class__.__name__} '
+[rank0]: TypeError: Object of type BatchEncoding is not JSON serializable

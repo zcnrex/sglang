@@ -1,0 +1,6 @@
+2 644959
+Traceback (most recent call last):
+  File "/root/qvl/experiments/qkv-integrated-fixed-gsm/launch.py", line 16, in <module>
+    assert p.wait()==0,variant
+           ^^^^^^^^^^^
+AssertionError: control

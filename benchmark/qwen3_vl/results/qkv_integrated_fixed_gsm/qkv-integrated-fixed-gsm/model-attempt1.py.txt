@@ -1,0 +1,41 @@
+import os,pathlib,json,hashlib
+import numpy as np
+import torch
+import sglang.benchmark.one_batch as b
+out=pathlib.Path(os.environ['QVL_MODEL_OUT']);out.mkdir(parents=True,exist_ok=True)
+source=pathlib.Path(os.environ['QVL_SOURCE']);expected=json.load(open(os.environ['QVL_EXPECTED_MANIFEST']))
+actual={str(p.relative_to(source)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (source/'python').rglob('*.py')};assert actual==expected
+(out/'source-manifest.json').write_text(json.dumps(actual,indent=2))
+mode=os.environ['QVL_VARIANT'];original=b.load_model
+@torch.no_grad()
+def load(*args,**kwargs):
+ wrapper,tok=original(*args,**kwargs)
+ prompts=json.load(open('/root/qvl/experiments/qkv-integrated-fixed-gsm/prompts.json'))
+ ids_list=[tok.apply_chat_template([{'role':'user','content':x['prompt']}],tokenize=True,add_generation_prompt=True) for x in prompts]
+ (out/'inputs.json').write_text(json.dumps(dict(rows=[x['dataset_row'] for x in prompts],lengths=list(map(len,ids_list)),input_ids=ids_list),indent=2))
+ control=None
+ if mode=='candidate':
+  control=torch.load('/root/qvl/experiments/qkv-integrated-fixed-gsm/control/outputs.pt',weights_only=True)
+  assert json.load(open('/root/qvl/experiments/qkv-integrated-fixed-gsm/control/inputs.json'))['input_ids']==ids_list
+ reqs=b.prepare_synthetic_inputs_for_latency_test(8,0,ids_list);tokens,logits,batch=wrapper.extend(reqs)
+ saved_logits=[logits.cpu()];pred=[tokens.cpu()];records=[]
+ if control is not None:
+  records.append(dict(stage='prefill',bitwise=torch.equal(saved_logits[-1],control['logits'][0]),greedy_equal=torch.equal(pred[-1],control['tokens'][0])))
+ first_divergence=None
+ for step in range(128):
+  common=tokens if control is None else control['tokens'][step].to(tokens.device)
+  tokens,logits=wrapper.decode(common,batch);cpu=logits.cpu();saved_logits.append(cpu);pred.append(tokens.cpu())
+  if control is not None:
+   ref=control['logits'][step+1];e=cpu.float()-ref.float();same=torch.equal(pred[-1],control['tokens'][step+1])
+   row=dict(step=step,bitwise=torch.equal(cpu,ref),greedy_equal=same,max_abs=e.abs().max().item());records.append(row)
+   if not same and first_divergence is None:
+    first_divergence=step;print('FIRST_GREEDY_DIVERGENCE_COMMON_INPUT',step,flush=True)
+  if step in [0,15,63,127]:print('FIXED_STEP',step,records[-1] if records else '',flush=True)
+ torch.save(dict(logits=saved_logits,tokens=torch.stack(pred)),out/'outputs.pt')
+ report=dict(mode=mode,records=records,first_greedy_divergence=first_divergence,teacher_forced_common_sequence=control is not None,decode_steps=128,graph_keys=[str(x) for x in wrapper.torch_runner.decode_cuda_graph_runner.backend._graphs])
+ if mode=='candidate':
+  fused=[json.loads(z) for f in out.glob('qkv-fused-pid*.jsonl') for z in f.read_text().splitlines()];assert {x['layer'] for x in fused if x['capture']}==set(range(36))
+  report['all_logits_bitwise']=all(x['bitwise'] for x in records);report['all_tokens_equal']=all(x['greedy_equal'] for x in records)
+ (out/'report.json').write_text(json.dumps(report,indent=2));raise SystemExit(0)
+b.load_model=load
+np.random.seed(123);torch.manual_seed(123);b.cli_main()
