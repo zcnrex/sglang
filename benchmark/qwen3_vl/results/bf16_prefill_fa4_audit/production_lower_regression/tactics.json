@@ -1,0 +1,170 @@
+[
+  {
+    "file": "c8/B/gpu2/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "3410f450643f71377af8b48387cae2fafc520c4566b2b1605ef2a87d05d4a1ef",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ]
+    }
+  },
+  {
+    "file": "c8/A/gpu2/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "3410f450643f71377af8b48387cae2fafc520c4566b2b1605ef2a87d05d4a1ef",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ]
+    }
+  },
+  {
+    "file": "c16/B/gpu3/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ]
+    }
+  },
+  {
+    "file": "c16/A/gpu3/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "3410f450643f71377af8b48387cae2fafc520c4566b2b1605ef2a87d05d4a1ef",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ]
+    }
+  },
+  {
+    "file": "c64/B/gpu1/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ]
+    }
+  },
+  {
+    "file": "c64/A/gpu1/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "00b8b8a047ea62f3c59abfd371748bb4ee94bb4496dde0a34e738858953c0a57",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        2
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ]
+    }
+  },
+  {
+    "file": "c32/B/gpu0/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ]
+    }
+  },
+  {
+    "file": "c32/A/gpu0/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ]
+    }
+  },
+  {
+    "file": "c1/B/gpu0/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "3410f450643f71377af8b48387cae2fafc520c4566b2b1605ef2a87d05d4a1ef",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ]
+    }
+  },
+  {
+    "file": "c1/A/gpu0/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ]
+    }
+  },
+  {
+    "file": "c4/B/gpu1/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "104982d7d2812e378f3fe00457d18c7f7ddfb65988180609f3fee3104f5f50ba",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        4
+      ]
+    }
+  },
+  {
+    "file": "c4/A/gpu1/startup-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json",
+    "sha256": "3410f450643f71377af8b48387cae2fafc520c4566b2b1605ef2a87d05d4a1ef",
+    "bf16": {
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ],
+      "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+        "CublasltBf16GemmRunner",
+        1
+      ]
+    }
+  }
+]

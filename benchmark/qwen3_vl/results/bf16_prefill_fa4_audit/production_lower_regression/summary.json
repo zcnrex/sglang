@@ -1,0 +1,68 @@
+[
+  {
+    "concurrency": 1,
+    "requests_each": 30,
+    "control_output_tok_s": 393.2134372549838,
+    "candidate_output_tok_s": 393.6120629977975,
+    "throughput_change_percent": 0.10137642945178271,
+    "control_ttft_ms": 85.716561996378,
+    "candidate_ttft_ms": 79.51533800223842,
+    "control_tpot_ms": 2.461205373427358,
+    "candidate_tpot_ms": 2.4633830088073068
+  },
+  {
+    "concurrency": 4,
+    "requests_each": 40,
+    "control_output_tok_s": 1226.4980545583794,
+    "candidate_output_tok_s": 1228.8153613958223,
+    "throughput_change_percent": 0.18893685390126702,
+    "control_ttft_ms": 227.67958999611437,
+    "candidate_ttft_ms": 244.84277900774032,
+    "control_tpot_ms": 3.0356251231755675,
+    "candidate_tpot_ms": 3.023597210644993
+  },
+  {
+    "concurrency": 8,
+    "requests_each": 80,
+    "control_output_tok_s": 1880.510468525898,
+    "candidate_output_tok_s": 1884.9688100635506,
+    "throughput_change_percent": 0.237081452736998,
+    "control_ttft_ms": 372.0918564940803,
+    "candidate_ttft_ms": 357.5595739966957,
+    "control_tpot_ms": 3.8959305083200717,
+    "candidate_tpot_ms": 3.90502146383138
+  },
+  {
+    "concurrency": 16,
+    "requests_each": 80,
+    "control_output_tok_s": 2563.1020783915983,
+    "candidate_output_tok_s": 2572.1888446229786,
+    "throughput_change_percent": 0.3545222138434001,
+    "control_ttft_ms": 592.7510909968987,
+    "candidate_ttft_ms": 590.454925011727,
+    "control_tpot_ms": 5.648202365108962,
+    "candidate_tpot_ms": 5.647415185243302
+  },
+  {
+    "concurrency": 32,
+    "requests_each": 160,
+    "control_output_tok_s": 3122.8678707285226,
+    "candidate_output_tok_s": 3139.6581280969053,
+    "throughput_change_percent": 0.5376550678228176,
+    "control_ttft_ms": 716.5342580119614,
+    "candidate_ttft_ms": 806.4082644996233,
+    "control_tpot_ms": 9.466066200389477,
+    "candidate_tpot_ms": 9.38029969355466
+  },
+  {
+    "concurrency": 64,
+    "requests_each": 320,
+    "control_output_tok_s": 3500.488568636831,
+    "candidate_output_tok_s": 3515.6371580387226,
+    "throughput_change_percent": 0.4327564311341403,
+    "control_ttft_ms": 579.0202464995673,
+    "candidate_ttft_ms": 706.2412749946816,
+    "control_tpot_ms": 17.600267133912787,
+    "candidate_tpot_ms": 17.49775311242191
+  }
+]

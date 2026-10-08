@@ -1,0 +1,9 @@
+import pathlib,json,math
+r=pathlib.Path('/root/qvl/experiments/prefix-lower-regression');rows=[]
+for c in [1,4,8,16,32,64]:
+ path=r/('c'+str(c));s={}
+ for p in path.glob('*/gpu*/summary.json'):
+  md=json.load(open(p.parent/'metadata.json'));result=json.load(open(p));assert result['total_output_tokens']==1024*result['completed'];assert result['total_input_tokens']==8192*result['completed'];s[md['variant']]=result
+ if len(s)!=2:continue
+ a,b=s['control'],s['candidate'];rows.append({'concurrency':c,'requests_each':a['completed'],'control_output_tok_s':a['output_throughput'],'candidate_output_tok_s':b['output_throughput'],'throughput_change_percent':100*(b['output_throughput']/a['output_throughput']-1),'control_ttft_ms':a['median_ttft_ms'],'candidate_ttft_ms':b['median_ttft_ms'],'control_tpot_ms':a['median_tpot_ms'],'candidate_tpot_ms':b['median_tpot_ms']})
+print(json.dumps(rows,indent=2))
