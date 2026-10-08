@@ -1,0 +1,60 @@
+{
+  "source": "/root/qvl/sglang-current-pr-full-sweep-3016f3b591",
+  "source_files": 4230,
+  "graph_keys": [
+    "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+    "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+  ],
+  "dispatch": [],
+  "graph4_execute_count": 30,
+  "layout_records": [
+    {
+      "capture": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "returned_none": false
+    },
+    {
+      "capture": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "returned_none": false
+    }
+  ],
+  "unchanged_input_buffers": {
+    "input_ids": true,
+    "input_embeds": true,
+    "req_pool_indices": true,
+    "seq_lens": true,
+    "seq_lens_cpu": true,
+    "out_cache_loc": true,
+    "positions": true,
+    "mrope_positions": true,
+    "custom_mask": true,
+    "next_token_logits_buffer": true,
+    "global_num_tokens_gpu": true,
+    "global_num_tokens_for_logprob_gpu": true
+  }
+}

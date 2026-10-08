@@ -1,0 +1,19 @@
+import pathlib,json,os,subprocess,hashlib
+root=pathlib.Path('/root/qvl/experiments/qkv-m4-production/model');root.mkdir(parents=True,exist_ok=True)
+base=pathlib.Path('/root/qvl/sglang-current-pr-full-sweep-3016f3b591');candidate=pathlib.Path(os.environ['QVL_CANDIDATE_SOURCE'])
+expected=json.load(open('/root/qvl/experiments/current-pr-full-sweep/attempt2/expected_source.json'))
+overlay={'python/sglang/kernels/ops/attention/qkv_norm_mrope.py':'50352169f2d0870da2b5387d24f7b5572ca7f0fe4c6ffbfe77a7427394d5c3fa','python/sglang/kernels/ops/attention/__init__.py':'217e6d9855cea12459f26275d2561de653afbeb66ad9300ecf59ce0c324d4581','python/sglang/srt/models/qwen3.py':'f8905d509f329b0d28e2a497863ffbc5ca0ef5475d7551ed8d237c7ce86e455f'}
+for gpu,mode,source in [(2,'control',base),(3,'candidate',candidate)]:
+ exp=dict(expected)
+ if mode=='candidate':
+  for k,h in overlay.items():
+   p=source/k;assert hashlib.sha256(p.read_bytes()).hexdigest()==h;exp[k]=dict(sha256=h,bytes=p.stat().st_size)
+ actual={}
+ for p in source.rglob('*'):
+  if p.is_symlink():actual[str(p.relative_to(source))]=dict(symlink=os.readlink(p))
+  elif p.is_file():actual[str(p.relative_to(source))]=dict(sha256=hashlib.sha256(p.read_bytes()).hexdigest(),bytes=p.stat().st_size)
+ assert actual==exp,dict(extra=list(actual.keys()-exp.keys()),missing=list(exp.keys()-actual.keys()),changed=[k for k in actual.keys()&exp.keys() if actual[k]!=exp[k]])
+ out=root/mode;out.mkdir();(out/'full-source-manifest.json').write_text(json.dumps(actual,indent=2));py={k:v['sha256'] for k,v in exp.items() if k.startswith('python/') and k.endswith('.py')};(root.parent/(mode+'_expected.json')).write_text(json.dumps(py,indent=2))
+ env=os.environ.copy();env.update(CUDA_VISIBLE_DEVICES=str(gpu),PYTHONPATH=str(source/'python'),PYTHONDONTWRITEBYTECODE='1',QVL_MODEL_OUT=str(out),QVL_SOURCE=str(source),QVL_EXPECTED_MANIFEST=str(root.parent/(mode+'_expected.json')),QVL_VARIANT=mode,HF_HOME='/root/qvl/hf',SGLANG_USE_HND_KVCACHE='1',SGLANG_CACHE_DIR=str(out/'cache'),MAX_JOBS='8',TRITON_CACHE_DIR='/root/.cache/sglang/triton',TORCHINDUCTOR_CACHE_DIR='/root/.cache/sglang/inductor',CUDA_CACHE_PATH='/root/.cache/sglang/nv',FLASHINFER_WORKSPACE_BASE='/root/.cache/sglang',SGLANG_CUTE_AOT_CACHE_DIR='/root/.cache/sglang/cute_aot')
+ cmd=['/root/qvl/venv-sgl/bin/python','-u',str(root.parent/'model.py'),'--model-path','/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17','--dtype','bfloat16','--kv-cache-dtype','bfloat16','--bf16-gemm-backend','cutedsl','--attention-backend','trtllm_mha','--page-size','32','--enable-mixed-chunk','--chunked-prefill-size','16384','--cuda-graph-backend-prefill','disabled','--random-seed','0','--cuda-graph-max-bs-decode','128','--cuda-graph-bs-decode']+list(map(str,[1,2,4,8,12]+list(range(16,129,8))))+['--max-total-tokens','1600000','--enforce-disable-flashinfer-allreduce-fusion','--batch-size','4','--input-len','8192','--output-len','16','--result-filename',str(out/'results.jsonl')]
+ (out/'launch.json').write_text(json.dumps(dict(cmd=cmd,env={k:env[k] for k in env if k.startswith(('QVL_','SGLANG_','CUDA_','FLASHINFER_','TRITON_','TORCHINDUCTOR_')) or k in ['PYTHONPATH','PYTHONDONTWRITEBYTECODE','MAX_JOBS','HF_HOME']}),indent=2));p=subprocess.Popen(cmd,env=env,stdout=open(out/'run.log','w'),stderr=subprocess.STDOUT,start_new_session=True);print(mode,p.pid,flush=True)

@@ -1,0 +1,74 @@
+{
+  "123_prefill": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      4,
+      151936
+    ]
+  },
+  "123_decode0": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      4,
+      151936
+    ]
+  },
+  "123_decode14": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      4,
+      151936
+    ]
+  },
+  "123_greedy": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      16,
+      4
+    ]
+  },
+  "124_prefill": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      4,
+      151936
+    ]
+  },
+  "124_decode0": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      4,
+      151936
+    ]
+  },
+  "124_decode14": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      4,
+      151936
+    ]
+  },
+  "124_greedy": {
+    "bitwise": true,
+    "max_abs": 0.0,
+    "different_elements": 0,
+    "shape": [
+      16,
+      4
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+Concatenate archive parts in numeric order to restore original.tar.gz. Decompress .json.gz to restore readable source manifests. Verify sizes and SHA256 values against packing-manifest.json. Raw archive preserves original files before text-hook newline normalization.

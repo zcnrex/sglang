@@ -1,0 +1,23 @@
+[
+  {
+    "original": "original.tar.gz",
+    "bytes": 1962073,
+    "sha256": "f962628c3c9246f76731e97e05748c98bdfa8eb455c526a89456817ba87aa743",
+    "parts": [
+      "original.tar.gz.part000",
+      "original.tar.gz.part001"
+    ]
+  },
+  {
+    "original": "model/candidate/full-source-manifest.json",
+    "bytes": 1783296,
+    "sha256": "9e816ba92e0bf5b0a8958879e9510649fb15b07e19d72f937f6ced7c1732311e",
+    "gzip": "model/candidate/full-source-manifest.json.gz"
+  },
+  {
+    "original": "model/control/full-source-manifest.json",
+    "bytes": 1783296,
+    "sha256": "89e80cf0536d589f7b73845a018344cd1a4481455e49893a28ac0c37b129ab27",
+    "gzip": "model/control/full-source-manifest.json.gz"
+  }
+]
