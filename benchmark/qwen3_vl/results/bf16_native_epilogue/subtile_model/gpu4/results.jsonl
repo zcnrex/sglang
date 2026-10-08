@@ -1,0 +1,8 @@
+{"candidate": false, "prefill_latency": 0.13550079098786227, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0}}
+{"candidate": true, "prefill_latency": 0.13516425399575382, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 36, "weight_descriptor": 0}}
+{"candidate": true, "prefill_latency": 0.13780859700636938, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 36, "weight_descriptor": 0}}
+{"candidate": false, "prefill_latency": 0.1373629629961215, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0}}
+{"candidate": false, "prefill_latency": 0.13663961199927144, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0}}
+{"candidate": true, "prefill_latency": 0.1344141449953895, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 36, "weight_descriptor": 0}}
+{"candidate": true, "prefill_latency": 0.1347637340077199, "m": 16331, "batch_size": 42, "fused_layers": 36, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 36, "weight_descriptor": 0}}
+{"candidate": false, "prefill_latency": 0.13679912697989494, "m": 16331, "batch_size": 42, "fused_layers": 0, "packed_fa4_calls": 36, "dispatch_counts": {"compile": 0, "input_descriptor": 0, "weight_descriptor": 0}}
