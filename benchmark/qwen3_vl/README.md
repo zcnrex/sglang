@@ -37,7 +37,7 @@ The external diagnostic is not included in production code.
 Evidence: `results/bf16_decode_lt/production_validation/`,
 `results/bf16_weight_packing/m1_production_validation/`, and
 `results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
-diagnostic and lower-concurrency regression subdirectories). The code PR is
+diagnostic and lower-concurrency regression subdirectories). The code PR
 #42913 is at `a49b059185`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
@@ -86,6 +86,16 @@ despite full dispatch coverage, and public FA2 paged decode at the recorded
 39-request mixed suffix was 27.03% slower than TRT. Their evidence is in
 `results/bf16_native_epilogue/mrope_metadata_serving/` and
 `results/mixed_decode_screen/`. Neither changes production behavior.
+
+The batch-16 down-projection split-K candidate remains experimental. Its
+C16/N80 serving crossover improved throughput by 0.494% and 0.312%, with
+exact request/token counts and no observed M128 forwards. Median TTFT
+improved on one GPU and regressed on the other. A 64-question GSM sanity
+scored 60/64 versus 61/64 control; full paired accuracy evaluation is pending.
+No production change is included. The separate batch-16 gate/up public-Lt
+screen saved only 1.2–2.1 microseconds across 36 layers, so it was not advanced
+to model testing. See `results/bf16_m16_projection_screen/down_serving_sanity/`
+and `results/bf16_m16_gateup_screen/`.
 
 ## Configuration and reproducibility
 
