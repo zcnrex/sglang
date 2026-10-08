@@ -40,6 +40,17 @@ diagnostic and lower-concurrency regression subdirectories). The code PR is
 #42913 at `ab94cc8a76`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
+The latest experimental BF16 gate/up plus SiLU fusion remains outside the
+production PR. Reducing the native CUDA epilogue subtile removed register
+spills and improved the dominant M16331 standalone operation by 5.48–5.82%.
+The direct tensor-call version improved the exact mixed-model forward by
+only 0.40–0.64% across two GPUs, with six of eight adjacent pairs positive.
+All 36 layers exercised the candidate, and bounded prefill plus three-step
+decode logits matched bitwise. No serving improvement is established; the
+model measurements do not establish an additional gain from the faster host
+wrapper. Raw evidence is in `results/bf16_native_epilogue/subtile/`,
+`subtile_model/`, `ffi_wrapper/` and `ffi_model/` under that same directory.
+
 ## Configuration and reproducibility
 
 ```bash
