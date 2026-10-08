@@ -1,0 +1,1 @@
+["/usr/local/cuda/bin/ncu", "--profile-from-start", "off", "--launch-count", "1", "--set", "detailed", "--clock-control", "none", "--force-overwrite", "-o", "/root/qvl/experiments/native-epilogue-ncu/production", "/root/qvl/venv-sgl/bin/python", "-u", "/tmp/native_tail_ncu.py"]

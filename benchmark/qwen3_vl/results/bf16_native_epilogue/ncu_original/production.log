@@ -1,0 +1,9 @@
+==WARNING== Note: Running with unmodified GPU clocks. If not controlled otherwise, profiling results may be inconsistent.
+==PROF== Connected to process 411257 (/usr/bin/python3.12)
+TAIL_CANARY_PASS 16331
+PRODUCTION_DISPATCH [[16331, 2560]] 0fa01b10b34bec46f4cca14b6dfb96fa67a07d94e68c1d08035b8c851740f431
+PROFILE_BEGIN production
+==PROF== Profiling "nvjet_sm103_tst_128x256_64x6_..." - 0 (1/1): 0%....50%....100% - 22 passes
+PROFILE_DONE production
+==PROF== Disconnected from process 411257
+==PROF== Report: /root/qvl/experiments/native-epilogue-ncu/production.ncu-rep

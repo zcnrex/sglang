@@ -1,0 +1,176 @@
+[411463] python3.12@127.0.0.1
+  kernel_cutlass_kernel_native_fused_tailPersistentDenseGemmKernel_object_at__TiledMMA_ThrLayoutVMNK21111000_PermutationMNK____MMAAtom_ThrID21_ShapeMNK25625616_TVLayoutA2128161281256_TVLayo_0 (2, 1, 74)x(192, 1, 1), Context 1, Stream 7, Device 0, CC 10.3
+    Warning: Data collection happened without fixed GPU frequencies. Profiling results may be inconsistent.
+    Section: GPU Speed Of Light Throughput
+    ----------------------- ----------- ------------
+    Metric Name             Metric Unit Metric Value
+    ----------------------- ----------- ------------
+    DRAM Frequency                  Ghz         4.00
+    SM Frequency                    Ghz         1.49
+    Elapsed Cycles                cycle      1539647
+    Memory Throughput                 %        57.59
+    DRAM Throughput                   %        39.54
+    Duration                         ms         1.03
+    L1/TEX Cache Throughput           %        62.02
+    L2 Cache Throughput               %        57.98
+    SM Active Cycles              cycle   1417897.01
+    Compute (SM) Throughput           %        88.04
+    ----------------------- ----------- ------------
+
+    INF   This workload is utilizing greater than 80.0% of the available compute or memory performance of the device.
+          To further improve performance, work will likely need to be shifted from the most utilized to another unit.
+          Start by analyzing workloads in the Compute Workload Analysis section.
+
+    Section: GPU Speed Of Light Roofline Chart
+    INF   The ratio of peak float (FP32) to double (FP64) performance on this device is 64:1. The workload achieved 4%
+          of this device's FP32 peak performance and 0% of its FP64 peak performance. See the Profiling Guide
+          (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#roofline) for more details on roofline
+          analysis.
+
+    Section: Compute Workload Analysis
+    -------------------- ----------- ------------
+    Metric Name          Metric Unit Metric Value
+    -------------------- ----------- ------------
+    Executed Ipc Active   inst/cycle         0.62
+    Executed Ipc Elapsed  inst/cycle         0.58
+    Issue Slots Busy               %        14.42
+    Issued Ipc Active     inst/cycle         0.62
+    SM Busy                        %        88.04
+    -------------------- ----------- ------------
+
+    OPT   Tensor is the highest-utilized pipeline (87.9%) based on elapsed cycles in the workload, taking into account
+          the rates of its different instructions. It is the logical aggregation of individual tensor pipelines. It's
+          dominated by its Tensor (FP) sub-pipeline. The pipeline is over-utilized and likely a performance
+          bottleneck. Based on the number of executed instructions, the highest utilized pipeline (11.0%) is XU.
+          Comparing the two, the overall pipeline utilization appears to be caused by high-latency instructions. See
+          the Profiling Guide (https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#metrics-decoder) or
+          hover over the pipeline name to understand the workloads handled by each pipeline. The Instruction
+          Statistics section shows the mix of executed instructions for this workload.
+
+    Section: Memory Workload Analysis
+    -------------------------------------- ----------- ------------
+    Metric Name                            Metric Unit Metric Value
+    -------------------------------------- ----------- ------------
+    Local Memory Spilling Requests                          3521536
+    Local Memory Spilling Request Overhead           %       100.56
+    Memory Throughput                          Tbyte/s         3.03
+    Mem Busy                                         %        49.81
+    Max Bandwidth                                    %        57.59
+    L1/TEX Hit Rate                                  %        65.46
+    L2 Persisting Size                           Mbyte        24.87
+    L2 Compression Success Rate                      %            0
+    L2 Compression Ratio                             %            0
+    L2 Compression Input Sectors                sector      7536280
+    L2 Hit Rate                                      %        68.22
+    Mem Pipes Busy                                   %        88.00
+    -------------------------------------- ----------- ------------
+
+    Section: Memory Workload Analysis Chart
+    OPT   Est. Speedup: 33.64%
+          Out of the 241160960.0 bytes sent to the L2 Compression unit only 0.00% were successfully compressed. To
+          increase this success rate, consider marking only those memory regions as compressible that contain the most
+          zero values and/or expose the most homogeneous values.
+
+    Section: Launch Statistics
+    -------------------------------- --------------- ---------------
+    Metric Name                          Metric Unit    Metric Value
+    -------------------------------- --------------- ---------------
+    Block Size                                                   192
+    Cluster Scheduling Policy                           PolicySpread
+    Cluster Size                                                   2
+    Function Cache Configuration                     CachePreferNone
+    Grid Size                                                    148
+    Preferred Cluster Size                                         0
+    Registers Per Thread             register/thread             255
+    Shared Memory Configuration Size           Kbyte          233.47
+    Driver Shared Memory Per Block       Kbyte/block            1.02
+    Dynamic Shared Memory Per Block      Kbyte/block          229.63
+    Static Shared Memory Per Block        byte/block               0
+    # SMs                                         SM             148
+    Stack Size                                                  1024
+    Threads                                   thread           28416
+    # TPCs                                                        74
+    Enabled TPC IDs                                              all
+    Uses Green Context                                             0
+    Waves Per SM                                                   1
+    -------------------------------- --------------- ---------------
+
+    OPT   If you execute __syncthreads() to synchronize the threads of a block, it is recommended to have at least two
+          blocks per multiprocessor (compared to the currently executed 1.0 blocks) This way, blocks that aren't
+          waiting for __syncthreads() can keep the hardware busy.
+
+    Section: Occupancy
+    ------------------------------- ----------- ------------
+    Metric Name                     Metric Unit Metric Value
+    ------------------------------- ----------- ------------
+    Max Active Clusters                 cluster           74
+    Max Cluster Size                      block           16
+    Overall GPU Occupancy                     %         0.29
+    Cluster Occupancy                         %         3.12
+    Block Limit Barriers                  block           16
+    Block Limit SM                        block           32
+    Block Limit Registers                 block            1
+    Block Limit Shared Mem                block            1
+    Block Limit Warps                     block           10
+    Theoretical Active Warps per SM        warp            6
+    Theoretical Occupancy                     %         9.38
+    Achieved Occupancy                        %         8.57
+    Achieved Active Warps Per SM           warp         5.49
+    ------------------------------- ----------- ------------
+
+    OPT   Est. Local Speedup: 90.62%
+          The 1.50 theoretical warps per scheduler this kernel can issue according to its occupancy are below the
+          hardware maximum of 16. This kernel's theoretical occupancy (9.4%) is limited by the number of required
+          registers, and the required amount of shared memory.
+
+    Section: GPU and Memory Workload Distribution
+    -------------------------- ----------- ------------
+    Metric Name                Metric Unit Metric Value
+    -------------------------- ----------- ------------
+    Average DRAM Active Cycles       cycle   1525499.88
+    Total DRAM Elapsed Cycles        cycle    263356416
+    Average L1 Active Cycles         cycle   1417897.01
+    Total L1 Elapsed Cycles          cycle    226649472
+    Average L2 Active Cycles         cycle   1730624.47
+    Total L2 Elapsed Cycles          cycle    331377652
+    Average SM Active Cycles         cycle   1417897.01
+    Total SM Elapsed Cycles          cycle    226649472
+    Average SMSP Active Cycles       cycle   1415284.81
+    Total SMSP Elapsed Cycles        cycle    906597888
+    -------------------------- ----------- ------------
+
+    OPT   Est. Speedup: 5.637%
+          One or more SMs have a much higher number of active cycles than the average number of active cycles. Maximum
+          instance value is 6.09% above the average, while the minimum instance value is 4.33% below the average.
+    ----- --------------------------------------------------------------------------------------------------------------
+    OPT   Est. Speedup: 5.737%
+          One or more SMSPs have a much higher number of active cycles than the average number of active cycles.
+          Maximum instance value is 6.21% above the average, while the minimum instance value is 4.11% below the
+          average.
+    ----- --------------------------------------------------------------------------------------------------------------
+    OPT   Est. Speedup: 5.637%
+          One or more L1 Slices have a much higher number of active cycles than the average number of active cycles.
+          Maximum instance value is 6.09% above the average, while the minimum instance value is 4.33% below the
+          average.
+    ----- --------------------------------------------------------------------------------------------------------------
+    OPT   Est. Speedup: 5.113%
+          One or more DRAM Slices have a much lower number of active cycles than the average number of active cycles.
+          Maximum instance value is 13.79% above the average, while the minimum instance value is 62.22% below the
+          average.
+
+    Section: Source Counters
+    ------------------------- ----------- ------------
+    Metric Name               Metric Unit Metric Value
+    ------------------------- ----------- ------------
+    Branch Instructions Ratio           %         0.09
+    Branch Instructions              inst     12244169
+    Branch Efficiency                   %        99.88
+    Avg. Divergent Branches      branches        16.81
+    ------------------------- ----------- ------------
+
+    OPT   Est. Speedup: 48.04%
+          This kernel has uncoalesced global accesses resulting in a total of 9928640 excessive sectors (50% of the
+          total 19858496 sectors). Check the L2 Theoretical Sectors Global Excessive table for the primary source
+          locations. The CUDA Programming Guide
+          (https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#device-memory-accesses) has additional
+          information on reducing uncoalesced device memory accesses.

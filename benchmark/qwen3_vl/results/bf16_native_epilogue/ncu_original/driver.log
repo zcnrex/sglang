@@ -1,0 +1,4 @@
+  File "/root/qvl/experiments/native-epilogue-ncu/driver.py", line 2
+    r=pathlib.Path(/root/qvl/experiments/native-epilogue-ncu)
+                   ^
+SyntaxError: invalid syntax
