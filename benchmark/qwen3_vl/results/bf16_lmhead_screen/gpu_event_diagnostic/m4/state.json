@@ -1,0 +1,120 @@
+{
+  "counts": {
+    "capture": 1,
+    "eager": 4
+  },
+  "report": {
+    "m": 4,
+    "source": "current frozen /root/qvl/sglang-prefix-production",
+    "pairs": [],
+    "capture_dispatches": {
+      "capture": 1,
+      "eager": 2
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": true,
+    "greedy_differences": 0,
+    "logit_checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    ],
+    "gpu_event_diagnostic": {
+      "synthetic_pairs": [
+        {
+          "baseline": 2.822323799133301,
+          "candidate": 2.8095991611480713
+        },
+        {
+          "candidate": 2.80997633934021,
+          "baseline": 2.822014808654785
+        },
+        {
+          "baseline": 2.822086811065674,
+          "candidate": 2.8093621730804443
+        },
+        {
+          "candidate": 2.8092830181121826,
+          "baseline": 2.822070598602295
+        },
+        {
+          "baseline": 2.8217644691467285,
+          "candidate": 2.8095240592956543
+        },
+        {
+          "candidate": 2.809823513031006,
+          "baseline": 2.8226146697998047
+        }
+      ],
+      "actual_steps": {
+        "baseline": [
+          3.304960012435913,
+          4.189216136932373,
+          4.089183807373047,
+          3.994335889816284,
+          3.9964160919189453,
+          3.998271942138672,
+          4.051199913024902,
+          4.0483198165893555,
+          4.0070719718933105,
+          4.037504196166992,
+          3.855072021484375,
+          3.803391933441162,
+          3.784032106399536,
+          3.6983680725097656,
+          3.6700479984283447
+        ],
+        "candidate": [
+          3.2835519313812256,
+          4.148608207702637,
+          4.052576065063477,
+          4.0595197677612305,
+          4.112351894378662,
+          4.071040153503418,
+          4.039167881011963,
+          4.073279857635498,
+          3.949728012084961,
+          3.7673280239105225,
+          3.7405760288238525,
+          3.710495948791504,
+          3.7069759368896484,
+          3.7016959190368652,
+          3.6685121059417725
+        ]
+      },
+      "shared_buffer_snapshots": [
+        "input_ids",
+        "input_embeds",
+        "req_pool_indices",
+        "seq_lens",
+        "seq_lens_cpu",
+        "out_cache_loc",
+        "positions",
+        "mrope_positions",
+        "custom_mask",
+        "next_token_logits_buffer",
+        "global_num_tokens_gpu",
+        "global_num_tokens_for_logprob_gpu"
+      ],
+      "clock_snapshot": "0, 2032 MHz, 3996 MHz, 743.14 W, 46\n1, 2032 MHz, 3996 MHz, 912.69 W, 53\n2, 120 MHz, 3996 MHz, 184.40 W, 33\n3, 120 MHz, 3996 MHz, 183.94 W, 33\n4, 1335 MHz, 3996 MHz, 1081.03 W, 60\n5, 1357 MHz, 3996 MHz, 1088.51 W, 59\n6, 120 MHz, 3996 MHz, 186.78 W, 33\n7, 120 MHz, 3996 MHz, 186.46 W, 32\n"
+    }
+  }
+}
