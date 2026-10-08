@@ -1,0 +1,43 @@
+{
+  "server": [
+    "/root/qvl/venv-sgl/bin/python",
+    "-m",
+    "sglang.launch_server",
+    "--model-path",
+    "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+    "--bf16-gemm-backend",
+    "cutedsl",
+    "--dtype",
+    "bfloat16",
+    "--kv-cache-dtype",
+    "bfloat16",
+    "--attention-backend",
+    "trtllm_mha",
+    "--page-size",
+    "32",
+    "--enable-mixed-chunk",
+    "--chunked-prefill-size",
+    "16384",
+    "--cuda-graph-backend-prefill",
+    "disabled",
+    "--enforce-disable-flashinfer-allreduce-fusion",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "32103",
+    "--cuda-graph-max-bs-decode",
+    "8",
+    "--max-total-tokens",
+    "1600000"
+  ],
+  "env": {
+    "CUDA_VISIBLE_DEVICES": "3",
+    "PYTHONPATH": "/root/qvl/experiments/qkv-integrated-matched-observer:/root/qvl/sglang-qkv-integrated/python",
+    "HF_HOME": "/root/qvl/hf",
+    "SGLANG_USE_HND_KVCACHE": "1",
+    "QVL_FA4_EVIDENCE_DIR": "/root/qvl/experiments/qkv-integrated-matched-accuracy/candidate",
+    "SGLANG_CACHE_DIR": "/root/qvl/experiments/qkv-integrated-matched-accuracy/candidate/isolated-cache"
+  },
+  "source": "/root/qvl/sglang-qkv-integrated",
+  "cache_policy": "external matched-startup diagnostic; normal control cache seed; restored before evaluation"
+}

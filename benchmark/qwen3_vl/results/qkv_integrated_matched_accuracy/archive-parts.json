@@ -1,0 +1,16 @@
+{
+  "original_bytes": 1984406,
+  "original_sha256": "86d48daeb70234fb43fd3fddc01520d2813760d445b564119274f550c2152014",
+  "parts": [
+    {
+      "name": "original.tar.gz.part00",
+      "bytes": 1048576,
+      "sha256": "70d9cb0187cdc1141f44c5f9c9caa70640d9e5dec2f07d4b2651602d03412e71"
+    },
+    {
+      "name": "original.tar.gz.part01",
+      "bytes": 935830,
+      "sha256": "549c17a2dcb1af4dff417f525ee9f5b7d8ae8c07bb60b9227ab16774ff9d775a"
+    }
+  ]
+}

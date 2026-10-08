@@ -1,0 +1,34 @@
+{
+  "total": 1314,
+  "control_correct": 1216.0,
+  "candidate_correct": 1213.0,
+  "control_only": [
+    87,
+    122,
+    326,
+    425,
+    510,
+    796,
+    813,
+    858,
+    1030,
+    1088,
+    1173,
+    1199,
+    1201
+  ],
+  "candidate_only": [
+    86,
+    116,
+    153,
+    205,
+    505,
+    740,
+    926,
+    953,
+    1147,
+    1190
+  ],
+  "response_differences": 388,
+  "answer_differences": 38
+}
