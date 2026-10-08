@@ -1,0 +1,42 @@
+import os
+if os.environ.get('QVL_DOWN_OUT'):
+ import json,pathlib,time,torch
+ import sglang.srt.layers.quantization.unquant as uq
+ from sglang.srt.model_executor.model_runner import ModelRunner
+ from sglang.srt.managers.scheduler import Scheduler
+ from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import SplitKTactic,run_splitk_dense
+ out=pathlib.Path(os.environ['QVL_DOWN_OUT']);enabled=os.environ.get('QVL_DOWN_ENABLE')=='1';ready=False;seen=set();epoch=0
+ def emit(kind,**kw):
+  with (out/('observer-%s.jsonl'%os.getpid())).open('a') as f:f.write(json.dumps({'kind':kind,'epoch':epoch,'time_ns':time.time_ns(),**kw})+'\n')
+ original_init=ModelRunner.init_cuda_graphs
+ def initialize(self,*a,**kw):
+  global ready
+  if enabled:
+   w=next(w for n,w in self.model.named_parameters() if n.endswith('mlp.down_proj.weight') and w.shape==(2560,9728))
+   x=torch.zeros(16,9728,device=w.device,dtype=w.dtype);y=torch.empty(16,2560,device=w.device,dtype=w.dtype)
+   run_splitk_dense(x,w.T,None,y,True,SplitKTactic(128,16,4,5));ready=True;emit('ready')
+  result=original_init(self,*a,**kw)
+  if enabled:assert True in seen,'Candidate never captured'
+  return result
+ ModelRunner.init_cuda_graphs=initialize
+ original=uq._bf16_gemm_dispatch_impl
+ def dispatch(x,w,bias,addend=None):
+  if ready and x.numel()==16*9728 and x.shape[-1]==9728 and w.shape==(2560,9728) and x.dtype==w.dtype==torch.bfloat16 and x.is_contiguous() and w.is_contiguous() and bias is None and addend is None:
+   y=torch.empty(16,2560,device=x.device,dtype=x.dtype);run_splitk_dense(x.view(16,9728),w.T,None,y,True,SplitKTactic(128,16,4,5));capturing=torch.cuda.is_current_stream_capturing()
+   if capturing not in seen:seen.add(capturing);emit('down_dispatch',capturing=capturing)
+   return y.view(*x.shape[:-1],2560)
+  return original(x,w,bias,addend)
+ uq._bf16_gemm_dispatch_impl=dispatch
+ oldflush=Scheduler.flush_cache
+ def flush(self,*a,**kw):
+  global epoch
+  result=oldflush(self,*a,**kw);epoch+=1;emit('flush',result=str(result));return result
+ Scheduler.flush_cache=flush
+ oldforward=ModelRunner.forward;replayseen=set()
+ def forward(self,batch,*a,**kw):
+  rows=batch.input_ids.numel();mode=batch.forward_mode.name
+  if rows==128:emit('runtime_M128',mode=mode,batch_size=batch.batch_size)
+  result=oldforward(self,batch,*a,**kw)
+  if batch.forward_mode.is_decode() and batch.batch_size==16 and epoch not in replayseen:replayseen.add(epoch);emit('decode16_forward')
+  return result
+ ModelRunner.forward=forward

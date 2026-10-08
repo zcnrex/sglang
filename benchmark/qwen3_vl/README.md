@@ -91,7 +91,10 @@ The batch-16 down-projection split-K candidate remains experimental. Its
 C16/N80 serving crossover improved throughput by 0.494% and 0.312%, with
 exact request/token counts and no observed M128 forwards. Median TTFT
 improved on one GPU and regressed on the other. A 64-question GSM sanity
-scored 60/64 versus 61/64 control; full paired accuracy evaluation is pending.
+scored 60/64 versus 61/64 control. Full normal-startup accuracy scored
+1222/1314 versus 1213/1314, but both runs exercised M128 operations with
+different startup tactics. A matched-tactic diagnostic is pending to isolate
+the new down projection.
 No production change is included. The separate batch-16 gate/up public-Lt
 screen saved only 1.2–2.1 microseconds across 36 layers, so it was not advanced
 to model testing. See `results/bf16_m16_projection_screen/down_serving_sanity/`

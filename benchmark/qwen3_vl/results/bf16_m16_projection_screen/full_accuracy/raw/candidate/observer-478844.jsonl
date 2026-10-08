@@ -1,0 +1,16 @@
+{"kind": "ready", "epoch": 0, "time_ns": 1791430211488269010}
+{"kind": "down_dispatch", "epoch": 0, "time_ns": 1791430217034151731, "capturing": false}
+{"kind": "down_dispatch", "epoch": 0, "time_ns": 1791430217075758712, "capturing": true}
+{"kind": "decode16_forward", "epoch": 0, "time_ns": 1791430227279550828}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430232889405496, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430233270057512, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430244690175633, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430246694917116, "mode": "MIXED", "batch_size": 14}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430264529748847, "mode": "MIXED", "batch_size": 15}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430273848617833, "mode": "MIXED", "batch_size": 15}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430277851961400, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430284228743916, "mode": "MIXED", "batch_size": 15}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430284609942674, "mode": "MIXED", "batch_size": 15}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430297063026515, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430307436219430, "mode": "MIXED", "batch_size": 15}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430312568175437, "mode": "MIXED", "batch_size": 16}

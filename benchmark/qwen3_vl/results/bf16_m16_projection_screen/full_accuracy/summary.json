@@ -1,0 +1,248 @@
+{
+  "control_correct": 1213,
+  "candidate_correct": 1222,
+  "total": 1314,
+  "control_only": [
+    307,
+    326,
+    529,
+    740,
+    1088,
+    1097,
+    1199
+  ],
+  "candidate_only": [
+    115,
+    122,
+    323,
+    422,
+    675,
+    711,
+    724,
+    798,
+    806,
+    858,
+    926,
+    943,
+    989,
+    991,
+    1030,
+    1201
+  ],
+  "provenance": {
+    "control": {
+      "m128_forward_events": [
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430239687131813,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430247943948926,
+          "mode": "MIXED",
+          "batch_size": 14
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430248254543201,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430253017933290,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430266921593281,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430274524306233,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430279502250203,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430289773479795,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430302291119751,
+          "mode": "MIXED",
+          "batch_size": 16
+        }
+      ],
+      "m16_marker_events": [
+        {
+          "kind": "decode16_forward",
+          "epoch": 0,
+          "time_ns": 1791430235605611962
+        }
+      ],
+      "public_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "candidate": {
+      "m128_forward_events": [
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430232889405496,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430233270057512,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430244690175633,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430246694917116,
+          "mode": "MIXED",
+          "batch_size": 14
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430264529748847,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430273848617833,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430277851961400,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430284228743916,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430284609942674,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430297063026515,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430307436219430,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430312568175437,
+          "mode": "MIXED",
+          "batch_size": 16
+        }
+      ],
+      "m16_marker_events": [
+        {
+          "kind": "ready",
+          "epoch": 0,
+          "time_ns": 1791430211488269010
+        },
+        {
+          "kind": "down_dispatch",
+          "epoch": 0,
+          "time_ns": 1791430217034151731,
+          "capturing": false
+        },
+        {
+          "kind": "down_dispatch",
+          "epoch": 0,
+          "time_ns": 1791430217075758712,
+          "capturing": true
+        },
+        {
+          "kind": "decode16_forward",
+          "epoch": 0,
+          "time_ns": 1791430227279550828
+        }
+      ],
+      "public_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    }
+  }
+}
