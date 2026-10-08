@@ -1,6 +1,6 @@
 # External B8 QKV epilogue prototype
 
-Standalone correctness and performance gates passed. No production integration or serving claim is made. The actual-model diagnostic also passes: two-seed bitwise logits/tokens and a 1.105% fixed-state replay reduction; see `model/README.md`.
+Standalone correctness and performance gates passed. The external serving crossover improves throughput by 1.134%/1.238% (geometric mean 1.1859%), with mixed TTFT; see `serving/README.md`. This does not validate the different production integration. The actual-model diagnostic also passes: two-seed bitwise logits/tokens and a 1.105% fixed-state replay reduction; see `model/README.md`.
 
 | Gate | Reference us/layer | Fused us/layer | Time reduction | Saving across 36 layers |
 | --- | ---: | ---: | ---: | ---: |

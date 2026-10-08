@@ -1,0 +1,70 @@
+{"kind": "model_identity", "model_type": "Qwen3VLForConditionalGeneration", "model_module": "sglang.srt.models.qwen3_vl", "tied_embedding": true, "quant_method": "UnquantizedEmbeddingMethod", "weight_shape": [151936, 2560], "dtype": "torch.bfloat16", "requires_grad": false}
+{"kind": "optimized_dispatch", "input_shape": [8, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [8, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": false}
+{"kind": "optimized_dispatch", "input_shape": [4, 2560], "weight_shape": [151936, 2560], "capture": true}
+{"kind": "startup", "ready": [[0, 4, 151936, 2560], [0, 8, 151936, 2560], [0, 128, 2560, 9728], [0, 128, 19456, 2560]], "lmhead_enabled": true, "cache": "/root/qvl/experiments/bf16-qkv-epilogue/serving/A/gpu3/public-tuner-pid620429.json"}
+{"kind": "extend_geometry", "epoch": 0, "mode": "EXTEND", "rows": 78, "batch_size": 1, "extend_lens": [78], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 0, "mode": "EXTEND", "rows": 512, "batch_size": 32, "extend_lens": [16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16], "prefix_lens": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}
+{"kind": "extend_geometry", "epoch": 0, "mode": "EXTEND", "rows": 8200, "batch_size": 1, "extend_lens": [8200], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 0, "mode": "MIXED", "rows": 16329, "batch_size": 3, "extend_lens": [8200, 8128, 1], "prefix_lens": [0, 0, 8200]}
+{"kind": "extend_geometry", "epoch": 0, "mode": "MIXED", "rows": 562, "batch_size": 64, "extend_lens": [72, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 1, 1], "prefix_lens": [8128, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8192, 8200, 8201]}
+{"kind": "flush", "epoch": 1, "result": "True"}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8200, "batch_size": 1, "extend_lens": [8200], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16327, "batch_size": 3, "extend_lens": [8200, 8126, 1], "prefix_lens": [0, 0, 8200]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16331, "batch_size": 5, "extend_lens": [8200, 8128, 1, 1, 1], "prefix_lens": [0, 0, 8200, 8126, 8201]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16308, "batch_size": 7, "extend_lens": [72, 8200, 8032, 1, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8201, 8127, 8202]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8147, "batch_size": 8, "extend_lens": [168, 7973, 1, 1, 1, 1, 1, 1], "prefix_lens": [8032, 0, 8200, 8200, 8201, 8202, 8128, 8203]}
+{"kind": "graph8_replay"}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8095, "batch_size": 1, "extend_lens": [8095], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 8095]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16330, "batch_size": 4, "extend_lens": [8200, 8128, 1, 1], "prefix_lens": [0, 0, 8200, 8096]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16303, "batch_size": 6, "extend_lens": [36, 8200, 8064, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8201, 8097]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16320, "batch_size": 8, "extend_lens": [115, 8200, 8000, 1, 1, 1, 1, 1], "prefix_lens": [8064, 0, 0, 8164, 8200, 8201, 8202, 8098]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 207, "batch_size": 8, "extend_lens": [200, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [8000, 8179, 8200, 8165, 8201, 8202, 8203, 8099]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8193, "batch_size": 1, "extend_lens": [8193], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 8193]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16330, "batch_size": 4, "extend_lens": [8200, 8128, 1, 1], "prefix_lens": [0, 0, 8200, 8194]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16328, "batch_size": 6, "extend_lens": [61, 8200, 8064, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8201, 8195]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16308, "batch_size": 8, "extend_lens": [103, 8200, 8000, 1, 1, 1, 1, 1], "prefix_lens": [8064, 0, 0, 8189, 8200, 8201, 8202, 8196]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 187, "batch_size": 8, "extend_lens": [180, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [8000, 8167, 8200, 8190, 8201, 8202, 8203, 8197]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8175, "batch_size": 1, "extend_lens": [8175], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 8175]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16343, "batch_size": 4, "extend_lens": [8181, 8160, 1, 1], "prefix_lens": [0, 0, 8200, 8176]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16326, "batch_size": 6, "extend_lens": [40, 8155, 8128, 1, 1, 1], "prefix_lens": [8160, 0, 0, 8181, 8201, 8177]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16309, "batch_size": 8, "extend_lens": [72, 8200, 8032, 1, 1, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8155, 8182, 8202, 8178]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 175, "batch_size": 8, "extend_lens": [168, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [8032, 8200, 8200, 8201, 8156, 8183, 8203, 8179]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8200, "batch_size": 1, "extend_lens": [8200], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 8200]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16330, "batch_size": 4, "extend_lens": [8200, 8128, 1, 1], "prefix_lens": [0, 0, 8200, 8201]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16307, "batch_size": 6, "extend_lens": [40, 8200, 8064, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8201, 8202]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16332, "batch_size": 8, "extend_lens": [127, 8200, 8000, 1, 1, 1, 1, 1], "prefix_lens": [8064, 0, 0, 8168, 8200, 8201, 8202, 8203]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 207, "batch_size": 8, "extend_lens": [200, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [8000, 8191, 8200, 8169, 8201, 8202, 8203, 8204]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8188, "batch_size": 1, "extend_lens": [8188], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 8188]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16330, "batch_size": 4, "extend_lens": [8200, 8128, 1, 1], "prefix_lens": [0, 0, 8200, 8189]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16304, "batch_size": 6, "extend_lens": [72, 8197, 8032, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8201, 8190]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 15805, "batch_size": 8, "extend_lens": [168, 8176, 7456, 1, 1, 1, 1, 1], "prefix_lens": [8032, 0, 0, 8200, 8197, 8201, 8202, 8191]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 7979, "batch_size": 1, "extend_lens": [7979], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16343, "batch_size": 3, "extend_lens": [8150, 8192, 1], "prefix_lens": [0, 0, 7979]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16137, "batch_size": 5, "extend_lens": [8, 7927, 8200, 1, 1], "prefix_lens": [8192, 0, 0, 8150, 7980]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16333, "batch_size": 7, "extend_lens": [8200, 8128, 1, 1, 1, 1, 1], "prefix_lens": [0, 0, 8200, 7927, 8200, 8151, 7981]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8278, "batch_size": 8, "extend_lens": [72, 8200, 1, 1, 1, 1, 1, 1], "prefix_lens": [8128, 0, 8200, 8201, 7928, 8201, 8152, 7982]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8059, "batch_size": 1, "extend_lens": [8059], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 8059]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16328, "batch_size": 5, "extend_lens": [8200, 8030, 96, 1, 1], "prefix_lens": [0, 0, 0, 8200, 8060]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16315, "batch_size": 7, "extend_lens": [8053, 8226, 32, 1, 1, 1, 1], "prefix_lens": [96, 0, 0, 8200, 8030, 8201, 8061]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16334, "batch_size": 8, "extend_lens": [8168, 8160, 1, 1, 1, 1, 1, 1], "prefix_lens": [32, 0, 8149, 8226, 8201, 8031, 8202, 8062]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 47, "batch_size": 8, "extend_lens": [40, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [8160, 8200, 8150, 8227, 8202, 8032, 8203, 8063]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 7791, "batch_size": 1, "extend_lens": [7791], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8201, "batch_size": 2, "extend_lens": [8200, 1], "prefix_lens": [0, 7791]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16330, "batch_size": 4, "extend_lens": [8200, 8128, 1, 1], "prefix_lens": [0, 0, 8200, 7792]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16307, "batch_size": 6, "extend_lens": [72, 8200, 8032, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8201, 7793]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16309, "batch_size": 8, "extend_lens": [168, 8200, 7936, 1, 1, 1, 1, 1], "prefix_lens": [8032, 0, 0, 8200, 8200, 8201, 8202, 7794]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 271, "batch_size": 8, "extend_lens": [264, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [7936, 8200, 8200, 8201, 8201, 8202, 8203, 7795]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "EXTEND", "rows": 8200, "batch_size": 1, "extend_lens": [8200], "prefix_lens": [0]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 8187, "batch_size": 2, "extend_lens": [8186, 1], "prefix_lens": [0, 8200]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16330, "batch_size": 4, "extend_lens": [8200, 8128, 1, 1], "prefix_lens": [0, 0, 8186, 8201]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16311, "batch_size": 6, "extend_lens": [12, 8200, 8096, 1, 1, 1], "prefix_lens": [8128, 0, 0, 8200, 8187, 8202]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 16309, "batch_size": 8, "extend_lens": [104, 8200, 8000, 1, 1, 1, 1, 1], "prefix_lens": [8096, 0, 0, 8140, 8200, 8201, 8188, 8203]}
+{"kind": "extend_geometry", "epoch": 1, "mode": "MIXED", "rows": 207, "batch_size": 8, "extend_lens": [200, 1, 1, 1, 1, 1, 1, 1], "prefix_lens": [8000, 8200, 8200, 8141, 8201, 8202, 8189, 8204]}
