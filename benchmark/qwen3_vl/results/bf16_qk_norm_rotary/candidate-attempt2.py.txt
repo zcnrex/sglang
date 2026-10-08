@@ -1,0 +1,448 @@
+"""Fused Q/K RMSNorm, optional MRoPE, gate deinterleave and paged cache stores.
+
+Single kernel launch fusing per-head GemmaRMSNorm, partial NeoX RoPE over 1-D or
+mrope positions, and gate deinterleave for Qwen3.5's interleaved Q+Gate layout.
+
+2D grid (T, num_q_heads + num_kv_heads) — each program handles one
+(token, head) pair. Q programs also copy the gate slice.
+"""
+
+from typing import Optional, Tuple
+
+import torch
+import triton
+import triton.language as tl
+from triton.language.extra.cuda import libdevice
+
+
+def _pdl_supported() -> bool:
+    """Check if Programmatic Dependent Launch is supported (NVIDIA SM >= 90)."""
+    if not torch.cuda.is_available():
+        return False
+    try:
+        major, _ = torch.cuda.get_device_capability()
+        return major >= 9
+    except Exception:
+        return False
+
+
+_ENABLE_PDL = _pdl_supported()
+
+
+@triton.jit
+def _exact_norm_factor(base, EPS: tl.constexpr):
+    lane = tl.arange(0, 32)
+    x0 = tl.load(base + lane * 4).to(tl.float32)
+    x1 = tl.load(base + lane * 4 + 1).to(tl.float32)
+    x2 = tl.load(base + lane * 4 + 2).to(tl.float32)
+    x3 = tl.load(base + lane * 4 + 3).to(tl.float32)
+    scale = tl.inline_asm_elementwise(
+        "{ .reg .f32 s,t; mul.rn.f32 s,$1,$1; fma.rn.f32 s,$2,$2,s; fma.rn.f32 s,$3,$3,s; fma.rn.f32 s,$4,$4,s; "
+        "shfl.sync.bfly.b32 t,s,16,31,-1; add.rn.f32 s,s,t; shfl.sync.bfly.b32 t,s,8,31,-1; add.rn.f32 s,s,t; "
+        "shfl.sync.bfly.b32 t,s,4,31,-1; add.rn.f32 s,s,t; shfl.sync.bfly.b32 t,s,2,31,-1; add.rn.f32 s,s,t; "
+        "shfl.sync.bfly.b32 t,s,1,31,-1; add.rn.f32 s,s,t; mul.rn.f32 s,s,0f3C000000; add.rn.f32 s,s,$5; rsqrt.approx.ftz.f32 $0,s; }",
+        constraints="=f,f,f,f,f,f",
+        args=[x0, x1, x2, x3, EPS],
+        dtype=tl.float32,
+        is_pure=True,
+        pack=1,
+    )
+    return tl.sum(tl.where(lane == 0, scale, 0.0), 0)
+
+
+@triton.jit
+def _bf16_rotate(x, y, c, s, UPPER: tl.constexpr):
+    return tl.inline_asm_elementwise(
+        "{ .reg .b16 a,b,c,d,t,o; cvt.rn.bf16.f32 a,$1; cvt.rn.bf16.f32 b,$2; cvt.rn.bf16.f32 c,$3; cvt.rn.bf16.f32 d,$4; "
+        + (
+            "mul.rn.bf16 t,a,c; fma.rn.bf16 o,b,d,t; "
+            if UPPER
+            else "mul.rn.bf16 t,b,d; neg.bf16 t,t; fma.rn.bf16 o,a,c,t; "
+        )
+        + "cvt.f32.bf16 $0,o; }",
+        constraints="=f,f,f,f,f",
+        args=[x, y, c, s],
+        dtype=tl.float32,
+        is_pure=True,
+        pack=1,
+    )
+
+
+@triton.jit
+def _fused_qk_rmsnorm_rope_gate_kernel(
+    q_gate_ptr,
+    k_ptr,
+    q_out_ptr,
+    k_out_ptr,
+    gate_out_ptr,
+    q_weight_ptr,
+    k_weight_ptr,
+    cos_sin_cache_ptr,
+    positions_ptr,
+    mrope_axis_map_ptr,
+    stride_qg_t,
+    stride_k_t,
+    stride_qo_t,
+    stride_ko_t,
+    stride_gate_t,
+    stride_cos_t,
+    stride_pos_axis,
+    NUM_Q_HEADS: tl.constexpr,
+    NUM_KV_HEADS: tl.constexpr,
+    HEAD_DIM: tl.constexpr,
+    ROTARY_DIM: tl.constexpr,
+    HALF_ROTARY: tl.constexpr,
+    HEAD_BLOCK: tl.constexpr,
+    ROT_HALF_BLOCK: tl.constexpr,
+    EPS: tl.constexpr,
+    FP16: tl.constexpr,
+    HAS_PASS: tl.constexpr,
+    HAS_GATE: tl.constexpr,
+    MROPE: tl.constexpr,
+    ENABLE_PDL: tl.constexpr,
+    WEIGHT_SHIFT: tl.constexpr = 1.0,
+    EXPLICIT_ROPE_FMA: tl.constexpr = False,
+    EXACT_BF16: tl.constexpr = False,
+    value_ptr=None,
+    key_cache_ptr=None,
+    value_cache_ptr=None,
+    slots_ptr=None,
+    stride_v_t=0,
+    stride_cache_block=0,
+    stride_cache_token=0,
+    stride_cache_head=0,
+    WRITE_CACHE: tl.constexpr = False,
+    PAGE_SIZE: tl.constexpr = 0,
+):
+    if EXACT_BF16 and ENABLE_PDL:
+        tl.extra.cuda.gdc_wait()
+
+    token = tl.program_id(0)
+    head = tl.program_id(1)
+    is_k = head >= NUM_Q_HEADS
+    local_head = tl.where(is_k, head - NUM_Q_HEADS, head)
+    out_dtype = tl.float16 if FP16 else tl.bfloat16
+
+    if is_k:
+        in_base = k_ptr + token * stride_k_t + local_head * HEAD_DIM
+        w_ptr = k_weight_ptr
+        out_base = k_out_ptr + token * stride_ko_t + local_head * HEAD_DIM
+    else:
+        if HAS_GATE:
+            in_base = q_gate_ptr + token * stride_qg_t + local_head * 2 * HEAD_DIM
+        else:
+            in_base = q_gate_ptr + token * stride_qg_t + local_head * HEAD_DIM
+        w_ptr = q_weight_ptr
+        out_base = q_out_ptr + token * stride_qo_t + local_head * HEAD_DIM
+
+    # Full load -> RMSNorm variance
+    head_offs = tl.arange(0, HEAD_BLOCK)
+    head_mask = head_offs < HEAD_DIM
+    x = tl.load(in_base + head_offs, mask=head_mask, other=0.0).to(tl.float32)
+    w = tl.load(w_ptr + head_offs, mask=head_mask, other=0.0).to(tl.float32)
+    if EXACT_BF16:
+        inv_rms = _exact_norm_factor(in_base, EPS)
+    else:
+        var = tl.sum(x * x, axis=0) / HEAD_DIM
+        inv_rms = tl.rsqrt(var + EPS)
+    x_norm = (x * inv_rms * (w + WEIGHT_SHIFT)).to(out_dtype).to(tl.float32)
+
+    # Pass-through tail [rotary_dim, head_dim)
+    if HAS_PASS:
+        pass_mask = head_mask & (head_offs >= ROTARY_DIM)
+        tl.store(out_base + head_offs, x_norm, mask=pass_mask)
+
+    # Reload rotary portion from L1 -> re-norm -> RoPE
+    rot_offs = tl.arange(0, ROT_HALF_BLOCK)
+    rot_mask = rot_offs < HALF_ROTARY
+    xr1 = tl.load(in_base + rot_offs, mask=rot_mask, other=0.0).to(tl.float32)
+    xr2 = tl.load(in_base + HALF_ROTARY + rot_offs, mask=rot_mask, other=0.0).to(
+        tl.float32
+    )
+    wr1 = tl.load(w_ptr + rot_offs, mask=rot_mask, other=0.0).to(tl.float32)
+    wr2 = tl.load(w_ptr + HALF_ROTARY + rot_offs, mask=rot_mask, other=0.0).to(
+        tl.float32
+    )
+    xr1 = (xr1 * inv_rms * (wr1 + WEIGHT_SHIFT)).to(out_dtype).to(tl.float32)
+    xr2 = (xr2 * inv_rms * (wr2 + WEIGHT_SHIFT)).to(out_dtype).to(tl.float32)
+
+    if MROPE:
+        axis = tl.load(mrope_axis_map_ptr + rot_offs, mask=rot_mask, other=0)
+        pos = tl.load(
+            positions_ptr + axis * stride_pos_axis + token, mask=rot_mask, other=0
+        )
+    else:
+        pos = tl.load(positions_ptr + token)
+    cache_off = pos.to(tl.int64) * stride_cos_t
+    cos = tl.load(
+        cos_sin_cache_ptr + cache_off + rot_offs, mask=rot_mask, other=0.0
+    ).to(tl.float32)
+    sin = tl.load(
+        cos_sin_cache_ptr + cache_off + HALF_ROTARY + rot_offs, mask=rot_mask, other=0.0
+    ).to(tl.float32)
+    if EXACT_BF16:
+        first = _bf16_rotate(xr1, xr2, cos, sin, False)
+        second = _bf16_rotate(xr2, xr1, cos, sin, True)
+    elif EXPLICIT_ROPE_FMA:
+        first = tl.fma(xr1, cos, -libdevice.mul_rn(xr2, sin))
+        second = tl.fma(xr2, cos, libdevice.mul_rn(xr1, sin))
+    else:
+        first = xr1 * cos - xr2 * sin
+        second = xr2 * cos + xr1 * sin
+    tl.store(out_base + rot_offs, first, mask=rot_mask)
+    tl.store(out_base + HALF_ROTARY + rot_offs, second, mask=rot_mask)
+
+    if WRITE_CACHE and is_k:
+        slot = tl.load(slots_ptr + token)
+        cache_mask = rot_mask & (slot >= 0)
+        offset = (
+            slot // PAGE_SIZE * stride_cache_block
+            + slot % PAGE_SIZE * stride_cache_token
+            + local_head * stride_cache_head
+            + rot_offs
+        )
+        tl.store(key_cache_ptr + offset, first, cache_mask)
+        tl.store(key_cache_ptr + offset + HALF_ROTARY, second, cache_mask)
+        vbase = value_ptr + token * stride_v_t + local_head * HEAD_DIM
+        vfirst = tl.load(vbase + rot_offs, cache_mask, 0)
+        vsecond = tl.load(vbase + HALF_ROTARY + rot_offs, cache_mask, 0)
+        tl.store(value_cache_ptr + offset, vfirst, cache_mask)
+        tl.store(value_cache_ptr + offset + HALF_ROTARY, vsecond, cache_mask)
+
+    # Gate copy (Q heads only)
+    if HAS_GATE and not is_k:
+        gate_in = in_base + HEAD_DIM
+        gate_out = gate_out_ptr + token * stride_gate_t + local_head * HEAD_DIM
+        g = tl.load(gate_in + head_offs, mask=head_mask, other=0.0)
+        tl.store(gate_out + head_offs, g, mask=head_mask)
+
+    # PDL: signal dependent kernels (attention/allreduce) can start early.
+    # Only available on NVIDIA Hopper+ (sm_90+); guarded for AMD/other backends.
+    if ENABLE_PDL:
+        tl.extra.cuda.gdc_launch_dependents()
+
+
+def fused_qk_gemma_rmsnorm_rope_gate(
+    q_gate: torch.Tensor,
+    k: torch.Tensor,
+    q_weight: torch.Tensor,
+    k_weight: torch.Tensor,
+    cos_sin_cache: torch.Tensor,
+    positions: torch.Tensor,
+    eps: float,
+    num_q_heads: int,
+    num_kv_heads: int,
+    head_dim: int,
+    rotary_dim: int,
+    has_gate: bool = True,
+    mrope_axis_map: Optional[torch.Tensor] = None,
+) -> Tuple[torch.Tensor, torch.Tensor, Optional[torch.Tensor]]:
+    """Fused QK GemmaRMSNorm + NeoX RoPE + gate deinterleave.
+
+    Args:
+        q_gate: [T, num_q_heads * (1 + has_gate) * head_dim] — interleaved Q+Gate if has_gate
+        k: [T, num_kv_heads * head_dim]
+        q_weight, k_weight: [head_dim] — raw GemmaRMSNorm weights (kernel adds +1.0)
+        cos_sin_cache: [max_seq_len, rotary_dim] — [cos..., sin...]
+        positions: [T] token positions, or [3, T] mrope rows (temporal, height, width)
+        mrope_axis_map: [rotary_dim // 2] — the axis owning each rotary lane, from
+            MRotaryEmbedding
+    """
+    assert positions.dim() in (1, 2), f"want [T] or [3, T], got {positions.shape}"
+    mrope = positions.dim() == 2
+    assert mrope == (mrope_axis_map is not None), "mrope_axis_map needs [3, T]"
+    if mrope:
+        assert positions.shape[0] == 3 and positions.stride(1) == 1, (
+            f"want [3, T] contiguous over T, got {positions.shape} "
+            f"stride {positions.stride()}"
+        )
+        lanes = rotary_dim // 2
+        assert mrope_axis_map.shape == (lanes,), f"want one axis per lane ({lanes})"
+    T = q_gate.shape[0]
+    q_size = num_q_heads * head_dim
+    kv_size = num_kv_heads * head_dim
+
+    q_out = torch.empty(T, q_size, dtype=q_gate.dtype, device=q_gate.device)
+    k_out = torch.empty(T, kv_size, dtype=k.dtype, device=k.device)
+    gate_out = (
+        torch.empty(T, num_q_heads, head_dim, dtype=q_gate.dtype, device=q_gate.device)
+        if has_gate
+        else q_out
+    )
+
+    half_rotary = rotary_dim // 2
+    head_block = triton.next_power_of_2(head_dim)
+    rot_half_block = triton.next_power_of_2(half_rotary)
+
+    grid = (T, num_q_heads + num_kv_heads)
+    _fused_qk_rmsnorm_rope_gate_kernel[grid](
+        q_gate,
+        k,
+        q_out,
+        k_out,
+        gate_out,
+        q_weight,
+        k_weight,
+        cos_sin_cache,
+        positions,
+        mrope_axis_map,
+        q_gate.stride(0),
+        k.stride(0),
+        q_out.stride(0),
+        k_out.stride(0),
+        gate_out.stride(0),
+        cos_sin_cache.stride(0),
+        positions.stride(0),
+        NUM_Q_HEADS=num_q_heads,
+        NUM_KV_HEADS=num_kv_heads,
+        HEAD_DIM=head_dim,
+        ROTARY_DIM=rotary_dim,
+        HALF_ROTARY=half_rotary,
+        HEAD_BLOCK=head_block,
+        ROT_HALF_BLOCK=rot_half_block,
+        EPS=eps,
+        FP16=q_gate.dtype == torch.float16,
+        HAS_PASS=rotary_dim < head_dim,
+        HAS_GATE=has_gate,
+        MROPE=mrope,
+        ENABLE_PDL=_ENABLE_PDL,
+    )
+
+    return q_out, k_out, gate_out if has_gate else None
+
+
+def fused_qk_norm_mrope(
+    q: torch.Tensor,
+    k: torch.Tensor,
+    q_weight: torch.Tensor,
+    k_weight: torch.Tensor,
+    cos_sin_cache: torch.Tensor,
+    positions: torch.Tensor,
+    axis_map: torch.Tensor,
+    eps: float,
+    *,
+    value: torch.Tensor | None = None,
+    key_cache: torch.Tensor | None = None,
+    value_cache: torch.Tensor | None = None,
+    slots: torch.Tensor | None = None,
+) -> None:
+    """Apply BF16 Q/K RMSNorm and MRoPE in place, optionally storing paged K/V."""
+    if not q.is_cuda:
+        raise ValueError("Q/K normalization requires CUDA tensors")
+    tensors = (q, k, q_weight, k_weight, cos_sin_cache)
+    if any(t.dtype != torch.bfloat16 or t.device != q.device for t in tensors):
+        raise ValueError("Q/K normalization requires BF16 tensors on one device")
+    if q.ndim != 2 or k.ndim != 2 or k.shape[0] != q.shape[0]:
+        raise ValueError("Q/K must have matching token dimensions")
+    if any(t.shape[1] <= 0 or t.shape[1] % 128 or t.stride(1) != 1 for t in (q, k)):
+        raise ValueError("Q/K require contiguous 128-element heads")
+    if any(t.shape != (128,) or not t.is_contiguous() for t in (q_weight, k_weight)):
+        raise ValueError("Norm weights must be contiguous 128-element vectors")
+    if (
+        cos_sin_cache.ndim != 2
+        or cos_sin_cache.shape[1] != 128
+        or not cos_sin_cache.is_contiguous()
+    ):
+        raise ValueError("Rotary cache must be contiguous with width 128")
+    if (
+        positions.shape != (3, q.shape[0])
+        or positions.stride(1) != 1
+        or positions.dtype != torch.int64
+        or positions.device != q.device
+    ):
+        raise ValueError("Positions must be int64 [3, tokens] with contiguous columns")
+    if (
+        axis_map.shape != (64,)
+        or axis_map.dtype != torch.int64
+        or axis_map.device != q.device
+        or not axis_map.is_contiguous()
+    ):
+        raise ValueError("Axis map must be a contiguous int64 vector of length 64")
+    write_cache = value is not None
+    if write_cache:
+        if key_cache is None or value_cache is None or slots is None:
+            raise ValueError("Cache writes require all cache arguments")
+        if (
+            value.shape != k.shape
+            or value.stride(1) != 1
+            or value.dtype != q.dtype
+            or value.device != q.device
+        ):
+            raise ValueError("Value must match K shape, dtype, and device")
+        if (
+            key_cache.ndim != 4
+            or key_cache.shape[0] <= 0
+            or key_cache.shape[1] <= 0
+            or key_cache.shape[2:] != (k.shape[1] // 128, 128)
+            or key_cache.stride(3) != 1
+        ):
+            raise ValueError(
+                "Cache must have logical [page, token, head, 128] dimensions"
+            )
+        if any(
+            t.dtype != q.dtype
+            or t.device != q.device
+            or t.shape != key_cache.shape
+            or t.stride() != key_cache.stride()
+            for t in (key_cache, value_cache)
+        ):
+            raise ValueError("K/V caches must have matching layouts, dtype, and device")
+        if (
+            slots.shape != (q.shape[0],)
+            or slots.dtype != torch.int64
+            or slots.device != q.device
+            or not slots.is_contiguous()
+        ):
+            raise ValueError("Slots must be a contiguous int64 token vector")
+    elif any(t is not None for t in (key_cache, value_cache, slots)):
+        raise ValueError("Cache writes require value")
+    if q.shape[0] == 0:
+        return
+    qh, kh = q.shape[1] // 128, k.shape[1] // 128
+    _fused_qk_rmsnorm_rope_gate_kernel[(q.shape[0], qh + kh)](
+        q,
+        k,
+        q,
+        k,
+        q,
+        q_weight,
+        k_weight,
+        cos_sin_cache,
+        positions,
+        axis_map,
+        q.stride(0),
+        k.stride(0),
+        q.stride(0),
+        k.stride(0),
+        0,
+        cos_sin_cache.stride(0),
+        positions.stride(0),
+        NUM_Q_HEADS=qh,
+        NUM_KV_HEADS=kh,
+        HEAD_DIM=128,
+        ROTARY_DIM=128,
+        HALF_ROTARY=64,
+        HEAD_BLOCK=128,
+        ROT_HALF_BLOCK=64,
+        EPS=eps,
+        FP16=False,
+        HAS_PASS=False,
+        HAS_GATE=False,
+        MROPE=True,
+        ENABLE_PDL=_ENABLE_PDL,
+        EXACT_BF16=True,
+        WEIGHT_SHIFT=0.0,
+        value_ptr=value,
+        key_cache_ptr=key_cache,
+        value_cache_ptr=value_cache,
+        slots_ptr=slots,
+        stride_v_t=value.stride(0) if write_cache else 0,
+        stride_cache_block=key_cache.stride(0) if write_cache else 0,
+        stride_cache_token=key_cache.stride(1) if write_cache else 0,
+        stride_cache_head=key_cache.stride(2) if write_cache else 0,
+        WRITE_CACHE=write_cache,
+        PAGE_SIZE=key_cache.shape[1] if write_cache else 0,
+        num_warps=4,
+        enable_fp_fusion=False,
+        launch_pdl=_ENABLE_PDL,
+    )

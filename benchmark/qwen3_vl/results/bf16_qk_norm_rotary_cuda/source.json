@@ -1,0 +1,17 @@
+{
+  "source": "/root/qvl/sglang-mrope-reuse-cuda",
+  "files": {
+    "python/sglang/kernels/ops/attention/fused_qknorm_rope.py": {
+      "sha256": "0c5b210cce7024426e466109fa9830855b4b9c79ef8d1d943154e6d7bbbe37f9",
+      "bytes": 8236
+    },
+    "python/sglang/kernels/jit/csrc/elementwise/qknorm.cuh": {
+      "sha256": "7d2914ff8eeb0e98312825e84f4089dae246c2bba3674c5cb802f3ca0cdcf38e",
+      "bytes": 10442
+    },
+    "python/sglang/kernels/jit/csrc/elementwise/fused_qknorm_rope.cuh": {
+      "sha256": "b594aa69b8a309f261f63b8a5102f628565420f93cef4be6ad344e5913e30db3",
+      "bytes": 23434
+    }
+  }
+}

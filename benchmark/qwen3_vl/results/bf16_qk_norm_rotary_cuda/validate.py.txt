@@ -1,0 +1,80 @@
+import argparse,hashlib,importlib.util,json,pathlib,statistics,glob,sys
+import torch
+from safetensors import safe_open
+from sglang.kernels.ops.attention.fused_qk_norm_mrope import fused_qk_norm_mrope as reference
+p=argparse.ArgumentParser();p.add_argument('--candidate',required=True);p.add_argument('--out',required=True);p.add_argument('--function',default='fused_qk_norm_mrope');a=p.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=True)
+spec=importlib.util.spec_from_file_location('adapted_qk',a.candidate);mod=importlib.util.module_from_spec(spec);sys.modules[spec.name]=mod;spec.loader.exec_module(mod);candidate=getattr(mod,a.function)
+torch.set_grad_enabled(False);torch.manual_seed(9123)
+weights={}
+model='/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17'
+for file in glob.glob(model+'/*.safetensors'):
+ with safe_open(file,framework='pt',device='cpu') as f:
+  for key in f.keys():
+   if '.self_attn.' in key and key.endswith(('q_norm.weight','k_norm.weight')):weights[key]=f.get_tensor(key).cuda().bfloat16()
+phase=torch.arange(9000,device='cuda')[:,None].float()*torch.arange(1,65,device='cuda')[None,:].float()*.0001
+rope=torch.cat([phase.cos(),phase.sin()],1).bfloat16()
+report=dict(candidate_sha256=hashlib.sha256(pathlib.Path(a.candidate).read_bytes()).hexdigest(),device=torch.cuda.get_device_name(),rows=[])
+for batch in [1,2,4,8,16,32,64,128]:
+ pos_storage=torch.empty(3,128,device='cuda',dtype=torch.int64);pos=pos_storage[:,:batch]
+ for axis in range(3):pos[axis].copy_(torch.arange(batch,device='cuda')+8200+axis*37)
+ slots=torch.arange(batch,device='cuda',dtype=torch.int64)*64+29
+ states=[]
+ for layer in range(36):
+  prefix=f'model.language_model.layers.{layer}.self_attn.'
+  x=torch.randn(batch,6144,device='cuda',dtype=torch.bfloat16)
+  if layer==34:
+   scale=torch.pow(2.,(torch.arange(6144,device='cuda')%41-20).float()).bfloat16();x.mul_(scale)
+  if layer==35:
+   x[:,:5120].fill_(2**-20);x[:,0:5120:128]=1024
+  buffers=[x.clone(),x.clone()]
+  caches=[[torch.full((batch*2,8,32,128),-0.75,device='cuda',dtype=torch.bfloat16) for _ in range(2)] for _ in range(2)]
+  states.append((x,buffers,caches,weights[prefix+'q_norm.weight'],weights[prefix+'k_norm.weight']))
+ def call(arm,layer,write):
+  x,buf,caches,qw,kw=states[layer];z=buf[arm];kw_args={}
+  if write:kw_args=dict(value=z[:,5120:],key_cache=caches[arm][0].permute(0,2,1,3),value_cache=caches[arm][1].permute(0,2,1,3),slots=slots)
+  [reference,candidate][arm](z[:,:4096],z[:,4096:5120],qw,kw,rope,pos,axes,1e-6,**kw_args)
+ def reset():
+  for x,buf,caches,qw,kw in states:
+   for z in buf:z.copy_(x)
+   for pair in caches:
+    for c in pair:c.fill_(-0.75)
+ def check(tag,write):
+  torch.cuda.synchronize()
+  for layer,(x,buf,caches,qw,kw) in enumerate(states):
+   eq=torch.equal(buf[0].view(torch.int16),buf[1].view(torch.int16))
+   if not eq:
+    failure=dict(batch=batch,tag=tag,layer=layer,mapping=mapping,write_cache=write,differing_elements=int((buf[0].view(torch.int16)!=buf[1].view(torch.int16)).sum()),max_abs=float((buf[0].float()-buf[1].float()).abs().max()))
+    (out/'failure.json').write_text(json.dumps(failure,indent=2));raise AssertionError(failure)
+   if write:
+    for k in range(2):assert torch.equal(caches[0][k].view(torch.int16),caches[1][k].view(torch.int16)),(batch,tag,layer,'cache',k)
+ for mapping in ['contiguous','interleaved']:
+  lanes=torch.arange(64,device='cuda')
+  axes=torch.tensor([0]*24+[1]*20+[2]*20,device='cuda',dtype=torch.int64) if mapping=='contiguous' else torch.where((lanes%3==1)&(lanes<60),1,torch.where((lanes%3==2)&(lanes<60),2,0)).long()
+  for write in [False,True]:
+   reset()
+   for arm in range(2):
+    for i in range(36):call(arm,i,write)
+   check('initial',write)
+   graphs=[]
+   for arm in range(2):
+    g=torch.cuda.CUDAGraph()
+    with torch.cuda.graph(g):
+     for i in range(36):call(arm,i,write)
+    graphs.append(g)
+   for x,*_ in states:x.mul_(0.75).add_(0.125)
+   pos.add_(3);slots[-1]=-1;reset()
+   for g in graphs:g.replay()
+   check('changed_graph',write)
+   slots[-1]=(batch-1)*64+29
+   rounds=[]
+   for round_index in range(8):
+    row={}
+    for arm in ([0,1] if round_index%2==0 else [1,0]):
+     reset();start,end=torch.cuda.Event(enable_timing=True),torch.cuda.Event(enable_timing=True);start.record()
+     for _ in range(100):graphs[arm].replay()
+     end.record();end.synchronize();row[['reference','candidate'][arm]]=start.elapsed_time(end)*1000/100/36
+    rounds.append(row)
+   row=dict(batch=batch,mapping=mapping,write_cache=write,positions_stride=list(pos.stride()),bitwise=True,changed_graph_bitwise=True,rounds_us=rounds,median_us={n:statistics.median(r[n] for r in rounds) for n in ['reference','candidate']});report['rows'].append(row);(out/'report.json').write_text(json.dumps(report,indent=2));print('PASS',batch,mapping,write,row['median_us'],flush=True)
+   slots[-1]=(batch-1)*64+29
+ del graphs,states
+ torch.cuda.empty_cache()

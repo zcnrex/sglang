@@ -1,0 +1,7 @@
+{
+  "tested_sha256": "e9a106211d3bb092862e29e7e1654e9dc37e8fe604c4a971d62267e2e2f00da5",
+  "scope": "Existing general Gemma/gate tests with external module replacement. New exact BF16 specialization is not covered by these tests. Subsequent wrapper-only fixes do not change default branch.",
+  "tests": 3,
+  "subtests": 5,
+  "gpu": 6
+}

@@ -1,0 +1,26 @@
+{
+  "baseline_source": "/root/qvl/sglang-mrope-reuse-control-d7b4556d6b",
+  "baseline_head": "d7b4556d6b",
+  "reference_wrapper_sha256": "db4c6a53c4b5096d09898a3e737b33a3186af1ee961ff131c5116ce0149046ad",
+  "reference_header_sha256": "5508f05ceb2e4baa877f448cf1bddd469ff4e5a289d2a9847e50de307ca19125",
+  "harness_sha256": "86f66704b34011fd8099c33576debe3dc7b1abdc0eb99deffd01b866d9db3889",
+  "batches": [
+    1,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64,
+    128
+  ],
+  "layers": 36,
+  "rounds": 8,
+  "replays": 100,
+  "timing": "GPU event retained graphs, reset outside timed window; in-place norm/rotary repeats on outputs within replay rounds; no serving claim",
+  "cache_layout": "physical HND [pages,8,32,128], logical view [pages,32,8,128]; distinct per layer and arm",
+  "adversarial_layers": [
+    34,
+    35
+  ]
+}

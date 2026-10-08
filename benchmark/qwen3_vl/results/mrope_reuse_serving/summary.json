@@ -1,0 +1,631 @@
+{
+  "scope": "Bounded shared-kernel MRoPE serving screens; public startup tuning; no algorithm replacement hooks",
+  "points": {
+    "1": {
+      "pairs": [
+        {
+          "gpu": 6,
+          "control": "A-gpu6-control",
+          "candidate": "B-gpu6-candidate",
+          "throughput_ratio": 0.9965591069872038,
+          "control_metrics": {
+            "duration": 7.408411816984881,
+            "completed": 3,
+            "total_input_tokens": 24576,
+            "total_output_tokens": 3072,
+            "output_throughput": 414.66377354414686,
+            "mean_ttft_ms": 78.33939833411326,
+            "median_ttft_ms": 76.95745199453086,
+            "std_ttft_ms": 8.923984648483435,
+            "p90_ttft_ms": 87.3068928020075,
+            "p95_ttft_ms": 88.60057290294208,
+            "p99_ttft_ms": 89.63551698368974,
+            "mean_tpot_ms": 2.326914590417974,
+            "median_tpot_ms": 2.3286963743817712,
+            "std_tpot_ms": 0.0061650933192058215,
+            "p90_tpot_ms": 2.3324712834849897,
+            "p95_tpot_ms": 2.332943147122892,
+            "p99_tpot_ms": 2.333320638033214
+          },
+          "candidate_metrics": {
+            "duration": 7.4339913860021625,
+            "completed": 3,
+            "total_input_tokens": 24576,
+            "total_output_tokens": 3072,
+            "output_throughput": 413.2369598630991,
+            "mean_ttft_ms": 78.69954933024322,
+            "median_ttft_ms": 81.81727500050329,
+            "std_ttft_ms": 6.195359799514607,
+            "p90_ttft_ms": 83.74887660029344,
+            "p95_ttft_ms": 83.99032680026721,
+            "p99_ttft_ms": 84.18348696024623,
+            "mean_tpot_ms": 2.33788733853978,
+            "median_tpot_ms": 2.337914815239466,
+            "std_tpot_ms": 0.003244916936127122,
+            "p90_tpot_ms": 2.3410611425094916,
+            "p95_tpot_ms": 2.341454433418245,
+            "p99_tpot_ms": 2.3417690661452477
+          },
+          "startup_tactics_equal": false
+        },
+        {
+          "gpu": 7,
+          "control": "B-gpu7-control",
+          "candidate": "A-gpu7-candidate",
+          "throughput_ratio": 0.9945786526281344,
+          "control_metrics": {
+            "duration": 7.42878010799177,
+            "completed": 3,
+            "total_input_tokens": 24576,
+            "total_output_tokens": 3072,
+            "output_throughput": 413.5268449654592,
+            "mean_ttft_ms": 79.48174600217801,
+            "median_ttft_ms": 81.1202370095998,
+            "std_ttft_ms": 5.322053293532299,
+            "p90_ttft_ms": 84.24351220019162,
+            "p95_ttft_ms": 84.6339215990156,
+            "p99_ttft_ms": 84.94624911807477,
+            "mean_tpot_ms": 2.334395618448486,
+            "median_tpot_ms": 2.3336511945184903,
+            "std_tpot_ms": 0.003160204902416545,
+            "p90_tpot_ms": 2.337597603146087,
+            "p95_tpot_ms": 2.3380909042245364,
+            "p99_tpot_ms": 2.3384855450872966
+          },
+          "candidate_metrics": {
+            "duration": 7.469273634982528,
+            "completed": 3,
+            "total_input_tokens": 24576,
+            "total_output_tokens": 3072,
+            "output_throughput": 411.2849722913098,
+            "mean_ttft_ms": 86.49587566227031,
+            "median_ttft_ms": 84.32615298079327,
+            "std_ttft_ms": 4.6607430545181865,
+            "p90_ttft_ms": 91.24188820132986,
+            "p95_ttft_ms": 92.10635510389693,
+            "p99_ttft_ms": 92.79792862595059,
+            "mean_tpot_ms": 2.3397921570549416,
+            "median_tpot_ms": 2.339688593364446,
+            "std_tpot_ms": 0.005428369711333015,
+            "p90_tpot_ms": 2.3451310801690757,
+            "p95_tpot_ms": 2.3458113910196547,
+            "p99_tpot_ms": 2.3463556397001177
+          },
+          "startup_tactics_equal": true
+        }
+      ],
+      "geomean_throughput_change_percent": -0.44316126495227426,
+      "attribution_limit": "Fresh public startup tuning; tactic equality is reported per pair. These short screens do not establish the full throughput goal."
+    },
+    "16": {
+      "pairs": [
+        {
+          "gpu": 6,
+          "control": "A-gpu6-control",
+          "candidate": "B-gpu6-candidate",
+          "throughput_ratio": 1.0053110212513194,
+          "control_metrics": {
+            "duration": 17.043857878015842,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 2403.2117782930227,
+            "mean_ttft_ms": 569.7130625761929,
+            "median_ttft_ms": 515.7101384975249,
+            "std_ttft_ms": 249.68169078082894,
+            "p90_ttft_ms": 915.6885150936433,
+            "p95_ttft_ms": 997.8583768650421,
+            "p99_ttft_ms": 1067.0668548936374,
+            "mean_tpot_ms": 5.285897611239312,
+            "median_tpot_ms": 5.598525223872426,
+            "std_tpot_ms": 0.7667458647854696,
+            "p90_tpot_ms": 5.918938542141185,
+            "p95_tpot_ms": 5.933149914208978,
+            "p99_tpot_ms": 5.934366933292598
+          },
+          "candidate_metrics": {
+            "duration": 16.953815802000463,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 2415.975287118958,
+            "mean_ttft_ms": 559.9598552740645,
+            "median_ttft_ms": 544.9904939887347,
+            "std_ttft_ms": 257.1298440651898,
+            "p90_ttft_ms": 876.0642573994121,
+            "p95_ttft_ms": 998.9474650297777,
+            "p99_ttft_ms": 1068.0679569396307,
+            "mean_tpot_ms": 5.275946743668839,
+            "median_tpot_ms": 5.519886347008318,
+            "std_tpot_ms": 0.768927602006478,
+            "p90_tpot_ms": 5.931101418100867,
+            "p95_tpot_ms": 5.948671855584421,
+            "p99_tpot_ms": 6.052075969474072
+          },
+          "startup_tactics_equal": false
+        },
+        {
+          "gpu": 7,
+          "control": "B-gpu7-control",
+          "candidate": "A-gpu7-candidate",
+          "throughput_ratio": 0.9964801658187762,
+          "control_metrics": {
+            "duration": 16.923162386985496,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 2420.3514132500245,
+            "mean_ttft_ms": 570.8507245748478,
+            "median_ttft_ms": 542.9925705102505,
+            "std_ttft_ms": 269.16611704605606,
+            "p90_ttft_ms": 899.1275034117281,
+            "p95_ttft_ms": 998.3295836253089,
+            "p99_ttft_ms": 1067.8230266075116,
+            "mean_tpot_ms": 5.252591596603316,
+            "median_tpot_ms": 5.483128103608072,
+            "std_tpot_ms": 0.7571472610656385,
+            "p90_tpot_ms": 5.904643725525184,
+            "p95_tpot_ms": 5.924439758447227,
+            "p99_tpot_ms": 6.038444586455121
+          },
+          "candidate_metrics": {
+            "duration": 16.982939517998602,
+            "completed": 40,
+            "total_input_tokens": 327680,
+            "total_output_tokens": 40960,
+            "output_throughput": 2411.8321776150938,
+            "mean_ttft_ms": 566.4609884981473,
+            "median_ttft_ms": 534.9294499901589,
+            "std_ttft_ms": 262.178201261392,
+            "p90_ttft_ms": 883.1012932903833,
+            "p95_ttft_ms": 998.3182583833693,
+            "p99_ttft_ms": 1067.6821711202501,
+            "mean_tpot_ms": 5.255032956012935,
+            "median_tpot_ms": 5.511749855329498,
+            "std_tpot_ms": 0.7793961689261266,
+            "p90_tpot_ms": 5.936356516032506,
+            "p95_tpot_ms": 5.999994575275476,
+            "p99_tpot_ms": 6.023179510178614
+          },
+          "startup_tactics_equal": true
+        }
+      ],
+      "geomean_throughput_change_percent": 0.08858542091390031,
+      "attribution_limit": "Fresh public startup tuning; tactic equality is reported per pair. These short screens do not establish the full throughput goal."
+    },
+    "128": {
+      "pairs": [
+        {
+          "gpu": 6,
+          "control": "A-gpu6-control",
+          "candidate": "B-gpu6-candidate",
+          "throughput_ratio": 0.9992452883238068,
+          "control_metrics": {
+            "duration": 34.234268005006015,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3828.6783284174085,
+            "mean_ttft_ms": 4613.413213186277,
+            "median_ttft_ms": 4495.442953993916,
+            "std_ttft_ms": 2494.6164344233052,
+            "p90_ttft_ms": 8164.9110675032725,
+            "p95_ttft_ms": 8608.724320362671,
+            "p99_ttft_ms": 8995.63846346311,
+            "mean_tpot_ms": 28.56324656748742,
+            "median_tpot_ms": 28.741647744390164,
+            "std_tpot_ms": 2.179577368119485,
+            "p90_tpot_ms": 31.383710621212284,
+            "p95_tpot_ms": 31.42387956226904,
+            "p99_tpot_ms": 31.497167284030702
+          },
+          "candidate_metrics": {
+            "duration": 34.26012452100986,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3825.7887801785637,
+            "mean_ttft_ms": 4623.520356718927,
+            "median_ttft_ms": 4513.468874996761,
+            "std_ttft_ms": 2501.981154606165,
+            "p90_ttft_ms": 8177.3171536042355,
+            "p95_ttft_ms": 8620.975672348868,
+            "p99_ttft_ms": 9005.586388094234,
+            "mean_tpot_ms": 28.58624722074249,
+            "median_tpot_ms": 28.75694047018327,
+            "std_tpot_ms": 2.1882569120485007,
+            "p90_tpot_ms": 31.42412355573523,
+            "p95_tpot_ms": 31.494315585400827,
+            "p99_tpot_ms": 31.567309799028067
+          },
+          "startup_tactics_equal": false
+        },
+        {
+          "gpu": 7,
+          "control": "B-gpu7-control",
+          "candidate": "A-gpu7-candidate",
+          "throughput_ratio": 0.9990143389836026,
+          "control_metrics": {
+            "duration": 34.16227192999213,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3836.7471656628254,
+            "mean_ttft_ms": 4751.228608131669,
+            "median_ttft_ms": 4500.886002017069,
+            "std_ttft_ms": 2324.2363803461944,
+            "p90_ttft_ms": 8172.679303010227,
+            "p95_ttft_ms": 8621.325129081379,
+            "p99_ttft_ms": 9006.99590338103,
+            "mean_tpot_ms": 28.375872030654158,
+            "median_tpot_ms": 28.683546320139225,
+            "std_tpot_ms": 2.020785604977516,
+            "p90_tpot_ms": 30.680035409386267,
+            "p95_tpot_ms": 30.737089030099245,
+            "p99_tpot_ms": 30.77781418226327
+          },
+          "candidate_metrics": {
+            "duration": 34.19597757200245,
+            "completed": 128,
+            "total_input_tokens": 1048576,
+            "total_output_tokens": 131072,
+            "output_throughput": 3832.9654335518585,
+            "mean_ttft_ms": 4642.874113944572,
+            "median_ttft_ms": 4520.651357481256,
+            "std_ttft_ms": 2466.250994347917,
+            "p90_ttft_ms": 8157.929075305583,
+            "p95_ttft_ms": 8600.107282356475,
+            "p99_ttft_ms": 8979.069664304263,
+            "mean_tpot_ms": 28.49051659719556,
+            "median_tpot_ms": 28.673603961399333,
+            "std_tpot_ms": 2.1582760316716745,
+            "p90_tpot_ms": 31.238172044386364,
+            "p95_tpot_ms": 31.28549410190985,
+            "p99_tpot_ms": 31.34842124035226
+          },
+          "startup_tactics_equal": true
+        }
+      ],
+      "geomean_throughput_change_percent": -0.08701930193018015,
+      "attribution_limit": "Fresh public startup tuning; tactic equality is reported per pair. These short screens do not establish the full throughput goal."
+    }
+  },
+  "runs": {
+    "A-gpu6-control": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "776d1948c0e25f4fe4288c1d7d58d65d0b7afb2d0a3e0589bbd86190111b1e44"
+      },
+      "results": {
+        "c1": {
+          "duration": 7.408411816984881,
+          "completed": 3,
+          "total_input_tokens": 24576,
+          "total_output_tokens": 3072,
+          "output_throughput": 414.66377354414686,
+          "mean_ttft_ms": 78.33939833411326,
+          "median_ttft_ms": 76.95745199453086,
+          "std_ttft_ms": 8.923984648483435,
+          "p90_ttft_ms": 87.3068928020075,
+          "p95_ttft_ms": 88.60057290294208,
+          "p99_ttft_ms": 89.63551698368974,
+          "mean_tpot_ms": 2.326914590417974,
+          "median_tpot_ms": 2.3286963743817712,
+          "std_tpot_ms": 0.0061650933192058215,
+          "p90_tpot_ms": 2.3324712834849897,
+          "p95_tpot_ms": 2.332943147122892,
+          "p99_tpot_ms": 2.333320638033214
+        },
+        "c128": {
+          "duration": 34.234268005006015,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3828.6783284174085,
+          "mean_ttft_ms": 4613.413213186277,
+          "median_ttft_ms": 4495.442953993916,
+          "std_ttft_ms": 2494.6164344233052,
+          "p90_ttft_ms": 8164.9110675032725,
+          "p95_ttft_ms": 8608.724320362671,
+          "p99_ttft_ms": 8995.63846346311,
+          "mean_tpot_ms": 28.56324656748742,
+          "median_tpot_ms": 28.741647744390164,
+          "std_tpot_ms": 2.179577368119485,
+          "p90_tpot_ms": 31.383710621212284,
+          "p95_tpot_ms": 31.42387956226904,
+          "p99_tpot_ms": 31.497167284030702
+        },
+        "c16": {
+          "duration": 17.043857878015842,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 2403.2117782930227,
+          "mean_ttft_ms": 569.7130625761929,
+          "median_ttft_ms": 515.7101384975249,
+          "std_ttft_ms": 249.68169078082894,
+          "p90_ttft_ms": 915.6885150936433,
+          "p95_ttft_ms": 997.8583768650421,
+          "p99_ttft_ms": 1067.0668548936374,
+          "mean_tpot_ms": 5.285897611239312,
+          "median_tpot_ms": 5.598525223872426,
+          "std_tpot_ms": 0.7667458647854696,
+          "p90_tpot_ms": 5.918938542141185,
+          "p95_tpot_ms": 5.933149914208978,
+          "p99_tpot_ms": 5.934366933292598
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "A-gpu7-candidate": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10243,
+        "manifest_sha256": "ba789cc786f996d74562b56ae99d1b9230106694bd00186eb0b1398c11a65d62"
+      },
+      "results": {
+        "c1": {
+          "duration": 7.469273634982528,
+          "completed": 3,
+          "total_input_tokens": 24576,
+          "total_output_tokens": 3072,
+          "output_throughput": 411.2849722913098,
+          "mean_ttft_ms": 86.49587566227031,
+          "median_ttft_ms": 84.32615298079327,
+          "std_ttft_ms": 4.6607430545181865,
+          "p90_ttft_ms": 91.24188820132986,
+          "p95_ttft_ms": 92.10635510389693,
+          "p99_ttft_ms": 92.79792862595059,
+          "mean_tpot_ms": 2.3397921570549416,
+          "median_tpot_ms": 2.339688593364446,
+          "std_tpot_ms": 0.005428369711333015,
+          "p90_tpot_ms": 2.3451310801690757,
+          "p95_tpot_ms": 2.3458113910196547,
+          "p99_tpot_ms": 2.3463556397001177
+        },
+        "c128": {
+          "duration": 34.19597757200245,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3832.9654335518585,
+          "mean_ttft_ms": 4642.874113944572,
+          "median_ttft_ms": 4520.651357481256,
+          "std_ttft_ms": 2466.250994347917,
+          "p90_ttft_ms": 8157.929075305583,
+          "p95_ttft_ms": 8600.107282356475,
+          "p99_ttft_ms": 8979.069664304263,
+          "mean_tpot_ms": 28.49051659719556,
+          "median_tpot_ms": 28.673603961399333,
+          "std_tpot_ms": 2.1582760316716745,
+          "p90_tpot_ms": 31.238172044386364,
+          "p95_tpot_ms": 31.28549410190985,
+          "p99_tpot_ms": 31.34842124035226
+        },
+        "c16": {
+          "duration": 16.982939517998602,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 2411.8321776150938,
+          "mean_ttft_ms": 566.4609884981473,
+          "median_ttft_ms": 534.9294499901589,
+          "std_ttft_ms": 262.178201261392,
+          "p90_ttft_ms": 883.1012932903833,
+          "p95_ttft_ms": 998.3182583833693,
+          "p99_ttft_ms": 1067.6821711202501,
+          "mean_tpot_ms": 5.255032956012935,
+          "median_tpot_ms": 5.511749855329498,
+          "std_tpot_ms": 0.7793961689261266,
+          "p90_tpot_ms": 5.936356516032506,
+          "p95_tpot_ms": 5.999994575275476,
+          "p99_tpot_ms": 6.023179510178614
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "B-gpu7-control": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10245,
+        "manifest_sha256": "776d1948c0e25f4fe4288c1d7d58d65d0b7afb2d0a3e0589bbd86190111b1e44"
+      },
+      "results": {
+        "c1": {
+          "duration": 7.42878010799177,
+          "completed": 3,
+          "total_input_tokens": 24576,
+          "total_output_tokens": 3072,
+          "output_throughput": 413.5268449654592,
+          "mean_ttft_ms": 79.48174600217801,
+          "median_ttft_ms": 81.1202370095998,
+          "std_ttft_ms": 5.322053293532299,
+          "p90_ttft_ms": 84.24351220019162,
+          "p95_ttft_ms": 84.6339215990156,
+          "p99_ttft_ms": 84.94624911807477,
+          "mean_tpot_ms": 2.334395618448486,
+          "median_tpot_ms": 2.3336511945184903,
+          "std_tpot_ms": 0.003160204902416545,
+          "p90_tpot_ms": 2.337597603146087,
+          "p95_tpot_ms": 2.3380909042245364,
+          "p99_tpot_ms": 2.3384855450872966
+        },
+        "c128": {
+          "duration": 34.16227192999213,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3836.7471656628254,
+          "mean_ttft_ms": 4751.228608131669,
+          "median_ttft_ms": 4500.886002017069,
+          "std_ttft_ms": 2324.2363803461944,
+          "p90_ttft_ms": 8172.679303010227,
+          "p95_ttft_ms": 8621.325129081379,
+          "p99_ttft_ms": 9006.99590338103,
+          "mean_tpot_ms": 28.375872030654158,
+          "median_tpot_ms": 28.683546320139225,
+          "std_tpot_ms": 2.020785604977516,
+          "p90_tpot_ms": 30.680035409386267,
+          "p95_tpot_ms": 30.737089030099245,
+          "p99_tpot_ms": 30.77781418226327
+        },
+        "c16": {
+          "duration": 16.923162386985496,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 2420.3514132500245,
+          "mean_ttft_ms": 570.8507245748478,
+          "median_ttft_ms": 542.9925705102505,
+          "std_ttft_ms": 269.16611704605606,
+          "p90_ttft_ms": 899.1275034117281,
+          "p95_ttft_ms": 998.3295836253089,
+          "p99_ttft_ms": 1067.8230266075116,
+          "mean_tpot_ms": 5.252591596603316,
+          "median_tpot_ms": 5.483128103608072,
+          "std_tpot_ms": 0.7571472610656385,
+          "p90_tpot_ms": 5.904643725525184,
+          "p95_tpot_ms": 5.924439758447227,
+          "p99_tpot_ms": 6.038444586455121
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    },
+    "B-gpu6-candidate": {
+      "sanity_score": 0.95,
+      "source_audit": {
+        "files": 10243,
+        "manifest_sha256": "ba789cc786f996d74562b56ae99d1b9230106694bd00186eb0b1398c11a65d62"
+      },
+      "results": {
+        "c1": {
+          "duration": 7.4339913860021625,
+          "completed": 3,
+          "total_input_tokens": 24576,
+          "total_output_tokens": 3072,
+          "output_throughput": 413.2369598630991,
+          "mean_ttft_ms": 78.69954933024322,
+          "median_ttft_ms": 81.81727500050329,
+          "std_ttft_ms": 6.195359799514607,
+          "p90_ttft_ms": 83.74887660029344,
+          "p95_ttft_ms": 83.99032680026721,
+          "p99_ttft_ms": 84.18348696024623,
+          "mean_tpot_ms": 2.33788733853978,
+          "median_tpot_ms": 2.337914815239466,
+          "std_tpot_ms": 0.003244916936127122,
+          "p90_tpot_ms": 2.3410611425094916,
+          "p95_tpot_ms": 2.341454433418245,
+          "p99_tpot_ms": 2.3417690661452477
+        },
+        "c128": {
+          "duration": 34.26012452100986,
+          "completed": 128,
+          "total_input_tokens": 1048576,
+          "total_output_tokens": 131072,
+          "output_throughput": 3825.7887801785637,
+          "mean_ttft_ms": 4623.520356718927,
+          "median_ttft_ms": 4513.468874996761,
+          "std_ttft_ms": 2501.981154606165,
+          "p90_ttft_ms": 8177.3171536042355,
+          "p95_ttft_ms": 8620.975672348868,
+          "p99_ttft_ms": 9005.586388094234,
+          "mean_tpot_ms": 28.58624722074249,
+          "median_tpot_ms": 28.75694047018327,
+          "std_tpot_ms": 2.1882569120485007,
+          "p90_tpot_ms": 31.42412355573523,
+          "p95_tpot_ms": 31.494315585400827,
+          "p99_tpot_ms": 31.567309799028067
+        },
+        "c16": {
+          "duration": 16.953815802000463,
+          "completed": 40,
+          "total_input_tokens": 327680,
+          "total_output_tokens": 40960,
+          "output_throughput": 2415.975287118958,
+          "mean_ttft_ms": 559.9598552740645,
+          "median_ttft_ms": 544.9904939887347,
+          "std_ttft_ms": 257.1298440651898,
+          "p90_ttft_ms": 876.0642573994121,
+          "p95_ttft_ms": 998.9474650297777,
+          "p99_ttft_ms": 1068.0679569396307,
+          "mean_tpot_ms": 5.275946743668839,
+          "median_tpot_ms": 5.519886347008318,
+          "std_tpot_ms": 0.768927602006478,
+          "p90_tpot_ms": 5.931101418100867,
+          "p95_tpot_ms": 5.948671855584421,
+          "p99_tpot_ms": 6.052075969474072
+        }
+      },
+      "startup_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      }
+    }
+  }
+}

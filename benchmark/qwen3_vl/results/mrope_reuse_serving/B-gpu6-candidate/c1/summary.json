@@ -1,0 +1,19 @@
+{
+  "duration": 7.4339913860021625,
+  "completed": 3,
+  "total_input_tokens": 24576,
+  "total_output_tokens": 3072,
+  "output_throughput": 413.2369598630991,
+  "mean_ttft_ms": 78.69954933024322,
+  "median_ttft_ms": 81.81727500050329,
+  "std_ttft_ms": 6.195359799514607,
+  "p90_ttft_ms": 83.74887660029344,
+  "p95_ttft_ms": 83.99032680026721,
+  "p99_ttft_ms": 84.18348696024623,
+  "mean_tpot_ms": 2.33788733853978,
+  "median_tpot_ms": 2.337914815239466,
+  "std_tpot_ms": 0.003244916936127122,
+  "p90_tpot_ms": 2.3410611425094916,
+  "p95_tpot_ms": 2.341454433418245,
+  "p99_tpot_ms": 2.3417690661452477
+}

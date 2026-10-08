@@ -1,0 +1,70 @@
+{
+  "candidate-attempt2.py.txt": {
+    "sha256": "83e946f63aed048c1aa70732d98159aa54a9065410162c8c56a99f2e560e2b06",
+    "bytes": 15928
+  },
+  "validate.py.txt": {
+    "sha256": "195d5ca95d0ca58a725d82f4f1533a7068f67d4ee8f9a4647324395b2619c8ed",
+    "bytes": 4974
+  },
+  "attempt2.log": {
+    "sha256": "983f9f22b5f499f7642dbfcdf52842333baa8e183d604a8e8e42ea5efc0b867b",
+    "bytes": 3113
+  },
+  "attempt1.log": {
+    "sha256": "bb48bb4b4bb15f7fb8f2608f8499be74f2e944e8f4d55e9b7d6c21bee4727ed0",
+    "bytes": 575
+  },
+  "README.md": {
+    "sha256": "13fafb2dcb539768521823918aa967ffd0f7a16b07dc7e8395c348f97c2d079c",
+    "bytes": 2813
+  },
+  "protocol.json": {
+    "sha256": "13af704bd13863e33ec8cd4e7e4aef89f1ab5411c45549ba03dcbc130ba5c30c",
+    "bytes": 825
+  },
+  "candidate-attempt1.py.txt": {
+    "sha256": "e9a106211d3bb092862e29e7e1654e9dc37e8fe604c4a971d62267e2e2f00da5",
+    "bytes": 15779
+  },
+  "raw-evidence.tar.gz": {
+    "sha256": "b4a4028b5a8538abf694d468a961e8666bbe75460e3d3a6713b7c22fe36efe16",
+    "bytes": 16724
+  },
+  "candidate.py.txt": {
+    "sha256": "e9a106211d3bb092862e29e7e1654e9dc37e8fe604c4a971d62267e2e2f00da5",
+    "bytes": 15779
+  },
+  "attempt2/report.json": {
+    "sha256": "28a049046a3ae68284b5d06942fcf43e5a7b8e7c3620f04c5cd31723cdbec6b7",
+    "bytes": 33511
+  },
+  "attempt2/failure.json": {
+    "sha256": "f89e20381add6a6b851dfdedbe5f0d12c070d9cf579f76e5a0211dcd3ac6b1ba",
+    "bytes": 154
+  },
+  "default_regression/tested_source.py.gz": {
+    "sha256": "5265c739fb26bced91bd2ee35616fb1f0a4e3bfed17ed2c847549aebc35659aa",
+    "bytes": 4272
+  },
+  "default_regression/runner.py.txt": {
+    "sha256": "26e617664312f96243e60b528f8d4721e0140e436c0fd350c7e7a9a8f8e0ccac",
+    "bytes": 420
+  },
+  "default_regression/metadata.json": {
+    "sha256": "0be3ed826d6d55e8dd8596d0efa63c535bc4c642be46c9bad763f4477fb20cef",
+    "bytes": 336
+  },
+  "default_regression/tests.log": {
+    "sha256": "3017442c868ee8e9111b41323a59c389b64b89dac60dbf8f587a155a94e3959c",
+    "bytes": 7323
+  },
+  "default/tests.log": {
+    "sha256": "3017442c868ee8e9111b41323a59c389b64b89dac60dbf8f587a155a94e3959c",
+    "bytes": 7323
+  },
+  "attempt1/failure.json": {
+    "sha256": "790745a3eece7bbf101a59e777eb9e818911f3daa3f0eed2f773163901477cc2",
+    "bytes": 154
+  }
+}

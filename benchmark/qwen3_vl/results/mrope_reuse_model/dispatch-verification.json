@@ -1,0 +1,14 @@
+{
+  "16": {
+    "kernel_counts": {
+      "void sglang::fused_qknorm_warp<128l, true, __nv_bfloat16, sglang::QKNormMRoPEEpilogue<true>, false>(sglang::QKNormMRoPEEpilogue<true>::Params)": 36
+    },
+    "trace_sha256": "f8ab848c349fd5a4f7bce33cbf8b05a6529cfc0eeac3003c4572e5b934a60dc4"
+  },
+  "128": {
+    "kernel_counts": {
+      "void sglang::fused_qknorm_warp<128l, true, __nv_bfloat16, sglang::QKNormMRoPEEpilogue<true>, false>(sglang::QKNormMRoPEEpilogue<true>::Params)": 36
+    },
+    "trace_sha256": "36509804468315b4f82958f2382073eb39bf6d80a4aada59f237f8c134eb75d6"
+  }
+}

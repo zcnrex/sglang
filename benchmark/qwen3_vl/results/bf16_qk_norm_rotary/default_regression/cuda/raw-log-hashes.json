@@ -1,0 +1,10 @@
+{
+  "attempt1.raw.log.gz": {
+    "raw_sha256": "7d03a540f3aeb8a92ea757b304bb07096e9f584b5e52567f0db060486d636fea",
+    "raw_bytes": 7564
+  },
+  "final.raw.log.gz": {
+    "raw_sha256": "29fff660ded4a1184eae9acf00a17117dca3be14bd7c8684e086859454481a2e",
+    "raw_bytes": 7564
+  }
+}

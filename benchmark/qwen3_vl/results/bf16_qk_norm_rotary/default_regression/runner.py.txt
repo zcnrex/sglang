@@ -1,0 +1,4 @@
+import importlib.util,sys,pytest
+name='sglang.kernels.ops.attention.fused_qk_rmsnorm_rope_gate'
+spec=importlib.util.spec_from_file_location(name,'/tmp/qvl_qk_adapted.py'); m=importlib.util.module_from_spec(spec);sys.modules[name]=m;spec.loader.exec_module(m)
+raise SystemExit(pytest.main(['-q','/root/qvl/sglang-mrope-reuse-control-d7b4556d6b/test/registered/kernels/ops/attention/test_fused_qk_rmsnorm_rope_gate.py']))

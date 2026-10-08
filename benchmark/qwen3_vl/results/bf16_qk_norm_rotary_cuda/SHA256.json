@@ -1,0 +1,38 @@
+{
+  "fused_qknorm_rope.py.txt": {
+    "sha256": "0c5b210cce7024426e466109fa9830855b4b9c79ef8d1d943154e6d7bbbe37f9",
+    "bytes": 8236
+  },
+  "source.json": {
+    "sha256": "d250b0ea9bee37e62712f31d28ef8dfc12bce7cf395a9929bd018973d6c24f46",
+    "bytes": 607
+  },
+  "validate.py.txt": {
+    "sha256": "195d5ca95d0ca58a725d82f4f1533a7068f67d4ee8f9a4647324395b2619c8ed",
+    "bytes": 4974
+  },
+  "fused_qknorm_rope.cuh.txt": {
+    "sha256": "b594aa69b8a309f261f63b8a5102f628565420f93cef4be6ad344e5913e30db3",
+    "bytes": 23434
+  },
+  "attempt1.log": {
+    "sha256": "ffe6b32e2848cfd87a0e04d3f1750df1927cdfff86633bc511d9277f47d6317f",
+    "bytes": 2913
+  },
+  "README.md": {
+    "sha256": "d66b10ebec6f63ed6802ffa15a35f589d6a5af08b5d543b0241a376eedb31d45",
+    "bytes": 1928
+  },
+  "qknorm.cuh.txt": {
+    "sha256": "7d2914ff8eeb0e98312825e84f4089dae246c2bba3674c5cb802f3ca0cdcf38e",
+    "bytes": 10442
+  },
+  "raw-evidence.tar.gz": {
+    "sha256": "b41c318c902f6e9fdd3f5df95d834e08aa5acdbe0167642c9b9004e0ffbef7c9",
+    "bytes": 20413
+  },
+  "attempt1/report.json": {
+    "sha256": "41eaf608a9ec01bab505d8070076cb8b3330ef2b83ece4539189ec94e3c2f2a4",
+    "bytes": 38257
+  }
+}

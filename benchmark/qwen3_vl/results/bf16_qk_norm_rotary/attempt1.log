@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/root/qvl/experiments/bf16-qk-norm-rotary/validate.py", line 57, in <module>
+    check('initial',write)
+  File "/root/qvl/experiments/bf16-qk-norm-rotary/validate.py", line 47, in check
+    (out/'failure.json').write_text(json.dumps(failure,indent=2));raise AssertionError(failure)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'batch': 1, 'tag': 'initial', 'layer': 0, 'mapping': 'contiguous', 'write_cache': False, 'differing_elements': 5120, 'max_abs': 3.71875}

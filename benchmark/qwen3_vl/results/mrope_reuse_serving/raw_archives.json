@@ -1,0 +1,46 @@
+[
+  {
+    "phase": "A",
+    "sha256": "55b6acae4eee078c1da3615e7c780477a69794a7184f5f8cce40d61aceaa74a0",
+    "bytes": 2989175,
+    "parts": [
+      {
+        "path": "raw-A.tar.gz.part00",
+        "sha256": "a1d7da1543ffe43b4e5e10bad98800ab5c6ed428a9f5c0a3d13da706c926141a",
+        "bytes": 1400000
+      },
+      {
+        "path": "raw-A.tar.gz.part01",
+        "sha256": "f1091806102eef5c00de17c93ab230d4c9fbad7feeb25687cf1c4553c2644aa3",
+        "bytes": 1400000
+      },
+      {
+        "path": "raw-A.tar.gz.part02",
+        "sha256": "90735c9ed00fa5b7778f4bd00e64ad063bd8478d06724b4d3b4680ccad188394",
+        "bytes": 189175
+      }
+    ]
+  },
+  {
+    "phase": "B",
+    "sha256": "a6ade572a22f68193f3f739c87b8b9874bbd063048ec80bd9e8f084a590259fe",
+    "bytes": 3000586,
+    "parts": [
+      {
+        "path": "raw-B.tar.gz.part00",
+        "sha256": "f7dd8a3597247468a8946c811563f167fa3a370e57f2828ca30b1c457868f954",
+        "bytes": 1400000
+      },
+      {
+        "path": "raw-B.tar.gz.part01",
+        "sha256": "03944ce0a6b4b701e6931f49b9a20ee5b82fb03a2cc1a02cb7f8efe9638d3207",
+        "bytes": 1400000
+      },
+      {
+        "path": "raw-B.tar.gz.part02",
+        "sha256": "2fcb7bd28529ca62abb6058b52384994801dd0687e4b589801ac9a55888e5437",
+        "bytes": 200586
+      }
+    ]
+  }
+]

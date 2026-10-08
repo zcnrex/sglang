@@ -1,0 +1,9 @@
+{
+  "batch": 1,
+  "tag": "initial",
+  "layer": 0,
+  "mapping": "contiguous",
+  "write_cache": false,
+  "differing_elements": 5120,
+  "max_abs": 3.71875
+}

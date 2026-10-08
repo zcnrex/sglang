@@ -1,0 +1,35 @@
+PASS 1 contiguous False {'reference': 1.306240028805203, 'candidate': 1.222848892211914}
+PASS 1 contiguous True {'reference': 1.7087111208173964, 'candidate': 1.595675614145067}
+PASS 1 interleaved False {'reference': 1.310288906097412, 'candidate': 1.2536489301257663}
+PASS 1 interleaved True {'reference': 1.7076755894554987, 'candidate': 1.5961999363369412}
+PASS 2 contiguous False {'reference': 1.3366356160905626, 'candidate': 1.253568861219618}
+PASS 2 contiguous True {'reference': 1.8227377202775743, 'candidate': 1.6200844446818032}
+PASS 2 interleaved False {'reference': 1.3150222433937921, 'candidate': 1.253755556212531}
+PASS 2 interleaved True {'reference': 1.8247333500120375, 'candidate': 1.6330044137107}
+PASS 4 contiguous False {'reference': 1.3680444161097207, 'candidate': 1.3030577368206449}
+PASS 4 contiguous True {'reference': 1.825079984135098, 'candidate': 1.667964392238193}
+PASS 4 interleaved False {'reference': 1.312746670511034, 'candidate': 1.2564888927671645}
+PASS 4 interleaved True {'reference': 1.8243333366182115, 'candidate': 1.7110266950395372}
+PASS 8 contiguous False {'reference': 1.3717600372102525, 'candidate': 1.3856044742796156}
+PASS 8 contiguous True {'reference': 1.8490311172273424, 'candidate': 1.7743821938832602}
+PASS 8 interleaved False {'reference': 1.3717510965135362, 'candidate': 1.3854977819654677}
+PASS 8 interleaved True {'reference': 1.854848861694336, 'candidate': 1.7823022603988647}
+PASS 16 contiguous False {'reference': 1.47161775165134, 'candidate': 1.5995956129497952}
+PASS 16 contiguous True {'reference': 1.9208133220672607, 'candidate': 1.830186645189921}
+PASS 16 interleaved False {'reference': 1.4859377675586276, 'candidate': 1.6490711106194391}
+PASS 16 interleaved True {'reference': 1.9292577770021226, 'candidate': 1.8302177720599704}
+PASS 32 contiguous False {'reference': 1.5998888678020902, 'candidate': 2.394408782323201}
+PASS 32 contiguous True {'reference': 2.0576000213623047, 'candidate': 2.3959955904218884}
+PASS 32 interleaved False {'reference': 1.5672666496700711, 'candidate': 2.4512799580891924}
+PASS 32 interleaved True {'reference': 2.001453306939867, 'candidate': 2.452711131837633}
+PASS 64 contiguous False {'reference': 1.9984133376015558, 'candidate': 3.761222097608778}
+PASS 64 contiguous True {'reference': 2.4404222435421414, 'candidate': 3.7750976615481906}
+PASS 64 interleaved False {'reference': 1.9968444771236844, 'candidate': 3.8738934199015302}
+PASS 64 interleaved True {'reference': 2.431031200620863, 'candidate': 3.877871036529541}
+Traceback (most recent call last):
+  File "/root/qvl/experiments/bf16-qk-norm-rotary/validate.py", line 57, in <module>
+    check('initial',write)
+  File "/root/qvl/experiments/bf16-qk-norm-rotary/validate.py", line 47, in check
+    (out/'failure.json').write_text(json.dumps(failure,indent=2));raise AssertionError(failure)
+                                                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: {'batch': 128, 'tag': 'initial', 'layer': 4, 'mapping': 'contiguous', 'write_cache': False, 'differing_elements': 64, 'max_abs': 1.71875}

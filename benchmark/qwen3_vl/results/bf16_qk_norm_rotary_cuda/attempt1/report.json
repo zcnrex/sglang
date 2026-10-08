@@ -1,0 +1,1574 @@
+{
+  "candidate_sha256": "0c5b210cce7024426e466109fa9830855b4b9c79ef8d1d943154e6d7bbbe37f9",
+  "device": "NVIDIA B300 SXM6 AC",
+  "rows": [
+    {
+      "batch": 1,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.2995733155144586,
+          "candidate": 1.6524622175428603
+        },
+        {
+          "candidate": 1.6522222095065646,
+          "reference": 1.2915021843380399
+        },
+        {
+          "reference": 1.2934754954444037,
+          "candidate": 1.652088827557034
+        },
+        {
+          "candidate": 1.6513421800401475,
+          "reference": 1.2952266799079046
+        },
+        {
+          "reference": 1.2920088238186307,
+          "candidate": 1.6518755753835042
+        },
+        {
+          "candidate": 1.6515821880764432,
+          "reference": 1.2949511739942763
+        },
+        {
+          "reference": 1.289422247144911,
+          "candidate": 1.6514133082495794
+        },
+        {
+          "candidate": 1.6517689492967393,
+          "reference": 1.2920710775587294
+        }
+      ],
+      "median_us": {
+        "reference": 1.2927732865015664,
+        "candidate": 1.6518222623401217
+      }
+    },
+    {
+      "batch": 1,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.7139466603597004,
+          "candidate": 2.107662227418688
+        },
+        {
+          "candidate": 2.1073955959743924,
+          "reference": 1.7089866267310247
+        },
+        {
+          "reference": 1.7087554931640625,
+          "candidate": 2.1072888374328613
+        },
+        {
+          "candidate": 2.107315593295627,
+          "reference": 1.7083999845716689
+        },
+        {
+          "reference": 1.7083377308315701,
+          "candidate": 2.107306718826294
+        },
+        {
+          "candidate": 2.107715606689453,
+          "reference": 1.7087733745574951
+        },
+        {
+          "reference": 1.7085956202612982,
+          "candidate": 2.107235590616862
+        },
+        {
+          "candidate": 2.1073688401116266,
+          "reference": 1.7215111520555284
+        }
+      ],
+      "median_us": {
+        "reference": 1.7087644338607788,
+        "candidate": 2.1073422167036266
+      }
+    },
+    {
+      "batch": 1,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.314986679289076,
+          "candidate": 1.6793066925472684
+        },
+        {
+          "candidate": 1.6807111104329426,
+          "reference": 1.3108355469173856
+        },
+        {
+          "reference": 1.3109066751268175,
+          "candidate": 1.6804888513353136
+        },
+        {
+          "candidate": 1.6844711038801405,
+          "reference": 1.3107021649678547
+        },
+        {
+          "reference": 1.3106932904985216,
+          "candidate": 1.6826311747233074
+        },
+        {
+          "candidate": 1.6819822788238525,
+          "reference": 1.3107644187079535
+        },
+        {
+          "reference": 1.3106666670905218,
+          "candidate": 1.6781689061058893
+        },
+        {
+          "candidate": 1.6822489102681477,
+          "reference": 1.310337781906128
+        }
+      ],
+      "median_us": {
+        "reference": 1.310733291837904,
+        "candidate": 1.6813466946283975
+      }
+    },
+    {
+      "batch": 1,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.7118844721052382,
+          "candidate": 2.1628355979919434
+        },
+        {
+          "candidate": 2.162026696734958,
+          "reference": 1.7078310913509793
+        },
+        {
+          "reference": 1.7076799604627821,
+          "candidate": 2.162275579240587
+        },
+        {
+          "candidate": 2.162346707450019,
+          "reference": 1.7075555854373508
+        },
+        {
+          "reference": 1.7077333397335477,
+          "candidate": 2.1627022160424128
+        },
+        {
+          "candidate": 2.162533336215549,
+          "reference": 1.707706716325548
+        },
+        {
+          "reference": 1.707306702931722,
+          "candidate": 2.1618933147854276
+        },
+        {
+          "candidate": 2.1622667047712536,
+          "reference": 1.7074399524264865
+        }
+      ],
+      "median_us": {
+        "reference": 1.707693338394165,
+        "candidate": 2.162311143345303
+      }
+    },
+    {
+      "batch": 2,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.338497797648112,
+          "candidate": 1.7085333665211995
+        },
+        {
+          "candidate": 1.7077688376108806,
+          "reference": 1.334728929731581
+        },
+        {
+          "reference": 1.3352266947428386,
+          "candidate": 1.7077599631415472
+        },
+        {
+          "candidate": 1.708222230275472,
+          "reference": 1.335573328865899
+        },
+        {
+          "reference": 1.3350133101145427,
+          "candidate": 1.7077333397335477
+        },
+        {
+          "candidate": 1.7077599631415472,
+          "reference": 1.335244443681505
+        },
+        {
+          "reference": 1.3332888815138075,
+          "candidate": 1.7076267136467829
+        },
+        {
+          "candidate": 1.7075378364986844,
+          "reference": 1.3355288240644667
+        }
+      ],
+      "median_us": {
+        "reference": 1.3352355692121718,
+        "candidate": 1.7077599631415472
+      }
+    },
+    {
+      "batch": 2,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.8263910876380072,
+          "candidate": 2.24796454111735
+        },
+        {
+          "candidate": 2.246382236480713,
+          "reference": 1.822097831302219
+        },
+        {
+          "reference": 1.8217866950564914,
+          "candidate": 2.2468445036146374
+        },
+        {
+          "candidate": 2.2484532992045083,
+          "reference": 1.8219821982913547
+        },
+        {
+          "reference": 1.822106705771552,
+          "candidate": 2.2473067707485623
+        },
+        {
+          "candidate": 2.2473510106404624,
+          "reference": 1.8225333425733778
+        },
+        {
+          "reference": 1.822355588277181,
+          "candidate": 2.2462222311231823
+        },
+        {
+          "candidate": 2.2461689843071833,
+          "reference": 1.8218578232659235
+        }
+      ],
+      "median_us": {
+        "reference": 1.8221022685368855,
+        "candidate": 2.2470756371815996
+      }
+    },
+    {
+      "batch": 2,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.3143911626603868,
+          "candidate": 1.7080710993872747
+        },
+        {
+          "candidate": 1.708106729719374,
+          "reference": 1.3107732931772869
+        },
+        {
+          "reference": 1.310124397277832,
+          "candidate": 1.7075378364986844
+        },
+        {
+          "candidate": 1.7075110806359186,
+          "reference": 1.3105421596103244
+        },
+        {
+          "reference": 1.310524410671658,
+          "candidate": 1.707493331697252
+        },
+        {
+          "candidate": 1.7075910833146837,
+          "reference": 1.3105332851409912
+        },
+        {
+          "reference": 1.310746669769287,
+          "candidate": 1.7076088322533503
+        },
+        {
+          "candidate": 1.7075822088453505,
+          "reference": 1.3101332717471652
+        }
+      ],
+      "median_us": {
+        "reference": 1.3105377223756578,
+        "candidate": 1.707586646080017
+      }
+    },
+    {
+      "batch": 2,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.8285155296325684,
+          "candidate": 2.246026727888319
+        },
+        {
+          "candidate": 2.2475732697380915,
+          "reference": 1.825066672431098
+        },
+        {
+          "reference": 1.8248000409868028,
+          "candidate": 2.24671999613444
+        },
+        {
+          "candidate": 2.2468090057373047,
+          "reference": 1.824444399939643
+        },
+        {
+          "reference": 1.8229333559672039,
+          "candidate": 2.24747551812066
+        },
+        {
+          "candidate": 2.248186535305447,
+          "reference": 1.823235617743598
+        },
+        {
+          "reference": 1.8240533934699164,
+          "candidate": 2.246159977383084
+        },
+        {
+          "candidate": 2.24580446879069,
+          "reference": 1.8244355254703097
+        }
+      ],
+      "median_us": {
+        "reference": 1.8244399627049763,
+        "candidate": 2.246764500935872
+      }
+    },
+    {
+      "batch": 4,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.3719288508097331,
+          "candidate": 1.76618668768141
+        },
+        {
+          "candidate": 1.765706671608819,
+          "reference": 1.3682133621639676
+        },
+        {
+          "reference": 1.3681688573625352,
+          "candidate": 1.7653155326843262
+        },
+        {
+          "candidate": 1.7653689119550917,
+          "reference": 1.3680711057451036
+        },
+        {
+          "reference": 1.3675288359324138,
+          "candidate": 1.7653777864244249
+        },
+        {
+          "candidate": 1.7653777864244249,
+          "reference": 1.367973354127672
+        },
+        {
+          "reference": 1.3679556051890056,
+          "candidate": 1.7652266555362277
+        },
+        {
+          "candidate": 1.7656089199913874,
+          "reference": 1.3678133487701416
+        }
+      ],
+      "median_us": {
+        "reference": 1.3680222299363878,
+        "candidate": 1.7653777864244249
+      }
+    },
+    {
+      "batch": 4,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.8291110462612576,
+          "candidate": 2.278275489807129
+        },
+        {
+          "candidate": 2.277128961351183,
+          "reference": 1.8239643838670518
+        },
+        {
+          "reference": 1.8246044052971735,
+          "candidate": 2.2787645128038196
+        },
+        {
+          "candidate": 2.27854225370619,
+          "reference": 1.825395557615492
+        },
+        {
+          "reference": 1.8247021569146051,
+          "candidate": 2.2774132092793784
+        },
+        {
+          "candidate": 2.2773689693874783,
+          "reference": 1.8252978059980605
+        },
+        {
+          "reference": 1.825280057059394,
+          "candidate": 2.2772799597846136
+        },
+        {
+          "candidate": 2.2769067022535534,
+          "reference": 1.825537814034356
+        }
+      ],
+      "median_us": {
+        "reference": 1.825288931528727,
+        "candidate": 2.2773910893334284
+      }
+    },
+    {
+      "batch": 4,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.3166133562723796,
+          "candidate": 1.7099732822842069
+        },
+        {
+          "candidate": 1.7119377189212375,
+          "reference": 1.3124977217780218
+        },
+        {
+          "reference": 1.312604480319553,
+          "candidate": 1.710462172826131
+        },
+        {
+          "candidate": 1.7103644212086995,
+          "reference": 1.312568849987454
+        },
+        {
+          "reference": 1.3130577405293782,
+          "candidate": 1.7105155520968967
+        },
+        {
+          "candidate": 1.709804402457343,
+          "reference": 1.312391095691257
+        },
+        {
+          "reference": 1.3126666016048856,
+          "candidate": 1.7101332876417372
+        },
+        {
+          "candidate": 1.7099289099375408,
+          "reference": 1.312791109085083
+        }
+      ],
+      "median_us": {
+        "reference": 1.3126355409622192,
+        "candidate": 1.7102488544252183
+      }
+    },
+    {
+      "batch": 4,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.828133397632175,
+          "candidate": 2.2457422150505915
+        },
+        {
+          "candidate": 2.2468090057373047,
+          "reference": 1.8237511316935222
+        },
+        {
+          "reference": 1.8236266242133246,
+          "candidate": 2.245751221974691
+        },
+        {
+          "candidate": 2.2455199559529624,
+          "reference": 1.823937760459052
+        },
+        {
+          "reference": 1.8235554960038927,
+          "candidate": 2.245173454284668
+        },
+        {
+          "candidate": 2.2460532188415527,
+          "reference": 1.823857757780287
+        },
+        {
+          "reference": 1.824373271730211,
+          "candidate": 2.244977686140272
+        },
+        {
+          "candidate": 2.2450844446818032,
+          "reference": 1.824115514755249
+        }
+      ],
+      "median_us": {
+        "reference": 1.8238977591196694,
+        "candidate": 2.2456310855017767
+      }
+    },
+    {
+      "batch": 8,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.3756799697875977,
+          "candidate": 1.7129511303371854
+        },
+        {
+          "candidate": 1.7148621877034504,
+          "reference": 1.3719644811418321
+        },
+        {
+          "reference": 1.3715910911560059,
+          "candidate": 1.7123644881778293
+        },
+        {
+          "candidate": 1.7125777403513591,
+          "reference": 1.3720799816979303
+        },
+        {
+          "reference": 1.3714488347371419,
+          "candidate": 1.7133155133989122
+        },
+        {
+          "candidate": 1.7136443985833063,
+          "reference": 1.3720533582899306
+        },
+        {
+          "reference": 1.3714933395385742,
+          "candidate": 1.7123111089070637
+        },
+        {
+          "candidate": 1.7126311196221247,
+          "reference": 1.3719111018710666
+        }
+      ],
+      "median_us": {
+        "reference": 1.3719377915064492,
+        "candidate": 1.712791124979655
+      }
+    },
+    {
+      "batch": 8,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.8689600626627605,
+          "candidate": 2.282595634460449
+        },
+        {
+          "candidate": 2.282222112019857,
+          "reference": 1.857244438595242
+        },
+        {
+          "reference": 1.8469866116841633,
+          "candidate": 2.282035615709093
+        },
+        {
+          "candidate": 2.2819466061062283,
+          "reference": 1.865617831548055
+        },
+        {
+          "reference": 1.8638400236765544,
+          "candidate": 2.2822133700052896
+        },
+        {
+          "candidate": 2.2819466061062283,
+          "reference": 1.865511073006524
+        },
+        {
+          "reference": 1.865439944797092,
+          "candidate": 2.28200011783176
+        },
+        {
+          "candidate": 2.281893359290229,
+          "reference": 1.8649421797858343
+        }
+      ],
+      "median_us": {
+        "reference": 1.8651910622914631,
+        "candidate": 2.2820178667704267
+      }
+    },
+    {
+      "batch": 8,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.375759972466363,
+          "candidate": 1.735324462254842
+        },
+        {
+          "candidate": 1.7368443806966145,
+          "reference": 1.3717510965135362
+        },
+        {
+          "reference": 1.3721156120300293,
+          "candidate": 1.7344621817270915
+        },
+        {
+          "candidate": 1.7368800110287137,
+          "reference": 1.3716533448961046
+        },
+        {
+          "reference": 1.3712088267008464,
+          "candidate": 1.7360088560316298
+        },
+        {
+          "candidate": 1.7371466424730089,
+          "reference": 1.3723466131422255
+        },
+        {
+          "reference": 1.3731643888685439,
+          "candidate": 1.7387733194563124
+        },
+        {
+          "candidate": 1.7350044515397813,
+          "reference": 1.3721511099073622
+        }
+      ],
+      "median_us": {
+        "reference": 1.3721333609686956,
+        "candidate": 1.7364266183641222
+      }
+    },
+    {
+      "batch": 8,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.8699999650319417,
+          "candidate": 2.2835999064975314
+        },
+        {
+          "candidate": 2.283031145731608,
+          "reference": 1.8608355522155762
+        },
+        {
+          "reference": 1.8609510527716742,
+          "candidate": 2.282977898915609
+        },
+        {
+          "candidate": 2.2825243737962513,
+          "reference": 1.8672800064086914
+        },
+        {
+          "reference": 1.8666222360399034,
+          "candidate": 2.2823201285468206
+        },
+        {
+          "candidate": 2.2828798823886447,
+          "reference": 1.8669154908921983
+        },
+        {
+          "reference": 1.8674666351742215,
+          "candidate": 2.2821688652038574
+        },
+        {
+          "candidate": 2.282711135016547,
+          "reference": 1.8684532907274034
+        }
+      ],
+      "median_us": {
+        "reference": 1.867097748650445,
+        "candidate": 2.2827955087025957
+      }
+    },
+    {
+      "batch": 16,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.46379550298055,
+          "candidate": 1.769768926832411
+        },
+        {
+          "candidate": 1.7697332965003119,
+          "reference": 1.4690400494469538
+        },
+        {
+          "reference": 1.4623555872175429,
+          "candidate": 1.768604384528266
+        },
+        {
+          "candidate": 1.768888897365994,
+          "reference": 1.4614578088124592
+        },
+        {
+          "reference": 1.4645689063602023,
+          "candidate": 1.7691644032796223
+        },
+        {
+          "candidate": 1.7691022819942899,
+          "reference": 1.4578755696614583
+        },
+        {
+          "reference": 1.4640622668796115,
+          "candidate": 1.7685777611202664
+        },
+        {
+          "candidate": 1.7692000336117215,
+          "reference": 1.4637777540418837
+        }
+      ],
+      "median_us": {
+        "reference": 1.4637866285112169,
+        "candidate": 1.7691333426369562
+      }
+    },
+    {
+      "batch": 16,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.9270133972167969,
+          "candidate": 3.512826760609945
+        },
+        {
+          "candidate": 2.3454133669535318,
+          "reference": 1.9194666544596355
+        },
+        {
+          "reference": 1.9188000096215143,
+          "candidate": 2.345422108968099
+        },
+        {
+          "candidate": 2.344328827328152,
+          "reference": 1.9269955158233643
+        },
+        {
+          "reference": 1.9253867202334933,
+          "candidate": 2.345271110534668
+        },
+        {
+          "candidate": 2.343848811255561,
+          "reference": 1.9230843914879694
+        },
+        {
+          "reference": 1.9246221913231745,
+          "candidate": 2.3454043600294323
+        },
+        {
+          "candidate": 2.3438933160569935,
+          "reference": 1.9215288427140977
+        }
+      ],
+      "median_us": {
+        "reference": 1.923853291405572,
+        "candidate": 2.34533773528205
+      }
+    },
+    {
+      "batch": 16,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.4891466829511855,
+          "candidate": 1.7711110909779866
+        },
+        {
+          "candidate": 1.7706667052374945,
+          "reference": 1.4857244491577148
+        },
+        {
+          "reference": 1.4856355720096164,
+          "candidate": 1.7706578307681613
+        },
+        {
+          "candidate": 1.770426697201199,
+          "reference": 1.4857689539591472
+        },
+        {
+          "reference": 1.4858667055765789,
+          "candidate": 1.7706578307681613
+        },
+        {
+          "candidate": 1.7708355850643582,
+          "reference": 1.4857421980963812
+        },
+        {
+          "reference": 1.4860799577501085,
+          "candidate": 1.7704889509412978
+        },
+        {
+          "candidate": 1.770542197757297,
+          "reference": 1.4858399497138128
+        }
+      ],
+      "median_us": {
+        "reference": 1.4858044518364801,
+        "candidate": 1.7706578307681613
+      }
+    },
+    {
+      "batch": 16,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.9461688730451796,
+          "candidate": 2.3435823122660318
+        },
+        {
+          "candidate": 2.342791027492947,
+          "reference": 1.9207021925184462
+        },
+        {
+          "reference": 1.9262577427758112,
+          "candidate": 2.343262301550971
+        },
+        {
+          "candidate": 2.3431645499335394,
+          "reference": 1.9421511226230197
+        },
+        {
+          "reference": 1.941208839416504,
+          "candidate": 2.3434578047858343
+        },
+        {
+          "candidate": 2.342169019911024,
+          "reference": 1.9408888287014432
+        },
+        {
+          "reference": 1.9422399997711182,
+          "candidate": 2.343128787146674
+        },
+        {
+          "candidate": 2.343262301550971,
+          "reference": 1.943546666039361
+        }
+      ],
+      "median_us": {
+        "reference": 1.9416799810197618,
+        "candidate": 2.343213425742255
+      }
+    },
+    {
+      "batch": 32,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.6033866670396593,
+          "candidate": 1.8832888868119981
+        },
+        {
+          "candidate": 1.8822488519880507,
+          "reference": 1.599253283606635
+        },
+        {
+          "reference": 1.5996710459391277,
+          "candidate": 1.8824977344936795
+        },
+        {
+          "candidate": 1.8827999962700739,
+          "reference": 1.5997510486178927
+        },
+        {
+          "reference": 1.5996355480617948,
+          "candidate": 1.8824711110856798
+        },
+        {
+          "candidate": 1.882293356789483,
+          "reference": 1.5997244252098932
+        },
+        {
+          "reference": 1.5996621714697943,
+          "candidate": 1.8833333916134305
+        },
+        {
+          "candidate": 1.8819467226664226,
+          "reference": 1.5995911757151287
+        }
+      ],
+      "median_us": {
+        "reference": 1.599666608704461,
+        "candidate": 1.8824844227896795
+      }
+    },
+    {
+      "batch": 32,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 2.061253388722738,
+          "candidate": 2.4592532051934137
+        },
+        {
+          "candidate": 2.458755440182156,
+          "reference": 2.0578132735358343
+        },
+        {
+          "reference": 2.05805328157213,
+          "candidate": 2.4581156836615667
+        },
+        {
+          "candidate": 2.458239926232232,
+          "reference": 2.057688898510403
+        },
+        {
+          "reference": 2.057733270857069,
+          "candidate": 2.4568711386786566
+        },
+        {
+          "candidate": 2.4573689036899142,
+          "reference": 2.057217756907145
+        },
+        {
+          "reference": 2.057502269744873,
+          "candidate": 2.457831170823839
+        },
+        {
+          "candidate": 2.457866668701172,
+          "reference": 2.057733270857069
+        }
+      ],
+      "median_us": {
+        "reference": 2.057733270857069,
+        "candidate": 2.4579911761813693
+      }
+    },
+    {
+      "batch": 32,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 1.6015466054280598,
+          "candidate": 1.8825333648257785
+        },
+        {
+          "candidate": 1.8820622232225206,
+          "reference": 1.5509243806203206
+        },
+        {
+          "reference": 1.5486310587988958,
+          "candidate": 1.8820355998145208
+        },
+        {
+          "candidate": 1.8815378348032634,
+          "reference": 1.5500444836086698
+        },
+        {
+          "reference": 1.5494844648573134,
+          "candidate": 1.8822133541107178
+        },
+        {
+          "candidate": 1.8820977210998535,
+          "reference": 1.5518311659495037
+        },
+        {
+          "reference": 1.5528799427880182,
+          "candidate": 1.881493330001831
+        },
+        {
+          "candidate": 1.881822215186225,
+          "reference": 1.5488444434271917
+        }
+      ],
+      "median_us": {
+        "reference": 1.5504844321144953,
+        "candidate": 1.8820489115185208
+      }
+    },
+    {
+      "batch": 32,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 2.00655115975274,
+          "candidate": 2.455528842078315
+        },
+        {
+          "candidate": 2.454897827572293,
+          "reference": 2.00199113951789
+        },
+        {
+          "reference": 2.0014666186438665,
+          "candidate": 2.4552265803019204
+        },
+        {
+          "candidate": 2.455902099609375,
+          "reference": 2.001697752210829
+        },
+        {
+          "reference": 2.001404497358534,
+          "candidate": 2.4551378356085882
+        },
+        {
+          "candidate": 2.454915576510959,
+          "reference": 2.001946634716458
+        },
+        {
+          "reference": 2.0026577843560114,
+          "candidate": 2.4551378356085882
+        },
+        {
+          "candidate": 2.456008858150906,
+          "reference": 2.0018666320376926
+        }
+      ],
+      "median_us": {
+        "reference": 2.001906633377075,
+        "candidate": 2.4551822079552545
+      }
+    },
+    {
+      "batch": 64,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 2.0014222462972007,
+          "candidate": 2.1671911080678306
+        },
+        {
+          "candidate": 2.1667644712660046,
+          "reference": 1.9968622260623508
+        },
+        {
+          "reference": 1.9968977239396837,
+          "candidate": 2.1669956048329673
+        },
+        {
+          "candidate": 2.1662578317854138,
+          "reference": 1.9970844851599798
+        },
+        {
+          "reference": 1.9969067308637831,
+          "candidate": 2.166906727684869
+        },
+        {
+          "candidate": 2.166915602154202,
+          "reference": 1.996942228741116
+        },
+        {
+          "reference": 1.9965688387552898,
+          "candidate": 2.1671644846598306
+        },
+        {
+          "candidate": 2.16687109735277,
+          "reference": 1.9967288441128201
+        }
+      ],
+      "median_us": {
+        "reference": 1.9969022274017334,
+        "candidate": 2.1669111649195356
+      }
+    },
+    {
+      "batch": 64,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 2.4439112345377603,
+          "candidate": 2.7105866538153753
+        },
+        {
+          "candidate": 2.711484432220459,
+          "reference": 2.437066766950819
+        },
+        {
+          "reference": 2.4296710226270886,
+          "candidate": 2.710542149013943
+        },
+        {
+          "candidate": 2.71433777279324,
+          "reference": 2.4370132552252874
+        },
+        {
+          "reference": 2.4416176478068032,
+          "candidate": 2.7098933855692544
+        },
+        {
+          "candidate": 2.711039914025201,
+          "reference": 2.4397423532274036
+        },
+        {
+          "reference": 2.437395519680447,
+          "candidate": 2.708293331993951
+        },
+        {
+          "candidate": 2.714595529768202,
+          "reference": 2.4432267083062067
+        }
+      ],
+      "median_us": {
+        "reference": 2.438568936453925,
+        "candidate": 2.710813283920288
+      }
+    },
+    {
+      "batch": 64,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 2.000053326288859,
+          "candidate": 2.1306933297051325
+        },
+        {
+          "candidate": 2.131564484702216,
+          "reference": 1.9964710871378581
+        },
+        {
+          "reference": 1.9968533515930176,
+          "candidate": 2.134515576892429
+        },
+        {
+          "candidate": 2.1342755688561335,
+          "reference": 1.997155613369412
+        },
+        {
+          "reference": 1.99635558658176,
+          "candidate": 2.1335911750793457
+        },
+        {
+          "candidate": 2.1344533231523304,
+          "reference": 1.9963288307189941
+        },
+        {
+          "reference": 1.9969244798024495,
+          "candidate": 2.133057779735989
+        },
+        {
+          "candidate": 2.133226659562853,
+          "reference": 1.996399958928426
+        }
+      ],
+      "median_us": {
+        "reference": 1.996662219365438,
+        "candidate": 2.1334089173210993
+      }
+    },
+    {
+      "batch": 64,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 2.4400801128811307,
+          "candidate": 2.705679999457465
+        },
+        {
+          "candidate": 2.70688878165351,
+          "reference": 2.4281867345174155
+        },
+        {
+          "reference": 2.430808809068468,
+          "candidate": 2.706106768714057
+        },
+        {
+          "candidate": 2.7088710996839733,
+          "reference": 2.4375467830234103
+        },
+        {
+          "reference": 2.436284489101834,
+          "candidate": 2.7072710461086698
+        },
+        {
+          "candidate": 2.7071200476752386,
+          "reference": 2.4346311887105307
+        },
+        {
+          "reference": 2.434204419453939,
+          "candidate": 2.7079643143547907
+        },
+        {
+          "candidate": 2.704719967312283,
+          "reference": 2.4363377359178333
+        }
+      ],
+      "median_us": {
+        "reference": 2.4354578389061823,
+        "candidate": 2.7070044146643744
+      }
+    },
+    {
+      "batch": 128,
+      "mapping": "contiguous",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 3.235173225402832,
+          "candidate": 3.1018132633633084
+        },
+        {
+          "candidate": 3.0986844168768988,
+          "reference": 3.199084334903293
+        },
+        {
+          "reference": 3.221022288004557,
+          "candidate": 3.0886843469407825
+        },
+        {
+          "candidate": 3.09716436598036,
+          "reference": 3.221040036943224
+        },
+        {
+          "reference": 3.214577833811442,
+          "candidate": 3.0977688895331488
+        },
+        {
+          "candidate": 3.0965156025356717,
+          "reference": 3.2122490141126843
+        },
+        {
+          "reference": 3.210817707909478,
+          "candidate": 3.1012709935506186
+        },
+        {
+          "candidate": 3.096240096622043,
+          "reference": 3.2145865758260093
+        }
+      ],
+      "median_us": {
+        "reference": 3.2145822048187256,
+        "candidate": 3.0974666277567544
+      }
+    },
+    {
+      "batch": 128,
+      "mapping": "contiguous",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 3.4230489201015897,
+          "candidate": 3.7458756234910755
+        },
+        {
+          "candidate": 3.7531556023491754,
+          "reference": 3.416186703575982
+        },
+        {
+          "reference": 3.416995472378201,
+          "candidate": 3.745057847764757
+        },
+        {
+          "candidate": 3.7464798821343317,
+          "reference": 3.4185777770148382
+        },
+        {
+          "reference": 3.416666719648573,
+          "candidate": 3.749849001566569
+        },
+        {
+          "candidate": 3.752231068081326,
+          "reference": 3.418968783484565
+        },
+        {
+          "reference": 3.4185510211520724,
+          "candidate": 3.7475556797451444
+        },
+        {
+          "candidate": 3.7524265713161893,
+          "reference": 3.421777884165446
+        }
+      ],
+      "median_us": {
+        "reference": 3.418564399083455,
+        "candidate": 3.7487023406558566
+      }
+    },
+    {
+      "batch": 128,
+      "mapping": "interleaved",
+      "write_cache": false,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 3.2511644893222384,
+          "candidate": 3.134097788068983
+        },
+        {
+          "candidate": 3.134186797671848,
+          "reference": 3.2464533381991916
+        },
+        {
+          "reference": 3.2464088333977594,
+          "candidate": 3.1339732805887857
+        },
+        {
+          "candidate": 3.134160041809082,
+          "reference": 3.245955573187934
+        },
+        {
+          "reference": 3.2457865609063044,
+          "candidate": 3.1342132886250815
+        },
+        {
+          "candidate": 3.134168783823649,
+          "reference": 3.2463378376430936
+        },
+        {
+          "reference": 3.246213330162896,
+          "candidate": 3.133688767751058
+        },
+        {
+          "candidate": 3.1341955396864147,
+          "reference": 3.2463378376430936
+        }
+      ],
+      "median_us": {
+        "reference": 3.2463378376430936,
+        "candidate": 3.1341644128163653
+      }
+    },
+    {
+      "batch": 128,
+      "mapping": "interleaved",
+      "write_cache": true,
+      "positions_stride": [
+        128,
+        1
+      ],
+      "bitwise": true,
+      "changed_graph_bitwise": true,
+      "rounds_us": [
+        {
+          "reference": 3.4346755345662436,
+          "candidate": 3.755271169874403
+        },
+        {
+          "candidate": 3.7545156478881836,
+          "reference": 3.427813318040636
+        },
+        {
+          "reference": 3.4278045760260687,
+          "candidate": 3.7521333164638944
+        },
+        {
+          "candidate": 3.7455911106533475,
+          "reference": 3.427866564856635
+        },
+        {
+          "reference": 3.4280978308783636,
+          "candidate": 3.7510755327012806
+        },
+        {
+          "candidate": 3.749306731753879,
+          "reference": 3.4345955318874783
+        },
+        {
+          "reference": 3.4338400099012585,
+          "candidate": 3.747608926561144
+        },
+        {
+          "candidate": 3.75528891881307,
+          "reference": 3.4312444263034396
+        }
+      ],
+      "median_us": {
+        "reference": 3.4296711285909014,
+        "candidate": 3.7516044245825872
+      }
+    }
+  ]
+}
