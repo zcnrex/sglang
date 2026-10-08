@@ -1,0 +1,37 @@
+[2026-10-08 03:40:34 TP0] Init parallel begin.
+[2026-10-08 03:40:34 TP0] Init parallel ends. elapsed=0.26 s
+[2026-10-08 03:40:34 TP0] Memory baseline taken. mem usage=0.00 GB
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1643: FutureWarning: `torch.jit.interface` is deprecated. Please use `torch.compile` instead.
+  warnings.warn(
+/root/qvl/venv-sgl/lib/python3.12/site-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
+  warnings.warn(
+[2026-10-08 03:40:35 TP0] Load weight begin. avail mem=266.92 GB
+[2026-10-08 03:40:35 TP0] Multimodal attention backend not set. Use fa4.
+[2026-10-08 03:40:35 TP0] Using fa4 as multimodal attention backend.
+Multi-thread loading shards:   0% Completed | 0/2 [00:00<?, ?it/s]Multi-thread loading shards:  50% Completed | 1/2 [00:01<00:01,  1.10s/it]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.19it/s]Multi-thread loading shards: 100% Completed | 2/2 [00:01<00:00,  1.13it/s]
+[2026-10-08 03:40:37 TP0] Load weight end. elapsed=2.22 s, type=Qwen3VLForConditionalGeneration, avail mem=258.39 GB, mem usage=8.53 GB.
+[2026-10-08 03:40:37 TP0] Reserving 0.10 GB of the KV budget for post-sizing multimodal allocations (feature-transport pools + embedding cache).
+[2026-10-08 03:40:38 TP0] KV Cache is allocated. dtype: torch.bfloat16, #tokens: 1613440, K size: 110.79 GB, V size: 110.79 GB
+[2026-10-08 03:40:38 TP0] Memory pool end. avail mem=33.65 GB
+[2026-10-08 03:40:38 TP0] Running FlashInfer autotune with cache: /root/qvl/experiments/lmhead-highm-model/m32/sglang-cache/flashinfer/autotune/0.7.0.post1/sm103/e601f2ea17165ebf/rank_tp0_pp0_dp0.json
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.17profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  3.16profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 14.97profile/s]
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 25.10profile/s]
+[2026-10-08 03:40:40 TP0] FlashInfer autotune completed.
+[2026-10-08 03:40:40 TP0] Disable prefill CUDA graph because cuda_graph_config resolved prefill.backend='disabled' (e.g. via --cuda-graph-backend-prefill=disabled or auto-disable rules).
+[2026-10-08 03:40:40 TP0] Capture target decode CUDA graph begin. backend=full, num_tokens_per_req=1, bs=[1, 2, 4, 8, 12, 16, 24, 32], avail mem=32.28 GB
+  0%|          | 0/8 [00:00<?, ?it/s]Capturing batches (bs=32 avail_mem=32.26 GB):   0%|          | 0/8 [00:00<?, ?it/s]Capturing batches (bs=32 avail_mem=32.26 GB):  12%|█▎        | 1/8 [00:00<00:01,  3.53it/s]Capturing batches (bs=24 avail_mem=32.21 GB):  12%|█▎        | 1/8 [00:00<00:01,  3.53it/s]Capturing batches (bs=16 avail_mem=32.20 GB):  12%|█▎        | 1/8 [00:00<00:01,  3.53it/s]Capturing batches (bs=16 avail_mem=32.20 GB):  38%|███▊      | 3/8 [00:00<00:00,  5.14it/s]Capturing batches (bs=12 avail_mem=32.20 GB):  38%|███▊      | 3/8 [00:00<00:00,  5.14it/s]Capturing batches (bs=8 avail_mem=32.20 GB):  38%|███▊      | 3/8 [00:00<00:00,  5.14it/s] Capturing batches (bs=8 avail_mem=32.20 GB):  62%|██████▎   | 5/8 [00:01<00:00,  4.52it/s]Capturing batches (bs=4 avail_mem=32.20 GB):  62%|██████▎   | 5/8 [00:01<00:00,  4.52it/s]Capturing batches (bs=2 avail_mem=32.20 GB):  62%|██████▎   | 5/8 [00:01<00:00,  4.52it/s]Capturing batches (bs=2 avail_mem=32.20 GB):  88%|████████▊ | 7/8 [00:01<00:00,  6.38it/s]Capturing batches (bs=1 avail_mem=32.20 GB):  88%|████████▊ | 7/8 [00:01<00:00,  6.38it/s]Capturing batches (bs=1 avail_mem=32.20 GB): 100%|██████████| 8/8 [00:01<00:00,  5.99it/s]Capturing batches (bs=1 avail_mem=32.20 GB): 100%|██████████| 8/8 [00:01<00:00,  5.55it/s]
+[2026-10-08 03:40:42 TP0] Capture target decode CUDA graph end. elapsed=1.99 s, mem usage=0.08 GB, avail mem=32.20 GB.
+max_total_num_tokens=1613440
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00, 27.73profile/s]
+  0%|          | 0/8 [00:00<?, ?it/s]Capturing batches (bs=32 avail_mem=24.93 GB):   0%|          | 0/8 [00:00<?, ?it/s]Capturing batches (bs=24 avail_mem=32.20 GB):   0%|          | 0/8 [00:00<?, ?it/s]Capturing batches (bs=24 avail_mem=32.20 GB):  25%|██▌       | 2/8 [00:00<00:00, 17.26it/s]Capturing batches (bs=16 avail_mem=32.19 GB):  25%|██▌       | 2/8 [00:00<00:00, 17.26it/s]Capturing batches (bs=12 avail_mem=32.19 GB):  25%|██▌       | 2/8 [00:00<00:00, 17.26it/s]Capturing batches (bs=12 avail_mem=32.19 GB):  50%|█████     | 4/8 [00:00<00:00, 18.49it/s]Capturing batches (bs=8 avail_mem=32.19 GB):  50%|█████     | 4/8 [00:00<00:00, 18.49it/s] Capturing batches (bs=4 avail_mem=32.19 GB):  50%|█████     | 4/8 [00:00<00:00, 18.49it/s]Capturing batches (bs=4 avail_mem=32.19 GB):  75%|███████▌  | 6/8 [00:00<00:00, 16.82it/s]Capturing batches (bs=2 avail_mem=32.19 GB):  75%|███████▌  | 6/8 [00:00<00:00, 16.82it/s]Capturing batches (bs=1 avail_mem=32.19 GB):  75%|███████▌  | 6/8 [00:00<00:00, 16.82it/s]Capturing batches (bs=1 avail_mem=32.19 GB): 100%|██████████| 8/8 [00:00<00:00, 16.30it/s]Capturing batches (bs=1 avail_mem=32.19 GB): 100%|██████████| 8/8 [00:00<00:00, 16.70it/s]
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:46] profiler_stop
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:39] profiler_start
+USDT:2026-10-08 03:40:52 494891:494891 SyncActivityProfilerHandler.cpp:46] profiler_stop

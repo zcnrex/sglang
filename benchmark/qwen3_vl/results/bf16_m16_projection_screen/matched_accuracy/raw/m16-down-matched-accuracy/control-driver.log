@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/qvl-m16-matched-gsm.py", line 13, in <module>
+    if server.poll() is not None:raise RuntimeError('Server exited')
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: Server exited

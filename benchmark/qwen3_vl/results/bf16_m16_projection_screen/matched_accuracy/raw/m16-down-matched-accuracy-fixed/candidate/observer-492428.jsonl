@@ -1,0 +1,10 @@
+{"kind": "ready", "epoch": 0, "time_ns": 1791430712742302929}
+{"kind": "down_dispatch", "epoch": 0, "time_ns": 1791430721221161148, "capturing": false}
+{"kind": "down_dispatch", "epoch": 0, "time_ns": 1791430721295320568, "capturing": true}
+{"kind": "matched_policy_restored", "epoch": 0, "time_ns": 1791430723111985126, "validated_shapes": [[4, 2560, 151936], [128, 2560, 19456], [128, 9728, 2560]]}
+{"kind": "decode16_forward", "epoch": 0, "time_ns": 1791430732302007785}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430736680219067, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430745657060109, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430771549535118, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430798522546282, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430799488198001, "mode": "MIXED", "batch_size": 15}

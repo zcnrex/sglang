@@ -1,0 +1,153 @@
+{
+  "counts": {
+    "capture": 1,
+    "eager": 4
+  },
+  "report": {
+    "m": 32,
+    "source": "current frozen /root/qvl/sglang-lmhead-production",
+    "pairs": [],
+    "capture_dispatches": {
+      "capture": 1,
+      "eager": 2
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": true,
+    "greedy_differences": 0,
+    "logit_checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    ],
+    "gpu_event_diagnostic": {
+      "synthetic_pairs": [
+        {
+          "baseline": 2.461190938949585,
+          "candidate": 2.4507954120635986
+        },
+        {
+          "candidate": 2.4507970809936523,
+          "baseline": 2.4611406326293945
+        },
+        {
+          "baseline": 2.4613850116729736,
+          "candidate": 2.45076322555542
+        },
+        {
+          "candidate": 2.450900077819824,
+          "baseline": 2.4612314701080322
+        },
+        {
+          "baseline": 2.4612410068511963,
+          "candidate": 2.4503915309906006
+        },
+        {
+          "candidate": 2.450910806655884,
+          "baseline": 2.4609293937683105
+        }
+      ],
+      "actual_steps": {
+        "baseline": [
+          2.519711971282959,
+          3.028480052947998,
+          2.979072093963623,
+          2.978976011276245,
+          2.963360071182251,
+          2.9569919109344482,
+          2.9532480239868164,
+          2.9930880069732666,
+          3.022047996520996,
+          3.0691840648651123,
+          3.0244479179382324,
+          3.0299839973449707,
+          3.018048048019409,
+          3.0154240131378174,
+          3.032576084136963
+        ],
+        "candidate": [
+          2.5178239345550537,
+          3.034816026687622,
+          2.9879679679870605,
+          2.9621119499206543,
+          2.953183889389038,
+          2.945280075073242,
+          2.937407970428467,
+          2.969343900680542,
+          3.013472080230713,
+          2.9925119876861572,
+          2.946784019470215,
+          2.9329280853271484,
+          2.998080015182495,
+          3.0018560886383057,
+          3.0105600357055664
+        ]
+      },
+      "shared_buffer_snapshots": [
+        "input_ids",
+        "input_embeds",
+        "req_pool_indices",
+        "seq_lens",
+        "seq_lens_cpu",
+        "out_cache_loc",
+        "positions",
+        "mrope_positions",
+        "custom_mask",
+        "next_token_logits_buffer",
+        "global_num_tokens_gpu",
+        "global_num_tokens_for_logprob_gpu"
+      ],
+      "unchanged_input_buffers": {
+        "input_ids": true,
+        "input_embeds": true,
+        "req_pool_indices": true,
+        "seq_lens": true,
+        "seq_lens_cpu": true,
+        "out_cache_loc": true,
+        "positions": true,
+        "mrope_positions": true,
+        "custom_mask": true,
+        "next_token_logits_buffer": true,
+        "global_num_tokens_gpu": true,
+        "global_num_tokens_for_logprob_gpu": true
+      },
+      "clock_snapshot": "0, 120 MHz, 3996 MHz, 188.35 W, 39\n1, 120 MHz, 3996 MHz, 190.17 W, 40\n2, 120 MHz, 3996 MHz, 184.62 W, 33\n3, 120 MHz, 3996 MHz, 184.10 W, 33\n4, 2032 MHz, 3996 MHz, 702.86 W, 47\n5, 2032 MHz, 3996 MHz, 254.86 W, 39\n6, 2032 MHz, 3996 MHz, 286.88 W, 35\n7, 120 MHz, 3996 MHz, 186.32 W, 32\n"
+    },
+    "changed_model_input": {
+      "greedy_equal": true,
+      "logits_equal": true
+    }
+  }
+}

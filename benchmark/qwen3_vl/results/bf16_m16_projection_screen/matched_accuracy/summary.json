@@ -1,0 +1,322 @@
+{
+  "control_correct": 1221,
+  "candidate_correct": 1220,
+  "total": 1314,
+  "control_only": [
+    241,
+    323,
+    326,
+    439,
+    529,
+    530,
+    675,
+    858,
+    1147,
+    1158,
+    1183,
+    1199
+  ],
+  "candidate_only": [
+    87,
+    143,
+    153,
+    724,
+    806,
+    894,
+    953,
+    989,
+    1084,
+    1105,
+    1146
+  ],
+  "provenance": {
+    "control": {
+      "events": [
+        {
+          "kind": "matched_policy_restored",
+          "epoch": 0,
+          "time_ns": 1791430722758515423,
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        },
+        {
+          "kind": "decode16_forward",
+          "epoch": 0,
+          "time_ns": 1791430736667358435
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430742021220733,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430786366979162,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430803320948776,
+          "mode": "MIXED",
+          "batch_size": 15
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430806041622149,
+          "mode": "MIXED",
+          "batch_size": 16
+        }
+      ],
+      "public_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "policy_validation": [
+        {
+          "shape": [
+            128,
+            2560,
+            19456
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            128,
+            9728,
+            2560
+          ],
+          "selected": 4,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            4,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        }
+      ]
+    },
+    "candidate": {
+      "events": [
+        {
+          "kind": "ready",
+          "epoch": 0,
+          "time_ns": 1791430712742302929
+        },
+        {
+          "kind": "down_dispatch",
+          "epoch": 0,
+          "time_ns": 1791430721221161148,
+          "capturing": false
+        },
+        {
+          "kind": "down_dispatch",
+          "epoch": 0,
+          "time_ns": 1791430721295320568,
+          "capturing": true
+        },
+        {
+          "kind": "matched_policy_restored",
+          "epoch": 0,
+          "time_ns": 1791430723111985126,
+          "validated_shapes": [
+            [
+              4,
+              2560,
+              151936
+            ],
+            [
+              128,
+              2560,
+              19456
+            ],
+            [
+              128,
+              9728,
+              2560
+            ]
+          ]
+        },
+        {
+          "kind": "decode16_forward",
+          "epoch": 0,
+          "time_ns": 1791430732302007785
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430736680219067,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430745657060109,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430771549535118,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430798522546282,
+          "mode": "MIXED",
+          "batch_size": 16
+        },
+        {
+          "kind": "runtime_M128",
+          "epoch": 0,
+          "time_ns": 1791430799488198001,
+          "mode": "MIXED",
+          "batch_size": 15
+        }
+      ],
+      "public_tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "policy_validation": [
+        {
+          "shape": [
+            128,
+            2560,
+            19456
+          ],
+          "selected": 1,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            128,
+            9728,
+            2560
+          ],
+          "selected": 4,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        },
+        {
+          "shape": [
+            4,
+            2560,
+            151936
+          ],
+          "selected": 2,
+          "valid_tactics": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7
+          ],
+          "cache_hit": true
+        }
+      ]
+    }
+  }
+}

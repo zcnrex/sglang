@@ -1,0 +1,177 @@
+{
+  "counts": {
+    "capture": 1,
+    "eager": 4
+  },
+  "report": {
+    "m": 128,
+    "source": "current frozen /root/qvl/sglang-lmhead-production",
+    "pairs": [],
+    "capture_dispatches": {
+      "capture": 1,
+      "eager": 2
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=128, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=120, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=112, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=104, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=96, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=88, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=80, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=72, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=64, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=56, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=48, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=40, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=32, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=24, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": true,
+    "greedy_differences": 0,
+    "logit_checks": [
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      },
+      {
+        "bitwise": true,
+        "max_abs": 0.0,
+        "nrms": 0.0
+      }
+    ],
+    "gpu_event_diagnostic": {
+      "synthetic_pairs": [
+        {
+          "baseline": 3.2912278175354004,
+          "candidate": 3.283902406692505
+        },
+        {
+          "candidate": 3.2844598293304443,
+          "baseline": 3.2916488647460938
+        },
+        {
+          "baseline": 3.2916033267974854,
+          "candidate": 3.283724069595337
+        },
+        {
+          "candidate": 3.2839012145996094,
+          "baseline": 3.2916460037231445
+        },
+        {
+          "baseline": 3.306033134460449,
+          "candidate": 3.2835147380828857
+        },
+        {
+          "candidate": 3.2839956283569336,
+          "baseline": 3.291750431060791
+        }
+      ],
+      "actual_steps": {
+        "baseline": [
+          4.280320167541504,
+          4.862207889556885,
+          4.632383823394775,
+          4.631840229034424,
+          4.634528160095215,
+          4.713088035583496,
+          4.701663970947266,
+          4.668799877166748,
+          4.433504104614258,
+          4.1517438888549805,
+          4.158495903015137,
+          4.085504055023193,
+          4.091072082519531,
+          4.071616172790527,
+          4.034463882446289
+        ],
+        "candidate": [
+          4.249375820159912,
+          4.792672157287598,
+          4.744639873504639,
+          4.742879867553711,
+          4.778463840484619,
+          4.78326416015625,
+          4.758848190307617,
+          4.278528213500977,
+          4.237887859344482,
+          4.040224075317383,
+          3.997472047805786,
+          4.040832042694092,
+          4.060768127441406,
+          4.048895835876465,
+          4.036287784576416
+        ]
+      },
+      "shared_buffer_snapshots": [
+        "input_ids",
+        "input_embeds",
+        "req_pool_indices",
+        "seq_lens",
+        "seq_lens_cpu",
+        "out_cache_loc",
+        "positions",
+        "mrope_positions",
+        "custom_mask",
+        "next_token_logits_buffer",
+        "global_num_tokens_gpu",
+        "global_num_tokens_for_logprob_gpu"
+      ],
+      "unchanged_input_buffers": {
+        "input_ids": true,
+        "input_embeds": true,
+        "req_pool_indices": true,
+        "seq_lens": true,
+        "seq_lens_cpu": true,
+        "out_cache_loc": true,
+        "positions": true,
+        "mrope_positions": true,
+        "custom_mask": true,
+        "next_token_logits_buffer": true,
+        "global_num_tokens_gpu": true,
+        "global_num_tokens_for_logprob_gpu": true
+      },
+      "clock_snapshot": "0, 120 MHz, 3996 MHz, 186.45 W, 38\n1, 120 MHz, 3996 MHz, 188.23 W, 40\n2, 120 MHz, 3996 MHz, 186.05 W, 34\n3, 120 MHz, 3996 MHz, 184.28 W, 34\n4, 120 MHz, 3996 MHz, 186.34 W, 40\n5, 2032 MHz, 3996 MHz, 246.94 W, 43\n6, 2032 MHz, 3996 MHz, 892.47 W, 53\n7, 120 MHz, 3996 MHz, 185.28 W, 33\n"
+    },
+    "changed_model_input": {
+      "greedy_equal": true,
+      "logits_equal": true
+    }
+  }
+}

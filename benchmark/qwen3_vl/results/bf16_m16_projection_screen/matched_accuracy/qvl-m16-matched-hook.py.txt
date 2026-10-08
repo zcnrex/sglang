@@ -1,0 +1,79 @@
+import os
+if os.environ.get('QVL_DOWN_OUT'):
+ import json,pathlib
+ from flashinfer.autotuner import AutoTuner
+ expected={(128,2560,19456):1,(128,9728,2560):4,(4,2560,151936):2}
+ original_search=AutoTuner.search_cache
+ validated=set()
+ def pinned_search(self,custom_op,runners,input_shapes,*args,**kwargs):
+  key=(input_shapes[0][0],input_shapes[0][1],input_shapes[1][1]) if len(input_shapes)>1 and len(input_shapes[0])==2 and len(input_shapes[1])==2 else None
+  if custom_op=='bf16_gemm' and key in expected and self.is_tuning_mode:
+   inputs=kwargs.get('inputs');assert inputs is not None,'No input contract for tactic validation'
+   assert len(runners)==1 and type(runners[0]).__name__=='CublasltBf16GemmRunner'
+   valid=runners[0].get_valid_tactics(inputs,None);assert expected[key] in valid,(key,valid)
+   with self._lock:
+    previous=self.is_tuning_mode
+    try:
+     self.is_tuning_mode=False
+     result=original_search(self,custom_op,runners,input_shapes,*args,**kwargs)
+    finally:self.is_tuning_mode=previous
+   assert result[0] and result[1]==0 and result[2]==expected[key],(key,result)
+   if key not in validated:
+    validated.add(key)
+    with (pathlib.Path(os.environ['QVL_DOWN_OUT'])/'matched-policy.jsonl').open('a') as f:f.write(json.dumps({'shape':key,'selected':result[2],'valid_tactics':valid,'cache_hit':result[0]})+'\n')
+   return result
+  return original_search(self,custom_op,runners,input_shapes,*args,**kwargs)
+ AutoTuner.search_cache=pinned_search
+
+import os
+if os.environ.get('QVL_DOWN_OUT'):
+ import json,pathlib,time,torch
+ import sglang.srt.layers.quantization.unquant as uq
+ from sglang.srt.model_executor.model_runner import ModelRunner
+ from sglang.srt.managers.scheduler import Scheduler
+ from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import SplitKTactic,run_splitk_dense
+ out=pathlib.Path(os.environ['QVL_DOWN_OUT']);enabled=os.environ.get('QVL_DOWN_ENABLE')=='1';ready=False;seen=set();epoch=0
+ def emit(kind,**kw):
+  with (out/('observer-%s.jsonl'%os.getpid())).open('a') as f:f.write(json.dumps({'kind':kind,'epoch':epoch,'time_ns':time.time_ns(),**kw})+'\n')
+ original_init=ModelRunner.init_cuda_graphs
+ def initialize(self,*a,**kw):
+  global ready
+  if enabled:
+   w=next(w for n,w in self.model.named_parameters() if n.endswith('mlp.down_proj.weight') and w.shape==(2560,9728))
+   x=torch.zeros(16,9728,device=w.device,dtype=w.dtype);y=torch.empty(16,2560,device=w.device,dtype=w.dtype)
+   run_splitk_dense(x,w.T,None,y,True,SplitKTactic(128,16,4,5));ready=True;emit('ready')
+  result=original_init(self,*a,**kw)
+  if enabled:assert True in seen,'Candidate never captured'
+  return result
+ ModelRunner.init_cuda_graphs=initialize
+ original=uq._bf16_gemm_dispatch_impl
+ def dispatch(x,w,bias,addend=None):
+  if ready and x.numel()==16*9728 and x.shape[-1]==9728 and w.shape==(2560,9728) and x.dtype==w.dtype==torch.bfloat16 and x.is_contiguous() and w.is_contiguous() and bias is None and addend is None:
+   y=torch.empty(16,2560,device=x.device,dtype=x.dtype);run_splitk_dense(x.view(16,9728),w.T,None,y,True,SplitKTactic(128,16,4,5));capturing=torch.cuda.is_current_stream_capturing()
+   if capturing not in seen:seen.add(capturing);emit('down_dispatch',capturing=capturing)
+   return y.view(*x.shape[:-1],2560)
+  return original(x,w,bias,addend)
+ uq._bf16_gemm_dispatch_impl=dispatch
+ oldflush=Scheduler.flush_cache
+ def flush(self,*a,**kw):
+  global epoch
+  result=oldflush(self,*a,**kw);epoch+=1;emit('flush',result=str(result));return result
+ Scheduler.flush_cache=flush
+ oldforward=ModelRunner.forward;replayseen=set()
+ def forward(self,batch,*a,**kw):
+  rows=batch.input_ids.numel();mode=batch.forward_mode.name
+  if rows==128:emit('runtime_M128',mode=mode,batch_size=batch.batch_size)
+  result=oldforward(self,batch,*a,**kw)
+  if batch.forward_mode.is_decode() and batch.batch_size==16 and epoch not in replayseen:replayseen.add(epoch);emit('decode16_forward')
+  return result
+ ModelRunner.forward=forward
+
+if os.environ.get('QVL_DOWN_OUT'):
+ prior_initialize=ModelRunner.init_cuda_graphs
+ def verified_initialize(self,*a,**kw):
+  assert len(validated)==3,('Missing matched startup shapes',validated)
+  result=prior_initialize(self,*a,**kw)
+  AutoTuner.search_cache=original_search
+  emit('matched_policy_restored',validated_shapes=sorted(validated))
+  return result
+ ModelRunner.init_cuda_graphs=verified_initialize

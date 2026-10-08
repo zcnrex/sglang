@@ -1,0 +1,6 @@
+{"kind": "matched_policy_restored", "epoch": 0, "time_ns": 1791430722758515423, "validated_shapes": [[4, 2560, 151936], [128, 2560, 19456], [128, 9728, 2560]]}
+{"kind": "decode16_forward", "epoch": 0, "time_ns": 1791430736667358435}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430742021220733, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430786366979162, "mode": "MIXED", "batch_size": 16}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430803320948776, "mode": "MIXED", "batch_size": 15}
+{"kind": "runtime_M128", "epoch": 0, "time_ns": 1791430806041622149, "mode": "MIXED", "batch_size": 16}
