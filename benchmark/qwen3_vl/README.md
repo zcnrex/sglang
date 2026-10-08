@@ -51,6 +51,16 @@ model measurements do not establish an additional gain from the faster host
 wrapper. Raw evidence is in `results/bf16_native_epilogue/subtile/`,
 `subtile_model/`, `ffi_wrapper/` and `ffi_model/` under that same directory.
 
+A subsequent single-compiled dynamic-row version passed standalone checks
+and the short model numerical gate. Its matched-tactic c128/N128 serving
+screen then measured throughput changes of −0.032% and −0.013% in two
+GPU-swapped pairs, with median TTFT changes of +0.203% and +0.109%.
+All request/token counts matched, both variants used the same 1.4M-token
+KV capacity, and more than 99.6% of measured prefill token rows were
+eligible for fusion. This bounded screen establishes no serving gain;
+the experimental kernel is not being promoted. See `dynamic_m/`,
+`dynamic_model/` and `dynamic_serving/` under `results/bf16_native_epilogue/`.
+
 ## Configuration and reproducibility
 
 ```bash

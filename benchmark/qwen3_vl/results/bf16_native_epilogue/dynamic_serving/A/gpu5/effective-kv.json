@@ -1,0 +1,18 @@
+{
+  "tokens": 1400000,
+  "memory_usage": {
+    "weight": 8.525,
+    "kvcache": 192.265,
+    "startup_available": 57.558,
+    "token_capacity": 1400000,
+    "token_capacity_swa": null,
+    "graph": {
+      "prefill": 0.0,
+      "decode": 0.51,
+      "target_verify": 0.0,
+      "draft_prefill": 0.0,
+      "draft_decode": 0.0,
+      "draft_extend": 0.0
+    }
+  }
+}
