@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "content_equal": true,
+      "logprobs_equal": false,
+      "control_tokens": 32,
+      "candidate_tokens": 32
+    },
+    {
+      "content_equal": true,
+      "logprobs_equal": false,
+      "control_tokens": 32,
+      "candidate_tokens": 32
+    },
+    {
+      "content_equal": true,
+      "logprobs_equal": false,
+      "control_tokens": 32,
+      "candidate_tokens": 32
+    },
+    {
+      "content_equal": true,
+      "logprobs_equal": false,
+      "control_tokens": 32,
+      "candidate_tokens": 32
+    }
+  ],
+  "graph4_replay": true
+}

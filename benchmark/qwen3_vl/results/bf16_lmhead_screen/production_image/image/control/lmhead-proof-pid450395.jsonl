@@ -1,0 +1,3 @@
+{"kind": "model_identity", "model_type": "Qwen3VLForConditionalGeneration", "model_module": "sglang.srt.models.qwen3_vl", "tied_embedding": true, "quant_method": "UnquantizedEmbeddingMethod", "weight_shape": [151936, 2560], "dtype": "torch.bfloat16", "requires_grad": false}
+{"kind": "startup", "ready": [[0, 2560, 9728], [0, 19456, 2560]], "lmhead_enabled": false, "cache": "/root/qvl/experiments/lmhead-production/image/control/public-tuner-pid450395.json"}
+{"kind": "graph4_replay"}

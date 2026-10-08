@@ -1,0 +1,7 @@
+{
+  "steps": 24,
+  "all_bitwise": true,
+  "max_abs": 0.0,
+  "max_nrmse": 0.0,
+  "all_argmax": true
+}

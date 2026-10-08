@@ -1,0 +1,22 @@
+[
+  {
+    "tokens_equal": true,
+    "max_logprob_diff": 0.0544891357421875,
+    "changed_logprobs": 29
+  },
+  {
+    "tokens_equal": true,
+    "max_logprob_diff": 0.10131853818893433,
+    "changed_logprobs": 27
+  },
+  {
+    "tokens_equal": true,
+    "max_logprob_diff": 0.10131853818893433,
+    "changed_logprobs": 27
+  },
+  {
+    "tokens_equal": true,
+    "max_logprob_diff": 0.10131853818893433,
+    "changed_logprobs": 27
+  }
+]

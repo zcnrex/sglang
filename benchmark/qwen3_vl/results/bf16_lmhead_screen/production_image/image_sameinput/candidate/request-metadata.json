@@ -1,0 +1,8 @@
+{
+  "image": "/root/qvl/sglang-perf/examples/assets/example_image.png",
+  "image_sha256": "e06917184a00b14abd70cd8ea0ff5dca9abfbbad29f7b25c02f97133d4cd060e",
+  "prompt": "Describe this image in one short sentence.",
+  "max_tokens": 32,
+  "temperature": 0,
+  "top_p": 1
+}
