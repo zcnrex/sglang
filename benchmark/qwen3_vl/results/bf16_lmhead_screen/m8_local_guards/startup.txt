@@ -1,0 +1,1 @@
+PASS: 11 admission exclusions, explicit M4/M8 tuning with run_lm_head=False, deferred publication, repeat-startup readiness reset, failed-verifier fallback, M128 retention

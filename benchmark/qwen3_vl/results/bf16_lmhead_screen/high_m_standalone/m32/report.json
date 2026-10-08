@@ -1,0 +1,77 @@
+{
+  "pid": 493182,
+  "weight_key": "model.language_model.embed_tokens.weight",
+  "weight_shape": [
+    151936,
+    2560
+  ],
+  "weight_file": "model-00001-of-00002.safetensors",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "torch": "2.14.1+cu130",
+  "gpu": "NVIDIA B300 SXM6 AC",
+  "cases": [
+    {
+      "m": 32,
+      "max_abs": 0.0,
+      "rms_error": 0.0,
+      "reference_rms": 1.110490322113037,
+      "argmax_equal": true,
+      "bitwise": true,
+      "fp32_reference": {
+        "torch": {
+          "nrms": 0.001660144072957337,
+          "max_abs": 0.015626907348632812
+        },
+        "fi": {
+          "nrms": 0.001660144072957337,
+          "max_abs": 0.015626907348632812
+        }
+      },
+      "changed_input_bitwise": true,
+      "changed_input_argmax_equal": true,
+      "rounds": [
+        {
+          "torch_us": 132.2711944580078,
+          "fi_us": 118.78880262374878
+        },
+        {
+          "fi_us": 118.81040334701538,
+          "torch_us": 132.32799768447876
+        },
+        {
+          "torch_us": 132.12239742279053,
+          "fi_us": 118.88799667358398
+        },
+        {
+          "fi_us": 118.85759830474854,
+          "torch_us": 132.40400552749634
+        },
+        {
+          "torch_us": 132.4295997619629,
+          "fi_us": 118.83519887924194
+        },
+        {
+          "fi_us": 118.93680095672607,
+          "torch_us": 132.27360248565674
+        },
+        {
+          "torch_us": 131.84000253677368,
+          "fi_us": 118.83679628372192
+        },
+        {
+          "fi_us": 118.83519887924194,
+          "torch_us": 132.4064016342163
+        },
+        {
+          "torch_us": 132.37760066986084,
+          "fi_us": 118.887197971344
+        },
+        {
+          "fi_us": 118.887197971344,
+          "torch_us": 132.1727991104126
+        }
+      ],
+      "median_speedup_pct": 11.348556762828943
+    }
+  ]
+}

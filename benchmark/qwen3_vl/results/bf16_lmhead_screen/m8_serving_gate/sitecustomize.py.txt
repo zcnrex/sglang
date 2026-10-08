@@ -1,0 +1,55 @@
+import torch
+import os
+if os.environ.get('QVL_LMHEAD_HOOK')=='1':
+ import json,pathlib,torch
+ from flashinfer import autotune
+ from flashinfer.autotuner import AutoTuner
+ from flashinfer.gemm import mm_bf16
+ from sglang.srt.model_executor.model_runner import ModelRunner
+ from sglang.srt.layers.logits_processor import LogitsProcessor,should_apply_lm_head_quant_method
+ from sglang.srt.model_executor.runner.decode_cuda_graph_runner import DecodeCudaGraphRunner
+ out=pathlib.Path(os.environ['QVL_LMHEAD_OUT']);ready=set();seen=set()
+ original_init=ModelRunner.init_cuda_graphs
+ def initialize(self,*a,**kw):
+  ready.clear()
+  if torch.cuda.get_device_capability()==(10,3) and not getattr(self,'is_draft_worker',False):
+   weights=[w for n,w in self.model.named_parameters() if n.endswith('embed_tokens.weight') and w.shape==(151936,2560) and w.dtype==torch.bfloat16 and w.is_contiguous()]
+   if len(weights)==1:
+    w=weights[0];x=torch.randn(8,2560,device=w.device,dtype=w.dtype)
+    with torch.no_grad(),autotune(tuning_buckets=(8,),round_up=False):mm_bf16(x,w.T,backend='cublaslt')
+    cache=out/'lmhead-tuner.json';AutoTuner.get().save_configs(str(cache));records=json.loads(cache.read_text())
+    matches={k:v for k,v in records.items() if 'bf16_gemm' in k and '(8, 151936, 2560, torch.bfloat16, 0)' in k and v[0]=='CublasltBf16GemmRunner'}
+    if matches:ready.add(w.data_ptr());print('LMHEAD_READY',json.dumps(matches),flush=True)
+  return original_init(self,*a,**kw)
+ ModelRunner.init_cuda_graphs=initialize
+ original=LogitsProcessor._compute_lm_head
+ def dispatch(self,x,head,embedding_bias=None):
+  if ready and x.shape==(8,2560):
+   w=getattr(head,'weight',None)
+   if (w is not None and w.data_ptr() in ready and x.dtype==w.dtype==torch.bfloat16 and x.is_contiguous() and x.device==w.device and embedding_bias is None and not self.use_fp32_lm_head and self.rl_on_policy_target is None and not hasattr(head,'set_lora') and not should_apply_lm_head_quant_method(head,getattr(head,'quant_method',None))):
+    capture=torch.cuda.is_current_stream_capturing()
+    if capture not in seen:seen.add(capture);print('LMHEAD_DISPATCH_CAPTURE',capture,flush=True)
+    return mm_bf16(x,w.T,backend='cublaslt')
+  return original(self,x,head,embedding_bias)
+ LogitsProcessor._compute_lm_head=dispatch
+ oldexecute=DecodeCudaGraphRunner.execute;replayed=False
+ def execute(self,*a,**kw):
+  global replayed
+  result=oldexecute(self,*a,**kw)
+  if getattr(self,'bs',None)==8 and not replayed:replayed=True;print('LMHEAD_GRAPH8_REPLAY',flush=True)
+  return result
+ DecodeCudaGraphRunner.execute=execute
+
+if os.environ.get('QVL_LMHEAD_OUT'):
+ import time
+ from sglang.srt.layers.quantization import unquant
+ _old_lt=unquant._try_tuned_bf16_cublaslt
+ _seen_lt=set()
+ def observe_lt(x,w,*a,**kw):
+  y=_old_lt(x,w,*a,**kw)
+  if x.ndim==2 and x.shape[0]==128 and y is not None:
+   key=(tuple(w.shape),torch.cuda.is_current_stream_capturing())
+   if key not in _seen_lt:
+    _seen_lt.add(key);print('M128_OBSERVED',time.time_ns(),key,flush=True)
+  return y
+ unquant._try_tuned_bf16_cublaslt=observe_lt

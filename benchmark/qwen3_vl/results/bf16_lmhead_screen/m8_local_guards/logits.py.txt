@@ -1,0 +1,26 @@
+import ast,sys,types,json,pathlib
+from types import SimpleNamespace as NS
+s=pathlib.Path(sys.argv[1]);t=ast.parse(s.read_text());c=next(n for n in t.body if isinstance(n,ast.ClassDef) and n.name=='LogitsProcessor');f=next(n for n in c.body if isinstance(n,ast.FunctionDef) and n.name=='_compute_lm_head');f.returns=None
+for a in f.args.args:a.annotation=None
+class T:
+ def __init__(self,shape=(4,2560),dtype='bf16'):self.shape=shape;self.dtype=dtype;self.is_cuda=True
+ @property
+ def T(self):return T(self.shape[::-1],self.dtype)
+ def to(self,dtype):return T(self.shape,dtype)
+ def bfloat16(self):return self.to('bf16')
+class Head:
+ def __init__(self):self.weight=T((151936,2560));self.quant_method=None
+ def __call__(self,x):calls.append('lora');return 'lora'
+calls=[];state=NS(compile=False,ready=True)
+def normal(*a,**kw):calls.append('torch');return 'torch'
+def tuned(*a,**kw):calls.append('tuned');return 'tuned' if state.ready else None
+mod=types.ModuleType('sglang.srt.layers.quantization.unquant');mod._try_tuned_bf16_cublaslt=tuned;sys.modules['sglang.srt.layers.quantization.unquant']=mod
+ns={'torch':NS(bfloat16='bf16',float16='fp16',float32='fp32',matmul=normal,mm=normal,compiler=NS(is_compiling=lambda:state.compile)),'should_apply_lm_head_quant_method':lambda h,q:q is not None,'use_intel_amx_backend':lambda h:False}
+exec(compile(ast.Module(body=[f],type_ignores=[]),str(s),'exec'),ns);fn=ns[f.name];tests=[]
+def case(name,*,flag=True,fp32=False,rl=None,x=None,head=None,expected='tuned',bias=None):
+ obj=NS(_use_bf16_cublaslt_lm_head=flag,use_fp32_lm_head=fp32,rl_on_policy_target=rl);calls.clear();r=fn(obj,x or T(),head or Head(),bias);assert r==expected,(name,r,calls);tests.append({'name':name,'calls':list(calls)})
+case('ordinary');case('flag_disabled',flag=False,expected='torch');case('M8',x=T((8,2560)));case('M16',x=T((16,2560)),expected='torch');case('M1',x=T((1,2560)),expected='torch');case('fp16',x=T(dtype='fp16'),expected='torch');case('FP32_priority',fp32=True,expected='torch');case('RL_priority',rl=object(),expected='torch');state.compile=True;case('compile_fallback',expected='torch');state.compile=False
+h=Head();h.set_lora=lambda:None;h.apply_lora=lambda:None;case('lora_priority',head=h,expected='lora')
+h=Head();h.quant_method=NS(apply=lambda *a:'quant');case('quant_priority',head=h,expected='quant')
+state.ready=False;case('cleared_ready',expected='torch')
+print(json.dumps({'passed':len(tests),'checks':tests,'scope':'AST-isolated method metadata mocks, not Torch/GPU'},indent=2))

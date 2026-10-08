@@ -1,0 +1,54 @@
+import ast, copy, sys, types
+from pathlib import Path
+from contextlib import contextmanager
+N=types.SimpleNamespace
+source=Path('python/sglang/srt/model_executor/runner/flashinfer_autotune.py').read_text()
+class Tensor:
+    def __init__(self, shape):
+        self.shape=shape; self.ndim=len(shape); self.dtype='bf16'; self.is_cuda=True; self.requires_grad=False; self.device=N(index=0)
+    def is_contiguous(self): return True
+    @property
+    def T(self): return self
+class UnquantizedEmbeddingMethod: pass
+Qwen=type('Qwen3VLForConditionalGeneration',(),{'__module__':'sglang.srt.models.qwen3_vl'})
+ex=N(kernel=N(disable_flashinfer_autotune=False),deterministic=N(enable_deterministic_inference=False))
+parallel=N(tp_size=1,pp_size=1); lora=N(enable_lora=False); flags=N(capture=N(enable_torch_compile=False))
+torch=N(Tensor=Tensor,bfloat16='bf16',cuda=N(get_device_capability=lambda _: (10,3)),compiler=N(is_compiling=lambda:False),zeros=lambda shape,**_:Tensor(shape))
+ready=set(); uq=N(get_bf16_gemm_backend=lambda:N(is_cutedsl=lambda:True),_CUBLASLT_BF16_SHAPES={(19456,2560),(2560,9728)},_CUBLASLT_BF16_READY=ready)
+sys.modules['sglang.srt.layers.quantization.unquant']=uq
+ns=dict(torch=torch,get_exec=lambda:ex,get_parallel=lambda:parallel,get_lora=lambda:lora,get_flags=lambda:flags,get_flashinfer_autotune_skip_ops=lambda _:set())
+for name in ['_bf16_cublaslt_weights','run_flashinfer_autotune_forward']:
+    node=next(n for n in ast.parse(source).body if isinstance(n,ast.FunctionDef) and n.name==name)
+    exec(compile('from __future__ import annotations\n'+ast.unparse(node),'<actual-source>','exec'),ns)
+def fixture():
+    model=Qwen(); head=N(weight=Tensor((151936,2560)),quant_method=UnquantizedEmbeddingMethod()); model.lm_head=head; model.model=N(embed_tokens=head); model.logits_processor=N(use_fp32_lm_head=False,rl_on_policy_target=None); model.modules=lambda:[N(weight=Tensor((19456,2560))),N(weight=Tensor((2560,9728))),head]
+    return N(model=model,device='cuda',dtype='bf16',model_config=N(quantization=None))
+r=fixture(); expected={(128,19456,2560),(128,2560,9728),(4,151936,2560),(8,151936,2560)}
+assert set(ns['_bf16_cublaslt_weights'](r))==expected
+cases=[('tp',parallel,'tp_size',2),('pp',parallel,'pp_size',2),('lora',lora,'enable_lora',True),('compile',flags.capture,'enable_torch_compile',True),('fp32',r.model.logits_processor,'use_fp32_lm_head',True),('rl',r.model.logits_processor,'rl_on_policy_target','x'),('untied',r.model.model,'embed_tokens',object()),('shape',r.model.lm_head.weight,'shape',(151935,2560)),('quant',r.model_config,'quantization','x'),('autotune',ex.kernel,'disable_flashinfer_autotune',True),('deterministic',ex.deterministic,'enable_deterministic_inference',True)]
+for name,obj,attr,value in cases:
+    old=getattr(obj,attr); setattr(obj,attr,value)
+    assert (4,151936,2560) not in ns['_bf16_cublaslt_weights'](r), name
+    assert (8,151936,2560) not in ns['_bf16_cublaslt_weights'](r), name
+    assert not r.model.logits_processor._use_bf16_cublaslt_lm_head,name
+    setattr(obj,attr,old)
+buckets=[]; seen=[]
+@contextmanager
+def autotune(**kw):
+    buckets.append(kw['tuning_buckets']); yield
+@contextmanager
+def context(mr,*,run_lm_head):
+    assert run_lm_head is False
+    ready.clear(); yield
+    assert not ready
+sys.modules['flashinfer']=N(autotune=autotune)
+sys.modules['flashinfer.gemm']=N(mm_bf16=lambda x,w,**kw:x)
+ns['flashinfer_autotune_context']=context
+ns['_has_bf16_cublaslt_tactic']=lambda x,w,out: True
+ns['run_flashinfer_autotune_forward'](r,lambda:seen.append(set(ready)),run_lm_head=False)
+assert ready=={(0,*key) for key in expected}; assert seen==[set()]; assert (4,) in buckets and (8,) in buckets
+ns['_has_bf16_cublaslt_tactic']=lambda x,w,out:x.shape[0] not in (4,8)
+ns['run_flashinfer_autotune_forward'](r,lambda:None,run_lm_head=False)
+assert (0,4,151936,2560) not in ready and len(ready)==2
+assert (0,8,151936,2560) not in ready
+print('PASS: 11 admission exclusions, explicit M4/M8 tuning with run_lm_head=False, deferred publication, repeat-startup readiness reset, failed-verifier fallback, M128 retention')
