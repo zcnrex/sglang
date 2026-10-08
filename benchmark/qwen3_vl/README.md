@@ -38,7 +38,7 @@ Evidence: `results/bf16_decode_lt/production_validation/`,
 `results/bf16_weight_packing/m1_production_validation/`, and
 `results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
 diagnostic and lower-concurrency regression subdirectories). The code PR is
-#42913 is being updated from `ab94cc8a76`; #42914 retains the optional deployment recipe.
+#42913 is at `a49b059185`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
 The latest committed increment is batch-4 BF16 vocabulary-projection tuning
