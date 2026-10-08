@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/tmp/qvl-lmhead-serving.py", line 58, in <module>
+    raise RuntimeError(f"Phase{phase} worker exits{codes}")
+RuntimeError: PhaseA worker exits[0, 1]
