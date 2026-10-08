@@ -1,0 +1,12 @@
+{
+  "8192": {
+    "median_dynamic_us": 596.1087942123413,
+    "median_static_us": 604.5287847518921,
+    "median_paired_latency_change_percent": 0.041070859301162166
+  },
+  "16331": {
+    "median_dynamic_us": 1311.9664192199707,
+    "median_static_us": 1312.0296001434326,
+    "median_paired_latency_change_percent": -0.05048094728601904
+  }
+}

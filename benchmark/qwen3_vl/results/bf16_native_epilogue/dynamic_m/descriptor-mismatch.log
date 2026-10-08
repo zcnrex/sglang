@@ -1,0 +1,11 @@
+PID 416829
+DYNAMIC_COMPILED_ONCE
+Traceback (most recent call last):
+  File "/root/qvl/experiments/native-epilogue-dynamic-m/check.py", line 17, in <module>
+    bf(*ts,cuda.CUstream(torch.cuda.current_stream().cuda_stream));dyn(x,wt,out);expected=silu_and_mul(ref.view(m,n));actual=out.flatten()[:m*n//2].view(m,n//2);torch.cuda.synchronize();assert torch.equal(expected,actual),m;assert torch.isnan(back.flatten()[m*n//2:]).all(),m
+                                                                   ^^^^^^^^^^^^^
+  File "/root/qvl/experiments/native-epilogue-dynamic-m/native_dynamic_m.py", line 16, in __call__
+    self.compiled(x,w,out)
+  File "<string>", line 3, in wrapper
+  File "python/tvm_ffi/cython/function.pxi", line 968, in tvm_ffi.core.Function.__call__
+ValueError: Mismatched b.strides[1] on argument #1 when calling: `bmm(a: Tensor([1, n0, 2560], bfloat16), b: Tensor([1, 2560, 19456], bfloat16), c: Tensor([1, n0, 19456], bfloat16))`, expected to be 19456

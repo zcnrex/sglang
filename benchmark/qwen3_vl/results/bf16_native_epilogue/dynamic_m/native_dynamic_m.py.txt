@@ -1,0 +1,16 @@
+import cutlass
+import cutlass.cute as cute
+import cutlass.utils as utils
+import native_fused_ffi as frozen
+
+class DynamicGateUp:
+ def __init__(self):
+  m=cute.sym_int(64)
+  a=cute.runtime.make_fake_compact_tensor(cutlass.BFloat16,(1,m,2560),stride_order=(2,1,0),assumed_align=16)
+  b=cute.runtime.make_fake_compact_tensor(cutlass.BFloat16,(1,2560,19456),stride_order=(2,0,1),assumed_align=16)
+  c=cute.runtime.make_fake_compact_tensor(cutlass.BFloat16,(1,m,19456),stride_order=(2,1,0),assumed_align=16)
+  self.compiled=frozen.compile_bmm((16384,19456,2560,1),a,b,c,cutlass.Float32,'k','k','n',(256,256),(2,1),utils.HardwareInfo().get_max_active_clusters(2),True,False)
+  self.compile_count=1
+ def __call__(self,x,w,out):
+  if not 8192<=x.shape[1]<=16384:raise ValueError('M outside tested dynamic range')
+  self.compiled(x,w,out)

@@ -1,0 +1,24 @@
+import ast
+import pathlib
+import types
+
+path = pathlib.Path(__file__).with_name('native_dynamic_m.py.txt')
+node = next(n for n in ast.parse(path.read_text()).body if isinstance(n, ast.ClassDef))
+node.body = [n for n in node.body if isinstance(n, ast.FunctionDef) and n.name == '__call__']
+namespace = {}
+exec(compile(ast.Module(body=[node], type_ignores=[]), str(path), 'exec'), namespace)
+wrapper = namespace['DynamicGateUp']()
+calls = []
+wrapper.compiled = lambda *args: calls.append(args)
+for rows in (8191, 16385):
+    try:
+        wrapper(types.SimpleNamespace(shape=(1, rows, 2560)), None, None)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError(rows)
+assert not calls
+for rows in (8192, 16384):
+    wrapper(types.SimpleNamespace(shape=(1, rows, 2560)), None, None)
+assert len(calls) == 2
+print('Boundary guard passed')

@@ -1,0 +1,45 @@
+import sys,os,json,pathlib,statistics
+sys.path.insert(0,'/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/data/cutlass/examples/python/CuTeDSL/blackwell')
+import torch,cutlass,cutlass.utils as utils
+from cutlass.cute.runtime import from_dlpack
+import cuda.bindings.driver as cuda
+import native_base_tail as base
+import native_fused_ffi as static
+from native_dynamic_m import DynamicGateUp
+from sglang.kernels.ops.activation import silu_and_mul
+print('PID',os.getpid(),flush=True);torch.manual_seed(79);n,k=19456,2560
+w=torch.randn(n,k,device='cuda',dtype=torch.bfloat16)*.1;wi=torch.stack((w[:n//2],w[n//2:]),1).reshape(n,k).contiguous();wt=wi.t().unsqueeze(0);wb=w.t().unsqueeze(0)
+dyn=DynamicGateUp();print('DYNAMIC_COMPILED_ONCE',flush=True);checks=[];keepalive={}
+for m in [8192,8193,8200,16321,16331,16383,16384]:
+ x=torch.randn(1,m,k,device='cuda',dtype=torch.bfloat16)*.1;back=torch.full((1,m+256,n),float('nan'),device='cuda',dtype=torch.bfloat16);out=back[:,:m,:];ref=torch.empty_like(out)
+ ts=[from_dlpack(t,assumed_align=16) for t in [x,wb,ref]]
+ bf=base.compile_bmm((m,n,k,1),*ts,cutlass.Float32,'k','k','n',(256,256),(2,1),utils.HardwareInfo().get_max_active_clusters(2),True,False)
+ bf(*ts,cuda.CUstream(torch.cuda.current_stream().cuda_stream));dyn(x,wt,out);expected=silu_and_mul(ref.view(m,n));actual=out.flatten()[:m*n//2].view(m,n//2);torch.cuda.synchronize();assert torch.equal(expected,actual),m;assert torch.isnan(back.flatten()[m*n//2:]).all(),m
+ checks.append({'m':m,'bitwise':True,'canaries':True});print('PASS',m,flush=True)
+ if m in [8192,16331]:
+  sb=torch.full_like(back,float('nan'));so=sb[:,:m,:];sf=static.compile_bmm((m,n,k,1),from_dlpack(x,assumed_align=16),from_dlpack(wt,assumed_align=16),from_dlpack(so,assumed_align=16),cutlass.Float32,'k','k','n',(256,256),(2,1),utils.HardwareInfo().get_max_active_clusters(2),True,False)
+  graphs={}
+  for name,fn in [('dynamic',lambda:dyn(x,wt,out)),('static',lambda:sf(x,wt,so))]:
+   fn();g=torch.cuda.CUDAGraph();g.enable_debug_mode()
+   with torch.cuda.graph(g):fn()
+   graphs[name]=g;g.debug_dump(f'{m}-{name}.dot')
+  x.mul_(.9)
+  for g in graphs.values():g.replay()
+  torch.cuda.synchronize();assert torch.equal(out.flatten()[:m*n//2],so.flatten()[:m*n//2]);assert torch.isnan(back.flatten()[m*n//2:]).all();assert torch.isnan(sb.flatten()[m*n//2:]).all()
+  keepalive[m]=dict(locals())
+assert dyn.compile_count==1
+for state in keepalive.values():
+ for _ in range(100):
+  for g in state['graphs'].values():g.replay()
+torch.cuda.synchronize();timings={}
+for m,state in keepalive.items():
+ rows=[]
+ for r in range(8):
+  row={}
+  for name in (['dynamic','static'] if r%2==0 else ['static','dynamic']):
+   a=torch.cuda.Event(enable_timing=True);b=torch.cuda.Event(enable_timing=True);a.record()
+   for _ in range(20):state['graphs'][name].replay()
+   b.record();b.synchronize();row[name]=a.elapsed_time(b)*50
+  rows.append(row)
+ timings[m]=rows
+report={'pid':os.getpid(),'compile_count':dyn.compile_count,'checks':checks,'changed_input_graph':True,'timing_us':timings};print(json.dumps(report),flush=True);pathlib.Path('report.json').write_text(json.dumps(report,indent=2))
