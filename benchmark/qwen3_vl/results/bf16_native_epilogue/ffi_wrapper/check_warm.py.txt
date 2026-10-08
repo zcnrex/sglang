@@ -1,0 +1,55 @@
+import sys,os,time,json,statistics,pathlib
+sys.path.insert(0,'/root/qvl/venv-sgl/lib/python3.12/site-packages/flashinfer/data/cutlass/examples/python/CuTeDSL/blackwell')
+import torch,cutlass,cutlass.utils as utils
+from cutlass.cute.runtime import from_dlpack
+import cuda.bindings.driver as cuda
+import native_fused_subtile64 as old
+m,n,k=16331,19456,2560;torch.manual_seed(71)
+x=torch.randn(1,m,k,device='cuda',dtype=torch.bfloat16)*.1;w=torch.randn(n,k,device='cuda',dtype=torch.bfloat16)*.1;wt=w.t().unsqueeze(0);a=torch.full((1,m+256,n),float('nan'),device='cuda',dtype=torch.bfloat16);b=torch.full_like(a,float('nan'));oa=a[:,:m,:];ob=b[:,:m,:]
+xc=from_dlpack(x,assumed_align=16);wc=from_dlpack(wt,assumed_align=16);oc=from_dlpack(oa,assumed_align=16);bc=from_dlpack(ob,assumed_align=16);active=utils.HardwareInfo().get_max_active_clusters(2)
+def compile(mod,out):return mod.compile_bmm((m,n,k,1),xc,wc,out,cutlass.Float32,'k','k','n',(256,256),(2,1),active,True,False)
+f=compile(old,oc)
+def prior():f(from_dlpack(x,assumed_align=16),wc,oc,cuda.CUstream(torch.cuda.current_stream().cuda_stream))
+for _ in range(4):prior()
+torch.cuda.synchronize();conv=[];host=[]
+for _ in range(8):
+ t=time.perf_counter()
+ for j in range(100):tmp=from_dlpack(x,assumed_align=16)
+ conv.append((time.perf_counter()-t)*1e6/100)
+ torch.cuda.synchronize();t=time.perf_counter()
+ for j in range(8):prior()
+ host.append((time.perf_counter()-t)*1e6/8);torch.cuda.synchronize()
+print('BASELINE_HOST',json.dumps({'pid':os.getpid(),'conversion_us':conv,'submission_us':host}),flush=True)
+if statistics.median(host)<5:raise SystemExit('host overhead below bounded gate')
+import native_fused_ffi as new
+ff=compile(new,bc)
+def candidate():ff(x,wt,ob)
+candidate();torch.cuda.synchronize();assert torch.equal(oa.flatten()[:m*n//2],ob.flatten()[:m*n//2]);assert torch.isnan(b.flatten()[m*n//2:]).all()
+stream=torch.cuda.Stream();stream.wait_stream(torch.cuda.current_stream())
+with torch.cuda.stream(stream):
+ x.mul_(.9);prior();candidate()
+stream.synchronize();torch.cuda.current_stream().wait_stream(stream);assert torch.equal(oa.flatten()[:m*n//2],ob.flatten()[:m*n//2])
+graphs={}
+for name,fn in [('prior',prior),('ffi',candidate)]:
+ g=torch.cuda.CUDAGraph();g.enable_debug_mode()
+ with torch.cuda.graph(g):fn()
+ graphs[name]=g;g.debug_dump(name+'.dot')
+x.mul_(.9)
+for g in graphs.values():g.replay()
+torch.cuda.synchronize();assert torch.equal(oa.flatten()[:m*n//2],ob.flatten()[:m*n//2]);assert torch.isnan(b.flatten()[m*n//2:]).all()
+for _ in range(200):
+ for g in graphs.values():g.replay()
+torch.cuda.synchronize()
+rows=[]
+for r in range(8):
+ row={}
+ for name,fn in ([('prior',prior),('ffi',candidate)] if r%2==0 else [('ffi',candidate),('prior',prior)]):
+  torch.cuda.synchronize();t=time.perf_counter()
+  for j in range(8):fn()
+  row[name+'_host_us']=(time.perf_counter()-t)*1e6/8;torch.cuda.synchronize()
+  s=torch.cuda.Event(enable_timing=True);e=torch.cuda.Event(enable_timing=True);s.record()
+  for j in range(20):graphs[name].replay()
+  e.record();e.synchronize();row[name+'_gpu_us']=s.elapsed_time(e)*50
+ rows.append(row)
+print(json.dumps({'pid':os.getpid(),'baseline_conversion_us':conv,'baseline_submission_us':host,'rows':rows,'bitwise':True,'nondefault_stream':True,'changed_input_graph_replay':True,'canaries':True}),flush=True)
+pathlib.Path('report.json').write_text(json.dumps({'rows':rows,'conversion_us':conv,'bitwise':True,'nondefault_stream':True,'changed_input_graph_replay':True,'canaries':True},indent=2))

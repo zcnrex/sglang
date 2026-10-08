@@ -28,3 +28,7 @@ Local paths are relative to the repository; installed paths are relative to `/ro
 | installed `gemm/kernels/tgv_gemm_cute_ext.py` | `badae5c2638ac423dc5e0aac9fec29cfefe3cf6ee980b323dd3a9e541a3576cc` |
 
 This audit does not predict the performance of the separately tested native persistent epilogue prototype. It only establishes that attaching its paired epilogue to the actual production producer is not available through the inspected open interfaces.
+
+## Installed cuBLASLt epilogue enum
+
+A direct check of `/usr/local/cuda/include/cublasLt.h` on the same devbox found default, ReLU, GELU, bias and derivative/bias-gradient epilogues at lines 1936–2038, but no SiLU or paired SwiGLU epilogue. This rules out an exposed enum switch in this installed header, not every possible future library interface. Header SHA256: `8be43fbf48625b98b8562d7df394e6af0d7ee1c05beeb5333577d5e33182fa3e`. No library or production changes were made.
