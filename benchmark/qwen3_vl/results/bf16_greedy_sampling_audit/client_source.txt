@@ -1,0 +1,24 @@
+faf415391a309021b26376ad949c56bc61cda827d962cef6a82df13dbc043c59  /root/qvl/venv-bench/lib/python3.12/site-packages/sgl_bench/_vendored/sglang/bench_serving.py
+        messages = [{"role": "user", "content": request_func_input.prompt}]
+
+    async with _create_bench_client_session() as session:
+        # Build payload with defaults that can be overridden by extra_request_body
+        payload = {
+            "model": request_func_input.model,
+            "messages": messages,
+            "max_completion_tokens": request_func_input.output_len,
+            "stream": not args.disable_stream,
+        }
+
+        # Add temperature default only if not specified in extra_request_body
+        if "temperature" not in request_func_input.extra_request_body:
+            payload["temperature"] = 0.0
+
+        # Add ignore_eos default only if not specified in extra_request_body
+        # Default to False for more realistic behavior (respect EOS tokens)
+        if "ignore_eos" not in request_func_input.extra_request_body:
+            payload["ignore_eos"] = not args.disable_ignore_eos
+
+        # Merge in extra parameters (tools, temperature, top_p, etc.)
+        # These will override defaults if present
+        payload.update(request_func_input.extra_request_body)

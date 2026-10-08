@@ -1,0 +1,278 @@
+{
+  "c32": {
+    "runs": [
+      {
+        "duration": 52.28649931200198,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3133.504865612446,
+        "median_ttft_ms": 809.7790219908347,
+        "median_tpot_ms": 9.421954644679612,
+        "phase": "A",
+        "gpu": 4,
+        "variant": "control",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": false,
+        "target_replay": false
+      },
+      {
+        "duration": 51.99766854799236,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3150.9105037811523,
+        "median_ttft_ms": 826.3477205036907,
+        "median_tpot_ms": 9.290272296182831,
+        "phase": "A",
+        "gpu": 5,
+        "variant": "candidate",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": false,
+        "target_replay": true
+      },
+      {
+        "duration": 52.22403451500577,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3137.252828540528,
+        "median_ttft_ms": 722.1804834989598,
+        "median_tpot_ms": 9.43176828298109,
+        "phase": "B",
+        "gpu": 4,
+        "variant": "candidate",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            4
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": false,
+        "target_replay": true
+      },
+      {
+        "duration": 52.07229412498418,
+        "completed": 160,
+        "total_input_tokens": 1310720,
+        "total_output_tokens": 163840,
+        "output_throughput": 3146.3948872072046,
+        "median_ttft_ms": 668.7420575035503,
+        "median_tpot_ms": 9.419102733633308,
+        "phase": "B",
+        "gpu": 5,
+        "variant": "control",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            4
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": false,
+        "target_replay": false
+      }
+    ],
+    "pairs": [
+      {
+        "gpu": 4,
+        "throughput_pct": 0.11960929019809718,
+        "ttft_pct": -10.817585552724584,
+        "tpot_pct": 0.10415713799916126
+      },
+      {
+        "gpu": 5,
+        "throughput_pct": 0.14351715966447465,
+        "ttft_pct": 23.567481846212978,
+        "tpot_pct": -1.3677570050324883
+      }
+    ]
+  },
+  "c128": {
+    "runs": [
+      {
+        "duration": 34.70849937500316,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3776.3660878521655,
+        "median_ttft_ms": 4829.2833599989535,
+        "median_tpot_ms": 28.86607700684367,
+        "phase": "A",
+        "gpu": 6,
+        "variant": "control",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            4
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": true,
+        "target_replay": false
+      },
+      {
+        "duration": 34.74755487701623,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3772.1215338434527,
+        "median_ttft_ms": 4802.014519984368,
+        "median_tpot_ms": 28.91176673510002,
+        "phase": "A",
+        "gpu": 7,
+        "variant": "candidate",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (128, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            6
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            4
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": true,
+        "target_replay": true
+      },
+      {
+        "duration": 34.69404370599659,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3777.93955385331,
+        "median_ttft_ms": 4798.9508004975505,
+        "median_tpot_ms": 28.894096465789527,
+        "phase": "B",
+        "gpu": 6,
+        "variant": "candidate",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (128, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            6
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            3
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            6
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": true,
+        "target_replay": true
+      },
+      {
+        "duration": 34.59900323301554,
+        "completed": 128,
+        "total_input_tokens": 1048576,
+        "total_output_tokens": 131072,
+        "output_throughput": 3788.317227443323,
+        "median_ttft_ms": 4786.659256496932,
+        "median_tpot_ms": 28.797532562079965,
+        "phase": "B",
+        "gpu": 7,
+        "variant": "control",
+        "tactics": {
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            1
+          ],
+          "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+            "CublasltBf16GemmRunner",
+            2
+          ]
+        },
+        "graph128_replay": true,
+        "target_replay": false
+      }
+    ],
+    "pairs": [
+      {
+        "gpu": 6,
+        "throughput_pct": 0.041666140531404494,
+        "ttft_pct": -0.6280964946610568,
+        "tpot_pct": 0.09706708306504996
+      },
+      {
+        "gpu": 7,
+        "throughput_pct": -0.4275168267996565,
+        "ttft_pct": 0.32079290930504545,
+        "tpot_pct": 0.3966804196637197
+      }
+    ]
+  }
+}

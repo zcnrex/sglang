@@ -1,0 +1,15 @@
+# Greedy vocabulary-work audit
+
+Read-only audit; no kernel, model or serving experiment. Source hashes and local revision are in `source.json`; installed pinned benchmark client source and hash are in `client_source.txt`.
+
+The measured production command uses `sglang-oai-chat` with no extra request body or logprob option. Its client implementation (`bench_serving.py:433–454`) sends temperature 0, the requested output length and ignore-EOS, with no logprobs. The readiness probe separately requests logprobs, so its behavior must not be attributed to measured serving.
+
+`sampling_params.py:217–220` maps zero temperature to top_k 1. `sampling_batch_info.py:258` sets is_all_greedy from that field. `sampler.py:186–200` already calls torch.argmax directly; log_softmax only executes if return_logprob is true. The non-greedy softmax and categorical sampling path is therefore already bypassed. There is no redundant softmax to eliminate for this benchmark.
+
+`sampling_batch_info.py:380–404` applies penalties, bias and grammar only when configured. The measured requests specify none. `sampler.py:131–139` invokes NaN handling, but `async_probe.py:66–76` returns before sanitization when its default-disabled flag is off; optional async detection is also gated. These source guards do not establish measured per-kernel timing, but exclude an unconditional vocabulary-wide NaN sweep in the ordinary configuration.
+
+The concrete remaining work outside the BF16 vocabulary GEMM is `logits_processor.py:1170–1198`: BF16 output is copied/cast to an FP32 logits buffer, followed by FP32 argmax. A finite-value, ordinary greedy path could theoretically argmax the unchanged BF16 result while retaining the BF16 GEMM output rounding. It must preserve first-index tie behavior, exceptional-value behavior, output contracts, graph buffers, and all fallback cases with logprobs, processors, penalties, scaling, softcap, distributed logits or diagnostic consumers. This is not equivalent to changing GEMM output accumulation precision.
+
+That proposal already appears in `../bf16_descriptor_screens/runtime_audit.md`; the archive search found no executed sampler/cast-removal experiment or measured rejection. Thus it remains an untested minor lead, not a new discovery. Existing model-only decode graph timings do not independently measure server sampling. No timing claim is inferred from them.
+
+At B128 and vocabulary 151936, the FP32 buffer is 77.79 MB; its write plus argmax read is 155.58 MB. An optimistic traffic scale at 5–7 TB/s is 22–31 microseconds before accounting for cache residency, the replacement BF16 read, reduction efficiency and launch costs. This is not a rigorous bound or measured gain. Relative to a roughly 25 ms decode step it is about 0.1%, much too small on current evidence to explain the remaining goal gap. At small batches fixed launch cost may matter, but there is no isolated trace attribution here to quantify it. A future bounded standalone comparison would need actual BF16 logits, tie/nonfinite tests and retained graph timings; no such run was launched for this audit.

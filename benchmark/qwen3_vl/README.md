@@ -17,6 +17,8 @@ sweep of the latest head. Subsequent controlled increments are:
 | Direct M1 BF16 gate/up GEMM | `bedf8a4c15` | +1.692% at c1, four pairs | Repeated 1217/1314 versus 1219/1314 control; reproducible two-question loss |
 | Bounded packed-prefix FA4 prefill | `91042a055f` | +0.446% at c128, four N640 pairs | Matched-tactic diagnostic 1216/1314 versus 1217/1314; only one context batch used packing |
 | Batch-4 BF16 vocabulary projection | `5e1601731b` | +0.191% at c4, two N40 pairs | Full C4 GSM8K 1218/1314 versus 1216/1314; one paired check, not equivalence |
+| Batch-8 BF16 vocabulary projection | `5babd15f4f` | +0.318% at c8, two N80 pairs | Matched-startup C8 GSM8K 1225/1314 versus 1217/1314; one empirical pair |
+| Batch-16 BF16 down projection | `06d1a12172` | +0.443% at c16, two N80 pairs | Matched-startup external-kernel GSM8K 1220/1314 versus 1221/1314; production kernel matches it bitwise |
 
 The packed-prefill change retains BF16 weights, K/V and queries, and uses an
 explicit CLC scheduler override only for its eligible attention calls.
@@ -38,10 +40,10 @@ Evidence: `results/bf16_decode_lt/production_validation/`,
 `results/bf16_weight_packing/m1_production_validation/`, and
 `results/bf16_prefill_fa4_audit/` (production validation, matched-tactic
 diagnostic and lower-concurrency regression subdirectories). The code PR
-#42913 is at `a49b059185`; #42914 retains the optional deployment recipe.
+#42913 is at `704684ae99`; #42914 retains the optional deployment recipe.
 None of these increments meets the remaining high-concurrency target.
 
-The latest committed increment is batch-4 BF16 vocabulary-projection tuning
+The earlier batch-4 increment is BF16 vocabulary-projection tuning
 (`5e1601731b`). Its external-hook serving crossover improved c4 throughput
 by 0.298% and 0.132%, with exact request/token counts. Clean production
 source checks verified actual tuned graph dispatch and bitwise prefill and
@@ -87,30 +89,39 @@ despite full dispatch coverage, and public FA2 paged decode at the recorded
 `results/bf16_native_epilogue/mrope_metadata_serving/` and
 `results/mixed_decode_screen/`. Neither changes production behavior.
 
-The batch-16 down-projection split-K candidate remains experimental. Its
-C16/N80 serving crossover improved throughput by 0.494% and 0.312%, with
-exact request/token counts and no observed M128 forwards. Median TTFT
-improved on one GPU and regressed on the other. A 64-question GSM sanity
-scored 60/64 versus 61/64 control. Full normal-startup accuracy scored
-1222/1314 versus 1213/1314, but both runs exercised M128 operations with
-different startup tactics. The matched-tactic diagnostic scored
-1220/1314 versus 1221/1314 with identical validated startup tactics; this is
-a finite, schedule-sensitive comparison, not numerical equivalence.
-The one-entry production implementation is committed as `06d1a12172` and
-is undergoing production validation before PR promotion. The separate batch-16 gate/up public-Lt
-screen saved only 1.2–2.1 microseconds across 36 layers, so it was not advanced
-to model testing. See `results/bf16_m16_projection_screen/down_serving_sanity/`
-and `results/bf16_m16_gateup_screen/`.
+The batch-16 down projection is now in PR #42913. Its production serving
+crossover improved throughput by 0.523% and 0.364%, with exact counts,
+actual split-K capture and no observed M128 forwards. Median TTFT increased
+by 0.41% and 1.06%; TPOT improved on both GPUs. A 64-question sanity scored
+60/64 versus 61/64. Full normal-startup accuracy scored 1222/1314 versus
+1213/1314 with different active M128 tactics; the matched-tactic diagnostic
+scored 1220/1314 versus 1221/1314. Production dispatch matches that external
+winning kernel bitwise, including changed-input graph replay. This is not
+numerical or distributional equivalence. See
+`results/bf16_m16_projection_screen/production_validation/` and
+`matched_accuracy/` under that directory's parent.
 
-The batch-8 vocabulary extension is committed as `5babd15f4f`, with production
-validation pending before PR promotion. Its external-hook C8 serving pairs
-improved throughput by 0.284% and 0.379%, reaching 1890.39 and 1912.20
-output tokens/s, still below the C8 target of 1951.4. TTFT changed by −1.93%
-and +6.73%. Production B8 checks on two input seeds matched prefill/decode
-logits and greedy tokens bitwise. See `results/bf16_lmhead_screen/` under
-`m8_serving_gate/`, `m8_local_guards/` and `m8_production_model/`.
-Larger-batch vocabulary kernels passed standalone and short-context model
-screens, but have no serving result yet. They are not enabled in production.
+The batch-8 vocabulary extension is also promoted. Production C8 pairs
+improved throughput by 0.335% and 0.302%, reaching 1894.24 and 1907.46
+output tokens/s, still below the C8 target of 1951.4. TTFT changed by
+−11.41% and +3.95%. Two-seed B8 model checks matched logits and tokens
+bitwise. Normal full accuracy scored 1219/1314 versus 1213/1314 with a
+startup-tactic confound; a separate matched-startup diagnostic scored
+1225/1314 versus 1217/1314 (8 control-only and 16 candidate-only correct).
+Actual M128 execution and matching common tactics were verified, and the
+external tuner override was restored before evaluation. This one pair does
+not establish equivalence or a causal accuracy benefit. Evidence is in
+`results/bf16_lmhead_screen/m8_production_serving/`,
+`m8_production_accuracy/` and `m8_production_matched_accuracy/`.
+
+Batch-32 vocabulary tuning passed short-context model checks and external
+serving pairs (+0.120% and +0.144%). Its separate implementation
+`d0d528db4f` is under production validation, outside the PR. Batch-128
+vocabulary serving was mixed and confounded by different active M128
+projection tactics; a matched diagnostic is pending. No larger-batch
+vocabulary change has been promoted. The M32 projection split-K kernels
+were slower and rejected. The M16 gate/up public-Lt screen saved only
+1.2–2.1 microseconds across 36 layers and was not advanced.
 
 ## Configuration and reproducibility
 
