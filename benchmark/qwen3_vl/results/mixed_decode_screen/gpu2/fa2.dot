@@ -1,0 +1,31 @@
+digraph dot {
+subgraph cluster_2 {
+label="graph_2" graph[style="dashed"];
+"graph_2_node_0"[style="bold" shape="record" label="{KERNEL
+| {ID | 0 (topoId: 2) | _ZN10flashinfer34BatchPrefillWithPagedKVCacheKernelILb1ENS_12KernelTraitsILNS_8MaskModeE0ELj16ELj1ELj2ELj8ELj8ELj1ELj4ELNS_15PosEncodingModeE0E13__nv_bfloat16S4_S4_fiNS_16DefaultAttentionILb0ELb0ELb0ELb0EEELb1EEE11PagedParamsEEvT1_\<\<\<\{39,1,8\},\{32,1,4\},69632\>\>\>}
+| {{node handle | func handle} | {0x000000003E2FE5C8 | 0x000000001CBA29A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_1"[style="bold" shape="record" label="{KERNEL
+| {ID | 1 (topoId: 1) | _ZN10flashinfer34BatchPrefillWithPagedKVCacheKernelILb1ENS_12KernelTraitsILNS_8MaskModeE0ELj16ELj1ELj2ELj8ELj8ELj1ELj4ELNS_15PosEncodingModeE0E13__nv_bfloat16S4_S4_fiNS_16DefaultAttentionILb0ELb0ELb0ELb0EEELb1EEE11PagedParamsEEvT1_\<\<\<\{39,1,8\},\{32,1,4\},69632\>\>\>}
+| {{node handle | func handle} | {0x000000003E2FED60 | 0x000000001CBA29A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_2"[style="bold" shape="record" label="{KERNEL
+| {ID | 2 (topoId: 0) | _ZN10flashinfer34BatchPrefillWithPagedKVCacheKernelILb1ENS_12KernelTraitsILNS_8MaskModeE0ELj16ELj1ELj2ELj8ELj8ELj1ELj4ELNS_15PosEncodingModeE0E13__nv_bfloat16S4_S4_fiNS_16DefaultAttentionILb0ELb0ELb0ELb0EEELb1EEE11PagedParamsEEvT1_\<\<\<\{39,1,8\},\{32,1,4\},69632\>\>\>}
+| {{node handle | func handle} | {0x000000003E2FF4F8 | 0x000000001CBA29A0}}
+| {accessPolicyWindow | {base_ptr | num_bytes | hitRatio | hitProp | missProp} | {0x0000000000000000 | 0 | 0.000000 | N | N}}
+| {cooperative | 0}
+| {priority | 0}
+}"];
+
+"graph_2_node_0" -> "graph_2_node_1" [headlabel=0];
+"graph_2_node_1" -> "graph_2_node_2" [headlabel=0];
+}
+}
