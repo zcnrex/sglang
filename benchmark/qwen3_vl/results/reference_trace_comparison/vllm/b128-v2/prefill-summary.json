@@ -1,0 +1,904 @@
+{
+  "valid": true,
+  "records": [
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    },
+    {
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "query_lens": [
+        8192,
+        8192
+      ],
+      "context": true,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.NONE: 0>, num_tokens=16384, num_reqs=2, uniform_token_count=None, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+    }
+  ],
+  "captured_forwards": 64,
+  "prefill_tokens": 1048576,
+  "scope": "worker execute plus following sample; nested compute_logits distinguishes projection"
+}

@@ -1,0 +1,29 @@
+{
+  "status": "remote status unavailable: rx authentication expired; no further retries until restored",
+  "source": "/root/qvl/sglang-final-qkv-c76cfaba1a",
+  "source_head": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+  "last_known": {
+    "b8": {
+      "gpu": 6,
+      "server_pid": 797774,
+      "resume_driver_pid": 814276,
+      "sanity_correct": 19,
+      "sanity_total": 20
+    },
+    "b16": {
+      "gpu": 7,
+      "server_pid": 797775,
+      "resume_driver_pid": 814277,
+      "sanity_correct": 18,
+      "sanity_total": 20
+    }
+  },
+  "remote_root": "/root/qvl/experiments/reference-trace-comparison",
+  "script_hashes": {
+    "resume.py": "bda3abddca0302f0d993f74da9f175b9192318694d87820152e288254d3a5b78",
+    "capture.py": "416ecc201c8a888bffb63ac498e9ed665a86275f06273d66689c6d8a26bcc8a0",
+    "capture-first.py.txt": "f62ad0d2fc2ff955dee7ca04875cc1d7c43b315bce40609a5a65c25c086399f4",
+    "PROTOCOL.md": "fd56f907d2a04e548a890ee85f420d7a95855c4aa1f9f873fa4e953b2a2b3f37",
+    "sglang-hook/sitecustomize.py": "651cde6d00422dc804f017f0b2a29819a03de0bb70adee0e0479fa37a22b03d9"
+  }
+}

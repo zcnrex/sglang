@@ -1,0 +1,23 @@
+{
+  "original_name": "input_ids.json.gz",
+  "bytes": 2595782,
+  "sha256": "22e24bafdccb28b5e723b3983b2c056641bab9cc8914260c6aff3e02386f4c00",
+  "parts": [
+    {
+      "path": "input_ids.json.gz.part000",
+      "bytes": 1048576,
+      "sha256": "acab5779bc548beda42edbdb411ea865d85f11d4e39c7676394d0691d16fa6f0"
+    },
+    {
+      "path": "input_ids.json.gz.part001",
+      "bytes": 1048576,
+      "sha256": "b989fd13ba70f5a88afe0b7d4be75b3b0a2a4289160ad0748fc8396935f1c60e"
+    },
+    {
+      "path": "input_ids.json.gz.part002",
+      "bytes": 498630,
+      "sha256": "a5089d4e49f5559f9992877468a9a0743bf281b89e3fab1595e344813ff88d4f"
+    }
+  ],
+  "reconstruct": "cat input_ids.json.gz.part* > input_ids.json.gz"
+}

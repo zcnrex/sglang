@@ -1,0 +1,60 @@
+[
+  {
+    "phase": "decode",
+    "path": "traces/prefill_rank0.1791491008281411705.pt.trace.json.gz",
+    "sha256": "b8e016487cf20d7d3d3d1a8945b60b23d76a460c8bd46f8126a0594920eb6d22",
+    "cpu_scopes": [
+      "QVL_decode_step0_B16_T16",
+      "QVL_decoder_model_step0_B16",
+      "QVL_decode_sample_step0_B16",
+      "QVL_compute_logits_step0_B16",
+      "QVL_decode_step1_B16_T16",
+      "QVL_decoder_model_step1_B16",
+      "QVL_decode_sample_step1_B16",
+      "QVL_compute_logits_step1_B16",
+      "QVL_decode_step2_B16_T16",
+      "QVL_decoder_model_step2_B16",
+      "QVL_decode_sample_step2_B16",
+      "QVL_compute_logits_step2_B16",
+      "QVL_decode_step3_B16_T16",
+      "QVL_decoder_model_step3_B16",
+      "QVL_decode_sample_step3_B16",
+      "QVL_compute_logits_step3_B16",
+      "QVL_decode_step4_B16_T16",
+      "QVL_decoder_model_step4_B16",
+      "QVL_decode_sample_step4_B16",
+      "QVL_compute_logits_step4_B16"
+    ]
+  },
+  {
+    "phase": "prefill",
+    "path": "traces/prefill_rank0.1791491002446704117.pt.trace.json.gz",
+    "sha256": "88a1771e5b089578a6cec5755d1d7d4283784710f6181419bc052c509e0f0198",
+    "cpu_scopes": [
+      "QVL_prefill_step0_B2_T16384",
+      "QVL_prefill_sample_step0_B16",
+      "QVL_compute_logits_step0_B16",
+      "QVL_prefill_step1_B2_T16384",
+      "QVL_prefill_sample_step1_B16",
+      "QVL_compute_logits_step1_B16",
+      "QVL_prefill_step2_B2_T16384",
+      "QVL_prefill_sample_step2_B16",
+      "QVL_compute_logits_step2_B16",
+      "QVL_prefill_step3_B2_T16384",
+      "QVL_prefill_sample_step3_B16",
+      "QVL_compute_logits_step3_B16",
+      "QVL_prefill_step4_B2_T16384",
+      "QVL_prefill_sample_step4_B16",
+      "QVL_compute_logits_step4_B16",
+      "QVL_prefill_step5_B2_T16384",
+      "QVL_prefill_sample_step5_B16",
+      "QVL_compute_logits_step5_B16",
+      "QVL_prefill_step6_B2_T16384",
+      "QVL_prefill_sample_step6_B16",
+      "QVL_compute_logits_step6_B16",
+      "QVL_prefill_step7_B2_T16384",
+      "QVL_prefill_sample_step7_B16",
+      "QVL_compute_logits_step7_B16"
+    ]
+  }
+]

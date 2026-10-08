@@ -1,0 +1,28 @@
+Triage View
+Mode: single-trace
+Framework: SGLang
+Input traces: /Users/chunan.zeng/.codex/worktrees/59ff/sglang/benchmark/qwen3_vl/results/reference_trace_comparison/analysis_inputs/sglang-b8/decode-TP0.trace.json.gz
+
+Kernel Table
+##### decode
+| Kernel | Category | GPU time | Share | Launches | Python location (site share) | CPU op |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen | attention | 8.87 ms | 43.4% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT | gemm | 3.23 ms | 15.8% | 180 | unresolved | cudaGraphLaunch |
+| kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0 | gemm | 3.16 ms | 15.4% | 360 | unresolved | cudaGraphLaunch |
+| kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0 | gemm | 2.10 ms | 10.3% | 180 | unresolved | cudaGraphLaunch |
+| kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0 | gemm | 1.59 ms | 7.8% | 360 | unresolved | cudaGraphLaunch |
+| void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false> | activation | 0.59 ms | 2.9% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT | gemm | 0.57 ms | 2.8% | 5 | unresolved | cudaGraphLaunch |
+
+Overlap Opportunity Table
+| Priority | Verdict | Kernel | Python scope | Formal signal | Dep risk | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| - | - | No rows cleared the 1.0% reporting bar. Use mapping/formal mode for overlap attribution. | - | - | - | - |
+
+Fuse Opportunity Table
+##### decode
+| Pattern | Confidence | Related GPU time | Share | Evidence kernels | Current kernel Python location | Candidate fused Python path | Rationale |
+| --- | --- | ---: | ---: | --- | --- | --- | --- |
+| PR #22392 CUTLASS FP8 scaled MM replacing nvjet | Confirmed | 3.81 ms | 18.6% | nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT (15.8%)<br>nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT (2.8%) | unresolved | PR #22392<br>python/sglang/kernels/aot/python/sgl_kernel/gemm.py<br>python/sglang/srt/layers/quantization/fp8_utils.py | Matches an open upstream path (18.6% related GPU time). Open SGLang PR replaces nvjet FP8 GEMM with CUTLASS to remove memset bubbles and extra copies. |
+| Fused residual add + RMSNorm | Confirmed | 1.59 ms | 7.8% | kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0 (7.8%) | unresolved | python/sglang/srt/layers/layernorm.py<br>python/sglang/srt/layers/quantization/modelslim/modelslim.py | `Fused residual add + RMSNorm` is present in this trace (7.8% related GPU time). Residual add plus RMSNorm already has fused implementations across several backends. |

@@ -1,0 +1,17 @@
+{
+  "model": "/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "seed": 42,
+  "requests": 128,
+  "input_tokens_each": 8192,
+  "sampling_pool_bounds": [
+    256,
+    32000
+  ],
+  "sampling_pool_count": 31744,
+  "special_ids_excluded": true,
+  "unique_first_token_per_request": true,
+  "fixture_sha256": "22e24bafdccb28b5e723b3983b2c056641bab9cc8914260c6aff3e02386f4c00",
+  "uncompressed_sha256": "94fcd59de6a283b3d2e0eae38e7501004316d8c53ce8860cdfe2ffd7a4916332",
+  "first_8_16_128_are_nested": true,
+  "purpose": "controlled dense-model kernel profiling; synthetic token IDs, not an accuracy dataset or exact historical chat workload"
+}

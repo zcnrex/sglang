@@ -1,0 +1,2 @@
+vllm @ https://wheels.vllm.ai/92044241a02f05de51420d654daf669de20b4691/vllm-0.30.1rc1.dev648%2Bg92044241a-cp38-abi3-manylinux_2_28_x86_64.whl
+transformers==5.17.0

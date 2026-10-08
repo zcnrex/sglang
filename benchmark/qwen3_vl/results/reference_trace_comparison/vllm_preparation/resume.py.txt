@@ -1,0 +1,21 @@
+from capture import *
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--batch',type=int);p.add_argument('--port',type=int);p.add_argument('--out');a=p.parse_args();out=pathlib.Path(a.out);url=f'http://127.0.0.1:{a.port}'
+ fixture=pathlib.Path('/root/qvl/experiments/reference-trace-comparison/shared/input_ids.json.gz');data=json.loads(gzip.decompress(fixture.read_bytes()));ids=(data['input_ids'] if isinstance(data,dict) else data)[:a.batch]
+ sanity=['/root/qvl/venv-sgl/bin/python','/root/qvl/sglang-current-profile/benchmark/qwen3_vl/eval_gsm8k.py','--base-url',url,'--output',str(out/'sanity-resume'),'--model','Qwen/Qwen3-VL-4B-Instruct','--num-examples','20','--num-threads',str(min(20,a.batch)),'--max-tokens','2048']
+ with (out/'sanity-resume.log').open('w') as f:subprocess.run(sanity,stdout=f,stderr=subprocess.STDOUT,check=True,env=dict(os.environ,PYTHONPATH="/root/qvl/sglang-current-profile/python",CUDA_VISIBLE_DEVICES=""))
+ score=json.load(open(out/'sanity-resume/metrics.json'));assert score['total']==20 and score['score']>0.8,score
+ def arm(phase):
+  tmp=out/'arm.tmp';tmp.write_text(json.dumps(dict(phase=phase)));tmp.replace(out/'arm.json')
+ def flush():return req(url+'/reset_prefix_cache',{})
+ def generate(n):
+  r=req(url+'/v1/completions',dict(model='Qwen/Qwen3-VL-4B-Instruct',prompt=ids,max_tokens=n,temperature=0,ignore_eos=True));assert len(r['choices'])==a.batch;assert r['usage']['prompt_tokens']==8192*a.batch;assert r['usage']['completion_tokens']==n*a.batch;return r
+ arm('warm_prefill')
+ for i in range(10):
+  flush();generate(1);f=out/'warm-prefill-forwards.jsonl'
+  if f.exists() and len(f.read_text().splitlines())>=10:break
+ else:raise RuntimeError('Warmup coverage incomplete')
+ for phase,n in [('prefill',1),('decode',1024)]:
+  flush();arm(phase);result=generate(n);(out/f'{phase}-responses.json').write_text(json.dumps(result));assert (out/f'{phase}-summary.json').exists(),phase;print('DONE',phase,flush=True)
+ os.killpg(int((out/'server.pid').read_text()),signal.SIGTERM);(out/'complete.json').write_text(json.dumps(dict(success=True)))
+if __name__=='__main__':main()

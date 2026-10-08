@@ -1,0 +1,21 @@
+import argparse,pathlib,json,gzip,os,signal,time
+from capture import request,atomic_json,validate_responses
+p=argparse.ArgumentParser();p.add_argument('--out',type=pathlib.Path,required=True);p.add_argument('--batch',type=int,required=True);p.add_argument('--port',type=int,required=True);a=p.parse_args()
+inputs=json.loads(gzip.decompress(pathlib.Path('/root/qvl/experiments/reference-trace-comparison/shared/input_ids.json.gz').read_bytes()))[:a.batch]
+url=f'http://127.0.0.1:{a.port}'
+pid=int((a.out/'server.pid').read_text());os.kill(pid,0)
+assert json.load(open(a.out/'sanity/metrics.json'))['score']>0.8
+if True:
+  def generate(tokens):return request(url+'/generate',dict(input_ids=inputs,sampling_params=dict(max_new_tokens=tokens,temperature=0,ignore_eos=True),stream=False))
+  assert json.load(open(a.out/'prefill-audit.json'))['valid']
+  for phase,tokens in [('decode',1024)]:
+   response=request(url+'/flush_cache',{});(a.out/f'{phase}-flush.json').write_text(json.dumps(response));atomic_json(a.out/'arm.json',dict(phase=phase))
+   result=generate(tokens);(a.out/f'{phase}-responses.json').write_text(json.dumps(validate_responses(result,a.batch,tokens)))
+   summary=a.out/f'{phase}-summary.json'
+   assert summary.exists(),f'{phase}: capture gate never completed; retain admission records, do not substitute other batch'
+   record=json.load(open(summary));assert record['valid'],record
+   if phase=='decode':assert record['captured_forwards']==5 and all(x['batch_size']==a.batch and x['input_tokens']==a.batch for x in record['records']) and len(record['graph_calls'])==5 and all(x['batch_size']==a.batch and x['graph_key_size']==a.batch for x in record['graph_calls'])
+   else:assert record['prefill_tokens']==8192*a.batch
+   print('CAPTURE_DONE',phase,flush=True)
+  (a.out/'client-resume-complete.json').write_text(json.dumps(dict(server_pid=pid,complete=True)))
+  os.killpg(pid,signal.SIGTERM)

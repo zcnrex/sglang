@@ -1,0 +1,168 @@
+{
+  "valid": true,
+  "records": [
+    {
+      "batch_size": 8,
+      "input_tokens": 8,
+      "seq_lens": [
+        8706,
+        8706,
+        8705,
+        8704,
+        8704,
+        8703,
+        8703,
+        8702
+      ],
+      "query_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "context": false,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)",
+      "graph_calls": [
+        {
+          "method": "run_fullgraph",
+          "descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+        }
+      ]
+    },
+    {
+      "batch_size": 8,
+      "input_tokens": 8,
+      "seq_lens": [
+        8707,
+        8707,
+        8706,
+        8705,
+        8705,
+        8704,
+        8704,
+        8703
+      ],
+      "query_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "context": false,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)",
+      "graph_calls": [
+        {
+          "method": "run_fullgraph",
+          "descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+        }
+      ]
+    },
+    {
+      "batch_size": 8,
+      "input_tokens": 8,
+      "seq_lens": [
+        8708,
+        8708,
+        8707,
+        8706,
+        8706,
+        8705,
+        8705,
+        8704
+      ],
+      "query_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "context": false,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)",
+      "graph_calls": [
+        {
+          "method": "run_fullgraph",
+          "descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+        }
+      ]
+    },
+    {
+      "batch_size": 8,
+      "input_tokens": 8,
+      "seq_lens": [
+        8709,
+        8709,
+        8708,
+        8707,
+        8707,
+        8706,
+        8706,
+        8705
+      ],
+      "query_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "context": false,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)",
+      "graph_calls": [
+        {
+          "method": "run_fullgraph",
+          "descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+        }
+      ]
+    },
+    {
+      "batch_size": 8,
+      "input_tokens": 8,
+      "seq_lens": [
+        8710,
+        8710,
+        8709,
+        8708,
+        8708,
+        8707,
+        8707,
+        8706
+      ],
+      "query_lens": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "context": false,
+      "batch_descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)",
+      "graph_calls": [
+        {
+          "method": "run_fullgraph",
+          "descriptor": "BatchExecutionDescriptor(cg_mode=<CUDAGraphMode.FULL: 2>, num_tokens=8, num_reqs=8, uniform_token_count=1, max_query_len=None, num_active_loras=0, num_ubatches=1)"
+        }
+      ]
+    }
+  ],
+  "captured_forwards": 5,
+  "prefill_tokens": 40,
+  "scope": "worker execute plus following sample; nested compute_logits distinguishes projection"
+}

@@ -1,0 +1,42 @@
+import argparse,gzip,hashlib,json,os,pathlib,signal,subprocess,time,urllib.request
+
+def req(url,data=None):
+ r=urllib.request.Request(url,data=None if data is None else json.dumps(data).encode(),headers={'Content-Type':'application/json'})
+ with urllib.request.urlopen(r,timeout=3600) as f:
+  body=f.read();return json.loads(body) if body else None
+
+def main():
+ p=argparse.ArgumentParser();p.add_argument('--gpu',type=int);p.add_argument('--batch',type=int);p.add_argument('--port',type=int);p.add_argument('--out');a=p.parse_args();out=pathlib.Path(a.out);out.mkdir(parents=True,exist_ok=False)
+ uuid=subprocess.check_output(['nvidia-smi',f'--id={a.gpu}','--query-gpu=uuid','--format=csv,noheader'],text=True).strip()
+ inventory=subprocess.check_output(['nvidia-smi','--query-compute-apps=gpu_uuid,pid','--format=csv,noheader'],text=True);assert uuid not in inventory,inventory
+ (out/'admission.json').write_text(json.dumps(dict(uuid=uuid,inventory=inventory)))
+ fixture=pathlib.Path('/root/qvl/experiments/reference-trace-comparison/shared/input_ids.json.gz');raw=fixture.read_bytes();assert hashlib.sha256(raw).hexdigest()=='22e24bafdccb28b5e723b3983b2c056641bab9cc8914260c6aff3e02386f4c00'
+ data=json.loads(gzip.decompress(raw));ids=(data['input_ids'] if isinstance(data,dict) else data)[:a.batch]
+ python='/root/qvl/venv-vllm-profile/bin/python';model='/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17'
+ env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(a.gpu),PYTHONPATH='/tmp/qvl-vllm-profile/hook',QVL_TRACE_ROOT=str(out),QVL_TRACE_BATCH=str(a.batch),VLLM_SERVER_DEV_MODE='1',HF_HOME='/root/qvl/hf',PYTHONDONTWRITEBYTECODE='1')
+ cfg=dict(profiler='torch',torch_profiler_dir=str(out/'traces'),ignore_frontend=True,torch_profiler_with_stack=False,torch_profiler_record_shapes=False,max_iterations=0)
+ cmd=[python,'-m','vllm.entrypoints.cli.main','serve',model,'--served-model-name','Qwen/Qwen3-VL-4B-Instruct','--tensor-parallel-size','1','--mm-encoder-tp-mode','data','--host','127.0.0.1','--port',str(a.port),'--profiler-config',json.dumps(cfg)]
+ (out/'launch.json').write_text(json.dumps(dict(cmd=cmd,env={k:env[k] for k in ['CUDA_VISIBLE_DEVICES','PYTHONPATH','QVL_TRACE_ROOT','QVL_TRACE_BATCH','VLLM_SERVER_DEV_MODE']}),indent=2))
+ log=(out/'server.log').open('w');server=subprocess.Popen(cmd,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True);(out/'server.pid').write_text(str(server.pid));print('SERVER',server.pid,flush=True);url=f'http://127.0.0.1:{a.port}'
+ for _ in range(1800):
+  assert server.poll() is None,'Server exited; inspect log'
+  try:req(url+'/health');break
+  except Exception:time.sleep(1)
+ else:raise RuntimeError('Readiness timeout; server preserved')
+ sanity=['/root/qvl/venv-sgl/bin/python','/root/qvl/sglang-current-profile/benchmark/qwen3_vl/eval_gsm8k.py','--base-url',url,'--output',str(out/'sanity'),'--model','Qwen/Qwen3-VL-4B-Instruct','--num-examples','20','--num-threads',str(min(20,a.batch)),'--max-tokens','2048']
+ with (out/'sanity.log').open('w') as f:subprocess.run(sanity,stdout=f,stderr=subprocess.STDOUT,check=True,env=dict(os.environ,PYTHONPATH="/root/qvl/sglang-current-profile/python",CUDA_VISIBLE_DEVICES=""))
+ score=json.load(open(out/'sanity/metrics.json'));assert score['total']==20 and score['score']>0.8,score
+ def arm(phase):
+  tmp=out/'arm.tmp';tmp.write_text(json.dumps(dict(phase=phase)));tmp.replace(out/'arm.json')
+ def flush():return req(url+'/reset_prefix_cache',{})
+ def generate(n):
+  r=req(url+'/v1/completions',dict(model='Qwen/Qwen3-VL-4B-Instruct',prompt=ids,max_tokens=n,temperature=0,ignore_eos=True));assert len(r['choices'])==a.batch;assert r['usage']['prompt_tokens']==8192*a.batch;assert r['usage']['completion_tokens']==n*a.batch;return r
+ arm('warm_prefill')
+ for i in range(10):
+  flush();generate(1);f=out/'warm-prefill-forwards.jsonl'
+  if f.exists() and len(f.read_text().splitlines())>=10:break
+ else:raise RuntimeError('Warmup coverage incomplete')
+ for phase,n in [('prefill',1),('decode',1024)]:
+  flush();arm(phase);result=generate(n);(out/f'{phase}-responses.json').write_text(json.dumps(result));assert (out/f'{phase}-summary.json').exists(),phase;print('DONE',phase,flush=True)
+ os.killpg(server.pid,signal.SIGTERM);server.wait(timeout=60);(out/'complete.json').write_text(json.dumps(dict(success=True)))
+if __name__=='__main__':main()

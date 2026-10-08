@@ -1,0 +1,48 @@
+[
+  {
+    "phase": "decode",
+    "path": "traces/prefill_rank0.1791491002176874222.pt.trace.json.gz",
+    "sha256": "87c8159970b7853f8d93ca869db3b19e30fa88faa77ef002102775844e31ccb1",
+    "cpu_scopes": [
+      "QVL_decode_step0_B8_T8",
+      "QVL_decoder_model_step0_B8",
+      "QVL_decode_sample_step0_B8",
+      "QVL_compute_logits_step0_B8",
+      "QVL_decode_step1_B8_T8",
+      "QVL_decoder_model_step1_B8",
+      "QVL_decode_sample_step1_B8",
+      "QVL_compute_logits_step1_B8",
+      "QVL_decode_step2_B8_T8",
+      "QVL_decoder_model_step2_B8",
+      "QVL_decode_sample_step2_B8",
+      "QVL_compute_logits_step2_B8",
+      "QVL_decode_step3_B8_T8",
+      "QVL_decoder_model_step3_B8",
+      "QVL_decode_sample_step3_B8",
+      "QVL_compute_logits_step3_B8",
+      "QVL_decode_step4_B8_T8",
+      "QVL_decoder_model_step4_B8",
+      "QVL_decode_sample_step4_B8",
+      "QVL_compute_logits_step4_B8"
+    ]
+  },
+  {
+    "phase": "prefill",
+    "path": "traces/prefill_rank0.1791490998474875451.pt.trace.json.gz",
+    "sha256": "6a6c98314fcd73b330e9e60bba998d3fbf0c9ca0a2cc0692295225d2c7ddec24",
+    "cpu_scopes": [
+      "QVL_prefill_step0_B2_T16384",
+      "QVL_prefill_sample_step0_B8",
+      "QVL_compute_logits_step0_B8",
+      "QVL_prefill_step1_B2_T16384",
+      "QVL_prefill_sample_step1_B8",
+      "QVL_compute_logits_step1_B8",
+      "QVL_prefill_step2_B2_T16384",
+      "QVL_prefill_sample_step2_B8",
+      "QVL_compute_logits_step2_B8",
+      "QVL_prefill_step3_B2_T16384",
+      "QVL_prefill_sample_step3_B8",
+      "QVL_compute_logits_step3_B8"
+    ]
+  }
+]

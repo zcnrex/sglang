@@ -1,0 +1,43 @@
+{
+  "original_sha256": "07d4a8b39a318bca2233c477ba685a41c88049fdddfc097e2779eac2cc5b97be",
+  "parts": [
+    {
+      "path": "original.tar.gz.part000",
+      "bytes": 1048576,
+      "sha256": "5f651b78a2c36ec5ec5bf330946e870820286b0ac4776afe5cbe17d4c47fd95b"
+    },
+    {
+      "path": "original.tar.gz.part001",
+      "bytes": 1048576,
+      "sha256": "6bde23e733fe58ac17683b5cd8ee16f362de77bc9c3c0fab1f48044c32de086c"
+    },
+    {
+      "path": "original.tar.gz.part002",
+      "bytes": 944084,
+      "sha256": "3c11e795666e0c1b57697066b3195c2ad120b714869334a5aa19de4acc9f5b85"
+    }
+  ],
+  "compressed": [
+    {
+      "path": "sglang-b16/source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+    },
+    {
+      "path": "sglang-b8/source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+    },
+    {
+      "path": "sglang-b16-attempt2/source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+    },
+    {
+      "path": "sglang-b128/source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+    },
+    {
+      "path": "sglang-b8-attempt2/source-manifest.json",
+      "sha256": "21f4394c4f3f7a800b1b4f396f9304caf845c1a7baea2fb34da791406dc47a2f"
+    }
+  ],
+  "reconstruct": "cat original.tar.gz.part* > original.tar.gz"
+}

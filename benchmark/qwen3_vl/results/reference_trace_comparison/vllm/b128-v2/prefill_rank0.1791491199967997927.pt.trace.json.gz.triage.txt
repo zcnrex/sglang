@@ -1,0 +1,25 @@
+Triage View
+Mode: single-trace
+Framework: vLLM
+Input traces: /Users/chunan.zeng/.codex/worktrees/59ff/sglang/benchmark/qwen3_vl/results/reference_trace_comparison/vllm/b128-v2/traces/prefill_rank0.1791491199967997927.pt.trace.json.gz
+
+Kernel Table
+##### decode
+| Kernel | Category | GPU time | Share | Launches | Python location (site share) | CPU op |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP16VarSeqQ8Kv256PersistentGroupedSwapsAbForGen | attention | 113.90 ms | 88.6% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_320xADDR_64x4_2x2_2cta_h_bz_TNT | gemm | 3.99 ms | 3.1% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_128x64_64x10_2x2_2cta_h_bz_splitK_TNT | gemm | 2.11 ms | 1.6% | 165 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_96x64_64x15_2x2_2cta_h_bz_TNN | gemm | 1.58 ms | 1.2% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_64x64_64x16_2x2_2cta_h_bz_TNT | gemm | 1.49 ms | 1.2% | 180 | unresolved | cudaGraphLaunch |
+
+Overlap Opportunity Table
+| Priority | Verdict | Kernel | Python scope | Formal signal | Dep risk | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| - | - | No rows cleared the 1.0% reporting bar. Use mapping/formal mode for overlap attribution. | - | - | - | - |
+
+Fuse Opportunity Table
+##### decode
+| Pattern | Confidence | Related GPU time | Share | Evidence kernels | Current kernel Python location | Candidate fused Python path | Rationale |
+| --- | --- | ---: | ---: | --- | --- | --- | --- |
+| vLLM-origin RMSNorm + Quantization | Candidate | 1.72 ms | 1.3% | - | unresolved | vllm/compilation/passes/fusion/rms_quant_fusion.py<br>vllm/docs/design/fusions.md | Matches an upstream path (1.3% related GPU time). vLLM already has a compile-time norm-plus-quant fusion family. |

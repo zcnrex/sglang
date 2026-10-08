@@ -1,0 +1,100 @@
+{
+  "sglang::fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32VarSeqQ8Kv256PersistentGroupedSwapsAbForGen": {
+    "classification": "BF16 paged attention",
+    "dtype": "BF16",
+    "source": "pinned attention backend + explicit QkvBfloat16OBfloat16 trace template",
+    "source_revision": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+    "reason": "TRTLLM-gen decode; P32 SG/P16 reference"
+  },
+  "sglang::kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0": {
+    "classification": "Residual RMSNorm",
+    "dtype": "BF16",
+    "source": "FlashInfer FusedAddRMSNormKernel + SG layernorm dispatch",
+    "source_revision": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+    "reason": "BF16 signatures and residual norm operation, not GEMM"
+  },
+  "sglang::void sglang::fused_qk_norm_mrope_kernel<true, true>(sglang::QKNormMRoPEParams)": {
+    "classification": "QK norm/MRoPE/cache",
+    "dtype": "BF16",
+    "source": "python/sglang/kernels/ops/attention/qkv_norm_mrope.py",
+    "source_revision": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+    "reason": "Separate larger-batch fused preparation"
+  },
+  "sglang::void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false>(sglang::ActivationParams)": {
+    "classification": "SiLU multiplied by up",
+    "dtype": "BF16",
+    "source": "python/sglang/kernels/jit/csrc/elementwise/activation.cuh:67",
+    "source_revision": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+    "reason": "BF1619456-wide gate/up to contiguous9728-wide output; rounding equivalence not asserted"
+  },
+  "sglang::fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen": {
+    "classification": "BF16 paged attention",
+    "dtype": "BF16",
+    "source": "pinned attention backend + explicit QkvBfloat16OBfloat16 trace template",
+    "source_revision": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+    "reason": "TRTLLM-gen decode; P32 SG/P16 reference"
+  },
+  "sglang::kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0": {
+    "classification": "QKV GEMM + norm/MRoPE/cache",
+    "dtype": "BF16",
+    "source": "python/sglang/kernels/ops/attention/qkv_norm_mrope.py",
+    "source_revision": "c76cfaba1a1154a4a24b8694184cb8d3318fc358",
+    "reason": "Exact model eligibility and shared QKV epilogue on B8"
+  },
+  "vllm::fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP16VarSeqQ8Kv256PersistentGroupedSwapsAbForGen": {
+    "classification": "BF16 paged attention",
+    "dtype": "BF16",
+    "source": "pinned attention backend + explicit QkvBfloat16OBfloat16 trace template",
+    "source_revision": "92044241a",
+    "reason": "TRTLLM-gen decode; P32 SG/P16 reference"
+  },
+  "vllm::triton_red_fused_fused_add_rms_norm_2": {
+    "classification": "Residual RMSNorm",
+    "dtype": "BF16",
+    "source": "source_evidence/vllm-generated.py.txt:19,164",
+    "source_revision": "92044241a",
+    "reason": "BF16 signatures and residual norm operation, not GEMM"
+  },
+  "vllm::triton_red_fused_fused_add_rms_norm_0": {
+    "classification": "Residual RMSNorm",
+    "dtype": "BF16",
+    "source": "source_evidence/vllm-generated.py.txt:19,164",
+    "source_revision": "92044241a",
+    "reason": "BF16 signatures and residual norm operation, not GEMM"
+  },
+  "vllm::triton_poi_fused_arange_bitwise_and_eq_index_lt_remainder_select_split_where_3": {
+    "classification": "Rotary coefficient selection",
+    "dtype": "BF16",
+    "source": "source_evidence/vllm-generated.py.txt:271",
+    "source_revision": "92044241a",
+    "reason": "Source-node index/split/select/where family"
+  },
+  "vllm::void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0>(__nv_bfloat16 const*, __nv_bfloat16 const*, __nv_bfloat16*, __nv_bfloat16*, long const*, long, long, long, long, long, int, int, int, float const*, float const*, int)": {
+    "classification": "KV cache write",
+    "dtype": "BF16",
+    "source": "vllm/v1/attention/backends/flashinfer.py",
+    "source_revision": "92044241a",
+    "reason": "BF16 input/output with cache type0; not FP8 quantization"
+  },
+  "vllm::triton_poi_fused_mul_silu_slice_1": {
+    "classification": "SiLU multiplied by up",
+    "dtype": "BF16",
+    "source": "source_evidence/vllm-generated.py.txt:107",
+    "source_revision": "92044241a",
+    "reason": "BF1619456-wide gate/up to contiguous9728-wide output; rounding equivalence not asserted"
+  },
+  "vllm::triton_red_fused_4": {
+    "classification": "Compiled QK norm + rotary",
+    "dtype": "BF16",
+    "source": "source_evidence/vllm-generated.py.txt:418",
+    "source_revision": "92044241a",
+    "reason": "BF16 pointers,128-wide reductions, norm weights and cos/sin; dynamic generated family not exact cubin identity"
+  },
+  "vllm::fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP16MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen": {
+    "classification": "BF16 paged attention",
+    "dtype": "BF16",
+    "source": "pinned attention backend + explicit QkvBfloat16OBfloat16 trace template",
+    "source_revision": "92044241a",
+    "reason": "TRTLLM-gen decode; P32 SG/P16 reference"
+  }
+}

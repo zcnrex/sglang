@@ -1,0 +1,305 @@
+{
+  "valid": false,
+  "reason": "prefill token total mismatch",
+  "target_batch": 16,
+  "full_batch_warm_steps": 0,
+  "captured_forwards": 9,
+  "prefill_tokens": 131087,
+  "records": [
+    {
+      "mode": "EXTEND",
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "seq_min": 8192,
+      "seq_max": 8192,
+      "seq_sum": 16384,
+      "seq_mean": 8192.0,
+      "extend_lens": [
+        8192,
+        8192
+      ],
+      "prefix_lens": [
+        0,
+        0
+      ],
+      "monotonic_ns": 246855595615611,
+      "wall_time_ns": 1791490805321381870,
+      "scope_name": "QVL_prefill_step0_B2_T16384",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246855683651473
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 4,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8160,
+        8193,
+        8193
+      ],
+      "seq_min": 8160,
+      "seq_max": 8193,
+      "seq_sum": 32738,
+      "seq_mean": 8184.5,
+      "extend_lens": [
+        8192,
+        8160,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246855688475899,
+      "wall_time_ns": 1791490805414242121,
+      "scope_name": "QVL_prefill_step1_B4_T16354",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246855744506009
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 4,
+      "input_tokens": 16353,
+      "seq_lens": [
+        8192,
+        8192,
+        8128,
+        8193
+      ],
+      "seq_min": 8128,
+      "seq_max": 8193,
+      "seq_sum": 32705,
+      "seq_mean": 8176.25,
+      "extend_lens": [
+        32,
+        8192,
+        8128,
+        1
+      ],
+      "prefix_lens": [
+        8160,
+        0,
+        0,
+        8192
+      ],
+      "monotonic_ns": 246855761206849,
+      "wall_time_ns": 1791490805486973090,
+      "scope_name": "QVL_prefill_step2_B4_T16353",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246855817245014
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8096,
+        8193,
+        8193
+      ],
+      "seq_min": 8096,
+      "seq_max": 8193,
+      "seq_sum": 40866,
+      "seq_mean": 8173.2,
+      "extend_lens": [
+        64,
+        8192,
+        8096,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8128,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246855887893485,
+      "wall_time_ns": 1791490805613659765,
+      "scope_name": "QVL_prefill_step3_B5_T16354",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246855943387685
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8064,
+        8193,
+        8193
+      ],
+      "seq_min": 8064,
+      "seq_max": 8193,
+      "seq_sum": 40834,
+      "seq_mean": 8166.8,
+      "extend_lens": [
+        96,
+        8192,
+        8064,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8096,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246856016291179,
+      "wall_time_ns": 1791490805742057462,
+      "scope_name": "QVL_prefill_step4_B5_T16354",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246856071745758
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8032,
+        8193,
+        8193
+      ],
+      "seq_min": 8032,
+      "seq_max": 8193,
+      "seq_sum": 40802,
+      "seq_mean": 8160.4,
+      "extend_lens": [
+        128,
+        8192,
+        8032,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8064,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246856149120554,
+      "wall_time_ns": 1791490805874886881,
+      "scope_name": "QVL_prefill_step5_B5_T16354",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246856204825247
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8000,
+        8193,
+        8193
+      ],
+      "seq_min": 8000,
+      "seq_max": 8193,
+      "seq_sum": 40770,
+      "seq_mean": 8154.0,
+      "extend_lens": [
+        160,
+        8192,
+        8000,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8032,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246856280018643,
+      "wall_time_ns": 1791490806005784900,
+      "scope_name": "QVL_prefill_step6_B5_T16354",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246856335180224
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7968,
+        8193,
+        8193
+      ],
+      "seq_min": 7968,
+      "seq_max": 8193,
+      "seq_sum": 40738,
+      "seq_mean": 8147.6,
+      "extend_lens": [
+        192,
+        8192,
+        7968,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8000,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246856410494689,
+      "wall_time_ns": 1791490806136260995,
+      "scope_name": "QVL_prefill_step7_B5_T16354",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246856465789197
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 3,
+      "input_tokens": 226,
+      "seq_lens": [
+        8192,
+        8193,
+        8193
+      ],
+      "seq_min": 8192,
+      "seq_max": 8193,
+      "seq_sum": 24578,
+      "seq_mean": 8192.666666666666,
+      "extend_lens": [
+        224,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7968,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 246856539620300,
+      "wall_time_ns": 1791490806265386602,
+      "scope_name": "QVL_prefill_step8_B3_T226",
+      "cuda_stream": 410408288,
+      "end_monotonic_ns": 246856586378281
+    }
+  ],
+  "graph_calls": []
+}

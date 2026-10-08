@@ -1,0 +1,32 @@
+Triage View
+Mode: single-trace
+Framework: vLLM
+Input traces: /Users/chunan.zeng/.codex/worktrees/59ff/sglang/benchmark/qwen3_vl/results/reference_trace_comparison/vllm/b16-v2/traces/prefill_rank0.1791491008281411705.pt.trace.json.gz
+
+Kernel Table
+##### decode
+| Kernel | Category | GPU time | Share | Launches | Python location (site share) | CPU op |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP16VarSeqQ8Kv256PersistentGroupedSwapsAbForGen | attention | 15.19 ms | 55.0% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_192x16_64x8_4x1_v_bz_TNT | gemm | 3.21 ms | 11.6% | 180 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_64x16_64x16_4x1_v_bz_splitK_TNT | gemm | 2.81 ms | 10.2% | 345 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_64x16_64x16_4x1_v_bz_TNT | gemm | 1.41 ms | 5.1% | 180 | unresolved | cudaGraphLaunch |
+| void cublasLt::splitKreduce_kernel<32, 16, int, float, __nv_bfloat16, float, __nv_bfloat16, false, float, __nv_bfloat16, __nv_bfloat16, true, false, false, false> | gemm | 0.85 ms | 3.1% | 360 | unresolved | cudaGraphLaunch |
+| nvjet_sm103_tst_384x16_64x4_4x1_v_bz_TNT | gemm | 0.65 ms | 2.3% | 5 | unresolved | cuLaunchKernelEx |
+| triton_red_fused_fused_add_rms_norm_2 | norm | 0.62 ms | 2.3% | 180 | unresolved | cudaGraphLaunch |
+| triton_red_fused_fused_add_rms_norm_0 | norm | 0.51 ms | 1.9% | 180 | unresolved | cudaGraphLaunch |
+| void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0> | quantize | 0.48 ms | 1.7% | 180 | unresolved | cudaGraphLaunch |
+| triton_poi_fused_arange_bitwise_and_eq_index_lt_remainder_select_split_where_3 | other | 0.45 ms | 1.6% | 175 | unresolved | cudaGraphLaunch |
+| triton_red_fused_4 | other | 0.30 ms | 1.1% | 175 | unresolved | cudaGraphLaunch |
+| triton_poi_fused_mul_silu_slice_1 | activation | 0.28 ms | 1.0% | 180 | unresolved | cudaGraphLaunch |
+
+Overlap Opportunity Table
+| Priority | Verdict | Kernel | Python scope | Formal signal | Dep risk | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| - | - | No rows cleared the 1.0% reporting bar. Use mapping/formal mode for overlap attribution. | - | - | - | - |
+
+Fuse Opportunity Table
+##### decode
+| Pattern | Confidence | Related GPU time | Share | Evidence kernels | Current kernel Python location | Candidate fused Python path | Rationale |
+| --- | --- | ---: | ---: | --- | --- | --- | --- |
+| vLLM-origin RMSNorm + Quantization | Confirmed | 1.61 ms | 5.8% | triton_red_fused_fused_add_rms_norm_2 (2.3%)<br>triton_red_fused_fused_add_rms_norm_0 (1.9%)<br>void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0> (1.7%) | unresolved | vllm/compilation/passes/fusion/rms_quant_fusion.py<br>vllm/docs/design/fusions.md | Matches an upstream path (5.8% related GPU time). vLLM already has a compile-time norm-plus-quant fusion family. |

@@ -1,0 +1,16 @@
+import gzip,hashlib,json,random
+from pathlib import Path
+from transformers import AutoTokenizer
+model='/root/qvl/hf/hub/models--Qwen--Qwen3-VL-4B-Instruct/snapshots/ebb281ec70b05090aa6165b016eac8ec08e71b17'
+out=Path('/root/qvl/experiments/reference-trace-comparison/shared');out.mkdir(parents=True,exist_ok=True)
+tok=AutoTokenizer.from_pretrained(model,local_files_only=True)
+valid=set(tok.get_vocab().values())-set(tok.all_special_ids)
+pool=[i for i in range(256,32000) if i in valid]
+rng=random.Random(42)
+rows=[[rng.choice(pool) for _ in range(8192)] for _ in range(128)]
+for i,row in enumerate(rows): row[0]=pool[i]
+payload=json.dumps(rows,separators=(',',':')).encode()
+p=out/'input_ids.json.gz';p.write_bytes(gzip.compress(payload,mtime=0))
+meta={'model':model,'seed':42,'requests':128,'input_tokens_each':8192,'sampling_pool_bounds':[256,32000],'sampling_pool_count':len(pool),'special_ids_excluded':True,'unique_first_token_per_request':True,'fixture_sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'uncompressed_sha256':hashlib.sha256(payload).hexdigest(),'first_8_16_128_are_nested':True,'purpose':'controlled dense-model kernel profiling; synthetic token IDs, not an accuracy dataset or exact historical chat workload'}
+(out/'fixture_metadata.json').write_text(json.dumps(meta,indent=2)+'\n')
+print(json.dumps(meta))

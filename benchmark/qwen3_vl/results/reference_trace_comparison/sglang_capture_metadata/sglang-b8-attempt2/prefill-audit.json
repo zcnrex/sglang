@@ -1,0 +1,9 @@
+{
+  "valid": true,
+  "prompt_tokens": 65536,
+  "raw_input_tokens": 65543,
+  "overlap_decode_tail_tokens": 7,
+  "original_summary_valid": false,
+  "label": "prefill/mixed capture; max1 output still has provisional decode tails under overlap",
+  "forwards": 5
+}

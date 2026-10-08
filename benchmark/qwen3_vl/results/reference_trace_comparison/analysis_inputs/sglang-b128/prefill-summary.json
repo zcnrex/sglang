@@ -1,0 +1,2265 @@
+{
+  "valid": true,
+  "reason": null,
+  "target_batch": 128,
+  "full_batch_warm_steps": 0,
+  "captured_forwards": 65,
+  "prefill_tokens": 1048576,
+  "records": [
+    {
+      "mode": "EXTEND",
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "seq_min": 8192,
+      "seq_max": 8192,
+      "seq_sum": 16384,
+      "seq_mean": 8192.0,
+      "extend_lens": [
+        8192,
+        8192
+      ],
+      "prefix_lens": [
+        0,
+        0
+      ],
+      "monotonic_ns": 247311334104993,
+      "wall_time_ns": 1791491261059871181,
+      "scope_name": "QVL_prefill_step0_B2_T16384",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247311390187433
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 4,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8160,
+        8193,
+        8193
+      ],
+      "seq_min": 8160,
+      "seq_max": 8193,
+      "seq_sum": 32738,
+      "seq_mean": 8184.5,
+      "extend_lens": [
+        8192,
+        8160,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247311393589790,
+      "wall_time_ns": 1791491261119355888,
+      "scope_name": "QVL_prefill_step1_B4_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247311429399973
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 4,
+      "input_tokens": 16353,
+      "seq_lens": [
+        8192,
+        8192,
+        8128,
+        8193
+      ],
+      "seq_min": 8128,
+      "seq_max": 8193,
+      "seq_sum": 32705,
+      "seq_mean": 8176.25,
+      "extend_lens": [
+        32,
+        8192,
+        8128,
+        1
+      ],
+      "prefix_lens": [
+        8160,
+        0,
+        0,
+        8192
+      ],
+      "monotonic_ns": 247311485540029,
+      "wall_time_ns": 1791491261211306075,
+      "scope_name": "QVL_prefill_step2_B4_T16353",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247311520955328
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8096,
+        8193,
+        8193
+      ],
+      "seq_min": 8096,
+      "seq_max": 8193,
+      "seq_sum": 40866,
+      "seq_mean": 8173.2,
+      "extend_lens": [
+        64,
+        8192,
+        8096,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8128,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247311613097572,
+      "wall_time_ns": 1791491261338863718,
+      "scope_name": "QVL_prefill_step3_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247311648225397
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8064,
+        8193,
+        8193
+      ],
+      "seq_min": 8064,
+      "seq_max": 8193,
+      "seq_sum": 40834,
+      "seq_mean": 8166.8,
+      "extend_lens": [
+        96,
+        8192,
+        8064,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8096,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247311741090633,
+      "wall_time_ns": 1791491261466856773,
+      "scope_name": "QVL_prefill_step4_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247311774744849
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8032,
+        8193,
+        8193
+      ],
+      "seq_min": 8032,
+      "seq_max": 8193,
+      "seq_sum": 40802,
+      "seq_mean": 8160.4,
+      "extend_lens": [
+        128,
+        8192,
+        8032,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8064,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247311874420586,
+      "wall_time_ns": 1791491261600186574,
+      "scope_name": "QVL_prefill_step5_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247311902066824
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8000,
+        8193,
+        8193
+      ],
+      "seq_min": 8000,
+      "seq_max": 8193,
+      "seq_sum": 40770,
+      "seq_mean": 8154.0,
+      "extend_lens": [
+        160,
+        8192,
+        8000,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8032,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312007756507,
+      "wall_time_ns": 1791491261733522427,
+      "scope_name": "QVL_prefill_step6_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312035946838
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7968,
+        8193,
+        8193
+      ],
+      "seq_min": 7968,
+      "seq_max": 8193,
+      "seq_sum": 40738,
+      "seq_mean": 8147.6,
+      "extend_lens": [
+        192,
+        8192,
+        7968,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8000,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312139833947,
+      "wall_time_ns": 1791491261865600025,
+      "scope_name": "QVL_prefill_step7_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312174161808
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7936,
+        8193,
+        8193
+      ],
+      "seq_min": 7936,
+      "seq_max": 8193,
+      "seq_sum": 40706,
+      "seq_mean": 8141.2,
+      "extend_lens": [
+        224,
+        8192,
+        7936,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7968,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312271276087,
+      "wall_time_ns": 1791491261997042163,
+      "scope_name": "QVL_prefill_step8_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312306814738
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7904,
+        8193,
+        8193
+      ],
+      "seq_min": 7904,
+      "seq_max": 8193,
+      "seq_sum": 40674,
+      "seq_mean": 8134.8,
+      "extend_lens": [
+        256,
+        8192,
+        7904,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7936,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312403854056,
+      "wall_time_ns": 1791491262129620175,
+      "scope_name": "QVL_prefill_step9_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312437747909
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7872,
+        8193,
+        8193
+      ],
+      "seq_min": 7872,
+      "seq_max": 8193,
+      "seq_sum": 40642,
+      "seq_mean": 8128.4,
+      "extend_lens": [
+        288,
+        8192,
+        7872,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7904,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312535248328,
+      "wall_time_ns": 1791491262261014456,
+      "scope_name": "QVL_prefill_step10_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312568964971
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7840,
+        8193,
+        8193
+      ],
+      "seq_min": 7840,
+      "seq_max": 8193,
+      "seq_sum": 40610,
+      "seq_mean": 8122.0,
+      "extend_lens": [
+        320,
+        8192,
+        7840,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7872,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312667599459,
+      "wall_time_ns": 1791491262393365631,
+      "scope_name": "QVL_prefill_step11_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312701374275
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7808,
+        8193,
+        8193
+      ],
+      "seq_min": 7808,
+      "seq_max": 8193,
+      "seq_sum": 40578,
+      "seq_mean": 8115.6,
+      "extend_lens": [
+        352,
+        8192,
+        7808,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7840,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312800027555,
+      "wall_time_ns": 1791491262525793635,
+      "scope_name": "QVL_prefill_step12_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312836833748
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7776,
+        8193,
+        8193
+      ],
+      "seq_min": 7776,
+      "seq_max": 8193,
+      "seq_sum": 40546,
+      "seq_mean": 8109.2,
+      "extend_lens": [
+        384,
+        8192,
+        7776,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7808,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247312932931971,
+      "wall_time_ns": 1791491262658698090,
+      "scope_name": "QVL_prefill_step13_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247312967271135
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7744,
+        8193,
+        8193
+      ],
+      "seq_min": 7744,
+      "seq_max": 8193,
+      "seq_sum": 40514,
+      "seq_mean": 8102.8,
+      "extend_lens": [
+        416,
+        8192,
+        7744,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7776,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313064780374,
+      "wall_time_ns": 1791491262790546582,
+      "scope_name": "QVL_prefill_step14_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313100315775
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7712,
+        8193,
+        8193
+      ],
+      "seq_min": 7712,
+      "seq_max": 8193,
+      "seq_sum": 40482,
+      "seq_mean": 8096.4,
+      "extend_lens": [
+        448,
+        8192,
+        7712,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7744,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313197835074,
+      "wall_time_ns": 1791491262923601271,
+      "scope_name": "QVL_prefill_step15_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313231682170
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7680,
+        8193,
+        8193
+      ],
+      "seq_min": 7680,
+      "seq_max": 8193,
+      "seq_sum": 40450,
+      "seq_mean": 8090.0,
+      "extend_lens": [
+        480,
+        8192,
+        7680,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7712,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313329609548,
+      "wall_time_ns": 1791491263055375657,
+      "scope_name": "QVL_prefill_step16_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313362990878
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7648,
+        8193,
+        8193
+      ],
+      "seq_min": 7648,
+      "seq_max": 8193,
+      "seq_sum": 40418,
+      "seq_mean": 8083.6,
+      "extend_lens": [
+        512,
+        8192,
+        7648,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7680,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313461397869,
+      "wall_time_ns": 1791491263187164089,
+      "scope_name": "QVL_prefill_step17_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313495459436
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7616,
+        8193,
+        8193
+      ],
+      "seq_min": 7616,
+      "seq_max": 8193,
+      "seq_sum": 40386,
+      "seq_mean": 8077.2,
+      "extend_lens": [
+        544,
+        8192,
+        7616,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7648,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313592819945,
+      "wall_time_ns": 1791491263318586124,
+      "scope_name": "QVL_prefill_step18_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313626929711
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7584,
+        8193,
+        8193
+      ],
+      "seq_min": 7584,
+      "seq_max": 8193,
+      "seq_sum": 40354,
+      "seq_mean": 8070.8,
+      "extend_lens": [
+        576,
+        8192,
+        7584,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7616,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313725389799,
+      "wall_time_ns": 1791491263451155950,
+      "scope_name": "QVL_prefill_step19_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313758820049
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7552,
+        8193,
+        8193
+      ],
+      "seq_min": 7552,
+      "seq_max": 8193,
+      "seq_sum": 40322,
+      "seq_mean": 8064.4,
+      "extend_lens": [
+        608,
+        8192,
+        7552,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7584,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313857592460,
+      "wall_time_ns": 1791491263583358596,
+      "scope_name": "QVL_prefill_step20_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247313891818866
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7520,
+        8193,
+        8193
+      ],
+      "seq_min": 7520,
+      "seq_max": 8193,
+      "seq_sum": 40290,
+      "seq_mean": 8058.0,
+      "extend_lens": [
+        640,
+        8192,
+        7520,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7552,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247313990079494,
+      "wall_time_ns": 1791491263715845633,
+      "scope_name": "QVL_prefill_step21_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314024220634
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7488,
+        8193,
+        8193
+      ],
+      "seq_min": 7488,
+      "seq_max": 8193,
+      "seq_sum": 40258,
+      "seq_mean": 8051.6,
+      "extend_lens": [
+        672,
+        8192,
+        7488,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7520,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314122746703,
+      "wall_time_ns": 1791491263848512798,
+      "scope_name": "QVL_prefill_step22_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314157839199
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7456,
+        8193,
+        8193
+      ],
+      "seq_min": 7456,
+      "seq_max": 8193,
+      "seq_sum": 40226,
+      "seq_mean": 8045.2,
+      "extend_lens": [
+        704,
+        8192,
+        7456,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7488,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314255139554,
+      "wall_time_ns": 1791491263980905631,
+      "scope_name": "QVL_prefill_step23_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314288892103
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7424,
+        8193,
+        8193
+      ],
+      "seq_min": 7424,
+      "seq_max": 8193,
+      "seq_sum": 40194,
+      "seq_mean": 8038.8,
+      "extend_lens": [
+        736,
+        8192,
+        7424,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7456,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314387611342,
+      "wall_time_ns": 1791491264113377503,
+      "scope_name": "QVL_prefill_step24_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314420817480
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7392,
+        8193,
+        8193
+      ],
+      "seq_min": 7392,
+      "seq_max": 8193,
+      "seq_sum": 40162,
+      "seq_mean": 8032.4,
+      "extend_lens": [
+        768,
+        8192,
+        7392,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7424,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314519346968,
+      "wall_time_ns": 1791491264245113022,
+      "scope_name": "QVL_prefill_step25_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314556989887
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7360,
+        8193,
+        8193
+      ],
+      "seq_min": 7360,
+      "seq_max": 8193,
+      "seq_sum": 40130,
+      "seq_mean": 8026.0,
+      "extend_lens": [
+        800,
+        8192,
+        7360,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7392,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314652063756,
+      "wall_time_ns": 1791491264377829862,
+      "scope_name": "QVL_prefill_step26_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314686278890
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7328,
+        8193,
+        8193
+      ],
+      "seq_min": 7328,
+      "seq_max": 8193,
+      "seq_sum": 40098,
+      "seq_mean": 8019.6,
+      "extend_lens": [
+        832,
+        8192,
+        7328,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7360,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314784614256,
+      "wall_time_ns": 1791491264510380445,
+      "scope_name": "QVL_prefill_step27_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314818923844
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7296,
+        8193,
+        8193
+      ],
+      "seq_min": 7296,
+      "seq_max": 8193,
+      "seq_sum": 40066,
+      "seq_mean": 8013.2,
+      "extend_lens": [
+        864,
+        8192,
+        7296,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7328,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247314917214298,
+      "wall_time_ns": 1791491264642980347,
+      "scope_name": "QVL_prefill_step28_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247314951304200
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7264,
+        8193,
+        8193
+      ],
+      "seq_min": 7264,
+      "seq_max": 8193,
+      "seq_sum": 40034,
+      "seq_mean": 8006.8,
+      "extend_lens": [
+        896,
+        8192,
+        7264,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7296,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315049611007,
+      "wall_time_ns": 1791491264775377144,
+      "scope_name": "QVL_prefill_step29_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315083330363
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7232,
+        8193,
+        8193
+      ],
+      "seq_min": 7232,
+      "seq_max": 8193,
+      "seq_sum": 40002,
+      "seq_mean": 8000.4,
+      "extend_lens": [
+        928,
+        8192,
+        7232,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7264,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315181855433,
+      "wall_time_ns": 1791491264907621577,
+      "scope_name": "QVL_prefill_step30_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315215238060
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7200,
+        8193,
+        8193
+      ],
+      "seq_min": 7200,
+      "seq_max": 8193,
+      "seq_sum": 39970,
+      "seq_mean": 7994.0,
+      "extend_lens": [
+        960,
+        8192,
+        7200,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7232,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315314348403,
+      "wall_time_ns": 1791491265040114516,
+      "scope_name": "QVL_prefill_step31_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315347814409
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7168,
+        8193,
+        8193
+      ],
+      "seq_min": 7168,
+      "seq_max": 8193,
+      "seq_sum": 39938,
+      "seq_mean": 7987.6,
+      "extend_lens": [
+        992,
+        8192,
+        7168,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7200,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315445744466,
+      "wall_time_ns": 1791491265171510666,
+      "scope_name": "QVL_prefill_step32_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315479029491
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7136,
+        8193,
+        8193
+      ],
+      "seq_min": 7136,
+      "seq_max": 8193,
+      "seq_sum": 39906,
+      "seq_mean": 7981.2,
+      "extend_lens": [
+        1024,
+        8192,
+        7136,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7168,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315578536416,
+      "wall_time_ns": 1791491265304302528,
+      "scope_name": "QVL_prefill_step33_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315612098806
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7104,
+        8193,
+        8193
+      ],
+      "seq_min": 7104,
+      "seq_max": 8193,
+      "seq_sum": 39874,
+      "seq_mean": 7974.8,
+      "extend_lens": [
+        1056,
+        8192,
+        7104,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7136,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315709856049,
+      "wall_time_ns": 1791491265435622153,
+      "scope_name": "QVL_prefill_step34_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315743126913
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7072,
+        8193,
+        8193
+      ],
+      "seq_min": 7072,
+      "seq_max": 8193,
+      "seq_sum": 39842,
+      "seq_mean": 7968.4,
+      "extend_lens": [
+        1088,
+        8192,
+        7072,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7104,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315842492631,
+      "wall_time_ns": 1791491265568258731,
+      "scope_name": "QVL_prefill_step35_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247315875499432
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7040,
+        8193,
+        8193
+      ],
+      "seq_min": 7040,
+      "seq_max": 8193,
+      "seq_sum": 39810,
+      "seq_mean": 7962.0,
+      "extend_lens": [
+        1120,
+        8192,
+        7040,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7072,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247315974824596,
+      "wall_time_ns": 1791491265700590773,
+      "scope_name": "QVL_prefill_step36_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316008691154
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7008,
+        8193,
+        8193
+      ],
+      "seq_min": 7008,
+      "seq_max": 8193,
+      "seq_sum": 39778,
+      "seq_mean": 7955.6,
+      "extend_lens": [
+        1152,
+        8192,
+        7008,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7040,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316107445624,
+      "wall_time_ns": 1791491265833211762,
+      "scope_name": "QVL_prefill_step37_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316144135093
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6976,
+        8193,
+        8193
+      ],
+      "seq_min": 6976,
+      "seq_max": 8193,
+      "seq_sum": 39746,
+      "seq_mean": 7949.2,
+      "extend_lens": [
+        1184,
+        8192,
+        6976,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7008,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316239737401,
+      "wall_time_ns": 1791491265965503519,
+      "scope_name": "QVL_prefill_step38_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316276058914
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6944,
+        8193,
+        8193
+      ],
+      "seq_min": 6944,
+      "seq_max": 8193,
+      "seq_sum": 39714,
+      "seq_mean": 7942.8,
+      "extend_lens": [
+        1216,
+        8192,
+        6944,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6976,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316372211214,
+      "wall_time_ns": 1791491266097977300,
+      "scope_name": "QVL_prefill_step39_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316406646190
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6912,
+        8193,
+        8193
+      ],
+      "seq_min": 6912,
+      "seq_max": 8193,
+      "seq_sum": 39682,
+      "seq_mean": 7936.4,
+      "extend_lens": [
+        1248,
+        8192,
+        6912,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6944,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316504781723,
+      "wall_time_ns": 1791491266230547925,
+      "scope_name": "QVL_prefill_step40_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316539456230
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6880,
+        8193,
+        8193
+      ],
+      "seq_min": 6880,
+      "seq_max": 8193,
+      "seq_sum": 39650,
+      "seq_mean": 7930.0,
+      "extend_lens": [
+        1280,
+        8192,
+        6880,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6912,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316637459738,
+      "wall_time_ns": 1791491266363225920,
+      "scope_name": "QVL_prefill_step41_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316672189007
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6848,
+        8193,
+        8193
+      ],
+      "seq_min": 6848,
+      "seq_max": 8193,
+      "seq_sum": 39618,
+      "seq_mean": 7923.6,
+      "extend_lens": [
+        1312,
+        8192,
+        6848,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6880,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316769912788,
+      "wall_time_ns": 1791491266495678876,
+      "scope_name": "QVL_prefill_step42_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316803552401
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6816,
+        8193,
+        8193
+      ],
+      "seq_min": 6816,
+      "seq_max": 8193,
+      "seq_sum": 39586,
+      "seq_mean": 7917.2,
+      "extend_lens": [
+        1344,
+        8192,
+        6816,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6848,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247316901898366,
+      "wall_time_ns": 1791491266627664425,
+      "scope_name": "QVL_prefill_step43_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247316935848302
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6784,
+        8193,
+        8193
+      ],
+      "seq_min": 6784,
+      "seq_max": 8193,
+      "seq_sum": 39554,
+      "seq_mean": 7910.8,
+      "extend_lens": [
+        1376,
+        8192,
+        6784,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6816,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317034626087,
+      "wall_time_ns": 1791491266760392268,
+      "scope_name": "QVL_prefill_step44_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317067993539
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6752,
+        8193,
+        8193
+      ],
+      "seq_min": 6752,
+      "seq_max": 8193,
+      "seq_sum": 39522,
+      "seq_mean": 7904.4,
+      "extend_lens": [
+        1408,
+        8192,
+        6752,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6784,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317167390101,
+      "wall_time_ns": 1791491266893156217,
+      "scope_name": "QVL_prefill_step45_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317201574579
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6720,
+        8193,
+        8193
+      ],
+      "seq_min": 6720,
+      "seq_max": 8193,
+      "seq_sum": 39490,
+      "seq_mean": 7898.0,
+      "extend_lens": [
+        1440,
+        8192,
+        6720,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6752,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317299976264,
+      "wall_time_ns": 1791491267025742329,
+      "scope_name": "QVL_prefill_step46_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317333252824
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6688,
+        8193,
+        8193
+      ],
+      "seq_min": 6688,
+      "seq_max": 8193,
+      "seq_sum": 39458,
+      "seq_mean": 7891.6,
+      "extend_lens": [
+        1472,
+        8192,
+        6688,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6720,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317432602142,
+      "wall_time_ns": 1791491267158368270,
+      "scope_name": "QVL_prefill_step47_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317466029054
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6656,
+        8193,
+        8193
+      ],
+      "seq_min": 6656,
+      "seq_max": 8193,
+      "seq_sum": 39426,
+      "seq_mean": 7885.2,
+      "extend_lens": [
+        1504,
+        8192,
+        6656,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6688,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317565772700,
+      "wall_time_ns": 1791491267291538840,
+      "scope_name": "QVL_prefill_step48_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317599227586
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6624,
+        8193,
+        8193
+      ],
+      "seq_min": 6624,
+      "seq_max": 8193,
+      "seq_sum": 39394,
+      "seq_mean": 7878.8,
+      "extend_lens": [
+        1536,
+        8192,
+        6624,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6656,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317697404563,
+      "wall_time_ns": 1791491267423170494,
+      "scope_name": "QVL_prefill_step49_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317725267152
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6592,
+        8193,
+        8193
+      ],
+      "seq_min": 6592,
+      "seq_max": 8193,
+      "seq_sum": 39362,
+      "seq_mean": 7872.4,
+      "extend_lens": [
+        1568,
+        8192,
+        6592,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6624,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317831601096,
+      "wall_time_ns": 1791491267557367252,
+      "scope_name": "QVL_prefill_step50_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317869436111
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6560,
+        8193,
+        8193
+      ],
+      "seq_min": 6560,
+      "seq_max": 8193,
+      "seq_sum": 39330,
+      "seq_mean": 7866.0,
+      "extend_lens": [
+        1600,
+        8192,
+        6560,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6592,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247317962947745,
+      "wall_time_ns": 1791491267688713904,
+      "scope_name": "QVL_prefill_step51_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247317997478209
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6528,
+        8193,
+        8193
+      ],
+      "seq_min": 6528,
+      "seq_max": 8193,
+      "seq_sum": 39298,
+      "seq_mean": 7859.6,
+      "extend_lens": [
+        1632,
+        8192,
+        6528,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6560,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318093675488,
+      "wall_time_ns": 1791491267819441741,
+      "scope_name": "QVL_prefill_step52_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318128200428
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6496,
+        8193,
+        8193
+      ],
+      "seq_min": 6496,
+      "seq_max": 8193,
+      "seq_sum": 39266,
+      "seq_mean": 7853.2,
+      "extend_lens": [
+        1664,
+        8192,
+        6496,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6528,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318224236229,
+      "wall_time_ns": 1791491267950002288,
+      "scope_name": "QVL_prefill_step53_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318258581180
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6464,
+        8193,
+        8193
+      ],
+      "seq_min": 6464,
+      "seq_max": 8193,
+      "seq_sum": 39234,
+      "seq_mean": 7846.8,
+      "extend_lens": [
+        1696,
+        8192,
+        6464,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6496,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318354485672,
+      "wall_time_ns": 1791491268080251795,
+      "scope_name": "QVL_prefill_step54_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318388082072
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6432,
+        8193,
+        8193
+      ],
+      "seq_min": 6432,
+      "seq_max": 8193,
+      "seq_sum": 39202,
+      "seq_mean": 7840.4,
+      "extend_lens": [
+        1728,
+        8192,
+        6432,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6464,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318485771130,
+      "wall_time_ns": 1791491268211537313,
+      "scope_name": "QVL_prefill_step55_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318519836631
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6400,
+        8193,
+        8193
+      ],
+      "seq_min": 6400,
+      "seq_max": 8193,
+      "seq_sum": 39170,
+      "seq_mean": 7834.0,
+      "extend_lens": [
+        1760,
+        8192,
+        6400,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6432,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318616731881,
+      "wall_time_ns": 1791491268342498072,
+      "scope_name": "QVL_prefill_step56_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318650451100
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6368,
+        8193,
+        8193
+      ],
+      "seq_min": 6368,
+      "seq_max": 8193,
+      "seq_sum": 39138,
+      "seq_mean": 7827.6,
+      "extend_lens": [
+        1792,
+        8192,
+        6368,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6400,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318747638431,
+      "wall_time_ns": 1791491268473404549,
+      "scope_name": "QVL_prefill_step57_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318780971460
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6336,
+        8193,
+        8193
+      ],
+      "seq_min": 6336,
+      "seq_max": 8193,
+      "seq_sum": 39106,
+      "seq_mean": 7821.2,
+      "extend_lens": [
+        1824,
+        8192,
+        6336,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6368,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247318878387764,
+      "wall_time_ns": 1791491268604153950,
+      "scope_name": "QVL_prefill_step58_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247318912689070
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6304,
+        8193,
+        8193
+      ],
+      "seq_min": 6304,
+      "seq_max": 8193,
+      "seq_sum": 39074,
+      "seq_mean": 7814.8,
+      "extend_lens": [
+        1856,
+        8192,
+        6304,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6336,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247319009973970,
+      "wall_time_ns": 1791491268735740158,
+      "scope_name": "QVL_prefill_step59_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247319044313762
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6272,
+        8193,
+        8193
+      ],
+      "seq_min": 6272,
+      "seq_max": 8193,
+      "seq_sum": 39042,
+      "seq_mean": 7808.4,
+      "extend_lens": [
+        1888,
+        8192,
+        6272,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6304,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247319140672690,
+      "wall_time_ns": 1791491268866438890,
+      "scope_name": "QVL_prefill_step60_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247319174164501
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6240,
+        8193,
+        8193
+      ],
+      "seq_min": 6240,
+      "seq_max": 8193,
+      "seq_sum": 39010,
+      "seq_mean": 7802.0,
+      "extend_lens": [
+        1920,
+        8192,
+        6240,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6272,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247319272168276,
+      "wall_time_ns": 1791491268997934434,
+      "scope_name": "QVL_prefill_step61_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247319305365210
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6208,
+        8193,
+        8193
+      ],
+      "seq_min": 6208,
+      "seq_max": 8193,
+      "seq_sum": 38978,
+      "seq_mean": 7795.6,
+      "extend_lens": [
+        1952,
+        8192,
+        6208,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6240,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247319403854445,
+      "wall_time_ns": 1791491269129620551,
+      "scope_name": "QVL_prefill_step62_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247319441816252
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6176,
+        8193,
+        8193
+      ],
+      "seq_min": 6176,
+      "seq_max": 8193,
+      "seq_sum": 38946,
+      "seq_mean": 7789.2,
+      "extend_lens": [
+        1984,
+        8192,
+        6176,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6208,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247319535105666,
+      "wall_time_ns": 1791491269260871771,
+      "scope_name": "QVL_prefill_step63_B5_T16354",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247319569420735
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 3,
+      "input_tokens": 2018,
+      "seq_lens": [
+        8192,
+        8193,
+        8193
+      ],
+      "seq_min": 8192,
+      "seq_max": 8193,
+      "seq_sum": 24578,
+      "seq_mean": 8192.666666666666,
+      "extend_lens": [
+        2016,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6176,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247319665021340,
+      "wall_time_ns": 1791491269390787442,
+      "scope_name": "QVL_prefill_step64_B3_T2018",
+      "cuda_stream": 692895232,
+      "end_monotonic_ns": 247319695169078
+    }
+  ],
+  "graph_calls": []
+}

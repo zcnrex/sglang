@@ -1,0 +1,14 @@
+[
+  {
+    "path": "analysis_inputs/sglang-b8/prefill-TP0.trace.json.gz",
+    "original_sha256": "bfb41e127158e1f59ad851d721e38b2715796d3e03a7bfd48891ee8085d7130a",
+    "gzip_sha256": "f4be1e011c9e26d5dffdc62f6a90e73ee38d91b9f50edfde2ce20e5d2905c551",
+    "bytes": 532614
+  },
+  {
+    "path": "analysis_inputs/sglang-b8/decode-TP0.trace.json.gz",
+    "original_sha256": "7ed0fd19c1c99074c69008c657ffbf69df2131d10ba90ba341139b0a2b4444e4",
+    "gzip_sha256": "764fba22d2a4c1e77c9f9dc0de8a909ff8dc44ddee83e2241c031c1401155c49",
+    "bytes": 71386
+  }
+]

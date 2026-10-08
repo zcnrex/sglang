@@ -1,0 +1,1 @@
+All B8/B16/B128 captures are complete; historical handoff-state.json records only the temporary expired-auth pause. Final scripts here include plain-text flush parsing and prompt-only mixed-prefill accounting. Collector provenance: ../../sglang_capture_metadata/README.md. Canonical traces: ../../analysis_inputs/. No GPU jobs remain owned by this collector.

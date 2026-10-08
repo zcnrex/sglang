@@ -1,0 +1,5 @@
+{
+  "gpu_inventory": "0, GPU-e11c5bb0-2977-fc03-7539-24de38b48d55\n1, GPU-68adcb31-396a-65b8-0ca7-0a5492ff3aeb\n2, GPU-37642b33-c99b-f255-ebdc-aa7f2679c16b\n3, GPU-3e3416c4-ddfe-0e5f-c542-a3afaf71dc36\n4, GPU-bcd92e60-66d0-aad3-588c-109e617e876f\n5, GPU-56b793fd-ecdc-e3a1-c01d-5bf485253114\n6, GPU-07a8f724-900b-fa28-a30f-73c3d84fa5fe\n7, GPU-69ab24f4-1ab9-1776-7201-0be47bee6201\n",
+  "compute_apps": "GPU-e11c5bb0-2977-fc03-7539-24de38b48d55, 779802, 714 MiB\nGPU-e11c5bb0-2977-fc03-7539-24de38b48d55, 781016, 211836 MiB\nGPU-68adcb31-396a-65b8-0ca7-0a5492ff3aeb, 781084, 211900 MiB\nGPU-37642b33-c99b-f255-ebdc-aa7f2679c16b, 781152, 211900 MiB\nGPU-3e3416c4-ddfe-0e5f-c542-a3afaf71dc36, 781220, 211580 MiB\nGPU-bcd92e60-66d0-aad3-588c-109e617e876f, 815697, 4894 MiB\n",
+  "selected_uuid": "GPU-07a8f724-900b-fa28-a30f-73c3d84fa5fe"
+}

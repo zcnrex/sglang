@@ -1,0 +1,81 @@
+[
+  {
+    "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz",
+    "bytes": 7684346,
+    "sha256": "733254b786e6d4c6afd412fb6902554c54eee1e46266edf90ff81b8d7a886025",
+    "parts": [
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part000",
+        "bytes": 1048576,
+        "sha256": "79c5e1e6cb9deca6d5ce5bf5be04f96d3bdfd34f681681b68c50ad64b0549407"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part001",
+        "bytes": 1048576,
+        "sha256": "cc9a2d7f100644d9a07df94bce924005ce070eb360d2939e431079774a03d36f"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part002",
+        "bytes": 1048576,
+        "sha256": "78d3ae02ef2dd38ee93e4e31b3b9922e6200cb9f1803efeeb6d4b0e5b444bdd9"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part003",
+        "bytes": 1048576,
+        "sha256": "72e9e94d4b7c2e48f3b63740f15965af09097001fc1de73e6816d892bae5a070"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part004",
+        "bytes": 1048576,
+        "sha256": "65e1bd390bcce1c525d0a114b5221dccd52e6ea4c65bc23f7a96427c4e54b068"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part005",
+        "bytes": 1048576,
+        "sha256": "c4b17e500dfd8ab2f8c41dbeb6db9ab67e8ed020c0a2b6b14d9ffac7e9f52fae"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part006",
+        "bytes": 1048576,
+        "sha256": "570f93ce6216fa86b86c0ae075b093ca97701f94b9bbd9ca99c4979863c0ab72"
+      },
+      {
+        "path": "analysis_inputs/sglang-b128/prefill-TP0.trace.json.gz.part007",
+        "bytes": 344314,
+        "sha256": "6409ef1667c23f292353d76b16d2509986b10c1b0dcfa2035d629d8a904eaeab"
+      }
+    ]
+  },
+  {
+    "path": "vllm/b128-v2/traces/prefill_rank0.1791491168898869904.pt.trace.json.gz",
+    "bytes": 4311344,
+    "sha256": "591ea4a2068d8b03876190311485eab712cfa708d38bd08cd963ce92fa26938b",
+    "parts": [
+      {
+        "path": "vllm/b128-v2/traces/prefill_rank0.1791491168898869904.pt.trace.json.gz.part000",
+        "bytes": 1048576,
+        "sha256": "3acdfffbb8e7a71ade2b0ed82a5a2c1551f35bbd04df94dc1a4198cd9bc14896"
+      },
+      {
+        "path": "vllm/b128-v2/traces/prefill_rank0.1791491168898869904.pt.trace.json.gz.part001",
+        "bytes": 1048576,
+        "sha256": "148d5cb0c9000018a350e9c1e34a4f310f3681d385bc7e4c5d8321d2152824ba"
+      },
+      {
+        "path": "vllm/b128-v2/traces/prefill_rank0.1791491168898869904.pt.trace.json.gz.part002",
+        "bytes": 1048576,
+        "sha256": "2ee2aa20e80f6526f53471fc8fd0659d4929ac4a0d0a939c5a4731d07e5236fa"
+      },
+      {
+        "path": "vllm/b128-v2/traces/prefill_rank0.1791491168898869904.pt.trace.json.gz.part003",
+        "bytes": 1048576,
+        "sha256": "596ec6df4b2b060c32db56c0b5cd6f8895d137de2e9ce5c7d474822057ba8065"
+      },
+      {
+        "path": "vllm/b128-v2/traces/prefill_rank0.1791491168898869904.pt.trace.json.gz.part004",
+        "bytes": 117040,
+        "sha256": "ba1fab3335f18e60f8631989041b62500426bc5c9a6e819902aaa6f378af60dc"
+      }
+    ]
+  }
+]

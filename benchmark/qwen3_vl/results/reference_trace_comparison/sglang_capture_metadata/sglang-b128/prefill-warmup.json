@@ -1,0 +1,2065 @@
+{
+  "rounds": 1,
+  "observed_prefill_forwards": 65,
+  "records": [
+    {
+      "mode": "EXTEND",
+      "batch_size": 2,
+      "input_tokens": 16384,
+      "seq_lens": [
+        8192,
+        8192
+      ],
+      "seq_min": 8192,
+      "seq_max": 8192,
+      "seq_sum": 16384,
+      "seq_mean": 8192.0,
+      "extend_lens": [
+        8192,
+        8192
+      ],
+      "prefix_lens": [
+        0,
+        0
+      ],
+      "monotonic_ns": 247302634260057,
+      "wall_time_ns": 1791491252360026421
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 4,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8160,
+        8193,
+        8193
+      ],
+      "seq_min": 8160,
+      "seq_max": 8193,
+      "seq_sum": 32738,
+      "seq_mean": 8184.5,
+      "extend_lens": [
+        8192,
+        8160,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247302664314758,
+      "wall_time_ns": 1791491252390080919
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 4,
+      "input_tokens": 16353,
+      "seq_lens": [
+        8192,
+        8192,
+        8128,
+        8193
+      ],
+      "seq_min": 8128,
+      "seq_max": 8193,
+      "seq_sum": 32705,
+      "seq_mean": 8176.25,
+      "extend_lens": [
+        32,
+        8192,
+        8128,
+        1
+      ],
+      "prefix_lens": [
+        8160,
+        0,
+        0,
+        8192
+      ],
+      "monotonic_ns": 247302885676826,
+      "wall_time_ns": 1791491252611442962
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8096,
+        8193,
+        8193
+      ],
+      "seq_min": 8096,
+      "seq_max": 8193,
+      "seq_sum": 40866,
+      "seq_mean": 8173.2,
+      "extend_lens": [
+        64,
+        8192,
+        8096,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8128,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247302920474461,
+      "wall_time_ns": 1791491252646240620
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8064,
+        8193,
+        8193
+      ],
+      "seq_min": 8064,
+      "seq_max": 8193,
+      "seq_sum": 40834,
+      "seq_mean": 8166.8,
+      "extend_lens": [
+        96,
+        8192,
+        8064,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8096,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303017912265,
+      "wall_time_ns": 1791491252743678431
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8032,
+        8193,
+        8193
+      ],
+      "seq_min": 8032,
+      "seq_max": 8193,
+      "seq_sum": 40802,
+      "seq_mean": 8160.4,
+      "extend_lens": [
+        128,
+        8192,
+        8032,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8064,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303150187313,
+      "wall_time_ns": 1791491252875953521
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        8000,
+        8193,
+        8193
+      ],
+      "seq_min": 8000,
+      "seq_max": 8193,
+      "seq_sum": 40770,
+      "seq_mean": 8154.0,
+      "extend_lens": [
+        160,
+        8192,
+        8000,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8032,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303281809952,
+      "wall_time_ns": 1791491253007576100
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7968,
+        8193,
+        8193
+      ],
+      "seq_min": 7968,
+      "seq_max": 8193,
+      "seq_sum": 40738,
+      "seq_mean": 8147.6,
+      "extend_lens": [
+        192,
+        8192,
+        7968,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        8000,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303412879199,
+      "wall_time_ns": 1791491253138645440
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7936,
+        8193,
+        8193
+      ],
+      "seq_min": 7936,
+      "seq_max": 8193,
+      "seq_sum": 40706,
+      "seq_mean": 8141.2,
+      "extend_lens": [
+        224,
+        8192,
+        7936,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7968,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303543170982,
+      "wall_time_ns": 1791491253268937113
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7904,
+        8193,
+        8193
+      ],
+      "seq_min": 7904,
+      "seq_max": 8193,
+      "seq_sum": 40674,
+      "seq_mean": 8134.8,
+      "extend_lens": [
+        256,
+        8192,
+        7904,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7936,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303673575719,
+      "wall_time_ns": 1791491253399341917
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7872,
+        8193,
+        8193
+      ],
+      "seq_min": 7872,
+      "seq_max": 8193,
+      "seq_sum": 40642,
+      "seq_mean": 8128.4,
+      "extend_lens": [
+        288,
+        8192,
+        7872,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7904,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303804515415,
+      "wall_time_ns": 1791491253530281632
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7840,
+        8193,
+        8193
+      ],
+      "seq_min": 7840,
+      "seq_max": 8193,
+      "seq_sum": 40610,
+      "seq_mean": 8122.0,
+      "extend_lens": [
+        320,
+        8192,
+        7840,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7872,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247303935367535,
+      "wall_time_ns": 1791491253661133794
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7808,
+        8193,
+        8193
+      ],
+      "seq_min": 7808,
+      "seq_max": 8193,
+      "seq_sum": 40578,
+      "seq_mean": 8115.6,
+      "extend_lens": [
+        352,
+        8192,
+        7808,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7840,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304066866485,
+      "wall_time_ns": 1791491253792632597
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7776,
+        8193,
+        8193
+      ],
+      "seq_min": 7776,
+      "seq_max": 8193,
+      "seq_sum": 40546,
+      "seq_mean": 8109.2,
+      "extend_lens": [
+        384,
+        8192,
+        7776,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7808,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304197809790,
+      "wall_time_ns": 1791491253923576041
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7744,
+        8193,
+        8193
+      ],
+      "seq_min": 7744,
+      "seq_max": 8193,
+      "seq_sum": 40514,
+      "seq_mean": 8102.8,
+      "extend_lens": [
+        416,
+        8192,
+        7744,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7776,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304328915833,
+      "wall_time_ns": 1791491254054682033
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7712,
+        8193,
+        8193
+      ],
+      "seq_min": 7712,
+      "seq_max": 8193,
+      "seq_sum": 40482,
+      "seq_mean": 8096.4,
+      "extend_lens": [
+        448,
+        8192,
+        7712,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7744,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304459783840,
+      "wall_time_ns": 1791491254185549982
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7680,
+        8193,
+        8193
+      ],
+      "seq_min": 7680,
+      "seq_max": 8193,
+      "seq_sum": 40450,
+      "seq_mean": 8090.0,
+      "extend_lens": [
+        480,
+        8192,
+        7680,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7712,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304590376365,
+      "wall_time_ns": 1791491254316142573
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7648,
+        8193,
+        8193
+      ],
+      "seq_min": 7648,
+      "seq_max": 8193,
+      "seq_sum": 40418,
+      "seq_mean": 8083.6,
+      "extend_lens": [
+        512,
+        8192,
+        7648,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7680,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304721699276,
+      "wall_time_ns": 1791491254447465470
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7616,
+        8193,
+        8193
+      ],
+      "seq_min": 7616,
+      "seq_max": 8193,
+      "seq_sum": 40386,
+      "seq_mean": 8077.2,
+      "extend_lens": [
+        544,
+        8192,
+        7616,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7648,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304852915077,
+      "wall_time_ns": 1791491254578681322
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7584,
+        8193,
+        8193
+      ],
+      "seq_min": 7584,
+      "seq_max": 8193,
+      "seq_sum": 40354,
+      "seq_mean": 8070.8,
+      "extend_lens": [
+        576,
+        8192,
+        7584,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7616,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247304985242351,
+      "wall_time_ns": 1791491254711008520
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7552,
+        8193,
+        8193
+      ],
+      "seq_min": 7552,
+      "seq_max": 8193,
+      "seq_sum": 40322,
+      "seq_mean": 8064.4,
+      "extend_lens": [
+        608,
+        8192,
+        7552,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7584,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305116877248,
+      "wall_time_ns": 1791491254842643454
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7520,
+        8193,
+        8193
+      ],
+      "seq_min": 7520,
+      "seq_max": 8193,
+      "seq_sum": 40290,
+      "seq_mean": 8058.0,
+      "extend_lens": [
+        640,
+        8192,
+        7520,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7552,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305248316584,
+      "wall_time_ns": 1791491254974082777
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7488,
+        8193,
+        8193
+      ],
+      "seq_min": 7488,
+      "seq_max": 8193,
+      "seq_sum": 40258,
+      "seq_mean": 8051.6,
+      "extend_lens": [
+        672,
+        8192,
+        7488,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7520,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305378930383,
+      "wall_time_ns": 1791491255104696549
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7456,
+        8193,
+        8193
+      ],
+      "seq_min": 7456,
+      "seq_max": 8193,
+      "seq_sum": 40226,
+      "seq_mean": 8045.2,
+      "extend_lens": [
+        704,
+        8192,
+        7456,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7488,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305510545966,
+      "wall_time_ns": 1791491255236312174
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7424,
+        8193,
+        8193
+      ],
+      "seq_min": 7424,
+      "seq_max": 8193,
+      "seq_sum": 40194,
+      "seq_mean": 8038.8,
+      "extend_lens": [
+        736,
+        8192,
+        7424,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7456,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305642206344,
+      "wall_time_ns": 1791491255367972506
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7392,
+        8193,
+        8193
+      ],
+      "seq_min": 7392,
+      "seq_max": 8193,
+      "seq_sum": 40162,
+      "seq_mean": 8032.4,
+      "extend_lens": [
+        768,
+        8192,
+        7392,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7424,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305773488437,
+      "wall_time_ns": 1791491255499254656
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7360,
+        8193,
+        8193
+      ],
+      "seq_min": 7360,
+      "seq_max": 8193,
+      "seq_sum": 40130,
+      "seq_mean": 8026.0,
+      "extend_lens": [
+        800,
+        8192,
+        7360,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7392,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247305905263460,
+      "wall_time_ns": 1791491255631029651
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7328,
+        8193,
+        8193
+      ],
+      "seq_min": 7328,
+      "seq_max": 8193,
+      "seq_sum": 40098,
+      "seq_mean": 8019.6,
+      "extend_lens": [
+        832,
+        8192,
+        7328,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7360,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306036725040,
+      "wall_time_ns": 1791491255762491238
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7296,
+        8193,
+        8193
+      ],
+      "seq_min": 7296,
+      "seq_max": 8193,
+      "seq_sum": 40066,
+      "seq_mean": 8013.2,
+      "extend_lens": [
+        864,
+        8192,
+        7296,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7328,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306167994775,
+      "wall_time_ns": 1791491255893760945
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7264,
+        8193,
+        8193
+      ],
+      "seq_min": 7264,
+      "seq_max": 8193,
+      "seq_sum": 40034,
+      "seq_mean": 8006.8,
+      "extend_lens": [
+        896,
+        8192,
+        7264,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7296,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306299445086,
+      "wall_time_ns": 1791491256025211256
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7232,
+        8193,
+        8193
+      ],
+      "seq_min": 7232,
+      "seq_max": 8193,
+      "seq_sum": 40002,
+      "seq_mean": 8000.4,
+      "extend_lens": [
+        928,
+        8192,
+        7232,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7264,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306430830914,
+      "wall_time_ns": 1791491256156597068
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7200,
+        8193,
+        8193
+      ],
+      "seq_min": 7200,
+      "seq_max": 8193,
+      "seq_sum": 39970,
+      "seq_mean": 7994.0,
+      "extend_lens": [
+        960,
+        8192,
+        7200,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7232,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306561955425,
+      "wall_time_ns": 1791491256287721647
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7168,
+        8193,
+        8193
+      ],
+      "seq_min": 7168,
+      "seq_max": 8193,
+      "seq_sum": 39938,
+      "seq_mean": 7987.6,
+      "extend_lens": [
+        992,
+        8192,
+        7168,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7200,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306693646727,
+      "wall_time_ns": 1791491256419412932
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7136,
+        8193,
+        8193
+      ],
+      "seq_min": 7136,
+      "seq_max": 8193,
+      "seq_sum": 39906,
+      "seq_mean": 7981.2,
+      "extend_lens": [
+        1024,
+        8192,
+        7136,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7168,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306826033146,
+      "wall_time_ns": 1791491256551799311
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7104,
+        8193,
+        8193
+      ],
+      "seq_min": 7104,
+      "seq_max": 8193,
+      "seq_sum": 39874,
+      "seq_mean": 7974.8,
+      "extend_lens": [
+        1056,
+        8192,
+        7104,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7136,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247306957251186,
+      "wall_time_ns": 1791491256683017411
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7072,
+        8193,
+        8193
+      ],
+      "seq_min": 7072,
+      "seq_max": 8193,
+      "seq_sum": 39842,
+      "seq_mean": 7968.4,
+      "extend_lens": [
+        1088,
+        8192,
+        7072,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7104,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307088628545,
+      "wall_time_ns": 1791491256814394612
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7040,
+        8193,
+        8193
+      ],
+      "seq_min": 7040,
+      "seq_max": 8193,
+      "seq_sum": 39810,
+      "seq_mean": 7962.0,
+      "extend_lens": [
+        1120,
+        8192,
+        7040,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7072,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307220780216,
+      "wall_time_ns": 1791491256946546399
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        7008,
+        8193,
+        8193
+      ],
+      "seq_min": 7008,
+      "seq_max": 8193,
+      "seq_sum": 39778,
+      "seq_mean": 7955.6,
+      "extend_lens": [
+        1152,
+        8192,
+        7008,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7040,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307351981037,
+      "wall_time_ns": 1791491257077747174
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6976,
+        8193,
+        8193
+      ],
+      "seq_min": 6976,
+      "seq_max": 8193,
+      "seq_sum": 39746,
+      "seq_mean": 7949.2,
+      "extend_lens": [
+        1184,
+        8192,
+        6976,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        7008,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307483923312,
+      "wall_time_ns": 1791491257209689493
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6944,
+        8193,
+        8193
+      ],
+      "seq_min": 6944,
+      "seq_max": 8193,
+      "seq_sum": 39714,
+      "seq_mean": 7942.8,
+      "extend_lens": [
+        1216,
+        8192,
+        6944,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6976,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307615603307,
+      "wall_time_ns": 1791491257341369486
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6912,
+        8193,
+        8193
+      ],
+      "seq_min": 6912,
+      "seq_max": 8193,
+      "seq_sum": 39682,
+      "seq_mean": 7936.4,
+      "extend_lens": [
+        1248,
+        8192,
+        6912,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6944,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307747610012,
+      "wall_time_ns": 1791491257473376126
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6880,
+        8193,
+        8193
+      ],
+      "seq_min": 6880,
+      "seq_max": 8193,
+      "seq_sum": 39650,
+      "seq_mean": 7930.0,
+      "extend_lens": [
+        1280,
+        8192,
+        6880,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6912,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247307878503596,
+      "wall_time_ns": 1791491257604269705
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6848,
+        8193,
+        8193
+      ],
+      "seq_min": 6848,
+      "seq_max": 8193,
+      "seq_sum": 39618,
+      "seq_mean": 7923.6,
+      "extend_lens": [
+        1312,
+        8192,
+        6848,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6880,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308010664844,
+      "wall_time_ns": 1791491257736431043
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6816,
+        8193,
+        8193
+      ],
+      "seq_min": 6816,
+      "seq_max": 8193,
+      "seq_sum": 39586,
+      "seq_mean": 7917.2,
+      "extend_lens": [
+        1344,
+        8192,
+        6816,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6848,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308142066115,
+      "wall_time_ns": 1791491257867832343
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6784,
+        8193,
+        8193
+      ],
+      "seq_min": 6784,
+      "seq_max": 8193,
+      "seq_sum": 39554,
+      "seq_mean": 7910.8,
+      "extend_lens": [
+        1376,
+        8192,
+        6784,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6816,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308273638401,
+      "wall_time_ns": 1791491257999404518
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6752,
+        8193,
+        8193
+      ],
+      "seq_min": 6752,
+      "seq_max": 8193,
+      "seq_sum": 39522,
+      "seq_mean": 7904.4,
+      "extend_lens": [
+        1408,
+        8192,
+        6752,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6784,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308405612294,
+      "wall_time_ns": 1791491258131378583
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6720,
+        8193,
+        8193
+      ],
+      "seq_min": 6720,
+      "seq_max": 8193,
+      "seq_sum": 39490,
+      "seq_mean": 7898.0,
+      "extend_lens": [
+        1440,
+        8192,
+        6720,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6752,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308537731807,
+      "wall_time_ns": 1791491258263498024
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6688,
+        8193,
+        8193
+      ],
+      "seq_min": 6688,
+      "seq_max": 8193,
+      "seq_sum": 39458,
+      "seq_mean": 7891.6,
+      "extend_lens": [
+        1472,
+        8192,
+        6688,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6720,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308669240855,
+      "wall_time_ns": 1791491258395006904
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6656,
+        8193,
+        8193
+      ],
+      "seq_min": 6656,
+      "seq_max": 8193,
+      "seq_sum": 39426,
+      "seq_mean": 7885.2,
+      "extend_lens": [
+        1504,
+        8192,
+        6656,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6688,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308800809525,
+      "wall_time_ns": 1791491258526575731
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6624,
+        8193,
+        8193
+      ],
+      "seq_min": 6624,
+      "seq_max": 8193,
+      "seq_sum": 39394,
+      "seq_mean": 7878.8,
+      "extend_lens": [
+        1536,
+        8192,
+        6624,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6656,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247308932433897,
+      "wall_time_ns": 1791491258658199994
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6592,
+        8193,
+        8193
+      ],
+      "seq_min": 6592,
+      "seq_max": 8193,
+      "seq_sum": 39362,
+      "seq_mean": 7872.4,
+      "extend_lens": [
+        1568,
+        8192,
+        6592,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6624,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309064230361,
+      "wall_time_ns": 1791491258789996576
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6560,
+        8193,
+        8193
+      ],
+      "seq_min": 6560,
+      "seq_max": 8193,
+      "seq_sum": 39330,
+      "seq_mean": 7866.0,
+      "extend_lens": [
+        1600,
+        8192,
+        6560,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6592,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309195667737,
+      "wall_time_ns": 1791491258921433950
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6528,
+        8193,
+        8193
+      ],
+      "seq_min": 6528,
+      "seq_max": 8193,
+      "seq_sum": 39298,
+      "seq_mean": 7859.6,
+      "extend_lens": [
+        1632,
+        8192,
+        6528,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6560,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309328263768,
+      "wall_time_ns": 1791491259054029908
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6496,
+        8193,
+        8193
+      ],
+      "seq_min": 6496,
+      "seq_max": 8193,
+      "seq_sum": 39266,
+      "seq_mean": 7853.2,
+      "extend_lens": [
+        1664,
+        8192,
+        6496,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6528,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309459375213,
+      "wall_time_ns": 1791491259185141426
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6464,
+        8193,
+        8193
+      ],
+      "seq_min": 6464,
+      "seq_max": 8193,
+      "seq_sum": 39234,
+      "seq_mean": 7846.8,
+      "extend_lens": [
+        1696,
+        8192,
+        6464,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6496,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309591318828,
+      "wall_time_ns": 1791491259317084945
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6432,
+        8193,
+        8193
+      ],
+      "seq_min": 6432,
+      "seq_max": 8193,
+      "seq_sum": 39202,
+      "seq_mean": 7840.4,
+      "extend_lens": [
+        1728,
+        8192,
+        6432,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6464,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309723140600,
+      "wall_time_ns": 1791491259448906820
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6400,
+        8193,
+        8193
+      ],
+      "seq_min": 6400,
+      "seq_max": 8193,
+      "seq_sum": 39170,
+      "seq_mean": 7834.0,
+      "extend_lens": [
+        1760,
+        8192,
+        6400,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6432,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309854157043,
+      "wall_time_ns": 1791491259579923159
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6368,
+        8193,
+        8193
+      ],
+      "seq_min": 6368,
+      "seq_max": 8193,
+      "seq_sum": 39138,
+      "seq_mean": 7827.6,
+      "extend_lens": [
+        1792,
+        8192,
+        6368,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6400,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247309986246104,
+      "wall_time_ns": 1791491259712012315
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6336,
+        8193,
+        8193
+      ],
+      "seq_min": 6336,
+      "seq_max": 8193,
+      "seq_sum": 39106,
+      "seq_mean": 7821.2,
+      "extend_lens": [
+        1824,
+        8192,
+        6336,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6368,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310117937755,
+      "wall_time_ns": 1791491259843703973
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6304,
+        8193,
+        8193
+      ],
+      "seq_min": 6304,
+      "seq_max": 8193,
+      "seq_sum": 39074,
+      "seq_mean": 7814.8,
+      "extend_lens": [
+        1856,
+        8192,
+        6304,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6336,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310249070146,
+      "wall_time_ns": 1791491259974836365
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6272,
+        8193,
+        8193
+      ],
+      "seq_min": 6272,
+      "seq_max": 8193,
+      "seq_sum": 39042,
+      "seq_mean": 7808.4,
+      "extend_lens": [
+        1888,
+        8192,
+        6272,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6304,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310381204115,
+      "wall_time_ns": 1791491260106970208
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6240,
+        8193,
+        8193
+      ],
+      "seq_min": 6240,
+      "seq_max": 8193,
+      "seq_sum": 39010,
+      "seq_mean": 7802.0,
+      "extend_lens": [
+        1920,
+        8192,
+        6240,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6272,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310518796365,
+      "wall_time_ns": 1791491260244562669
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6208,
+        8193,
+        8193
+      ],
+      "seq_min": 6208,
+      "seq_max": 8193,
+      "seq_sum": 38978,
+      "seq_mean": 7795.6,
+      "extend_lens": [
+        1952,
+        8192,
+        6208,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6240,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310644520840,
+      "wall_time_ns": 1791491260370286960
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 5,
+      "input_tokens": 16354,
+      "seq_lens": [
+        8192,
+        8192,
+        6176,
+        8193,
+        8193
+      ],
+      "seq_min": 6176,
+      "seq_max": 8193,
+      "seq_sum": 38946,
+      "seq_mean": 7789.2,
+      "extend_lens": [
+        1984,
+        8192,
+        6176,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6208,
+        0,
+        0,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310776383718,
+      "wall_time_ns": 1791491260502149874
+    },
+    {
+      "mode": "MIXED",
+      "batch_size": 3,
+      "input_tokens": 2018,
+      "seq_lens": [
+        8192,
+        8193,
+        8193
+      ],
+      "seq_min": 8192,
+      "seq_max": 8193,
+      "seq_sum": 24578,
+      "seq_mean": 8192.666666666666,
+      "extend_lens": [
+        2016,
+        1,
+        1
+      ],
+      "prefix_lens": [
+        6176,
+        8192,
+        8192
+      ],
+      "monotonic_ns": 247310908155381,
+      "wall_time_ns": 1791491260633921529
+    }
+  ]
+}

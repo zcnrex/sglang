@@ -1,0 +1,28 @@
+Triage View
+Mode: single-trace
+Framework: vLLM
+Input traces: /Users/chunan.zeng/.codex/worktrees/59ff/sglang/benchmark/qwen3_vl/results/reference_trace_comparison/vllm/b8-v2/traces/prefill_rank0.1791490998474875451.pt.trace.json.gz
+
+Kernel Table
+##### extend/prefill
+| Kernel | Category | GPU time | Share | Launches | Python location (site share) | CPU op |
+| --- | --- | ---: | ---: | ---: | --- | --- |
+| nvjet_sm103_tst_128x256_64x6_2x1_2cta_v_bz_TNT | gemm | 290.43 ms | 57.2% | 564 | unresolved | cuLaunchKernelEx |
+| fmhaSm103aKernel_QkvBfloat16OBfloat16H128PagedKvCausalP16VarSeqQ256Kv128PersistentContext | attention | 123.94 ms | 24.4% | 144 | unresolved | cuLaunchKernelEx |
+| triton_poi_fused_mul_silu_slice_1 | activation | 28.86 ms | 5.7% | 144 | unresolved | cuLaunchKernel |
+| triton_red_fused_4 | other | 24.43 ms | 4.8% | 140 | unresolved | cuLaunchKernel |
+| triton_red_fused_fused_add_rms_norm_2 | norm | 12.06 ms | 2.4% | 144 | unresolved | cuLaunchKernel |
+| void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0> | quantize | 10.62 ms | 2.1% | 144 | unresolved | cudaLaunchKernel |
+| triton_red_fused_fused_add_rms_norm_0 | norm | 7.66 ms | 1.5% | 144 | unresolved | cuLaunchKernel |
+| nvjet_sm103_tst_128x256_64x6_2x1_2cta_v_badd_TNT | gemm | 6.14 ms | 1.2% | 12 | unresolved | cuLaunchKernelEx |
+
+Overlap Opportunity Table
+| Priority | Verdict | Kernel | Python scope | Formal signal | Dep risk | Recommendation |
+| --- | --- | --- | --- | --- | --- | --- |
+| - | - | No rows cleared the 1.0% reporting bar. Use mapping/formal mode for overlap attribution. | - | - | - | - |
+
+Fuse Opportunity Table
+##### extend/prefill
+| Pattern | Confidence | Related GPU time | Share | Evidence kernels | Current kernel Python location | Candidate fused Python path | Rationale |
+| --- | --- | ---: | ---: | --- | --- | --- | --- |
+| vLLM-origin RMSNorm + Quantization | Confirmed | 30.34 ms | 6.0% | triton_red_fused_fused_add_rms_norm_2 (2.4%)<br>triton_red_fused_fused_add_rms_norm_0 (1.5%)<br>void vllm::reshape_and_cache_flash_kernel<__nv_bfloat16, __nv_bfloat16, (vllm::Fp8KVCacheDataType)0> (2.1%) | unresolved | vllm/compilation/passes/fusion/rms_quant_fusion.py<br>vllm/docs/design/fusions.md | Matches an upstream path (6.0% related GPU time). vLLM already has a compile-time norm-plus-quant fusion family. |

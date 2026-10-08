@@ -1,0 +1,63 @@
+import os
+if os.environ.get('QVL_TRACE_ROOT'):
+ import json,pathlib,time,torch
+ from sglang.srt.model_executor.model_runner import ModelRunner
+ from sglang.srt.model_executor.runner.decode_cuda_graph_runner import DecodeCudaGraphRunner
+ root=pathlib.Path(os.environ['QVL_TRACE_ROOT']);root.mkdir(parents=True,exist_ok=True)
+ target=int(os.environ['QVL_TRACE_BATCH']);phase=None;done=set();prof=None;warm=0;captured=0;prefill_tokens=0;graph_calls=[];records=[]
+ def cpu_json(value):
+  if isinstance(value,torch.Tensor):
+   assert value.device.type=='cpu','Metadata must not add device-to-host copies'
+   return value.tolist()
+  if isinstance(value,dict):return {k:cpu_json(v) for k,v in value.items()}
+  if isinstance(value,(list,tuple)):return [cpu_json(v) for v in value]
+  return value
+ def write(name,value):
+  with (root/name).open('a') as f:f.write(json.dumps(cpu_json(value))+'\n')
+ def finish(valid=True,reason=None):
+  global prof
+  torch.cuda.synchronize();prof.stop();prof.export_chrome_trace(str(root/f'{phase}-TP0.trace.json'));prof=None
+  (root/f'{phase}-summary.json').write_text(json.dumps(dict(valid=valid,reason=reason,target_batch=target,full_batch_warm_steps=warm,captured_forwards=captured,prefill_tokens=prefill_tokens,records=records,graph_calls=graph_calls),indent=2));done.add(phase)
+ original_graph=DecodeCudaGraphRunner.execute
+ def replay(self,*a,**kw):
+  result=original_graph(self,*a,**kw)
+  if prof is not None:graph_calls.append(dict(batch_size=self.bs,graph_key_size=self._replay_graph_key.size,raw_batch_size=self.raw_bs,scope_step=captured,monotonic_ns=time.monotonic_ns()))
+  return result
+ DecodeCudaGraphRunner.execute=replay
+ original=ModelRunner.forward
+ def forward(self,batch,*a,**kw):
+  global phase,prof,warm,captured,prefill_tokens,graph_calls,records
+  control=root/'arm.json'
+  requested=json.loads(control.read_text())['phase'] if control.exists() else None
+  if requested not in ('warm_prefill','prefill','decode') or requested in done:return original(self,batch,*a,**kw)
+  if requested!=phase:
+   assert prof is None
+   phase=requested;warm=0;captured=0;prefill_tokens=0;graph_calls=[];records=[]
+  lengths=cpu_json(batch.seq_lens_cpu) if batch.seq_lens_cpu is not None else None
+  assert lengths is not None,'Require existing CPU sequence metadata; do not add GPU synchronization/copies perstep'
+  metadata=dict(mode=batch.forward_mode.name,batch_size=batch.batch_size,input_tokens=batch.input_ids.numel(),seq_lens=lengths,seq_min=min(lengths),seq_max=max(lengths),seq_sum=sum(lengths),seq_mean=sum(lengths)/len(lengths),extend_lens=cpu_json(getattr(batch,"extend_seq_lens_cpu",None)),prefix_lens=cpu_json(getattr(batch,"extend_prefix_lens_cpu",None)),monotonic_ns=time.monotonic_ns(),wall_time_ns=time.time_ns())
+  if phase=='warm_prefill':
+   if batch.forward_mode.is_extend():write('warm-prefill-forwards.jsonl',metadata)
+   return original(self,batch,*a,**kw)
+  full=batch.forward_mode.is_decode() and batch.batch_size==target and batch.input_ids.numel()==target
+  if phase=='decode' and full:warm+=1
+  eligible=(phase=='prefill' and batch.forward_mode.is_extend()) or (phase=='decode' and full and warm>10 and metadata['seq_mean']>=8704)
+  if prof is None and eligible:
+   torch.cuda.synchronize();prof=torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU,torch.profiler.ProfilerActivity.CUDA],record_shapes=False,with_stack=False);prof.start();write('capture-events.jsonl',dict(event='start',phase=phase,**metadata))
+  if prof is not None:
+   if phase=='decode' and not full:
+    finish(False,'non-full or non-decode forward interrupted five-step window');return original(self,batch,*a,**kw)
+   metadata['scope_name']=f'QVL_{phase}_step{captured}_B{batch.batch_size}_T{batch.input_ids.numel()}'
+   metadata['cuda_stream']=torch.cuda.current_stream().cuda_stream
+   with torch.profiler.record_function(metadata['scope_name']):
+    result=original(self,batch,*a,**kw)
+   metadata['end_monotonic_ns']=time.monotonic_ns();records.append(metadata);captured+=1
+   if phase=='prefill':
+    assert metadata['extend_lens'] is not None and metadata['prefix_lens'] is not None
+    prefill_tokens+=sum(n for n,prefix in zip(metadata['extend_lens'],metadata['prefix_lens']) if prefix<8192)
+   if (phase=='decode' and captured==5) or (phase=='prefill' and prefill_tokens>=8192*target):
+    finish(valid=(phase=='decode' or prefill_tokens==8192*target),reason=None if phase=='decode' or prefill_tokens==8192*target else 'prefill token total mismatch')
+   return result
+  write('admission.jsonl',dict(phase=phase,full_batch_warm_steps=warm,**metadata))
+  return original(self,batch,*a,**kw)
+ ModelRunner.forward=forward

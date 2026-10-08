@@ -1,0 +1,80 @@
+import os
+if os.environ.get('QVL_TRACE_ROOT'):
+ import json,pathlib,contextlib,torch
+ from vllm.v1.worker.gpu_worker import Worker
+ from vllm.v1.worker.gpu_model_runner import GPUModelRunner
+ root=pathlib.Path(os.environ['QVL_TRACE_ROOT']); B=int(os.environ['QVL_TRACE_BATCH']); state={'phase':None,'active':False,'records':[],'warm':0,'tokens':0,'done':set()}
+ def emit(name,row):
+  with (root/name).open('a') as f:f.write(json.dumps(row,default=str)+'\n')
+ original=Worker.execute_model
+ def execute(self,scheduler_output,*args,**kwargs):
+  if not getattr(self, '_qvl_logits_wrapped', False):
+   orig_logits=self.model_runner.model.compute_logits
+   def logits(*a,**kw):
+    with torch.profiler.record_function(f"QVL_compute_logits_step{len(state['records'])-1}_B{B}") if state['active'] else contextlib.nullcontext():return orig_logits(*a,**kw)
+   self.model_runner.model.compute_logits=logits
+   manager=self.model_runner.cudagraph_manager
+   for method_name in ('run_pw_graph','run_fullgraph'):
+    original_graph=getattr(manager,method_name)
+    def graph(*a,_original=original_graph,_name=method_name,**kw):
+     row=state.get('row')
+     if row is not None:row.setdefault('graph_calls',[]).append(dict(method=_name,descriptor=str(a[0]) if a else None))
+     with torch.profiler.record_function(f"QVL_decoder_model_step{len(state['records'])}_B{B}") if state['active'] else contextlib.nullcontext():return _original(*a,**kw)
+    setattr(manager,method_name,graph)
+   self._qvl_logits_wrapped=True
+   (root/'resolved-config.txt').write_text(str(self.vllm_config))
+  arm=root/'arm.json'
+  phase=json.loads(arm.read_text()).get('phase') if arm.exists() else None
+  if phase!=state['phase']:
+   state.update(phase=phase,records=[],warm=0,tokens=0)
+  new={r.req_id:r.num_computed_tokens for r in scheduler_output.scheduled_new_reqs}
+  cached=scheduler_output.scheduled_cached_reqs
+  computed=dict(new);computed.update(zip(cached.req_ids,cached.num_computed_tokens))
+  counts=scheduler_output.num_scheduled_tokens
+  lengths=[computed.get(k,0)+v for k,v in counts.items()]
+  context=any(k in new or cached.is_context_phase(k) for k in counts)
+  row=dict(batch_size=len(counts),input_tokens=sum(counts.values()),seq_lens=lengths,query_lens=list(counts.values()),context=context)
+  pure=len(counts)==B and all(v==1 for v in counts.values()) and not context
+  if phase=='warm_prefill' and context:emit('warm-prefill-forwards.jsonl',row)
+  eligible=phase=='prefill' and context or phase=='decode' and pure and state['warm']>=10 and sum(lengths)/len(lengths)>=8704
+  if phase in ('prefill','decode') and phase not in state['done'] and eligible and not state['active']:
+   torch.cuda.synchronize(); self.profile(True,profile_prefix=phase);state['active']=True
+  active=state['active'];idx=len(state['records'])
+  state['row']=row if active else None
+  if active and phase=='decode':assert pure,'Full-batch decode continuity broken'
+  scope=f'QVL_{phase}_step{idx}_B{len(counts)}_T{sum(counts.values())}'
+  with torch.profiler.record_function(scope) if active else contextlib.nullcontext(): result=original(self,scheduler_output,*args,**kwargs)
+  if active:
+   state['records'].append(row);state['tokens']+=sum(counts.values())
+   if phase=='decode' and len(state['records'])==5 or phase=='prefill' and state['tokens']>=8192*B:
+    state['stop_after_sample']=True
+  if pure:state['warm']+=1
+  state['row']=None
+  return result
+ Worker.execute_model=execute
+ model=GPUModelRunner._model_forward
+ def forward(self,*args,**kwargs):
+  row=state.get('row')
+  if row is not None:
+   from vllm.forward_context import get_forward_context
+   ctx=get_forward_context();row['graph_mode']=str(ctx.cudagraph_runtime_mode);row['batch_descriptor']=str(ctx.batch_descriptor)
+  with torch.profiler.record_function('QVL_decoder_model') if row is not None else contextlib.nullcontext():return model(self,*args,**kwargs)
+ GPUModelRunner._model_forward=forward
+ emit('hook-loaded.jsonl',dict(pid=os.getpid(),worker_file=__import__('inspect').getfile(Worker)))
+
+ sample_original=Worker.sample_tokens
+ def sample(self,*args,**kwargs):
+  active=state['active'];phase=state['phase'];idx=len(state['records'])-1
+  with torch.profiler.record_function(f'QVL_{phase}_sample_step{idx}_B{B}') if active else contextlib.nullcontext():result=sample_original(self,*args,**kwargs)
+  if state.pop('stop_after_sample',False):
+   torch.cuda.synchronize();self.profile(False);state['active']=False;state['done'].add(phase)
+   (root/f'{phase}-summary.json').write_text(json.dumps(dict(valid=True,records=state['records'],captured_forwards=len(state['records']),prefill_tokens=state['tokens'],scope='worker execute plus following sample; nested compute_logits distinguishes projection'),indent=2,default=str))
+  return result
+ Worker.sample_tokens=sample
+ import vllm.v1.worker.gpu.model_runner as v2
+ dispatch_original=v2.dispatch_cg_and_sync_dp
+ def dispatch(*args,**kwargs):
+  result=dispatch_original(*args,**kwargs)
+  if state.get('row') is not None:state['row']['batch_descriptor']=str(result[0])
+  return result
+ v2.dispatch_cg_and_sync_dp=dispatch

@@ -1,0 +1,41 @@
+{
+  "samples": 179,
+  "first_decode_wall_epoch": 1791491292.1643379,
+  "nearest_samples": [
+    {
+      "timestamp": "2026/10/08 20:28:11.802",
+      "index": "6",
+      "clocks.current.sm [MHz]": "2032 MHz",
+      "clocks.current.memory [MHz]": "3996 MHz",
+      "power.draw [W]": "1095.62 W",
+      "temperature.gpu": "52",
+      "utilization.gpu [%]": "100 %",
+      "memory.used [MiB]": "241907 MiB",
+      "timestamp_epoch": 1791491291.802
+    },
+    {
+      "timestamp": "2026/10/08 20:28:12.803",
+      "index": "6",
+      "clocks.current.sm [MHz]": "2032 MHz",
+      "clocks.current.memory [MHz]": "3996 MHz",
+      "power.draw [W]": "1077.39 W",
+      "temperature.gpu": "52",
+      "utilization.gpu [%]": "100 %",
+      "memory.used [MiB]": "241907 MiB",
+      "timestamp_epoch": 1791491292.803
+    },
+    {
+      "timestamp": "2026/10/08 20:28:10.802",
+      "index": "6",
+      "clocks.current.sm [MHz]": "2032 MHz",
+      "clocks.current.memory [MHz]": "3996 MHz",
+      "power.draw [W]": "1094.97 W",
+      "temperature.gpu": "52",
+      "utilization.gpu [%]": "100 %",
+      "memory.used [MiB]": "241907 MiB",
+      "timestamp_epoch": 1791491290.802
+    }
+  ],
+  "nearest_distance_seconds": 0.3623378276824951,
+  "limitation": "1Hz read-only sampling; near-window samples do not prove exact clocks/power throughout five forwards. No clocks changed."
+}

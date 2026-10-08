@@ -1,0 +1,3530 @@
+{
+  "framework": "sglang",
+  "batch": 8,
+  "trace": "benchmark/qwen3_vl/results/reference_trace_comparison/analysis_inputs/sglang-b8/decode-TP0.trace.json.gz",
+  "trace_sha256": "764fba22d2a4c1e77c9f9dc0de8a909ff8dc44ddee83e2241c031c1401155c49",
+  "steps": [
+    {
+      "window": {
+        "step": 0,
+        "batch_size": 8,
+        "start_us": 633991438291.124,
+        "end_us": 633991442459.2749,
+        "kernel_event_indices": [
+          703,
+          707,
+          709,
+          711,
+          713,
+          715,
+          717,
+          719,
+          721,
+          723,
+          725,
+          727,
+          729,
+          731,
+          733,
+          735,
+          737,
+          739,
+          741,
+          743,
+          745,
+          747,
+          749,
+          751,
+          753,
+          755,
+          757,
+          759,
+          761,
+          763,
+          765,
+          767,
+          769,
+          771,
+          773,
+          775,
+          777,
+          779,
+          781,
+          783,
+          785,
+          787,
+          789,
+          791,
+          793,
+          795,
+          797,
+          799,
+          801,
+          803,
+          805,
+          807,
+          809,
+          811,
+          813,
+          815,
+          817,
+          819,
+          821,
+          823,
+          825,
+          827,
+          829,
+          831,
+          833,
+          835,
+          837,
+          839,
+          841,
+          843,
+          845,
+          847,
+          849,
+          851,
+          853,
+          855,
+          857,
+          859,
+          861,
+          863,
+          865,
+          867,
+          869,
+          871,
+          873,
+          875,
+          877,
+          879,
+          881,
+          883,
+          885,
+          887,
+          889,
+          891,
+          893,
+          895,
+          897,
+          899,
+          901,
+          903,
+          905,
+          907,
+          909,
+          911,
+          913,
+          915,
+          917,
+          919,
+          921,
+          923,
+          925,
+          927,
+          929,
+          931,
+          933,
+          935,
+          937,
+          939,
+          941,
+          943,
+          945,
+          947,
+          949,
+          951,
+          953,
+          955,
+          957,
+          959,
+          961,
+          963,
+          965,
+          967,
+          969,
+          971,
+          973,
+          975,
+          977,
+          979,
+          981,
+          983,
+          985,
+          987,
+          989,
+          991,
+          993,
+          995,
+          997,
+          999,
+          1001,
+          1003,
+          1005,
+          1007,
+          1009,
+          1011,
+          1013,
+          1015,
+          1017,
+          1019,
+          1021,
+          1023,
+          1025,
+          1027,
+          1029,
+          1031,
+          1033,
+          1035,
+          1037,
+          1039,
+          1041,
+          1043,
+          1045,
+          1047,
+          1049,
+          1051,
+          1053,
+          1055,
+          1057,
+          1059,
+          1061,
+          1063,
+          1065,
+          1067,
+          1069,
+          1071,
+          1073,
+          1075,
+          1077,
+          1079,
+          1081,
+          1083,
+          1085,
+          1087,
+          1089,
+          1091,
+          1093,
+          1095,
+          1097,
+          1099,
+          1101,
+          1103,
+          1105,
+          1107,
+          1109,
+          1111,
+          1113,
+          1115,
+          1117,
+          1119,
+          1121,
+          1123,
+          1125,
+          1127,
+          1129,
+          1131,
+          1133,
+          1135,
+          1137,
+          1139,
+          1141,
+          1143,
+          1145,
+          1147,
+          1149,
+          1151,
+          1153,
+          1155,
+          1157,
+          1159,
+          1161,
+          1163,
+          1165,
+          1167,
+          1169,
+          1171,
+          1173,
+          1175,
+          1177,
+          1179,
+          1181,
+          1183,
+          1185,
+          1187,
+          1189,
+          1191,
+          1193,
+          1195,
+          1197,
+          1199,
+          1201,
+          1203,
+          1205,
+          1207,
+          1209,
+          1211,
+          1213,
+          1215,
+          1217,
+          1219,
+          1221,
+          1223,
+          1225,
+          1227,
+          1229,
+          1231,
+          1233,
+          1235,
+          1237,
+          1239,
+          1241,
+          1243,
+          1245,
+          1247,
+          1249,
+          1251,
+          1253,
+          1255,
+          1257,
+          1259,
+          1261,
+          1263,
+          1265,
+          1267,
+          1269,
+          1271,
+          1273,
+          1275,
+          1277,
+          1279,
+          1281,
+          1283,
+          1285,
+          1287,
+          1289,
+          1291
+        ],
+        "cpu_scope_event_index": 61,
+        "launch_event_indices": [
+          705,
+          1293
+        ],
+        "correlations": [
+          233054,
+          233069
+        ],
+        "graph_ids": [
+          "146"
+        ],
+        "unassigned_overlapping_indices": [
+          1353,
+          1359,
+          1365,
+          1371,
+          1383,
+          1387,
+          1393,
+          1399
+        ]
+      },
+      "kernel_count": 294,
+      "kernel_sum_us": 4044.754150390625,
+      "kernel_interval_union_us": 3627.0911865234375,
+      "kernel_critical_span_us": 4168.15087890625,
+      "within_span_gap_us": 541.0596923828125,
+      "concurrent_kernel_excess_us": 417.6629638671875,
+      "kernels": [
+        {
+          "name": "fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen",
+          "count": 36,
+          "sum_us": 1777.931396484375,
+          "union_us": 1777.931396484375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  512,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  2,
+                  8,
+                  8
+                ],
+                "registers per thread": 128,
+                "shared memory": 174872,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT",
+          "count": 36,
+          "sum_us": 644.1976318359375,
+          "union_us": 644.1976318359375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  104,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 221512,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0",
+          "count": 72,
+          "sum_us": 632.412841796875,
+          "union_us": 632.412841796875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  20,
+                  4,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0",
+          "count": 36,
+          "sum_us": 420.8673095703125,
+          "union_us": 420.8673095703125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  48,
+                  2,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0",
+          "count": 72,
+          "sum_us": 319.584716796875,
+          "union_us": 319.584716796875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 156,
+                "shared memory": 40976,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false>(sglang::ActivationParams)",
+          "count": 36,
+          "sum_us": 117.8892822265625,
+          "union_us": 117.8892822265625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  19,
+                  1,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT",
+          "count": 1,
+          "sum_us": 114.3680419921875,
+          "union_us": 114.3680419921875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  1188,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 225704,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "count": 1,
+          "sum_us": 5.6639404296875,
+          "union_us": 5.6639404296875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  2374,
+                  1,
+                  1
+                ],
+                "registers per thread": 30,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned int>, at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long)",
+          "count": 1,
+          "sum_us": 4.863037109375,
+          "union_us": 4.863037109375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  20,
+                  1,
+                  1
+                ],
+                "registers per thread": 28,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+          "count": 1,
+          "sum_us": 2.9439697265625,
+          "union_us": 2.9439697265625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 167,
+                "shared memory": 20496,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "update_trtllm_mha_graph_metadata_kernel",
+          "count": 1,
+          "sum_us": 2.4320068359375,
+          "union_us": 2.4320068359375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233069,
+                "grid": [
+                  9,
+                  1,
+                  1
+                ],
+                "registers per thread": 24,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "_small_copy_kernel",
+          "count": 1,
+          "sum_us": 1.5999755859375,
+          "union_us": 1.5999755859375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233054,
+                "grid": [
+                  6,
+                  1,
+                  1
+                ],
+                "registers per thread": 20,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "window": {
+        "step": 1,
+        "batch_size": 8,
+        "start_us": 633991442504.076,
+        "end_us": 633991446136.3519,
+        "kernel_event_indices": [
+          1435,
+          1439,
+          1441,
+          1443,
+          1445,
+          1447,
+          1449,
+          1451,
+          1453,
+          1455,
+          1457,
+          1459,
+          1461,
+          1463,
+          1465,
+          1467,
+          1469,
+          1471,
+          1473,
+          1475,
+          1477,
+          1479,
+          1481,
+          1483,
+          1485,
+          1487,
+          1489,
+          1491,
+          1493,
+          1495,
+          1497,
+          1499,
+          1501,
+          1503,
+          1505,
+          1507,
+          1509,
+          1511,
+          1513,
+          1515,
+          1517,
+          1519,
+          1521,
+          1523,
+          1525,
+          1527,
+          1529,
+          1531,
+          1533,
+          1535,
+          1537,
+          1539,
+          1541,
+          1543,
+          1545,
+          1547,
+          1549,
+          1551,
+          1553,
+          1555,
+          1557,
+          1559,
+          1561,
+          1563,
+          1565,
+          1567,
+          1569,
+          1571,
+          1573,
+          1575,
+          1577,
+          1579,
+          1581,
+          1583,
+          1585,
+          1587,
+          1589,
+          1591,
+          1593,
+          1595,
+          1597,
+          1599,
+          1601,
+          1603,
+          1605,
+          1607,
+          1609,
+          1611,
+          1613,
+          1615,
+          1617,
+          1619,
+          1621,
+          1623,
+          1625,
+          1627,
+          1629,
+          1631,
+          1633,
+          1635,
+          1637,
+          1639,
+          1641,
+          1643,
+          1645,
+          1647,
+          1649,
+          1651,
+          1653,
+          1655,
+          1657,
+          1659,
+          1661,
+          1663,
+          1665,
+          1667,
+          1669,
+          1671,
+          1673,
+          1675,
+          1677,
+          1679,
+          1681,
+          1683,
+          1685,
+          1687,
+          1689,
+          1691,
+          1693,
+          1695,
+          1697,
+          1699,
+          1701,
+          1703,
+          1705,
+          1707,
+          1709,
+          1711,
+          1713,
+          1715,
+          1717,
+          1719,
+          1721,
+          1723,
+          1725,
+          1727,
+          1729,
+          1731,
+          1733,
+          1735,
+          1737,
+          1739,
+          1741,
+          1743,
+          1745,
+          1747,
+          1749,
+          1751,
+          1753,
+          1755,
+          1757,
+          1759,
+          1761,
+          1763,
+          1765,
+          1767,
+          1769,
+          1771,
+          1773,
+          1775,
+          1777,
+          1779,
+          1781,
+          1783,
+          1785,
+          1787,
+          1789,
+          1791,
+          1793,
+          1795,
+          1797,
+          1799,
+          1801,
+          1803,
+          1805,
+          1807,
+          1809,
+          1811,
+          1813,
+          1815,
+          1817,
+          1819,
+          1821,
+          1823,
+          1825,
+          1827,
+          1829,
+          1831,
+          1833,
+          1835,
+          1837,
+          1839,
+          1841,
+          1843,
+          1845,
+          1847,
+          1849,
+          1851,
+          1853,
+          1855,
+          1857,
+          1859,
+          1861,
+          1863,
+          1865,
+          1867,
+          1869,
+          1871,
+          1873,
+          1875,
+          1877,
+          1879,
+          1881,
+          1883,
+          1885,
+          1887,
+          1889,
+          1891,
+          1893,
+          1895,
+          1897,
+          1899,
+          1901,
+          1903,
+          1905,
+          1907,
+          1909,
+          1911,
+          1913,
+          1915,
+          1917,
+          1919,
+          1921,
+          1923,
+          1925,
+          1927,
+          1929,
+          1931,
+          1933,
+          1935,
+          1937,
+          1939,
+          1941,
+          1943,
+          1945,
+          1947,
+          1949,
+          1951,
+          1953,
+          1955,
+          1957,
+          1959,
+          1961,
+          1963,
+          1965,
+          1967,
+          1969,
+          1971,
+          1973,
+          1975,
+          1977,
+          1979,
+          1981,
+          1983,
+          1985,
+          1987,
+          1989,
+          1991,
+          1993,
+          1995,
+          1997,
+          1999,
+          2001,
+          2003,
+          2005,
+          2007,
+          2009,
+          2011,
+          2013,
+          2015,
+          2017,
+          2019,
+          2021,
+          2023
+        ],
+        "cpu_scope_event_index": 214,
+        "launch_event_indices": [
+          1437,
+          2025
+        ],
+        "correlations": [
+          233440,
+          233455
+        ],
+        "graph_ids": [
+          "146"
+        ],
+        "unassigned_overlapping_indices": [
+          2091,
+          2097,
+          2103,
+          2109,
+          2121,
+          2125,
+          2131,
+          2137
+        ]
+      },
+      "kernel_count": 294,
+      "kernel_sum_us": 4038.39990234375,
+      "kernel_interval_union_us": 3626.5167236328125,
+      "kernel_critical_span_us": 3632.27587890625,
+      "within_span_gap_us": 5.7591552734375,
+      "concurrent_kernel_excess_us": 411.8831787109375,
+      "kernels": [
+        {
+          "name": "fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen",
+          "count": 36,
+          "sum_us": 1776.715087890625,
+          "union_us": 1776.715087890625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  512,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  2,
+                  8,
+                  8
+                ],
+                "registers per thread": 128,
+                "shared memory": 174872,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT",
+          "count": 36,
+          "sum_us": 645.4779052734375,
+          "union_us": 645.4779052734375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  104,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 221512,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0",
+          "count": 72,
+          "sum_us": 629.80224609375,
+          "union_us": 629.80224609375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  20,
+                  4,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0",
+          "count": 36,
+          "sum_us": 421.219970703125,
+          "union_us": 421.219970703125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  48,
+                  2,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0",
+          "count": 72,
+          "sum_us": 316.1563720703125,
+          "union_us": 316.1563720703125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 156,
+                "shared memory": 40976,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false>(sglang::ActivationParams)",
+          "count": 36,
+          "sum_us": 117.2843017578125,
+          "union_us": 117.2843017578125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  19,
+                  1,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT",
+          "count": 1,
+          "sum_us": 114.6240234375,
+          "union_us": 114.6240234375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  1188,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 225704,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "count": 1,
+          "sum_us": 5.43994140625,
+          "union_us": 5.43994140625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  2374,
+                  1,
+                  1
+                ],
+                "registers per thread": 30,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned int>, at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long)",
+          "count": 1,
+          "sum_us": 4.6400146484375,
+          "union_us": 4.6400146484375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  20,
+                  1,
+                  1
+                ],
+                "registers per thread": 28,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+          "count": 1,
+          "sum_us": 2.8480224609375,
+          "union_us": 2.8480224609375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 167,
+                "shared memory": 20496,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "update_trtllm_mha_graph_metadata_kernel",
+          "count": 1,
+          "sum_us": 2.56005859375,
+          "union_us": 2.56005859375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233455,
+                "grid": [
+                  9,
+                  1,
+                  1
+                ],
+                "registers per thread": 24,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "_small_copy_kernel",
+          "count": 1,
+          "sum_us": 1.6319580078125,
+          "union_us": 1.6319580078125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233440,
+                "grid": [
+                  6,
+                  1,
+                  1
+                ],
+                "registers per thread": 20,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "window": {
+        "step": 2,
+        "batch_size": 8,
+        "start_us": 633991446182.336,
+        "end_us": 633991449811.764,
+        "kernel_event_indices": [
+          2173,
+          2177,
+          2179,
+          2181,
+          2183,
+          2185,
+          2187,
+          2189,
+          2191,
+          2193,
+          2195,
+          2197,
+          2199,
+          2201,
+          2203,
+          2205,
+          2207,
+          2209,
+          2211,
+          2213,
+          2215,
+          2217,
+          2219,
+          2221,
+          2223,
+          2225,
+          2227,
+          2229,
+          2231,
+          2233,
+          2235,
+          2237,
+          2239,
+          2241,
+          2243,
+          2245,
+          2247,
+          2249,
+          2251,
+          2253,
+          2255,
+          2257,
+          2259,
+          2261,
+          2263,
+          2265,
+          2267,
+          2269,
+          2271,
+          2273,
+          2275,
+          2277,
+          2279,
+          2281,
+          2283,
+          2285,
+          2287,
+          2289,
+          2291,
+          2293,
+          2295,
+          2297,
+          2299,
+          2301,
+          2303,
+          2305,
+          2307,
+          2309,
+          2311,
+          2313,
+          2315,
+          2317,
+          2319,
+          2321,
+          2323,
+          2325,
+          2327,
+          2329,
+          2331,
+          2333,
+          2335,
+          2337,
+          2339,
+          2341,
+          2343,
+          2345,
+          2347,
+          2349,
+          2351,
+          2353,
+          2355,
+          2357,
+          2359,
+          2361,
+          2363,
+          2365,
+          2367,
+          2369,
+          2371,
+          2373,
+          2375,
+          2377,
+          2379,
+          2381,
+          2383,
+          2385,
+          2387,
+          2389,
+          2391,
+          2393,
+          2395,
+          2397,
+          2399,
+          2401,
+          2403,
+          2405,
+          2407,
+          2409,
+          2411,
+          2413,
+          2415,
+          2417,
+          2419,
+          2421,
+          2423,
+          2425,
+          2427,
+          2429,
+          2431,
+          2433,
+          2435,
+          2437,
+          2439,
+          2441,
+          2443,
+          2445,
+          2447,
+          2449,
+          2451,
+          2453,
+          2455,
+          2457,
+          2459,
+          2461,
+          2463,
+          2465,
+          2467,
+          2469,
+          2471,
+          2473,
+          2475,
+          2477,
+          2479,
+          2481,
+          2483,
+          2485,
+          2487,
+          2489,
+          2491,
+          2493,
+          2495,
+          2497,
+          2499,
+          2501,
+          2503,
+          2505,
+          2507,
+          2509,
+          2511,
+          2513,
+          2515,
+          2517,
+          2519,
+          2521,
+          2523,
+          2525,
+          2527,
+          2529,
+          2531,
+          2533,
+          2535,
+          2537,
+          2539,
+          2541,
+          2543,
+          2545,
+          2547,
+          2549,
+          2551,
+          2553,
+          2555,
+          2557,
+          2559,
+          2561,
+          2563,
+          2565,
+          2567,
+          2569,
+          2571,
+          2573,
+          2575,
+          2577,
+          2579,
+          2581,
+          2583,
+          2585,
+          2587,
+          2589,
+          2591,
+          2593,
+          2595,
+          2597,
+          2599,
+          2601,
+          2603,
+          2605,
+          2607,
+          2609,
+          2611,
+          2613,
+          2615,
+          2617,
+          2619,
+          2621,
+          2623,
+          2625,
+          2627,
+          2629,
+          2631,
+          2633,
+          2635,
+          2637,
+          2639,
+          2641,
+          2643,
+          2645,
+          2647,
+          2649,
+          2651,
+          2653,
+          2655,
+          2657,
+          2659,
+          2661,
+          2663,
+          2665,
+          2667,
+          2669,
+          2671,
+          2673,
+          2675,
+          2677,
+          2679,
+          2681,
+          2683,
+          2685,
+          2687,
+          2689,
+          2691,
+          2693,
+          2695,
+          2697,
+          2699,
+          2701,
+          2703,
+          2705,
+          2707,
+          2709,
+          2711,
+          2713,
+          2715,
+          2717,
+          2719,
+          2721,
+          2723,
+          2725,
+          2727,
+          2729,
+          2731,
+          2733,
+          2735,
+          2737,
+          2739,
+          2741,
+          2743,
+          2745,
+          2747,
+          2749,
+          2751,
+          2753,
+          2755,
+          2757,
+          2759,
+          2761
+        ],
+        "cpu_scope_event_index": 367,
+        "launch_event_indices": [
+          2175,
+          2763
+        ],
+        "correlations": [
+          233834,
+          233849
+        ],
+        "graph_ids": [
+          "146"
+        ],
+        "unassigned_overlapping_indices": [
+          2831,
+          2837,
+          2843,
+          2849,
+          2861,
+          2865,
+          2871,
+          2877
+        ]
+      },
+      "kernel_count": 294,
+      "kernel_sum_us": 4035.0081787109375,
+      "kernel_interval_union_us": 3623.4119873046875,
+      "kernel_critical_span_us": 3629.427978515625,
+      "within_span_gap_us": 6.0159912109375,
+      "concurrent_kernel_excess_us": 411.59619140625,
+      "kernels": [
+        {
+          "name": "fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen",
+          "count": 36,
+          "sum_us": 1776.2689208984375,
+          "union_us": 1776.2689208984375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  512,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  2,
+                  8,
+                  8
+                ],
+                "registers per thread": 128,
+                "shared memory": 174872,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT",
+          "count": 36,
+          "sum_us": 644.8040771484375,
+          "union_us": 644.8040771484375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  104,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 221512,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0",
+          "count": 72,
+          "sum_us": 631.0762939453125,
+          "union_us": 631.0762939453125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  20,
+                  4,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0",
+          "count": 36,
+          "sum_us": 418.5950927734375,
+          "union_us": 418.5950927734375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  48,
+                  2,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0",
+          "count": 72,
+          "sum_us": 314.72412109375,
+          "union_us": 314.72412109375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 156,
+                "shared memory": 40976,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false>(sglang::ActivationParams)",
+          "count": 36,
+          "sum_us": 117.6666259765625,
+          "union_us": 117.6666259765625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  19,
+                  1,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT",
+          "count": 1,
+          "sum_us": 114.8170166015625,
+          "union_us": 114.8170166015625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  1188,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 225704,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned int>, at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long)",
+          "count": 1,
+          "sum_us": 5.1839599609375,
+          "union_us": 5.1839599609375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  20,
+                  1,
+                  1
+                ],
+                "registers per thread": 28,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "count": 1,
+          "sum_us": 5.0880126953125,
+          "union_us": 5.0880126953125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  2374,
+                  1,
+                  1
+                ],
+                "registers per thread": 30,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+          "count": 1,
+          "sum_us": 2.8800048828125,
+          "union_us": 2.8800048828125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 167,
+                "shared memory": 20496,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "update_trtllm_mha_graph_metadata_kernel",
+          "count": 1,
+          "sum_us": 2.4000244140625,
+          "union_us": 2.4000244140625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233849,
+                "grid": [
+                  9,
+                  1,
+                  1
+                ],
+                "registers per thread": 24,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "_small_copy_kernel",
+          "count": 1,
+          "sum_us": 1.5040283203125,
+          "union_us": 1.5040283203125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 233834,
+                "grid": [
+                  6,
+                  1,
+                  1
+                ],
+                "registers per thread": 20,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "window": {
+        "step": 3,
+        "batch_size": 8,
+        "start_us": 633991449856.181,
+        "end_us": 633991453490.569,
+        "kernel_event_indices": [
+          2913,
+          2917,
+          2919,
+          2921,
+          2923,
+          2925,
+          2927,
+          2929,
+          2931,
+          2933,
+          2935,
+          2937,
+          2939,
+          2941,
+          2943,
+          2945,
+          2947,
+          2949,
+          2951,
+          2953,
+          2955,
+          2957,
+          2959,
+          2961,
+          2963,
+          2965,
+          2967,
+          2969,
+          2971,
+          2973,
+          2975,
+          2977,
+          2979,
+          2981,
+          2983,
+          2985,
+          2987,
+          2989,
+          2991,
+          2993,
+          2995,
+          2997,
+          2999,
+          3001,
+          3003,
+          3005,
+          3007,
+          3009,
+          3011,
+          3013,
+          3015,
+          3017,
+          3019,
+          3021,
+          3023,
+          3025,
+          3027,
+          3029,
+          3031,
+          3033,
+          3035,
+          3037,
+          3039,
+          3041,
+          3043,
+          3045,
+          3047,
+          3049,
+          3051,
+          3053,
+          3055,
+          3057,
+          3059,
+          3061,
+          3063,
+          3065,
+          3067,
+          3069,
+          3071,
+          3073,
+          3075,
+          3077,
+          3079,
+          3081,
+          3083,
+          3085,
+          3087,
+          3089,
+          3091,
+          3093,
+          3095,
+          3097,
+          3099,
+          3101,
+          3103,
+          3105,
+          3107,
+          3109,
+          3111,
+          3113,
+          3115,
+          3117,
+          3119,
+          3121,
+          3123,
+          3125,
+          3127,
+          3129,
+          3131,
+          3133,
+          3135,
+          3137,
+          3139,
+          3141,
+          3143,
+          3145,
+          3147,
+          3149,
+          3151,
+          3153,
+          3155,
+          3157,
+          3159,
+          3161,
+          3163,
+          3165,
+          3167,
+          3169,
+          3171,
+          3173,
+          3175,
+          3177,
+          3179,
+          3181,
+          3183,
+          3185,
+          3187,
+          3189,
+          3191,
+          3193,
+          3195,
+          3197,
+          3199,
+          3201,
+          3203,
+          3205,
+          3207,
+          3209,
+          3211,
+          3213,
+          3215,
+          3217,
+          3219,
+          3221,
+          3223,
+          3225,
+          3227,
+          3229,
+          3231,
+          3233,
+          3235,
+          3237,
+          3239,
+          3241,
+          3243,
+          3245,
+          3247,
+          3249,
+          3251,
+          3253,
+          3255,
+          3257,
+          3259,
+          3261,
+          3263,
+          3265,
+          3267,
+          3269,
+          3271,
+          3273,
+          3275,
+          3277,
+          3279,
+          3281,
+          3283,
+          3285,
+          3287,
+          3289,
+          3291,
+          3293,
+          3295,
+          3297,
+          3299,
+          3301,
+          3303,
+          3305,
+          3307,
+          3309,
+          3311,
+          3313,
+          3315,
+          3317,
+          3319,
+          3321,
+          3323,
+          3325,
+          3327,
+          3329,
+          3331,
+          3333,
+          3335,
+          3337,
+          3339,
+          3341,
+          3343,
+          3345,
+          3347,
+          3349,
+          3351,
+          3353,
+          3355,
+          3357,
+          3359,
+          3361,
+          3363,
+          3365,
+          3367,
+          3369,
+          3371,
+          3373,
+          3375,
+          3377,
+          3379,
+          3381,
+          3383,
+          3385,
+          3387,
+          3389,
+          3391,
+          3393,
+          3395,
+          3397,
+          3399,
+          3401,
+          3403,
+          3405,
+          3407,
+          3409,
+          3411,
+          3413,
+          3415,
+          3417,
+          3419,
+          3421,
+          3423,
+          3425,
+          3427,
+          3429,
+          3431,
+          3433,
+          3435,
+          3437,
+          3439,
+          3441,
+          3443,
+          3445,
+          3447,
+          3449,
+          3451,
+          3453,
+          3455,
+          3457,
+          3459,
+          3461,
+          3463,
+          3465,
+          3467,
+          3469,
+          3471,
+          3473,
+          3475,
+          3477,
+          3479,
+          3481,
+          3483,
+          3485,
+          3487,
+          3489,
+          3491,
+          3493,
+          3495,
+          3497,
+          3499,
+          3501
+        ],
+        "cpu_scope_event_index": 520,
+        "launch_event_indices": [
+          2915,
+          3503
+        ],
+        "correlations": [
+          234229,
+          234244
+        ],
+        "graph_ids": [
+          "146"
+        ],
+        "unassigned_overlapping_indices": [
+          3571,
+          3577,
+          3583,
+          3589,
+          3601,
+          3605,
+          3611,
+          3617
+        ]
+      },
+      "kernel_count": 294,
+      "kernel_sum_us": 4041.0208740234375,
+      "kernel_interval_union_us": 3628.501953125,
+      "kernel_critical_span_us": 3634.387939453125,
+      "within_span_gap_us": 5.885986328125,
+      "concurrent_kernel_excess_us": 412.5189208984375,
+      "kernels": [
+        {
+          "name": "fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen",
+          "count": 36,
+          "sum_us": 1773.7093505859375,
+          "union_us": 1773.7093505859375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  512,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  2,
+                  8,
+                  8
+                ],
+                "registers per thread": 128,
+                "shared memory": 174872,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT",
+          "count": 36,
+          "sum_us": 647.3031005859375,
+          "union_us": 647.3031005859375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  104,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 221512,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0",
+          "count": 72,
+          "sum_us": 631.3343505859375,
+          "union_us": 631.3343505859375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  20,
+                  4,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0",
+          "count": 36,
+          "sum_us": 422.276123046875,
+          "union_us": 422.276123046875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  48,
+                  2,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0",
+          "count": 72,
+          "sum_us": 316.4742431640625,
+          "union_us": 316.4742431640625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 156,
+                "shared memory": 40976,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false>(sglang::ActivationParams)",
+          "count": 36,
+          "sum_us": 117.0567626953125,
+          "union_us": 117.0567626953125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  19,
+                  1,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT",
+          "count": 1,
+          "sum_us": 114.7840576171875,
+          "union_us": 114.7840576171875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  1188,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 225704,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "count": 1,
+          "sum_us": 5.6009521484375,
+          "union_us": 5.6009521484375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  2374,
+                  1,
+                  1
+                ],
+                "registers per thread": 30,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned int>, at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long)",
+          "count": 1,
+          "sum_us": 5.344970703125,
+          "union_us": 5.344970703125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  20,
+                  1,
+                  1
+                ],
+                "registers per thread": 28,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+          "count": 1,
+          "sum_us": 2.9759521484375,
+          "union_us": 2.9759521484375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 167,
+                "shared memory": 20496,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "update_trtllm_mha_graph_metadata_kernel",
+          "count": 1,
+          "sum_us": 2.4329833984375,
+          "union_us": 2.4329833984375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234244,
+                "grid": [
+                  9,
+                  1,
+                  1
+                ],
+                "registers per thread": 24,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "_small_copy_kernel",
+          "count": 1,
+          "sum_us": 1.72802734375,
+          "union_us": 1.72802734375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234229,
+                "grid": [
+                  6,
+                  1,
+                  1
+                ],
+                "registers per thread": 20,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "window": {
+        "step": 4,
+        "batch_size": 8,
+        "start_us": 633991453536.425,
+        "end_us": 633991457171.8049,
+        "kernel_event_indices": [
+          3653,
+          3657,
+          3659,
+          3661,
+          3663,
+          3665,
+          3667,
+          3669,
+          3671,
+          3673,
+          3675,
+          3677,
+          3679,
+          3681,
+          3683,
+          3685,
+          3687,
+          3689,
+          3691,
+          3693,
+          3695,
+          3697,
+          3699,
+          3701,
+          3703,
+          3705,
+          3707,
+          3709,
+          3711,
+          3713,
+          3715,
+          3717,
+          3719,
+          3721,
+          3723,
+          3725,
+          3727,
+          3729,
+          3731,
+          3733,
+          3735,
+          3737,
+          3739,
+          3741,
+          3743,
+          3745,
+          3747,
+          3749,
+          3751,
+          3753,
+          3755,
+          3757,
+          3759,
+          3761,
+          3763,
+          3765,
+          3767,
+          3769,
+          3771,
+          3773,
+          3775,
+          3777,
+          3779,
+          3781,
+          3783,
+          3785,
+          3787,
+          3789,
+          3791,
+          3793,
+          3795,
+          3797,
+          3799,
+          3801,
+          3803,
+          3805,
+          3807,
+          3809,
+          3811,
+          3813,
+          3815,
+          3817,
+          3819,
+          3821,
+          3823,
+          3825,
+          3827,
+          3829,
+          3831,
+          3833,
+          3835,
+          3837,
+          3839,
+          3841,
+          3843,
+          3845,
+          3847,
+          3849,
+          3851,
+          3853,
+          3855,
+          3857,
+          3859,
+          3861,
+          3863,
+          3865,
+          3867,
+          3869,
+          3871,
+          3873,
+          3875,
+          3877,
+          3879,
+          3881,
+          3883,
+          3885,
+          3887,
+          3889,
+          3891,
+          3893,
+          3895,
+          3897,
+          3899,
+          3901,
+          3903,
+          3905,
+          3907,
+          3909,
+          3911,
+          3913,
+          3915,
+          3917,
+          3919,
+          3921,
+          3923,
+          3925,
+          3927,
+          3929,
+          3931,
+          3933,
+          3935,
+          3937,
+          3939,
+          3941,
+          3943,
+          3945,
+          3947,
+          3949,
+          3951,
+          3953,
+          3955,
+          3957,
+          3959,
+          3961,
+          3963,
+          3965,
+          3967,
+          3969,
+          3971,
+          3973,
+          3975,
+          3977,
+          3979,
+          3981,
+          3983,
+          3985,
+          3987,
+          3989,
+          3991,
+          3993,
+          3995,
+          3997,
+          3999,
+          4001,
+          4003,
+          4005,
+          4007,
+          4009,
+          4011,
+          4013,
+          4015,
+          4017,
+          4019,
+          4021,
+          4023,
+          4025,
+          4027,
+          4029,
+          4031,
+          4033,
+          4035,
+          4037,
+          4039,
+          4041,
+          4043,
+          4045,
+          4047,
+          4049,
+          4051,
+          4053,
+          4055,
+          4057,
+          4059,
+          4061,
+          4063,
+          4065,
+          4067,
+          4069,
+          4071,
+          4073,
+          4075,
+          4077,
+          4079,
+          4081,
+          4083,
+          4085,
+          4087,
+          4089,
+          4091,
+          4093,
+          4095,
+          4097,
+          4099,
+          4101,
+          4103,
+          4105,
+          4107,
+          4109,
+          4111,
+          4113,
+          4115,
+          4117,
+          4119,
+          4121,
+          4123,
+          4125,
+          4127,
+          4129,
+          4131,
+          4133,
+          4135,
+          4137,
+          4139,
+          4141,
+          4143,
+          4145,
+          4147,
+          4149,
+          4151,
+          4153,
+          4155,
+          4157,
+          4159,
+          4161,
+          4163,
+          4165,
+          4167,
+          4169,
+          4171,
+          4173,
+          4175,
+          4177,
+          4179,
+          4181,
+          4183,
+          4185,
+          4187,
+          4189,
+          4191,
+          4193,
+          4195,
+          4197,
+          4199,
+          4201,
+          4203,
+          4205,
+          4207,
+          4209,
+          4211,
+          4213,
+          4215,
+          4217,
+          4219,
+          4221,
+          4223,
+          4225,
+          4227,
+          4229,
+          4231,
+          4233,
+          4235,
+          4237,
+          4239,
+          4241
+        ],
+        "cpu_scope_event_index": 673,
+        "launch_event_indices": [
+          3655,
+          4243
+        ],
+        "correlations": [
+          234624,
+          234639
+        ],
+        "graph_ids": [
+          "146"
+        ],
+        "unassigned_overlapping_indices": []
+      },
+      "kernel_count": 294,
+      "kernel_sum_us": 4041.88134765625,
+      "kernel_interval_union_us": 3629.427978515625,
+      "kernel_critical_span_us": 3635.3798828125,
+      "within_span_gap_us": 5.951904296875,
+      "concurrent_kernel_excess_us": 412.453369140625,
+      "kernels": [
+        {
+          "name": "fmhaSm100fKernel_QkvBfloat16OBfloat16H128PagedKvCausalP32MultiCtasKvCgaVarSeqQ8Kv256StaticGroupedSwapsAbForGen",
+          "count": 36,
+          "sum_us": 1769.35498046875,
+          "union_us": 1769.35498046875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  512,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  2,
+                  8,
+                  8
+                ],
+                "registers per thread": 128,
+                "shared memory": 174872,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_192x8_64x8_4x1_v_bz_TNT",
+          "count": 36,
+          "sum_us": 647.0150146484375,
+          "union_us": 647.0150146484375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  104,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 221512,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfergemmkernelsdense_bf16_gemm_sm100_splitkSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmem_0",
+          "count": 72,
+          "sum_us": 632.73828125,
+          "union_us": 632.73828125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  20,
+                  4,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_sglangkernelsopsgemmdense_bf16_gemm_sm100_splitk_epilogueSplitKDenseGemmKernel_object_at__tensorptrbf16gmemalign32oi641i64_tensorptrbf16gmemalign32oi641i64_tensorptr_0",
+          "count": 36,
+          "sum_us": 421.9542236328125,
+          "union_us": 421.9542236328125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  48,
+                  2,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 232448,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsfused_add_rmsnormFusedAddRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gme_0",
+          "count": 72,
+          "sum_us": 320.1927490234375,
+          "union_us": 320.1927490234375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 156,
+                "shared memory": 40976,
+                "stream": 13
+              },
+              "count": 72
+            }
+          ]
+        },
+        {
+          "name": "void sglang::act_and_mul_kernel<__nv_bfloat16, (sglang::ActivationKind)0, true, false, false, false, false>(sglang::ActivationParams)",
+          "count": 36,
+          "sum_us": 118.08203125,
+          "union_us": 118.08203125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  19,
+                  1,
+                  1
+                ],
+                "registers per thread": 32,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 36
+            }
+          ]
+        },
+        {
+          "name": "nvjet_sm103_tst_128x8_64x12_4x1_v_bz_TNT",
+          "count": 1,
+          "sum_us": 114.68798828125,
+          "union_us": 114.68798828125,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  256,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  1188,
+                  1,
+                  1
+                ],
+                "registers per thread": 255,
+                "shared memory": 225704,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::operator()() const::{lambda(float)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+          "count": 1,
+          "sum_us": 5.43994140625,
+          "union_us": 5.43994140625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  2374,
+                  1,
+                  1
+                ],
+                "registers per thread": 30,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned int>, at::cuda::detail::TensorInfo<c10::BFloat16 const, unsigned int>, at::cuda::detail::TensorInfo<long const, unsigned int>, int, int, unsigned int, long)",
+          "count": 1,
+          "sum_us": 5.280029296875,
+          "union_us": 5.280029296875,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  20,
+                  1,
+                  1
+                ],
+                "registers per thread": 28,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+          "count": 1,
+          "sum_us": 2.8160400390625,
+          "union_us": 2.8160400390625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  2,
+                  1,
+                  1
+                ],
+                "registers per thread": 167,
+                "shared memory": 20496,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "update_trtllm_mha_graph_metadata_kernel",
+          "count": 1,
+          "sum_us": 2.592041015625,
+          "union_us": 2.592041015625,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234639,
+                "grid": [
+                  9,
+                  1,
+                  1
+                ],
+                "registers per thread": 24,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        },
+        {
+          "name": "_small_copy_kernel",
+          "count": 1,
+          "sum_us": 1.72802734375,
+          "union_us": 1.72802734375,
+          "annotation": {
+            "classification": "unverified",
+            "dtype": "unknown"
+          },
+          "launches": [
+            {
+              "args": {
+                "block": [
+                  128,
+                  1,
+                  1
+                ],
+                "correlation": 234624,
+                "grid": [
+                  6,
+                  1,
+                  1
+                ],
+                "registers per thread": 20,
+                "shared memory": 0,
+                "stream": 13
+              },
+              "count": 1
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "components": []
+}
