@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/tmp/native_tail_pair.py", line 24, in <module>
+    bf,bt=setup(base,weights,outs);ff,ft=setup(fused,inter,fo)
+          ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/native_tail_pair.py", line 22, in setup
+    fn=mod.compile_bmm((m,n,k,1),*ts[0],cutlass.Float32,'k','k','n',tile,cluster,active,a.two,False)
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/native_base_tail.py", line 1513, in compile_bmm
+    raise testing.CantImplementError(
+cutlass.cute.testing.CantImplementError: The current config which is invalid/unsupported: use_2cta_instrs = True, mma_tiler_mn = (256, 256), cluster_shape_mn = (2, 1), use_tma_store = False

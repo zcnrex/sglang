@@ -1,0 +1,8 @@
+{
+  "native_base_tail.py": "3614eb7d47395a255ce3fb0187e5fca445eee5e08b54212973e79a4c9d577aeb",
+  "native_fused_tail.py": "1025141eecaf00b37d225391f57e5a0518789b5ce8e3b164189860a79b6eaf10",
+  "native_epi_tail.py": "c32dff609b6e03ca6f228b7512a21916cce8363765e540be03e0b99adf07ed74",
+  "native_tail_fourway_retained.py": "342e10081bc4367f4a295731dde2f0a30a591c18debca00d9ef5aeb35d9c7c32",
+  "native_tail_lifetime_debug.py": "ab0d286c028f9c45946fdcefc2963b4bd56cb40601695accf61fd63008549615",
+  "invalid_lifetime_fourway.py": "638cf1fbd50c0dd6578ce4336d60dea2ca2c2de4e97c70a66b7c521c177c3c50"
+}

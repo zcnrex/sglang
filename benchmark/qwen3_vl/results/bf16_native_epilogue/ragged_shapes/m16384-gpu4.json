@@ -1,0 +1,83 @@
+{
+  "m": 16384,
+  "tile": [
+    256,
+    256
+  ],
+  "checks": [
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    },
+    {
+      "bitwise": true,
+      "max_abs": 0.0,
+      "nrms": 0.0
+    }
+  ],
+  "rounds_us": [
+    {
+      "order": [
+        "production",
+        "candidate"
+      ],
+      "production": 1345.4968452453613,
+      "candidate": 1274.8831748962402
+    },
+    {
+      "order": [
+        "candidate",
+        "production"
+      ],
+      "candidate": 1304.0131568908691,
+      "production": 1344.0764427185059
+    },
+    {
+      "order": [
+        "production",
+        "candidate"
+      ],
+      "production": 1285.770034790039,
+      "candidate": 1281.9607734680176
+    },
+    {
+      "order": [
+        "candidate",
+        "production"
+      ],
+      "candidate": 1316.6556358337402,
+      "production": 1348.7863540649414
+    },
+    {
+      "order": [
+        "production",
+        "candidate"
+      ],
+      "production": 1282.7012062072754,
+      "candidate": 1290.5351638793945
+    },
+    {
+      "order": [
+        "candidate",
+        "production"
+      ],
+      "candidate": 1316.5851593017578,
+      "production": 1363.2763862609863
+    }
+  ],
+  "weight_bytes": 398458880,
+  "transform_ms": 9.304767608642578,
+  "extra_weight_bytes": 398458880,
+  "output_note": "candidate stores contiguous half-width result in first half of full-width allocated buffer; no intermediate store/read"
+}

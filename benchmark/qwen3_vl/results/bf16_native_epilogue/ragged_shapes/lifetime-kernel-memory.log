@@ -1,0 +1,2064 @@
+================================================================================
+[2026-10-08 01:27:08] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:08] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:09] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:09] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:09] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:09] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:09] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:09] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:12] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16331, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16331, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.fused_op.BaseFusedOp.forward
+Positional input arguments:
+  arg[0]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[1]=None
+================================================================================
+[2026-10-08 01:27:15] SGLang Kernel API Call: kernels.ops.activation.activation._run_activation_inplace
+Positional input arguments:
+  arg[0]='silu'
+  arg[1]=Tensor(
+      shape=(16384, 19456)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+  arg[2]=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
+Output:
+  return=None
+Output:
+  return=Tensor(
+      shape=(16384, 9728)
+      dtype=torch.bfloat16
+      device=cuda:0
+      requires_grad=False
+      is_contiguous=True
+    )
