@@ -1,0 +1,1106 @@
+{
+  "split": 8,
+  "tiles": [
+    64,
+    128
+  ],
+  "batch": 16,
+  "lengths": [
+    8192,
+    8193,
+    8194,
+    8195,
+    8196,
+    8197,
+    8198,
+    8199,
+    8200,
+    8201,
+    8202,
+    8203,
+    8204,
+    8205,
+    8206,
+    8207
+  ],
+  "states": 36,
+  "cache_bytes": 19398131712,
+  "checks": [
+    {
+      "state": 0,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002808514516800642
+    },
+    {
+      "state": 0,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028038201853632927
+    },
+    {
+      "state": 1,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002806667936965823
+    },
+    {
+      "state": 1,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027904559392482042
+    },
+    {
+      "state": 2,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002798770321533084
+    },
+    {
+      "state": 2,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028133410960435867
+    },
+    {
+      "state": 3,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002807577606290579
+    },
+    {
+      "state": 3,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027748134452849627
+    },
+    {
+      "state": 4,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002804817631840706
+    },
+    {
+      "state": 4,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027897986583411694
+    },
+    {
+      "state": 5,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002786925993859768
+    },
+    {
+      "state": 5,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002776393201202154
+    },
+    {
+      "state": 6,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027942147571593523
+    },
+    {
+      "state": 6,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002804471179842949
+    },
+    {
+      "state": 7,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002820595633238554
+    },
+    {
+      "state": 7,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027939106803387403
+    },
+    {
+      "state": 8,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028212054166942835
+    },
+    {
+      "state": 8,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028108914848417044
+    },
+    {
+      "state": 9,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027970061637461185
+    },
+    {
+      "state": 9,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027978590223938227
+    },
+    {
+      "state": 10,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002812494756653905
+    },
+    {
+      "state": 10,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002801991533488035
+    },
+    {
+      "state": 11,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028191260062158108
+    },
+    {
+      "state": 11,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002808770863339305
+    },
+    {
+      "state": 12,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002781266812235117
+    },
+    {
+      "state": 12,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027726851403713226
+    },
+    {
+      "state": 13,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002797909313812852
+    },
+    {
+      "state": 13,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027931611984968185
+    },
+    {
+      "state": 14,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002827830845490098
+    },
+    {
+      "state": 14,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028120973147451878
+    },
+    {
+      "state": 15,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002801573136821389
+    },
+    {
+      "state": 15,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028057885356247425
+    },
+    {
+      "state": 16,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002807214390486479
+    },
+    {
+      "state": 16,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002792449900880456
+    },
+    {
+      "state": 17,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002824086230248213
+    },
+    {
+      "state": 17,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028061154298484325
+    },
+    {
+      "state": 18,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028021149337291718
+    },
+    {
+      "state": 18,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027960720472037792
+    },
+    {
+      "state": 19,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028100106865167618
+    },
+    {
+      "state": 19,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002797933993861079
+    },
+    {
+      "state": 20,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002799468580633402
+    },
+    {
+      "state": 20,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002784144366160035
+    },
+    {
+      "state": 21,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002798177069053054
+    },
+    {
+      "state": 21,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027950929943472147
+    },
+    {
+      "state": 22,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027885902673006058
+    },
+    {
+      "state": 22,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027919295243918896
+    },
+    {
+      "state": 23,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027893506921827793
+    },
+    {
+      "state": 23,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002779925474897027
+    },
+    {
+      "state": 24,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028042029589414597
+    },
+    {
+      "state": 24,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027805690187960863
+    },
+    {
+      "state": 25,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.00279851071536541
+    },
+    {
+      "state": 25,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027791419997811317
+    },
+    {
+      "state": 26,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027843567077070475
+    },
+    {
+      "state": 26,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002790814731270075
+    },
+    {
+      "state": 27,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002807360840961337
+    },
+    {
+      "state": 27,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002798301400616765
+    },
+    {
+      "state": 28,
+      "variant": "tile64",
+      "max_abs": 0.000244140625,
+      "nrms": 0.002806763630360365
+    },
+    {
+      "state": 28,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002792119514197111
+    },
+    {
+      "state": 29,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002786847995594144
+    },
+    {
+      "state": 29,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027971798554062843
+    },
+    {
+      "state": 30,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028159331995993853
+    },
+    {
+      "state": 30,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028023067861795425
+    },
+    {
+      "state": 31,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027927032206207514
+    },
+    {
+      "state": 31,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002778697060421109
+    },
+    {
+      "state": 32,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027972853276878595
+    },
+    {
+      "state": 32,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027962042950093746
+    },
+    {
+      "state": 33,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0027869802433997393
+    },
+    {
+      "state": 33,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002784224459901452
+    },
+    {
+      "state": 34,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028078267350792885
+    },
+    {
+      "state": 34,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.002794455736875534
+    },
+    {
+      "state": 35,
+      "variant": "tile64",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028194033075124025
+    },
+    {
+      "state": 35,
+      "variant": "tile128",
+      "max_abs": 0.00048828125,
+      "nrms": 0.0028183418326079845
+    }
+  ],
+  "reference_checks": [
+    {
+      "request": 0,
+      "variant": "trt",
+      "nrms": 0.0022818429861217737
+    },
+    {
+      "request": 0,
+      "variant": "tile64",
+      "nrms": 0.0022118566557765007
+    },
+    {
+      "request": 0,
+      "variant": "tile128",
+      "nrms": 0.0022308079060167074
+    },
+    {
+      "request": 1,
+      "variant": "trt",
+      "nrms": 0.002268324140459299
+    },
+    {
+      "request": 1,
+      "variant": "tile64",
+      "nrms": 0.0022008230444043875
+    },
+    {
+      "request": 1,
+      "variant": "tile128",
+      "nrms": 0.0022260244004428387
+    },
+    {
+      "request": 2,
+      "variant": "trt",
+      "nrms": 0.002307046204805374
+    },
+    {
+      "request": 2,
+      "variant": "tile64",
+      "nrms": 0.0022173412144184113
+    },
+    {
+      "request": 2,
+      "variant": "tile128",
+      "nrms": 0.0022299468982964754
+    },
+    {
+      "request": 3,
+      "variant": "trt",
+      "nrms": 0.0022651739418506622
+    },
+    {
+      "request": 3,
+      "variant": "tile64",
+      "nrms": 0.002191650914028287
+    },
+    {
+      "request": 3,
+      "variant": "tile128",
+      "nrms": 0.002183368196710944
+    },
+    {
+      "request": 4,
+      "variant": "trt",
+      "nrms": 0.0023142616264522076
+    },
+    {
+      "request": 4,
+      "variant": "tile64",
+      "nrms": 0.0022426603827625513
+    },
+    {
+      "request": 4,
+      "variant": "tile128",
+      "nrms": 0.0022474450524896383
+    },
+    {
+      "request": 5,
+      "variant": "trt",
+      "nrms": 0.002250914229080081
+    },
+    {
+      "request": 5,
+      "variant": "tile64",
+      "nrms": 0.002242199843749404
+    },
+    {
+      "request": 5,
+      "variant": "tile128",
+      "nrms": 0.0022460962645709515
+    },
+    {
+      "request": 6,
+      "variant": "trt",
+      "nrms": 0.0022835053969174623
+    },
+    {
+      "request": 6,
+      "variant": "tile64",
+      "nrms": 0.002213324187323451
+    },
+    {
+      "request": 6,
+      "variant": "tile128",
+      "nrms": 0.0022356726694852114
+    },
+    {
+      "request": 7,
+      "variant": "trt",
+      "nrms": 0.0022623264230787754
+    },
+    {
+      "request": 7,
+      "variant": "tile64",
+      "nrms": 0.0022365511395037174
+    },
+    {
+      "request": 7,
+      "variant": "tile128",
+      "nrms": 0.002229474252089858
+    },
+    {
+      "request": 8,
+      "variant": "trt",
+      "nrms": 0.0022210669703781605
+    },
+    {
+      "request": 8,
+      "variant": "tile64",
+      "nrms": 0.0021548063959926367
+    },
+    {
+      "request": 8,
+      "variant": "tile128",
+      "nrms": 0.0021720314398407936
+    },
+    {
+      "request": 9,
+      "variant": "trt",
+      "nrms": 0.002290596254169941
+    },
+    {
+      "request": 9,
+      "variant": "tile64",
+      "nrms": 0.0022321250289678574
+    },
+    {
+      "request": 9,
+      "variant": "tile128",
+      "nrms": 0.0022057986352592707
+    },
+    {
+      "request": 10,
+      "variant": "trt",
+      "nrms": 0.0022547643166035414
+    },
+    {
+      "request": 10,
+      "variant": "tile64",
+      "nrms": 0.002171285916119814
+    },
+    {
+      "request": 10,
+      "variant": "tile128",
+      "nrms": 0.0021852138452231884
+    },
+    {
+      "request": 11,
+      "variant": "trt",
+      "nrms": 0.0023160434793680906
+    },
+    {
+      "request": 11,
+      "variant": "tile64",
+      "nrms": 0.0022126014810055494
+    },
+    {
+      "request": 11,
+      "variant": "tile128",
+      "nrms": 0.002231151796877384
+    },
+    {
+      "request": 12,
+      "variant": "trt",
+      "nrms": 0.00228319875895977
+    },
+    {
+      "request": 12,
+      "variant": "tile64",
+      "nrms": 0.0021861158311367035
+    },
+    {
+      "request": 12,
+      "variant": "tile128",
+      "nrms": 0.002183059463277459
+    },
+    {
+      "request": 13,
+      "variant": "trt",
+      "nrms": 0.0022996135521680117
+    },
+    {
+      "request": 13,
+      "variant": "tile64",
+      "nrms": 0.0022359078284353018
+    },
+    {
+      "request": 13,
+      "variant": "tile128",
+      "nrms": 0.00225393520668149
+    },
+    {
+      "request": 14,
+      "variant": "trt",
+      "nrms": 0.0022516981698572636
+    },
+    {
+      "request": 14,
+      "variant": "tile64",
+      "nrms": 0.002243784721940756
+    },
+    {
+      "request": 14,
+      "variant": "tile128",
+      "nrms": 0.0022595219779759645
+    },
+    {
+      "request": 15,
+      "variant": "trt",
+      "nrms": 0.0022202455438673496
+    },
+    {
+      "request": 15,
+      "variant": "tile64",
+      "nrms": 0.002184164710342884
+    },
+    {
+      "request": 15,
+      "variant": "tile128",
+      "nrms": 0.002185284160077572
+    },
+    {
+      "request": 0,
+      "variant": "trt",
+      "nrms": 0.0022691504564136267
+    },
+    {
+      "request": 0,
+      "variant": "tile64",
+      "nrms": 0.002200227929279208
+    },
+    {
+      "request": 0,
+      "variant": "tile128",
+      "nrms": 0.002203956712037325
+    },
+    {
+      "request": 1,
+      "variant": "trt",
+      "nrms": 0.002259188098832965
+    },
+    {
+      "request": 1,
+      "variant": "tile64",
+      "nrms": 0.0022043567150831223
+    },
+    {
+      "request": 1,
+      "variant": "tile128",
+      "nrms": 0.0022165155969560146
+    },
+    {
+      "request": 2,
+      "variant": "trt",
+      "nrms": 0.0022854027338325977
+    },
+    {
+      "request": 2,
+      "variant": "tile64",
+      "nrms": 0.002218505833297968
+    },
+    {
+      "request": 2,
+      "variant": "tile128",
+      "nrms": 0.0022416000720113516
+    },
+    {
+      "request": 3,
+      "variant": "trt",
+      "nrms": 0.002270742552354932
+    },
+    {
+      "request": 3,
+      "variant": "tile64",
+      "nrms": 0.0022123376838862896
+    },
+    {
+      "request": 3,
+      "variant": "tile128",
+      "nrms": 0.0021993829868733883
+    },
+    {
+      "request": 4,
+      "variant": "trt",
+      "nrms": 0.002301196800544858
+    },
+    {
+      "request": 4,
+      "variant": "tile64",
+      "nrms": 0.0022261568810790777
+    },
+    {
+      "request": 4,
+      "variant": "tile128",
+      "nrms": 0.0022243254352360964
+    },
+    {
+      "request": 5,
+      "variant": "trt",
+      "nrms": 0.0022811118979007006
+    },
+    {
+      "request": 5,
+      "variant": "tile64",
+      "nrms": 0.002235152292996645
+    },
+    {
+      "request": 5,
+      "variant": "tile128",
+      "nrms": 0.002224062569439411
+    },
+    {
+      "request": 6,
+      "variant": "trt",
+      "nrms": 0.0023209170904010534
+    },
+    {
+      "request": 6,
+      "variant": "tile64",
+      "nrms": 0.002253133337944746
+    },
+    {
+      "request": 6,
+      "variant": "tile128",
+      "nrms": 0.0022675981745123863
+    },
+    {
+      "request": 7,
+      "variant": "trt",
+      "nrms": 0.0022904661018401384
+    },
+    {
+      "request": 7,
+      "variant": "tile64",
+      "nrms": 0.002259821631014347
+    },
+    {
+      "request": 7,
+      "variant": "tile128",
+      "nrms": 0.0022365658078342676
+    },
+    {
+      "request": 8,
+      "variant": "trt",
+      "nrms": 0.0023366687819361687
+    },
+    {
+      "request": 8,
+      "variant": "tile64",
+      "nrms": 0.0022454475983977318
+    },
+    {
+      "request": 8,
+      "variant": "tile128",
+      "nrms": 0.00225133472122252
+    },
+    {
+      "request": 9,
+      "variant": "trt",
+      "nrms": 0.002248869277536869
+    },
+    {
+      "request": 9,
+      "variant": "tile64",
+      "nrms": 0.0022559671197086573
+    },
+    {
+      "request": 9,
+      "variant": "tile128",
+      "nrms": 0.0022477100137621164
+    },
+    {
+      "request": 10,
+      "variant": "trt",
+      "nrms": 0.0022794620599597692
+    },
+    {
+      "request": 10,
+      "variant": "tile64",
+      "nrms": 0.0022290374618023634
+    },
+    {
+      "request": 10,
+      "variant": "tile128",
+      "nrms": 0.0022460452746599913
+    },
+    {
+      "request": 11,
+      "variant": "trt",
+      "nrms": 0.0022912968415766954
+    },
+    {
+      "request": 11,
+      "variant": "tile64",
+      "nrms": 0.0022249589674174786
+    },
+    {
+      "request": 11,
+      "variant": "tile128",
+      "nrms": 0.0022331513464450836
+    },
+    {
+      "request": 12,
+      "variant": "trt",
+      "nrms": 0.0022802837193012238
+    },
+    {
+      "request": 12,
+      "variant": "tile64",
+      "nrms": 0.0021985627245157957
+    },
+    {
+      "request": 12,
+      "variant": "tile128",
+      "nrms": 0.002243367489427328
+    },
+    {
+      "request": 13,
+      "variant": "trt",
+      "nrms": 0.002221689559519291
+    },
+    {
+      "request": 13,
+      "variant": "tile64",
+      "nrms": 0.0022433518897742033
+    },
+    {
+      "request": 13,
+      "variant": "tile128",
+      "nrms": 0.0022637275978922844
+    },
+    {
+      "request": 14,
+      "variant": "trt",
+      "nrms": 0.0022743374574929476
+    },
+    {
+      "request": 14,
+      "variant": "tile64",
+      "nrms": 0.0022301538847386837
+    },
+    {
+      "request": 14,
+      "variant": "tile128",
+      "nrms": 0.0022441167384386063
+    },
+    {
+      "request": 15,
+      "variant": "trt",
+      "nrms": 0.00227434653788805
+    },
+    {
+      "request": 15,
+      "variant": "tile64",
+      "nrms": 0.00223521888256073
+    },
+    {
+      "request": 15,
+      "variant": "tile128",
+      "nrms": 0.0022622081451117992
+    }
+  ],
+  "rounds": [
+    {
+      "round": 0,
+      "candidate": "tile64",
+      "times": {
+        "trt": 80.42555385165744,
+        "tile64": 137.31303921452275
+      }
+    },
+    {
+      "round": 0,
+      "candidate": "tile128",
+      "times": {
+        "trt": 80.38896101492422,
+        "tile128": 102.43437025282118
+      }
+    },
+    {
+      "round": 1,
+      "candidate": "tile64",
+      "times": {
+        "tile64": 137.47851936905474,
+        "trt": 80.41259094520852
+      }
+    },
+    {
+      "round": 1,
+      "candidate": "tile128",
+      "times": {
+        "tile128": 102.45999583491573,
+        "trt": 80.42310785364222
+      }
+    },
+    {
+      "round": 2,
+      "candidate": "tile64",
+      "times": {
+        "trt": 80.37547711972837,
+        "tile64": 137.39881692109284
+      }
+    },
+    {
+      "round": 2,
+      "candidate": "tile128",
+      "times": {
+        "trt": 80.4245913470233,
+        "tile128": 102.31910811530219
+      }
+    },
+    {
+      "round": 3,
+      "candidate": "tile64",
+      "times": {
+        "tile64": 137.3828163853398,
+        "trt": 80.36303520202637
+      }
+    },
+    {
+      "round": 3,
+      "candidate": "tile128",
+      "times": {
+        "tile128": 102.42584899619773,
+        "trt": 80.40814929538303
+      }
+    },
+    {
+      "round": 4,
+      "candidate": "tile64",
+      "times": {
+        "trt": 80.404590677332,
+        "tile64": 137.3975541856554
+      }
+    },
+    {
+      "round": 4,
+      "candidate": "tile128",
+      "times": {
+        "trt": 80.40881156921387,
+        "tile128": 102.33399603101942
+      }
+    },
+    {
+      "round": 5,
+      "candidate": "tile64",
+      "times": {
+        "tile64": 137.4702983432346,
+        "trt": 80.3998487967032
+      }
+    },
+    {
+      "round": 5,
+      "candidate": "tile128",
+      "times": {
+        "tile128": 102.4231822402389,
+        "trt": 80.37496496129918
+      }
+    },
+    {
+      "round": 6,
+      "candidate": "tile64",
+      "times": {
+        "trt": 80.37221873248065,
+        "tile64": 137.49852003874602
+      }
+    },
+    {
+      "round": 6,
+      "candidate": "tile128",
+      "times": {
+        "trt": 80.39199864422834,
+        "tile128": 102.51125582942257
+      }
+    },
+    {
+      "round": 7,
+      "candidate": "tile64",
+      "times": {
+        "tile64": 137.3639283356843,
+        "trt": 80.39837413363986
+      }
+    },
+    {
+      "round": 7,
+      "candidate": "tile128",
+      "times": {
+        "tile128": 102.41163218462908,
+        "trt": 80.41562857451262
+      }
+    }
+  ],
+  "source": "/root/qvl/sglang-m16-down-production/python/sglang/kernels/ops/attention/decode_attention.py",
+  "source_sha256": "dc359a15c41fb416875d7ff176299ecf2f8cc3428d7253943888037282f34641",
+  "script_sha256": "88b867a7be73907210a44e9b3517bfacfd46b0660d5e3c21772b74c6fe9a62ae",
+  "q_stride": [
+    6144,
+    128,
+    1
+  ],
+  "hnd_stride": [
+    32768,
+    4096,
+    128,
+    1
+  ],
+  "adapter_stride": [
+    128,
+    4096,
+    32768,
+    128
+  ],
+  "torch": "2.14.1+cu130",
+  "flashinfer": "0.7.0.post1",
+  "medians": {
+    "tile64": {
+      "trt": 80.39911146517153,
+      "tile64": 137.3981855533741
+    },
+    "tile128": {
+      "trt": 80.40848043229845,
+      "tile128": 102.42451561821832
+    }
+  }
+}

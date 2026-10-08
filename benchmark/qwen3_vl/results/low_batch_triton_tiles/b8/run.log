@@ -1,0 +1,17 @@
+{"round": 0, "candidate": "tile64", "times": {"trt": 43.25296260692455, "tile64": 76.20867093404134}}
+{"round": 0, "candidate": "tile128", "times": {"trt": 43.26074211685746, "tile128": 62.75733311971029}}
+{"round": 1, "candidate": "tile64", "times": {"tile64": 76.1956285547327, "trt": 43.24659153267189}}
+{"round": 1, "candidate": "tile128", "times": {"tile128": 62.727111357229724, "trt": 43.25340853797065}}
+{"round": 2, "candidate": "tile64", "times": {"trt": 43.25066672431098, "tile64": 76.17444462246365}}
+{"round": 2, "candidate": "tile128", "times": {"trt": 43.26185032173439, "tile128": 62.744520328663015}}
+{"round": 3, "candidate": "tile64", "times": {"tile64": 76.20266631797507, "trt": 43.23237030594437}}
+{"round": 3, "candidate": "tile128", "times": {"tile128": 62.766370949921786, "trt": 43.26377974616157}}
+{"round": 4, "candidate": "tile64", "times": {"trt": 43.26592551337348, "tile64": 76.18622426633482}}
+{"round": 4, "candidate": "tile128", "times": {"trt": 43.30222253446226, "tile128": 62.77296278211806}}
+{"round": 5, "candidate": "tile64", "times": {"tile64": 76.20303719132035, "trt": 43.25725855650725}}
+{"round": 5, "candidate": "tile128", "times": {"tile128": 62.71577764440466, "trt": 43.25644616727476}}
+{"round": 6, "candidate": "tile64", "times": {"trt": 43.268446569089534, "tile64": 76.18799916020146}}
+{"round": 6, "candidate": "tile128", "times": {"trt": 43.284372047141744, "tile128": 62.749112093890155}}
+{"round": 7, "candidate": "tile64", "times": {"tile64": 76.20563330473723, "trt": 43.243408203125}}
+{"round": 7, "candidate": "tile128", "times": {"tile128": 62.776742158112704, "trt": 43.2491832309299}}
+{"tile64": {"trt": 43.251814665617765, "tile64": 76.19914743635388}, "tile128": {"trt": 43.26129621929593, "tile128": 62.75322260680022}}
