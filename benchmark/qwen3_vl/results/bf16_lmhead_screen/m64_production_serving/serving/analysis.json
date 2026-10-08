@@ -1,0 +1,906 @@
+{
+  "runs": [
+    {
+      "tag": null,
+      "backend": "sglang-oai-chat",
+      "dataset_name": "random",
+      "request_rate": Infinity,
+      "max_concurrency": 64,
+      "sharegpt_output_len": null,
+      "random_input_len": 8192,
+      "random_output_len": 1024,
+      "random_range_ratio": 1.0,
+      "duration": 93.04188750399044,
+      "completed": 320,
+      "total_input_tokens": 2621440,
+      "total_input_text_tokens": 2621440,
+      "total_input_vision_tokens": 0,
+      "total_output_tokens": 327680,
+      "total_output_tokens_retokenized": 255078,
+      "request_throughput": 3.4393111380750487,
+      "input_throughput": 28174.8368431108,
+      "output_throughput": 3521.85460538885,
+      "total_throughput": 31696.69144849965,
+      "mean_e2e_latency_ms": 18574.274443116974,
+      "median_e2e_latency_ms": 18581.131605998962,
+      "std_e2e_latency_ms": 1253.7014111785586,
+      "p90_e2e_latency_ms": 20146.051383402664,
+      "p95_e2e_latency_ms": 21255.612087753252,
+      "p99_e2e_latency_ms": 22087.774688190257,
+      "mean_ttft_ms": 1000.2847406543877,
+      "median_ttft_ms": 695.5606589908712,
+      "std_ttft_ms": 868.0021418946948,
+      "p90_ttft_ms": 2277.7764577942435,
+      "p95_ttft_ms": 3367.3795469032484,
+      "p99_ttft_ms": 4196.528036150557,
+      "mean_tpot_ms": 17.178875564479558,
+      "median_tpot_ms": 17.481370022972087,
+      "std_tpot_ms": 0.8090116005038166,
+      "p90_tpot_ms": 17.57959585259557,
+      "p95_tpot_ms": 17.74586037937241,
+      "p99_tpot_ms": 17.971317636856003,
+      "mean_itl_ms": 18.843886139124702,
+      "median_itl_ms": 14.0781639929628,
+      "std_itl_ms": 23.397548915517756,
+      "p90_itl_ms": 14.900908502750099,
+      "p95_itl_ms": 43.24408278480404,
+      "p99_itl_ms": 139.82050045160577,
+      "concurrency": 63.882708973874934,
+      "accept_length": null,
+      "max_output_tokens_per_s": 4658.0,
+      "max_concurrent_requests": 84,
+      "phase": "A",
+      "gpu": 4,
+      "variant": "control",
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m64-production/serving/A/gpu4/public-tuner-pid574818.json"
+        },
+        {
+          "kind": "graph64_replay"
+        }
+      ]
+    },
+    {
+      "tag": null,
+      "backend": "sglang-oai-chat",
+      "dataset_name": "random",
+      "request_rate": Infinity,
+      "max_concurrency": 64,
+      "sharegpt_output_len": null,
+      "random_input_len": 8192,
+      "random_output_len": 1024,
+      "random_range_ratio": 1.0,
+      "duration": 92.49836392799625,
+      "completed": 320,
+      "total_input_tokens": 2621440,
+      "total_input_text_tokens": 2621440,
+      "total_input_vision_tokens": 0,
+      "total_output_tokens": 327680,
+      "total_output_tokens_retokenized": 255078,
+      "request_throughput": 3.4595206489176227,
+      "input_throughput": 28340.393155933165,
+      "output_throughput": 3542.5491444916456,
+      "total_throughput": 31882.94230042481,
+      "mean_e2e_latency_ms": 18467.336507415075,
+      "median_e2e_latency_ms": 18463.295594003284,
+      "std_e2e_latency_ms": 1226.3798682593495,
+      "p90_e2e_latency_ms": 19997.987027806812,
+      "p95_e2e_latency_ms": 21093.53363434784,
+      "p99_e2e_latency_ms": 21912.525153837923,
+      "mean_ttft_ms": 980.5902575491018,
+      "median_ttft_ms": 681.0776484926464,
+      "std_ttft_ms": 847.0933476024398,
+      "p90_ttft_ms": 2225.339118397096,
+      "p95_ttft_ms": 3284.459742618492,
+      "p99_ttft_ms": 4091.8771221511997,
+      "mean_tpot_ms": 17.09359359713194,
+      "median_tpot_ms": 17.382667452105018,
+      "std_tpot_ms": 0.793373411410898,
+      "p90_tpot_ms": 17.48477322109923,
+      "p95_tpot_ms": 17.67153789769153,
+      "p99_tpot_ms": 17.85429908498839,
+      "mean_itl_ms": 18.748912032574907,
+      "median_itl_ms": 14.074204504140653,
+      "std_itl_ms": 22.920349416038157,
+      "p90_itl_ms": 14.863337684073485,
+      "p95_itl_ms": 43.17909566016169,
+      "p99_itl_ms": 137.11448353948072,
+      "concurrency": 63.8881319779127,
+      "accept_length": null,
+      "max_output_tokens_per_s": 4697.0,
+      "max_concurrent_requests": 84,
+      "phase": "A",
+      "gpu": 5,
+      "variant": "candidate",
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          4
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((64, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (64, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          7
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            64,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            64,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              64,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m64-production/serving/A/gpu5/public-tuner-pid574324.json"
+        },
+        {
+          "kind": "graph64_replay"
+        }
+      ]
+    },
+    {
+      "tag": null,
+      "backend": "sglang-oai-chat",
+      "dataset_name": "random",
+      "request_rate": Infinity,
+      "max_concurrency": 64,
+      "sharegpt_output_len": null,
+      "random_input_len": 8192,
+      "random_output_len": 1024,
+      "random_range_ratio": 1.0,
+      "duration": 92.9629995340074,
+      "completed": 320,
+      "total_input_tokens": 2621440,
+      "total_input_text_tokens": 2621440,
+      "total_input_vision_tokens": 0,
+      "total_output_tokens": 327680,
+      "total_output_tokens_retokenized": 254831,
+      "request_throughput": 3.4422297215457074,
+      "input_throughput": 28198.745878902435,
+      "output_throughput": 3524.8432348628044,
+      "total_throughput": 31723.58911376524,
+      "mean_e2e_latency_ms": 18558.38254546279,
+      "median_e2e_latency_ms": 18565.330612502294,
+      "std_e2e_latency_ms": 1200.3130905040923,
+      "p90_e2e_latency_ms": 20003.435687598543,
+      "p95_e2e_latency_ms": 21103.39084656589,
+      "p99_e2e_latency_ms": 22035.6358548929,
+      "mean_ttft_ms": 1057.3007311447327,
+      "median_ttft_ms": 829.5093450142303,
+      "std_ttft_ms": 838.7578877615721,
+      "p90_ttft_ms": 2226.2209552805903,
+      "p95_ttft_ms": 3304.22206772346,
+      "p99_ttft_ms": 4238.146847435565,
+      "mean_tpot_ms": 17.107606856615895,
+      "median_tpot_ms": 17.339272284450693,
+      "std_tpot_ms": 0.7783310556205373,
+      "p90_tpot_ms": 17.561320929503214,
+      "p95_tpot_ms": 17.752890486805555,
+      "p99_tpot_ms": 17.92386823603729,
+      "mean_itl_ms": 18.7081718854999,
+      "median_itl_ms": 14.102303015533835,
+      "std_itl_ms": 22.809264210292366,
+      "p90_itl_ms": 15.056997595820576,
+      "p95_itl_ms": 43.109822785481796,
+      "p99_itl_ms": 139.31180917890742,
+      "concurrency": 63.8822159818071,
+      "accept_length": null,
+      "max_output_tokens_per_s": 4723.0,
+      "max_concurrent_requests": 86,
+      "phase": "B",
+      "gpu": 4,
+      "variant": "candidate",
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((64, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (64, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          7
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            64,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            64,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              64,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m64-production/serving/B/gpu4/public-tuner-pid579120.json"
+        },
+        {
+          "kind": "graph64_replay"
+        }
+      ]
+    },
+    {
+      "tag": null,
+      "backend": "sglang-oai-chat",
+      "dataset_name": "random",
+      "request_rate": Infinity,
+      "max_concurrency": 64,
+      "sharegpt_output_len": null,
+      "random_input_len": 8192,
+      "random_output_len": 1024,
+      "random_range_ratio": 1.0,
+      "duration": 92.51356708598905,
+      "completed": 320,
+      "total_input_tokens": 2621440,
+      "total_input_text_tokens": 2621440,
+      "total_input_vision_tokens": 0,
+      "total_output_tokens": 327680,
+      "total_output_tokens_retokenized": 254831,
+      "request_throughput": 3.458952130800102,
+      "input_throughput": 28335.735855514435,
+      "output_throughput": 3541.9669819393043,
+      "total_throughput": 31877.702837453737,
+      "mean_e2e_latency_ms": 18470.343179302927,
+      "median_e2e_latency_ms": 18452.74232699012,
+      "std_e2e_latency_ms": 1171.080383004033,
+      "p90_e2e_latency_ms": 19862.239754802435,
+      "p95_e2e_latency_ms": 20950.57255403808,
+      "p99_e2e_latency_ms": 21875.907192170853,
+      "mean_ttft_ms": 1012.5575010215471,
+      "median_ttft_ms": 780.3922480088659,
+      "std_ttft_ms": 822.547406821239,
+      "p90_ttft_ms": 2164.9624570010956,
+      "p95_ttft_ms": 3218.8960241386685,
+      "p99_ttft_ms": 4131.3972507062135,
+      "mean_tpot_ms": 17.065284142992553,
+      "median_tpot_ms": 17.30252302491642,
+      "std_tpot_ms": 0.7692453882003195,
+      "p90_tpot_ms": 17.48345369814892,
+      "p95_tpot_ms": 17.68233909042696,
+      "p99_tpot_ms": 17.850722985278193,
+      "mean_itl_ms": 18.657430273805396,
+      "median_itl_ms": 14.108495990512893,
+      "std_itl_ms": 22.512026906577567,
+      "p90_itl_ms": 15.230642998358233,
+      "p95_itl_ms": 43.09424480888992,
+      "p99_itl_ms": 136.87186751980335,
+      "concurrency": 63.888032896658984,
+      "accept_length": null,
+      "max_output_tokens_per_s": 4682.0,
+      "max_concurrent_requests": 86,
+      "phase": "B",
+      "gpu": 5,
+      "variant": "control",
+      "tactics": {
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 2560), (2560, 19456), (0,), (0,), (-1, 19456), (41943040,)), (128, 19456, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          1
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((128, 9728), (9728, 2560), (0,), (0,), (-1, 2560), (41943040,)), (128, 2560, 9728, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          0
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((32, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (32, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((4, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (4, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ],
+        "('bf16_gemm', 'CublasltBf16GemmRunner', ((8, 2560), (2560, 151936), (0,), (0,), (-1, 151936), (41943040,)), (8, 151936, 2560, torch.bfloat16, 0))": [
+          "CublasltBf16GemmRunner",
+          2
+        ]
+      },
+      "proof": [
+        {
+          "kind": "model_identity",
+          "model_type": "Qwen3VLForConditionalGeneration",
+          "model_module": "sglang.srt.models.qwen3_vl",
+          "tied_embedding": true,
+          "quant_method": "UnquantizedEmbeddingMethod",
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "dtype": "torch.bfloat16",
+          "requires_grad": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            32,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            8,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": false
+        },
+        {
+          "kind": "optimized_dispatch",
+          "input_shape": [
+            4,
+            2560
+          ],
+          "weight_shape": [
+            151936,
+            2560
+          ],
+          "capture": true
+        },
+        {
+          "kind": "startup",
+          "ready": [
+            [
+              0,
+              4,
+              151936,
+              2560
+            ],
+            [
+              0,
+              8,
+              151936,
+              2560
+            ],
+            [
+              0,
+              32,
+              151936,
+              2560
+            ],
+            [
+              0,
+              128,
+              2560,
+              9728
+            ],
+            [
+              0,
+              128,
+              19456,
+              2560
+            ]
+          ],
+          "lmhead_enabled": true,
+          "cache": "/root/qvl/experiments/lmhead-m64-production/serving/B/gpu5/public-tuner-pid578655.json"
+        },
+        {
+          "kind": "graph64_replay"
+        }
+      ]
+    }
+  ],
+  "paired_percent_changes": [
+    {
+      "gpu": 4,
+      "output_throughput": 0.08485953592125561,
+      "mean_ttft_ms": 5.699976034128551,
+      "median_ttft_ms": 19.257657012645566,
+      "p90_ttft_ms": -2.263413617136889,
+      "p95_ttft_ms": -1.8755675830445129,
+      "p99_ttft_ms": 0.9917439113116044,
+      "mean_tpot_ms": -0.41486247220408057,
+      "median_tpot_ms": -0.8128524156554295,
+      "p95_tpot_ms": 0.0396154781050706
+    },
+    {
+      "gpu": 5,
+      "output_throughput": 0.016436137189024258,
+      "mean_ttft_ms": -3.157079320452838,
+      "median_ttft_ms": -12.726241165210961,
+      "p90_ttft_ms": 2.7888087020055963,
+      "p95_ttft_ms": 2.0368386548728967,
+      "p99_ttft_ms": -0.9565802114105182,
+      "mean_tpot_ms": 0.16588914607091887,
+      "median_tpot_ms": 0.4631950327312673,
+      "p95_tpot_ms": -0.06108463750296167
+    }
+  ]
+}

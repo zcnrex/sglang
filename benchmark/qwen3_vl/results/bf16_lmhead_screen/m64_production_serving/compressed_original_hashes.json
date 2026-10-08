@@ -1,0 +1,10 @@
+{
+  "serving/A/gpu5/source.patch": "282623561a437cbe8d60bd75aa3439a286a34a4f91637df1dc70d98f906d7da1",
+  "serving/A/gpu4/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "serving/B/gpu5/source.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "serving/B/gpu4/source.patch": "282623561a437cbe8d60bd75aa3439a286a34a4f91637df1dc70d98f906d7da1",
+  "serving/A/gpu5/bench.jsonl": "d04c85f280c517005c7a0691d2bffa6db0273d81a123525c35e1e1f1b50e2fc7",
+  "serving/A/gpu4/bench.jsonl": "939045d510ef775dde6df4d541070649ff5d77e9919dc620ff25e383a4ec1802",
+  "serving/B/gpu5/bench.jsonl": "339374b86a26c944ef415df09e979224a7b994f20a065f656aac1c9603970e5f",
+  "serving/B/gpu4/bench.jsonl": "471afca1106595a4eae0d46fd0565705c7c4258800d8ab2bc087559c53a3cf72"
+}

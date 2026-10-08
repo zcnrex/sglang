@@ -1,0 +1,22 @@
+from pathlib import Path
+import json,re
+root=Path('/tmp/lmhead-m64-production-serving/serving');runs=[];audit=[]
+for p in sorted(root.glob('*/*/bench.jsonl')):
+ r=p.parent;phase=r.parent.name;gpu=int(r.name[3:]);variant='candidate' if (gpu%2==1)==(phase=='A') else 'control';d=json.loads(p.read_text().splitlines()[-1]);assert d['completed']==320 and d['total_input_tokens']==2621440 and d['total_output_tokens']==327680
+ rec={k:v for k,v in d.items() if not isinstance(v,(list,dict))};rec.update(phase=phase,gpu=gpu,variant=variant)
+ rec['tactics']={k:v for f in r.glob('public-tuner*.json') for k,v in json.load(open(f)).items() if 'bf16_gemm' in k}
+ proof=[json.loads(line) for f in r.glob('lmhead-proof-pid*.jsonl') for line in f.read_text().splitlines()];rec['proof']=proof
+ assert any(x['kind']=='graph64_replay' for x in proof)
+ if variant=='candidate':assert any(x['kind']=='optimized_dispatch' and x['input_shape']==[64,2560] and x['weight_shape']==[151936,2560] and x['capture'] for x in proof)
+ parts=(r/'server.log').read_text().split('Cache flushed successfully!');assert len(parts)==2;rows=[]
+ for line in parts[1].splitlines():
+  if 'Prefill batch' in line:
+   n=int(re.search(r'#new-token: (\d+)',line)[1]);t=int(re.search(r'#running-req: (\d+)',line)[1]);rows.append({'new':n,'tail_max':t,'possible128':n<=128<=n+t,'line':line})
+ audit.append({'phase':phase,'gpu':gpu,'rows':rows,'possible128':sum(x['possible128'] for x in rows),'logged_decode32':[line for line in parts[1].splitlines() if 'Decode batch, #running-req: 32,' in line]})
+ runs.append(rec)
+pairs=[]
+for gpu in [4,5]:
+ by={r['variant']:r for r in runs if r['gpu']==gpu};a,b=by['control'],by['candidate'];pairs.append({'gpu':gpu,**{k:100*(b[k]/a[k]-1) for k in ['output_throughput','mean_ttft_ms','median_ttft_ms','p90_ttft_ms','p95_ttft_ms','p99_ttft_ms','mean_tpot_ms','median_tpot_ms','p95_tpot_ms']}})
+(root/'analysis.json').write_text(json.dumps({'runs':runs,'paired_percent_changes':pairs},indent=2)+'\n');(root/'measured_shape_audit.json').write_text(json.dumps(audit,indent=2)+'\n')
+print([(r['phase'],r['gpu'],len(r['rows']),r['possible128'],len(r['logged_decode32'])) for r in audit])
+for r in runs:print(r['phase'],r['gpu'],[(k.split('torch.bfloat16')[0][-30:],v[1]) for k,v in r['tactics'].items()])

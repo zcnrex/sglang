@@ -1,0 +1,90 @@
+[
+  {
+    "original_path": "serving/A/gpu5/bench.jsonl.gz",
+    "bytes": 2587917,
+    "sha256": "bba87b4661231d3bffc16e71765fa2e28bcd811f9ce4788f8a482a1be450e4e1",
+    "parts": [
+      {
+        "path": "serving/A/gpu5/bench.jsonl.gz.part000",
+        "bytes": 1048576,
+        "sha256": "90010bc4f22119fb837018eb1945941acc70508c06a6f2bba5d5521723cc8a4d"
+      },
+      {
+        "path": "serving/A/gpu5/bench.jsonl.gz.part001",
+        "bytes": 1048576,
+        "sha256": "3716e7637cee37268a4c94ec0f022c24b26dcca214f3ee5652878cc73ef86e4b"
+      },
+      {
+        "path": "serving/A/gpu5/bench.jsonl.gz.part002",
+        "bytes": 490765,
+        "sha256": "f5bc8533e84f3f19ffa4a6ba6d8a1ea8a14d095436147e54de48a55667e2651c"
+      }
+    ]
+  },
+  {
+    "original_path": "serving/A/gpu4/bench.jsonl.gz",
+    "bytes": 2588616,
+    "sha256": "669e2db2d67685f606b183858e459225fe0ba8fca6f831aed780118eb6a64181",
+    "parts": [
+      {
+        "path": "serving/A/gpu4/bench.jsonl.gz.part000",
+        "bytes": 1048576,
+        "sha256": "c4535ee962e46045f885a1792e4e1a5c1980c6a05935ea63450cee2f49fed10c"
+      },
+      {
+        "path": "serving/A/gpu4/bench.jsonl.gz.part001",
+        "bytes": 1048576,
+        "sha256": "9223ef849927edcb009d02479c9ea3a0083426df3430861a32cf80eeb7e2c0e9"
+      },
+      {
+        "path": "serving/A/gpu4/bench.jsonl.gz.part002",
+        "bytes": 491464,
+        "sha256": "814920fa2ad7974dd8893774a34d228e38aad71152d94973be1abba416ec43ac"
+      }
+    ]
+  },
+  {
+    "original_path": "serving/B/gpu5/bench.jsonl.gz",
+    "bytes": 2603121,
+    "sha256": "f2d71e062d6de651c25e77594354bb982016d8642d5ec74dd9c4b32e9bd400ad",
+    "parts": [
+      {
+        "path": "serving/B/gpu5/bench.jsonl.gz.part000",
+        "bytes": 1048576,
+        "sha256": "9a14fc53f4265a3a602f9c8f40159dafbe77eb84f3d7f2e38829d5accb19a19b"
+      },
+      {
+        "path": "serving/B/gpu5/bench.jsonl.gz.part001",
+        "bytes": 1048576,
+        "sha256": "68506d423b58e057d373c4bc233a8e50962bc300b437ab896debff4bd658588a"
+      },
+      {
+        "path": "serving/B/gpu5/bench.jsonl.gz.part002",
+        "bytes": 505969,
+        "sha256": "b50a9461f5e03f0e1d4ee03b805e8537a9f81a299e61fcde3c6b99040f923ed9"
+      }
+    ]
+  },
+  {
+    "original_path": "serving/B/gpu4/bench.jsonl.gz",
+    "bytes": 2596011,
+    "sha256": "f811a6e78668864eaa7040fd0d6141af3ef324a125bb912cc46bbd73d31b9b22",
+    "parts": [
+      {
+        "path": "serving/B/gpu4/bench.jsonl.gz.part000",
+        "bytes": 1048576,
+        "sha256": "e80624c5bb8710bdada79e82bc6a823592b1b93f9d89891ab9e1208d18a5d4c9"
+      },
+      {
+        "path": "serving/B/gpu4/bench.jsonl.gz.part001",
+        "bytes": 1048576,
+        "sha256": "5ac0ba2dafab7284f8d0d48fc2f52714411654d1524067c9defc8af65422e60f"
+      },
+      {
+        "path": "serving/B/gpu4/bench.jsonl.gz.part002",
+        "bytes": 498859,
+        "sha256": "f81d3c00377aa18c1214a8692829f3f78d2ce3232fb2369e16a8c8f3f487a490"
+      }
+    ]
+  }
+]
