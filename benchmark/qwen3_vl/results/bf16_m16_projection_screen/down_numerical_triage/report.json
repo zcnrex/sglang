@@ -1,0 +1,178 @@
+{
+  "m": 16,
+  "source": "current frozen /root/qvl/sglang-prefix-production",
+  "pairs": [],
+  "capture_dispatches": {
+    "capture": 36,
+    "eager": 72
+  },
+  "graph_keys": {
+    "baseline": [
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ],
+    "candidate": [
+      "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+      "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+    ]
+  },
+  "prompt_data_sha256": "3730d312f6e3440559ace48831e51066acaca737f6eabec99bccb9e4b3c39d14",
+  "prompt_indices": [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20
+  ],
+  "input_lengths": [
+    849,
+    835,
+    862,
+    897,
+    853,
+    853,
+    857,
+    860,
+    850,
+    845,
+    887,
+    846,
+    850,
+    821,
+    858,
+    856
+  ],
+  "teacher_forced_checks": [
+    {
+      "step": 0,
+      "max_abs": 0.5,
+      "nrms": 0.013655176386237144,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 1,
+      "max_abs": 0.4375,
+      "nrms": 0.013347454369068146,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 2,
+      "max_abs": 0.25,
+      "nrms": 0.012996121309697628,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 3,
+      "max_abs": 0.21875,
+      "nrms": 0.010086865164339542,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 4,
+      "max_abs": 0.25,
+      "nrms": 0.011737082153558731,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 5,
+      "max_abs": 0.25,
+      "nrms": 0.011481531895697117,
+      "top1_agree": 15,
+      "bitwise": false
+    },
+    {
+      "step": 6,
+      "max_abs": 0.25,
+      "nrms": 0.00936134159564972,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 7,
+      "max_abs": 0.25,
+      "nrms": 0.008884046226739883,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 8,
+      "max_abs": 0.25,
+      "nrms": 0.00832104030996561,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 9,
+      "max_abs": 0.25,
+      "nrms": 0.012421813793480396,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 10,
+      "max_abs": 0.484375,
+      "nrms": 0.011062387377023697,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 11,
+      "max_abs": 0.25,
+      "nrms": 0.012475860305130482,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 12,
+      "max_abs": 0.75,
+      "nrms": 0.014328266493976116,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 13,
+      "max_abs": 0.328125,
+      "nrms": 0.01466032862663269,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 14,
+      "max_abs": 0.796875,
+      "nrms": 0.017718292772769928,
+      "top1_agree": 16,
+      "bitwise": false
+    },
+    {
+      "step": 15,
+      "max_abs": 0.25,
+      "nrms": 0.011618117801845074,
+      "top1_agree": 16,
+      "bitwise": false
+    }
+  ]
+}

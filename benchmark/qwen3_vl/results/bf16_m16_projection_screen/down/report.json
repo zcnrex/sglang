@@ -1,0 +1,186 @@
+{
+  "pid": 463193,
+  "shape": "down",
+  "m": 16,
+  "n": 2560,
+  "k": 9728,
+  "baseline": "production selector F.linear",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "weight_keys": [
+    [
+      "model.language_model.layers.0.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.1.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.2.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.3.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.4.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.5.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.6.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.7.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.8.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.9.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.10.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.11.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.12.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.13.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.14.mlp.down_proj.weight"
+    ],
+    [
+      "model.language_model.layers.15.mlp.down_proj.weight"
+    ]
+  ],
+  "weight_bytes": 796917760,
+  "results": [
+    {
+      "kind": "lt",
+      "nrms": 0.0,
+      "max_abs": 0.0,
+      "bitwise": true,
+      "argmax_equal": true,
+      "changed_input_nrms": 0.0,
+      "rounds": [
+        {
+          "baseline_us": 11.682400107383728,
+          "candidate_us": 11.643800139427185
+        },
+        {
+          "candidate_us": 11.656399567921957,
+          "baseline_us": 11.671533187230429
+        },
+        {
+          "baseline_us": 11.673933267593384,
+          "candidate_us": 11.65453294912974
+        },
+        {
+          "candidate_us": 11.654333273569742,
+          "baseline_us": 11.662933230400085
+        },
+        {
+          "baseline_us": 11.660800377527872,
+          "candidate_us": 11.665067076683044
+        },
+        {
+          "candidate_us": 11.635266741116842,
+          "baseline_us": 11.680000027020773
+        }
+      ],
+      "median_speedup_pct": 0.14814628125008333
+    },
+    {
+      "kind": [
+        128,
+        8,
+        4,
+        6
+      ],
+      "nrms": 0.00011230524251004681,
+      "max_abs": 0.03125,
+      "bitwise": false,
+      "argmax_equal": true,
+      "changed_input_nrms": 0.00011055386858060956,
+      "rounds": [
+        {
+          "baseline_us": 11.671466628710428,
+          "candidate_us": 14.963199694951376
+        },
+        {
+          "candidate_us": 14.997866749763489,
+          "baseline_us": 11.690599719683329
+        },
+        {
+          "baseline_us": 11.673733592033386,
+          "candidate_us": 14.97813363869985
+        },
+        {
+          "candidate_us": 14.983999729156494,
+          "baseline_us": 11.684266726175943
+        },
+        {
+          "baseline_us": 11.682066321372986,
+          "candidate_us": 14.980266491572062
+        },
+        {
+          "candidate_us": 14.984333515167236,
+          "baseline_us": 11.688533425331116
+        }
+      ],
+      "median_speedup_pct": -22.019338087635823
+    },
+    {
+      "kind": [
+        128,
+        16,
+        4,
+        6
+      ],
+      "error": "tactic SplitKTactic(mma_m=128, mma_n=16, split_k=4, ab_stages=6) needs 245896 B of shared memory but only 232448 B are available; max ab_stages is 5"
+    },
+    {
+      "kind": [
+        64,
+        16,
+        4,
+        9
+      ],
+      "nrms": 0.00011055386858060956,
+      "max_abs": 0.03125,
+      "bitwise": false,
+      "argmax_equal": true,
+      "changed_input_nrms": 0.00013397264410741627,
+      "rounds": [
+        {
+          "baseline_us": 11.684266726175943,
+          "candidate_us": 12.667666872342428
+        },
+        {
+          "candidate_us": 12.654800216356913,
+          "baseline_us": 11.675467093785604
+        },
+        {
+          "baseline_us": 11.656399567921957,
+          "candidate_us": 12.672000130017599
+        },
+        {
+          "candidate_us": 12.659200032552084,
+          "baseline_us": 11.65226697921753
+        },
+        {
+          "baseline_us": 11.660866936047872,
+          "candidate_us": 12.648533781369528
+        },
+        {
+          "candidate_us": 12.65073319276174,
+          "baseline_us": 11.669333775838217
+        }
+      ],
+      "median_speedup_pct": -7.785810236327373
+    }
+  ]
+}

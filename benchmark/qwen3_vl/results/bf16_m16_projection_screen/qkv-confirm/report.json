@@ -1,0 +1,134 @@
+{
+  "pid": 464297,
+  "shape": "qkv",
+  "m": 16,
+  "n": 6144,
+  "k": 2560,
+  "baseline": "production selector F.linear",
+  "model_revision": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+  "weight_keys": [
+    [
+      "model.language_model.layers.0.self_attn.q_proj.weight",
+      "model.language_model.layers.0.self_attn.k_proj.weight",
+      "model.language_model.layers.0.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.1.self_attn.q_proj.weight",
+      "model.language_model.layers.1.self_attn.k_proj.weight",
+      "model.language_model.layers.1.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.2.self_attn.q_proj.weight",
+      "model.language_model.layers.2.self_attn.k_proj.weight",
+      "model.language_model.layers.2.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.3.self_attn.q_proj.weight",
+      "model.language_model.layers.3.self_attn.k_proj.weight",
+      "model.language_model.layers.3.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.4.self_attn.q_proj.weight",
+      "model.language_model.layers.4.self_attn.k_proj.weight",
+      "model.language_model.layers.4.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.5.self_attn.q_proj.weight",
+      "model.language_model.layers.5.self_attn.k_proj.weight",
+      "model.language_model.layers.5.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.6.self_attn.q_proj.weight",
+      "model.language_model.layers.6.self_attn.k_proj.weight",
+      "model.language_model.layers.6.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.7.self_attn.q_proj.weight",
+      "model.language_model.layers.7.self_attn.k_proj.weight",
+      "model.language_model.layers.7.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.8.self_attn.q_proj.weight",
+      "model.language_model.layers.8.self_attn.k_proj.weight",
+      "model.language_model.layers.8.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.9.self_attn.q_proj.weight",
+      "model.language_model.layers.9.self_attn.k_proj.weight",
+      "model.language_model.layers.9.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.10.self_attn.q_proj.weight",
+      "model.language_model.layers.10.self_attn.k_proj.weight",
+      "model.language_model.layers.10.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.11.self_attn.q_proj.weight",
+      "model.language_model.layers.11.self_attn.k_proj.weight",
+      "model.language_model.layers.11.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.12.self_attn.q_proj.weight",
+      "model.language_model.layers.12.self_attn.k_proj.weight",
+      "model.language_model.layers.12.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.13.self_attn.q_proj.weight",
+      "model.language_model.layers.13.self_attn.k_proj.weight",
+      "model.language_model.layers.13.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.14.self_attn.q_proj.weight",
+      "model.language_model.layers.14.self_attn.k_proj.weight",
+      "model.language_model.layers.14.self_attn.v_proj.weight"
+    ],
+    [
+      "model.language_model.layers.15.self_attn.q_proj.weight",
+      "model.language_model.layers.15.self_attn.k_proj.weight",
+      "model.language_model.layers.15.self_attn.v_proj.weight"
+    ]
+  ],
+  "weight_bytes": 503316480,
+  "results": [
+    {
+      "kind": [
+        128,
+        16,
+        2,
+        6
+      ],
+      "nrms": 0.00012015323591185734,
+      "max_abs": 0.015625,
+      "bitwise": false,
+      "argmax_equal": true,
+      "changed_input_nrms": 0.00014470347377937287,
+      "rounds": [
+        {
+          "baseline_us": 7.391933103402455,
+          "candidate_us": 6.822466850280762
+        },
+        {
+          "candidate_us": 6.80759996175766,
+          "baseline_us": 7.38560010989507
+        },
+        {
+          "baseline_us": 7.387800017992656,
+          "candidate_us": 6.7846665779749555
+        },
+        {
+          "candidate_us": 6.790733337402344,
+          "baseline_us": 7.398200035095215
+        },
+        {
+          "baseline_us": 7.383933166662852,
+          "candidate_us": 6.764799853165944
+        },
+        {
+          "candidate_us": 6.770866612593333,
+          "baseline_us": 7.392000158627828
+        }
+      ],
+      "median_speedup_pct": 8.917589540824267
+    }
+  ]
+}

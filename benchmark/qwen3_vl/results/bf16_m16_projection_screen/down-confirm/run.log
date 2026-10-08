@@ -1,0 +1,6 @@
+2026-10-08 03:09:52,166 - INFO - autotuner.py:1046 - flashinfer.jit: [Autotuner]: Autotuning process starts ...
+[AutoTuner]: Tuning bf16_gemm:   0%|          | 0/1 [00:00<?, ?profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.57profile/s][AutoTuner]: Tuning bf16_gemm: 100%|██████████| 1/1 [00:00<00:00,  2.57profile/s]
+2026-10-08 03:09:52,707 - INFO - autotuner.py:1069 - flashinfer.jit: [Autotuner]: Autotuning process ends
+2026-10-08 03:09:52,763 - INFO - autotuner.py:3554 - flashinfer.jit: [Autotuner]: Saved 1 configs to /root/qvl/experiments/m16-projection/down-confirm/tuner.json (1 new, 0 from previous config)
+{"kind": [128, 16, 4, 5], "nrms": 0.00013119811774231493, "max_abs": 0.03125, "bitwise": false, "argmax_equal": true, "changed_input_nrms": 0.00011230524251004681, "rounds": [{"baseline_us": 11.673600474993387, "candidate_us": 10.280799865722656}, {"candidate_us": 10.263466835021973, "baseline_us": 11.682132879892984}, {"baseline_us": 11.662866671880087, "candidate_us": 10.263333717981974}, {"candidate_us": 10.285199681917826, "baseline_us": 11.697266499201456}, {"baseline_us": 11.679800351460775, "candidate_us": 10.267800092697144}, {"candidate_us": 10.263066490491232, "baseline_us": 11.6949329773585}], "median_speedup_pct": 13.740422685904441}
+DONE

@@ -1,0 +1,126 @@
+{
+  "counts": {
+    "capture": 36,
+    "eager": 72
+  },
+  "report": {
+    "m": 16,
+    "source": "current frozen /root/qvl/sglang-prefix-production",
+    "pairs": [],
+    "capture_dispatches": {
+      "capture": 36,
+      "eager": 72
+    },
+    "graph_keys": {
+      "baseline": [
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ],
+      "candidate": [
+        "ShapeKey(size=16, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=12, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=8, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=4, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=2, stream_idx=None, variant_label=None, attention_variant=None)",
+        "ShapeKey(size=1, stream_idx=None, variant_label=None, attention_variant=None)"
+      ]
+    },
+    "greedy_equal": false,
+    "greedy_differences": 56,
+    "logit_checks": [
+      {
+        "bitwise": false,
+        "max_abs": 2.28125,
+        "nrms": 0.03861583396792412
+      },
+      {
+        "bitwise": false,
+        "max_abs": 33.0,
+        "nrms": 0.34417086839675903
+      }
+    ],
+    "gpu_event_diagnostic": {
+      "synthetic_pairs": [
+        {
+          "baseline": 4.958556175231934,
+          "candidate": 4.980921745300293
+        },
+        {
+          "candidate": 4.981927871704102,
+          "baseline": 4.958946704864502
+        },
+        {
+          "baseline": 4.958883285522461,
+          "candidate": 4.9815497398376465
+        },
+        {
+          "candidate": 4.981281280517578,
+          "baseline": 4.958763122558594
+        },
+        {
+          "baseline": 4.958348751068115,
+          "candidate": 4.980510234832764
+        },
+        {
+          "candidate": 4.980329990386963,
+          "baseline": 4.958705425262451
+        }
+      ],
+      "actual_steps": {
+        "baseline": [
+          5.486432075500488,
+          6.495423793792725,
+          6.048480033874512,
+          6.004640102386475,
+          5.995552062988281,
+          5.98851203918457,
+          5.77836799621582,
+          5.718143939971924,
+          5.609248161315918,
+          5.622528076171875,
+          5.618527889251709,
+          5.617472171783447,
+          5.628320217132568,
+          5.589024066925049,
+          5.580895900726318
+        ],
+        "candidate": [
+          5.5316481590271,
+          6.303199768066406,
+          5.961056232452393,
+          5.927648067474365,
+          5.929952144622803,
+          5.937056064605713,
+          5.8961920738220215,
+          5.803647994995117,
+          5.695007801055908,
+          5.662816047668457,
+          5.618207931518555,
+          5.619232177734375,
+          5.635647773742676,
+          5.624864101409912,
+          5.581727981567383
+        ]
+      },
+      "shared_buffer_snapshots": [
+        "input_ids",
+        "input_embeds",
+        "req_pool_indices",
+        "seq_lens",
+        "seq_lens_cpu",
+        "out_cache_loc",
+        "positions",
+        "mrope_positions",
+        "custom_mask",
+        "next_token_logits_buffer",
+        "global_num_tokens_gpu",
+        "global_num_tokens_for_logprob_gpu"
+      ],
+      "clock_snapshot": "0, 120 MHz, 3996 MHz, 186.41 W, 33\n1, 120 MHz, 3996 MHz, 188.23 W, 36\n2, 2032 MHz, 3996 MHz, 870.30 W, 44\n3, 2032 MHz, 3996 MHz, 878.51 W, 45\n4, 120 MHz, 3996 MHz, 184.59 W, 35\n5, 120 MHz, 3996 MHz, 183.12 W, 33\n6, 120 MHz, 3996 MHz, 186.59 W, 30\n7, 120 MHz, 3996 MHz, 185.77 W, 28\n"
+    }
+  }
+}

@@ -1,0 +1,183 @@
+import atexit
+import copy
+import json
+import os
+import pathlib
+
+import numpy as np
+import torch
+from flashinfer import autotune
+from flashinfer.autotuner import AutoTuner
+from flashinfer.gemm import mm_bf16
+import sglang.benchmark.one_batch as b
+import sglang.srt.layers.quantization.unquant as uq
+from flashinfer.gemm.kernels.dense_bf16_gemm_sm100_splitk import SplitKTactic,run_splitk_dense
+M=16
+shape=os.environ['SHAPE']
+n,k=(6144,2560) if shape=='qkv' else (2560,9728)
+tactic=SplitKTactic(128,16,2,6) if shape=='qkv' else SplitKTactic(128,16,4,5)
+out=pathlib.Path(os.environ['QVL_MODEL_OUT']);out.mkdir(parents=True,exist_ok=True)
+active=False
+counts={'capture':0,'eager':0}
+orig=uq._bf16_gemm_dispatch_impl
+def dispatch(x,w,bias,addend=None):
+ if active and x.numel()==M*k and w.shape==(n,k) and x.dtype==w.dtype==torch.bfloat16 and bias is None and addend is None:
+  y=torch.empty(M,n,device=x.device,dtype=x.dtype)
+  run_splitk_dense(x.view(M,k),w.T,None,y,True,tactic)
+  counts['capture' if torch.cuda.is_current_stream_capturing() else 'eager']+=1
+  return y.view(*x.shape[:-1],n)
+ return orig(x,w,bias,addend)
+uq._bf16_gemm_dispatch_impl=dispatch
+report = {
+    "m": M,
+    "source": "current frozen /root/qvl/sglang-prefix-production",
+    "pairs": [],
+}
+saved = {}
+origload = b.load_model
+
+
+def choose(wrapper, mode):
+    global active
+    active = mode == "candidate"
+    wrapper.torch_runner.decode_cuda_graph_runner.backend = saved[mode]
+
+
+@torch.no_grad()
+def load(*args, **kw):
+    global active
+    wrapper, tok = origload(*args, **kw)
+    mr = wrapper.torch_runner
+    dr = mr.decode_cuda_graph_runner
+    assert dr.backend.__class__.__name__ == "FullCudaGraphBackend"
+    w = next(
+        mod.weight
+        for mod in mr.model.modules()
+        if hasattr(mod, "weight") and mod.weight.shape == (n, k)
+    )
+    x = torch.randn(M, k, device=w.device, dtype=torch.bfloat16)
+    run_splitk_dense(x,w.T,None,torch.empty(M,n,device=w.device,dtype=w.dtype),True,tactic)
+    saved["baseline"] = dr.backend
+    candidate = copy.copy(dr.backend)
+    candidate._graphs = {}
+    candidate._outputs = {}
+    candidate._output_buffer = None
+    dr.backend = candidate
+    active = True
+    dr.capture()
+    saved["candidate"] = candidate
+    assert counts["capture"] >= 36, counts
+    report["capture_dispatches"] = dict(counts)
+    report["graph_keys"] = {k: [str(s) for s in v._graphs] for k, v in saved.items()}
+    inputs = np.random.default_rng(123).integers(0, 10000, (M, 8192), dtype=np.int32)
+    captures = {}
+    seqs = {}
+    for mode in ["baseline", "candidate"]:
+        choose(wrapper, mode)
+        wrapper.clear()
+        reqs = b.prepare_synthetic_inputs_for_latency_test(M, 8192, inputs.tolist())
+        ids, logits, batch = wrapper.extend(reqs)
+        seq = [ids.clone()]
+        vals = []
+        for j in range(15):
+            ids, logits = wrapper.decode(ids, batch)
+            seq.append(ids.clone())
+            if j in [0, 14]:
+                vals.append(logits.clone())
+        torch.cuda.synchronize()
+        seqs[mode] = torch.stack(seq).cpu()
+        captures[mode] = [v.cpu() for v in vals]
+    report["greedy_equal"] = torch.equal(seqs["baseline"], seqs["candidate"])
+    report["greedy_differences"] = (seqs["baseline"] != seqs["candidate"]).sum().item()
+    report["logit_checks"] = [
+        {
+            "bitwise": torch.equal(a, z),
+            "max_abs": (a - z).abs().max().item(),
+            "nrms": ((a - z).square().mean() / a.square().mean()).sqrt().item(),
+        }
+        for a, z in zip(captures["baseline"], captures["candidate"])
+    ]
+    torch.save({"logits": captures, "tokens": seqs}, out / "numerics.pt")
+    import subprocess
+    report['gpu_event_diagnostic'] = {'synthetic_pairs': [], 'actual_steps': {}}
+    for mode in ['baseline','candidate']:
+        choose(wrapper,mode);wrapper.clear()
+        reqs=b.prepare_synthetic_inputs_for_latency_test(M,8192,inputs.tolist())
+        ids,logits,batch=wrapper.extend(reqs)
+        times=[]
+        for j in range(15):
+            start=torch.cuda.Event(enable_timing=True);end=torch.cuda.Event(enable_timing=True)
+            start.record();ids,logits=wrapper.decode(ids,batch);end.record();end.synchronize();times.append(start.elapsed_time(end))
+        report['gpu_event_diagnostic']['actual_steps'][mode]=times
+    graphs={mode: next(g for key,g in backend._graphs.items() if key.size==M) for mode,backend in saved.items()}
+    # Both graphs share runner input buffers populated by the final real decode.
+    snapshots={name: value.clone() for name,value in vars(dr.buffers).items() if isinstance(value,torch.Tensor)} if hasattr(dr,'buffers') else {}
+    report['gpu_event_diagnostic']['shared_buffer_snapshots']=list(snapshots)
+    for _ in range(40):
+        graphs['baseline'].replay();graphs['candidate'].replay()
+    for r in range(6):
+        row={}
+        for mode in (['baseline','candidate'] if (r+int(os.environ.get('PAIR_OFFSET','0')))%2==0 else ['candidate','baseline']):
+            start=torch.cuda.Event(enable_timing=True);end=torch.cuda.Event(enable_timing=True)
+            start.record()
+            for _ in range(256):graphs[mode].replay()
+            end.record();end.synchronize();row[mode]=start.elapsed_time(end)/256
+        report['gpu_event_diagnostic']['synthetic_pairs'].append(row)
+    report['gpu_event_diagnostic']['clock_snapshot']=subprocess.check_output(['nvidia-smi','--query-gpu=index,clocks.sm,clocks.mem,power.draw,temperature.gpu','--format=csv,noheader'],text=True)
+    for mode in ['baseline','candidate']:
+        with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU,torch.profiler.ProfilerActivity.CUDA]) as prof:
+            graphs[mode].replay();torch.cuda.synchronize()
+        prof.export_chrome_trace(str(out/(mode+'-graph-trace.json')))
+    for mode in ['baseline','candidate']:
+        with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU,torch.profiler.ProfilerActivity.CUDA]) as prof:
+            (torch.mm(x,w.T) if mode=='baseline' else run_splitk_dense(x,w.T,None,torch.empty(M,n,device=w.device,dtype=w.dtype),True,tactic));torch.cuda.synchronize()
+        prof.export_chrome_trace(str(out/(mode+'-lmhead-trace.json')))
+    (out/'report.json').write_text(json.dumps(report,indent=2))
+    raise SystemExit(0)
+
+
+
+b.load_model = load
+origonce = b.latency_test_run_once
+calls = 0
+
+
+def once(*args, **kw):
+    global calls
+    calls += 1
+    wrapper = args[1]
+    if calls == 1:
+        result = None
+        for mode in ["baseline", "candidate"]:
+            choose(wrapper, mode)
+            np.random.seed(123)
+            a = list(args)
+            a[3] = b.prepare_synthetic_inputs_for_latency_test(M, 8192)
+            result = origonce(*a, **kw)
+        return result
+    result = None
+    for r in range(4):
+        order = ["baseline", "candidate"] if (r + int(os.environ.get("PAIR_OFFSET","0"))) % 2 == 0 else ["candidate", "baseline"]
+        row = {}
+        for mode in order:
+            choose(wrapper, mode)
+            np.random.seed(123)
+            a = list(args)
+            a[0] = mode
+            a[3] = b.prepare_synthetic_inputs_for_latency_test(M, 8192)
+            result = origonce(*a, **kw)
+            row[mode] = result
+        report["pairs"].append(row)
+        (out / "report.json").write_text(json.dumps(report, indent=2) + "\n")
+    return result
+
+
+b.latency_test_run_once = once
+atexit.register(
+    lambda: (out / "state.json").write_text(
+        json.dumps({"counts": counts, "report": report}, indent=2) + "\n"
+    )
+)
+np.random.seed(123)
+torch.manual_seed(123)
+b.cli_main()
