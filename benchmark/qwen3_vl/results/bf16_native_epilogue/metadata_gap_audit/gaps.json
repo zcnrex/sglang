@@ -1,0 +1,2042 @@
+[
+  {
+    "trace": "gpu4/trace-1-0.json.gz",
+    "pre_gemm_span_us": 5680.469970703125,
+    "pre_gemm_gpu_busy_us": 159.0069580078125,
+    "pre_gemm_gpu_memcpy_sum_us": 35.711999999999996,
+    "position_to_pageable_copy_gap_us": 2385.9429931640625,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.088
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 28.06396484375,
+        "duration_us": 1.088
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 301.698974609375,
+        "duration_us": 12.096
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 430.052001953125,
+        "duration_us": 4.064
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 637.47802734375,
+        "duration_us": 0.896
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 695.8790283203125,
+        "duration_us": 11.904
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 875.27197265625,
+        "duration_us": 0.896
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 926.72900390625,
+        "duration_us": 1.056
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 968.52099609375,
+        "duration_us": 1.664
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1005.7689208984375,
+        "duration_us": 0.737
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1121.9949951171875,
+        "duration_us": 6.24
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1245.9639892578125,
+        "duration_us": 1.728
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1297.323974609375,
+        "duration_us": 1.632
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1370.60498046875,
+        "duration_us": 2.528
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3759.075927734375,
+        "duration_us": 11.008
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4140.8719482421875,
+        "duration_us": 1.727
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4155.8480224609375,
+        "duration_us": 1.632
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4165.416015625,
+        "duration_us": 1.6
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4176.0399169921875,
+        "duration_us": 1.12
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4185.6719970703125,
+        "duration_us": 1.088
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 4205.927978515625,
+        "duration_us": 2.496
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4413.865966796875,
+        "duration_us": 1.664
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4451.14697265625,
+        "duration_us": 1.568
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4472.3629150390625,
+        "duration_us": 1.408
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4488.3629150390625,
+        "duration_us": 2.016
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4541.2919921875,
+        "duration_us": 1.311
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4561.1959228515625,
+        "duration_us": 1.184
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4598.9239501953125,
+        "duration_us": 1.024
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4608.780029296875,
+        "duration_us": 1.568
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4629.1319580078125,
+        "duration_us": 1.408
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4643.052001953125,
+        "duration_us": 1.504
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4759.596923828125,
+        "duration_us": 2.624
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4868.9749755859375,
+        "duration_us": 1.888
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4945.3909912109375,
+        "duration_us": 1.056
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4998.575927734375,
+        "duration_us": 5.12
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 5195.409912109375,
+        "duration_us": 32.8
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5517.39697265625,
+        "duration_us": 32.576
+      }
+    ]
+  },
+  {
+    "trace": "gpu4/trace-2-1.json.gz",
+    "pre_gemm_span_us": 5352.02099609375,
+    "pre_gemm_gpu_busy_us": 206.9385986328125,
+    "pre_gemm_gpu_memcpy_sum_us": 44.639,
+    "position_to_pageable_copy_gap_us": 2186.22998046875,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.856
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 24.2879638671875,
+        "duration_us": 1.888
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 281.635009765625,
+        "duration_us": 17.696
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 404.803955078125,
+        "duration_us": 6.08
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 580.9339599609375,
+        "duration_us": 1.216
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 635.5589599609375,
+        "duration_us": 15.167
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 814.5360107421875,
+        "duration_us": 1.856
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 880.8729248046875,
+        "duration_us": 1.024
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 921.2889404296875,
+        "duration_us": 0.992
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 961.5460205078125,
+        "duration_us": 2.016
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1078.9549560546875,
+        "duration_us": 6.656
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1213.64404296875,
+        "duration_us": 1.184
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1254.4449462890625,
+        "duration_us": 1.855
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1325.9010009765625,
+        "duration_us": 3.296
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3515.427001953125,
+        "duration_us": 14.56
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3886.2789306640625,
+        "duration_us": 2.432
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3901.094970703125,
+        "duration_us": 2.016
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3912.678955078125,
+        "duration_us": 2.048
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3924.678955078125,
+        "duration_us": 1.76
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3934.5350341796875,
+        "duration_us": 1.6
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 3955.303955078125,
+        "duration_us": 3.487
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4162.9539794921875,
+        "duration_us": 1.632
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4196.426025390625,
+        "duration_us": 1.6
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4217.6099853515625,
+        "duration_us": 1.792
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4233.449951171875,
+        "duration_us": 2.976
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4276.04296875,
+        "duration_us": 1.792
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4296.1710205078125,
+        "duration_us": 1.952
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4334.9239501953125,
+        "duration_us": 1.407
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4345.0999755859375,
+        "duration_us": 2.335
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4365.64404296875,
+        "duration_us": 1.344
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4379.56396484375,
+        "duration_us": 1.472
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4500.39697265625,
+        "duration_us": 3.424
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4610.4459228515625,
+        "duration_us": 2.368
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4669.198974609375,
+        "duration_us": 1.824
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4715.375,
+        "duration_us": 6.496
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 4895.72900390625,
+        "duration_us": 42.24
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5199.8919677734375,
+        "duration_us": 41.6
+      }
+    ]
+  },
+  {
+    "trace": "gpu4/trace-3-1.json.gz",
+    "pre_gemm_span_us": 5374.0020751953125,
+    "pre_gemm_gpu_busy_us": 206.338134765625,
+    "pre_gemm_gpu_memcpy_sum_us": 45.21900000000001,
+    "position_to_pageable_copy_gap_us": 2200.9810791015625,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.28
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 24.864013671875,
+        "duration_us": 1.28
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 285.123046875,
+        "duration_us": 17.696
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 409.18798828125,
+        "duration_us": 5.792
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 598.821044921875,
+        "duration_us": 1.889
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 656.3260498046875,
+        "duration_us": 14.656
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 840.552001953125,
+        "duration_us": 1.024
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 891.97607421875,
+        "duration_us": 2.048
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 948.2969970703125,
+        "duration_us": 1.952
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 986.5050048828125,
+        "duration_us": 0.864
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1104.2659912109375,
+        "duration_us": 8.0
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1232.6510009765625,
+        "duration_us": 1.056
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1273.196044921875,
+        "duration_us": 1.824
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1342.8289794921875,
+        "duration_us": 3.455
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3547.2650146484375,
+        "duration_us": 14.368
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3926.2769775390625,
+        "duration_us": 2.304
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3942.43701171875,
+        "duration_us": 2.08
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3954.052978515625,
+        "duration_us": 1.984
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3965.47705078125,
+        "duration_us": 1.312
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3974.9490966796875,
+        "duration_us": 1.28
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 3996.260986328125,
+        "duration_us": 3.36
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4196.7750244140625,
+        "duration_us": 2.144
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4230.5679931640625,
+        "duration_us": 1.824
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4252.2640380859375,
+        "duration_us": 1.792
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4268.10400390625,
+        "duration_us": 2.496
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4310.4400634765625,
+        "duration_us": 1.216
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4330.4080810546875,
+        "duration_us": 1.345
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4367.8170166015625,
+        "duration_us": 1.344
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4377.5770263671875,
+        "duration_us": 1.92
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4396.93701171875,
+        "duration_us": 1.792
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4410.8250732421875,
+        "duration_us": 1.889
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4529.739013671875,
+        "duration_us": 3.327
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4640.81103515625,
+        "duration_us": 2.4
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4699.6600341796875,
+        "duration_us": 1.408
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4754.4130859375,
+        "duration_us": 6.464
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 4932.174072265625,
+        "duration_us": 42.753
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5230.8970947265625,
+        "duration_us": 42.72
+      }
+    ]
+  },
+  {
+    "trace": "gpu4/trace-4-0.json.gz",
+    "pre_gemm_span_us": 5332.0230712890625,
+    "pre_gemm_gpu_busy_us": 207.36376953125,
+    "pre_gemm_gpu_memcpy_sum_us": 46.177,
+    "position_to_pageable_copy_gap_us": 2191.255126953125,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.44
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 24.7039794921875,
+        "duration_us": 1.44
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 276.802978515625,
+        "duration_us": 17.568
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 394.43603515625,
+        "duration_us": 6.08
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 581.1259765625,
+        "duration_us": 2.048
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 640.2950439453125,
+        "duration_us": 14.88
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 835.0479736328125,
+        "duration_us": 1.889
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 883.945068359375,
+        "duration_us": 1.024
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 924.6170654296875,
+        "duration_us": 1.824
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 961.322021484375,
+        "duration_us": 0.992
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1076.93896484375,
+        "duration_us": 7.52
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1205.22802734375,
+        "duration_us": 1.216
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1243.7249755859375,
+        "duration_us": 1.952
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1315.469970703125,
+        "duration_us": 3.423
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3510.1480712890625,
+        "duration_us": 14.656
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3866.0240478515625,
+        "duration_us": 2.24
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3880.4560546875,
+        "duration_us": 2.08
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3892.4239501953125,
+        "duration_us": 2.016
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3903.4639892578125,
+        "duration_us": 1.28
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3912.7760009765625,
+        "duration_us": 1.888
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 3934.280029296875,
+        "duration_us": 3.04
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4135.97802734375,
+        "duration_us": 1.921
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4169.4510498046875,
+        "duration_us": 2.048
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4192.490966796875,
+        "duration_us": 1.408
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4208.5230712890625,
+        "duration_us": 2.656
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4250.218994140625,
+        "duration_us": 1.505
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4270.7320556640625,
+        "duration_us": 1.6
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4308.26806640625,
+        "duration_us": 1.792
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4318.9239501953125,
+        "duration_us": 2.784
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4338.7969970703125,
+        "duration_us": 1.824
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4352.6209716796875,
+        "duration_us": 1.952
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4471.822021484375,
+        "duration_us": 3.264
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4596.4310302734375,
+        "duration_us": 1.984
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4659.343994140625,
+        "duration_us": 1.376
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4707.1519775390625,
+        "duration_us": 6.496
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 4869.969970703125,
+        "duration_us": 42.369
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5186.677001953125,
+        "duration_us": 41.889
+      }
+    ]
+  },
+  {
+    "trace": "gpu5/trace-1-1.json.gz",
+    "pre_gemm_span_us": 5854.5970458984375,
+    "pre_gemm_gpu_busy_us": 163.23486328125,
+    "pre_gemm_gpu_memcpy_sum_us": 41.95399999999999,
+    "position_to_pageable_copy_gap_us": 2446.1279296875,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.024
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 37.2490234375,
+        "duration_us": 0.992
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 293.154052734375,
+        "duration_us": 11.84
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 423.7149658203125,
+        "duration_us": 3.904
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 629.06005859375,
+        "duration_us": 0.896
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 691.844970703125,
+        "duration_us": 11.904
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 888.197998046875,
+        "duration_us": 1.952
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 953.157958984375,
+        "duration_us": 1.056
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 994.2459716796875,
+        "duration_us": 0.897
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1034.9190673828125,
+        "duration_us": 1.632
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1157.8310546875,
+        "duration_us": 7.649
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1282.6319580078125,
+        "duration_us": 0.896
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1327.2730712890625,
+        "duration_us": 1.663
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1404.6170654296875,
+        "duration_us": 2.464
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3853.208984375,
+        "duration_us": 15.68
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4255.0030517578125,
+        "duration_us": 1.696
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4272.282958984375,
+        "duration_us": 1.536
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4283.8349609375,
+        "duration_us": 1.6
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4295.195068359375,
+        "duration_us": 0.992
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4306.1390380859375,
+        "duration_us": 1.056
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 4331.9959716796875,
+        "duration_us": 2.72
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4533.2130126953125,
+        "duration_us": 1.568
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4575.133056640625,
+        "duration_us": 1.504
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4599.29296875,
+        "duration_us": 1.408
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4617.43701171875,
+        "duration_us": 1.856
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4678.718017578125,
+        "duration_us": 1.216
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4699.3580322265625,
+        "duration_us": 1.28
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4741.5980224609375,
+        "duration_us": 0.992
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4751.550048828125,
+        "duration_us": 1.472
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4773.2139892578125,
+        "duration_us": 1.376
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4788.8299560546875,
+        "duration_us": 1.473
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4919.10302734375,
+        "duration_us": 2.816
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 5033.31201171875,
+        "duration_us": 1.824
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 5130.8800048828125,
+        "duration_us": 0.96
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 5186.3050537109375,
+        "duration_us": 4.736
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 5378.6259765625,
+        "duration_us": 32.705
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5679.843994140625,
+        "duration_us": 32.0
+      }
+    ]
+  },
+  {
+    "trace": "gpu5/trace-2-0.json.gz",
+    "pre_gemm_span_us": 5558.14892578125,
+    "pre_gemm_gpu_busy_us": 208.031982421875,
+    "pre_gemm_gpu_memcpy_sum_us": 50.334,
+    "position_to_pageable_copy_gap_us": 2267.0230712890625,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.344
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 27.23193359375,
+        "duration_us": 1.408
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 294.4979248046875,
+        "duration_us": 17.696
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 415.7789306640625,
+        "duration_us": 5.952
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 610.8839111328125,
+        "duration_us": 2.08
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 672.739990234375,
+        "duration_us": 14.496
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 875.781982421875,
+        "duration_us": 1.952
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 930.2139892578125,
+        "duration_us": 1.024
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 971.718994140625,
+        "duration_us": 1.855
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1009.8309326171875,
+        "duration_us": 0.991
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1128.4239501953125,
+        "duration_us": 8.767
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1258.2799072265625,
+        "duration_us": 1.184
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1313.3519287109375,
+        "duration_us": 1.889
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1388.8729248046875,
+        "duration_us": 3.392
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3659.2879638671875,
+        "duration_us": 17.889
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4027.5789794921875,
+        "duration_us": 2.24
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4044.282958984375,
+        "duration_us": 2.08
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4058.6510009765625,
+        "duration_us": 1.984
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4071.06689453125,
+        "duration_us": 1.28
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4082.2999267578125,
+        "duration_us": 1.791
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 4105.56298828125,
+        "duration_us": 3.136
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4315.5489501953125,
+        "duration_us": 1.856
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4352.5408935546875,
+        "duration_us": 1.952
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4375.677001953125,
+        "duration_us": 1.312
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4393.4368896484375,
+        "duration_us": 2.624
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4440.285888671875,
+        "duration_us": 1.312
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4462.4619140625,
+        "duration_us": 1.472
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4500.8619384765625,
+        "duration_us": 1.792
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4512.285888671875,
+        "duration_us": 2.72
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4533.56591796875,
+        "duration_us": 1.793
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4548.8948974609375,
+        "duration_us": 1.856
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4664.06298828125,
+        "duration_us": 3.264
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4776.8319091796875,
+        "duration_us": 1.888
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4847.3609619140625,
+        "duration_us": 1.311
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4901.376953125,
+        "duration_us": 5.824
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 5084.513916015625,
+        "duration_us": 41.409
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5397.8599853515625,
+        "duration_us": 41.217
+      }
+    ]
+  },
+  {
+    "trace": "gpu5/trace-3-0.json.gz",
+    "pre_gemm_span_us": 5570.72802734375,
+    "pre_gemm_gpu_busy_us": 205.2191162109375,
+    "pre_gemm_gpu_memcpy_sum_us": 48.12800000000001,
+    "position_to_pageable_copy_gap_us": 2254.6719970703125,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.184
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 26.8809814453125,
+        "duration_us": 1.184
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 279.8740234375,
+        "duration_us": 17.313
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 433.988037109375,
+        "duration_us": 5.152
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 627.81298828125,
+        "duration_us": 1.952
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 698.5970458984375,
+        "duration_us": 14.817
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 893.158935546875,
+        "duration_us": 1.024
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 947.4949951171875,
+        "duration_us": 2.08
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 992.0079345703125,
+        "duration_us": 1.023
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1033.6080322265625,
+        "duration_us": 1.728
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1159.593017578125,
+        "duration_us": 9.088
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1283.97802734375,
+        "duration_us": 1.92
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1324.93798828125,
+        "duration_us": 1.024
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1407.2740478515625,
+        "duration_us": 3.329
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3665.2750244140625,
+        "duration_us": 16.48
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4043.197021484375,
+        "duration_us": 2.336
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4060.60498046875,
+        "duration_us": 1.952
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4073.56494140625,
+        "duration_us": 1.984
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4084.925048828125,
+        "duration_us": 1.217
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4095.8699951171875,
+        "duration_us": 1.215
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 4120.093994140625,
+        "duration_us": 3.168
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4320.8309326171875,
+        "duration_us": 2.016
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4357.7919921875,
+        "duration_us": 1.791
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4390.5279541015625,
+        "duration_us": 1.792
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4407.64794921875,
+        "duration_us": 2.432
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4453.31201171875,
+        "duration_us": 1.152
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4474.9759521484375,
+        "duration_us": 1.249
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4512.6409912109375,
+        "duration_us": 1.312
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4523.8089599609375,
+        "duration_us": 1.856
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4544.385009765625,
+        "duration_us": 1.76
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4559.7769775390625,
+        "duration_us": 1.856
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4682.530029296875,
+        "duration_us": 3.264
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4793.60205078125,
+        "duration_us": 2.305
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4855.2349853515625,
+        "duration_us": 1.28
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4926.595947265625,
+        "duration_us": 5.984
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 5097.572998046875,
+        "duration_us": 42.464
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5409.4150390625,
+        "duration_us": 41.536
+      }
+    ]
+  },
+  {
+    "trace": "gpu5/trace-4-1.json.gz",
+    "pre_gemm_span_us": 5573.7969970703125,
+    "pre_gemm_gpu_busy_us": 205.087646484375,
+    "pre_gemm_gpu_memcpy_sum_us": 48.54399999999999,
+    "position_to_pageable_copy_gap_us": 2277.3280029296875,
+    "cpu_op_counts_in_gap": {
+      "aten::arange": 168,
+      "aten::empty": 126,
+      "aten::resize_": 84,
+      "aten::unsqueeze": 126,
+      "aten::as_strided": 420,
+      "aten::repeat": 42,
+      "aten::expand": 84,
+      "aten::unfold": 84,
+      "aten::expand_as": 42,
+      "aten::copy_": 43,
+      "aten::add": 84,
+      "aten::cat": 43,
+      "aten::narrow": 84,
+      "aten::slice": 84,
+      "aten::flatten": 42,
+      "aten::view": 84,
+      "aten::permute": 42,
+      "aten::reshape": 42,
+      "aten::to": 1,
+      "aten::_to_copy": 1,
+      "aten::empty_strided": 1
+    },
+    "sync_or_malloc_before_gemm": [],
+    "pre_gemm_gpu_events": [
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 0.0,
+        "duration_us": 1.792
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<2, at::native::FillFunctor<long>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<long>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 26.5919189453125,
+        "duration_us": 1.76
+      },
+      {
+        "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy_contig<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 1, 128, 1>(at::native::(anonymous namespace)::OpaqueType<8u>*, at::native::(anonymous namespace)::CatArrInputTensorMetadata<at::native::(anonymous namespace)::OpaqueType<8u>, unsigned int, 128, 1>, at::native::(anonymous namespace)::TensorSizeStride<unsigned int, 4u>, int, unsigned int)",
+        "category": "kernel",
+        "start_us": 293.1859130859375,
+        "duration_us": 17.216
+      },
+      {
+        "name": "alloc_extend_kernel",
+        "category": "kernel",
+        "start_us": 420.6109619140625,
+        "duration_us": 5.664
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 608.2279052734375,
+        "duration_us": 1.184
+      },
+      {
+        "name": "write_req_to_token_pool_triton",
+        "category": "kernel",
+        "start_us": 666.4368896484375,
+        "duration_us": 14.88
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 858.2459716796875,
+        "duration_us": 1.024
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 912.64599609375,
+        "duration_us": 1.952
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 955.5909423828125,
+        "duration_us": 0.991
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 997.2869873046875,
+        "duration_us": 2.08
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1117.2869873046875,
+        "duration_us": 7.521
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1262.087890625,
+        "duration_us": 2.08
+      },
+      {
+        "name": "Memcpy HtoD (Pinned -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 1302.1529541015625,
+        "duration_us": 0.992
+      },
+      {
+        "name": "compute_position_kernel",
+        "category": "kernel",
+        "start_us": 1378.6009521484375,
+        "duration_us": 3.2
+      },
+      {
+        "name": "Memcpy HtoD (Pageable -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 3659.12890625,
+        "duration_us": 18.048
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4035.6749267578125,
+        "duration_us": 2.336
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4053.4349365234375,
+        "duration_us": 1.984
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4066.490966796875,
+        "duration_us": 2.016
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4079.1629638671875,
+        "duration_us": 1.632
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4089.7879638671875,
+        "duration_us": 1.44
+      },
+      {
+        "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1}>(int, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1}>(at::TensorIteratorBase&, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#4}::operator()() const::{lambda(long)#1} const&)::{lambda(int)#1})",
+        "category": "kernel",
+        "start_us": 4114.3948974609375,
+        "duration_us": 3.073
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4330.6529541015625,
+        "duration_us": 1.536
+      },
+      {
+        "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, 4, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1> >(int, at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#3}::operator()() const::{lambda(int)#1}, std::array<char*, 2ul>, TrivialOffsetCalculator<1, unsigned int>, TrivialOffsetCalculator<1, unsigned int>, at::native::memory::LoadWithCast<1>, at::native::memory::StoreWithCast<1>)",
+        "category": "kernel",
+        "start_us": 4369.7249755859375,
+        "duration_us": 1.536
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4392.6689453125,
+        "duration_us": 1.76
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4409.8218994140625,
+        "duration_us": 2.847
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4458.1099853515625,
+        "duration_us": 1.76
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4481.6300048828125,
+        "duration_us": 1.824
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanInitKernel<at_cuda_detail::cub::ScanTileState<int, true> >(at_cuda_detail::cub::ScanTileState<int, true>, int)",
+        "category": "kernel",
+        "start_us": 4519.22998046875,
+        "duration_us": 1.28
+      },
+      {
+        "name": "void at_cuda_detail::cub::detail::scan::DeviceScanKernel<at_cuda_detail::cub::detail::scan::policy_hub<int, int, int, unsigned int, std::plus<int> >::Policy1000, int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int, int, false, at_cuda_detail::cub::NullType>(int const*, int*, at_cuda_detail::cub::ScanTileState<int, true>, int, std::plus<int>, at_cuda_detail::cub::NullType, unsigned int)",
+        "category": "kernel",
+        "start_us": 4530.6859130859375,
+        "duration_us": 2.208
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::FillFunctor<int>, std::array<char*, 1ul>, false>(int, at::native::FillFunctor<int>, std::array<char*, 1ul>)",
+        "category": "kernel",
+        "start_us": 4552.126953125,
+        "duration_us": 1.311
+      },
+      {
+        "name": "Memcpy DtoD (Device -> Device)",
+        "category": "gpu_memcpy",
+        "start_us": 4567.4869384765625,
+        "duration_us": 1.44
+      },
+      {
+        "name": "create_trtllm_mha_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4685.406982421875,
+        "duration_us": 3.36
+      },
+      {
+        "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>, false>(int, at::native::CUDAFunctor_add<int>, std::array<char*, 3ul>)",
+        "category": "kernel",
+        "start_us": 4795.9039306640625,
+        "duration_us": 2.336
+      },
+      {
+        "name": "void (anonymous namespace)::elementwise_kernel_with_index<int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>(int, at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}, function_traits<at::native::arange_cuda_out(c10::Scalar const&, c10::Scalar const&, c10::Scalar const&, at::Tensor&)::{lambda()#1}::operator()() const::{lambda()#3}::operator()() const::{lambda(long)#1}>::result_type*)",
+        "category": "kernel",
+        "start_us": 4859.4879150390625,
+        "duration_us": 1.729
+      },
+      {
+        "name": "create_flashinfer_kv_indices_triton",
+        "category": "kernel",
+        "start_us": 4910.5928955078125,
+        "duration_us": 5.888
+      },
+      {
+        "name": "void at::native::vectorized_gather_kernel<16, long>(char*, char*, long*, int, long, long, long, long, bool)",
+        "category": "kernel",
+        "start_us": 5082.5618896484375,
+        "duration_us": 41.12
+      },
+      {
+        "name": "kernel_cutlass_kernel_flashinfernormkernelsrmsnormRMSNormKernel_object_at__tensorptrbf16gmemalign128oi64256025601_tensorptrbf16gmemalign16o25601_tensorptrbf16gmemalign128oi64256025601___T_0",
+        "category": "kernel",
+        "start_us": 5408.739990234375,
+        "duration_us": 40.288
+      }
+    ]
+  }
+]
