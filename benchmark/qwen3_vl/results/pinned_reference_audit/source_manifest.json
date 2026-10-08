@@ -1,0 +1,38 @@
+{
+  "requested_revision": "92044241a",
+  "recorded_full_revision": "92044241a02f05de51420d654daf669de20b4691",
+  "revision_limit": "Full revision is inherited from the earlier report, not independently resolved by this audit. Earlier retrieval report pins abbreviated 92044241a. Local files are not a Git checkout.",
+  "source_directory": "/tmp/qvl-vllm-source",
+  "files": [
+    {
+      "local_name": "cuda.py",
+      "upstream_path": "vllm/platforms/cuda.py",
+      "bytes": 40367,
+      "sha256": "27bd20e6fe42dd70b72fe58ce12cb615a2385776f0ac705349646c67ca68bb26"
+    },
+    {
+      "local_name": "flashinfer.py",
+      "upstream_path": "vllm/v1/attention/backends/flashinfer.py",
+      "bytes": 120552,
+      "sha256": "251a8d365d5c327d60ed0339f32bd7c8b8879c2e72a5fa48d64a146b9b3cdbf1"
+    },
+    {
+      "local_name": "qwen3.py",
+      "upstream_path": "vllm/model_executor/models/qwen3.py",
+      "bytes": 12680,
+      "sha256": "05a05b2e00b8b8ac31f8c2508e2f5462a276348439fe8fc565c75510eaca7c81"
+    },
+    {
+      "local_name": "layer_utils.py",
+      "upstream_path": "vllm/model_executor/layers/utils.py",
+      "bytes": 22735,
+      "sha256": "ae2f43ca8ce60fa7045b20510286cca750c912e348201c8fd66615de0372d938"
+    },
+    {
+      "local_name": "report.json",
+      "upstream_path": null,
+      "bytes": 2955,
+      "sha256": "3f3c7e61b9338e67f8b9ddcb90833d46521ac3f323f7ef4da4f1d017478c9bc6"
+    }
+  ]
+}
