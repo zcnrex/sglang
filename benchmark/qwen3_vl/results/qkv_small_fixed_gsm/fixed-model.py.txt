@@ -1,0 +1,65 @@
+import os,pathlib,json,hashlib,ast,copy,difflib
+import numpy as np
+import torch
+import sglang.benchmark.one_batch as b
+import sglang.srt.models.qwen3 as q3
+from flashinfer.autotuner import AutoTuner
+out=pathlib.Path(os.environ['QVL_MODEL_OUT']);out.mkdir(parents=True,exist_ok=True)
+methods=[]
+for arm,root in [('control','/root/qvl/sglang-qkv-m4-production'),('candidate','/root/qvl/sglang-qkv-small-production')]:
+ root=pathlib.Path(root);expected=json.load(open(f'/root/qvl/experiments/qkv-small-production/b2/{arm}_expected.json'))
+ actual={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in (root/'python').rglob('*.py')};assert actual==expected
+ (out/f'{arm}-source.json').write_text(json.dumps(actual,indent=2))
+ text=(root/'python/sglang/srt/models/qwen3.py').read_text();cls=next(x for x in ast.parse(text).body if isinstance(x,ast.ClassDef) and x.name=='Qwen3Attention');fn=next(x for x in cls.body if isinstance(x,ast.FunctionDef) and x.name=='_try_qkv_norm_mrope');methods.append(fn)
+ (out/f'{arm}-method.py.txt').write_text(ast.get_source_segment(text,fn));(out/f'{arm}-method-ast.txt').write_text(ast.dump(fn,include_attributes=False))
+assert ast.unparse(methods[0]).replace('((4, 2560), (8, 2560))','((1, 2560), (2, 2560), (4, 2560), (8, 2560))')==ast.unparse(methods[1])
+namespace=dict(q3.__dict__);exec(compile(ast.Module(body=[methods[0]],type_ignores=[]),'<exact-frozen-M4-method>','exec'),namespace);baseline_method=namespace['_try_qkv_norm_mrope'];candidate_method=q3.Qwen3Attention._try_qkv_norm_mrope
+active=False;seen=set();saved={}
+def observe(self,*args,**kwargs):
+ result=(candidate_method if active else baseline_method)(self,*args,**kwargs)
+ if active and result is not None and args[1].shape[0] in (1,2):
+  key=(args[1].shape[0],self.attn.layer_id,torch.cuda.is_current_stream_capturing(),tuple(args[0].stride()));seen.add(key)
+ return result
+q3.Qwen3Attention._try_qkv_norm_mrope=observe
+original=b.load_model
+@torch.no_grad()
+def load(*args,**kwargs):
+ global active
+ wrapper,tok=original(*args,**kwargs);dr=wrapper.torch_runner.decode_cuda_graph_runner
+ saved['control']=dr.backend;candidate=copy.copy(dr.backend);candidate._graphs={};candidate._outputs={};candidate._output_buffer=None
+ active=True;dr.backend=candidate;dr.capture();saved['candidate']=candidate
+ for bs in (1,2):
+  for capture in (False,True):assert {layer for n,layer,c,stride in seen if n==bs and c==capture and stride==(128,1)}==set(range(36)),seen
+ AutoTuner.get().save_configs(str(out/'cache.json'))
+ prompts=json.load(open(out/'prompts.json'));report={'dispatch':sorted(seen),'pairs':[]};all_tokens={}
+ def encode(s):
+  v=tok.apply_chat_template([{'role':'user','content':s}],tokenize=True,add_generation_prompt=True)
+  if hasattr(v,'keys'):v=v['input_ids']
+  if isinstance(v,torch.Tensor):v=v.tolist()
+  if len(v)==1 and isinstance(v[0],list):v=v[0]
+  assert all(isinstance(x,int) for x in v);return v
+ for offset in (0,2):
+  pair=prompts[offset:offset+2];inputs=[encode(x['prompt']) for x in pair];steps=max(512,max(x['serving_first_token_difference'] or 0 for x in pair)+1)
+  reference=[];tokens_ref=[];records=[];seqs={}
+  for mode in ('control','candidate'):
+   active=mode=='candidate';dr.backend=saved[mode];wrapper.clear();reqs=b.prepare_synthetic_inputs_for_latency_test(2,0,inputs);tokens,logits,batch=wrapper.extend(reqs)
+   seq=[tokens.cpu()]
+   def compare(stage,cpu,ids,index):
+    if mode=='control':reference.append(cpu);tokens_ref.append(ids)
+    else:
+     ref=reference[index];records.append(dict(stage=stage,bitwise=torch.equal(cpu,ref),greedy_equal=torch.equal(ids,tokens_ref[index]),max_abs=(cpu.float()-ref.float()).abs().max().item()))
+   compare('prefill',logits.cpu(),seq[-1],0)
+   for step in range(steps):
+    common=tokens if mode=='control' else tokens_ref[step].to(tokens.device)
+    tokens,logits=wrapper.decode(common,batch);cpu=logits.cpu();seq.append(tokens.cpu());compare(step,cpu,seq[-1],step+1)
+   seqs[mode]=torch.stack(seq)
+   snapshots={n:v.clone() for n,v in vars(dr.buffers).items() if isinstance(v,torch.Tensor)}
+   graph=next(g for k,g in dr.backend._graphs.items() if k.size==2)
+   for _ in range(8):graph.replay()
+   torch.cuda.synchronize();unchanged={n:torch.equal(v,getattr(dr.buffers,n)) for n,v in snapshots.items()};assert all(unchanged.values()),unchanged
+  row=dict(rows=[x['dataset_row'] for x in pair],lengths=list(map(len,inputs)),input_ids=inputs,steps=steps,records=records,all_logits_bitwise=all(x['bitwise'] for x in records),all_tokens_equal=torch.equal(seqs['control'],seqs['candidate']),first_mismatch=next((x for x in records if not x['bitwise'] or not x['greedy_equal']),None),unchanged_buffers=unchanged)
+  report['pairs'].append(row);all_tokens[str(offset)]=seqs;print('PAIR_COMPLETE',row['rows'],row['all_logits_bitwise'],row['all_tokens_equal'],row['first_mismatch'],flush=True)
+  torch.save(reference,out/f'reference-logits-{offset}.pt')
+ torch.save(all_tokens,out/'tokens.pt');(out/'report.json').write_text(json.dumps(report,indent=2));raise SystemExit(0)
+b.load_model=load
+np.random.seed(123);torch.manual_seed(123);b.cli_main()

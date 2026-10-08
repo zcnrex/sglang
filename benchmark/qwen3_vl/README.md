@@ -74,7 +74,15 @@ changes, so this establishes throughput improvement rather than a general
 TTFT gain. M128 forwards are absent from all measured intervals despite
 normal startup tactic differences. B1/B2 public short-model logits/tokens
 match bitwise for two seeds; B4/B8 kernel regression checks also match.
-Full accuracy and bounded image evaluation are pending at this commit.
+C1 GSM8K scores1217/1314 in both arms with identical answers; C2 scores
+1213/1314 versus1216/1314 despite matching startup tactics. Four C2
+disagreement prompts then match full prefill and512 decode-step logits
+bitwise, covering their observed serving divergence tokens. This does not
+explain the full-serving accuracy deficit or establish broad equivalence.
+One image request followed by two concurrent requests matches all returned
+text/token-logprob/usage objects after complete startup warmup. See
+`results/qkv_small_production_accuracy`, `results/qkv_small_fixed_gsm`,
+and `results/qkv_small_production_image` for limitations and raw outputs.
 See `results/qkv_small_production_kernel`, `results/qkv_small_production_model`
 and `results/qkv_small_production_serving` for complete evidence.
 

@@ -1,0 +1,13 @@
+# Bounded C2 fixed-input disagreement diagnosis
+
+Both pairs passed: actual retained GSM prompts[13,143] and[425,1084], with input lengths858/858 and901/841. Full prefill logits and all512 decode-step logits are bitwise identical; all513 greedy token selections per prompt match. No mismatch. Every shared graph-buffer snapshot assertion passes in both arms. No prompt truncation or padding; complete token IDs and prompt hashes retained.
+
+One shared loaded model on GPU6, common weights/tactics/cache/buffers, two retained graph backends. Control dispatch is reconstructed from the exact frozen M4 Qwen3Attention._try_qkv_norm_mrope AST method; candidate uses its restored unchanged public method. An assertion proves normalized AST source differs only in eligibility tuple ((4,2560),(8,2560)) versus inclusion ofB1/B2. Original method source, AST dumps and SHA256 hashes retained. This is a reconstructed-baseline arithmetic diagnostic, not two independent full servers. Prefill remains on ordinary public paths. Candidate public B1/B2 eager/capture each covers all36 layers with positions stride128. Baseline and candidate graph objects/output mappings are separate; shared input buffers are snapshot-checked after extra replay.
+
+Candidate teacher-forces the baseline token sequence, so every comparison uses identical input/cache history. Because every greedy choice also matches, no free-running divergence occurs within this scope. Retained serving first-token divergences are97/116/264/219 respectively, all within512 steps. Row1084 control serving response has2048 tokens;512 does not cover its entire response. Retained response tokenization is used only to document coverage, not to recreate dynamic serving batching.
+
+BF16 model/query/KV/output, TRT HND32, mixed16384, explicit20 graph buckets cap128, pool1,600,000, seed0 and normal common startup. Exact frozen source hashes checked before execution. PID712916 completed normally. No retries or additional accuracy trials.
+
+The separate normal C2 score remains1216→1213/1314 despite matching startup tactics. This diagnostic does not prove scheduling causality, broad accuracy equivalence, or absence of differences outside its four fixed prompts and512 steps. C1 normal score was1217→1217/1314. Both full results are archived separately.
+
+Full baseline logits tensors remain remote /root/qvl/experiments/qkv-small-production/fixed-gsm with SHA256/size in numerics-hashes.json; token tensors, every per-step comparison, exact prompts, method/source provenance, launch command and logs are included here. Original archive is complete except explicitly excluded large baseline-logit tensors and generated compiler cache. Extracted Python filenames end.py.txt.

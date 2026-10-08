@@ -1,0 +1,14 @@
+{
+  "reference-logits-0.pt": {
+    "bytes": 623692490,
+    "sha256": "83a01b317be6fa90aff49508fb950edc282ac13cf2eecbd6bfe4714e1b65b8b8"
+  },
+  "tokens.pt": {
+    "bytes": 35155,
+    "sha256": "2cb84f38e8d8c9b8a80387730a36b3c7f4867cd6a7a0c5904ca80918f12be8fd"
+  },
+  "reference-logits-2.pt": {
+    "bytes": 623692490,
+    "sha256": "a3d0f6a32fd0fe591d889a44b8e887e36032f4dc9fd0138531e0f751508f2049"
+  }
+}
